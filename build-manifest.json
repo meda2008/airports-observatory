@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "airports-public-build.v1",
+  "builtAt": "2026-10-25T15:39:36.467Z",
+  "origin": "https://meda2008.github.io/airports-observatory",
+  "hostingConfigured": false,
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "404.html",
+      "bytes": 3399,
+      "sha256": "4206b00ee72abfdb89fddd623b75c4234791b3e687a3705f0254666bebb790b3"
+    },
+    {
+      "path": "app.js",
+      "bytes": 42257,
+      "sha256": "5743136d8a6376274d4959dbce266de7d04158451f506391288fb611740ad662"
+    },
+    {
+      "path": "data/public-catalog.json",
+      "bytes": 1373949,
+      "sha256": "a1b693329a8306cc6fb6d7c305849898617d9c748662802446bdb76c99d42e09"
+    },
+    {
+      "path": "data/public-ledger.json",
+      "bytes": 148634,
+      "sha256": "4ddd7fc84ea388de22979b84007430b20a513258f6db1bf5bf13c184a124b91f"
+    },
+    {
+      "path": "data/public-sources.json",
+      "bytes": 1193617,
+      "sha256": "aa29a9e18f4cd5078058024d7421220068e6870ce8aa640f4057e98df280342e"
+    },
+    {
+      "path": "data/publication-manifest.json",
+      "bytes": 1865,
+      "sha256": "f3b61ed358a6472a3158fc077ee79fc7c2ccd9d98441ad4af5c880ddc4d84f02"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 245,
+      "sha256": "b13842b54985e939e9a5265e612e6684ca2810a313cdbbf8a40ea5fd1b445f1b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3399,
+      "sha256": "4206b00ee72abfdb89fddd623b75c4234791b3e687a3705f0254666bebb790b3"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 92,
+      "sha256": "b7d6bff6c8af27fcd4843759bb920efac6583426743437c97668ad61a8b0e68f"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 177,
+      "sha256": "e847daf263046c5966b9593aac8fe7c5abb759e3c68f24dd0fad43600d7ad554"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 21978,
+      "sha256": "accdef91d18854a162adddf25faf849e89fb32a071e7f8ad1f8b0a1463404f2d"
+    },
+    {
+      "path": "_headers",
+      "bytes": 359,
+      "sha256": "0ff2b4eef91b452596c7e2930240010fbe52b4759218ec9b54e2af4becc84c0f"
+    }
+  ],
+  "sourcePublication": {
+    "schemaVersion": "airports-publication-manifest.v1",
+    "projectionVersion": "1.1.0",
+    "publishedAt": "2026-10-25T15:22:40.990Z",
+    "evidenceAsOf": "2026-10-25T12:59:23.591Z",
+    "inputFingerprint": "3b16edf0cf544559dbb270a7238bcf8183b7475feefb039a1c50ad7bff4d894e",
+    "inputs": [
+      {
+        "artifact": "catalog",
+        "sha256": "2e6c4f1e5d7e9cb928125c5e594973660d81a2a163249b6c9c9a90b11576fae5"
+      },
+      {
+        "artifact": "sources",
+        "sha256": "a722fa89e2c78623054f4f8335450aa22e34c16c612596f3628cb5e65ba03f67"
+      },
+      {
+        "artifact": "ledger",
+        "sha256": "c30d6eafea00ff3be7b3d1c8a582355a2f0f4313f676a86a1d2e921ff71558ec"
+      }
+    ],
+    "outputs": [
+      {
+        "file": "public-catalog.json",
+        "sha256": "a1b693329a8306cc6fb6d7c305849898617d9c748662802446bdb76c99d42e09",
+        "bytes": 1373949
+      },
+      {
+        "file": "public-sources.json",
+        "sha256": "aa29a9e18f4cd5078058024d7421220068e6870ce8aa640f4057e98df280342e",
+        "bytes": 1193617
+      },
+      {
+        "file": "public-ledger.json",
+        "sha256": "4ddd7fc84ea388de22979b84007430b20a513258f6db1bf5bf13c184a124b91f",
+        "bytes": 148634
+      }
+    ],
+    "publicationScope": "whitelisted_neutral_metadata_only",
+    "rawArchivesPublished": false,
+    "originalLedgerReproducibleFromProjection": false,
+    "validation": {
+      "status": "PASS",
+      "catalogRecords": 215,
+      "discoveryRecords": 30,
+      "ledgerEntries": 245,
+      "uniqueSources": 1261,
+      "urlsChecked": 3687,
+      "unresolvedReferences": 0,
+      "numericalPredictions": 0,
+      "rawArchivesPublished": false,
+      "credentialKeysFound": 0,
+      "absoluteLocalPathsFound": 0,
+      "unadjudicatedAccusationsPublished": 0,
+      "timelessFreshStatesPublished": 0,
+      "ttlDerivation": "root_catalog_service_freshness_fields",
+      "neutralIdentityPageClues": 6,
+      "originalLedgerProjectionNoticePresent": true
+    }
+  }
+}

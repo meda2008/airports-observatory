@@ -1,0 +1,4561 @@
+{
+  "schemaVersion": "airports-public-ledger.v1",
+  "projectionVersion": "1.1.0",
+  "publishedAt": "2026-10-25T15:22:40.990Z",
+  "evidenceAsOf": "2026-10-25T12:59:23.591Z",
+  "projectionNotice": "这是原始台账的白名单公开投影，已省略原始全文等字段，不能用该投影独立重算原哈希链。原始条目哈希用于与留存原件核对，不是公开版本防篡改公证。",
+  "summary": {
+    "entries": 245,
+    "numericPredictions": 0,
+    "scorablePredictions": 0,
+    "brier": null,
+    "calibrationCurve": null
+  },
+  "items": [
+    {
+      "forecastId": "AIR-20261025-A001-V1",
+      "recordId": "A001",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e87c2d5c5275af17ccf3",
+        "wgetcloud.ltd__rdap",
+        "wgetcloud.org__rdap"
+      ],
+      "originalEntrySha256": "8a159c0ebd339e9ccd48ab572622e682b918effa9d3340824a38a5c9c85623c1"
+    },
+    {
+      "forecastId": "AIR-20261025-A002-V1",
+      "recordId": "A002",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ba50aee5cdbda7532834",
+        "nexitally.com__rdap",
+        "nxonearth.com__rdap"
+      ],
+      "originalEntrySha256": "463872ad4ace08b9f9fff96386aef3fd867fbe6f288406a566e36f0ae5fca793"
+    },
+    {
+      "forecastId": "AIR-20261025-A003-V1",
+      "recordId": "A003",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "21e9a3350c7b99351fed",
+        "bianjiecloud.com__rdap",
+        "bianjiecloud.com__crtsh",
+        "bianjiecloud.com__certspotter",
+        "immtel.com__rdap",
+        "immtele.net__rdap"
+      ],
+      "originalEntrySha256": "fffa7d524fe91ca0d2365fdd5a766c8e1401c27668833bb10a4d3b49c178414c"
+    },
+    {
+      "forecastId": "AIR-20261025-A004-V1",
+      "recordId": "A004",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a6426c684c0bff275fcd",
+        "tagss.pro__rdap",
+        "tagss4.com__rdap"
+      ],
+      "originalEntrySha256": "d931393304a6e3fcac64921f69fe7eb61dafcbfc84ea3bd6a533e1e4c5fb344d"
+    },
+    {
+      "forecastId": "AIR-20261025-A005-V1",
+      "recordId": "A005",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b9c750f3d3e636344cf4",
+        "nicecloud.me__rdap",
+        "yfyfind.net__rdap",
+        "GH-issue-356"
+      ],
+      "originalEntrySha256": "07985466a1d102a996dc500d7d04cea6c76eac29e878003cfa43b98b663dcb57"
+    },
+    {
+      "forecastId": "AIR-20261025-A006-V1",
+      "recordId": "A006",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d123cca51ea19d54feba",
+        "sc-aff.cc__rdap",
+        "speedcat.la__rdap",
+        "speedcat.xyz__rdap",
+        "GH-issue-339",
+        "GH-issue-93"
+      ],
+      "originalEntrySha256": "a2bb094479d2ac6d13a243e5ddf39424efb13a7ff3dd9302c97d1a120cf25bdb"
+    },
+    {
+      "forecastId": "AIR-20261025-A007-V1",
+      "recordId": "A007",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "93e62358d7bb401d86da",
+        "x-air.icu__rdap",
+        "xairjc.com__rdap"
+      ],
+      "originalEntrySha256": "3697367aa7679a9918e97b74d6fe6ebd8048dbe74267dd793f684abc28ac2a1f"
+    },
+    {
+      "forecastId": "AIR-20261025-A008-V1",
+      "recordId": "A008",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d6b708faf49880c94d11",
+        "v2tun.us__rdap"
+      ],
+      "originalEntrySha256": "95f65e53e9f869a90158e15d3c9047322a91f32dd2a09962f8d4caeafde6507c"
+    },
+    {
+      "forecastId": "AIR-20261025-A009-V1",
+      "recordId": "A009",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d809210c9bb990b0b5ae",
+        "glados.rocks__rdap"
+      ],
+      "originalEntrySha256": "e4e5ff1aff6b8d84d4c5776a7cc6fb397f4e2cc4934b87992760a2ccefea403c"
+    },
+    {
+      "forecastId": "AIR-20261025-A010-V1",
+      "recordId": "A010",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1068249dd419435d9ea5",
+        "mojie.app__rdap",
+        "mojie.me__rdap"
+      ],
+      "originalEntrySha256": "2da731bb5fbb105da09c61abe4fbcc4fc8f3a0c81139a72a084e5563325bb983"
+    },
+    {
+      "forecastId": "AIR-20261025-A011-V1",
+      "recordId": "A011",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "32a44922a1b8ce0f8d62",
+        "hutao.cloud__rdap",
+        "hutaohome.com__rdap"
+      ],
+      "originalEntrySha256": "83ee3fb5837d9996a37337804dd49e3f5181876aff4fa25df962d387c834f8ab"
+    },
+    {
+      "forecastId": "AIR-20261025-A012-V1",
+      "recordId": "A012",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ded56f3254eaef1a2e24",
+        "bing.com__rdap",
+        "bing.com__crtsh",
+        "bing.com__certspotter",
+        "gugu.pro__rdap"
+      ],
+      "originalEntrySha256": "9a0fcb60d7d482da56dc3d21b3841f3399f5208abe6ca101ff29f385f4517baf"
+    },
+    {
+      "forecastId": "AIR-20261025-A013-V1",
+      "recordId": "A013",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ded56f3254eaef1a2e24",
+        "bigmee.net__rdap",
+        "bigmee.net__crtsh",
+        "bigmee.net__certspotter",
+        "bing.com__rdap",
+        "bing.com__crtsh",
+        "bing.com__certspotter"
+      ],
+      "originalEntrySha256": "2e5c294c54f6dd3d015fef99ad832b16e12b55427a9e5e26b01b664f8a5af13e"
+    },
+    {
+      "forecastId": "AIR-20261025-A014-V1",
+      "recordId": "A014",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "bd194fbf009d25bf07f5",
+        "api-flowercloud.com__rdap",
+        "api-flowercloud.com__certspotter",
+        "huacloud.dev__rdap"
+      ],
+      "originalEntrySha256": "ebec47fdc35c800e0fafe7791d26bc5d4712710d5647400d86f71df9749ffc82"
+    },
+    {
+      "forecastId": "AIR-20261025-A015-V1",
+      "recordId": "A015",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "3934d7fba2639b2273ef",
+        "54a8642c773e26be16ac",
+        "oixcloud.com__rdap"
+      ],
+      "originalEntrySha256": "02fe97bd398acbed34fc8e4855a5f839f3034d934b1252e18f6811cc9decdc66"
+    },
+    {
+      "forecastId": "AIR-20261025-A016-V1",
+      "recordId": "A016",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "cb685deaf006156ebf97",
+        "amytele.co__rdap",
+        "amytele.co__certspotter",
+        "amytele.com__rdap",
+        "amytele.com__certspotter"
+      ],
+      "originalEntrySha256": "733983f54d2a781a36015f5d14a152ff35e763b6d618e34cc6d93347caf78bd2"
+    },
+    {
+      "forecastId": "AIR-20261025-A017-V1",
+      "recordId": "A017",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "63507946a2ba6d8db899",
+        "getmesl.com__rdap",
+        "mesl.cloud__rdap"
+      ],
+      "originalEntrySha256": "97e5efafcb9ce9a1e5c92e52ef83eff8079378d54e2dfb2a63cf1ad969e379fc"
+    },
+    {
+      "forecastId": "AIR-20261025-A018-V1",
+      "recordId": "A018",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "afb19c4b2e0f0559ce4b",
+        "bws.lol__rdap",
+        "bws.lol__crtsh",
+        "bws.lol__certspotter",
+        "by.ltd__rdap",
+        "by.ltd__crtsh",
+        "by.ltd__certspotter"
+      ],
+      "originalEntrySha256": "d47bfad2bc9ff5e22b6029923b78f78d9778908f01864f13b27aa412ac5c6f4f"
+    },
+    {
+      "forecastId": "AIR-20261025-A019-V1",
+      "recordId": "A019",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b675d7e2b31f2115920b",
+        "hosbb.com__rdap",
+        "ssrdog.com__rdap",
+        "GH-issue-237"
+      ],
+      "originalEntrySha256": "56a93763874a06629c89082ce6b09164f961a6499cfead5532255d65f5c7f3f3"
+    },
+    {
+      "forecastId": "AIR-20261025-A020-V1",
+      "recordId": "A020",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "7b8b5a1dca34e7864abc",
+        "ednovas.me__rdap",
+        "ednovas.org__rdap"
+      ],
+      "originalEntrySha256": "3be2a311cc6acbd110acc8fcaeced8589099a264b9528cc373e04ede7b1e57ac"
+    },
+    {
+      "forecastId": "AIR-20261025-A021-V1",
+      "recordId": "A021",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f50db5f5c89725e42ca1",
+        "y-too.com__rdap",
+        "GH-issue-51",
+        "GH-issue-335"
+      ],
+      "originalEntrySha256": "8cfd3a365f2d3ccbcd19d222e1202d6017a99d4adb58e6ab19c73bfad4cfc362"
+    },
+    {
+      "forecastId": "AIR-20261025-A022-V1",
+      "recordId": "A022",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b8aa17d0b60288d3d0b7",
+        "kuromis.com__rdap"
+      ],
+      "originalEntrySha256": "51064d3f645bec977476aada6d40ab5f49ed3f1d307e799a8768ebaca3c0f950"
+    },
+    {
+      "forecastId": "AIR-20261025-A023-V1",
+      "recordId": "A023",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "275c14310f9c8b96abb2",
+        "justmysocks.net__rdap"
+      ],
+      "originalEntrySha256": "35751e7b835f80f428be5ab87c8ee565366f74cf0fc8ff7b609db09e481f4c14"
+    },
+    {
+      "forecastId": "AIR-20261025-A024-V1",
+      "recordId": "A024",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "bcf9f4fe50dc2c8b9144",
+        "ninjiacloud.online__rdap"
+      ],
+      "originalEntrySha256": "b4db88c5d9462ca16b594554cc6565302773f4a72a1daa794175fae7e33f4d08"
+    },
+    {
+      "forecastId": "AIR-20261025-A025-V1",
+      "recordId": "A025",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "34a2563f0720df0efd10",
+        "288f9c563958babd827f",
+        "paofu.cloud__rdap"
+      ],
+      "originalEntrySha256": "8e58f8d304385c1414b9b5cd2814523c7f04be20805cc2fa9c355f71294ffdff"
+    },
+    {
+      "forecastId": "AIR-20261025-A026-V1",
+      "recordId": "A026",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5b58276f89237b4ac0ba",
+        "cloudnz.cc__rdap",
+        "cloudnz.cc__crtsh",
+        "cloudnz.cc__certspotter",
+        "GH-issue-193",
+        "GH-issue-185"
+      ],
+      "originalEntrySha256": "cc2553030d9dc26ae2f42ae215a482027cd341b8555015331bbcc1fe2124c190"
+    },
+    {
+      "forecastId": "AIR-20261025-A027-V1",
+      "recordId": "A027",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c6247a3f6dfdca018cbd",
+        "fnf.one__rdap",
+        "fooandfriends.io__rdap"
+      ],
+      "originalEntrySha256": "0e430f07108805fe911692d4d0d12c1af894de4ebf890e0e193d2f58178d02e4"
+    },
+    {
+      "forecastId": "AIR-20261025-A028-V1",
+      "recordId": "A028",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5c5da9dbbf2d6049666d",
+        "erwanyy.net__rdap",
+        "ewanwtt.net__rdap"
+      ],
+      "originalEntrySha256": "d2a919d60f979ad0a0a1c511032e9ab405bbc1d73258d1f0020dc6de05ced004"
+    },
+    {
+      "forecastId": "AIR-20261025-A029-V1",
+      "recordId": "A029",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5059e4307108713b13bf",
+        "suyunti.com__rdap",
+        "GH-issue-359"
+      ],
+      "originalEntrySha256": "b16a0c35da52c00eb5082b9ab4b0f98ba594c67918077411c6e68dcc8cc8c778"
+    },
+    {
+      "forecastId": "AIR-20261025-A030-V1",
+      "recordId": "A030",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "aa2f3c2b4859d7a78db3",
+        "feijicloud.com__rdap",
+        "flycloud.me__rdap"
+      ],
+      "originalEntrySha256": "2fb9bd06033af0b99e96cd963773c260f8ff3090d794aa57f836e2efa136b63f"
+    },
+    {
+      "forecastId": "AIR-20261025-A031-V1",
+      "recordId": "A031",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ed16cbd8aad684335e77",
+        "59426babbe0a0387a38b",
+        "getwanchengjiasuqi.com__rdap",
+        "vcity.me__rdap"
+      ],
+      "originalEntrySha256": "4ff51e480b22347bb75fe571e1c4997b6c42759ab5e1e3e02ab72fb02695588b"
+    },
+    {
+      "forecastId": "AIR-20261025-A032-V1",
+      "recordId": "A032",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b8fb1a4a06e5f97bfbeb",
+        "fries.cloud__rdap",
+        "jilianat.homes__rdap"
+      ],
+      "originalEntrySha256": "cce62932d9d53e0580ba3b78e44d91107aa784c00db03d601576bceb8c893c5d"
+    },
+    {
+      "forecastId": "AIR-20261025-A033-V1",
+      "recordId": "A033",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4f71e30b878351090634",
+        "blnew.com__rdap",
+        "blnew.com__crtsh",
+        "blnew.com__certspotter",
+        "boslife.io__rdap",
+        "boslife.io__crtsh",
+        "boslife.io__certspotter",
+        "boslife.net__rdap",
+        "boslife.net__certspotter"
+      ],
+      "originalEntrySha256": "a26713cb905b3882229b2e78714a000eb42280a72101d8e25fd260214f82eef3"
+    },
+    {
+      "forecastId": "AIR-20261025-A034-V1",
+      "recordId": "A034",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8f64669e13619a6072dd",
+        "prprcloud.com__rdap",
+        "prprcloud.me__rdap"
+      ],
+      "originalEntrySha256": "0a7a67a78709d1d2589864c9151f5066f3621e63ace7bdcb69d51f384ee45265"
+    },
+    {
+      "forecastId": "AIR-20261025-A035-V1",
+      "recordId": "A035",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c4b0878b99674da53754",
+        "laomaourl.com__rdap",
+        "laomaoyun03.com__rdap",
+        "oldcat.me__rdap"
+      ],
+      "originalEntrySha256": "65ee8ca25c1545307bf6b525044c25679fb51cb992141099158cd1015c1110da"
+    },
+    {
+      "forecastId": "AIR-20261025-A036-V1",
+      "recordId": "A036",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0a0378690e2b1f1a985a",
+        "onlyrabbit.net__rdap",
+        "v2saat.club__rdap",
+        "GH-issue-350"
+      ],
+      "originalEntrySha256": "65070b87a5e66d0498636d28da0dde6df01c9d2b792e0797ace5f7f93fd39f56"
+    },
+    {
+      "forecastId": "AIR-20261025-A037-V1",
+      "recordId": "A037",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e2d21596a687a6d02088",
+        "shandian.pro__rdap",
+        "shandiancn.com__rdap",
+        "GH-issue-338"
+      ],
+      "originalEntrySha256": "aa90d43618d8b01c9d9d8a12e78f86b0dd49372d13c2ed053aa9240c00880a13"
+    },
+    {
+      "forecastId": "AIR-20261025-A038-V1",
+      "recordId": "A038",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f92df135eebdc1b8891c",
+        "linkcube.me__rdap",
+        "linkcube.org__rdap"
+      ],
+      "originalEntrySha256": "19f037fc682b997e7467d42eecf3675cd8ab3710a51e8420dea89281620fbcd6"
+    },
+    {
+      "forecastId": "AIR-20261025-A039-V1",
+      "recordId": "A039",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "63328f9d07255702c032",
+        "pqjc.me__rdap",
+        "pqjc.site__rdap",
+        "GH-issue-240"
+      ],
+      "originalEntrySha256": "6198b9fc57ae0a8fa45a62d6804364e307b7f59b2cc80375d7c939062d75a4b0"
+    },
+    {
+      "forecastId": "AIR-20261025-A040-V1",
+      "recordId": "A040",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e36006a42e00fd88e20b",
+        "ofonet.me__rdap",
+        "ofosg.com__rdap"
+      ],
+      "originalEntrySha256": "6eb83abe6e85df3bfb715237c8b9454a55e8700eff6f6cd8755648473bb3b362"
+    },
+    {
+      "forecastId": "AIR-20261025-A041-V1",
+      "recordId": "A041",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b54eaab149a25a384b30",
+        "fliggy.cloud__rdap"
+      ],
+      "originalEntrySha256": "ced7cd03028ce3322d6b61fa1a279a1f6054a8a288dd8f1e39922da259992a33"
+    },
+    {
+      "forecastId": "AIR-20261025-A042-V1",
+      "recordId": "A042",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f14d5cab7df6d5f67638",
+        "sntp.uk__rdap"
+      ],
+      "originalEntrySha256": "d4978110d5dd5a4c422bcf12039f3b9e76655cebe191aa2523b3dcf81e4e2859"
+    },
+    {
+      "forecastId": "AIR-20261025-A043-V1",
+      "recordId": "A043",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ad520cc957c1d3d4d75a",
+        "guangzssytt.buzz__rdap"
+      ],
+      "originalEntrySha256": "dbe571bd6e87b6e97193e805e95157e83bdd244a73996f9b8545e4a1d2f51d23"
+    },
+    {
+      "forecastId": "AIR-20261025-A044-V1",
+      "recordId": "A044",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "fd5647ad7c9e09fe4f13",
+        "e-ix.org__rdap",
+        "e-ix.org__crtsh"
+      ],
+      "originalEntrySha256": "bb782489c59b718edc1062144686f2ce204d7a784935cf424df1cc142932f625"
+    },
+    {
+      "forecastId": "AIR-20261025-A045-V1",
+      "recordId": "A045",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "6a9ee55996a77a4873cf",
+        "1yunti.com__rdap",
+        "1yunti.com__crtsh"
+      ],
+      "originalEntrySha256": "901323a32fb56d12d67320ce22bc800e96744c0ca20fea1303a134d6ec27c689"
+    },
+    {
+      "forecastId": "AIR-20261025-A046-V1",
+      "recordId": "A046",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1c44c64ab72c9225a596",
+        "2cy.now__rdap",
+        "2cy.now__certspotter",
+        "xn--z4q834d.vip__rdap"
+      ],
+      "originalEntrySha256": "33a010cd3d5d4df752f7652e241da1bd2b7da3c7a4acb1130928322caf5096d3"
+    },
+    {
+      "forecastId": "AIR-20261025-A047-V1",
+      "recordId": "A047",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ca97d0f25513670ab02b",
+        "cyberguard.best__rdap",
+        "GH-issue-230"
+      ],
+      "originalEntrySha256": "7ea8e0a18eab7f51317b37576f37aaaed44c26db612331c7e919dd8f9db854f4"
+    },
+    {
+      "forecastId": "AIR-20261025-A048-V1",
+      "recordId": "A048",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "516ab21601ac7fefdbae",
+        "u1sat.homes__rdap",
+        "GH-issue-361"
+      ],
+      "originalEntrySha256": "53d49a2d67d974d1e97fc98b83a321c74f3bf0c7c8ec18a3cc08a4ac65ddc064"
+    },
+    {
+      "forecastId": "AIR-20261025-A049-V1",
+      "recordId": "A049",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "55e13eba8793b145c4cd",
+        "yangfanyun.net__rdap"
+      ],
+      "originalEntrySha256": "6647f50996077a2e8b346f66e0ddb40e9d1abfd174bc8dd92671a865220b63db"
+    },
+    {
+      "forecastId": "AIR-20261025-A050-V1",
+      "recordId": "A050",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "3aed6288d4dd2b15c02f",
+        "lanfan.cloud__rdap"
+      ],
+      "originalEntrySha256": "3c48036dd72546d7f8fb76e6ea54767bcd65ab22d742f4f18594a52264ea25a3"
+    },
+    {
+      "forecastId": "AIR-20261025-A051-V1",
+      "recordId": "A051",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0e7b8be1ddd38b21b811",
+        "tntvipaffb01.cc__rdap",
+        "tntvipaffc02.cc__rdap",
+        "GH-issue-325"
+      ],
+      "originalEntrySha256": "48984392b6737c44c147c985de51bb055478554b90f35dca77ba471f2341a751"
+    },
+    {
+      "forecastId": "AIR-20261025-A052-V1",
+      "recordId": "A052",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5f11c07a6ba89bcea5fb",
+        "kukuyun.net__rdap",
+        "yfyned01.net__rdap"
+      ],
+      "originalEntrySha256": "77bb8ce3c17f4097779c362a5b4768ddfb48d403ba888549fcea605ca8bac3c4"
+    },
+    {
+      "forecastId": "AIR-20261025-A053-V1",
+      "recordId": "A053",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "81ef8f840cd70bf02e7c",
+        "xiaomiaff.cc__rdap"
+      ],
+      "originalEntrySha256": "12c9e22b8ef77f7c3da6de58fbbe062c6ffd1b6945bafe8621d09ea7d56af648"
+    },
+    {
+      "forecastId": "AIR-20261025-A054-V1",
+      "recordId": "A054",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d421d13afe0a5b2d1395",
+        "naiunet.com__rdap"
+      ],
+      "originalEntrySha256": "68e309822608b0a1d8b853950c3ff15d395a3f15ee50e93152dbf3a6f20a8c4b"
+    },
+    {
+      "forecastId": "AIR-20261025-A055-V1",
+      "recordId": "A055",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "eaa73ae7da8e059c213b",
+        "nexuscloud.ch__rdap"
+      ],
+      "originalEntrySha256": "ce022aecd731bc094a6f80492ff1422be372b09ac6be421ce6c7370fd94ab03a"
+    },
+    {
+      "forecastId": "AIR-20261025-A056-V1",
+      "recordId": "A056",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "45fdd3b7cbac388a71c4",
+        "4f969d22eaceb45d2068",
+        "gougou.net__rdap",
+        "xn--yfrp36ea9901a.com__rdap"
+      ],
+      "originalEntrySha256": "1273c55c158ce99b57399ad75bc5e3b1709df13350fc302f901cf9496d0cedb8"
+    },
+    {
+      "forecastId": "AIR-20261025-A057-V1",
+      "recordId": "A057",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9fffbdeba7578c782324",
+        "viewturbo.com__rdap",
+        "vtpro.xyz__rdap"
+      ],
+      "originalEntrySha256": "c351af6a7ebfcb0684b7b612a3bf9d8a72aacd15ead38b6ccac5c1cdc007ce93"
+    },
+    {
+      "forecastId": "AIR-20261025-A058-V1",
+      "recordId": "A058",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e549c89ef59d4e17af5e",
+        "xiaoliyu.me__rdap"
+      ],
+      "originalEntrySha256": "711f2cbdac19e33047839a247a19121841c1ed343b53a0baa323d99b8b027823"
+    },
+    {
+      "forecastId": "AIR-20261025-A059-V1",
+      "recordId": "A059",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "87a8ecd1164d3c62bd31",
+        "newssid.com__rdap"
+      ],
+      "originalEntrySha256": "3722bd24efa2eada2687fd744bf9fde49cc49890ea0cf701b3c250d2b9e68d9c"
+    },
+    {
+      "forecastId": "AIR-20261025-A060-V1",
+      "recordId": "A060",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "36a6bc43b756579071f3",
+        "skylinx.com__rdap"
+      ],
+      "originalEntrySha256": "28d24778e4a7ad9186e9313b6e391454bc0d4b51d1b5dd068fb9128aa93bfe49"
+    },
+    {
+      "forecastId": "AIR-20261025-A061-V1",
+      "recordId": "A061",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "6bca39bff398c01c2d72",
+        "xxf.cloud__rdap",
+        "xxfeng.org__rdap"
+      ],
+      "originalEntrySha256": "5d903d55589dd2452920840d521b7579eaf3479a45f3c4b4d70141138dae3aa3"
+    },
+    {
+      "forecastId": "AIR-20261025-A062-V1",
+      "recordId": "A062",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "2649ac48e7c6bf04a6fa",
+        "chickenrun.cloud__rdap",
+        "chickenrun.cloud__crtsh",
+        "chickenrun.cloud__certspotter",
+        "chickenrun.me__rdap",
+        "chickenrun.me__crtsh",
+        "chickenrun.me__certspotter",
+        "xiaojikp.cc__rdap"
+      ],
+      "originalEntrySha256": "26e171b1b274d753d3c50041f8c45c1bb2e4083a8d2c3844184bb001722b957c"
+    },
+    {
+      "forecastId": "AIR-20261025-A063-V1",
+      "recordId": "A063",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "7212f64b035208310962",
+        "nutbit.io__rdap",
+        "nutbit.net__rdap"
+      ],
+      "originalEntrySha256": "7ef3987a2767544a70242995130481e10a6f7e771f9fb536bceb14b070bc6c78"
+    },
+    {
+      "forecastId": "AIR-20261025-A064-V1",
+      "recordId": "A064",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "be9faafd80bde3ddc370",
+        "flashfox.cloud__rdap",
+        "flashfox.net__rdap",
+        "GH-issue-333",
+        "GH-issue-337"
+      ],
+      "originalEntrySha256": "b48ece24d2a7006bdc16a55a66518190c98ec31af2f7ac1e9c6a8626ab90bf27"
+    },
+    {
+      "forecastId": "AIR-20261025-A065-V1",
+      "recordId": "A065",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "3f0748f9c1c17ab92605",
+        "edgenova.cc__rdap",
+        "edgenova.cc__crtsh",
+        "flyingbird.org__rdap",
+        "GH-issue-336",
+        "GH-issue-317"
+      ],
+      "originalEntrySha256": "b8c4d5264c0b29ba8381efa34ff60f898c358c3650523451e76a8d8225687616"
+    },
+    {
+      "forecastId": "AIR-20261025-A066-V1",
+      "recordId": "A066",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "66fbe638851cc3e66c74",
+        "fatcat.pro__rdap",
+        "fcweba.cc__rdap"
+      ],
+      "originalEntrySha256": "ba019d4d72593b3cf6c0e32bc59fd2284949594302c025ad48f17f0493a6d5fa"
+    },
+    {
+      "forecastId": "AIR-20261025-A067-V1",
+      "recordId": "A067",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "559624fbf57c272f943c",
+        "riolu.net__rdap",
+        "riolu.org.cn__rdap"
+      ],
+      "originalEntrySha256": "4d96227eec509447b220007d02f9af71c0542f1534647bf28decafb1feea3cca"
+    },
+    {
+      "forecastId": "AIR-20261025-A068-V1",
+      "recordId": "A068",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c32483ead64d0cc343bc",
+        "3fen.me__rdap",
+        "3fen.me__certspotter",
+        "sanfen.icu__rdap",
+        "GH-issue-344"
+      ],
+      "originalEntrySha256": "306bcc0187a16024cbd718d646d8c0165a8dc0b186dde570d06cd7e2a85600c2"
+    },
+    {
+      "forecastId": "AIR-20261025-A069-V1",
+      "recordId": "A069",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e71b51329a30ab48590f",
+        "glc.me__rdap",
+        "guolicheng.cc__rdap"
+      ],
+      "originalEntrySha256": "060701bc1c097e4dfb6a4872cc4e20cd3b2e399d71e7a6c88e8f9bd554bddde6"
+    },
+    {
+      "forecastId": "AIR-20261025-A070-V1",
+      "recordId": "A070",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "bd0a4387e6054bdc2103",
+        "galaxy.me__rdap",
+        "galaxycloud.cc__rdap"
+      ],
+      "originalEntrySha256": "ea08565e8c8a766c9bd6dfc0c18d85a882551b19d2e6e59a10c654589ac8354c"
+    },
+    {
+      "forecastId": "AIR-20261025-A071-V1",
+      "recordId": "A071",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a2812c952af7bc821391",
+        "nier.cloud__rdap",
+        "niercloud.com__rdap"
+      ],
+      "originalEntrySha256": "fe67c4ebb8a2e155772fa0ce4b9829f700cff8c13b2899cb4e5872f255398dff"
+    },
+    {
+      "forecastId": "AIR-20261025-A072-V1",
+      "recordId": "A072",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ddac46a8de89fd3ad69b",
+        "klee.cloud__rdap",
+        "xn--9kqr4ksp3c.com__rdap"
+      ],
+      "originalEntrySha256": "6e1531edfc5ea9c7cfb139823949e11a2983f806f82d5f0a36e54aeb091e3ebf"
+    },
+    {
+      "forecastId": "AIR-20261025-A073-V1",
+      "recordId": "A073",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b3bd9ffe00aa2bffda39",
+        "dage.me__rdap",
+        "dage.me__crtsh",
+        "dage.me__certspotter",
+        "dageyun.com__rdap",
+        "dageyun.com__crtsh",
+        "dageyun.com__certspotter",
+        "GH-issue-161"
+      ],
+      "originalEntrySha256": "ee7cfbafabc77ff7df107f78fb3fe645cbc0a91607f69222977499dc711f93e1"
+    },
+    {
+      "forecastId": "AIR-20261025-A074-V1",
+      "recordId": "A074",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4fca9935b1dc805563ed",
+        "ykk.me__rdap",
+        "ykkk.best__rdap"
+      ],
+      "originalEntrySha256": "17d13a801fcd8eca98b840b5f39ff9362e6e20b42e3baf01935b623a9218b4fb"
+    },
+    {
+      "forecastId": "AIR-20261025-A075-V1",
+      "recordId": "A075",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "796bfb3ac87c4f50bdd5",
+        "nyxen.bar__rdap",
+        "nyxen.org__rdap"
+      ],
+      "originalEntrySha256": "ca917b95bfde24399c1242a46372553c1306cec1abdd581aa999795e278c5c77"
+    },
+    {
+      "forecastId": "AIR-20261025-A076-V1",
+      "recordId": "A076",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e37fe1ad3c25dd03b1e3",
+        "github.io__rdap",
+        "taishan.me__rdap"
+      ],
+      "originalEntrySha256": "153de115fdbc58a6c5cc2024b6a5c1f74c4c0fa19b6da2f9999574a44c07e3cf"
+    },
+    {
+      "forecastId": "AIR-20261025-A077-V1",
+      "recordId": "A077",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b6212486b54515e54c19",
+        "eggtart.cloud__rdap",
+        "eggtartcloud.dev__rdap",
+        "GH-issue-110"
+      ],
+      "originalEntrySha256": "8554701f00575e6abbcea58f5fda7ff9b008413a9032b6982a177c556c500d0c"
+    },
+    {
+      "forecastId": "AIR-20261025-A078-V1",
+      "recordId": "A078",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "06381a20ce99caa3fb83",
+        "coffee.me__rdap",
+        "coffee.me__crtsh",
+        "coffee.me__certspotter",
+        "xn--9kqp0mora.com__rdap",
+        "GH-issue-257"
+      ],
+      "originalEntrySha256": "3976f27a03afa8ddf2ac77199b3bfbdd12aae90e0f8ee0482c52cc3e78ea08c6"
+    },
+    {
+      "forecastId": "AIR-20261025-A079-V1",
+      "recordId": "A079",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e293da486ba5a522447d",
+        "milkcat.me__rdap",
+        "milkcat.net__rdap"
+      ],
+      "originalEntrySha256": "d026479efb31539b60de3c72aec2ebe269ecf3f07e05b82e371cc55b811e7e8b"
+    },
+    {
+      "forecastId": "AIR-20261025-A080-V1",
+      "recordId": "A080",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1578445b793128e8c25c",
+        "night-furyx.com__rdap",
+        "nightfuryx.me__rdap"
+      ],
+      "originalEntrySha256": "3a84c3f7c681f42bc50df3574ea1177abb6bc289dc6e8414edae0db54c608a0f"
+    },
+    {
+      "forecastId": "AIR-20261025-A081-V1",
+      "recordId": "A081",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9968b5754832c589c97e",
+        "web3aa.com__rdap",
+        "web3vpn.me__rdap"
+      ],
+      "originalEntrySha256": "a622abda29b0026c53ac12d3ed96df3aebf97aa63d56d777532600145263400b"
+    },
+    {
+      "forecastId": "AIR-20261025-A082-V1",
+      "recordId": "A082",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f3063f29c759dc79c8d3",
+        "galaxy.me__rdap",
+        "galaxycloud.homes__rdap"
+      ],
+      "originalEntrySha256": "9e51cb5f3b6894f7604943839c8100951e10f27142a375ba2f4fbc00d1827e4d"
+    },
+    {
+      "forecastId": "AIR-20261025-A083-V1",
+      "recordId": "A083",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "eb88c2445ad3e6e37005",
+        "cocoduck.cc__rdap",
+        "cocoduck.cc__crtsh",
+        "cocoduck.cc__certspotter",
+        "cocoduck.me__rdap",
+        "cocoduck.me__crtsh",
+        "cocoduck.me__certspotter"
+      ],
+      "originalEntrySha256": "d404f0d040dcf62bce399b232d3f47f220ca7950f5cc8779be4b531a21643559"
+    },
+    {
+      "forecastId": "AIR-20261025-A084-V1",
+      "recordId": "A084",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "58a6aebf46043c91ecda",
+        "jifeng.me__rdap",
+        "jifengyun.info__rdap"
+      ],
+      "originalEntrySha256": "b4325f0337ffb1140edba82bb72f493511191741798745f92955a72d0dd101ef"
+    },
+    {
+      "forecastId": "AIR-20261025-A085-V1",
+      "recordId": "A085",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "52a51cc22471e397f6b5",
+        "paopao.dog__rdap",
+        "paopao.me__rdap"
+      ],
+      "originalEntrySha256": "9d899d5060e5b17743848e220bb499b5409078f3ed10ba56ea19f4cfa56cb56e"
+    },
+    {
+      "forecastId": "AIR-20261025-A086-V1",
+      "recordId": "A086",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f5086e228f0457a5c820",
+        "letsvpn.world__rdap"
+      ],
+      "originalEntrySha256": "864f8a5e0c57dfac837082a00f5a5f8516f46f88cd24ea00c352d1aa16e728da"
+    },
+    {
+      "forecastId": "AIR-20261025-A087-V1",
+      "recordId": "A087",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1791a2ae11fd7ef67a61",
+        "bcd131255550c43c92d0",
+        "expressvpn.com__rdap"
+      ],
+      "originalEntrySha256": "f40e6f33b556dd2ea76dd1be9847c5a97c79448d1f109b28aeb578480991d471"
+    },
+    {
+      "forecastId": "AIR-20261025-A088-V1",
+      "recordId": "A088",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "70db26508e7e232e1828",
+        "cbd6e5ddaa44720c7741",
+        "surfshark.com__rdap"
+      ],
+      "originalEntrySha256": "9af88f652fa633be2c9651403042341998d6200e943c1a564f7baa6d075c5af5"
+    },
+    {
+      "forecastId": "AIR-20261025-A089-V1",
+      "recordId": "A089",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "336a9bee2b9d046d8f1d",
+        "6b44ee1ee259482fdf54",
+        "mullvad.net__rdap"
+      ],
+      "originalEntrySha256": "aa19de16222f7b9a5f0ed63826668cfaeab0b6351bc6350ef90bbea8a0146772"
+    },
+    {
+      "forecastId": "AIR-20261025-A090-V1",
+      "recordId": "A090",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "cbc85548a9bcb6f4065d",
+        "b527077f9e7387ddf67c",
+        "protonvpn.com__rdap"
+      ],
+      "originalEntrySha256": "16beedda2ec5de7be220acc9258168336a047e8865924366d411ccdd622d0ec1"
+    },
+    {
+      "forecastId": "AIR-20261025-A091-V1",
+      "recordId": "A091",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "71ad59b4feede58820ee",
+        "0ebebc363d8f02ec2d3a",
+        "nodemach.com__rdap"
+      ],
+      "originalEntrySha256": "098ab7a428a0a04737cf050ae7b8eb13a5119be0311c7f79ffbf4664f7b6921d"
+    },
+    {
+      "forecastId": "AIR-20261025-A092-V1",
+      "recordId": "A092",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "872d2b855fab30a32553",
+        "lisahost.com__rdap"
+      ],
+      "originalEntrySha256": "08cd1b2df42757d2ef88d7863e1105c5153321b45ae0b5104dbf41e09dcbbdc7"
+    },
+    {
+      "forecastId": "AIR-20261025-A093-V1",
+      "recordId": "A093",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "43e75998a6a756fe0aa8",
+        "dmit.io__rdap"
+      ],
+      "originalEntrySha256": "7fae057fdc59bf94e14f80c012b04ec69bec5b2e11a16a3813228f4cea159d88"
+    },
+    {
+      "forecastId": "AIR-20261025-A094-V1",
+      "recordId": "A094",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4b5b52f8b53fa7d739e6",
+        "ipidea.net__rdap"
+      ],
+      "originalEntrySha256": "7dc8108a0999bf023e847349c991d73d2651af43c8be83802151b197bf7366dc"
+    },
+    {
+      "forecastId": "AIR-20261025-A095-V1",
+      "recordId": "A095",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "cc85eb8f67e9ad01735c",
+        "a6a4820fdfb41106bb85",
+        "okkproxy.com__rdap"
+      ],
+      "originalEntrySha256": "fb0ff9681ffe8c6d240be352df9a5b4e598d5af22c5a4f7d4761864e75f10e96"
+    },
+    {
+      "forecastId": "AIR-20261025-A096-V1",
+      "recordId": "A096",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1e4cbe26643c877dc426",
+        "eeb07aae48838a37558a",
+        "owlproxy.com__rdap"
+      ],
+      "originalEntrySha256": "a0aca9fe98c4960894f248479958c2ac1d2e5ee224b8dc0741ef884669d61783"
+    },
+    {
+      "forecastId": "AIR-20261025-A097-V1",
+      "recordId": "A097",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ef1e14ed07a94848cbc9",
+        "a5a98636081f45448356",
+        "lumiproxy.com__rdap"
+      ],
+      "originalEntrySha256": "018cb659859df6c70bc0f1073f59a1895951b41962696f291a0151d9841ebc4c"
+    },
+    {
+      "forecastId": "AIR-20261025-A098-V1",
+      "recordId": "A098",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "91804f6a01c4790d6c0a",
+        "457663fe0e1e3de721d5",
+        "cliproxy.com__rdap",
+        "cliproxy.com__crtsh",
+        "cliproxy.com__certspotter"
+      ],
+      "originalEntrySha256": "e049fddb7ea5e6e23429bfbc24c2955cf59bed60ec9003dd00ad16086e6083e2"
+    },
+    {
+      "forecastId": "AIR-20261025-A099-V1",
+      "recordId": "A099",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f7710326a21a4442f21d",
+        "922proxys5.com__rdap",
+        "922proxys5.com__crtsh"
+      ],
+      "originalEntrySha256": "32375c5978ee2d74eea0d957b5393be2dadb5b3e4bf3863ea419bfe110415fc5"
+    },
+    {
+      "forecastId": "AIR-20261025-A100-V1",
+      "recordId": "A100",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "6988951331ec559950e2",
+        "df6d320c9412f8503b72",
+        "privateproxy.me__rdap"
+      ],
+      "originalEntrySha256": "3ce43f78cc5ad29230ffef5fe1473e2304bc437049642c6758f4cb741544f8e0"
+    },
+    {
+      "forecastId": "AIR-20261025-A101-V1",
+      "recordId": "A101",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "03afa795f03bc12db7ee",
+        "proxyempire.io__rdap"
+      ],
+      "originalEntrySha256": "0dbd739e54a021837a914a21c41177037d5b3b908c0b740f7e0bf41e678606eb"
+    },
+    {
+      "forecastId": "AIR-20261025-A102-V1",
+      "recordId": "A102",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "76f211f69d8786c23936",
+        "nexip.net__rdap"
+      ],
+      "originalEntrySha256": "6f23ac2e1c5cea855f7d17928a74e381250566e224b7e8becfffe4820c5f0182"
+    },
+    {
+      "forecastId": "AIR-20261025-A103-V1",
+      "recordId": "A103",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a1b7d1249e84404abcdf",
+        "36c1c4b0745e390f5e2d",
+        "ip2world.com__rdap"
+      ],
+      "originalEntrySha256": "98f2c2aa080335f6acbc7385eaf6b893af976805de95976ffe6de45b7a6f2762"
+    },
+    {
+      "forecastId": "AIR-20261025-A104-V1",
+      "recordId": "A104",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e8f8a8be6344702a334f",
+        "pia-proxy.com__rdap"
+      ],
+      "originalEntrySha256": "e8d6740769fe1e139f5516d02237741ab75509428b62af34c5f00e698c5ca497"
+    },
+    {
+      "forecastId": "AIR-20261025-A105-V1",
+      "recordId": "A105",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "28e7d5fc5e3564da9241",
+        "352c866ceb71f1e4fcc3",
+        "proxy-sale.com__rdap"
+      ],
+      "originalEntrySha256": "5ace32652c25fc565e9f72adc8cf5d550202362a456bba806d5edcaa46d2c239"
+    },
+    {
+      "forecastId": "AIR-20261025-A106-V1",
+      "recordId": "A106",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d9edf24927730f8822b4",
+        "bcee53ee7b73b59d2a00",
+        "proxyline.net__rdap"
+      ],
+      "originalEntrySha256": "58c5fbf7171bb6c53dc4abe2e9a6f2ddcf2504cb521c98994de0243a8173d2d6"
+    },
+    {
+      "forecastId": "AIR-20261025-A107-V1",
+      "recordId": "A107",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "18d17d6d3ce54e862271",
+        "spaceproxy.net__rdap"
+      ],
+      "originalEntrySha256": "b86fecbfad1b31331225b62aac58e0c44ed75ffb314f3d44bb15b1fd1a992e74"
+    },
+    {
+      "forecastId": "AIR-20261025-A108-V1",
+      "recordId": "A108",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f49f1aed18c31b6baa36",
+        "thesocialproxy.com__rdap"
+      ],
+      "originalEntrySha256": "177272fc1759a5ca58d4e46840dd8ba0193e84a776bfac3948cd87df28824d7d"
+    },
+    {
+      "forecastId": "AIR-20261025-A109-V1",
+      "recordId": "A109",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0ad5652694d99c7f7d75",
+        "6b09c726b7038c0b23e5",
+        "proxyscrape.com__rdap"
+      ],
+      "originalEntrySha256": "0be7c50e4c5b36a2abaabd71de94c7fe72c9bc126d9932db6aaab905098aff8a"
+    },
+    {
+      "forecastId": "AIR-20261025-A110-V1",
+      "recordId": "A110",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "919dc5471a042fff892f",
+        "fc7af9f885e92d0d55aa",
+        "geonode.com__rdap"
+      ],
+      "originalEntrySha256": "f619e267f1a4d47560a09fa034c033dd0b0e3b2ea48b46cf024e2f66e970d83b"
+    },
+    {
+      "forecastId": "AIR-20261025-A111-V1",
+      "recordId": "A111",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "648ccf9391a289aea4a0",
+        "dataimpulse.com__rdap",
+        "dataimpulse.com__crtsh",
+        "dataimpulse.com__certspotter"
+      ],
+      "originalEntrySha256": "970723f9f463883fd57c9152473e23ac29a33615139c6b5f0b0dc68f66264f47"
+    },
+    {
+      "forecastId": "AIR-20261025-A112-V1",
+      "recordId": "A112",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8b77ecb1366fb23c6500",
+        "luna-proxy.com__rdap"
+      ],
+      "originalEntrySha256": "a57ccdf3b756e49cce7f5532ff282f0f9990a03591cb8401021502f1373bc9df"
+    },
+    {
+      "forecastId": "AIR-20261025-A113-V1",
+      "recordId": "A113",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9fc1d3674933f9377db4",
+        "proxy-seller.com__rdap"
+      ],
+      "originalEntrySha256": "53032507911ce5268f771722d7dec88d6faf861552a969e566b07df945fa892c"
+    },
+    {
+      "forecastId": "AIR-20261025-A114-V1",
+      "recordId": "A114",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9a5a8930aae343cb62b9",
+        "51fce77aa6b7111a9cb6",
+        "packetstream.io__rdap"
+      ],
+      "originalEntrySha256": "679b80f95031e95690b17511bd49a868e63a418ff0c07d751245866d3e4d3066"
+    },
+    {
+      "forecastId": "AIR-20261025-A115-V1",
+      "recordId": "A115",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "101d50ee4ba486be5c66",
+        "ab75bda1adcfd2dbb3c7",
+        "559724830087cf28f98c",
+        "marsproxies.com__rdap"
+      ],
+      "originalEntrySha256": "6af3c847f10991d839e233707b1b7b7b6d2557e8f0935d1c3a9383be7b2d559e"
+    },
+    {
+      "forecastId": "AIR-20261025-A116-V1",
+      "recordId": "A116",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "79a6243a64517fa6d842",
+        "ec6d2fa571c39013b2e4",
+        "zyte.com__rdap"
+      ],
+      "originalEntrySha256": "ad9a635a8fcb8c841b2bf590b1e29dd7c5fda1edde6075efb249d03289a5c245"
+    },
+    {
+      "forecastId": "AIR-20261025-A117-V1",
+      "recordId": "A117",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "1679e6632abfb74c4770",
+        "e1e806498919c4af100e",
+        "hydraproxy.com__rdap"
+      ],
+      "originalEntrySha256": "33aa01d23fd82f15a72e6c9ed5cdf57bd2a3c1ff36e001d3807f9f7a75f0161a"
+    },
+    {
+      "forecastId": "AIR-20261025-A118-V1",
+      "recordId": "A118",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c49e535942d1a03a4047",
+        "96d11aaea6795cd7866a",
+        "ipburger.com__rdap"
+      ],
+      "originalEntrySha256": "65c2f09c83bb6abd9fedfd7251d0719631f3fabae4ea9161a0a9b538a31d4b52"
+    },
+    {
+      "forecastId": "AIR-20261025-A119-V1",
+      "recordId": "A119",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5befbb2df4ef5a6665a9",
+        "ffd2dbe2f844a6152091",
+        "nimbleway.com__rdap"
+      ],
+      "originalEntrySha256": "f362bd8412e1655be3ed7c11cde70ca9856990eb0d2ca7a96fea5eba81b52330"
+    },
+    {
+      "forecastId": "AIR-20261025-A120-V1",
+      "recordId": "A120",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "54c4fadeea7905f19ad2",
+        "173161b88238cafa080f",
+        "shifter.io__rdap"
+      ],
+      "originalEntrySha256": "ccd2938924036a58e06e7f739eb0eb8883257aebc848bebbe1a07235d7ae4677"
+    },
+    {
+      "forecastId": "AIR-20261025-A121-V1",
+      "recordId": "A121",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c820500e19087b13a354",
+        "froxy.com__rdap"
+      ],
+      "originalEntrySha256": "d4fefcc29da10685ff3c8063bfc42db7ac71269783011faf77c55d4f062b2efa"
+    },
+    {
+      "forecastId": "AIR-20261025-A122-V1",
+      "recordId": "A122",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c17428afeaee59dfece5",
+        "highproxies.com__rdap"
+      ],
+      "originalEntrySha256": "c40a958b0c591f55e0b615543b93bda3a21769939094e534c9bd0f3f3c143784"
+    },
+    {
+      "forecastId": "AIR-20261025-A123-V1",
+      "recordId": "A123",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "666158e884733b407a55",
+        "702ee6c9228de5ff3a47",
+        "limeproxies.com__rdap"
+      ],
+      "originalEntrySha256": "2c01dcd4d2047010f1a61bcd6156d08efc2b6a5c77e1c8df916ab02b552dd481"
+    },
+    {
+      "forecastId": "AIR-20261025-A124-V1",
+      "recordId": "A124",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "86ef46f3add34a7fb223",
+        "asocks.com__rdap",
+        "asocks.com__crtsh",
+        "asocks.com__certspotter"
+      ],
+      "originalEntrySha256": "b701e250cf7527f249e783f9bee42ba524307269f8c5319aed9d8bac7515f12d"
+    },
+    {
+      "forecastId": "AIR-20261025-A125-V1",
+      "recordId": "A125",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "cb85c0dcdde46aac8149",
+        "7235bdceb2fe75633ce9",
+        "webshare.io__rdap"
+      ],
+      "originalEntrySha256": "c358355d287ef20567dfaa1d136871c74510d53d1a5cb57c092d3a59776d2831"
+    },
+    {
+      "forecastId": "AIR-20261025-A126-V1",
+      "recordId": "A126",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9d7b7797c77feb5751bf",
+        "c28a06f78cff27d03da6",
+        "proxy-cheap.com__rdap"
+      ],
+      "originalEntrySha256": "144919b3d097136fd3ea157c105c07bf52d138d6995633ad88b7b33e48209ab4"
+    },
+    {
+      "forecastId": "AIR-20261025-A127-V1",
+      "recordId": "A127",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5d3abab95d6a0d1063c1",
+        "iproyal.cn__rdap"
+      ],
+      "originalEntrySha256": "b1a88042ffb57c60bf979a13518ac0755a80ad0ac871c5c75e801c1d0aaedcf1"
+    },
+    {
+      "forecastId": "AIR-20261025-A128-V1",
+      "recordId": "A128",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8a10cf670b9de775b0f1",
+        "stormproxies.com__rdap"
+      ],
+      "originalEntrySha256": "0733582d3a284d73a71c29a2acd0d20db166b133e8d48e3ca69a4d31372c748d"
+    },
+    {
+      "forecastId": "AIR-20261025-A129-V1",
+      "recordId": "A129",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "7a87d9ce1b8a817ac358",
+        "c02f0bd3b6ab092f9ff9",
+        "665e5831a5b7887830c6",
+        "smartproxy.com__rdap"
+      ],
+      "originalEntrySha256": "4401d9337cca54bb4b093696a070c491a4e3d30d149db235e1c7d6269c02439e"
+    },
+    {
+      "forecastId": "AIR-20261025-A130-V1",
+      "recordId": "A130",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "349e7b8226ef0cff0df2",
+        "fe6dfe13f85ed467dbb5",
+        "soax.com__rdap"
+      ],
+      "originalEntrySha256": "e5bc2c50486200fe3cad0d302ab4b2fc75918d4d369dd99ecee80f173951f938"
+    },
+    {
+      "forecastId": "AIR-20261025-A131-V1",
+      "recordId": "A131",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "cf5d03cbb4303050539f",
+        "46afd21512c62fd1c2e1",
+        "infatica.io__rdap"
+      ],
+      "originalEntrySha256": "1fef608a69772b73ef962567cf9d9261f69c5cfc6cabc57635c972ab4a88acc6"
+    },
+    {
+      "forecastId": "AIR-20261025-A132-V1",
+      "recordId": "A132",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c25a8f14dfa2dd3aaa2c",
+        "f65dfac7720dfd34457d",
+        "rayobyte.com__rdap"
+      ],
+      "originalEntrySha256": "2ea7b6c6e42c7cc15403ad0e6fd9a0818270b1353c1f5f67b1d1401b612983fe"
+    },
+    {
+      "forecastId": "AIR-20261025-A133-V1",
+      "recordId": "A133",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "eb4f39fdeeecc735cb53",
+        "03d7ccd5c788f59d30c1",
+        "brightdata.com__rdap",
+        "brightdata.com__crtsh",
+        "brightdata.com__certspotter"
+      ],
+      "originalEntrySha256": "48a96a832722041d3fce919ad73cb1633381148174d88ad62cfdb317df58562a"
+    },
+    {
+      "forecastId": "AIR-20261025-A134-V1",
+      "recordId": "A134",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "531725425fbfba63866c",
+        "961f70d6fb1636547280",
+        "oxylabs.io__rdap"
+      ],
+      "originalEntrySha256": "d951d6c0ae04018a3729a46dee9e846406c91231dc4a2b3f49e849449b1756a3"
+    },
+    {
+      "forecastId": "AIR-20261025-A135-V1",
+      "recordId": "A135",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "f895933da32e1fc1bc23",
+        "netnut.io__rdap"
+      ],
+      "originalEntrySha256": "5e4e84e97c09f959560e75b51cb069e08db88052d4220dbbfb5991e123bc23cb"
+    },
+    {
+      "forecastId": "AIR-20261025-A136-V1",
+      "recordId": "A136",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "20179caa2e24ba2637e8",
+        "93f3f1ea522653195961",
+        "bitbrowser.net__rdap",
+        "bitbrowser.net__crtsh",
+        "bitbrowser.net__certspotter"
+      ],
+      "originalEntrySha256": "00b88c7732e64bc0295a5ecd4ced30737d1e29579cb42457def97041228fdd40"
+    },
+    {
+      "forecastId": "AIR-20261025-A137-V1",
+      "recordId": "A137",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "37f4f8efbdb8e7b21a75",
+        "hubstudio.cn__rdap"
+      ],
+      "originalEntrySha256": "9a146579ce9cfbd0e2bbfc953d7e8d381404338d78e178ef98cf0322bde2343d"
+    },
+    {
+      "forecastId": "AIR-20261025-A138-V1",
+      "recordId": "A138",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d3e2cd8e35f04ed0e2b5",
+        "adspower.net__rdap",
+        "adspower.net__certspotter"
+      ],
+      "originalEntrySha256": "eeca20b2a57caddf837dae889e6d7d13ea2b68dbe6eb2322a2f662cc3c647886"
+    },
+    {
+      "forecastId": "AIR-20261025-A139-V1",
+      "recordId": "A139",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a21a7675f2b9ee691672",
+        "redfinger.com__rdap"
+      ],
+      "originalEntrySha256": "18303f9122679eddbe5910ca176cd79a21207cb4c702f60a4688603a43838c2c"
+    },
+    {
+      "forecastId": "AIR-20261025-A140-V1",
+      "recordId": "A140",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0a571a2127330afb0b50",
+        "2cf637b3ee7e9fe4df0d",
+        "scamalytics.com__rdap"
+      ],
+      "originalEntrySha256": "9863b263299baae8df571cb42787ea8702e3cb1b9e38a494871e816c4807df5c"
+    },
+    {
+      "forecastId": "AIR-20261025-A141-V1",
+      "recordId": "A141",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b54276288981e47aa5e1",
+        "qytaff.cc__rdap",
+        "GH-issue-238"
+      ],
+      "originalEntrySha256": "578b1c6fef5c4828bde72a51a9908b31ba71be4f2b24dc417a1b318ee444afed"
+    },
+    {
+      "forecastId": "AIR-20261025-A142-V1",
+      "recordId": "A142",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4c446dc4b78c91d406a2",
+        "lmaff01.cc__rdap",
+        "GH-issue-307",
+        "GH-issue-353",
+        "GH-issue-288"
+      ],
+      "originalEntrySha256": "6c3ddd628676d6af4a56bab98608af7e89c22900349cf62ac1d3a5933c50d44f"
+    },
+    {
+      "forecastId": "AIR-20261025-A143-V1",
+      "recordId": "A143",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d9d13c2bd7083c1cd997",
+        "99vpn.bar__rdap",
+        "99vpn.bar__certspotter"
+      ],
+      "originalEntrySha256": "d0ef572667547eab5e8871568185e0ca3ff833376dca1543da93eaa251c75d5f"
+    },
+    {
+      "forecastId": "AIR-20261025-A144-V1",
+      "recordId": "A144",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e099fca8b343f7fa5fa5",
+        "xmfaff.cc__rdap",
+        "xmfvpn.com__rdap"
+      ],
+      "originalEntrySha256": "08dd8de9fba49f5e91a251e735a6e9bab5f0c1f124db71debad2de7a9a1911de"
+    },
+    {
+      "forecastId": "AIR-20261025-A145-V1",
+      "recordId": "A145",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "25b286a52e5027ed6da7",
+        "fastfastfast.best__rdap",
+        "goflybit.com__rdap"
+      ],
+      "originalEntrySha256": "9170b03c5805eed8aa599614856a747f86d3a1a847a4ef2b1f5e92bbf6ad327b"
+    },
+    {
+      "forecastId": "AIR-20261025-A146-V1",
+      "recordId": "A146",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "43ae7a8f6fb00b0a6d6d",
+        "syjccloud.com__rdap"
+      ],
+      "originalEntrySha256": "1de8c58f7da8e443f7c9cce450d196db8d2194e4c1b1aafca413cf2221ec9586"
+    },
+    {
+      "forecastId": "AIR-20261025-A147-V1",
+      "recordId": "A147",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b8fb1a4a06e5f97bfbeb",
+        "jilianat.homes__rdap"
+      ],
+      "originalEntrySha256": "c6eab8cc2d5440d21ced1c9b92c0f5bfa81194b06a363d2ea2c0733f6c7b382a"
+    },
+    {
+      "forecastId": "AIR-20261025-A148-V1",
+      "recordId": "A148",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "33edf00954c9a7215332",
+        "lightspeedyun.cc__rdap"
+      ],
+      "originalEntrySha256": "7e2a41f6c63b96a765db00d92bcd5326435144a7c5baf0f0b480e370722878c1"
+    },
+    {
+      "forecastId": "AIR-20261025-A149-V1",
+      "recordId": "A149",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ad520cc957c1d3d4d75a",
+        "guangzssytt.buzz__rdap"
+      ],
+      "originalEntrySha256": "159843712b387522238ea8aec34eeafb8a46d75eb5ad3919186017343177f790"
+    },
+    {
+      "forecastId": "AIR-20261025-A150-V1",
+      "recordId": "A150",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5ba5221cf03864057d92",
+        "quanqiugttt1.club__rdap"
+      ],
+      "originalEntrySha256": "061e500111c29e965628010303f5e0755dadc4b283466d25e251047a16f7b8c2"
+    },
+    {
+      "forecastId": "AIR-20261025-A151-V1",
+      "recordId": "A151",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a0f6a1788b2df2b79db6",
+        "xingdaomeng.com__rdap",
+        "GH-issue-354"
+      ],
+      "originalEntrySha256": "9493d1dac15ced49affe9fbdd7a0b4fc2a1629f5fcaff28c20168dd565a7fdd2"
+    },
+    {
+      "forecastId": "AIR-20261025-A152-V1",
+      "recordId": "A152",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5ba5221cf03864057d92",
+        "quanqiugttt1.club__rdap"
+      ],
+      "originalEntrySha256": "cca5270fcda31b2c909ba396a4b08c030d7548cb1a761dbaf7993163aff4f346"
+    },
+    {
+      "forecastId": "AIR-20261025-A153-V1",
+      "recordId": "A153",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ba99cee60a82ff0f5083",
+        "fcweba.cc__rdap",
+        "fei9sjf.xyz__rdap"
+      ],
+      "originalEntrySha256": "ff9d894daf02416870228f58f32baf15eef15bce054760cdb3eff4215c5b7e0a"
+    },
+    {
+      "forecastId": "AIR-20261025-A154-V1",
+      "recordId": "A154",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "caeab44521ca293d574b",
+        "shanhai.cfd__rdap",
+        "GH-issue-294"
+      ],
+      "originalEntrySha256": "1ba4cfc72a662320a8a599334079635ab12f2252b818134a195bc4071afd6aea"
+    },
+    {
+      "forecastId": "AIR-20261025-A155-V1",
+      "recordId": "A155",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "6cce7dce8acf08c5de99",
+        "breeze-net.net__rdap",
+        "breeze-net.net__crtsh",
+        "breeze-net.net__certspotter",
+        "GH-issue-351"
+      ],
+      "originalEntrySha256": "5cabddd0aa438f92dbaed0870515c62ae59b6aab25d6aeffbf283030e57d3b25"
+    },
+    {
+      "forecastId": "AIR-20261025-A156-V1",
+      "recordId": "A156",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "7000dcac240865fdc9f2",
+        "civetnet.com__rdap",
+        "civetnet.com__crtsh",
+        "civetnet.com__certspotter"
+      ],
+      "originalEntrySha256": "07d1ff8f51b43be2f7d390806159a8dceb856241902ebddfa422a3a2b0aabc02"
+    },
+    {
+      "forecastId": "AIR-20261025-A157-V1",
+      "recordId": "A157",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "bd9b014c7bcdd74d483f",
+        "wuyoulianjie.com__rdap"
+      ],
+      "originalEntrySha256": "5f250b7c4e3521656ac2ab1c9ccdb495c56884ac5f520410c2c95c926675bdcb"
+    },
+    {
+      "forecastId": "AIR-20261025-A158-V1",
+      "recordId": "A158",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "69263b5a48ccb6c426d0",
+        "twilightttt.sbs__rdap"
+      ],
+      "originalEntrySha256": "c6589a45b2c7661d3916e26ad8dd69b89c862913123f4c2dd912a4a54cb45457"
+    },
+    {
+      "forecastId": "AIR-20261025-A159-V1",
+      "recordId": "A159",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "7ec370bc5e43496515d4",
+        "191.101.132.80__rdap",
+        "191.101.132.80__certspotter"
+      ],
+      "originalEntrySha256": "1f5547cfad809f727b1c018a6a37500722accfb59a1ccbeda6408ae34809c576"
+    },
+    {
+      "forecastId": "AIR-20261025-A160-V1",
+      "recordId": "A160",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5234dd9e048fa57735eb",
+        "flashleap.net__rdap"
+      ],
+      "originalEntrySha256": "7bd3ca28dc0af8375526867fa3000d24b8252b27a4b72c3c4e3b2f41a2f4f4c9"
+    },
+    {
+      "forecastId": "AIR-20261025-A161-V1",
+      "recordId": "A161",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "02bee9eeda854c8c1572",
+        "1flyun.cc__rdap",
+        "1flyun.cc__certspotter"
+      ],
+      "originalEntrySha256": "0abc06dde8bd0885a1ec470f08da6e4a22ef858cf9f58fe935083d7e02351f91"
+    },
+    {
+      "forecastId": "AIR-20261025-A162-V1",
+      "recordId": "A162",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "b8d8c39aaf911e6eaab4",
+        "kuajiecloud.com__rdap"
+      ],
+      "originalEntrySha256": "dac322708ba96aabdacd6f189b104883c9eeb9c4be7fa6cf5e08e5d42c0d9117"
+    },
+    {
+      "forecastId": "AIR-20261025-A163-V1",
+      "recordId": "A163",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ea393e0a9f3ea7bd1c24",
+        "fireflyxx.cfd__rdap"
+      ],
+      "originalEntrySha256": "c81d33db7df88ac367d40422d92891c6cbe3245f540b74370dc62661b541fad9"
+    },
+    {
+      "forecastId": "AIR-20261025-A164-V1",
+      "recordId": "A164",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8a66e53df00041a98ef4",
+        "yinxingren.net__rdap"
+      ],
+      "originalEntrySha256": "08e6cface03e283a41817f915636c7dd4eb58e19f94096565d5d3d19d4c5ad71"
+    },
+    {
+      "forecastId": "AIR-20261025-A165-V1",
+      "recordId": "A165",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "604d79adac412f9ab05a",
+        "wave-net.cloud__rdap"
+      ],
+      "originalEntrySha256": "ded84c53ca970b96185f926b1e538ea748c1317d3325217c7e0d2cd98442681e"
+    },
+    {
+      "forecastId": "AIR-20261025-A166-V1",
+      "recordId": "A166",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "15d4cf0caca3131dea3d",
+        "guodongcloud.com__rdap"
+      ],
+      "originalEntrySha256": "f04aaec72b743ac4661f38b7fc0e4fea78df87356f4efc15b22a278095bf8764"
+    },
+    {
+      "forecastId": "AIR-20261025-A167-V1",
+      "recordId": "A167",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "e0e74e89230474d34364",
+        "muguangjs.com__rdap"
+      ],
+      "originalEntrySha256": "88a8b2e1b573b25c393660ea3e8f70db9500cd0154141731c6f60466e2564af9"
+    },
+    {
+      "forecastId": "AIR-20261025-A168-V1",
+      "recordId": "A168",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "3f0748f9c1c17ab92605",
+        "edgenova.cc__rdap",
+        "edgenova.cc__crtsh",
+        "GH-issue-352"
+      ],
+      "originalEntrySha256": "38d5334212cf703af2c4c617e670ad216628fd370d303f19874babfed31788a2"
+    },
+    {
+      "forecastId": "AIR-20261025-A169-V1",
+      "recordId": "A169",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0d07a26b4710829920a1",
+        "shadow-airport.top__rdap"
+      ],
+      "originalEntrySha256": "a3d9e716bcd29204553685babbde655326220e509a898c6b14a1fe3b0b31af37"
+    },
+    {
+      "forecastId": "AIR-20261025-A170-V1",
+      "recordId": "A170",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c09c623641f062baf25d",
+        "25fdc144b5e0558df905",
+        "lvpn.cc__rdap"
+      ],
+      "originalEntrySha256": "718da98ba0fb0fccd7714f1405d3f168b10c5d95ce4ddba4cd263405c7268642"
+    },
+    {
+      "forecastId": "AIR-20261025-A171-V1",
+      "recordId": "A171",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "deb80d8c470fd389c3e8",
+        "nicecc.cc__rdap",
+        "GH-issue-357"
+      ],
+      "originalEntrySha256": "ebf0a03af78cb32052c7f1441235aaa7ef378a5afbe7d9fbb096fb49f40d19e8"
+    },
+    {
+      "forecastId": "AIR-20261025-A172-V1",
+      "recordId": "A172",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "40287e0f71352861eee7",
+        "ytjcok.org__rdap"
+      ],
+      "originalEntrySha256": "b7ebe3c71bfb40b51a7921a3565b04226d5492dc726271c88f8495482027eea7"
+    },
+    {
+      "forecastId": "AIR-20261025-A173-V1",
+      "recordId": "A173",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "179e372feb23b4baf7e1",
+        "speedworld.cc__rdap"
+      ],
+      "originalEntrySha256": "9584c3d5c54243e69b24da855491b4af5eb2f5612bbd540a837806616ad377cd"
+    },
+    {
+      "forecastId": "AIR-20261025-A174-V1",
+      "recordId": "A174",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0b141283bebbbb3f685e",
+        "kuaili.cc__rdap"
+      ],
+      "originalEntrySha256": "09c16fb91a0d76b5ab6daf76d79650d346e0518842b518d3d493ddc701b1b5ef"
+    },
+    {
+      "forecastId": "AIR-20261025-A175-V1",
+      "recordId": "A175",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5ddce8f8bd3a3c6e7c1b",
+        "kosing.cc__rdap"
+      ],
+      "originalEntrySha256": "9fc1f9f02308bb8f03f669a5a610f807229f183f3a2ce4e37cf1a3ca21a8e28b"
+    },
+    {
+      "forecastId": "AIR-20261025-A176-V1",
+      "recordId": "A176",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "13faa74d7afa754bbe73",
+        "starpro.one__rdap"
+      ],
+      "originalEntrySha256": "a9f059cd783bdca3838c2f8eda5c622cebd4f2feb35eb995cdb436f5e481d7e4"
+    },
+    {
+      "forecastId": "AIR-20261025-A177-V1",
+      "recordId": "A177",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "15d4cf0caca3131dea3d",
+        "guodongcloud.com__rdap"
+      ],
+      "originalEntrySha256": "8ac22a3e512f2c5520cf2b432038701f25ede73d3d8eb04ae876bf73539ef8f1"
+    },
+    {
+      "forecastId": "AIR-20261025-A178-V1",
+      "recordId": "A178",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "93b9df7aa3ef782cbe44",
+        "flyv.org__rdap"
+      ],
+      "originalEntrySha256": "679cfa479e0649cf1e6a7b3f2e330238cc15307876addbc8602ee3e6663fb7dc"
+    },
+    {
+      "forecastId": "AIR-20261025-A179-V1",
+      "recordId": "A179",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "bcd71367cacf357deca3",
+        "u1s1cloud.cc__rdap"
+      ],
+      "originalEntrySha256": "e4ab4a211d0a28eb2ad77de76daeb3585f054add897516eb53dc951e18edcb6b"
+    },
+    {
+      "forecastId": "AIR-20261025-A180-V1",
+      "recordId": "A180",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "c88dea6902de7f7f9d4f",
+        "wkacc.xyz__rdap"
+      ],
+      "originalEntrySha256": "ed64407c64918aa0d6d4a8c488c5666b6def782254a553c72e738d0abd4f3bb3"
+    },
+    {
+      "forecastId": "AIR-20261025-A181-V1",
+      "recordId": "A181",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "58e630935f14d5e28ddc",
+        "glados.space__rdap"
+      ],
+      "originalEntrySha256": "d10d6311cb174433027a4b52a0b714fc1fb3066b60ed74852a2472c9fd1baa63"
+    },
+    {
+      "forecastId": "AIR-20261025-A182-V1",
+      "recordId": "A182",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "929797678239003424f9",
+        "gatern.io__rdap"
+      ],
+      "originalEntrySha256": "77dae1786685760dd5a8ca7b9da65d7e803841645bbcdcc3bf8b7e77cb71d4a2"
+    },
+    {
+      "forecastId": "AIR-20261025-A183-V1",
+      "recordId": "A183",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "3d727e66c61fa47acdcc",
+        "flowercloud.net__rdap"
+      ],
+      "originalEntrySha256": "53cd65a3c1e19a0cc37b822903377bc773c93da7fa248bade6ffaf3b461ecc74"
+    },
+    {
+      "forecastId": "AIR-20261025-A184-V1",
+      "recordId": "A184",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "969037c59e68747a118a",
+        "dler.io__rdap",
+        "dler.io__crtsh",
+        "dler.io__certspotter"
+      ],
+      "originalEntrySha256": "df6a03203d65c08bb57c6cc29a135058fafa15311b0780b10c080bcc39b23839"
+    },
+    {
+      "forecastId": "AIR-20261025-A185-V1",
+      "recordId": "A185",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "80ab280ca3ad4925e1b3",
+        "flashfox.net__rdap",
+        "GH-issue-333",
+        "GH-issue-337"
+      ],
+      "originalEntrySha256": "1deef011ba42ecc2483e400f17c53b5a62e701fac3119f4146fdac535bc03c73"
+    },
+    {
+      "forecastId": "AIR-20261025-A186-V1",
+      "recordId": "A186",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "6dcfff4d3058457b042f",
+        "fastlink.ws__rdap",
+        "GH-issue-200"
+      ],
+      "originalEntrySha256": "1e29219683787c21f9bb3297f9a7089ec5bb974c891ee5067da0b1b5211b03ba"
+    },
+    {
+      "forecastId": "AIR-20261025-A187-V1",
+      "recordId": "A187",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "2bb244b4b5285f0f6881",
+        "xinglin.live__rdap"
+      ],
+      "originalEntrySha256": "25bf53d73a0e3037f51783e5b37bad092ac62903761b6a0d5670a230923c3977"
+    },
+    {
+      "forecastId": "AIR-20261025-A188-V1",
+      "recordId": "A188",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "529dffa86a244a20da69",
+        "riolu.xyz__rdap"
+      ],
+      "originalEntrySha256": "9938fe63452b9dfef8df2ee32d1eef05abc005a0e189523cc60a857fb9da1d98"
+    },
+    {
+      "forecastId": "AIR-20261025-A189-V1",
+      "recordId": "A189",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9f45a53c546410fa8e79",
+        "bitzconnect.com__rdap",
+        "bitzconnect.com__crtsh",
+        "bitzconnect.com__certspotter"
+      ],
+      "originalEntrySha256": "75caab155878bbf2bcaeee4cbb499f5dc729af32d18a322a4a3daa7b57442318"
+    },
+    {
+      "forecastId": "AIR-20261025-A190-V1",
+      "recordId": "A190",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5a2fbef7ac803b37ae1e",
+        "anyland.club__rdap",
+        "anyland.club__crtsh",
+        "anyland.club__certspotter"
+      ],
+      "originalEntrySha256": "b7c0d309eebaf18c165355ffad14c6e4f6bd3cb09c68eeaca66cae66ef23ed10"
+    },
+    {
+      "forecastId": "AIR-20261025-A191-V1",
+      "recordId": "A191",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4626ad2b5569d5558443",
+        "kuromis.com__rdap"
+      ],
+      "originalEntrySha256": "10769d9df0786e0f1b66ad678ef839429080d424ec2d16a379deb0c1b3bb9090"
+    },
+    {
+      "forecastId": "AIR-20261025-A192-V1",
+      "recordId": "A192",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "ee443d3d6558e4e53a65",
+        "flyingbird.org__rdap",
+        "GH-issue-336",
+        "GH-issue-317"
+      ],
+      "originalEntrySha256": "5afad74c480cbf99cff6ce1d2dd9c85515dc37128ccdeff561524fe60ca674eb"
+    },
+    {
+      "forecastId": "AIR-20261025-A193-V1",
+      "recordId": "A193",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8a39397f725c65844ce1",
+        "catnet.io__rdap",
+        "catnet.io__crtsh",
+        "catnet.io__certspotter"
+      ],
+      "originalEntrySha256": "6b61a6527972552a9e54e81c3ae9531c5719eda514d7162667195046ea7796bf"
+    },
+    {
+      "forecastId": "AIR-20261025-A194-V1",
+      "recordId": "A194",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d9d13c2bd7083c1cd997",
+        "99vpn.bar__rdap",
+        "99vpn.bar__certspotter"
+      ],
+      "originalEntrySha256": "30b0e3f9b318896e0167ecb74f47c25f23563f4ab038fbee57f4437285684b9f"
+    },
+    {
+      "forecastId": "AIR-20261025-A195-V1",
+      "recordId": "A195",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "19c6bd8250b43f661bd6",
+        "beibeicloud.net__rdap",
+        "beibeicloud.net__crtsh",
+        "beibeicloud.net__certspotter"
+      ],
+      "originalEntrySha256": "e414a48cf24f9b2ea92fc65a5def4ae17569608852c4a3c2129da47a4b85c2b2"
+    },
+    {
+      "forecastId": "AIR-20261025-A196-V1",
+      "recordId": "A196",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "235fee44f6ceddee7539",
+        "superbiu.com__rdap"
+      ],
+      "originalEntrySha256": "0d7f5dd82d5180ec82ce8efa4c3646afeaf63c17e19e674501aaa12ecebb7ee9"
+    },
+    {
+      "forecastId": "AIR-20261025-A197-V1",
+      "recordId": "A197",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9947c26c666dd393821b",
+        "renzhe.cloud__rdap"
+      ],
+      "originalEntrySha256": "0758ff8f228619fe025f060a0daa0726e5ad4cbb623c1820ac0845a3ddab7fd0"
+    },
+    {
+      "forecastId": "AIR-20261025-A198-V1",
+      "recordId": "A198",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "25cd38f7c44cd1f7a197",
+        "paofucloud.me__rdap"
+      ],
+      "originalEntrySha256": "058b58c7fa804ce700e5fe585bca97e9d0e68c8bebe3744c8557146f90a7ee7f"
+    },
+    {
+      "forecastId": "AIR-20261025-A199-V1",
+      "recordId": "A199",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "08aefe1bdaf3f9beb84c",
+        "irvine.cloud__rdap"
+      ],
+      "originalEntrySha256": "370e889ccebbf9b3dbd3c8212c7b7dafdb6e6b884f0a50fe01d6f04afcb45cc0"
+    },
+    {
+      "forecastId": "AIR-20261025-A200-V1",
+      "recordId": "A200",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0ec3ce5f769ea49ac873",
+        "ss-id.com__rdap"
+      ],
+      "originalEntrySha256": "b5b674a06946c08af3ed15b8f82d39b28f7d822fb517d5f5c90e6f7e36725f51"
+    },
+    {
+      "forecastId": "AIR-20261025-A201-V1",
+      "recordId": "A201",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "28b332bc994a6a827f9f",
+        "xiaoliyu.cloud__rdap"
+      ],
+      "originalEntrySha256": "ed5d04c84f027d20f0a00e18c64ba5416a69bc3e603c1d530c69b23bd4f7bf12"
+    },
+    {
+      "forecastId": "AIR-20261025-A202-V1",
+      "recordId": "A202",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "8f6cddad31b67c5f9b4d",
+        "yaoyao.io__rdap"
+      ],
+      "originalEntrySha256": "2049b95802ce7884640ec136a563ebe45a6207abff6dc656f7c01c6b44b1de9e"
+    },
+    {
+      "forecastId": "AIR-20261025-A203-V1",
+      "recordId": "A203",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "9e58306a74844bdd807c",
+        "v2tun.us__rdap"
+      ],
+      "originalEntrySha256": "395b66cf723e6b144faf8c89eaa969233b5cfed2637b52b941decd04b1acb09e"
+    },
+    {
+      "forecastId": "AIR-20261025-A204-V1",
+      "recordId": "A204",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d9d13c2bd7083c1cd997",
+        "99vpn.bar__rdap",
+        "99vpn.bar__certspotter"
+      ],
+      "originalEntrySha256": "4b7c4d70f0a4c218121b0b34cf32b7312cd92913eaf7d7de6e6cefa98b2b230d"
+    },
+    {
+      "forecastId": "AIR-20261025-A205-V1",
+      "recordId": "A205",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "60676f6c6d7e51f583fa",
+        "1yunti.net__rdap",
+        "1yunti.net__crtsh"
+      ],
+      "originalEntrySha256": "5ad5b5f96cfe7f1055e25e8cf03f279dfe2312444a9f3b5d28978b46bac19ef7"
+    },
+    {
+      "forecastId": "AIR-20261025-A206-V1",
+      "recordId": "A206",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "fa03b996c1656ffd8138",
+        "youtushop.me__rdap"
+      ],
+      "originalEntrySha256": "ef1a1d44c611d555b7d4570d97a362b35ed59f035498a073580e2924935f83ad"
+    },
+    {
+      "forecastId": "AIR-20261025-A207-V1",
+      "recordId": "A207",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "29d9b6cc3e4e5f8679a5",
+        "ivpn.net__rdap"
+      ],
+      "originalEntrySha256": "92496e7a57709b6e2dec386dccae1762607423b2245fcd5093193156a122ac7c"
+    },
+    {
+      "forecastId": "AIR-20261025-A208-V1",
+      "recordId": "A208",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "0eb0771c0ee01a13ebe0",
+        "nordvpn.com__rdap"
+      ],
+      "originalEntrySha256": "c76e00380fb8a1ebe399322c22f323bedf3db61626a3b9f1141229faad0de8f6"
+    },
+    {
+      "forecastId": "AIR-20261025-A209-V1",
+      "recordId": "A209",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "07ffbc35dccf1d02455a",
+        "583f77d66d71fdc2625c",
+        "privadovpn.com__rdap"
+      ],
+      "originalEntrySha256": "6f51f3c04164734d2b22fd99ae95ccc61318332a870b1ff606e8fce16a9d1f72"
+    },
+    {
+      "forecastId": "AIR-20261025-A210-V1",
+      "recordId": "A210",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "5e347ddc46b2c382aba8",
+        "f486167d653fd1d0fbcb",
+        "astrill.com__rdap",
+        "astrill.com__certspotter"
+      ],
+      "originalEntrySha256": "750946cfe50c4b83d8df1c45f96137490c01dad8e41e36a76747f3c3dfaba173"
+    },
+    {
+      "forecastId": "AIR-20261025-A211-V1",
+      "recordId": "A211",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "d7cae4a5d5a18a9e1b5b",
+        "b64aa121b40612f1531e",
+        "windscribe.com__rdap"
+      ],
+      "originalEntrySha256": "21aefcdeb89806b33f1c39b343649e3100c0ca0c59683e3ad7feb20dd3bbe609"
+    },
+    {
+      "forecastId": "AIR-20261025-A212-V1",
+      "recordId": "A212",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "54d8522e2d0d75d022e5",
+        "e54a3b9b1b4557aaf049",
+        "vircs.com__rdap"
+      ],
+      "originalEntrySha256": "28cb049281dd53b2715b1c26e3f399b62c8b7798bd0c8e1a4a789a8c018b8a21"
+    },
+    {
+      "forecastId": "AIR-20261025-A213-V1",
+      "recordId": "A213",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "4f505795d530e8310e14",
+        "lisahost.com__rdap"
+      ],
+      "originalEntrySha256": "2b49fae853f48fb24f51c655877595a433776bff1ab9b11547b22553b748fbbb"
+    },
+    {
+      "forecastId": "AIR-20261025-A214-V1",
+      "recordId": "A214",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "a21a7675f2b9ee691672",
+        "redfinger.com__rdap"
+      ],
+      "originalEntrySha256": "4a6fc1ac6300aa9c83c552bde93cfb36e9d861552391aa7918c397530971b22e"
+    },
+    {
+      "forecastId": "AIR-20261025-A215-V1",
+      "recordId": "A215",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [
+        "2662044a793a2db5cee6",
+        "f69ea0891529646d0076",
+        "ugphone.com__rdap"
+      ],
+      "originalEntrySha256": "87fc9eb7aed4f3ebc17149d13e6b0e853afb2b325a2b5297b6987ceb1bc2af0c"
+    },
+    {
+      "forecastId": "AIR-20261025-C001-V1",
+      "recordId": "C001",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "052ab4bd515eee47961d9610795b686829ab77d198884f8b8b02a1733fb8473c"
+    },
+    {
+      "forecastId": "AIR-20261025-C002-V1",
+      "recordId": "C002",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "ab9be725af95067f1de16908287b1b7ff63a8fa00303f2ba55877ed3fff00844"
+    },
+    {
+      "forecastId": "AIR-20261025-C003-V1",
+      "recordId": "C003",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "5b319c47ebcdf295e0d7ba22e5ed61673c79430a8ba7923beb9ba72fc2223cbe"
+    },
+    {
+      "forecastId": "AIR-20261025-C004-V1",
+      "recordId": "C004",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "d3b0bd6b407b2b39752a74161850348ed4ac5222a55fac54081619f80ba25971"
+    },
+    {
+      "forecastId": "AIR-20261025-C005-V1",
+      "recordId": "C005",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "9e6ab63f1f0a698488c8e96af23bc26f9fb07037153b141acd13d18e2e9b177f"
+    },
+    {
+      "forecastId": "AIR-20261025-C006-V1",
+      "recordId": "C006",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "01578e07bfd579564ad6725e48d114761092cd72612e6dc8f65633ea3f335277"
+    },
+    {
+      "forecastId": "AIR-20261025-C007-V1",
+      "recordId": "C007",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "911c188e97df42cd7f8883b45bfebbe9e1ef4af0dc6438de25193ff8434904e4"
+    },
+    {
+      "forecastId": "AIR-20261025-C008-V1",
+      "recordId": "C008",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "44892344728a0b75785539adc93c0e90dbd812a0ba3c97de7c29b2e0682bf72b"
+    },
+    {
+      "forecastId": "AIR-20261025-C009-V1",
+      "recordId": "C009",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "992cb2c2774704754f3b142362577b37f79acb711e33e87811e1407c6f4084fb"
+    },
+    {
+      "forecastId": "AIR-20261025-C010-V1",
+      "recordId": "C010",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "837e1d1176ba6fd67342e57839eb8264712cbd1ceb55dacfa59dd6ad4efcd14c"
+    },
+    {
+      "forecastId": "AIR-20261025-C011-V1",
+      "recordId": "C011",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "cda9d7b837a7a6e60e930fd20670e8db644d8ca03def2d995eae3e5f31aa5b79"
+    },
+    {
+      "forecastId": "AIR-20261025-C012-V1",
+      "recordId": "C012",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "14c6b44a671e32d1b40661f49629f9d0f95da1ec7e266b2bb30ec7c78e108bc8"
+    },
+    {
+      "forecastId": "AIR-20261025-C013-V1",
+      "recordId": "C013",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "0444ee2e778eedadbb20eef91aaf96d1cf31e8a890373ace58bdb17bc0d10733"
+    },
+    {
+      "forecastId": "AIR-20261025-C014-V1",
+      "recordId": "C014",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "bd9d93a41af20a03dd1d3fd2f95f8e1466e2167b6f38082b7412796c667295de"
+    },
+    {
+      "forecastId": "AIR-20261025-C015-V1",
+      "recordId": "C015",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "292b04ba27b66da7d13ec91d1c27bb169e23a66029804be6a704f1531c8bb7ff"
+    },
+    {
+      "forecastId": "AIR-20261025-C016-V1",
+      "recordId": "C016",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "60479bff4762e69b06a21b5e8de509c84639cd136d5f24cc729796ff85d27e68"
+    },
+    {
+      "forecastId": "AIR-20261025-C017-V1",
+      "recordId": "C017",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "dc601bc9e5167aa11c4c6ba8f44e07ca12fc6eb620173530633e0b7876859796"
+    },
+    {
+      "forecastId": "AIR-20261025-C018-V1",
+      "recordId": "C018",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "f013b7465177ad4202c8aa1bee00e83a132666aec42a06969f62d950efa0e948"
+    },
+    {
+      "forecastId": "AIR-20261025-C019-V1",
+      "recordId": "C019",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "2380fe958d4c9e9094bb0b7b98dc1ad70e418243ba4e1ff6af6b3f9f98af8866"
+    },
+    {
+      "forecastId": "AIR-20261025-C020-V1",
+      "recordId": "C020",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "e0f096be0133d2762794b0eae8cb632c144e8448e3c8155bc69e1c591cbfea3a"
+    },
+    {
+      "forecastId": "AIR-20261025-C021-V1",
+      "recordId": "C021",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "acb9abe494987bc9a24423a45af60bf4602cd3f9f761178041d0cce4de4b2b2b"
+    },
+    {
+      "forecastId": "AIR-20261025-C022-V1",
+      "recordId": "C022",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "b208d2ba62b26d497a3141fd219c8e3e9e5ae1562ab022dc31eddfa38d932b9a"
+    },
+    {
+      "forecastId": "AIR-20261025-C023-V1",
+      "recordId": "C023",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "3a1983aa3fcbfac4a2087ee3dee4a2d2397d780537a777480e6f2470c55b0295"
+    },
+    {
+      "forecastId": "AIR-20261025-C024-V1",
+      "recordId": "C024",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "539512130d35b32b0902ba1cb777b0f7d564708853a18a164cde3aa5bda4f7c0"
+    },
+    {
+      "forecastId": "AIR-20261025-C025-V1",
+      "recordId": "C025",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "1cc6f5d86245bd2c59fdb2c270194ee5bdbef82c0a0f1298c577bd4cfe4ca83c"
+    },
+    {
+      "forecastId": "AIR-20261025-C026-V1",
+      "recordId": "C026",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "7a59f2b72c12bdfa12ad2c2421d172c25414a40b84a762781a28a7070064bbc3"
+    },
+    {
+      "forecastId": "AIR-20261025-C027-V1",
+      "recordId": "C027",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "d151d4598bd910113220341ede3951cded8101e1ba8df45c31dfef2f18572afe"
+    },
+    {
+      "forecastId": "AIR-20261025-C028-V1",
+      "recordId": "C028",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "a3552ea8a86c6c94a4de1e4797501b01cd0bf8f010956ee776056eb5d00beab7"
+    },
+    {
+      "forecastId": "AIR-20261025-C029-V1",
+      "recordId": "C029",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "39fe5bb41c64ff417841240a3e43d2f5365a9699eef1c0dad70b309c89f38d0b"
+    },
+    {
+      "forecastId": "AIR-20261025-C030-V1",
+      "recordId": "C030",
+      "version": 1,
+      "issuedAt": "2026-10-25T12:59:23.591Z",
+      "horizonEnd": "2027-01-23T12:59:23.591Z",
+      "adjudicationNotBefore": "2027-01-30T12:59:23.591Z",
+      "status": "abstain",
+      "probabilityInterval": null,
+      "pointProbability": null,
+      "outcome": null,
+      "scorable": false,
+      "sourceIds": [],
+      "originalEntrySha256": "7700d042c5a823f8902f2bf255f2135ab1bc74127a03bdd2eff29fcf5bfdc2f5"
+    }
+  ]
+}

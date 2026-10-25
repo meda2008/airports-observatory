@@ -1,0 +1,33 @@
+name: 公开资料更正
+description: 提交可以公开复核的来源与相反证据
+title: "[更正] "
+body:
+  - type: markdown
+    attributes:
+      value: "请只填写可公开的事实和原始来源，不要附账号、订阅链接、密码或付款资料。提交后公开，尚不代表已经核实。"
+  - type: input
+    id: record
+    attributes:
+      label: 记录编号与名称
+      placeholder: A001 · WgetCloud
+    validations:
+      required: true
+  - type: textarea
+    id: disputed
+    attributes:
+      label: 需要更正的字段或陈述
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 原始公开来源 URL 与观察时间
+      description: 请写明时区，区分亲历、原文陈述和推断。
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: 建议如何修订及其影响范围
+    validations:
+      required: true
