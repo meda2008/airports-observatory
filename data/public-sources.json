@@ -1,9 +1,9 @@
 {
   "schemaVersion": "airports-public-sources.v1",
   "projectionVersion": "1.5.1",
-  "publishedAt": "2026-10-26T16:03:43.781Z",
+  "publishedAt": "2026-10-26T16:11:47.253Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-  "sourceCount": 1741,
+  "sourceCount": 1742,
   "independenceNotice": "I0为依赖同一上游或索引通道；I1为独立性待核。没有因网址数量而升级为两个独立信源。",
   "archiveNotice": "这里只发布元数据、来源链接与留存档案定位。完整网页和原始档案不作为公开下载内容。",
   "urlPolicyNotice": "公开链接保留必要的安全查询与定位，完整原始请求以留存材料为准。",
@@ -38309,6 +38309,28 @@
       "dependencyGroup": "group-9c1f2d084fcfc989",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch8-2026-10-26 / raw/core-auth-hutao-b8-promotion-4af15bf422ee.json",
+      "snapshotAccess": "retained_for_audit_not_publicly_served"
+    },
+    {
+      "id": "CORE-AUTH-1YUNTI-B9-SHOP",
+      "sourceType": "authenticated_rendered_dom",
+      "label": "登录后页面的业务区域原文；需登录复核，未执行支付或服务测试",
+      "url": "https://1yunti.com/shop",
+      "originalRequestUrl": "https://1yunti.com/shop",
+      "publicReplayUrl": "https://1yunti.com/shop",
+      "collectionStatus": "response_observed",
+      "httpStatus": null,
+      "observedAt": "2026-10-26T16:10:52.717Z",
+      "lastAttemptAt": "2026-10-26T16:10:52.717Z",
+      "originalCreatedAt": null,
+      "editedAt": null,
+      "sha256": "b27c4a3b17f6cf5206430de3c8545b2d294e8a4abd2179437b69a56f9ba490b5",
+      "containerSha256": null,
+      "independenceScore": "I1",
+      "independenceVerified": false,
+      "dependencyGroup": "group-14c185eeb6178190",
+      "evidenceGrade": "E1",
+      "snapshotLocator": "core-auth-batch9-2026-10-26 / raw/core-auth-1yunti-b9-shop-b27c4a3b17f6.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
     }
   ]
