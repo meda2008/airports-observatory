@@ -27,6 +27,14 @@ function priceSummary(core) {
 }
 
 const measuredSamples = data => data?.measured?.status === 'scoped_measurements_available' ? values(data.measured.observations) : [];
+const advertisedSpeedText = claim => firstText(claim?.summary, finite(claim?.advertisedSpeedMbps) ? '标称带宽 ' + claim.advertisedSpeedMbps + ' Mbps' : '');
+const reportedMetrics = report => values(report?.metrics).map(metric => [text(metric?.label), text(metric?.valueText)].filter(Boolean).join(' ')).filter(Boolean);
+
+function speedMaterialsSummary(data) {
+  const advertised = values(data.advertised).map(advertisedSpeedText).filter(Boolean);
+  const reports = values(data.externalReports).map(report => [(text(report.publisher) || '发布者未说明') + '（测试日期：' + (day(report.testedAt) || '未知') + (day(report.publishedAt) ? '；发布日期：' + day(report.publishedAt) : '') + '）', ...reportedMetrics(report)].filter(Boolean).join('；')).filter(Boolean);
+  return (advertised.length ? '站方宣传（非本站实测）：' + advertised.join('；') + '。' : '') + (reports.length ? '原始评测报告（未经本站独立复核）：' + reports.join('；') + '。报告反映其自身日期和条件，不保证当前速度。' : '');
+}
 
 function measurementMetrics(sample, kind) {
   const metrics = [];
@@ -57,8 +65,7 @@ function performanceSummary(core, kind) {
     }
   }
   if (kind === 'speed') {
-    const advertised = values(data.advertised);
-    return { value: '实际速度未知', note: advertised.length ? '有站方带宽说明，尚无可比较的实测结果。' : '尚无可比较的实测结果。' };
+    return { value: '实际速度未知', note: speedMaterialsSummary(data) + '尚无可比较的本站独立实测，实际用户速度未知。' };
   }
   return { value: '稳定性未实测', note: '近月问题线索另列；公开页面在线不能代表线路稳定。' };
 }
@@ -93,12 +100,12 @@ function policySummary(core) {
 function deviceSummary(core) {
   const compatibility = core.compatibility || core.networkAndDevices || {};
   const summary = firstText(compatibility.summary, compatibility.label);
-  if (summary) return { value: summary, note: firstText(compatibility.limitation, '适用性以你的网络、设备和客户端条件为准。') };
+  const requirements = values(compatibility.requirements).map(clean).filter(Boolean);
   const deviceLimits = unique(values(core.pricing?.plans).flatMap(plan => [known(plan.maxDevices) ? '设备数 ' + text(plan.maxDevices) : '', text(plan.deviceLimit)]).filter(Boolean));
   const observations = [...measuredSamples(core.speed), ...measuredSamples(core.stability)];
   const measuredNetworks = unique(observations.map(sample => [sample.region, sample.network].map(text).filter(Boolean).join(' / ')));
   const networkNote = measuredNetworks.length ? '有实测的网络条件：' + measuredNetworks.join('；') + '，不外推至其他网络。' : '你所在网络的可用性未知。';
-  return { value: deviceLimits.length ? '设备限制以套餐为准' : '设备支持范围未知', note: (deviceLimits.length ? '公开设备限制：' + deviceLimits.join(' / ') + '。' : '') + networkNote };
+  return { value: summary || (deviceLimits.length ? '设备限制以套餐为准' : '设备支持范围未知'), note: (deviceLimits.length ? '套餐设备限制：' + deviceLimits.join(' / ') + '。' : '') + (requirements.length ? '使用条件：' + requirements.join('；') + '。' : '') + (text(compatibility.limitation) ? text(compatibility.limitation) + '。' : '') + (summary || requirements.length ? '站方兼容性说明尚未独立实测。' : '') + networkNote };
 }
 
 function issueSummary(core) {
@@ -124,12 +131,12 @@ function fieldDefinitions(core) {
   const speed = performanceSummary(core, 'speed'), stability = performanceSummary(core, 'stability');
   return [
     { key: 'price', title: '价格', ...priceSummary(core), sourceIds: [...sourceIdsFrom(core.pricing), ...sourceIdsFrom(core.promotions)] },
-    { key: 'speed', title: '速度', ...speed, sourceIds: [...sourceIdsFrom(core.speed?.measured), ...sourceIdsFrom(core.speed?.advertised)] },
+    { key: 'speed', title: '速度', ...speed, sourceIds: [...sourceIdsFrom(core.speed?.measured), ...sourceIdsFrom(core.speed?.advertised), ...sourceIdsFrom(core.speed?.externalReports)] },
     { key: 'stability', title: '稳定性', ...stability, sourceIds: values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds)) },
     { key: 'payment', title: '支付方式', ...paymentSummary(core), sourceIds: core.payment?.sourceIds },
     { key: 'history', title: '运营年限 · 是否老牌', ...historySummary(core), sourceIds: core.operatingHistory?.sourceIds },
     { key: 'policy', title: '退款与试用', ...policySummary(core), sourceIds: [...values(core.refund?.sourceIds), ...values(core.trial?.sourceIds)] },
-    { key: 'devices', title: '适用网络与设备', ...deviceSummary(core), sourceIds: [...values(core.compatibility?.sourceIds), ...values(core.pricing?.plans).flatMap(plan => values(plan.sourceIds)), ...values(core.speed?.measured?.observations).flatMap(sample => values(sample.sourceIds)), ...values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds))] },
+    { key: 'devices', title: '适用网络与设备', ...deviceSummary(core), sourceIds: [...sourceIdsFrom(core.compatibility || core.networkAndDevices), ...values(core.pricing?.plans).flatMap(plan => values(plan.sourceIds)), ...values(core.speed?.measured?.observations).flatMap(sample => values(sample.sourceIds)), ...values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds))] },
     { key: 'issues', title: '近一个月的问题', ...issueSummary(core), sourceIds: [...values(core.stability?.recentIssues), ...values(core.stability?.recoveryClues)].flatMap(event => values(event.sourceIds)) },
     { key: 'privacy', title: '隐私与日志', ...privacySummary(core), sourceIds: sourceIdsFrom(core.privacy) }
   ];
@@ -228,6 +235,45 @@ function measurementDetails(core, kind, ui) {
   return details;
 }
 
+function speedMaterialDetails(core, ui) {
+  const data = core.speed || {}, advertised = values(data.advertised), reports = values(data.externalReports);
+  if (!advertised.length && !reports.length) return null;
+  const details = ui.el('details', 'core-item-details'); details.append(ui.el('summary', '', '官网宣传与原始评测条件'));
+  const time = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? value : value && ui.date ? ui.date(value, true) : day(value) || '未说明';
+  for (const claim of advertised) {
+    const summary = advertisedSpeedText(claim); if (!summary) continue;
+    const box = ui.el('div', 'core-term');
+    box.append(ui.el('h4', '', '站方宣传 · 非本站实测'), ui.paragraph(summary));
+    if (claim.plan) box.append(ui.paragraph('涉及套餐：' + text(claim.plan)));
+    box.append(ui.paragraph('宣传采集时间：' + time(claim.observedAt)), ui.paragraph('站方宣传不作为实际吞吐、稳定性或适用于你所在网络的保证。'));
+    details.append(box);
+  }
+  for (const report of reports) {
+    const box = ui.el('div', 'core-term core-external-report');
+    box.append(ui.el('h4', '', '原始评测：' + (text(report.publisher) || '发布者未说明')));
+    if (report.summary) box.append(ui.paragraph(text(report.summary)));
+    const metrics = reportedMetrics(report); for (const metric of metrics) box.append(ui.paragraph(metric));
+    if (!metrics.length) box.append(ui.paragraph('报告中未提取到可展示的具体数值。'));
+    box.append(ui.paragraph('报告测试时间：' + time(report.testedAt)), ui.paragraph('报告发布时间：' + time(report.publishedAt)), ui.paragraph('本站采集时间：' + time(report.observedAt)),
+      ui.paragraph('地区：' + (text(report.region) || '未说明') + '；网络：' + (text(report.network) || '未说明')),
+      ui.paragraph('测量时段：' + (text(report.timeWindow) || '未说明')),
+      ui.paragraph('报告节点数：' + (Number.isSafeInteger(report.nodeCount) ? report.nodeCount : '未说明') + '；节点数不等于测量样本数。'),
+      ui.paragraph('测量样本数：' + (Number.isSafeInteger(report.sampleCount) ? report.sampleCount : '未说明')),
+      ui.paragraph('报告方法：' + (text(report.methodology) || '未说明')),
+      ui.paragraph('商业关系：' + (report.affiliateBinding === true ? '报告存在返佣或推广关联' : report.affiliateBinding === false ? '报告声明无关联，尚未独立核实' : text(report.affiliateBinding) || '未确认')));
+    for (const limitation of values(report.limitations).map(text).filter(Boolean)) box.append(ui.paragraph('报告限制：' + limitation));
+    box.append(ui.paragraph('这是第三方报告，未经本站独立复核。报告反映其自身日期和条件，不保证当前或其他用户的实际速度。'));
+    details.append(box);
+  }
+  return details;
+}
+
+function identityWarning(record) {
+  const website = record.coreInfo?.website || {};
+  if (!record.identityConflict && !/conflict/.test(website.status || '')) return '';
+  return '品牌名与归属待核。' + (website.status === 'brand_name_conflict' ? text(website.basis) : '') + '价格仅为候选入口的页面观察。' + (website.status === 'brand_name_conflict' ? '名称关系未确认，不能据此认定更名。' : '');
+}
+
 export function createCoreCard(record, ui) {
   const { el, link, paragraph } = ui;
   const core = record.coreInfo || {}, price = priceSummary(core), payment = paymentSummary(core), history = historySummary(core), issues = issueSummary(core), speed = performanceSummary(core, 'speed'), stability = performanceSummary(core, 'stability');
@@ -235,6 +281,7 @@ export function createCoreCard(record, ui) {
   const top = el('div', 'resource-top'); const name = el('div'); const h = el('h3');
   h.append(link('#/airport/' + record.id, record.name)); name.append(h); top.append(name, el('span', 'category-tag', categories[record.category] || '其他资料'));
   card.append(top);
+  const identity = identityWarning(record); if (identity) card.append(paragraph(identity, 'core-card-identity'));
   const priceRow = el('div', 'core-card-price'); priceRow.append(el('strong', '', price.value), paragraph(price.note)); card.append(priceRow);
   const facts = el('dl', 'core-card-facts');
   for (const [label, value] of [['速度', speed.value], ['稳定性', stability.value], ['支付', payment.cardValue], ['运营年限', history.value]]) { const row = el('div'); row.append(el('dt', '', label), el('dd', '', value)); facts.append(row); }
@@ -251,13 +298,14 @@ export function createCoreDetail(record, ui) {
   const asOf = firstText(core.asOf, core.lastChecked);
   heading.append(paragraph(asOf && ui.date ? '资料整理于 ' + ui.date(asOf) : '材料中的已知与未知')); section.append(heading);
   section.append(paragraph('本条资料最近核对：' + (core.lastChecked && ui.date ? ui.date(core.lastChecked, true) : '时间未知') + '。各项采集时间见来源；资料时点不等于今天再次验证。', 'core-detail-note'));
-  if (record.identityConflict || /conflict/.test(core.website?.status || '')) section.append(paragraph('品牌与候选网址的归属存在待核问题，请先核对身份。', 'core-identity-note'));
+  const identity = identityWarning(record); if (identity) section.append(paragraph(identity, 'core-identity-note'));
   const grid = el('div', 'core-facts');
   for (const field of fieldDefinitions(core)) {
     const item = el('article', 'core-fact core-fact-' + field.key); item.dataset.coreField = field.key;
     item.append(el('h3', '', field.title), el('p', 'core-value', field.value), paragraph(field.note, 'core-note'));
     const terms = field.key === 'price' ? pricingDetails(core, ui) : field.key === 'policy' ? policyDetails(core, ui) : ['speed', 'stability'].includes(field.key) ? measurementDetails(core, field.key, ui) : null;
     if (terms) item.append(terms);
+    const speedMaterials = field.key === 'speed' ? speedMaterialDetails(core, ui) : null; if (speedMaterials) item.append(speedMaterials);
     if (field.detailText) { const details = el('details', 'core-item-details'); details.append(el('summary', '', field.detailsLabel || '查看说明'), paragraph(field.detailText)); item.append(details); }
     const ref = sourceLinks(field.sourceIds, ui); if (ref) item.append(ref);
     grid.append(item);
