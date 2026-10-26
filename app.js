@@ -17,7 +17,19 @@ function shortDate(value) { return value && Number.isFinite(Date.parse(value)) ?
 function toast(message) { const n = $('toast'); n.textContent = message; n.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { n.hidden = true; }, 3600); }
 function download(name, payload, type = 'application/json;charset=utf-8') { const blob = new Blob([typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2)], { type }); const url = URL.createObjectURL(blob); const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
 async function copyLink(recordId) { const href = new URL(location.href); href.hash = '/airport/' + recordId; try { await navigator.clipboard.writeText(href.href); toast('记录链接已复制，可分享这条判断。'); } catch { toast('未能复制，请从地址栏复制这条记录的链接。'); } }
-async function getJson(path) { const response = await fetch(new URL(path, document.baseURI), { credentials: 'omit', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }); if (!response.ok) throw new Error('资料文件暂不可读取（HTTP ' + response.status + '）'); return response.json(); }
+const DATA_REVISION = 'c76e4a12d1f0f36ee31ed40d30424d19f3441b9c0609119053fcc46afa5a498d';
+async function getJson(path) {
+  const url = new URL(path, document.baseURI);
+  url.searchParams.set('snapshot', DATA_REVISION);
+  try {
+    const response = await fetch(url, { credentials: 'omit', cache: 'no-store', signal: AbortSignal.timeout(20000) });
+    if (!response.ok) throw new Error('资料文件暂不可读取（HTTP ' + response.status + '）');
+    return await response.json();
+  } catch (error) {
+    if (error.name === 'TimeoutError' || error.name === 'AbortError') throw new Error('资料请求超过20秒，请重新读取；尚未加载不代表该机场没有资料。');
+    throw error;
+  }
+}
 function correctionChannel() { try { const url = new URL(document.body.dataset.correctionsUrl || ''); if (url.protocol !== 'https:' || url.hostname !== 'github.com' || url.username || url.password || url.pathname !== '/meda2008/airports-observatory/issues/new' || url.searchParams.get('template') !== 'evidence-correction.yml' || [...url.searchParams.keys()].some(k => k !== 'template')) return null; return { newIssueUrl: url.href, listUrl: 'https://github.com/meda2008/airports-observatory/issues' }; } catch { return null; } }
 function correctionGuidance() { return correctionChannel() ? '可以在下方公开讨论中手动提出更正；需要GitHub登录，提交后公开。不要附订阅链接、账号或付款资料。' : '此站当前尚无在线收件渠道。'; }
 async function loadSources() { if (state.sources) return state.sources; if (!state.sourcePromise) state.sourcePromise = getJson('./data/public-sources.json').then(data => { state.sources = new Map((data.items || []).map(s => [s.id, s])); return state.sources; }).catch(error => { state.sourcePromise = null; throw error; }); return state.sourcePromise; }
