@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#102f35">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="机场观察整理可追溯的公开资料。付费前搜索具体名称，查看支撑、相反线索、材料时间与证据缺口；未知不填成安全承诺。">
+  <meta name="description" content="付费前查询机场与小众机场的公开价格、速度与稳定性、支付方式、运营历史、退款与试用及近月问题。每项标注来源与时间，未知明确保留。">
   <meta property="og:title" content="机场观察 · 付费之前，先看证据">
-  <meta property="og:description" content="搜索具体名称，查看可追溯的公开观察、相反线索与证据缺口。资料不足时，保留目前无法判断。">
+  <meta property="og:description" content="搜索具体名称，核对价格、体验、支付、历史与退款限制。公开条款保留出处，缺少实测时明确写明未知。">
   <meta property="og:type" content="website">
   <title>机场观察 · 付费之前，先看证据</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./current-evidence.css">
+  <link rel="stylesheet" href="./core-view.css">
   <script type="module" src="./app.js"></script>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <link rel="canonical" href="https://meda2008.github.io/airports-observatory/">
@@ -26,18 +27,16 @@
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">菜单 <span aria-hidden="true">☰</span></button>
       <nav id="primary-nav" aria-label="主要导航">
         <a href="#/explore" data-nav="explore">探索名录</a>
-        <a href="#/method" data-nav="method">如何判断</a>
-        <a href="#/ledger" data-nav="ledger">公开台账</a>
-        <a href="#/verify" data-nav="verify">版本核对</a>
+        <a href="#/method" data-nav="method">数据说明</a>
         <a href="#/corrections" data-nav="corrections">更正记录 <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
   <main id="main-content" tabindex="-1">
-    <div id="app" aria-live="polite"><section class="loading-panel"><span class="loading-dot" aria-hidden="true"></span><h1>正在读取公开资料快照</h1><p>资料、判断和最后观察时间将分别呈现。</p></section></div>
+    <div id="app" aria-live="polite"><section class="loading-panel"><span class="loading-dot" aria-hidden="true"></span><h1>正在读取公开资料快照</h1><p>正在整理核心信息、公开条款与核对时间。</p></section></div>
   </main>
   <footer class="site-footer">
-    <div class="footer-top"><a class="brand" href="#/explore"><span class="brand-symbol" aria-hidden="true">A<span></span></span><span>机场观察<small>让判断留下依据。</small></span></a><p>公开材料整理与证据调查。<br>没有足够依据时，保留“目前无法判断”。</p><div class="footer-links"><a href="#/method">证据与方法</a><a href="#/ledger">预测与结算</a><a href="#/corrections">提出更正</a></div></div>
+    <div class="footer-top"><a class="brand" href="#/explore"><span class="brand-symbol" aria-hidden="true">A<span></span></span><span>机场观察<small>付费前，先核对。</small></span></a><p>整理页面价格、条款与体验线索。<br>缺少依据时，明确保留未知。</p><div class="footer-links"><a href="#/method">数据说明</a><a href="#/verify">版本核对</a><a href="#/ledger">历史台账</a><a href="#/corrections">提出更正</a></div></div>
     <div class="footer-bottom"><span>名称候选不等于独立经营主体；材料更新不等于付费服务可用。</span><span id="footer-asof">快照时间读取中</span></div>
   </footer>
   <div id="toast" class="toast" role="status" hidden></div>

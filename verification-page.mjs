@@ -39,7 +39,7 @@ export function createVerificationPage(ui) {
   const shell = el('div', 'shell subpage');
   shell.append(bread('版本核对'), pageHeading('VERIFY / 可独立复算', '依据能下载，也应能核对。', '本页在你的浏览器内核对当前公开文件的字节与引用关系。核对成功只表示这批文件相互一致，不能证明商家可用、原文属实或历史时间经过公证。'));
   const panel = el('section', 'detail-section');
-  panel.append(el('h2', '', '核对这个公开版本'), paragraph('点击后会读取本站公开清单及其文件，约 5 MB；不读取你的订阅、账户、浏览历史或本地文件。'));
+  panel.append(el('h2', '', '核对这个公开版本'), paragraph('点击后会读取本站公开清单及其文件，共数 MB；不读取你的订阅、账户、浏览历史或本地文件。'));
   const field = el('div', 'field');
   const label = el('label', '', '此前独立保存的清单 SHA256（可选）');
   label.htmlFor = 'expected-manifest-hash';
