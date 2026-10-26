@@ -21,9 +21,10 @@ function formatPlan(plan = {}) {
 
 function priceSummary(core) {
   const plans = values(core.pricing?.plans);
-  if (!plans.length) return { value: '当前价格未知', note: '未取得可绑定该服务的当前套餐材料。', plans };
+  const limitation = text(core.pricing?.limitation);
+  if (!plans.length) return { value: '当前价格未知', note: limitation || '未取得可绑定该服务的当前套餐材料。', plans };
   const first = formatPlan(plans[0]);
-  return { value: first.price, note: (first.name ? first.name + '；' : '') + (first.soldOut ? '页面标为售罄。' : '') + (first.addon ? '附加服务，需核对前置条件。' : '') + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (plans[0].amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':'按原计费周期展示，实际结算总额未验证。'), plans };
+  return { value: first.price, note: (limitation ? limitation + ' ' : '') + (first.name ? first.name + '；' : '') + (first.soldOut ? '页面标为售罄。' : '') + (first.addon ? '附加服务，需核对前置条件。' : '') + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (plans[0].amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':'按原计费周期展示，实际结算总额未验证。'), plans };
 }
 
 const measuredSamples = data => data?.measured?.status === 'scoped_measurements_available' ? values(data.measured.observations) : [];
@@ -113,7 +114,11 @@ function issueSummary(core) {
   const window = [day(data.recentWindow?.start), day(data.recentWindow?.end)].filter(Boolean).join(' 至 ');
   const coverage = (window ? '窗口 ' + window + '。' : '') + (data.searchComplete === true ? '仅覆盖已声明的检索来源。' : '来源覆盖不完整。');
   const recoveryNote = recoveries.length ? '另有 ' + recoveries.length + ' 条恢复或部分可用线索。' : '';
-  if (events.length) return { value: '近月有 ' + events.length + ' 条问题线索', note: coverage + recoveryNote + (events.some(event => event.independentlyVerified !== true) ? '部分或全部陈述尚未独立核实。' : '') + '线索数不等于独立投诉人数或投诉率。' };
+  if (events.length) {
+    const first = events[0], summary = text(first.summary);
+    const material = summary ? '首条材料（材料日期：' + (day(first.createdAt) || '未知') + '）：' + summary + '。' : '';
+    return { value: '近月有 ' + events.length + ' 条问题线索', note: material + coverage + recoveryNote + (events.some(event => event.independentlyVerified !== true) ? '部分或全部陈述尚未独立核实。' : '') + '线索数不等于独立投诉人数或投诉率。' };
+  }
   return { value: '近月问题情况未知', note: coverage + recoveryNote + '本批未匹配到问题陈述，不能解释为零投诉。' };
 }
 
