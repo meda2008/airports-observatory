@@ -172,6 +172,27 @@ export async function verifyFiles(files, { expectedManifestSha256, allowReposito
       'SUMMARY_COUNT_MISMATCH', '公开统计与实际条目数量不符。');
     checkReferences(catalog, sourceRows);
     checkReferences(ledger, sourceRows);
+    if(catalog.currentResearch){
+      requireValue(catalog.currentResearch.summary?.recordsAttempted===records.size,'REFRESH_COVERAGE','本轮采集覆盖与名录不符。');
+      let withPlans=0;
+      for(const record of records.values()){
+        const current=record.currentEvidence;
+        requireValue(current?.recordId===record.id&&validTime(current.checkedAt),'REFRESH_COVERAGE','本轮检查时间或记录编号缺失。');
+        requireValue(current.offers?.checkoutVerified===false&&current.payment?.transactionVerified===false,'UNSUPPORTED_CHECKOUT_VERIFICATION','没有实际结算或交易验证，不得标为已验证。');
+        requireValue(Array.isArray(current.offers.plans),'REFRESH_PLANS','套餐或明确空数组必须保留。');
+        if(current.offers.plans.length)withPlans++;
+        for(const plan of current.offers.plans)requireValue(typeof plan.amount==='number'&&Number.isFinite(plan.amount)&&plan.amount>=0&&
+          typeof plan.billingPeriod==='string'&&plan.billingPeriod&&plan.sourceIds?.length&&plan.priceStatus==='advertised_not_checkout_verified'&&plan.checkoutVerified===false&&
+          (plan.currency||(plan.currency===null&&plan.currencySymbol&&plan.currencyStatus==='not_confirmed')),
+          'UNSUPPORTED_CURRENT_PRICE','标价缺少周期、币种证据或来源，或冒充已验证结算价。');
+        const discussion=current.community;
+        requireValue(discussion?.claimsIndependentlyVerified===false&&discussion.zeroMatchesMeansZeroComplaints===false&&discussion.complaintRate===null&&
+          validTime(discussion.windowStart)&&validTime(discussion.windowEnd),'UNSUPPORTED_COMPLAINT_CERTAINTY','有限扫描或未核实留言不能升级为已确认投诉率。');
+        for(const event of discussion.events||[])requireValue(validTime(event.createdAt)&&Date.parse(event.createdAt)>=Date.parse(discussion.windowStart)&&Date.parse(event.createdAt)<=Date.parse(discussion.windowEnd),
+          'COMMUNITY_WINDOW','近期活动必须使用窗口内原始发表时间。');
+      }
+      requireValue(withPlans===catalog.currentResearch.summary.recordsWithPublicPlans,'REFRESH_SUMMARY','当前套餐覆盖统计与实际记录不符。');
+    }
     requireValue(ledgerRows.size === allRecords.size, 'LEDGER_COVERAGE', '当前v1投影须为每个名录或候选保留一条台账。');
     const mappedRecords = new Set();
     for (const entry of ledgerRows.values()) {

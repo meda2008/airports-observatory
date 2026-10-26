@@ -2,3 +2,5 @@
 .hero-links{align-items:center}.hero-links .primary-button{border:1px solid var(--green);padding:0 20px;color:white;font-size:12px}
 
 .verification-output{margin-top:22px;overflow-wrap:anywhere}.verification-output h3{font-size:17px}.verification-error{color:var(--red)!important}.detail-section>.field{margin:18px 0}.detail-section>.field input{max-width:680px;font-family:ui-monospace,Consolas,monospace}.detail-section li .text-link{line-height:2.4}.header-inner #primary-nav{gap:25px}@media(max-width:760px){.header-inner #primary-nav{gap:0}}
+
+.card-evidence{flex-wrap:wrap}.card-evidence>p{flex-basis:100%;font-size:9px;margin:6px 0 0}
