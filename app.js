@@ -39,7 +39,7 @@ function setPageTitle(title) { document.title = title ? title + ' · 机场观�
 function createHero() {
   const shell=el('section','hero');const copy=el('div');copy.append(eyebrow('机场观察 / 付费前核对'));
   const h=el('h1');h.append(document.createTextNode('价格、体验，'),el('br'),el('em','','先弄清再付费。'));
-  copy.append(h,paragraph('查询套餐总价、速度与稳定性、支付方式、运营历史和退款限制。已知与未知分别写清，重要条款保留出处。','hero-copy'));
+  copy.append(h,paragraph('查询套餐总价、速度与稳定性、支付方式、运营历史、退款限制和日志政策。已知与未知分别写清，重要条款保留出处。','hero-copy'));
   const links=el('div','hero-links');links.append(link('#/explore?focus=catalog','查询机场 ↓','primary-button'),link('#/method','数据怎么核对 ↗'));copy.append(links);
   const card=el('aside','observation-card');card.append(el('h2','','付费前，先看核心信息。'));
   const primary=state.catalog.items.filter(r=>r.listing?.primary??['airport','niche'].includes(r.category));
@@ -94,27 +94,30 @@ async function createDetail(id){
  shell.append(createCoreDetail(record,{el,paragraph,section,link,date,button}));
  const actions=el('div','core-actions');actions.append(button('复制这条记录链接','secondary-button',()=>copyLink(id)),link('#/corrections?record='+id,'补充或更正信息','secondary-button'),button('下载记录','secondary-button',()=>download('airports-'+id+'.json',record)));shell.append(actions);
  const drawer=el('details','evidence-drawer');drawer.append(el('summary','','展开套餐条款、来源与留存依据'));
- drawer.append(createCurrentEvidenceSections(record,{el,paragraph,section,link,date}));
+ const earlier=el('details','disclosure');earlier.append(el('summary','','较早的匿名公开采集（保留原时点）'));
+ if(record.coreInfo?.website?.relationship==='saved_account_login_succeeded_brand_displayed')earlier.append(paragraph('上方核心信息已合并较新的登录后或条款材料。这里保留匿名请求当时的结果，旧缺失状态不覆盖后来的观察。','quiet-note'));
+ earlier.append(createCurrentEvidenceSections(record,{el,paragraph,section,link,date}));drawer.append(earlier);
  const result=await loadSources().then(value=>({value}),error=>({error}));drawer.append(sourcesSection(record,result.value||new Map(),result.error?.message));
  const technical=el('details','disclosure');technical.append(el('summary','','域名技术记录与首日材料'));technical.append(domainSection(record),communitySection(record));drawer.append(technical);shell.append(drawer);setPageTitle(record.name);return shell;
 }
 function methodPage() {
   const shell = el('div', 'shell subpage');
-  shell.append(bread('数据说明'), pageHeading('DATA / 数据说明', '这些信息，能帮你确认什么。', '名录先回答付费前常见的八个问题。每项保留来源与时间，资料不够时写明未知，方便你继续核对。'));
+  shell.append(bread('数据说明'), pageHeading('DATA / 数据说明', '这些信息，能帮你确认什么。', '名录先回答付费前常见的九个问题。每项保留来源与时间，资料不够时写明未知，方便你继续核对。'));
   const measuredCount = state.catalog.items.filter(record => ['speed', 'stability'].some(key => record.coreInfo?.[key]?.measured?.status === 'scoped_measurements_available' && record.coreInfo[key].measured.observations?.length)).length;
   const grid = el('div', 'method-grid');
   const topics = [
-    ['01', '公开标价与实际结算', '价格按页面原计费周期和总额展示，不把半年、年付或整期配额直接改写成月付。币种、附加费、售罄和依赖套餐分别标注；没有下单验证，就不能当作最终扣款金额。'],
+    ['01', '标价、起价与实际结算', '周期总额、起价和待询价分别记录，不把半年、年付或整期配额直接改写成月付。币种、附加费、售罄和依赖套餐分别标注；没有下单验证，就不能当作最终扣款金额。'],
     ['02', '宣传带宽与实际测量', measuredCount === 0 ? '当前快照没有合格的实际速度或稳定性测量。站方宣传带宽、官网能打开、评论中的体验都不替代实测，因此相关体验保留未知。' : '当前快照有 ' + measuredCount + ' 条记录包含限定条件的测量。测量只适用于所列时间、地区、网络、套餐、方法和样本，不代表其他用户的体验。'],
-    ['03', '成立时间与历史材料', '最早留存页面、站方自述、域名注册和成立时间是不同信息。早期材料只证明当时有过相关记载；没有连续经营材料，不能据此称作一直营业或老牌。'],
+    ['03', '成立时间与历史材料', '最早留存页面、站方自述、域名注册和成立时间是不同信息。带日期的当前副本仍需核对编辑和历史归档，不能直接证明当时正文相同；没有连续经营材料，不能据此称作一直营业或老牌。'],
     ['04', '近月问题与投诉来源', '问题和恢复线索一起展示，并保留发生或发表时间。检索覆盖有限，同一陈述可能被转述；线索数不等于独立投诉人数或投诉率，没有匹配到也不等于零投诉。'],
-    ['05', '优惠、支付与退款', '支付图标、帮助页提及和公开文字说明分别标注。优惠需核对适用套餐、条件、到期与邀请关联，不能自动从标价中扣减；退款和试用条款也不证明实际可以执行。'],
-    ['06', '核对时间与当前状态', '每条资料显示最近核对时间，各来源另有采集时间。网站版本生成时间只代表整理发布；历史材料、近月窗口与今天的状态不能混用，时间未知时明确标出。']
+    ['05', '优惠、支付与退款', '支付图标、帮助页提及、公开文字及登录后支付选项分别标注。优惠需核对适用套餐、条件、到期与邀请关联，不能自动从标价中扣减；退款和试用条款也不证明实际可以执行。'],
+    ['06', '核对时间与当前状态', '每条资料显示最近核对时间，各来源另有采集时间。网站版本生成时间只代表整理发布；历史材料、近月窗口与今天的状态不能混用，时间未知时明确标出。'],
+    ['07', '隐私政策与实际日志', '记录站方说明会收集哪些连接或访问元数据、保留多久，以及是否有独立审计依据。站方声称无日志也不能当作审计结论；没有说明的项目保持未知。']
   ];
   for (const [number, title, copy] of topics) { const box = el('div', 'method-box'); box.append(el('b', '', number), el('h3', '', title), paragraph(copy)); grid.append(box); }
   shell.append(grid);
   const prose = el('div', 'prose');
-  prose.append(el('h2', '', '如何使用这份名录'), paragraph('先按名称或域名找到记录，再核对价格、速度、稳定性、支付方式、运营年限、退款与试用、适用网络与设备、近一个月的问题。每项的“查看依据”可以展开来源；详细套餐、采集时间与留存材料也可以继续展开。'), paragraph('默认展示机场与小众机场，其他类型资料保留在范围筛选中，也可直接访问记录链接。名称相似、候选网址或旧名录收录，不等于已核实同一经营主体。'), el('h2', '', '发现资料有误时'), paragraph('更正材料请注明记录编号、具体字段、原始 URL、材料时间和变化事实。区分亲历、原文陈述和推断；不要提供账号、订阅链接或付款资料。下载模板只在本地生成文件，不会自动发送。' + correctionGuidance()), link('#/corrections', '准备更正材料 ↗', 'text-link'));
+  prose.append(el('h2', '', '如何使用这份名录'), paragraph('先按名称或域名找到记录，再核对价格、速度、稳定性、支付方式、运营年限、退款与试用、适用网络与设备、近一个月的问题、隐私与日志。每项的“查看依据”可以展开来源；详细套餐、采集时间与留存材料也可以继续展开。'), paragraph('默认展示机场与小众机场，其他类型资料保留在范围筛选中，也可直接访问记录链接。名称相似、候选网址或旧名录收录，不等于已核实同一经营主体。'), el('h2', '', '发现资料有误时'), paragraph('更正材料请注明记录编号、具体字段、原始 URL、材料时间和变化事实。区分亲历、原文陈述和推断；不要提供账号、订阅链接或付款资料。下载模板只在本地生成文件，不会自动发送。' + correctionGuidance()), link('#/corrections', '准备更正材料 ↗', 'text-link'));
   shell.append(prose);
   const appendix = el('details', 'evidence-drawer method-appendix');
   appendix.append(el('summary', '', '附录：证据规则、版本与历史台账'), paragraph('原始来源区保留 URL、观察时间与可用的留存定位。单项原始观察、独立复核和重复测量是不同证据；多次抓取或转述同一材料，不会增加信源独立性。'), paragraph('域名与证书技术记录保留在详情的折叠区。它们只描述技术事件，不能用来推算营业年限、付费线路质量或未来可用概率。'), paragraph('历史预测台账和结算检查继续公开可达；当前资料没有可评分的数值预测，也没有用未知结果冒充准确率。'), link('#/ledger', '查看历史预测与结算台账 ↗', 'text-link'), document.createTextNode(' '), link('#/verify', '核对资料版本 ↗', 'text-link'));

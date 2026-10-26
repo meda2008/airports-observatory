@@ -68,7 +68,8 @@ function paymentSummary(core) {
   const methods = values(data.methods).map(clean).filter(Boolean);
   const value = methods.length ? methods.join('、') : '支付方式未知';
   const qualifier = { image_only: '仅图标', help_reference: '帮助页提及', public_text: '站方说明', authenticated_checkout: '收银台说明' }[data.evidenceLevel];
-  return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') };
+  const sourcedReason = unique(data.sourceIds).length ? text(data.reason) : '';
+  return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason };
 }
 
 function historySummary(core) {
@@ -109,6 +110,16 @@ function issueSummary(core) {
   return { value: '近月问题情况未知', note: coverage + recoveryNote + '本批未匹配到问题陈述，不能解释为零投诉。' };
 }
 
+function privacySummary(core) {
+  const data = core.privacy || {}, summary = firstText(data.summary, data.label);
+  const logged = values(data.loggedData).map(clean).filter(Boolean);
+  const value = summary || (logged.length ? '站方声明记录使用信息' : '隐私与日志未确认');
+  const details = logged.length ? '声明记录：' + logged.join('、') + '。' : '';
+  const retention = '保存期限：' + (text(data.retentionPeriod) || '未确认') + '。';
+  const observed = day(data.observedAt) ? '说明采集于 ' + day(data.observedAt) + '。' : '';
+  return { value, note: details + retention + observed + '独立审计未确认，站方声明不构成无日志保证。' + (!summary && !logged.length ? '未取得可绑定该服务的说明，未知不等于无日志。' : '') };
+}
+
 function fieldDefinitions(core) {
   const speed = performanceSummary(core, 'speed'), stability = performanceSummary(core, 'stability');
   return [
@@ -119,7 +130,8 @@ function fieldDefinitions(core) {
     { key: 'history', title: '运营年限 · 是否老牌', ...historySummary(core), sourceIds: core.operatingHistory?.sourceIds },
     { key: 'policy', title: '退款与试用', ...policySummary(core), sourceIds: [...values(core.refund?.sourceIds), ...values(core.trial?.sourceIds)] },
     { key: 'devices', title: '适用网络与设备', ...deviceSummary(core), sourceIds: [...values(core.compatibility?.sourceIds), ...values(core.pricing?.plans).flatMap(plan => values(plan.sourceIds)), ...values(core.speed?.measured?.observations).flatMap(sample => values(sample.sourceIds)), ...values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds))] },
-    { key: 'issues', title: '近一个月的问题', ...issueSummary(core), sourceIds: [...values(core.stability?.recentIssues), ...values(core.stability?.recoveryClues)].flatMap(event => values(event.sourceIds)) }
+    { key: 'issues', title: '近一个月的问题', ...issueSummary(core), sourceIds: [...values(core.stability?.recentIssues), ...values(core.stability?.recoveryClues)].flatMap(event => values(event.sourceIds)) },
+    { key: 'privacy', title: '隐私与日志', ...privacySummary(core), sourceIds: sourceIdsFrom(core.privacy) }
   ];
 }
 
@@ -235,7 +247,7 @@ export function createCoreDetail(record, ui) {
   const { el, paragraph } = ui;
   const core = record.coreInfo || {};
   const section = el('section', 'core-detail'); section.setAttribute('aria-label', '付费前核心信息');
-  const heading = el('div', 'core-detail-heading'); heading.append(el('h2', '', '付费前，先核对这八项'));
+  const heading = el('div', 'core-detail-heading'); heading.append(el('h2', '', '付费前，先核对这九项'));
   const asOf = firstText(core.asOf, core.lastChecked);
   heading.append(paragraph(asOf && ui.date ? '资料整理于 ' + ui.date(asOf) : '材料中的已知与未知')); section.append(heading);
   section.append(paragraph('本条资料最近核对：' + (core.lastChecked && ui.date ? ui.date(core.lastChecked, true) : '时间未知') + '。各项采集时间见来源；资料时点不等于今天再次验证。', 'core-detail-note'));
