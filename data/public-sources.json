@@ -1,9 +1,9 @@
 {
   "schemaVersion": "airports-public-sources.v1",
   "projectionVersion": "1.5.1",
-  "publishedAt": "2026-10-27T11:54:58.466Z",
+  "publishedAt": "2026-10-27T12:00:01.078Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-  "sourceCount": 2262,
+  "sourceCount": 2263,
   "independenceNotice": "I0为依赖同一上游或索引通道；I1为独立性待核。没有因网址数量而升级为两个独立信源。",
   "archiveNotice": "这里只发布元数据、来源链接与留存档案定位。完整网页和原始档案不作为公开下载内容。",
   "urlPolicyNotice": "公开链接保留必要的安全查询与定位，完整原始请求以留存材料为准。",
@@ -49771,6 +49771,28 @@
       "dependencyGroup": "group-f611d03a81ed0bb2",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch67-2026-10-26 / raw/core-public-milkcat-b67-forest-policy-c74fa0df11f8.json",
+      "snapshotAccess": "retained_for_audit_not_publicly_served"
+    },
+    {
+      "id": "CORE-PUBLIC-BYWAVE-B68-TERMS",
+      "sourceType": "public_rendered_dom",
+      "label": "公开页面渲染后的业务区域原文；宣传和实测分别核对",
+      "url": "https://u.bws.lol/terms",
+      "originalRequestUrl": "https://u.bws.lol/terms",
+      "publicReplayUrl": "https://u.bws.lol/terms",
+      "collectionStatus": "response_observed",
+      "httpStatus": null,
+      "observedAt": "2026-10-27T11:59:20.478Z",
+      "lastAttemptAt": "2026-10-27T11:59:20.478Z",
+      "originalCreatedAt": null,
+      "editedAt": null,
+      "sha256": "9043c819d83a37943f5a196884f1778180524bfd69e29ae41647435a92a67ceb",
+      "containerSha256": null,
+      "independenceScore": "I0",
+      "independenceVerified": false,
+      "dependencyGroup": "group-c48c7a15565ce10e",
+      "evidenceGrade": "E1",
+      "snapshotLocator": "core-auth-batch68-2026-10-26 / raw/core-public-bywave-b68-terms-9043c819d83a.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
     }
   ]
