@@ -1,6 +1,6 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=53dd6e160c45d35ea1914696bdcb0a3e8a829a7ed37c106cf1e0e74389725958';
-import { createVerificationPage } from './verification-page.mjs?v=53dd6e160c45d35ea1914696bdcb0a3e8a829a7ed37c106cf1e0e74389725958';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=53dd6e160c45d35ea1914696bdcb0a3e8a829a7ed37c106cf1e0e74389725958';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=692eb0db837c9f071f1b9b8eb327b58a309adac17d3d0c7d51bd73f0e265411a';
+import { createVerificationPage } from './verification-page.mjs?v=692eb0db837c9f071f1b9b8eb327b58a309adac17d3d0c7d51bd73f0e265411a';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=692eb0db837c9f071f1b9b8eb327b58a309adac17d3d0c7d51bd73f0e265411a';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };

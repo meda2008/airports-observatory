@@ -32,7 +32,7 @@ const advertisedSpeedText = claim => firstText(claim?.summary, finite(claim?.adv
 const reportedMetrics = report => values(report?.metrics).map(metric => [text(metric?.label), text(metric?.valueText)].filter(Boolean).join(' ')).filter(Boolean);
 
 function speedMaterialsSummary(data) {
-  const advertised = values(data.advertised).map(advertisedSpeedText).filter(Boolean);
+  const advertised = [...new Set(values(data.advertised).map(advertisedSpeedText).filter(Boolean))];
   const reports = values(data.externalReports).map(report => [(text(report.publisher) || '发布者未说明') + '（测试日期：' + (day(report.testedAt) || '未知') + (day(report.publishedAt) ? '；发布日期：' + day(report.publishedAt) : '') + '）', ...(text(report.summary) ? [text(report.summary)] : reportedMetrics(report))].filter(Boolean).join('；')).filter(Boolean);
   return (advertised.length ? '站方宣传（非本站实测）：' + advertised.join('；') + '。' : '') + (reports.length ? '原始评测报告（未经本站独立复核）：' + reports.join('；') + '。报告反映其自身日期和条件，不保证当前速度。' : '');
 }
