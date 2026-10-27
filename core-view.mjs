@@ -114,7 +114,8 @@ function issueSummary(core) {
   const data = core.stability || {}, events = values(data.recentIssues), recoveries = values(data.recoveryClues);
   const window = [day(data.recentWindow?.start), day(data.recentWindow?.end)].filter(Boolean).join(' 至 ');
   const coverage = (window ? '窗口 ' + window + '。' : '') + (data.searchComplete === true ? '仅覆盖已声明的检索来源。' : '来源覆盖不完整。');
-  const recoveryNote = recoveries.length ? '另有 ' + recoveries.length + ' 条恢复或部分可用线索。' : '';
+  const latestRecovery = recoveries[0];
+  const recoveryNote = latestRecovery ? '另有 ' + recoveries.length + ' 条恢复或部分可用线索。最新恢复材料（材料日期：' + (day(latestRecovery.createdAt) || '未知') + '）：' + (text(latestRecovery.summary) || '具体陈述未提供') + '。恢复范围与当前状态尚未独立核实。' : '';
   if (events.length) {
     const first = events[0], summary = text(first.summary);
     const material = summary ? '最新材料（材料日期：' + (day(first.createdAt) || '未知') + '）：' + summary + '。' : '';

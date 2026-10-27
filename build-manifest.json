@@ -1,6 +1,6 @@
 {
   "schemaVersion": "airports-public-build.v1",
-  "builtAt": "2026-10-27T16:19:10.155Z",
+  "builtAt": "2026-10-27T16:28:38.736Z",
   "origin": "https://meda2008.github.io/airports-observatory",
   "hostingConfigured": false,
   "files": [
@@ -17,7 +17,7 @@
     {
       "path": "app.js",
       "bytes": 36917,
-      "sha256": "79b14a2c0ab537e38cfd38e0e73e7ba265a7ccc445dff657c71a800fc6e52939"
+      "sha256": "bdf5aff9f65c05370e5377e3059a29d491b3a2c4b3978b2e3617f61704e91973"
     },
     {
       "path": "core-view.css",
@@ -26,8 +26,8 @@
     },
     {
       "path": "core-view.mjs",
-      "bytes": 28120,
-      "sha256": "0dc71f825382e3928d0821bcc0ad1cc48afc4cdf7fc74f9f5c6af08ac852bd7d"
+      "bytes": 28366,
+      "sha256": "6f78c33c0d12692f6c5c2d5b1d784baed7a2045ab70d1e89f3c207e88cb14062"
     },
     {
       "path": "current-evidence-view.mjs",
@@ -46,28 +46,28 @@
     },
     {
       "path": "data/public-catalog.json",
-      "bytes": 4523435,
-      "sha256": "1ec982fb2489d29c3f0dedbc35d0d02d4dc75f862a73af2f411feadafc76185a"
+      "bytes": 4524538,
+      "sha256": "a0f3df87556dd01891768919987c1ad6808fb327bbc02dc44e370cf9d09cef62"
     },
     {
       "path": "data/public-ledger.json",
       "bytes": 148634,
-      "sha256": "52daef6ee1531411e45927b78448886ead1a4a5a64b9ca75ad74dfbbb2e4f784"
+      "sha256": "aaaedd8c7dad25a64603d4ab12efa3ad7e5131ab639d78acf3f6d450ff6e34d4"
     },
     {
       "path": "data/public-settlement.json",
       "bytes": 97576,
-      "sha256": "b466a677b7568214b9feb2c2fc38a00e367b35fd70997f98314e8f136e5aea3e"
+      "sha256": "95eb4df1d2221c02d5f2f90f96cfd37a46344d1527fef3acb5d5f33a7c8ccd30"
     },
     {
       "path": "data/public-sources.json",
-      "bytes": 1980616,
-      "sha256": "599bcabcbbe0d8330e21fdc7aa8e63ef91d0f7224e78991bc5f9022c0e093259"
+      "bytes": 1982632,
+      "sha256": "1562ec93941f4c555a6d1ab08429d255adcb6dc04b2332d141a98a17938e4731"
     },
     {
       "path": "data/publication-manifest.json",
       "bytes": 2130,
-      "sha256": "e6e6151f3f13a73c040f3d4a1de50629c6f716e89767c69c6a2480474c6bd499"
+      "sha256": "b944676ba91a7b1408c144984eb73edd338d1812130d60fc9ef4487dcb019958"
     },
     {
       "path": "favicon.svg",
@@ -128,9 +128,9 @@
   "sourcePublication": {
     "schemaVersion": "airports-publication-manifest.v1",
     "projectionVersion": "1.5.1",
-    "publishedAt": "2026-10-27T16:19:09.666Z",
+    "publishedAt": "2026-10-27T16:28:38.207Z",
     "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-    "inputFingerprint": "eade3c53e04359279840b8d68af626f306f561966212bf2a125c051693a2db7a",
+    "inputFingerprint": "2669b3b84a3b4630660b487097bb262601e6debc3733798aa091dbea9d3ba046",
     "inputs": [
       {
         "artifact": "catalog",
@@ -150,23 +150,23 @@
       },
       {
         "artifact": "coreSupplement",
-        "sha256": "295d024cd02c6d66669c97b4b7f9c5c6d4af3731d5b4e01cb7667ea1b75a476a"
+        "sha256": "e6042b49ba1658db94ef7d36c03705bc94a8a804444ae87394afea7aa54e4e09"
       }
     ],
     "outputs": [
       {
         "file": "public-catalog.json",
-        "sha256": "1ec982fb2489d29c3f0dedbc35d0d02d4dc75f862a73af2f411feadafc76185a",
-        "bytes": 4523435
+        "sha256": "a0f3df87556dd01891768919987c1ad6808fb327bbc02dc44e370cf9d09cef62",
+        "bytes": 4524538
       },
       {
         "file": "public-sources.json",
-        "sha256": "599bcabcbbe0d8330e21fdc7aa8e63ef91d0f7224e78991bc5f9022c0e093259",
-        "bytes": 1980616
+        "sha256": "1562ec93941f4c555a6d1ab08429d255adcb6dc04b2332d141a98a17938e4731",
+        "bytes": 1982632
       },
       {
         "file": "public-ledger.json",
-        "sha256": "52daef6ee1531411e45927b78448886ead1a4a5a64b9ca75ad74dfbbb2e4f784",
+        "sha256": "aaaedd8c7dad25a64603d4ab12efa3ad7e5131ab639d78acf3f6d450ff6e34d4",
         "bytes": 148634
       }
     ],
@@ -178,8 +178,8 @@
       "catalogRecords": 215,
       "discoveryRecords": 30,
       "ledgerEntries": 245,
-      "uniqueSources": 2359,
-      "urlsChecked": 7439,
+      "uniqueSources": 2361,
+      "urlsChecked": 7446,
       "unresolvedReferences": 0,
       "numericalPredictions": 0,
       "rawArchivesPublished": false,
