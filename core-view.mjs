@@ -106,7 +106,8 @@ function deviceSummary(core) {
   const observations = [...measuredSamples(core.speed), ...measuredSamples(core.stability)];
   const measuredNetworks = unique(observations.map(sample => [sample.region, sample.network].map(text).filter(Boolean).join(' / ')));
   const networkNote = measuredNetworks.length ? '有实测的网络条件：' + measuredNetworks.join('；') + '，不外推至其他网络。' : '你所在网络的可用性未知。';
-  return { value: summary || (deviceLimits.length ? '设备限制以套餐为准' : '设备支持范围未知'), note: (deviceLimits.length ? '套餐设备限制：' + deviceLimits.join(' / ') + '。' : '') + (requirements.length ? '使用条件：' + requirements.join('；') + '。' : '') + (text(compatibility.limitation) ? text(compatibility.limitation) + '。' : '') + (summary || requirements.length ? '站方兼容性说明尚未独立实测。' : '') + networkNote };
+  const detailText = (deviceLimits.length ? '套餐设备限制：' + deviceLimits.join(' / ') + '。' : '') + (requirements.length ? '使用条件：' + requirements.join('；') + '。' : '');
+  return { value: summary || (deviceLimits.length ? '设备限制以套餐为准' : '设备支持范围未知'), note: (text(compatibility.limitation) ? text(compatibility.limitation) + '。' : '') + (summary || requirements.length ? '站方兼容性说明尚未独立实测。' : '') + networkNote, detailText, detailsLabel: '设备限额与使用条件' };
 }
 
 function issueSummary(core) {
