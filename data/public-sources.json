@@ -1,7 +1,7 @@
 {
   "schemaVersion": "airports-public-sources.v1",
   "projectionVersion": "1.5.1",
-  "publishedAt": "2026-10-27T02:17:24.029Z",
+  "publishedAt": "2026-10-27T02:25:46.208Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
   "sourceCount": 2061,
   "independenceNotice": "I0为依赖同一上游或索引通道；I1为独立性待核。没有因网址数量而升级为两个独立信源。",
@@ -45322,9 +45322,9 @@
       "editedAt": null,
       "sha256": "856f6b7b101e495b063fb47b58de319c98f195a25d588fa66f90813583238225",
       "containerSha256": null,
-      "independenceScore": "I1",
+      "independenceScore": "I0",
       "independenceVerified": false,
-      "dependencyGroup": "group-531aeb93bb80461e",
+      "dependencyGroup": "group-b4b981ec7abcfb70",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch32-2026-10-26 / raw/core-public-twilight-b32-name-856f6b7b101e.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
@@ -45344,9 +45344,9 @@
       "editedAt": null,
       "sha256": "7649357edce7446283fbd47da538f4a2f0f6890db0153ddf4ab749211bef0b8e",
       "containerSha256": null,
-      "independenceScore": "I1",
+      "independenceScore": "I0",
       "independenceVerified": false,
-      "dependencyGroup": "group-175598fffcd8da0d",
+      "dependencyGroup": "group-b4b981ec7abcfb70",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch32-2026-10-26 / raw/core-attempt-twilight-b32-login-7649357edce7.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
