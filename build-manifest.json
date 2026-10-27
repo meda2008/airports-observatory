@@ -1,6 +1,6 @@
 {
   "schemaVersion": "airports-public-build.v1",
-  "builtAt": "2026-10-27T13:02:15.454Z",
+  "builtAt": "2026-10-27T13:10:54.288Z",
   "origin": "https://meda2008.github.io/airports-observatory",
   "hostingConfigured": false,
   "files": [
@@ -17,7 +17,7 @@
     {
       "path": "app.js",
       "bytes": 36917,
-      "sha256": "a330cdc09ebacdb404cba72bb28ed795634f47daf5fc82eea97371d407cd59d6"
+      "sha256": "2d208002325afaf6e221759dfc314054cc0605dc627328ee2a3ea4132aae5ac6"
     },
     {
       "path": "core-view.css",
@@ -46,28 +46,28 @@
     },
     {
       "path": "data/public-catalog.json",
-      "bytes": 6283556,
-      "sha256": "11086d1c5f4f79247a72e618d6394a80292b03d73828dc077f109b3212048e8b"
+      "bytes": 6300664,
+      "sha256": "01939f1b5af57ab07acffd19f71f42d36ab75e36a7c76cdd9ebe30651bec0930"
     },
     {
       "path": "data/public-ledger.json",
       "bytes": 148634,
-      "sha256": "2805db18305c7ac1aad5439e035b590b9fd751f7c0ae40badb6e1627905059a1"
+      "sha256": "6a24f3a9c6e8a9a0827461ca24f56622264aeab9894bc524b5fa34aff0190ce7"
     },
     {
       "path": "data/public-settlement.json",
       "bytes": 97576,
-      "sha256": "2791d45c84d8d8eeb3a095934a444b6c1ad70aa56d57bb44f08e2147acc00728"
+      "sha256": "8a340adafb521e6cb8ac88245a001915524a73a063aaf81d8eb62f3b2f823d6c"
     },
     {
       "path": "data/public-sources.json",
-      "bytes": 2312513,
-      "sha256": "d282e432db550915f2ba287052158e0b0ca4b12dd66cff3fb9c866e3de09492d"
+      "bytes": 2316645,
+      "sha256": "fd80ad07997fbf4b2180a0bec46947c72c0a975f1c88bcbfe2a7e58cc8f12fca"
     },
     {
       "path": "data/publication-manifest.json",
       "bytes": 2130,
-      "sha256": "1d926fc5a9ec7d3d4235a23674798cde90354878492be44cd306331221285d87"
+      "sha256": "9fed55f883596f1c04d7c372b6f0898963eac4bc5fdade92464396cfd48bef9e"
     },
     {
       "path": "favicon.svg",
@@ -128,9 +128,9 @@
   "sourcePublication": {
     "schemaVersion": "airports-publication-manifest.v1",
     "projectionVersion": "1.5.1",
-    "publishedAt": "2026-10-27T13:02:14.368Z",
+    "publishedAt": "2026-10-27T13:10:53.532Z",
     "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-    "inputFingerprint": "c3ce5abd47b85f266d050ad3acc2a2358e3e4ed7e784f62b6ba41c3cd5873bc1",
+    "inputFingerprint": "0ceffa7bc0b97253d5e8aced7558cfc23649eb6db98d3d210ec677c09400cb92",
     "inputs": [
       {
         "artifact": "catalog",
@@ -150,23 +150,23 @@
       },
       {
         "artifact": "coreSupplement",
-        "sha256": "d36b3294bfd1838e0961939b344a23513de380d1edbabc242d06ccfff28b2024"
+        "sha256": "e3772df768d2b82af3f80f1195e52eb43c33d07342161b5b63860b09fc508d46"
       }
     ],
     "outputs": [
       {
         "file": "public-catalog.json",
-        "sha256": "11086d1c5f4f79247a72e618d6394a80292b03d73828dc077f109b3212048e8b",
-        "bytes": 6283556
+        "sha256": "01939f1b5af57ab07acffd19f71f42d36ab75e36a7c76cdd9ebe30651bec0930",
+        "bytes": 6300664
       },
       {
         "file": "public-sources.json",
-        "sha256": "d282e432db550915f2ba287052158e0b0ca4b12dd66cff3fb9c866e3de09492d",
-        "bytes": 2312513
+        "sha256": "fd80ad07997fbf4b2180a0bec46947c72c0a975f1c88bcbfe2a7e58cc8f12fca",
+        "bytes": 2316645
       },
       {
         "file": "public-ledger.json",
-        "sha256": "2805db18305c7ac1aad5439e035b590b9fd751f7c0ae40badb6e1627905059a1",
+        "sha256": "6a24f3a9c6e8a9a0827461ca24f56622264aeab9894bc524b5fa34aff0190ce7",
         "bytes": 148634
       }
     ],
@@ -178,8 +178,8 @@
       "catalogRecords": 215,
       "discoveryRecords": 30,
       "ledgerEntries": 245,
-      "uniqueSources": 2294,
-      "urlsChecked": 7246,
+      "uniqueSources": 2298,
+      "urlsChecked": 7254,
       "unresolvedReferences": 0,
       "numericalPredictions": 0,
       "rawArchivesPublished": false,
