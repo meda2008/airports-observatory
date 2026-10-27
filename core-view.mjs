@@ -24,7 +24,7 @@ function priceSummary(core) {
   const limitation = text(core.pricing?.limitation);
   if (!plans.length) return { value: '当前价格未知', note: limitation || '未取得可绑定该服务的当前套餐材料。', plans };
   const first = formatPlan(plans[0]);
-  return { value: first.price, note: (limitation ? limitation + ' ' : '') + (first.name ? first.name + '；' : '') + (first.soldOut ? '页面标为售罄。' : '') + (first.addon ? '附加服务，需核对前置条件。' : '') + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (plans[0].amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':'按原计费周期展示，实际结算总额未验证。'), plans };
+  return { value: first.price, note: (limitation ? limitation + ' ' : '') + (first.name ? first.name + '；' : '') + (first.soldOut ? '页面标为售罄。' : '') + (first.addon ? '附加服务，需核对前置条件。' : '') + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (plans[0].amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':plans[0].amountBasis==='advertised_monthly_equivalent_not_period_total'?'页面为年付折算月价，不是月付金额；年付总额未验证。':'按原计费周期展示，实际结算总额未验证。'), plans };
 }
 
 const measuredSamples = data => data?.measured?.status === 'scoped_measurements_available' ? values(data.measured.observations) : [];
@@ -185,7 +185,7 @@ function pricingDetails(core, ui) {
   for (const plan of plans) {
     const formatted = formatPlan(plan), box = ui.el('div', 'core-term');
     box.append(ui.el('h4', '', formatted.name || '未命名套餐'), ui.paragraph(formatted.price));
-    const notes = ['原计费周期：' + (text(plan.billingPeriod) || '未知'), '配额：' + (text(plan.quota) || '未知'), '重置规则：' + (text(plan.quotaReset) || '未知')];
+    const notes = [(plan.amountBasis === 'advertised_monthly_equivalent_not_period_total' ? '价格口径：' : '原计费周期：') + (text(plan.billingPeriod) || '未知'), '配额：' + (text(plan.quota) || '未知'), '重置规则：' + (text(plan.quotaReset) || '未知')];
     if (formatted.unknownCurrency && plan.currencyReason) notes.push('币种说明：' + text(plan.currencyReason));
     if (formatted.soldOut) notes.push('页面标为售罄，不能当作当前可购买');
     if (formatted.addon) notes.push('附加项：' + (detailText(plan.addon) || '需核对基础套餐和前置条件'));
