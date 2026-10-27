@@ -309,7 +309,7 @@ export function createCoreDetail(record, ui) {
   const grid = el('div', 'core-facts');
   for (const field of fieldDefinitions(core)) {
     const item = el('article', 'core-fact core-fact-' + field.key); item.dataset.coreField = field.key;
-    item.append(el('h3', '', field.title), el('p', 'core-value', field.value), paragraph(field.note, 'core-note'));
+    item.append(el('h3', '', field.title), el('p', 'core-value', field.cardValue ?? field.value), paragraph(field.note, 'core-note'));
     const terms = field.key === 'price' ? pricingDetails(core, ui) : field.key === 'policy' ? policyDetails(core, ui) : ['speed', 'stability'].includes(field.key) ? measurementDetails(core, field.key, ui) : null;
     if (terms) item.append(terms);
     const speedMaterials = field.key === 'speed' ? speedMaterialDetails(core, ui) : null; if (speedMaterials) item.append(speedMaterials);
