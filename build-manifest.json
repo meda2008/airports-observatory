@@ -1,6 +1,6 @@
 {
   "schemaVersion": "airports-public-build.v1",
-  "builtAt": "2026-10-27T14:10:36.268Z",
+  "builtAt": "2026-10-27T14:20:34.176Z",
   "origin": "https://meda2008.github.io/airports-observatory",
   "hostingConfigured": false,
   "files": [
@@ -17,7 +17,7 @@
     {
       "path": "app.js",
       "bytes": 36917,
-      "sha256": "22de300a3338496dbdbe3132ac196eb03174c23511a5f17652fb5aa94f57a5fd"
+      "sha256": "630605a47c23dbb11a209ab8bc58feb40c3048700ffac731e7e34cf40b52580f"
     },
     {
       "path": "core-view.css",
@@ -46,8 +46,8 @@
     },
     {
       "path": "data/public-catalog.json",
-      "bytes": 6350561,
-      "sha256": "e9b326321d10aed86f1c66d89466252957e2b8583f26e88173c35f020edb9581"
+      "bytes": 4496353,
+      "sha256": "cb521ca6b0b6b5e575d1a1612eb6a2d70cf9293fadacfab05308e35722fa6402"
     },
     {
       "path": "data/public-ledger.json",
@@ -61,13 +61,13 @@
     },
     {
       "path": "data/public-sources.json",
-      "bytes": 2341928,
-      "sha256": "2ae7ac86e7bfce51a8004d7f0116d577de7d47e9328efa433fb15591393a4f8b"
+      "bytes": 1947144,
+      "sha256": "6b226f60286d54361b4b060b2b7b62144472a99c1e267fd38e0cfc095c900e7c"
     },
     {
       "path": "data/publication-manifest.json",
       "bytes": 2130,
-      "sha256": "aec87d2b94c6df0d3a992998c40ff2de10f4989184fd2bf1725cbe6b37dbf627"
+      "sha256": "e6b2125f313674e3b7c415712466f4c77d9b40ad751580adca5a4f31e541b28c"
     },
     {
       "path": "favicon.svg",
@@ -156,13 +156,13 @@
     "outputs": [
       {
         "file": "public-catalog.json",
-        "sha256": "e9b326321d10aed86f1c66d89466252957e2b8583f26e88173c35f020edb9581",
-        "bytes": 6350561
+        "sha256": "cb521ca6b0b6b5e575d1a1612eb6a2d70cf9293fadacfab05308e35722fa6402",
+        "bytes": 4496353
       },
       {
         "file": "public-sources.json",
-        "sha256": "2ae7ac86e7bfce51a8004d7f0116d577de7d47e9328efa433fb15591393a4f8b",
-        "bytes": 2341928
+        "sha256": "6b226f60286d54361b4b060b2b7b62144472a99c1e267fd38e0cfc095c900e7c",
+        "bytes": 1947144
       },
       {
         "file": "public-ledger.json",
