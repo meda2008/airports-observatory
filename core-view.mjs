@@ -117,7 +117,7 @@ function issueSummary(core) {
   const recoveryNote = recoveries.length ? '另有 ' + recoveries.length + ' 条恢复或部分可用线索。' : '';
   if (events.length) {
     const first = events[0], summary = text(first.summary);
-    const material = summary ? '首条材料（材料日期：' + (day(first.createdAt) || '未知') + '）：' + summary + '。' : '';
+    const material = summary ? '最新材料（材料日期：' + (day(first.createdAt) || '未知') + '）：' + summary + '。' : '';
     return { value: '近月有 ' + events.length + ' 条问题线索', note: material + coverage + recoveryNote + (events.some(event => event.independentlyVerified !== true) ? '部分或全部陈述尚未独立核实。' : '') + '线索数不等于独立投诉人数或投诉率。' };
   }
   return { value: '近月问题情况未知', note: coverage + recoveryNote + '本批未匹配到问题陈述，不能解释为零投诉。' };
