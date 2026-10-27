@@ -1,7 +1,7 @@
 {
   "schemaVersion": "airports-public-sources.v1",
   "projectionVersion": "1.5.1",
-  "publishedAt": "2026-10-27T08:39:56.471Z",
+  "publishedAt": "2026-10-27T08:47:30.682Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
   "sourceCount": 2196,
   "independenceNotice": "I0为依赖同一上游或索引通道；I1为独立性待核。没有因网址数量而升级为两个独立信源。",
@@ -48294,7 +48294,7 @@
       "containerSha256": null,
       "independenceScore": "I0",
       "independenceVerified": false,
-      "dependencyGroup": "group-fd46c5150594d7c2",
+      "dependencyGroup": "group-6f92260f0f5fc526",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch53-2026-10-26 / raw/core-auth-suyunti-b53-notices-faq-febe57d7ba73.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
@@ -48316,7 +48316,7 @@
       "containerSha256": null,
       "independenceScore": "I0",
       "independenceVerified": false,
-      "dependencyGroup": "group-7c655234ac3a4614",
+      "dependencyGroup": "group-6f92260f0f5fc526",
       "evidenceGrade": "E1",
       "snapshotLocator": "core-auth-batch53-2026-10-26 / raw/core-auth-feiji-b53-notices-faq-94fc725acea1.json",
       "snapshotAccess": "retained_for_audit_not_publicly_served"
