@@ -17,7 +17,7 @@ function shortDate(value) { return value && Number.isFinite(Date.parse(value)) ?
 function toast(message) { const n = $('toast'); n.textContent = message; n.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { n.hidden = true; }, 3600); }
 function download(name, payload, type = 'application/json;charset=utf-8') { const blob = new Blob([typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2)], { type }); const url = URL.createObjectURL(blob); const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
 async function copyLink(recordId) { const href = new URL(location.href); href.hash = '/airport/' + recordId; try { await navigator.clipboard.writeText(href.href); toast('记录链接已复制，可分享这条判断。'); } catch { toast('未能复制，请从地址栏复制这条记录的链接。'); } }
-const DATA_REVISION = '0f36b1d8fb58601a2dc5e9fd4ee7424d0025f45a9477d0f395f67514c2db1ab8';
+const DATA_REVISION = '7918ce4150a00da3a5240adf15d9cf30059a1d411fd1befd2aaaee95ff33f786';
 async function getJson(path) {
   const url = new URL(path, document.baseURI);
   url.searchParams.set('snapshot', DATA_REVISION);
