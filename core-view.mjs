@@ -144,7 +144,7 @@ function fieldDefinitions(core) {
   return [
     { key: 'price', title: '价格', ...priceSummary(core), sourceIds: [...sourceIdsFrom(core.pricing), ...sourceIdsFrom(core.promotions)] },
     { key: 'speed', title: '速度', ...speed, sourceIds: [...sourceIdsFrom(core.speed?.measured), ...sourceIdsFrom(core.speed?.advertised), ...sourceIdsFrom(core.speed?.externalReports)] },
-    { key: 'stability', title: '稳定性', ...stability, sourceIds: values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds)) },
+    { key: 'stability', title: '稳定性', ...stability, sourceIds: [...values(core.stability?.measured?.observations), ...values(core.stability?.operatorReports)].flatMap(sample => values(sample.sourceIds)) },
     { key: 'payment', title: '支付方式', ...paymentSummary(core), sourceIds: core.payment?.sourceIds },
     { key: 'history', title: '运营年限 · 是否老牌', ...historySummary(core), sourceIds: core.operatingHistory?.sourceIds },
     { key: 'policy', title: '退款与试用', ...policySummary(core), sourceIds: [...values(core.refund?.sourceIds), ...values(core.trial?.sourceIds)] },
@@ -317,6 +317,12 @@ export function createCoreDetail(record, ui) {
     item.append(el('h3', '', field.title), el('p', 'core-value', field.cardValue ?? field.value), paragraph(field.note, 'core-note'));
     const terms = field.key === 'price' ? pricingDetails(core, ui) : field.key === 'policy' ? policyDetails(core, ui) : ['speed', 'stability'].includes(field.key) ? measurementDetails(core, field.key, ui) : null;
     if (terms) item.append(terms);
+    if (field.key === 'stability' && values(core.stability?.operatorReports).length) {
+      const reports = el('details', 'core-item-details'); reports.append(el('summary', '', '运营方状态自报 · 非独立实测'));
+      for (const report of core.stability.operatorReports) reports.append(paragraph(report.summary), paragraph('采集时间：' + (ui.date ? ui.date(report.observedAt, true) : report.observedAt)));
+      reports.append(paragraph('自报未记录事故不等于零故障、零投诉或已验证可用率；没有探针位置、时间序列与采样方法时，稳定性仍未实测。'));
+      item.append(reports);
+    }
     const speedMaterials = field.key === 'speed' ? speedMaterialDetails(core, ui) : null; if (speedMaterials) item.append(speedMaterials);
     if (field.detailText) { const details = el('details', 'core-item-details'); details.append(el('summary', '', field.detailsLabel || '查看说明'), paragraph(field.detailText)); item.append(details); }
     const ref = sourceLinks(field.sourceIds, ui); if (ref) item.append(ref);
