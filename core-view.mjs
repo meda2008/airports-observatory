@@ -23,8 +23,13 @@ function priceSummary(core) {
   const plans = values(core.pricing?.plans);
   const limitation = text(core.pricing?.limitation);
   if (!plans.length) return { value: '当前价格未知', note: limitation || '未取得可绑定该服务的当前套餐材料。', plans };
-  const first = formatPlan(plans[0]);
-  return { value: first.price, note: (limitation ? limitation + ' ' : '') + (first.name ? first.name + '；' : '') + (first.soldOut ? '页面标为售罄。' : '') + (first.addon ? '附加服务，需核对前置条件。' : '') + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (plans[0].amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':plans[0].amountBasis==='advertised_monthly_equivalent_not_period_total'?'页面为年付折算月价，不是月付金额；年付总额未验证。':'按原计费周期展示，实际结算总额未验证。'), plans };
+  const index = core.pricing?.summaryPlanIndex;
+  const selected = Number.isInteger(index) && index >= 0 && index < plans.length ? plans[index] : null;
+  const soldOutCount = core.pricing?.summaryExcludedSoldOutCount || 0;
+  const excludedNote = soldOutCount ? '另有 ' + soldOutCount + ' 项页面标为售罄，原报价保留在完整条款中。' : '';
+  if (!selected) return { value: core.pricing?.summaryUnavailableReason === 'all_numeric_independent_plans_sold_out' ? '独立套餐参考报价均标为售罄' : '独立套餐摘要价格未知', note: (limitation ? limitation + ' ' : '') + excludedNote + '附加项、金额未知项及售罄报价不作为独立套餐摘要；仍可展开查看全部原始条款。', plans };
+  const first = formatPlan(selected);
+  return { value: first.price, note: (limitation ? limitation + ' ' : '') + (first.name ? first.name + '；' : '') + excludedNote + (plans.length > 1 ? '另有 ' + (plans.length - 1) + ' 项页面套餐或附加项。' : '页面标价。') + (selected.amountBasis==='advertised_starting_price_not_period_total'?'页面起价不代表月付总额，实际周期总价未验证。':selected.amountBasis==='advertised_monthly_equivalent_not_period_total'?'页面为年付折算月价，不是月付金额；年付总额未验证。':'按原计费周期展示，实际结算总额未验证。') + '摘要为页面参考价，不保证库存或实际可下单。', plans };
 }
 
 const measuredSamples = data => data?.measured?.status === 'scoped_measurements_available' ? values(data.measured.observations) : [];
