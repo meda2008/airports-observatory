@@ -9,6 +9,13 @@ const clean = value => firstText(value?.summary, value?.label, value?.value, val
 const unique = items => [...new Set(values(items).filter(item => typeof item === 'string' && item))];
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const day = value => typeof value === 'string' && Number.isFinite(Date.parse(value)) ? value.slice(0, 10) : '';
+const captureDay = value => {
+  if (!day(value)) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const parts = new Intl.DateTimeFormat('en', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(value));
+  const part = type => parts.find(item => item.type === type).value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+};
 const sourceIdsFrom = value => Array.isArray(value) ? value.flatMap(sourceIdsFrom) : value && typeof value === 'object' ? [...values(value.sourceIds), ...Object.entries(value).filter(([key]) => key !== 'sourceIds').flatMap(([, child]) => sourceIdsFrom(child))] : [];
 
 function formatPlan(plan = {}) {
@@ -135,7 +142,7 @@ function privacySummary(core) {
   const value = summary || (logged.length ? '站方声明记录使用信息' : '隐私与日志未确认');
   const details = logged.length ? '声明记录：' + logged.join('、') + '。' : '';
   const retention = '保存期限：' + (text(data.retentionPeriod) || '未确认') + '。';
-  const observed = day(data.observedAt) ? '说明采集于 ' + day(data.observedAt) + '。' : '';
+  const observed = captureDay(data.observedAt) ? '说明采集于 ' + captureDay(data.observedAt) + '（北京时间）。' : '';
   return { value, note: details + retention + observed + '独立审计未确认，站方声明不构成无日志保证。' + (!summary && !logged.length ? '未取得可绑定该服务的说明，未知不等于无日志。' : '') };
 }
 
