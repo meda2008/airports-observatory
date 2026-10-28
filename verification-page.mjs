@@ -1,4 +1,4 @@
-import { verifyFiles, isSafeRelativePath } from './integrity.mjs?v=ad4c3dde07972aafc4da1b0ed7749a9a413b5e70fed4fed91c62772b2a61333b';
+import { verifyFiles, isSafeRelativePath } from './integrity.mjs?v=2470d11568a200d9d21352e509198762af49d5235ecf23911749fa7b5e78629b';
 
 const utf8 = new TextDecoder();
 const MAX_FILES = 64;
