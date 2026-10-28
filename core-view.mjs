@@ -1,6 +1,6 @@
 const periods = { month: '月', monthly: '月付', year: '年', yearly: '年付', quarter: '季度', quarterly: '季付', once: '一次性' };
 const categories = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '其他资料' };
-const paymentLevels = { unknown: '支付方式未知', image_only: '仅见支付图标', help_reference: '帮助页提及', public_text: '公开支付说明', authenticated_checkout: '已取得收银台说明' };
+const paymentLevels = { unknown: '支付方式未知', image_only: '仅见支付图标', help_reference: '帮助页提及', public_text: '公开支付说明', public_checkout: '已取得未登录提交前支付选项', authenticated_checkout: '已取得收银台说明' };
 const known = value => value !== null && value !== undefined && value !== '';
 const text = value => typeof value === 'string' || typeof value === 'number' ? String(value).replace(/^【待补：/, '').replace(/】$/, '') : '';
 const values = value => Array.isArray(value) ? value : [];
@@ -80,7 +80,7 @@ function paymentSummary(core) {
   const data = core.payment || {};
   const methods = values(data.methods).map(clean).filter(Boolean);
   const value = methods.length ? methods.join('、') : '支付方式未知';
-  const qualifier = { image_only: '仅图标', help_reference: '帮助页提及', public_text: '站方说明', authenticated_checkout: '收银台说明' }[data.evidenceLevel];
+  const qualifier = { image_only: '仅图标', help_reference: '帮助页提及', public_text: '站方说明', public_checkout: '公开结算页', authenticated_checkout: '收银台说明' }[data.evidenceLevel];
   const sourcedReason = unique(data.sourceIds).length ? text(data.reason) : '';
   return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason };
 }
