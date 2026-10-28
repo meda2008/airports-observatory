@@ -1,6 +1,6 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=55689fe2e8a1f097456c6138c4f325bc5972894606d4bad37e80493ef234b223';
-import { createVerificationPage } from './verification-page.mjs?v=55689fe2e8a1f097456c6138c4f325bc5972894606d4bad37e80493ef234b223';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=55689fe2e8a1f097456c6138c4f325bc5972894606d4bad37e80493ef234b223';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=04f4ab76d7be9690ede0a3f92354679ddfd8575ef58712d680734e7680d00f05';
+import { createVerificationPage } from './verification-page.mjs?v=04f4ab76d7be9690ede0a3f92354679ddfd8575ef58712d680734e7680d00f05';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=04f4ab76d7be9690ede0a3f92354679ddfd8575ef58712d680734e7680d00f05';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };
@@ -17,7 +17,7 @@ function shortDate(value) { return value && Number.isFinite(Date.parse(value)) ?
 function toast(message) { const n = $('toast'); n.textContent = message; n.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { n.hidden = true; }, 3600); }
 function download(name, payload, type = 'application/json;charset=utf-8') { const blob = new Blob([typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2)], { type }); const url = URL.createObjectURL(blob); const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
 async function copyLink(recordId) { const href = new URL(location.href); href.hash = '/airport/' + recordId; try { await navigator.clipboard.writeText(href.href); toast('记录链接已复制，可分享这条判断。'); } catch { toast('未能复制，请从地址栏复制这条记录的链接。'); } }
-const DATA_REVISION = '5ddeac2e45e60f82d6b693e6de6da75085280ed44d47789e9cc43cb3450a34aa';
+const DATA_REVISION = '642a30c17d41e3ddfdcb07bd3917f8c4ca919125bbaf89134a27f1ca41fdab2b';
 async function getJson(path) {
   const url = new URL(path, document.baseURI);
   url.searchParams.set('snapshot', DATA_REVISION);
@@ -65,7 +65,7 @@ function createExplore(query){
  const shell=el('div','shell');shell.append(createHero(),createSnapshotStrip());
  const top=el('div','section-top');top.id='catalog';const heading=el('div');heading.append(eyebrow('查询核心信息'));const title=el('h2','','机场名录'),count=el('small');title.append(count);heading.append(title);top.append(heading,paragraph('价格、速度、稳定性、支付与运营历史，一页核对。'));shell.append(top);
  const form=el('form','filter-panel core-filter');form.setAttribute('role','search');const wrap=el('div','field');const label=el('label','','名称或域名');label.htmlFor='catalog-search';const input=el('input');input.id='catalog-search';input.type='search';input.placeholder='例如 奶昔、SpeedCat、SS-ID';input.value=query.get('q')||'';wrap.append(label,input);
- const isPrimary=r=>r.listing?.primary??['airport','niche'].includes(r.category);const primary=state.catalog.items.filter(isPrimary);const selected=query.get('category')||'primary';const category=selectField('范围','catalog-category',[['primary','机场与小众机场 · '+primary.length],['airport','机场'],['niche','小众机场'],['other','其他类型资料 · '+(state.catalog.items.length-primary.length)],['all','全部保留资料 · '+state.catalog.items.length],...state.catalog.categories.filter(c=>!['airport','niche'].includes(c.id)).map(c=>[c.id,c.label])],selected);
+ const isPrimary=r=>r.listing?.primary??['airport','niche'].includes(r.category);const primary=state.catalog.items.filter(isPrimary);const selected=query.get('category')||'primary';const category=selectField('范围','catalog-category',[['primary','机场与小众机场 · '+primary.length],['airport','机场'],['niche','小众机场'],['other','仅保留资料 · '+(state.catalog.items.length-primary.length)],['all','全部保留资料 · '+state.catalog.items.length],...state.catalog.categories.filter(c=>!['airport','niche'].includes(c.id)).map(c=>[c.id,c.label])],selected);
  const submit=el('button','primary-button','查询');submit.type='submit';form.append(wrap,category.wrap,submit);shell.append(form);const apply=()=>{location.hash=exploreHash({q:input.value.trim(),category:category.input.value==='primary'?'':category.input.value});};form.addEventListener('submit',e=>{e.preventDefault();apply();});category.input.addEventListener('change',apply);
  let rows=state.catalog.items.filter(r=>selected==='primary'?isPrimary(r):selected==='other'?!isPrimary(r):selected==='all'||r.category===selected);const term=(query.get('q')||'').normalize('NFKC').toLocaleLowerCase();if(term)rows=rows.filter(r=>[r.name,r.id,r.officialUrl,r.coreInfo?.website?.url,...(r.domainObservations||[]).map(d=>d.domain)].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase().includes(term));rows.sort((a,b)=>a.name.localeCompare(b.name,'zh-CN')||a.id.localeCompare(b.id));count.textContent=rows.length+' 条';
  const pages=Math.max(1,Math.ceil(rows.length/state.pageSize)),page=Math.min(pages,Math.max(1,Math.floor(Number(query.get('page'))||1)));const toolbar=el('div','list-toolbar');toolbar.append(paragraph(rows.length?'显示 '+((page-1)*state.pageSize+1)+'–'+Math.min(page*state.pageSize,rows.length)+' 条':'没有匹配记录'),button('清空筛选','text-button',()=>{location.hash='/explore';}));shell.append(toolbar);
@@ -103,6 +103,7 @@ function sourcesSection(record, sources, error) {
 async function createDetail(id){
  const record=state.catalog.items.find(r=>r.id===id);if(!record)return notFound('未找到这条记录','请核对名称或记录编号。');
  const shell=el('div','shell subpage');shell.append(bread(record.name),pageHeading(labels[record.category]||'资料',record.name,'价格和条款按来源记录，速度与稳定性以实际测量为准。'));
+ if(record.listing?.reason) shell.append(paragraph('仅保留资料：'+record.listing.reason+' 这不是停服裁决。重新进入默认候选需要：'+record.listing.reinstatementEvidence,'quiet-note'));
  shell.append(createCoreDetail(record,{el,paragraph,section,link,date,button}));
  const actions=el('div','core-actions');actions.append(button('复制这条记录链接','secondary-button',()=>copyLink(id)),link('#/corrections?record='+id,'补充或更正信息','secondary-button'),button('下载记录','secondary-button',()=>download('airports-'+id+'.json',record)));shell.append(actions);
  const drawer=el('details','evidence-drawer');drawer.append(el('summary','','展开套餐条款、来源与留存依据'));
