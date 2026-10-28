@@ -1,9 +1,9 @@
 {
   "schemaVersion": "airports-publication-manifest.v1",
-  "projectionVersion": "1.5.7",
-  "publishedAt": "2026-10-28T13:45:40.506Z",
+  "projectionVersion": "1.5.8",
+  "publishedAt": "2026-10-28T13:55:37.241Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-  "inputFingerprint": "041887343f21dc4f05582d4b9c2e9d19410300cf02e64328ccf35bbc882ae52d",
+  "inputFingerprint": "b118147c7f26c3a0838245923ecf2b221874407c69e9a75531d8639178f1d8ce",
   "inputs": [
     {
       "artifact": "catalog",
@@ -23,23 +23,23 @@
     },
     {
       "artifact": "coreSupplement",
-      "sha256": "bc7aa48922c874702fe986554e5e9ac4223b6b6c310ec67475053960eaa09a6a"
+      "sha256": "802a658c21e894fd90bfb924d7c93b5b29ce9d258cef9d8a6208a7c08ead13c9"
     }
   ],
   "outputs": [
     {
       "file": "public-catalog.json",
-      "sha256": "65e86bcc868d8c7cec32dfb833b6bd0d9f11d8de62e2e580ee7fc9f934f7d082",
-      "bytes": 5574059
+      "sha256": "b17eddcb9164e2c3abec8ce5a17e0cba36f3e21c02b01b5a5f8fd186529a40de",
+      "bytes": 5581668
     },
     {
       "file": "public-sources.json",
-      "sha256": "8c589581ceab457608df913f9458cfe7c383bb8fcec1f759ccfbc353e081ce14",
-      "bytes": 2227211
+      "sha256": "45b37a7f8cc68fe07e4376aa027852de5545688517931fcf3a2782cc24c284d2",
+      "bytes": 2231565
     },
     {
       "file": "public-ledger.json",
-      "sha256": "708fbf1c73d729adf12fe94d45b007928b37f1459af53ddd68ff649582c6b45e",
+      "sha256": "c42ea562ac2f9f85c919374bf7cae5ceed2a8d8263436ad0cb1f9d4503a55d7b",
       "bytes": 148634
     }
   ],
@@ -51,8 +51,8 @@
     "catalogRecords": 215,
     "discoveryRecords": 30,
     "ledgerEntries": 245,
-    "uniqueSources": 2633,
-    "urlsChecked": 8259,
+    "uniqueSources": 2638,
+    "urlsChecked": 8274,
     "unresolvedReferences": 0,
     "numericalPredictions": 0,
     "rawArchivesPublished": false,
