@@ -91,7 +91,7 @@ function historySummary(core) {
   if (finite(data.yearsSinceStart)) value = '距有来源的运营起点 ' + data.yearsSinceStart + ' 个完整年';
   else if (Array.isArray(data.yearRange) && data.yearRange.length === 2 && data.yearRange.every(finite)) value = '距有来源的运营年份约 ' + data.yearRange.join('–') + ' 年';
   const history = data.earliestEvidenceAt ? '最早留存材料日期 ' + day(data.earliestEvidenceAt) + '；该日期不是已确认的成立日期，也不证明一直营业。' : '';
-  const claim = text(data.claimText) ? '站方自述：' + text(data.claimText) + '。' : '';
+  const claim = text(data.claimText) ? '原材料说明：' + text(data.claimText) + '。' : '';
   const assessment = (finite(data.yearsSinceStart) || data.yearRange) && data.label ? text(data.label) + '。' : '';
   return { value, note: history + claim + assessment + (!history && !claim && !assessment ? '未取得可核验的营业起点，暂无法判断是否老牌。' : ''), detailsLabel: '历史材料说明', detailText: firstText(data.basis, data.evidenceDateBasis) };
 }
