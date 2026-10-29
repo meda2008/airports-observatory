@@ -1,9 +1,9 @@
 {
   "schemaVersion": "airports-publication-manifest.v1",
   "projectionVersion": "1.5.22",
-  "publishedAt": "2026-10-29T13:14:14.575Z",
+  "publishedAt": "2026-10-29T13:17:11.570Z",
   "evidenceAsOf": "2026-10-25T12:59:23.591Z",
-  "inputFingerprint": "5f73aeb81b66d028047310789fade57c3bd89325e998e16b4a9d88ccf453cdb9",
+  "inputFingerprint": "ea228962c6b7e56bc09417b350355f02a8ac4ebdc9afd0f36ec0a5dba53af401",
   "inputs": [
     {
       "artifact": "catalog",
@@ -23,23 +23,23 @@
     },
     {
       "artifact": "coreSupplement",
-      "sha256": "55d15b3fab8e593b6f59af23be4f8f3ea6ebbce7398a4adafe2dba5445d4c082"
+      "sha256": "2742446c0737af20aea4472b90f245ecc27728deb018718b55a976f01a5bdc2b"
     }
   ],
   "outputs": [
     {
       "file": "public-catalog.json",
-      "sha256": "615f8d09535613ffedf3307b38f7c2cec06986d118ce133c62606aa17b346d9a",
-      "bytes": 6714735
+      "sha256": "62d585b7620da05e74ebb1cf0a66f45a6b285380d9dac0ea0851b0733b89ed89",
+      "bytes": 6715398
     },
     {
       "file": "public-sources.json",
-      "sha256": "1cac34f914429f915fa655814fa9d7cd4522ee07e80d5f6bfd5b883adcacb3e7",
+      "sha256": "69a392af33dc600f1f416e4af32e6010eb5b4ad96abf18ce8dd8867d035a6bb4",
       "bytes": 2519178
     },
     {
       "file": "public-ledger.json",
-      "sha256": "d76c98fafbdaaf168cd526c6c49b7f9869f5d026cb5e6eea7875c3220afb2846",
+      "sha256": "cff0c3dff7166992b536cee754ed50671d89a180bdf75096075a61829cd14469",
       "bytes": 148635
     }
   ],
