@@ -1,4 +1,4 @@
-import { coreCardProjection } from './core-view.mjs?v=39a332b80dd540771ebd7ca012e8aae948e745e18119a930445f67f1823d22e1';
+import { coreCardProjection } from './core-view.mjs?v=c644807a0a0a4a7f989d91dfd18de4a59a36f462948e0fe78ffa058024ecd81d';
 
 const HASH = /^[a-f0-9]{64}$/;
 const ID = /^A\d{3}$/;
