@@ -1,7 +1,7 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=c644807a0a0a4a7f989d91dfd18de4a59a36f462948e0fe78ffa058024ecd81d';
-import { validateBrowserIndex, validateBrowserDetail } from './browser-data.mjs?v=c644807a0a0a4a7f989d91dfd18de4a59a36f462948e0fe78ffa058024ecd81d';
-import { createVerificationPage } from './verification-page.mjs?v=c644807a0a0a4a7f989d91dfd18de4a59a36f462948e0fe78ffa058024ecd81d';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=c644807a0a0a4a7f989d91dfd18de4a59a36f462948e0fe78ffa058024ecd81d';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=7e84e159919ba916381314d9c4584f8fc9a81fab2cf12963a9ced999578c6a66';
+import { validateBrowserIndex, validateBrowserDetail } from './browser-data.mjs?v=7e84e159919ba916381314d9c4584f8fc9a81fab2cf12963a9ced999578c6a66';
+import { createVerificationPage } from './verification-page.mjs?v=7e84e159919ba916381314d9c4584f8fc9a81fab2cf12963a9ced999578c6a66';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=7e84e159919ba916381314d9c4584f8fc9a81fab2cf12963a9ced999578c6a66';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };
@@ -19,7 +19,7 @@ function shortDate(value) { return value && Number.isFinite(Date.parse(value)) ?
 function toast(message) { const n = $('toast'); n.textContent = message; n.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { n.hidden = true; }, 3600); }
 function download(name, payload, type = 'application/json;charset=utf-8') { const blob = new Blob([typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2)], { type }); const url = URL.createObjectURL(blob); const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
 async function copyLink(recordId) { const href = new URL(location.href); href.hash = '/airport/' + recordId; try { await navigator.clipboard.writeText(href.href); toast('记录链接已复制，可分享这条判断。'); } catch { toast('未能复制，请从地址栏复制这条记录的链接。'); } }
-const DATA_REVISION = 'e22cea2954b6f8a17c3e044de6b5b08319beefb3c5e0af6aec6945bfc7f16532';
+const DATA_REVISION = '014b0d8e59d6cb917ac883863f0639dfc424016156bb9bcdc60bc62fa4fcf1cd';
 async function getJson(path) {
   const url = new URL(path, document.baseURI);
   url.searchParams.set('snapshot', DATA_REVISION);
