@@ -4,7 +4,8 @@
 // Node 22 only; no dependencies, network requests or private parent-catalog reads.
 // Usage: node verify-publication.cjs --directory ./unpacked-site
 // Optional: --expected-manifest-sha256 <hash-saved-separately-before-verification>
-// Keep integrity.mjs beside a downloaded verifier; source checkout uses ../src/.
+// Keep integrity.mjs, browser-data.mjs and core-view.mjs beside a downloaded
+// verifier; source checkout uses ../src/. The complete publication ZIP has all.
 const fs = require('node:fs');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');

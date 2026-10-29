@@ -1,4 +1,4 @@
-import { verifyFiles, isSafeRelativePath } from './integrity.mjs?v=95a01c2e75ec4bc14d082bf27465e29232d0696bf403ddd3e64a0bae19a8d79c';
+import { verifyFiles, isSafeRelativePath } from './integrity.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
 
 const utf8 = new TextDecoder();
 const MAX_FILES = 64;
@@ -76,6 +76,8 @@ export function createVerificationPage(ui) {
     ['data/adjudications.empty.json', '空裁决输入（没有结果或裁决者）'],
     ['verify-publication.cjs', '离线完整性校验器'],
     ['integrity.mjs', '浏览器与离线共用校验模块'],
+    ['browser-data.mjs', '逐条资料与完整投影的一致性校验依赖'],
+    ['core-view.mjs', '核心信息摘要的一致性校验依赖'],
     ['settle-ledger.cjs', '离线预测结算工具'],
     ['settlement.README.md', '独立裁决与结算字段说明']
   ];

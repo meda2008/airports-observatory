@@ -1,11 +1,13 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=95a01c2e75ec4bc14d082bf27465e29232d0696bf403ddd3e64a0bae19a8d79c';
-import { createVerificationPage } from './verification-page.mjs?v=95a01c2e75ec4bc14d082bf27465e29232d0696bf403ddd3e64a0bae19a8d79c';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=95a01c2e75ec4bc14d082bf27465e29232d0696bf403ddd3e64a0bae19a8d79c';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
+import { validateBrowserIndex, validateBrowserDetail } from './browser-data.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
+import { createVerificationPage } from './verification-page.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };
 const statusLabels = { parsed: '已取得登记事件', parsed_crtsh: '取得部分CT返回', parsed_certspotter_partial_page: '取得CT第一页', not_collected_rate_limited: '限流未采集', planned_not_collected: '当时未采集', unavailable: '未取得有效材料', unobserved: '尚无观察' };
 const state = { catalog: null, sources: null, ledger: null, sourcePromise: null, ledgerPromise: null, routeToken: 0, pageSize: 24 };
+const detailCache = new Map(), detailRequests = new Map();
 const app = $('app');
 function el(tag, className, value) { const n = document.createElement(tag); if (className) n.className = className; if (value !== undefined && value !== null) n.textContent = String(value); return n; }
 function link(href, label, className = '') { const n = el('a', className, label); if (href.startsWith('#') || href.startsWith('/')) n.href = href; else { try { const u = new URL(href); if (['http:', 'https:'].includes(u.protocol) && !u.username && !u.password) { n.href = u.href; n.target = '_blank'; n.rel = 'noopener noreferrer nofollow'; } } catch {} } return n; }
@@ -34,6 +36,18 @@ function correctionChannel() { try { const url = new URL(document.body.dataset.c
 function correctionGuidance() { return correctionChannel() ? '可以在下方公开讨论中手动提出更正；需要GitHub登录，提交后公开。不要附订阅链接、账号或付款资料。' : '此站当前尚无在线收件渠道。'; }
 async function loadSources() { if (state.sources) return state.sources; if (!state.sourcePromise) state.sourcePromise = getJson('./data/public-sources.json').then(data => { state.sources = new Map((data.items || []).map(s => [s.id, s])); return state.sources; }).catch(error => { state.sourcePromise = null; throw error; }); return state.sourcePromise; }
 async function loadLedger() { if (state.ledger) return state.ledger; if (!state.ledgerPromise) state.ledgerPromise = getJson('./data/public-ledger.json').then(data => { state.ledger = data; return data; }).catch(error => { state.ledgerPromise = null; throw error; }); return state.ledgerPromise; }
+async function loadDetail(id) {
+  if (detailCache.has(id)) return detailCache.get(id);
+  if (!detailRequests.has(id)) {
+    const request = getJson('./data/details/' + id + '.json').then(data => {
+      const validated = validateBrowserDetail(data, id, state.catalog);
+      detailCache.set(id, validated);
+      return validated;
+    }).finally(() => detailRequests.delete(id));
+    detailRequests.set(id, request);
+  }
+  return detailRequests.get(id);
+}
 function eyebrow(text) { return paragraph(text, 'eyebrow'); }
 function section(title, contents, className = '', number) { const n = el('section', 'detail-section ' + className); const h = el('h2'); if (number) h.append(el('span', 'section-number', number)); h.append(document.createTextNode(title)); n.append(h); if (Array.isArray(contents)) n.append(list(contents)); else if (contents instanceof Node) n.append(contents); else if (contents) n.append(paragraph(contents)); return n; }
 function pageHeading(kicker, title, copy) { const n = el('div', 'page-heading'); n.append(eyebrow(kicker), el('h1', '', title)); if (copy) n.append(paragraph(copy)); return n; }
@@ -55,7 +69,7 @@ function createHero() {
   const links=el('div','hero-links');links.append(link('#/explore?focus=catalog','查询机场 ↓','primary-button'),link('#/method','数据怎么核对 ↗'));copy.append(links);
   const card=el('aside','observation-card');card.append(el('h2','','付费前，先看核心信息。'));
   const primary=state.catalog.items.filter(r=>r.listing?.primary??['airport','niche'].includes(r.category));
-  const entries=[['机场与小众机场',primary.length+' 条名称候选'],['有套餐材料',primary.filter(r=>r.coreInfo?.pricing?.plans?.length).length+' 条'],['有实际速度测量',primary.filter(r=>r.coreInfo?.speed?.measured?.status==='scoped_measurements_available'&&r.coreInfo.speed.measured.observations?.length).length+' 条']];
+  const entries=[['机场与小众机场',primary.length+' 条名称候选'],['有套餐材料',primary.filter(r=>r.cardProjection?.hasPlans??r.coreInfo?.pricing?.plans?.length).length+' 条'],['有实际速度测量',primary.filter(r=>r.cardProjection?.hasSpeedMeasurements??(r.coreInfo?.speed?.measured?.status==='scoped_measurements_available'&&r.coreInfo.speed.measured.observations?.length)).length+' 条']];
   for(const [name,value]of entries){const row=el('div','receipt-row');row.append(el('span','',name),el('b','',value));card.append(row);}card.append(paragraph('公开标价和商家说明不等于实际体验。缺少依据时明确保留未知。'));shell.append(copy,card);return shell;
 }
 function createSnapshotStrip(){const n=el('div','snapshot-strip');n.append(el('span','','数据版本生成于 '+date(state.catalog.publishedAt,true)+' · 北京时间'),el('span','','逐项保留采集时间 / 体验以具体网络与测量条件为准'));return n;}
@@ -101,7 +115,8 @@ function sourcesSection(record, sources, error) {
   return n;
 }
 async function createDetail(id){
- const record=state.catalog.items.find(r=>r.id===id);if(!record)return notFound('未找到这条记录','请核对名称或记录编号。');
+ const listed=state.catalog.items.find(r=>r.id===id);if(!listed)return notFound('未找到这条记录','请核对名称或记录编号。');
+ const bundle=state.catalog.schemaVersion==='airports-browser-index.v1'?await loadDetail(id):{record:listed},record=bundle.record;
  const shell=el('div','shell subpage');shell.append(bread(record.name),pageHeading(labels[record.category]||'资料',record.name,'价格和条款按来源记录，速度与稳定性以实际测量为准。'));
  if(record.listing?.reason) shell.append(paragraph('仅保留资料：'+record.listing.reason+' 这不是停服裁决。重新进入默认候选需要：'+record.listing.reinstatementEvidence,'quiet-note'));
  shell.append(createCoreDetail(record,{el,paragraph,section,link,date,button}));
@@ -110,13 +125,13 @@ async function createDetail(id){
  const earlier=el('details','disclosure');earlier.append(el('summary','','较早的匿名公开采集（保留原时点）'));
  if(record.coreInfo?.website?.relationship==='saved_account_login_succeeded_brand_displayed')earlier.append(paragraph('上方核心信息已合并较新的登录后或条款材料。这里保留匿名请求当时的结果，旧缺失状态不覆盖后来的观察。','quiet-note'));
  earlier.append(createCurrentEvidenceSections(record,{el,paragraph,section,link,date}));drawer.append(earlier);
- const result=await loadSources().then(value=>({value}),error=>({error}));drawer.append(sourcesSection(record,result.value||new Map(),result.error?.message));
+ const result=bundle.sources?{value:new Map(bundle.sources.map(source=>[source.id,source]))}:await loadSources().then(value=>({value}),error=>({error}));drawer.append(sourcesSection(record,result.value||new Map(),result.error?.message));
  const technical=el('details','disclosure');technical.append(el('summary','','域名技术记录与首日材料'));technical.append(domainSection(record),communitySection(record));drawer.append(technical);shell.append(drawer);setPageTitle(record.name);return shell;
 }
 function methodPage() {
   const shell = el('div', 'shell subpage');
   shell.append(bread('数据说明'), pageHeading('DATA / 数据说明', '这些信息，能帮你确认什么。', '名录先回答付费前常见的九个问题。每项保留来源与时间，资料不够时写明未知，方便你继续核对。'));
-  const measuredCount = state.catalog.items.filter(record => ['speed', 'stability'].some(key => record.coreInfo?.[key]?.measured?.status === 'scoped_measurements_available' && record.coreInfo[key].measured.observations?.length)).length;
+  const measuredCount = state.catalog.items.filter(record => record.cardProjection?.hasMeasurements ?? ['speed', 'stability'].some(key => record.coreInfo?.[key]?.measured?.status === 'scoped_measurements_available' && record.coreInfo[key].measured.observations?.length)).length;
   const grid = el('div', 'method-grid');
   const topics = [
     ['01', '标价、起价与实际结算', '周期总额、起价和待询价分别记录，不把半年、年付或整期配额直接改写成月付。币种、附加费、售罄和依赖套餐分别标注；没有下单验证，就不能当作最终扣款金额。'],
@@ -143,7 +158,7 @@ function correctionsPage(query) { const recordId = query.get('record') || ''; co
 function notFound(title = '这个页面暂不存在', copy = '请返回名录搜索具体名称，或核对链接中的记录编号。') { const n = el('div', 'shell subpage'); const panel = el('div', 'empty-panel'); panel.append(el('h2', '', title), paragraph(copy), link('#/explore', '返回探索名录 →', 'secondary-button')); n.append(panel); return n; }
 function renderError(error) { const box = el('div', 'error-panel'); box.append(el('h1', '', '公开资料暂未载入'), paragraph(error.message || '请稍后再试；没有加载成功不代表没有相关资料。'), button('重新读取资料', 'secondary-button', () => start())); app.replaceChildren(box); }
 async function route() { if (!state.catalog) return; const token = ++state.routeToken; app.setAttribute('aria-busy', 'true'); const { path, query } = currentRoute(); const nav = path.startsWith('/airport/') ? 'explore' : path.slice(1) || 'explore'; setActive(nav); let content; try { if (path === '/explore' || path === '/') { content = createExplore(query); setPageTitle(''); } else if (/^\/airport\/A\d{3}$/.test(path)) content = await createDetail(path.split('/')[2]); else if (path === '/method') { content = methodPage(); setPageTitle('数据说明'); } else if (path === '/ledger') { content = await ledgerPage(query); setPageTitle('公开台账'); } else if (path === '/verify') { content = createVerificationPage({ el, paragraph, button, link, bread, pageHeading, date, download }); setPageTitle('版本核对'); } else if (path === '/corrections') { content = correctionsPage(query); setPageTitle('更正记录'); } else content = notFound(); if (token !== state.routeToken) return; app.replaceChildren(content); app.setAttribute('aria-busy', 'false'); focusContent(); if (path === '/explore' && (query.has('page') || query.get('focus') === 'catalog')) document.getElementById('catalog')?.scrollIntoView({ block: 'start' }); else window.scrollTo({ top: 0, behavior: 'auto' }); } catch (error) { if (token === state.routeToken) { app.setAttribute('aria-busy', 'false'); renderError(error); } } }
-async function start() { try { state.catalog = await getJson('./data/public-catalog.json'); if (!Array.isArray(state.catalog.items) || !state.catalog.summary || !Array.isArray(state.catalog.categories)) throw new Error('公开资料格式不完整。'); $('footer-asof').textContent = '数据版本生成于 ' + date(state.catalog.publishedAt,true) + ' · 北京时间'; await route(); } catch (error) { renderError(error); } }
+async function start() { const loading=el('div','loading-panel');loading.append(el('h1','','正在读取公开资料快照'),paragraph('正在整理核心信息、公开条款与核对时间。'));app.replaceChildren(loading);try { state.catalog = validateBrowserIndex(await getJson('./data/browser-index.json'),DATA_REVISION); $('footer-asof').textContent = '数据版本生成于 ' + date(state.catalog.publishedAt,true) + ' · 北京时间'; await route(); } catch (error) { renderError(error); } }
 $('menu-toggle').addEventListener('click', () => { const open = $('primary-nav').classList.toggle('open'); $('menu-toggle').setAttribute('aria-expanded', String(open)); });
 document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); focusContent(); $('main-content').scrollIntoView({ block: 'start' }); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape') { $('primary-nav').classList.remove('open'); $('menu-toggle').setAttribute('aria-expanded', 'false'); } });

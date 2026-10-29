@@ -296,18 +296,32 @@ function identityWarning(record) {
   return '品牌名与归属待核。' + (website.status === 'brand_name_conflict' ? text(website.basis) : '') + '价格仅为候选入口的页面观察。' + (website.status === 'brand_name_conflict' ? '名称关系未确认，不能据此认定更名。' : '');
 }
 
+export function coreCardProjection(record) {
+  const core = record.coreInfo || {}, price = priceSummary(core);
+  return {
+    price: { value: price.value, description: price.note },
+    identity: identityWarning(record),
+    facts: [['速度', performanceSummary(core, 'speed').value], ['稳定性', performanceSummary(core, 'stability').value],
+      ['支付', paymentSummary(core).cardValue], ['运营年限', historySummary(core).value]],
+    issues: issueSummary(core).value,
+    hasPlans: values(core.pricing?.plans).length > 0,
+    hasSpeedMeasurements: measuredSamples(core.speed).length > 0,
+    hasMeasurements: measuredSamples(core.speed).length > 0 || measuredSamples(core.stability).length > 0
+  };
+}
+
 export function createCoreCard(record, ui) {
   const { el, link, paragraph } = ui;
-  const core = record.coreInfo || {}, price = priceSummary(core), payment = paymentSummary(core), history = historySummary(core), issues = issueSummary(core), speed = performanceSummary(core, 'speed'), stability = performanceSummary(core, 'stability');
+  const model = record.cardProjection || coreCardProjection(record), price = model.price;
   const card = el('article', 'resource-card core-card');
   const top = el('div', 'resource-top'); const name = el('div'); const h = el('h3');
   h.append(link('#/airport/' + record.id, record.name)); name.append(h); top.append(name, el('span', 'category-tag', categories[record.category] || '其他资料'));
   card.append(top);
-  const identity = identityWarning(record); if (identity) card.append(paragraph(identity, 'core-card-identity'));
-  const priceRow = el('div', 'core-card-price'); priceRow.append(el('strong', '', price.value), paragraph(price.note)); card.append(priceRow);
+  const identity = model.identity; if (identity) card.append(paragraph(identity, 'core-card-identity'));
+  const priceRow = el('div', 'core-card-price'); priceRow.append(el('strong', '', price.value), paragraph(price.description)); card.append(priceRow);
   const facts = el('dl', 'core-card-facts');
-  for (const [label, value] of [['速度', speed.value], ['稳定性', stability.value], ['支付', payment.cardValue], ['运营年限', history.value]]) { const row = el('div'); row.append(el('dt', '', label), el('dd', '', value)); facts.append(row); }
-  card.append(facts, paragraph(issues.value, 'core-card-issues'));
+  for (const [label, value] of model.facts) { const row = el('div'); row.append(el('dt', '', label), el('dd', '', value)); facts.append(row); }
+  card.append(facts, paragraph(model.issues, 'core-card-issues'));
   const footer = el('div', 'card-footer'); footer.append(el('span', '', '资料有边界，付费前核对'), link('#/airport/' + record.id, '查看核心信息 ↗')); card.append(footer);
   return card;
 }

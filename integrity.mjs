@@ -1,3 +1,5 @@
+import { browserDataDocuments } from './browser-data.mjs?v=67456ed592fa968d795a469fcbe5d2a838b3a7222d1a3b113f00ebbc53dac54c';
+
 /**
  * Shared browser / Node 22 verification of a downloaded public publication.
  * No network, filesystem or private catalog access occurs in this module.
@@ -86,7 +88,7 @@ export async function verifyFiles(files, { expectedManifestSha256, allowReposito
     status: 'FAIL', errors: [], counts: null, buildManifestSha256: null,
     referenceProvided: expectedManifestSha256 !== undefined,
     referenceMatched: false, originalLedgerRecomputed: false,
-    factualClaimsVerified: false, trustedTimestampVerified: false, ignoredRepositoryMetadata: [],
+    factualClaimsVerified: false, trustedTimestampVerified: false, ignoredRepositoryMetadata: [], browserDataReproduced: false,
     limits: [...integrityLimits]
   };
   try {
@@ -215,6 +217,21 @@ export async function verifyFiles(files, { expectedManifestSha256, allowReposito
       'UNSUPPORTED_SCORE', '弃判版本不能宣称已计算预测准确性。');
     requireValue(typeof ledger.projectionNotice === 'string' && ledger.projectionNotice.length > 0,
       'PROJECTION_NOTICE_MISSING', '台账缺少公开投影限制说明。');
+    // Older downloaded publications remain verifiable. A publication declaring
+    // browser read models must reproduce every one from its complete inputs.
+    if (declarations.has('data/browser-index.json')) {
+      const derived = browserDataDocuments(catalog, sources, {
+        catalogSha256: await digest(files['data/public-catalog.json']),
+        sourcesSha256: await digest(files['data/public-sources.json'])
+      });
+      const declared = [...declarations.keys()].filter(name => name === 'data/browser-index.json' || name.startsWith('data/details/'));
+      requireValue(declared.length === derived.size, 'BROWSER_DATA_SET', '逐条详情文件集合与完整名录不一致。');
+      for (const [name, expected] of derived) {
+        requireValue(declarations.has(name) && same(parseJson(files, name), JSON.parse(JSON.stringify(expected))),
+          'BROWSER_DATA_MISMATCH', '浏览器资料与完整公开投影不一致：' + name);
+      }
+      report.browserDataReproduced = true;
+    }
     report.counts = { files: supplied.length, catalog: records.size, discovery: discovery.size, sources: sourceRows.size,
       ledger: ledgerRows.size, scorablePredictions: 0 };
     report.status = 'PASS';
