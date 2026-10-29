@@ -1,4 +1,4 @@
-import { browserDataDocuments } from './browser-data.mjs?v=e721ed960d605ae1c613f9c0d0d0430802fe8ad716b262677dca7d0329d68e84';
+import { browserDataDocuments } from './browser-data.mjs?v=39a332b80dd540771ebd7ca012e8aae948e745e18119a930445f67f1823d22e1';
 
 /**
  * Shared browser / Node 22 verification of a downloaded public publication.
