@@ -125,15 +125,18 @@ function deviceSummary(core) {
 function issueSummary(core) {
   const data = core.stability || {}, events = values(data.recentIssues), recoveries = values(data.recoveryClues);
   const window = [day(data.recentWindow?.start), day(data.recentWindow?.end)].filter(Boolean).join(' 至 ');
-  const coverage = (window ? '窗口 ' + window + '。' : '') + (data.searchComplete === true ? '仅覆盖已声明的检索来源。' : '来源覆盖不完整。');
+  const unresolved = values(data.identityUnresolvedReports);
+  const attribution = unresolved.length ? { detailsLabel: '归属待核材料', detailText: unresolved.map(event => (day(event.createdAt) || '日期未知') + '：' + text(event.summary) + ' 归属限制：' + text(event.bindingReason)).join('；') } : {};
+  const bindingNote = unresolved.length ? '另有 ' + unresolved.length + ' 条归属待核材料，未计入本服务问题数。' : '';
+  const coverage = bindingNote + (window ? '窗口 ' + window + '。' : '') + (data.searchComplete === true ? '仅覆盖已声明的检索来源。' : '来源覆盖不完整。');
   const latestRecovery = recoveries[0];
   const recoveryNote = latestRecovery ? '另有 ' + recoveries.length + ' 条恢复或部分可用线索。最新恢复材料（材料日期：' + (day(latestRecovery.createdAt) || '未知') + '）：' + (text(latestRecovery.summary) || '具体陈述未提供') + '。恢复范围与当前状态尚未独立核实。' : '';
   if (events.length) {
     const first = events[0], summary = text(first.summary);
     const material = summary ? '最新材料（材料日期：' + (day(first.createdAt) || '未知') + '）：' + summary + '。' : '';
-    return { value: '近月有 ' + events.length + ' 条问题线索', note: material + coverage + recoveryNote + (events.some(event => event.independentlyVerified !== true) ? '部分或全部陈述尚未独立核实。' : '') + '线索数不等于独立投诉人数或投诉率。' };
+    return { ...attribution, value: '近月有 ' + events.length + ' 条问题线索', note: material + coverage + recoveryNote + (events.some(event => event.independentlyVerified !== true) ? '部分或全部陈述尚未独立核实。' : '') + '线索数不等于独立投诉人数或投诉率。' };
   }
-  return { value: '近月问题情况未知', note: coverage + recoveryNote + '本批未匹配到问题陈述，不能解释为零投诉。' };
+  return { ...attribution, value: '近月问题情况未知', note: coverage + recoveryNote + '本批未匹配到问题陈述，不能解释为零投诉。' };
 }
 
 function privacySummary(core) {
@@ -156,7 +159,7 @@ function fieldDefinitions(core) {
     { key: 'history', title: '运营年限 · 是否老牌', ...historySummary(core), sourceIds: core.operatingHistory?.sourceIds },
     { key: 'policy', title: '退款与试用', ...policySummary(core), sourceIds: [...values(core.refund?.sourceIds), ...values(core.trial?.sourceIds)] },
     { key: 'devices', title: '适用网络与设备', ...deviceSummary(core), sourceIds: [...sourceIdsFrom(core.compatibility || core.networkAndDevices), ...values(core.pricing?.plans).flatMap(plan => values(plan.sourceIds)), ...values(core.speed?.measured?.observations).flatMap(sample => values(sample.sourceIds)), ...values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds))] },
-    { key: 'issues', title: '近一个月的问题', ...issueSummary(core), sourceIds: [...values(core.stability?.recentIssues), ...values(core.stability?.recoveryClues)].flatMap(event => values(event.sourceIds)) },
+    { key: 'issues', title: '近一个月的问题', ...issueSummary(core), sourceIds: [...values(core.stability?.recentIssues), ...values(core.stability?.recoveryClues), ...values(core.stability?.identityUnresolvedReports)].flatMap(event => values(event.sourceIds)) },
     { key: 'privacy', title: '隐私与日志', ...privacySummary(core), sourceIds: sourceIdsFrom(core.privacy) }
   ];
 }
