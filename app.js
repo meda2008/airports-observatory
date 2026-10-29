@@ -1,6 +1,6 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=2e4d90cc6f0e952cc465ada1e85287d119372868d04f9cb794837f73898ec24c';
-import { createVerificationPage } from './verification-page.mjs?v=2e4d90cc6f0e952cc465ada1e85287d119372868d04f9cb794837f73898ec24c';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=2e4d90cc6f0e952cc465ada1e85287d119372868d04f9cb794837f73898ec24c';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=dce0df06f359fdb9bcdba44d86092bf256c832f151e55da89d55e03215a96891';
+import { createVerificationPage } from './verification-page.mjs?v=dce0df06f359fdb9bcdba44d86092bf256c832f151e55da89d55e03215a96891';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=dce0df06f359fdb9bcdba44d86092bf256c832f151e55da89d55e03215a96891';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };
@@ -17,7 +17,7 @@ function shortDate(value) { return value && Number.isFinite(Date.parse(value)) ?
 function toast(message) { const n = $('toast'); n.textContent = message; n.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { n.hidden = true; }, 3600); }
 function download(name, payload, type = 'application/json;charset=utf-8') { const blob = new Blob([typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2)], { type }); const url = URL.createObjectURL(blob); const a = el('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
 async function copyLink(recordId) { const href = new URL(location.href); href.hash = '/airport/' + recordId; try { await navigator.clipboard.writeText(href.href); toast('记录链接已复制，可分享这条判断。'); } catch { toast('未能复制，请从地址栏复制这条记录的链接。'); } }
-const DATA_REVISION = '0fc67008bfcc22eef1b18c433ae90f30b02a1da1a04c04f8a42cdf034d780071';
+const DATA_REVISION = '425a4f24a56daa9f1b4118dfdcfc04dc6b41461449de8638189b9e52fa38b2e6';
 async function getJson(path) {
   const url = new URL(path, document.baseURI);
   url.searchParams.set('snapshot', DATA_REVISION);
