@@ -218,7 +218,7 @@ function pricingDetails(core, ui) {
   }
   for (const promotion of promotions) {
     const box = ui.el('div', 'core-term core-promotion');
-    box.append(ui.el('h4', '', '优惠材料：' + (text(promotion.label) || text(promotion.code) || '公开优惠说明')));
+    box.append(ui.el('h4', '', (promotion.status === 'restriction_only' ? '优惠使用条件：' : '优惠材料：') + (text(promotion.label) || text(promotion.code) || '公开优惠说明')));
     if (promotion.code) box.append(ui.paragraph('页面优惠码：' + text(promotion.code)));
     box.append(ui.paragraph('适用套餐：' + (text(promotion.applicablePlan) || '未确认')), ui.paragraph('使用条件：' + (values(promotion.conditions).map(text).filter(Boolean).join('；') || '未确认')),
       ui.paragraph('结束时间：' + (day(promotion.expiresAt) || '未确认') + (promotion.status === 'expired_stated_offer' ? '（按资料时点已过期）' : '')),
