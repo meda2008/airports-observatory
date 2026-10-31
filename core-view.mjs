@@ -89,7 +89,9 @@ function paymentSummary(core) {
   const value = methods.length ? methods.join('、') : '支付方式未知';
   const qualifier = { image_only: '仅图标', help_reference: '帮助页提及', public_text: '站方说明', public_checkout: '公开结算页', authenticated_checkout: '收银台说明' }[data.evidenceLevel];
   const sourcedReason = unique(data.sourceIds).length ? text(data.reason) : '';
-  return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason };
+  const other = values(data.observations).filter(o => values(o.sourceIds).some(id => !values(data.sourceIds).includes(id)));
+  const detailText = other.map(o => (paymentLevels[o.evidenceLevel] || paymentLevels.unknown) + '：' + values(o.methods).map(clean).join('、') + '。' + text(o.reason)).join('\n');
+  return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason, detailText, detailsLabel: '其他来源的支付说明' };
 }
 
 function historySummary(core) {
@@ -155,7 +157,7 @@ function fieldDefinitions(core) {
     { key: 'price', title: '价格', ...priceSummary(core), sourceIds: [...sourceIdsFrom(core.pricing), ...sourceIdsFrom(core.promotions)] },
     { key: 'speed', title: '速度', ...speed, sourceIds: [...sourceIdsFrom(core.speed?.measured), ...sourceIdsFrom(core.speed?.advertised), ...sourceIdsFrom(core.speed?.externalReports)] },
     { key: 'stability', title: '稳定性', ...stability, sourceIds: [...values(core.stability?.measured?.observations), ...values(core.stability?.operatorReports)].flatMap(sample => values(sample.sourceIds)) },
-    { key: 'payment', title: '支付方式', ...paymentSummary(core), sourceIds: core.payment?.sourceIds },
+    { key: 'payment', title: '支付方式', ...paymentSummary(core), sourceIds: [...values(core.payment?.sourceIds), ...values(core.payment?.observations).flatMap(o => values(o.sourceIds))] },
     { key: 'history', title: '运营年限 · 是否老牌', ...historySummary(core), sourceIds: core.operatingHistory?.sourceIds },
     { key: 'policy', title: '退款与试用', ...policySummary(core), sourceIds: [...values(core.refund?.sourceIds), ...values(core.trial?.sourceIds)] },
     { key: 'devices', title: '适用网络与设备', ...deviceSummary(core), sourceIds: [...sourceIdsFrom(core.compatibility || core.networkAndDevices), ...values(core.pricing?.plans).flatMap(plan => values(plan.sourceIds)), ...values(core.speed?.measured?.observations).flatMap(sample => values(sample.sourceIds)), ...values(core.stability?.measured?.observations).flatMap(sample => values(sample.sourceIds))] },
