@@ -1,7 +1,7 @@
 {
   "schemaVersion": "airports-public-build.v1",
-  "builtAt": "2026-10-31T07:17:12.299Z",
-  "assetRevision": "de5e13ba0bd6403e490c034a0eb324190b98fbc4cfc2103df6cc0d43df48a616",
+  "builtAt": "2026-10-31T07:30:17.903Z",
+  "assetRevision": "3c17ecfa3f72c5d7845b765092ae943305d1f879a90d0a7ceebc7307a6f26f44",
   "origin": "https://meda2008.github.io/airports-observatory",
   "hostingConfigured": false,
   "files": [
@@ -13,17 +13,17 @@
     {
       "path": "404.html",
       "bytes": 3953,
-      "sha256": "b103e51c9a6ad00678fe7400572eeb366c63e1703e92d605328aadca4e6f3f91"
+      "sha256": "eb3639713fb01e05f8511defe49311d10238b0b86157ebc5b537a2975c2db096"
     },
     {
       "path": "app.js",
       "bytes": 38383,
-      "sha256": "50243810d80603b241ff1c4ea651d6a44efefd5b16d8fb1ef5a4cbed331daeb4"
+      "sha256": "5e00885f129dcd36f42c9b23243da8b6793b346d0238b34116eff0ff6afc961f"
     },
     {
       "path": "browser-data.mjs",
       "bytes": 3584,
-      "sha256": "62c473691321a8af84331c4fd4e5cc6abbe1414d6c81f06896b0d45eaa4873b9"
+      "sha256": "e0b6a7442038bc07f915eb28bea2c0117ff8773384ede9b4aed49b493088225d"
     },
     {
       "path": "candidates.css",
@@ -32,8 +32,8 @@
     },
     {
       "path": "candidates.html",
-      "bytes": 13477,
-      "sha256": "2e8586df4f69e58b2ee8d6dbcff4e5960d05898bc379bb8161e6c222bc323d11"
+      "bytes": 16431,
+      "sha256": "948a2da84713ea8bb0ddd3c594f85e8c45cdb25505800d0331af92cb09982750"
     },
     {
       "path": "core-view.css",
@@ -1173,12 +1173,12 @@
     {
       "path": "index.html",
       "bytes": 3953,
-      "sha256": "b103e51c9a6ad00678fe7400572eeb366c63e1703e92d605328aadca4e6f3f91"
+      "sha256": "eb3639713fb01e05f8511defe49311d10238b0b86157ebc5b537a2975c2db096"
     },
     {
       "path": "integrity.mjs",
       "bytes": 16685,
-      "sha256": "4df5f5476fa65aec45c945b8cfedd52e1d339a6886c574bc970919f3ec2408cf"
+      "sha256": "3bb461db14344cef001f51242bc2984201c2a846888d1110a083bfc80ee3e927"
     },
     {
       "path": "robots.txt",
@@ -1208,7 +1208,7 @@
     {
       "path": "verification-page.mjs",
       "bytes": 8063,
-      "sha256": "d9090e8eda84fc57d7ee6a5fb17484115053a0761692f06d2b3af1a888e7d9f1"
+      "sha256": "3756c07319387e8a2a30e08996bd3b4c115bb9d92b11c57f454e3f8f863738b6"
     },
     {
       "path": "verify-publication.cjs",

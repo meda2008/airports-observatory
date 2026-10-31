@@ -1,7 +1,7 @@
-import { createCoreCard, createCoreDetail } from './core-view.mjs?v=de5e13ba0bd6403e490c034a0eb324190b98fbc4cfc2103df6cc0d43df48a616';
-import { validateBrowserIndex, validateBrowserDetail } from './browser-data.mjs?v=de5e13ba0bd6403e490c034a0eb324190b98fbc4cfc2103df6cc0d43df48a616';
-import { createVerificationPage } from './verification-page.mjs?v=de5e13ba0bd6403e490c034a0eb324190b98fbc4cfc2103df6cc0d43df48a616';
-import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=de5e13ba0bd6403e490c034a0eb324190b98fbc4cfc2103df6cc0d43df48a616';
+import { createCoreCard, createCoreDetail } from './core-view.mjs?v=3c17ecfa3f72c5d7845b765092ae943305d1f879a90d0a7ceebc7307a6f26f44';
+import { validateBrowserIndex, validateBrowserDetail } from './browser-data.mjs?v=3c17ecfa3f72c5d7845b765092ae943305d1f879a90d0a7ceebc7307a6f26f44';
+import { createVerificationPage } from './verification-page.mjs?v=3c17ecfa3f72c5d7845b765092ae943305d1f879a90d0a7ceebc7307a6f26f44';
+import { createCurrentEvidenceSections } from './current-evidence-view.mjs?v=3c17ecfa3f72c5d7845b765092ae943305d1f879a90d0a7ceebc7307a6f26f44';
 
 const $ = (id) => document.getElementById(id);
 const labels = { airport: '机场', niche: '小众机场', vpn: 'VPN', proxy: '商业代理', vps: 'VPS', tool: '工具', unknown: '待分类' };
