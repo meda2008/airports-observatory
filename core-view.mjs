@@ -91,7 +91,7 @@ function paymentSummary(core) {
   const sourcedReason = unique(data.sourceIds).length ? text(data.reason) : '';
   const other = values(data.observations).filter(o => values(o.sourceIds).some(id => !values(data.sourceIds).includes(id)));
   const detailText = other.map(o => (paymentLevels[o.evidenceLevel] || paymentLevels.unknown) + '：' + values(o.methods).map(clean).join('、') + '。' + text(o.reason)).join('\n');
-  return { value, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason, detailText, detailsLabel: '其他来源的支付说明' };
+  return { value, cleanupNote: data.orderCleanup?.status==='pending' ? '采集订单清理：取消尚未确认；'+text(data.orderCleanup.reason)+(data.orderCleanup.newOrderBlocked?' 已禁止重复建单。':'') : null, cardValue: value + (methods.length && qualifier ? '（' + qualifier + '）' : ''), note: (paymentLevels[data.evidenceLevel] || paymentLevels.unknown) + (methods.length ? '；当前收款、到账未验证。' : '。') + sourcedReason, detailText, detailsLabel: '其他来源的支付说明' };
 }
 
 function historySummary(core) {
@@ -341,6 +341,7 @@ export function createCoreDetail(record, ui) {
   for (const field of fieldDefinitions(core)) {
     const item = el('article', 'core-fact core-fact-' + field.key); item.dataset.coreField = field.key;
     item.append(el('h3', '', field.title), el('p', 'core-value', field.cardValue ?? field.value), paragraph(field.note, 'core-note'));
+    if(field.cleanupNote)item.append(paragraph(field.cleanupNote,'core-note core-order-cleanup'));
     const terms = field.key === 'price' ? pricingDetails(core, ui) : field.key === 'policy' ? policyDetails(core, ui) : ['speed', 'stability'].includes(field.key) ? measurementDetails(core, field.key, ui) : null;
     if (terms) item.append(terms);
     if (field.key === 'stability' && values(core.stability?.operatorReports).length) {
