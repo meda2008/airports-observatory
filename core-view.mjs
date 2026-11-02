@@ -154,7 +154,7 @@ function privacySummary(core) {
 function fieldDefinitions(core) {
   const speed = performanceSummary(core, 'speed'), stability = performanceSummary(core, 'stability');
   return [
-    { key: 'price', title: '价格', ...priceSummary(core), sourceIds: [...sourceIdsFrom(core.pricing), ...sourceIdsFrom(core.promotions)] },
+    { key: 'price', title: '价格', ...priceSummary(core), sourceIds: [...sourceIdsFrom(core.pricing), ...values(core.pricing?.externalReports).flatMap(r=>values(r.sourceIds)), ...sourceIdsFrom(core.promotions)] },
     { key: 'speed', title: '速度', ...speed, sourceIds: [...sourceIdsFrom(core.speed?.measured), ...sourceIdsFrom(core.speed?.advertised), ...sourceIdsFrom(core.speed?.externalReports)] },
     { key: 'stability', title: '稳定性', ...stability, sourceIds: [...values(core.stability?.measured?.observations), ...values(core.stability?.operatorReports)].flatMap(sample => values(sample.sourceIds)) },
     { key: 'payment', title: '支付方式', ...paymentSummary(core), sourceIds: [...values(core.payment?.sourceIds), ...values(core.payment?.observations).flatMap(o => values(o.sourceIds))] },
@@ -197,7 +197,7 @@ function detailText(value) {
 
 function pricingDetails(core, ui) {
   const plans = values(core.pricing?.plans), promotions = values(core.promotions);
-  if (!plans.length && !promotions.length) return null;
+  if (!plans.length && !promotions.length && !values(core.pricing?.externalReports).length) return null;
   const details = ui.el('details', 'core-item-details core-plan-details');
   details.append(ui.el('summary', '', '全部套餐与优惠条件'));
   if(core.pricing?.limitation) details.append(ui.paragraph(core.pricing.limitation));
@@ -216,6 +216,11 @@ function pricingDetails(core, ui) {
     if(plan.displayBasis) notes.push('页面口径：' + text(plan.displayBasis));
     notes.push('页面标价；实际下单总额、扣款与到账未验证。');
     for (const note of notes) box.append(ui.paragraph(note));
+    details.append(box);
+  }
+  for (const report of values(core.pricing?.externalReports)) {
+    const box=ui.el('div','core-term');
+    box.append(ui.el('h4','','第三方报价 · 未核实'),ui.paragraph('来源：'+text(report.publisher)),ui.paragraph('页面日期：'+(day(report.publishedAt)||'未标明')+'；采集时间：'+text(report.observedAt)),ui.paragraph(report.summary),ui.paragraph('不代表当前官网价格；未验证结账、扣款或到账。'),ui.paragraph(report.identityLimitation),ui.paragraph(report.freshnessLimitation),ui.paragraph('推广关联：'+({disclosed:'页面披露含推广链接',not_disclosed:'页面称无该服务返佣',unknown:'未确认'}[report.affiliateDisclosure]||'未确认')));
     details.append(box);
   }
   for (const promotion of promotions) {
