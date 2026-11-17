@@ -1,5 +1,5 @@
 {
-  "mode": "public_readonly_snapshot",
+  "mode": "reviewed_live_api",
   "sourceSnapshotId": "catalog-2d4546d35a7add4ea3133838",
   "sourceAsOf": "2026-11-16T14:25:31.669Z",
   "records": 219,
@@ -247,5 +247,8 @@
     ".nojekyll",
     "robots.txt"
   ],
-  "management": "retained_on_protected_existing_service_not_in_public_package"
+  "management": "retained_on_protected_existing_service_not_in_public_package",
+  "liveApiOrigin": "https://airports-api.vigorai.top",
+  "refreshIntervalMs": 60000,
+  "staticArchiveIsFallback": false
 }

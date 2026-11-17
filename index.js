@@ -1,11 +1,11 @@
-import {publicRead} from './public-runtime.mjs?v=4d60d0c3aef6092f';
+import {publicRead} from './public-runtime.mjs?v=91b70a8204927b71';
 'use strict';
 const $=s=>document.querySelector(s);
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!=null)n.textContent=text;if(cls)n.className=cls;return n;};
 const list=v=>Array.isArray(v)?v:[];
 const show=v=>v==null||v===''?'暂无数据':typeof v==='object'?JSON.stringify(v):String(v);
 function dateText(v){return v?String(v).replace('T',' ').replace(/\.\d+Z$/,' UTC'):'未知';}
-async function api(url){return publicRead(url);}
+let observedSnapshot;async function api(url){const value=await publicRead(url);if(value.snapshotId)observedSnapshot??=value.snapshotId;return value;}
 function safeUrl(value){try{const u=new URL(value);return ['http:','https:'].includes(u.protocol)&&!u.username&&!u.password?u.href:null;}catch{return null;}}
 function outLink(url,label,sponsored){const a=el('a',label),valid=safeUrl(url);if(!valid)return el('span','暂无入口','muted');a.href=valid;a.target='_blank';a.rel=sponsored?'sponsored noopener noreferrer':'noopener noreferrer';return a;}
 function priceText(p){if(!p||!Number.isFinite(p.amount))return '暂无报价';const symbol={CNY:'¥',USD:'$',EUR:'€',GBP:'£',JPY:'¥',HKD:'HK$',TWD:'NT$'}[p.currency]||p.currencySymbol||'';return symbol+String(p.amount)+(symbol?'':' '+(p.currency||''))+(p.amountBasis==='advertised_starting_price_not_period_total'?' 起':'');}
@@ -54,3 +54,5 @@ $('#catalog-reset').addEventListener('click',()=>{$('#catalog-form').reset();cat
 $('#previous').addEventListener('click',()=>{if(catalogPage>1){catalogPage--;loadCatalog();}});
 $('#next').addEventListener('click',()=>{if(catalogPage<catalogPages){catalogPage++;loadCatalog();}});
 window.addEventListener('hashchange',route);loadCatalog();route();
+
+setInterval(async()=>{if(document.hidden)return;try{const next=await publicRead('/api/stats');if(observedSnapshot&&next.snapshotId!==observedSnapshot){observedSnapshot=next.snapshotId;await loadCatalog();if(/^#\/airport\//.test(location.hash))await route();}observedSnapshot=next.snapshotId;}catch{const meta=document.querySelector('#catalog-meta');if(meta&&!meta.textContent.includes('自动更新暂不可用'))meta.textContent+=' · 自动更新暂不可用';}},60000);
