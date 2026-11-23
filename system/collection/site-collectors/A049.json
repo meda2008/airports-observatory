@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "entrySource": "public-catalog.coreInfo.website",
+  "eligibility": "queued",
+  "reason": "复用已验收a02.yfy02.com独立登录与私有会话；本轮新增只读渠道列表解析，未建单或付款；新增字段仍需本轮复核发布验收。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "publisher_redirect_login_observed_business_routes_reset",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Login was authorized for this specific new domain; native profile/order still reset through error route. No duplicate login or order until new route evidence.",
+    "credentialPropagationAllowed": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "new_login_origin_connection_closed",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "ml.yangfan618.net/dashboard failed with ERR_CONNECTION_CLOSED. No repeated order/login request or protection bypass."
+  },
+  "recoveryAcceptance": {
+    "configurationRevision": 12,
+    "recordedAt": "2026-11-19T13:34:12.726Z",
+    "executionMode": "standalone",
+    "fullSiteCoverageVerified": false,
+    "status": "blocked_frontend_error_route_before_credentials",
+    "credentialsSubmitted": false,
+    "weeklyEnabled": false
+  },
+  "recordId": "A049",
+  "name": "扬帆云",
+  "entryUrl": "https://a02.yfy02.com/login",
+  "allowedHosts": [
+    "a02.yfy02.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": false,
+  "fields": [
+    "pricing",
+    "payment"
+  ],
+  "refreshIntervalMs": 604800000,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-f4efa763ab9ac7ba8f00",
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "readOnlyRecipe": "yangfan_native_api_readonly",
+  "auth": {
+    "mode": "login",
+    "emailSelector": "input#input-1",
+    "passwordSelector": "input[type=\"password\"]",
+    "submitSelector": "button[type=\"submit\"]"
+  }
+}

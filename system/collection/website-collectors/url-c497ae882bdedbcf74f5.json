@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c497ae882bdedbcf74f5",
+  "origin": "https://sanfen.gonghailin.xin",
+  "recordIds": [
+    "A068"
+  ],
+  "entryUrls": [
+    "https://sanfen.gonghailin.xin/plan"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://sanfen.gonghailin.xin",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "909f89c2497be7c2a12279c1e4ce155d50baa735e842966e0dd3275b778656da",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

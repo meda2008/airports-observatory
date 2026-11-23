@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-90dc106af0284ddf9863",
+  "origin": "https://flyingbird.cc",
+  "recordIds": [
+    "A065"
+  ],
+  "entryUrls": [
+    "https://flyingbird.cc/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A065"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://flyingbird.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "0989867f83e390b1870ecfec1e20c135bd2384dd4ee6005c321221cb6de983ee",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

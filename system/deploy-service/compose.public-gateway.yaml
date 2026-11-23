@@ -1,0 +1,30 @@
+# Overlay only with compose.three-services.yaml. TLS belongs to the selected
+# host's existing reverse proxy; do not claim its 80/443 ports from this stack.
+services:
+  api:
+    mem_limit: 1g
+    cpus: 0.35
+    environment:
+      NODE_OPTIONS: --max-old-space-size=768
+  collector:
+    user: "1000:1000"
+    mem_limit: 1536m
+    cpus: 0.45
+    environment:
+      NODE_OPTIONS: --max-old-space-size=768
+      HOME: /collector-state/home
+  web:
+    user: "1000:1000"
+    mem_limit: 128m
+    cpus: 0.10
+    environment:
+      PUBLIC_API_HOST: ${PUBLIC_API_HOST:?Set a dedicated unused API hostname}
+      ADMIN_HOST: ${ADMIN_HOST:?Set a separate dedicated management hostname}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-https://airports.vigorai.top}
+      ADMIN_TOKEN_FILE: /run/secrets/admin-token
+    volumes:
+      - type: bind
+        source: ${ADMIN_TOKEN_FILE:-./data/three-services/admin-token}
+        target: /run/secrets/admin-token
+        read_only: true
+        bind: {create_host_path: false}

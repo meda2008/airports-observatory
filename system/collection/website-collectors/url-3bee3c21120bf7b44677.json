@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-3bee3c21120bf7b44677",
+  "origin": "https://cloud.ykkk.tech",
+  "recordIds": [
+    "A074"
+  ],
+  "entryUrls": [
+    "https://cloud.ykkk.tech/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://cloud.ykkk.tech",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "5fdbc0cb2591cc8faa11053f3b3fccfe1287453d79ff9aa381a5d283f7c89779",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

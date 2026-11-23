@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-60d824d63996a557cddf",
+  "origin": "https://erwancdec.cc",
+  "recordIds": [
+    "A028",
+    "A199"
+  ],
+  "entryUrls": [
+    "https://erwancdec.cc/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A199"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://erwancdec.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "f469e6bbcfc4ae53365028b20809971e11aa8b05a8faf8518d0453c6b8cb8ede",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

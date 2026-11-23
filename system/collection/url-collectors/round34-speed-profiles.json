@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A077",
+      "url": "https://clashx.pro/eggtart-review/",
+      "publisher": "茶波博客 Clashx",
+      "currentOfficialUrl": "https://eggtart.pro/",
+      "initialSourceRef": {
+        "file": "work/performance-discovery/A077-144deabf-d109-4c7d-9213-b80baa136699-a5392d7e-231f-436f-86bf-e1e4bd0f0c97/capture-0.json",
+        "fileSha256": "da090eddd811e9fb89e473007304e49a5776117083aa61474784c2eda77659d6",
+        "url": "https://clashx.pro/eggtart-review/",
+        "observedAt": "2026-11-13T08:00:53.254Z",
+        "bodySha256": "0535bd6461217c30307b5514d33cd6caa8aeac6311f2624a0939c8789e26dfd9",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "quote": "蛋挞云机场三网测速\n\n测速仅供参考，请以自身的实际体验为准。\n\n茶波建议重点关注日常使用表现就可以了，对于峰值速度不用太在意。\n\n电信/联通/移动测速及流媒体解锁情况：\n\n广东电信1000M：\n\n蛋挞云机场 电信测速",
+      "counterQuotes": [
+        "注： 目前为测试阶段，如果客户端出现问题，建议切换至第三方客户端。",
+        "2024-08 蛋挞云换了新的老板，官方说是新增了 IEPL 专线，但由于是新老板，各方面表现需要重新观察，作为用户也建议多观望一下再决定。"
+      ],
+      "nativeOfficialHref": "https://clashx.pro/eggtart",
+      "nativeDestinationUrl": "https://eggtart.cloud/zh/#/auth/signup;referral=yzEwhYTj",
+      "nativeDestinationReceipt": "work/performance-discovery/A077-5865deab-b872-4045-a6f6-83e5f8551215-8d11c055-1e32-4a6e-8c52-f058ee7409f1/receipt.json",
+      "image": {
+        "imageFile": "work/performance-20261113-thirtyfourth/images/A077-telecom.webp",
+        "imageSha256": "116a0233c32a3e62d716c6e55d9ad4db95413b0b1c798a746ad118e690185b31",
+        "originalSourceFile": "work/performance-discovery/media/eggtart-clashx-p34/144deabf-d109-4c7d-9213-b80baa136699/116a0233c32a3e62d716c6e55d9ad4db95413b0b1c798a746ad118e690185b31.webp",
+        "imageUrl": "https://clashx.pro/wp-content/uploads/2024/03/%E8%9B%8B%E6%8C%9E%E4%BA%91%E6%9C%BA%E5%9C%BA-%E7%94%B5%E4%BF%A1%E6%B5%8B%E9%80%9F.webp",
+        "imageAlt": "蛋挞云机场 电信测速",
+        "imageObservedAt": "2026-11-13T08:00:53.092Z",
+        "responseObservedAt": "2026-11-13T08:00:52.914Z",
+        "rawSourceCapturedAt": "2026-11-13T08:00:53.254Z",
+        "visualReviewedAt": "2026-11-13T08:09:32.777Z",
+        "date": "2024-03-10",
+        "dateLiteral": "2024-03-10 14:04:21 (CST)",
+        "reportedLocalTime": "14:04:21",
+        "reportedTimeZone": "CST",
+        "timeZoneOffset": null,
+        "displayedRows": 34,
+        "publisherSummaryAsPrinted": "数量=34/34 排序=订阅原序",
+        "threadCount": 6,
+        "headersAsPrinted": [
+          "序号",
+          "节点名称",
+          "类型",
+          "TLS RTT",
+          "HTTPS延迟",
+          "平均速度",
+          "最高速度"
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB",
+          "KB",
+          "B"
+        ],
+        "unitPerSecondExplicit": false,
+        "scope": "单轮34显示行，不当作34独立样本/长期可用率；界面数量34/34不等于全节点可用。TLS/HTTPS横杠保持缺值，0.00B和KB原样，不从MB换算Mbps。",
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "nodeLabel": "第1行（澳门）",
+            "region": "澳门",
+            "protocol": "Shadowsocks",
+            "tls": "61ms",
+            "httpsLatency": "219ms",
+            "mean": "29.39MB",
+            "max": "49.39MB",
+            "metrics": [
+              {
+                "label": "TLS RTT",
+                "valueText": "61ms",
+                "unit": "ms"
+              },
+              {
+                "label": "HTTPS延迟",
+                "valueText": "219ms",
+                "unit": "ms"
+              },
+              {
+                "label": "平均速度",
+                "valueText": "29.39MB",
+                "unit": "MB"
+              },
+              {
+                "label": "最高速度",
+                "valueText": "49.39MB",
+                "unit": "MB"
+              }
+            ]
+          },
+          {
+            "displayRow": 10,
+            "nodeLabel": "第10行（新加坡）",
+            "region": "新加坡",
+            "protocol": "Shadowsocks",
+            "tls": "539ms",
+            "httpsLatency": "935ms",
+            "mean": "73.76KB",
+            "max": "213.76KB",
+            "metrics": [
+              {
+                "label": "TLS RTT",
+                "valueText": "539ms",
+                "unit": "ms"
+              },
+              {
+                "label": "HTTPS延迟",
+                "valueText": "935ms",
+                "unit": "ms"
+              },
+              {
+                "label": "平均速度",
+                "valueText": "73.76KB",
+                "unit": "KB"
+              },
+              {
+                "label": "最高速度",
+                "valueText": "213.76KB",
+                "unit": "KB"
+              }
+            ]
+          },
+          {
+            "displayRow": 22,
+            "nodeLabel": "第22行（日本）",
+            "region": "日本",
+            "protocol": "Shadowsocks",
+            "tls": "-",
+            "httpsLatency": "-",
+            "mean": "0.00B",
+            "max": "0.00B",
+            "metrics": [
+              {
+                "label": "TLS RTT",
+                "valueText": "-",
+                "unit": null
+              },
+              {
+                "label": "HTTPS延迟",
+                "valueText": "-",
+                "unit": null
+              },
+              {
+                "label": "平均速度",
+                "valueText": "0.00B",
+                "unit": "B"
+              },
+              {
+                "label": "最高速度",
+                "valueText": "0.00B",
+                "unit": "B"
+              }
+            ]
+          }
+        ],
+        "selectionScope": "3 visual example rows; nodeLabel is an editorial row/region locator, not a verbatim full custom node name",
+        "publisherToolClaim": "已核实 TLS 证书；TLS RTT为单次数据交换延迟，HTTPS Ping为单次请求体感延迟。",
+        "footerNetworkLiteral": "(中山电信@1Gbps)",
+        "graphAuthenticityVerified": false,
+        "rawMeasurementLogsVerified": false,
+        "current": false
+      },
+      "imageReviewFile": "work/performance-20261113-thirtyfourth/eggtart-image-review.json",
+      "imageReviewSha256": "bedd24f54a3cfd947fb395e52fa35f3b26e76e742f039a94c4ec837898a15eeb",
+      "nativeDom": {
+        "file": "work/performance-discovery/dom/eggtart-clashx-p34/144deabf-d109-4c7d-9213-b80baa136699.json",
+        "fileSha256": "cf4e91926b6f32258673790c0561e23c9791543e0136797e6094550e197bd664",
+        "capturedAt": "2026-11-13T08:00:54.513Z",
+        "imageIndex": 1
+      },
+      "officialRootRef": {
+        "sourceId": "REVIEWED-EGGTART-CURRENT-ORIGIN-20261104-ANNOUNCEMENT",
+        "file": "work/collection-runs/financial-gaps-20261104-v8/eggtart_native_announcement.json",
+        "fileSha256": "79c5961748eee382611ae7941160b13ba1970c766e3f96cf8fd25d94a8691a7e",
+        "bodySha256": "dfac17bcdee9de3b0ba5ca655cd5d991006596e286a6d5b5c141fdc8aa7cbb13",
+        "url": "https://eggtart.pro/#/dashboard",
+        "observedAt": "2026-11-04T11:11:38.864Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "channelRef": {
+        "file": "work/performance-20261112-twentyfifth/live/eggtart-channel-historical.json",
+        "fileSha256": "f04042fe3510ad768d591997a2937acd39c6c10783a41f335d57145a9967f91a",
+        "bodySha256": "ddef285beab4b99668e527a1882fdfc500aa8deb72336a2824980abf99cc2961",
+        "url": "https://t.me/s/eggtartcloud?before=384",
+        "observedAt": "2026-11-12T12:25:17.770Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "channelBindingQuote": "https://t.me/eggtartcloud",
+      "channelPostIds": [
+        "eggtartcloud/390",
+        "eggtartcloud/398",
+        "eggtartcloud/400"
+      ],
+      "channelPublishedCloudHref": "http://eggtart.cloud/",
+      "channelCurrentProHref": "http://eggtart.pro/",
+      "channelAudit": {
+        "file": "work/performance-20261113-thirtyfourth/eggtart-entry-bridge-audit.json",
+        "fileSha256": "ee0817c24ed6c13965d11637b22e485c69cace924056196f22a1325a869af6c3"
+      },
+      "identityQualification": "current_registered_origin_referenced_channel_historical_official_host_publication_only",
+      "legalEntityContinuityVerified": false,
+      "nativeDestinationReceiptSha256": "b65c8fe3ee7bd79dffb01b500aa37ebd7af82da5653597680cc19e3a501af0c9"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "qualification": "Retained dated test statements only; not founding, earliest business, legal identity or continuous operation.",
+  "profiles": [
+    {
+      "recordId": "A037",
+      "name": "闪电",
+      "kind": "third_party_test_record_date",
+      "ref": {
+        "sourceId": "NEXT-SPEED-A037-ARTICLE",
+        "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-guatizi-candidate.json",
+        "fileSha256": "d313a67a08bc12debefaef2dc1a280654085d280868fbb750e30661982ce8eea",
+        "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82",
+        "url": "https://guatizi.com/sites/1787.html/",
+        "observedAt": "2026-11-12T04:11:15.977Z",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "validationProfile": {
+        "recordId": "A037",
+        "url": "https://guatizi.com/sites/1787.html/",
+        "quote": "速度测试：",
+        "publisher": "挂梯子（guatizi.com，第三方含推广链接）",
+        "nativeOfficialLink": "https://guatizi.com/go/?url=aHR0cHM6Ly9ndWF0aXppLmNvbS9nby9zaGFuZGlhbi8=",
+        "currentCatalogHostname": "access.shandiancn.com",
+        "article": {
+          "sourceId": "NEXT-SPEED-A037-ARTICLE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-guatizi-candidate.json",
+          "fileSha256": "d313a67a08bc12debefaef2dc1a280654085d280868fbb750e30661982ce8eea",
+          "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:11:15.977Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "identity": {
+          "sourceId": "NEXT-SPEED-A037-IDENTITY",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-no-measurement-candidate.json",
+          "fileSha256": "9ed319aafd8b55a6d78447778edc45eaec839567ff762d63f4b2949acc984e68",
+          "bodySha256": "ba07524f8712d8e50407edd8a18684142f397206a38bd917018e0b25b5d09bb9",
+          "url": "https://jichangtuijian1.com/pianyijichang/shandianpro",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "route": {
+          "sourceId": "NEXT-SPEED-A037-ROUTE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-route.json",
+          "fileSha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "bodySha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_metadata_json"
+        },
+        "imageReview": {
+          "sourceId": "NEXT-SPEED-A037-IMAGE-REVIEW",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-image-review.json",
+          "fileSha256": "b931c4a12b5d7b7c96449d44e2d5503c951e045d1f878d5a51d846f40f679574",
+          "bodySha256": "b931c4a12b5d7b7c96449d44e2d5503c951e045d1f878d5a51d846f40f679574",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:11:15.977Z",
+          "representation": "builtin_browser_metadata_json"
+        }
+      },
+      "selected": {
+        "date": "2025-04-27",
+        "datePrecision": "day",
+        "quote": "速度测试：",
+        "dateQuote": "测试时间：2025-04-27 15:19:59 (CST)"
+      }
+    },
+    {
+      "recordId": "A170",
+      "name": "边界云",
+      "kind": "operator_historical_test_statement_date",
+      "ref": {
+        "sourceId": "CORE-PUBLIC-BOUNDARY-B367-OPERATOR-BENCHMARK",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch367/raw/core-public-boundary-b367-operator-benchmark-49358a65c298.json",
+        "fileSha256": "49358a65c298379f3210ae40471a5c9420b3ceefa3d56c281b9d3e9a47d89b8c",
+        "url": "https://www.bianjiecloud.com/help/line-benchmark",
+        "observedAt": "2026-10-29T15:05:25.385Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+      },
+      "currentOfficialUrlAtReview": "https://www.bianjiecloud.com/",
+      "selected": {
+        "date": "2026-10-17",
+        "datePrecision": "day",
+        "quote": "补测：换一台国内测试机重新测尊享 5 倍",
+        "dateQuote": "补测窗口是北京时间 2026-10-17 06:46–07:38。"
+      }
+    },
+    {
+      "recordId": "A044",
+      "name": "E-IX",
+      "kind": "third_party_test_record_date",
+      "ref": {
+        "sourceId": "CONTINUATION-SPEED-A044-ARTICLE",
+        "file": "work/performance-20261112-seventeenth/continuation-speed-originals/A044-article.json",
+        "fileSha256": "9a2a57262747d265117df42a5af1967f92bf677d8ee65e32c63686a33245f4e6",
+        "bodySha256": "09d626efd2c6147cef26e30311edf997240711026b7fe7def826a18fc70530b6",
+        "url": "https://clashx.pro/eix-cloud-review/",
+        "observedAt": "2026-11-12T04:54:55.114Z",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "validationProfile": {
+        "recordId": "A044",
+        "url": "https://clashx.pro/eix-cloud-review/",
+        "publisher": "茶波博客（clashx.pro，第三方推广评测）",
+        "quote": "E-IX 机场三网测速",
+        "nativeOfficialLink": "https://clashx.pro/eix",
+        "currentCatalogHostname": "cloud.e-ix.com",
+        "article": {
+          "sourceId": "CONTINUATION-SPEED-A044-ARTICLE",
+          "file": "work/performance-20261112-seventeenth/continuation-speed-originals/A044-article.json",
+          "fileSha256": "9a2a57262747d265117df42a5af1967f92bf677d8ee65e32c63686a33245f4e6",
+          "bodySha256": "09d626efd2c6147cef26e30311edf997240711026b7fe7def826a18fc70530b6",
+          "url": "https://clashx.pro/eix-cloud-review/",
+          "observedAt": "2026-11-12T04:54:55.114Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "identity": {
+          "sourceId": "CONTINUATION-SPEED-A044-IDENTITY",
+          "file": "work/performance-20261112-seventeenth/continuation-speed-originals/A044-identity.json",
+          "fileSha256": "3d0193e8df0e3d6764b2a662af82ed609ed415f5aa2833d90f4e765640a9ff17",
+          "bodySha256": "3d8b77d7960687e41bc82ecc2f58c12d9f04fee31bb6c1edca03b4b84009ee85",
+          "url": "https://cloud.e-ix.com/#/register?code=IJVP9uMc",
+          "observedAt": "2026-11-12T04:55:07.538Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "route": {
+          "sourceId": "CONTINUATION-SPEED-A044-ROUTE",
+          "file": "work/performance-20261112-seventeenth/continuation-speed-originals/A044-route.json",
+          "fileSha256": "5a248c174bafdab15eef20b8ffb4202e379112b8c89f5ac535e7475ce035ff5d",
+          "bodySha256": "5a248c174bafdab15eef20b8ffb4202e379112b8c89f5ac535e7475ce035ff5d",
+          "url": "https://clashx.pro/eix-cloud-review/",
+          "observedAt": "2026-11-12T04:55:07.538Z",
+          "representation": "builtin_browser_metadata_json"
+        },
+        "imageReview": {
+          "sourceId": "CONTINUATION-SPEED-A044-IMAGE-REVIEW",
+          "file": "work/performance-20261112-seventeenth/continuation-speed-originals/A044-image-review.json",
+          "fileSha256": "48422879347ab01f5f1aab8e0b1cf7ac9e18bf09943ee56f81be97eed04fbdb2",
+          "bodySha256": "48422879347ab01f5f1aab8e0b1cf7ac9e18bf09943ee56f81be97eed04fbdb2",
+          "url": "https://clashx.pro/eix-cloud-review/",
+          "observedAt": "2026-11-12T04:54:55.114Z",
+          "representation": "builtin_browser_metadata_json"
+        }
+      },
+      "selected": {
+        "date": "2025-04-17",
+        "datePrecision": "day",
+        "quote": "E-IX 机场三网测速",
+        "dateQuote": "测试时间：2025-04-17 16:23:14 (CST)"
+      }
+    }
+  ]
+}

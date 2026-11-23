@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A190",
+  "name": "Anyland",
+  "entryUrl": "https://anyland.club/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "anyland.club"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "needs_identity_review",
+  "reason": "名录Anyland保存域名当前显示安妮office下载中心，名称适用关系和法律主体尚未确认。页面明示登录/注册入口为103.118.42.128:11111，访问后只取得浏览器导航失败，未得到登录业务正文。项目无对应账号，未注册/传凭证/下载安装。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "new_download_port_points_old_auth",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A190-new-22222-origin.json",
+      "work/collection-runs/pricing-9-20261109-v16/A190-directory-detail.json",
+      "work/collection-runs/pricing-9-20261109-v16/A190-new-reference-no-official-url.json"
+    ],
+    "resumeWhen": "新的可读商户入口，或原11111业务端恢复后的套餐原文；下载页不能证明价格。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "Anyland",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "新的可读商户入口，或原11111业务端恢复后的套餐原文；下载页不能证明价格。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.985Z",
+    "status": "no_new_matching_service_entry",
+    "result": "Anyland/安妮office联合检索只命中无关Anyland服务；复用原下载入口及IP业务端超时，不重复旧端口或采用未绑定营销站价表。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A190-search.json"
+    ],
+    "resumeWhen": "下载中心原生公布的新可读业务端或原端口恢复",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "latestAuthFollowup": {
+    "runId": "pricing-auth-20261110-v24",
+    "at": "2026-11-10T05:20:40.756Z",
+    "id": "A190",
+    "status": "ERR_TIMED_OUT_before_account_form",
+    "receipt": "work/collection-runs/pricing-auth-20261110-v24/result.json",
+    "passwordSaved": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.615Z",
+      "result": "新anyland1.cfd四档价的购买按钮只到下载页，下载涉及雪橇云；经营归属未证实",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A190-candidate.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "collectPerformanceReferences": true
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-7590f0467fab0603a79f",
+  "origin": "https://portal.skylinx.org",
+  "recordIds": [
+    "A060"
+  ],
+  "entryUrls": [
+    "https://portal.skylinx.org/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://portal.skylinx.org",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "a000c51edcd6555ad939362dc06a555f7b196ecf94670f21f4d8d0f2f6dd9740",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

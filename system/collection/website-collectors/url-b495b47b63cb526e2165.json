@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b495b47b63cb526e2165",
+  "origin": "https://yepfast.cc",
+  "recordIds": [
+    "A048"
+  ],
+  "entryUrls": [
+    "https://yepfast.cc/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://yepfast.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e0881818953010a00d180fb47e4bdc74795c36875eb0441326da74ac86703ed6",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

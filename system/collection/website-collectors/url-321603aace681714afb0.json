@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-321603aace681714afb0",
+  "origin": "https://2cy.now",
+  "recordIds": [
+    "A046"
+  ],
+  "entryUrls": [
+    "https://2cy.now/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://2cy.now",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "35435056ca55d296d85198f8af9dea25290e6b5cb87a536201c0f1c74338fdac",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

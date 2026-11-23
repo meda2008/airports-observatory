@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c72a71a2a1812ce6ee68",
+  "origin": "https://lingmao.civetxx.cfd",
+  "recordIds": [
+    "A156"
+  ],
+  "entryUrls": [
+    "https://lingmao.civetxx.cfd/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://lingmao.civetxx.cfd",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "585223586b76e380019c513fd33d5810af306a8d4b78142c75c08b9c378421f9",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

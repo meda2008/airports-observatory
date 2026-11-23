@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "qualification": "Existing retained source reuse for exact shared current service namespace only. No new independent history discovery, legal identity or continuity.",
+  "profiles": [
+    {
+      "recordId": "A201",
+      "name": "小鲤鱼 (XiaoLiYu)",
+      "kind": "operator_opening_claim",
+      "currentOfficialUrlAtReview": "https://www.xiaoliyu.me/",
+      "sharedServiceRecordIds": [
+        "A058",
+        "A201"
+      ],
+      "canonicalSourceGroup": "same_current_service:Liyu:www.xiaoliyu.me",
+      "dependencyGroup": "same_current_service:Liyu:www.xiaoliyu.me",
+      "ref": {
+        "sourceId": "CORE-AUTH-LIYU-B215-OPENING-LABEL",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch215/raw/core-auth-liyu-b215-opening-label-843dee64a4c6.json",
+        "fileSha256": "843dee64a4c62d4b9c1461f8c3765da09f4d8135412a43752f2ba2dd34bb5810",
+        "url": "https://www.xiaoliyu.me/#/dashboard",
+        "observedAt": "2026-10-28T13:44:46.034Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "01e3ec0b48a8195ae00a09770028f0b670b396bf9dbd9fdfebd7ddee5cb05eee"
+      },
+      "currentBindingRef": {
+        "sourceId": "CORE-AUTH-LIYU-B37-PLANS",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch37/raw/core-auth-liyu-b37-plans-f16bda91cdeb.json",
+        "fileSha256": "f16bda91cdebe7ad67d5d2f5a69052b561e92888d81d012b874bc1a5d7c8036b",
+        "url": "https://www.xiaoliyu.me/#/plan",
+        "observedAt": "2026-10-27T04:21:37.945Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "ffafbfa90d7de06bdaab133f894c1fc990c65ae11c0ef23b9b6800fca86fe031"
+      },
+      "currentBrandTitle": "小鲤鱼",
+      "currentBusinessMarker": "1000G-青铜",
+      "selected": {
+        "quote": "小鲤鱼开业啦!",
+        "dateQuote": "2023/11/01",
+        "date": "2023-11-01",
+        "datePrecision": "day"
+      }
+    },
+    {
+      "recordId": "A200",
+      "name": "SS-ID",
+      "kind": "third_party_opening_claim",
+      "currentOfficialUrlAtReview": "https://ss-id.com/",
+      "sharedServiceRecordIds": [
+        "A059",
+        "A200"
+      ],
+      "canonicalSourceGroup": "opening-claim:runtushare.net:a059",
+      "dependencyGroup": "publisher:runtushare.net",
+      "ref": {
+        "sourceId": "ev-12825fe0b812be15b4b6b8c229f26801d5f67c281b27871f4957dd9b27f26e49",
+        "file": "work/performance-20261112-fourteenth/live/history-ssid-source.json",
+        "fileSha256": "6fb73db52fb82ad65a1f669f76fee5ef21f8c62492f9bb16bb3a692d64172904",
+        "url": "https://runtushare.net/8327/",
+        "observedAt": "2026-11-12T01:07:47.827Z",
+        "representation": "builtin_browser_visible_DOM_text",
+        "bodySha256": "f3a594b47e57a4417d2e3197e6b52bd29052787d6704fb3cdc742d11a132a70c"
+      },
+      "destinationRef": {
+        "sourceId": "ev-3c832583a95a797bc865ea3ea3c42d20765cb29c69cd001cd580fa1b144ff8e0",
+        "file": "work/performance-20261112-fourteenth/live/history-ssid-native-destination.json",
+        "fileSha256": "f6a8cc3895d2209b047fd4527ea5a316cad90542f8bcc059f14d8b19ff23c494",
+        "url": "https://ss-id.com/#/register?code=f3SGM87e",
+        "observedAt": "2026-11-12T01:07:57.141Z",
+        "representation": "builtin_browser_metadata_json",
+        "bodySha256": "f6a8cc3895d2209b047fd4527ea5a316cad90542f8bcc059f14d8b19ff23c494"
+      },
+      "currentBindingRef": {
+        "sourceId": "CORE-AUTH-SSID-B120-CLIENT-REQUIREMENTS",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch120/raw/core-auth-ssid-b120-client-requirements-992550e75e17.json",
+        "fileSha256": "992550e75e17531d599c3702b1be63ae4d6523b802dfb354cd3371badcd9bb7b",
+        "url": "https://ss-id.com/#/dashboard",
+        "observedAt": "2026-10-28T00:37:36.813Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "502dacd51fa437886800527dbd880856f314b2aa5391aa3739ad95121c2a6122"
+      },
+      "currentBrandTitle": "仪表盘 - SS-ID",
+      "currentBusinessMarker": "SSID 官方客户端",
+      "validationProfile": {
+        "recordId": "A059",
+        "url": "https://runtushare.net/8327/",
+        "currentOfficialHostname": "ss-id.com",
+        "nativeOfficialHref": "https://runtushare.net/go/ss-id/",
+        "identityMode": "reviewed_native_redirect_current_host",
+        "identityQualified": true,
+        "primaryProof": {
+          "file": "work/performance-20261112-fourteenth/live/history-ssid-source.json",
+          "fileSha256": "6fb73db52fb82ad65a1f669f76fee5ef21f8c62492f9bb16bb3a692d64172904",
+          "bodySha256": "f3a594b47e57a4417d2e3197e6b52bd29052787d6704fb3cdc742d11a132a70c",
+          "url": "https://runtushare.net/8327/",
+          "observedAt": "2026-11-12T01:07:47.827Z"
+        },
+        "destinationProof": {
+          "file": "work/performance-20261112-fourteenth/live/history-ssid-native-destination.json",
+          "fileSha256": "f6a8cc3895d2209b047fd4527ea5a316cad90542f8bcc059f14d8b19ff23c494",
+          "observedAt": "2026-11-12T01:07:57.141Z",
+          "requestedNativeHref": "https://runtushare.net/go/ss-id/",
+          "resolvedUrl": "https://ss-id.com/#/register?code=f3SGM87e"
+        }
+      },
+      "validationRecordId": "A059",
+      "selected": {
+        "quote": "SS-ID 机场是一家 2024 开业的小众精品机场",
+        "dateQuote": "2024",
+        "date": "2024",
+        "datePrecision": "year"
+      }
+    },
+    {
+      "recordId": "A078",
+      "name": "CoffeeCloud",
+      "kind": "operator_announcement_date",
+      "currentOfficialUrlAtReview": "https://aicoffee.app/",
+      "sharedServiceRecordIds": [
+        "A078"
+      ],
+      "canonicalSourceGroup": "operator_notice:aicoffee.app:2025-11-02",
+      "dependencyGroup": "operator:aicoffee.app",
+      "ref": {
+        "sourceId": "COLLECT-9748fca5b5e2db385738cbe1",
+        "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/9748fca5b5e2db385738cbe1671ed856c1fad38a1700a9fdc3d84a2dfd797982.json",
+        "fileSha256": "9748fca5b5e2db385738cbe1671ed856c1fad38a1700a9fdc3d84a2dfd797982",
+        "url": "https://aicoffee.app/#/dashboard",
+        "observedAt": "2026-10-30T03:23:16.282Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "70b0d12f3ca38010f0d0b969fecee2ed12b0532d322e9f34642ae586657f3e60"
+      },
+      "currentBindingRef": {
+        "sourceId": "CORE-PUBLIC-COFFEE-B42-LOGIN",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch42/raw/core-public-coffee-b42-login-af9896bcb533.json",
+        "fileSha256": "af9896bcb5333e0c51cfaaa11586a38da906c4a9ef8445a37ebd67accf106caa",
+        "url": "https://aicoffee.app/#/login",
+        "observedAt": "2026-10-27T05:28:11.618Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "fe32fddfd701342c7be7f421413d31d9e0d5716ba41ab10fcb76e889c5e5fadf"
+      },
+      "currentBrandTitle": "CoffeeCloud",
+      "currentBusinessMarker": "夏日午后的咖啡馆",
+      "nativeHomeLink": {
+        "index": 0,
+        "url": "https://aicoffee.app/",
+        "label": "CoffeeCloud"
+      },
+      "selected": {
+        "quote": "官方自研协议，稳定安全快速（iOS已上架 AppStore）",
+        "dateQuote": "2025-11-02",
+        "date": "2025-11-02",
+        "datePrecision": "day",
+        "sameCardLiteral": "公告\n\n官方自研协议，稳定安全快速（iOS已上架 AppStore）\n\n2025-11-02",
+        "expectedCopies": 2
+      }
+    }
+  ]
+}

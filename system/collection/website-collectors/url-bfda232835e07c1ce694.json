@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-bfda232835e07c1ce694",
+  "origin": "https://33333.ifnf.xyz",
+  "recordIds": [
+    "A027"
+  ],
+  "entryUrls": [
+    "https://33333.ifnf.xyz/seni/yes/user/shop"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A027"
+      ],
+      "fields": [
+        "website",
+        "pricing",
+        "payment",
+        "refund",
+        "privacy",
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": "fnf_entry_and_authenticated_shop",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://33333.ifnf.xyz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "b91dbd096fbe31a54de62de4805f75abcac70e1797455950226bbc81390c9786",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

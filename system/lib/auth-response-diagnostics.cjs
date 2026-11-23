@@ -1,0 +1,9 @@
+'use strict';
+function createAuthResponseDiagnostics({expectedRequest,clock=Date.now}){
+ const checks=[],pending=new Set();
+ async function inspect(response){try{if(checks.length>=4||!expectedRequest(response.request()))return;const u=new URL(response.url());const check={origin:u.origin,path:u.pathname,httpStatus:response.status(),observedAt:new Date(clock()).toISOString(),serverFailure:null,responseBodyExported:false};checks.push(check);const location=response.headers?.().location;if(location){try{const v=new URL(location,u);check.redirectDestination={origin:v.origin};}catch{}}
+ const bytes=await response.body();if(bytes.length>262144){check.bodyInspection='over_limit';return}let v;try{v=JSON.parse(Buffer.from(bytes).toString('utf8'))}catch{check.bodyInspection='not_json';return}const messages=['msg','message','error'].map(k=>typeof v?.[k]==='string'?v[k]:'');check.serverFailure=require('../deploy-service/auth.cjs').authenticationFailure(messages.join('\n'));check.bodyInspection='selected_error_fields_classified_only';
+ }catch{}}
+ return{observeFailure(request){try{if(checks.length>=4||!expectedRequest(request))return;const u=new URL(request.url()),raw=request.failure?.()?.errorText||'',code=/^(?:net::)?(ERR_[A-Z0-9_]{1,64})$/.exec(raw);checks.push({event:'request_failed',origin:u.origin,path:u.pathname,httpStatus:null,observedAt:new Date(clock()).toISOString(),serverFailure:null,networkFailure:code?code[1]:'unclassified_network_failure',responseBodyExported:false});}catch{}},observe(response){const task=inspect(response);pending.add(task);void task.finally(()=>pending.delete(task));},async settle(){let timer;try{await Promise.race([Promise.allSettled([...pending]),new Promise(r=>{timer=setTimeout(r,1500)})]);}finally{clearTimeout(timer)}},snapshot(){return checks.map(x=>({...x}));}};
+}
+module.exports={createAuthResponseDiagnostics};

@@ -1,0 +1,4 @@
+"use strict";
+// Account identifier is compared inside the private browser; no identifier or token leaves this check.
+async function observe(page,config,credential,snapshot={}){if(config.recordId!=="A071"||credential?.origin!=="https://board.cloudnier.com"||snapshot.passwordForm||snapshot.verificationWidgetObserved||snapshot.agreementCheckbox||snapshot.type)return false;try{const u=new URL(page.url());if(u.origin!==credential.origin||u.pathname!=="/"||!["#/stage/dashboard","#/stage/buysubs"].includes(u.hash))return false;return await page.evaluate(email=>{const visible=e=>!!e.getClientRects().length&&getComputedStyle(e).visibility!=="hidden";if([...document.querySelectorAll("input[type=password]")].some(visible))return false;const body=document.body?.innerText||"";return body.includes("NieRCloud")&&body.split(/\s+/).some(t=>t.trim().toLowerCase()===email.trim().toLowerCase());},credential.email);}catch{return false;}}
+module.exports={observe};

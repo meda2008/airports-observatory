@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A169",
+  "name": "影子机场",
+  "entryUrl": "https://www.yingzi01.com/#/plans",
+  "entrySource": "collection/site-overrides.json",
+  "allowedHosts": [
+    "www.yingzi01.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "2026-11-02 user approved this exact candidate; same-domain default account login succeeds. Authenticated announcement and yingziyyds channel cross-link current domain. Legacy shadow-airport.top migration unverified. Batch441 admits 5 plans/13 cycle quotes, card no-refund statement, named unpaid options and cancellation after reload. Completed price/payment/refund must be reused; never repeat orders for these fields. Sidebar buttons can leave old view; observed hash routes plans/settings/orders worked. Retained v114 evidence and separate data review.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  }
+}

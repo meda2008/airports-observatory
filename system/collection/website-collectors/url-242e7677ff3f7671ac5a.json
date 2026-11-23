@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-242e7677ff3f7671ac5a",
+  "origin": "https://galaxycloud.cc",
+  "recordIds": [
+    "A070"
+  ],
+  "entryUrls": [
+    "https://galaxycloud.cc/shop"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://galaxycloud.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "4f410c9fde1c4d533b0ddb61e004dffdc25c477d3eb9e9216fccee8f72b6dbd0",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

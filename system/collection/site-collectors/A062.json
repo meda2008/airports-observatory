@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A062",
+  "name": "小鸡快跑",
+  "entryUrl": "https://w17.xiaojiweb01.cc/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "w17.xiaojiweb01.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "小鸡快跑保存v2.xiaojikp.cc当前实际到w17.xiaojiweb01.cc同名登录表单。项目没有匹配保存账号，未注册/发码/传其他服务凭证；法律主体与历史连续经营未独立确认。 本批用户确认现有会话已登录后，实际读到套餐正文。登录和同名页面不证明法律主体、旧域迁移或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  }
+}

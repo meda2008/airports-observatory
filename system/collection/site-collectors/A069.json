@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A069",
+  "name": "果粒橙",
+  "entryUrl": "https://guolicheng.cc/index.php",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "guolicheng.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "原保存域guolicheng.cc的既有会话可读登录商城、使用条款及FAQ；可读不等于库存、付款或线路交付，法律主体及连续运营未独立核实。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

@@ -1,0 +1,4 @@
+'use strict';
+// Reply/forward text is context, never the main statement of the enclosing post.
+function mainStatement(post){if(!post||!/^\w+\/\d+$/.test(post.dataPost||'')||post.permalink!=='https://t.me/'+post.dataPost||!Number.isFinite(Date.parse(post.dateTime))||!Array.isArray(post.textSegments))return null;const all=post.textSegments.filter(s=>typeof s.text==='string'&&s.text.trim()),quoted=s=>s.quoted===true||/tgme_widget_message_reply|tgme_widget_message_forwarded/.test(s.parentClass||''),mains=all.filter(s=>!quoted(s)),visibleText=post.visiblePostText||post.postText;if(mains.length!==1||typeof visibleText!=='string'||!all.every(s=>visibleText.includes(s.text)))return null;return{text:mains[0].text,dateTime:post.dateTime,postUrl:post.permalink,quotedTexts:all.filter(quoted).map(s=>s.text)};}
+module.exports={mainStatement};

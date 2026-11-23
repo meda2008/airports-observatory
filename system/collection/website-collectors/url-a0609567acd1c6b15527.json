@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a0609567acd1c6b15527",
+  "origin": "https://99vpn.bar",
+  "recordIds": [
+    "A194",
+    "A204"
+  ],
+  "entryUrls": [
+    "https://99vpn.bar/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": {
+      "mailServiceName": "99吧",
+      "senderDomains": [
+        "99bar.email"
+      ],
+      "codeLength": 6
+    }
+  },
+  "policy": {
+    "credentialOrigin": "https://99vpn.bar",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "df6cae4ff770989ddf5c25129389167ebc184024ea5c371e35543bd2964eea1d",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A056",
+      "url": "https://xn--yfrp36ea9901a.com/changelog/",
+      "reportedMonth": "2023-03",
+      "monthLiteral": "2023.3",
+      "quote": "2023.3\n\n狗狗加速新增专线节点！\n\nAdded\n狗狗加速升级进行中，为了解决小火箭用户速度慢 和 兼容更多客户端，部署多条专线节点，更新订阅即可使用。",
+      "quoteSha256": "8ff8b24bfdf81c4b5164da1397e0a16c21290552045592ff00fe25ff79e25be6",
+      "currentRef": {
+        "file": "work/performance-discovery/A056-1ecf5c4a-db20-4d9d-8bd8-152f411c22ba-fd4cfc29-64fc-43b1-ad09-a46c3f7f1b9b/capture-0.json",
+        "fileSha256": "50ea30b9fceb17f39697fd303a576391851ecd8f8ad5515c2f6a3886dfb66432",
+        "url": "https://xn--yfrp36ea9901a.com/",
+        "observedAt": "2026-11-13T04:45:09.758Z",
+        "bodySha256": "14e8da6ac4b0d5c48b6472dfe1ff6f2490b06d543efdacc6090749427ca3378b",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "nativeLinkProof": {
+        "file": "work/performance-discovery/dom/round31-current-public-a056/1ecf5c4a-db20-4d9d-8bd8-152f411c22ba.json",
+        "fileSha256": "ebf916126cc72dfeedc08678fd9c63fa104b1d01537d1045ed0ae62f4098f5db",
+        "capturedAt": "2026-11-13T04:45:09.809Z",
+        "linkIndex": 10,
+        "href": "https://xn--yfrp36ea9901a.com/changelog"
+      },
+      "initialSourceRef": {
+        "file": "work/performance-discovery/A056-a39af308-f810-4051-b676-3397f5cdc176-0784e2bf-843f-45ca-b965-aa8679216980/capture-0.json",
+        "fileSha256": "bae2124c1685821407961fa14155735df881d5f2dbc4a855a54cd7e1fadf61ed",
+        "url": "https://xn--yfrp36ea9901a.com/changelog/",
+        "observedAt": "2026-11-13T04:46:26.548Z",
+        "bodySha256": "6e7ad76fc71a15968a0b7275e648e9c26b0f20f16e48e532cf9f1946990f14d7",
+        "representation": "builtin_browser_visible_DOM_text"
+      }
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "entrySource": "public-catalog.coreInfo.website",
+  "eligibility": "queued",
+  "reason": "公开客户端订阅变更弹窗监控；仅局部退款条件，不等于普通购买政策或登录/报价采集已跑通。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "跨界云",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "跨界云",
+    "receipt": "work/collection-runs/financial-20261109-v18/A162-directory.json",
+    "sha256": "2d93303027a83126a4454a942985c632481456abcdd8a75e617127ef1908f71f",
+    "status": "no_matching_directory_card_observed_not_service_absence",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "recordId": "A162",
+  "name": "跨界云",
+  "entryUrl": "https://xdxx.kuajiexx.cfd/",
+  "allowedHosts": [
+    "xdxx.kuajiexx.cfd",
+    "qu01.kuajiecloud.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "fields": [
+    "pricing"
+  ],
+  "refreshIntervalMs": 604800000,
+  "challengePolicy": "checkpoint",
+  "knowledgeAdapter": true,
+  "websiteCollectorId": "url-1162ebf4e6310bb8edfa",
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "kuajie_native_api_readonly",
+  "publicOnly": false,
+  "validateWhileDisabled": true,
+  "latestNativeRecovery": {
+    "at": "2026-11-20T03:16:47.775Z",
+    "runId": "f79acbab-5d5e-4564-b1ea-41f36ac31443",
+    "status": "native_login_authentication_rejected",
+    "reason": "Server returned 邮箱或密码错误; no repeated attempt, registration or reset",
+    "publisher": "https://qu01.kuajiecloud.com/",
+    "activeCandidate": "https://xdxx.kuajiexx.cfd/",
+    "independentLoginVerified": false,
+    "businessParsingLiveVerified": false,
+    "weeklyEnabled": false,
+    "parserModule": "collection/url-collectors/kuajie-native-plans.cjs",
+    "sourceUnitVerified": true,
+    "syntheticParserChecksAreNotLiveAcceptance": true
+  },
+  "latestSuccessfulNativeRecovery": {
+    "at": "2026-11-20T03:55:30.503Z",
+    "release": "v185",
+    "coldRunId": "ecac117b-984a-4838-8dcb-6106d8c7d2e8",
+    "warmRunId": "2300a64d-0497-46aa-b010-b89ea00c0edf",
+    "proposalId": "ac7d954a-abb3-4fa8-8b5e-0de3977c8ae6",
+    "snapshotId": "catalog-97f997a95fbeeabbd0923ba3",
+    "products": 9,
+    "periodQuotes": 29,
+    "warmSigninRequests": 0,
+    "weeklyEnabled": false,
+    "remainingGate": "builtin_browser_frontend_visual_acceptance",
+    "manualSettlementExcluded": true,
+    "previousRejectedProposalPreserved": "af61c74e-4211-4eed-b0a8-be3805f61a03"
+  }
+}

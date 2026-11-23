@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A145",
+  "name": "FlyBit (飞比特)",
+  "entryUrl": "https://www.fastfastfast.best/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "www.fastfastfast.best"
+  ],
+  "adapter": "flybit",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "公开goflybit.com导航明示www.fastfastfast.best，用户已在该目标域名登录，当前为FlyBit同名候选页面。此绑定只支持本轮导航与页面归属线索，经营法律主体未独立验证；导航更新时间不作为成立日。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

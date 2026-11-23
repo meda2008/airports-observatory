@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A184",
+  "name": "Dler Cloud (墙洞)",
+  "entryUrl": "https://oixcloud.com/user/shop",
+  "entrySource": "registered_dler_documentation_native_store_link_current_only",
+  "allowedHosts": [
+    "dler.io",
+    "docs.dler.io",
+    "oixcloud.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "queued",
+  "reason": "原登记域文档子域已原生链接当前oixCloud商店；仅当前页面关联，未证明历史经营连续或权益继承。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "candidate_unbound_promotional_destination",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "dlercloud.org sends to qytaff access verification; no proof of Dler ownership. Do not import candidate prices as official.",
+    "credentialPropagationAllowed": false
+  },
+  "previousEntryUrl": "https://dler.io/",
+  "readOnlyRecipe": "oix_store_or_financial_readonly_no_order",
+  "credentialPropagationAllowed": false,
+  "auth": {
+    "mode": "existing_session_or_public_only",
+    "automaticCredentialSubmissionAllowed": false
+  },
+  "latestPriceFollowup": {
+    "runId": "pricing-13-20261105-v13",
+    "receipt": "work/collection-runs/pricing-13-20261105-v13/review-A184/admission-receipts.json",
+    "sourceGroupId": "oixcloud_current_authenticated_store",
+    "sameCurrentSourceAs": [
+      "A015"
+    ],
+    "legacyContinuityVerified": false,
+    "operatorIdentityVerified": false,
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/oixcloud-shop.cjs",
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility"
+    ],
+    "status": "live_financial_readonly_verified",
+    "automaticPublication": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261109-v17",
+    "receipt": "work/collection-runs/financial-20261109-v17/review-A184/admission-receipts.json",
+    "liveReceipt": "work/collection-runs/financial-20261109-v17/oix-recipe-live-result.json",
+    "sourceGroupId": "oixcloud_current_authenticated_store",
+    "sameCurrentSourceAs": [
+      "A015"
+    ],
+    "operatorIdentityVerified": false,
+    "legacyContinuityVerified": false,
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "collectPerformanceReferences": true,
+  "validateWhileDisabled": true
+}

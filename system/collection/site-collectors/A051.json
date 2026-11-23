@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A051",
+  "name": "TNT Cloud",
+  "entryUrl": "https://tntvipaffb01.cc/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "tntvipaffb01.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "本轮已登录同名TNT候选站点，并通过实际可见入口进入套餐页；经营法律主体未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlCollector": {
+    "id": "url-ebd5b5aef148952cb61a",
+    "entryUrl": "https://tntvipaffb01.cc/",
+    "recipeModule": "collection/url-collectors/verified-recipes.cjs",
+    "recipe": "captureTntAnnouncement",
+    "status": "live_verified_read_only",
+    "evidenceDirectory": "work/site-collector-service/data-first-20261102",
+    "lastAttemptAt": "2026-11-02T14:32:20.959Z",
+    "completedAllFields": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "official_docs_client_guides_only_unbound_search_terms_not_admitted",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "TNT backend login successful. Four client guide titles, no refund statement. Search terms site describes navigation; its account route failed, so not a trusted original operator policy."
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "TNT Cloud",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "TNT Cloud",
+    "receipt": "work/collection-runs/financial-20261109-v18/A051-directory.json",
+    "sha256": "70fb6e7160d4230d6399784fc2b732a25bf17a8165c093d9db59362d96932b92",
+    "status": "no_matching_directory_card_observed_not_service_absence",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "collectPerformanceReferences": false
+}

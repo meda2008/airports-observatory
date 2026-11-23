@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A198",
+  "name": "泡芙云",
+  "entryUrl": "https://www.paofu.cloud/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "www.paofu.cloud"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "同名泡芙云保存域名首页实际套餐购买链接为/user/shop，既有登录会话可读商店/配置；未输入密码、注册、接受新条款或提交支付。法律主体及历史连续经营未独立确认。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

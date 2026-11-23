@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A082",
+  "name": "银河云 (Galaxy)",
+  "entryUrl": "https://galaxycloud.homes/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "galaxycloud.homes"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "archived_user_request",
+  "reason": "用户要求移除未解决入口记录；A070已有银河套餐继续保留。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "identity_conflict_existing_A070",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A082-other-record-panel-login.json"
+    ],
+    "resumeWhen": "将A082原记录绑定该候选的原生迁移证明；核对去重后再决定是否合并。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "银河",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "将A082原记录绑定该候选的原生迁移证明；核对去重后再决定是否合并。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.906Z",
+    "status": "unchanged_promotional_price_not_original_merchant",
+    "result": "原登记营销页仍为98年/18月/35月，购买均跳vip3.huanyuyunbest.com带推广码；无原商户归属证明，与A070不合并。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A082-search.json",
+      "work/collection-runs/pricing-11-20261110-v28/A082-current-promotion.json"
+    ],
+    "resumeWhen": "原记录与实际银河商户或迁移关系的证据",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.597Z",
+      "result": "galaxycloud.pro/cc线索对应已有A070；缺乏与A082推广域的迁移证明",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A082-discovery.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "latestOfficialEntryDiscovery": {
+    "runId": "entry-discovery-eight-20261115",
+    "checkedAt": "2026-11-15T15:20:20.177Z",
+    "status": "identity_hold_do_not_duplicate_A070",
+    "source": {
+      "file": "work/entry-discovery-eight-20261115/A082-search.json",
+      "url": "https://www.google.com.hk/search?q=%22galaxycloud.homes%22+%E9%93%B6%E6%B2%B3%E4%BA%91+%E8%BF%81%E7%A7%BB",
+      "observedAt": "2026-11-15T15:05:02.771Z",
+      "bodySha256": "4b06c99b29c2e475485814d91663b950d9fddc6f85ffb1e13985d941abcecfa2"
+    },
+    "officialPriceVerified": false,
+    "credentialPropagationAllowed": false,
+    "weeklyActivationAllowed": false
+  },
+  "publicReferenceEnabled": false
+}

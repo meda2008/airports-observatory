@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A170",
+  "name": "边界云",
+  "entryUrl": "https://www.bianjiecloud.com/plans",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "www.bianjiecloud.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存官网lvpn.cc明确公告迁移bianjiecloud.com且原账户可用，跟随实际链接后使用边界云保存凭证登录成功、读取套餐；未注册、接受新条款、创建订单或付款。公告不独立验证法律主体或长期连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-a66fd099dc93f582721c",
+  "readOnlyRecipe": "bianjie_public_four_tabs",
+  "publicOnly": true,
+  "validateWhileDisabled": true,
+  "recoveryNote": "2026-11-20: four public tabs, wait for selected heading, original period totals not monthly equivalents, nine displayed offers with enterprise outlier unverified; actual weekly job accepted."
+}

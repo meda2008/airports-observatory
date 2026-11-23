@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-64e3e2b638785ff5672a",
+  "origin": "https://b8cfff2a4jquxdbmwbaj.wgetcloud.org",
+  "recordIds": [
+    "A001"
+  ],
+  "entryUrls": [
+    "https://b8cfff2a4jquxdbmwbaj.wgetcloud.org/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://b8cfff2a4jquxdbmwbaj.wgetcloud.org",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "0b01ae93c6272b559d61708794176c7692ff208af3256ed9ad283d967ff80cca",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

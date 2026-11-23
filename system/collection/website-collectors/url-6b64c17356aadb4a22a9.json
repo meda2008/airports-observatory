@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-6b64c17356aadb4a22a9",
+  "origin": "https://downloadshare.breezenetttt.sbs",
+  "recordIds": [
+    "A155"
+  ],
+  "entryUrls": [
+    "https://downloadshare.breezenetttt.sbs/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A155"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": {
+      "mode": "login",
+      "emailSelector": "#email",
+      "passwordSelector": "#password",
+      "submitSelector": "button[type=\"submit\"]",
+      "selectorEvidence": "work/site-collector-service/unified-run-20261103/A155-login-profile.json"
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://downloadshare.breezenetttt.sbs",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "57c7cf670f4bd557c35e37bf1302cf8d16fdd72334380a895f63bfc65d00e8e4",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

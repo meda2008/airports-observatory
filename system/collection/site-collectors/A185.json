@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A185",
+  "name": "Flashfox (闪狐云)",
+  "entryUrl": "https://flashfox.pro/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "flashfox.pro"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "当前flashfox.pro为已登录闪狐云商店，原生页脚链接旧记录flashfox.cloud为教程中心；原营销页购买去其他品牌的报价未使用。A064/A185是同名名录记录共享一份来源，法律主体及旧域连续经营关系仍未确认。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/retained-flashfox-pro.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "retained_source_verified_navigation_not_yet_live_tested",
+    "automaticPublication": false
+  }
+}

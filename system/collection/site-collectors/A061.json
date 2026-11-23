@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A061",
+  "name": "小旋风 (XXF)",
+  "entryUrl": "https://a01.xxfaffa01.cc/#/login",
+  "entrySource": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+  "allowedHosts": [
+    "a01.xxfaffa01.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Known xxfeng.org native /web leads to original panel registration; native return-to-login is reachable. Dashboard route blank is not evidence of domain migration. Reuse already confirmed payment data; no duplicate orders.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlCollector": {
+    "id": "url-64bb9116b9e4a3063eb8",
+    "entryUrl": "https://a01.xxfaffa01.cc/#/dashboard",
+    "recipeModule": null,
+    "recipe": null,
+    "status": "empty_document",
+    "evidenceDirectory": "work/site-collector-service/data-first-20261102",
+    "lastAttemptAt": "2026-11-02T14:32:21.068Z",
+    "completedAllFields": false
+  },
+  "knowledgeAdapter": true,
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "original_domain_login_route_recovered",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Use original domain #/login instead of #/dashboard. xxfvipaff.pro stays unbound candidate; no credential propagation.",
+    "credentialPropagationAllowed": false
+  },
+  "previousEntryUrl": "https://a01.xxfaffa01.cc/#/dashboard",
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "current_faq_conditions_reviewed_terms_route_has_no_body",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "Wait for tablist and expanded tabpanel body. Exact native public service-terms link still renders no terms body; keep refund unknown."
+  },
+  "collectPerformanceReferences": true
+}

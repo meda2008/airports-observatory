@@ -1,0 +1,36 @@
+{
+  "recordId": "A021",
+  "name": "Ytoo (歪兔)",
+  "entryUrl": "https://www.stentvessel.shop/",
+  "allowedHosts": [
+    "www.stentvessel.shop"
+  ],
+  "adapter": "whmcs",
+  "maxPages": 5,
+  "enabled": true,
+  "fields": [
+    "pricing",
+    "privacy"
+  ],
+  "refreshIntervalMs": 604800000,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-643b95707ed132c531e5",
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "readOnlyRecipe": "ytoo_native_public_catalog",
+  "publicOnly": true,
+  "schemaVersion": "airports-site-collector.v1",
+  "reason": "YToo官网9条周期报价已复核发布、匿名公网前台验收、独立公开复跑及启用后managed任务全通过；每周报价更新已启用，旧入口断点另留。",
+  "acceptance": {
+    "runtimeVersion": "v278",
+    "publishedRunId": "c719ca68-a7df-44d3-9cc8-8f75f16626b1",
+    "reviewReceipt": "/data/recovery-receipts/ytoo-nine-prices-reviewed-published-v275-20261121.json",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795197854020/receipt.json",
+    "weeklyEnabled": true,
+    "repeatRunId": "62091aad-6011-4060-a7ff-dff5338306d3",
+    "managedRunId": "6f12e376-b593-4170-a4f0-5822eb95cc1d",
+    "weeklyEnableReceipt": "/data/recovery-receipts/ytoo-weekly-enabled-v278-20261121.json",
+    "managedVerified": true
+  },
+  "reconcileVerifiedCheckpoints": true
+}

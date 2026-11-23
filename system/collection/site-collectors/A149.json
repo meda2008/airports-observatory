@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A149",
+  "name": "光速云",
+  "entryUrl": "https://efbng.guangzssytt.buzz/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "efbng.guangzssytt.buzz"
+  ],
+  "adapter": "generic",
+  "maxPages": 5,
+  "enabled": true,
+  "eligibility": "native_cold_login_warm_session_price_review_public_frontend_verified",
+  "reason": "当前品牌独立监控；真实冷登录、缓存会话恢复、报价复核发布和匿名前台验收已通过。旧品牌归属不合并。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website",
+    "refund"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "includeClientGuides": true,
+  "readOnlyRecipe": "guangsu_native_api_readonly",
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "collectPerformanceReferences": false,
+  "acceptance": {
+    "runtimeVersion": "v255",
+    "warmRunId": "1d19f65a-eeab-4bd5-a9d1-ccdfcd441d20",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795184836360/receipt.json",
+    "weeklyEnableReceipt": "/data/recovery-receipts/current-brand-weekly-enabled-v255.json"
+  }
+}

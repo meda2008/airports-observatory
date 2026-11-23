@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-d96fb0dc82c3c64f973d",
+  "origin": "https://www.x-air.org",
+  "recordIds": [
+    "A007"
+  ],
+  "entryUrls": [
+    "https://www.x-air.org/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A007"
+      ],
+      "fields": [
+        "pricing",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": "xair_current_cashier_visible_images_only",
+    "auth": {
+      "emailSelector": "input[name=\"username\"]",
+      "passwordSelector": "input[name=\"password\"]",
+      "submitSelector": "button:has-text(\"登陆账号\")",
+      "successSelector": "a[href=\"https://www.x-air.org/logout\"]",
+      "captcha": {
+        "imageSelector": "img[alt=\"验证码\"]",
+        "inputSelector": "input[name=\"captcha\"]",
+        "pattern": "^[A-Za-z0-9]{4,8}$"
+      }
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.x-air.org",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e6675ac72017e933f965adfb4f67b86a8c4ed35244077962636c9e617845e9ad",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

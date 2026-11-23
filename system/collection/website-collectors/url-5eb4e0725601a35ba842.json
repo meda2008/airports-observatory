@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-5eb4e0725601a35ba842",
+  "origin": "https://mkrused.v2saat.club",
+  "recordIds": [
+    "A036"
+  ],
+  "entryUrls": [
+    "https://mkrused.v2saat.club/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A036"
+      ],
+      "fields": [
+        "pricing"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://mkrused.v2saat.club",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "479f35f6bf61de6ab470975d40ed109f4a191dbd6751e35bfed6c9f8d00d105e",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

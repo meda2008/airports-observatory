@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "qualification": "Explicit historical publisher service-status claims only; default deny until reviewed current-service bridge proofs supplied.",
+  "profiles": [
+    {
+      "recordId": "A175",
+      "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+      "reviewedBodySha256": "49683fdd18dcb1d70d5c55939aa6e9e7d5a7f931143574f586043fa42fa85955",
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "file": "work/performance-20261112-eleventh/live/kexinyun-official-route-list.json",
+          "fileSha256": "06679ed051952656349eb24a7d59fbef3a14ad49f106e4ec0e0bb59349b27344",
+          "bodySha256": "3573321f2b233bfecd21c3883240e0f80d36a078364e05c34bae1fe78d30c5ae",
+          "url": "https://everett7623.kosingaff.com/#/register?code=NjIXMFUd",
+          "observedAt": "2026-11-11T16:23:33.746Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        }
+      ],
+      "checkpoint": null,
+      "reviewedCaptureRepresentations": [
+        {
+          "representation": "builtin_browser_visible_DOM_text",
+          "bodySha256": "49683fdd18dcb1d70d5c55939aa6e9e7d5a7f931143574f586043fa42fa85955",
+          "ref": {
+            "file": "work/performance-20261112-eleventh/live/kexinyun-review.json",
+            "fileSha256": "61e735c6557afa7c6724979251cc254543582fecfe74f531ab6b0d8ebf27f3b1",
+            "bodySha256": "49683fdd18dcb1d70d5c55939aa6e9e7d5a7f931143574f586043fa42fa85955",
+            "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+            "observedAt": "2026-11-11T16:18:01.147Z",
+            "representation": "builtin_browser_visible_DOM_text"
+          }
+        },
+        {
+          "representation": "redacted_visible_DOM_text_not_original_HTML",
+          "bodySha256": "e3b30ffc978c14202b8dc218b62e2b47476cf35183310a8dc859414c9b30fb72",
+          "ref": {
+            "file": "work/performance-20261112-eleventh/live/shared-reader-A175.json",
+            "fileSha256": "bfda036306d9ec0ffbcb202e493812662bfbf5a5ddb7625f4fbfbb75d061b025",
+            "bodySha256": "e3b30ffc978c14202b8dc218b62e2b47476cf35183310a8dc859414c9b30fb72",
+            "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+            "observedAt": "2026-11-11T16:46:53.326Z",
+            "representation": "redacted_visible_DOM_text_not_original_HTML",
+            "bodyDerivation": "standalone.toCapture(shared_reader_snapshot).body"
+          }
+        }
+      ]
+    },
+    {
+      "recordId": "A149",
+      "url": "https://vpsknow.com/reviews/airports/guangsu-airport-review/",
+      "reviewedBodySha256": "95fe0176cd39332779afc32a8437c905f9a70f8923080f43c22284aa63933fb2",
+      "identityQualified": false,
+      "identityProofs": [],
+      "checkpoint": "held_identity_bridge_missing_new_gsyvipaff_gasyuztt_to_current_efbng_guangzssytt",
+      "reviewedCaptureRepresentations": [
+        {
+          "representation": "builtin_browser_visible_DOM_text",
+          "bodySha256": "95fe0176cd39332779afc32a8437c905f9a70f8923080f43c22284aa63933fb2",
+          "ref": {
+            "file": "work/performance-20261111-tenth/live/guangsu-video-review.json",
+            "fileSha256": "f26709c14ce0649071a863658e61a7f1161579b2741d77b6d6d861c787250c59",
+            "bodySha256": "95fe0176cd39332779afc32a8437c905f9a70f8923080f43c22284aa63933fb2",
+            "url": "https://vpsknow.com/reviews/airports/guangsu-airport-review/",
+            "observedAt": "2026-11-11T15:47:27.331Z",
+            "representation": "builtin_browser_visible_DOM_text"
+          }
+        }
+      ]
+    }
+  ]
+}

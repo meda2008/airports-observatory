@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "qualification": "Pinned reviewed original operator channel posts; historical source claims only, no independent measurement, current availability or duration inference.",
+  "profiles": [
+    {
+      "recordId": "A046",
+      "url": "https://t.me/s/cylink_announcement",
+      "channel": "cylink_announcement",
+      "officialUrl": "https://2cy.now/",
+      "ref": {
+        "sourceId": "REVIEWED-1c6d13a2abc7b03ed613eff6",
+        "file": "work/collection-runs/financial-20261103-v6/originals/A046-channel-native-help-binding-1c6d13a2abc7.json",
+        "fileSha256": "1c6d13a2abc7b03ed613eff6e157843fe073786ba0bdd147a05d2826c5a7973c",
+        "bodySha256": "53469f814d7061e554ad8466a770bcca720ce9cbc02cad02d052d02aa4f54adb",
+        "url": "https://t.me/s/cylink_announcement",
+        "observedAt": "2026-11-03T13:36:54.053Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityLink": {
+        "index": 2,
+        "url": "https://2cy.now/",
+        "label": "https://2cy.now"
+      },
+      "events": [
+        {
+          "post": 1018,
+          "kind": "operator_outage_statement",
+          "quote": "机房故障，预计晚一些恢复。",
+          "scope": "站方机房故障声明；原文未给受影响地区、节点、用户数量或实际恢复时间。",
+          "summary": "2026-04-16站方公告“机房故障，预计晚一些恢复”；这是当时的故障与恢复预期，未取得实际恢复时间，不能作为当前中断或停服时长。",
+          "permalink": "https://t.me/cylink_announcement/1018",
+          "dateTime": "2026-04-16T09:43:32+00:00",
+          "timeMetadataIndex": 13
+        },
+        {
+          "post": 1019,
+          "kind": "operator_degradation_statement",
+          "quote": "非常抱歉，近期给（部分ios/路由器）用户带来不好的体验，因为普通协议（ss/vless）的不可抗力，机器被不断的拔线，我们无法提供稳定的服务。\n\n多方面考虑下，本月普通协议我们暂时只能提供海外入口或直连过度，但是我们会尽量优化海外连接效果。\n预计下个月我们会从新增加中转为普通协议客户提供更好的服务。\n\n补充：\n1. ninja 客户不受到影响，并且随着ninja的使用量，我们不断的增加带宽。\n2. vless 协议经过测试我们发现效果不理想，近期会马上上架 anytls 协议。",
+          "scope": "部分iOS/路由器用户与普通协议ss/vless；同帖明确ninja客户不受影响。下月增加中转为计划，非已恢复事实。",
+          "summary": "2026-04-17站方称部分iOS/路由器用户的普通协议ss/vless因机器不断被拔线而不稳定，本月暂提供海外入口或直连；同帖明确Ninja客户不受影响。后续增加中转为计划，未验证执行或实际恢复。",
+          "permalink": "https://t.me/cylink_announcement/1019",
+          "dateTime": "2026-04-17T10:15:02+00:00",
+          "timeMetadataIndex": 14
+        },
+        {
+          "post": 1024,
+          "kind": "operator_outage_statement",
+          "quote": "普通协议集体故障，请使用官方客户端。",
+          "scope": "普通协议；官方客户端是站方建议的替代使用方式，未证明全站中断、恢复时间或客户端实际可用性。",
+          "summary": "2026-08-26站方称“普通协议集体故障，请使用官方客户端”；范围为普通协议，官方客户端仅为替代建议，未给出全站故障、实际恢复或持续时间证据。",
+          "permalink": "https://t.me/cylink_announcement/1024",
+          "dateTime": "2026-08-26T20:07:45+00:00",
+          "timeMetadataIndex": 17
+        }
+      ]
+    },
+    {
+      "recordId": "A035",
+      "name": "老猫云",
+      "mode": "sla",
+      "url": "https://33.33laomao.com/#/plan",
+      "currentOfficialUrlAtReview": "https://33.33laomao.com/",
+      "registeredWebsiteSourceIds": [
+        "CORE-PUBLIC-LAOMAO-B11-ENTRY",
+        "CORE-AUTH-LAOMAO-B11-PLANS"
+      ],
+      "identityQualification": "registered_authenticated_current_hostname_and_same_origin_branded_login_no_legal_identity",
+      "ref": {
+        "sourceId": "CORE-AUTH-LAOMAO-B11-PLANS",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch11/raw/core-auth-laomao-b11-plans-00ca32a44231.json",
+        "fileSha256": "00ca32a44231cebd0151a67f086962ef55f8c81e2cecfe307c32537df91eab03",
+        "bodySha256": "5327468ac21661da09618954599515859fab9e30c5a5416d5b43a631979a2b4d",
+        "url": "https://33.33laomao.com/#/plan",
+        "observedAt": "2026-10-26T16:39:07.405Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "CORE-PUBLIC-LAOMAO-B11-ENTRY",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch11/raw/core-public-laomao-b11-entry-064f4ac4cd5a.json",
+        "fileSha256": "064f4ac4cd5aef837ea9c60c5159cf7a0c64833ad2079e0beb08cdc3571daba8",
+        "bodySha256": "b138b88279a27b2b721ea87c4f3cebbd9748b4bee77e6353fe5d9b21b9e0cab8",
+        "url": "https://33.33laomao.com/#/login",
+        "observedAt": "2026-10-26T16:37:43.449Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityBrand": "老猫云",
+      "claim": {
+        "quote": "99% 服务可用率保障 /UDP转发",
+        "targetAvailabilityPercent": 99,
+        "plans": [
+          "B套餐（50G）",
+          "C套餐（100G）",
+          "D套餐 (200G)",
+          "E套餐（300G）",
+          "F套餐（500G）"
+        ],
+        "expectedOccurrences": 5
+      },
+      "identitySourceLocator": {
+        "kind": "body_utf16_range",
+        "start": 0,
+        "end": 3,
+        "quoteSha256": "83d7eae3dfad39f83df13891b28439c0ca9d1aeb1808e0b04ad204a3b0928851",
+        "bodySha256": "b138b88279a27b2b721ea87c4f3cebbd9748b4bee77e6353fe5d9b21b9e0cab8"
+      }
+    },
+    {
+      "recordId": "A078",
+      "name": "CoffeeCloud",
+      "mode": "sla",
+      "url": "https://aicoffee.app/#/plan",
+      "currentOfficialUrlAtReview": "https://aicoffee.app/",
+      "registeredWebsiteSourceIds": [
+        "CORE-PUBLIC-COFFEE-B42-LOGIN",
+        "CORE-AUTH-COFFEE-B111-PLANS-INITIAL"
+      ],
+      "identityQualification": "registered_authenticated_current_hostname_and_same_origin_branded_login_no_legal_identity",
+      "ref": {
+        "sourceId": "CORE-AUTH-COFFEE-B111-PLANS-INITIAL",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch111/raw/core-auth-coffee-b111-plans-initial-bfc98a2c82d1.json",
+        "fileSha256": "bfc98a2c82d1258c28fd4addfc49f4adad059801bbfa920f32be2adc856a7a37",
+        "bodySha256": "9357d1f91b2aaf112d6f6c19eccb3faff8784d0ce6b125b6d33fc053f8bde1dc",
+        "url": "https://aicoffee.app/#/plan",
+        "observedAt": "2026-10-27T23:27:28.764Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "CORE-PUBLIC-COFFEE-B42-LOGIN",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch42/raw/core-public-coffee-b42-login-af9896bcb533.json",
+        "fileSha256": "af9896bcb5333e0c51cfaaa11586a38da906c4a9ef8445a37ebd67accf106caa",
+        "bodySha256": "fe32fddfd701342c7be7f421413d31d9e0d5716ba41ab10fcb76e889c5e5fadf",
+        "url": "https://aicoffee.app/#/login",
+        "observedAt": "2026-10-27T05:28:11.618Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityBrand": "CoffeeCloud",
+      "claim": {
+        "quote": "⚙️ 99.99% SLA 保证",
+        "targetAvailabilityPercent": 99.99,
+        "plans": [
+          "来杯美式",
+          "来杯拿铁",
+          "来杯摩卡",
+          "来杯澳白"
+        ],
+        "expectedOccurrences": 4
+      },
+      "identitySourceLocator": {
+        "kind": "body_utf16_range",
+        "start": 0,
+        "end": 11,
+        "quoteSha256": "e5034fa28b831ba2b9415a3ce87331e2a7e7a907e4522e17c44bed9e69cdb7d4",
+        "bodySha256": "fe32fddfd701342c7be7f421413d31d9e0d5716ba41ab10fcb76e889c5e5fadf"
+      }
+    }
+  ]
+}

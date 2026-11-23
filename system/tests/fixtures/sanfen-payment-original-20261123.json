@@ -1,0 +1,19 @@
+{
+  "id": "A068",
+  "captures": [
+    {
+      "url": "https://sanfen.gonghailin.xin/api/user/order/getPaymentMethod",
+      "body": "{\"success\":true,\"data\":[{\"id\":3,\"name\":\"支付宝支付-ZDD\",\"payment\":\"EPay\",\"icon\":null,\"handling_fee_fixed\":null,\"handling_fee_percent\":null},{\"id\":5,\"name\":\"支付宝/微信支付-XK\",\"payment\":\"EPay\",\"icon\":\"https://s2.loli.net/2023/04/22/dSkUHCBf29pxeTl.jpg\",\"handling_fee_fixed\":0,\"handling_fee_percent\":null}]}",
+      "observedAt": "2026-11-23T08:58:37.732Z",
+      "kind": "authorized_account_page",
+      "metadata": {
+        "representation": "original_cached_payment_methods_json",
+        "authenticationObserved": true
+      }
+    }
+  ],
+  "accountIdentityVerified": true,
+  "signinRequests": 0,
+  "ordersCreated": 0,
+  "paymentExecuted": false
+}

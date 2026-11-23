@@ -1,0 +1,4 @@
+const test=require('node:test'),assert=require('node:assert/strict'),{pageBlockType}=require('../deploy-service/standalone-collector.cjs');
+const body='Failed to verify your browser\n\nCode 21\n\nVercel Security Checkpoint\n\n|\nhkg1::retained-public-challenge-id';
+test('retained A172 Vercel failure is explicit security checkpoint, not application loading',()=>{assert.equal(pageBlockType({text:body,metadata:{title:'Vercel Security Checkpoint'}}),'vercel_security_checkpoint');assert.equal(pageBlockType({body,title:'Vercel Security Checkpoint'}),'vercel_security_checkpoint');});
+test('ordinary documentation mentioning Vercel does not become a checkpoint',()=>{assert.equal(pageBlockType({text:body,title:'How to diagnose hosting'}),null);assert.equal(pageBlockType({text:'套餐商店 正常业务正文',title:'Vercel Security Checkpoint'}),null);assert.equal(pageBlockType({text:body+'x'.repeat(2000),title:'Vercel Security Checkpoint'}),null);});

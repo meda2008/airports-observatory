@@ -1,0 +1,46 @@
+'use strict';
+const express=require('express'),path=require('node:path'),fs=require('node:fs');
+const{makeCatalogService,QueryError}=require('./catalog-service.cjs');
+function createApp(options={}){
+ const service=options.service||makeCatalogService(options),app=express();app.disable('x-powered-by');
+ app.use((req,res,next)=>{res.set({'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"});next();});
+ const health=(req,res)=>res.json({status:'OK',service:'airports-local',version:require('../package.json').version,dataVersion:service.dataVersion,catalogCount:service.stats().totalCatalog,evidenceAsOf:service.evidenceAsOf,catalogSha256:service.catalogSha256,provenanceSha256:service.provenanceSha256,ledgerSha256:service.ledgerSha256,currentEvidenceSha256:service.currentEvidenceSha256,coreSupplementSha256:service.coreSupplementSha256,uptime:Math.round(process.uptime()),mode:'read_only_local',provenanceLoaded:true});
+ app.get(['/health','/api/health'],health);app.get('/api/stats',(req,res)=>res.json(service.stats()));app.get('/api/catalog',(req,res)=>res.json(service.list(req.query)));
+ app.get('/api/catalog/:id/evidence',(req,res)=>{const v=service.evidence(req.params.id);v?res.json(v):res.status(404).json({error:'记录不存在'});});
+ app.get('/api/catalog/:id',(req,res)=>{const item=service.get(req.params.id);item?res.json({item}):res.status(404).json({error:'记录不存在'});});
+ app.get('/api/discovery',(req,res)=>res.json(service.discovery()));
+ app.get('/api/forecast-ledger',(req,res)=>{if(req.query.recordId!==undefined&&(typeof req.query.recordId!=='string'||!/^[AC]\d{3}$/.test(req.query.recordId)))throw new QueryError('无效记录ID');if(req.query.recordId&&!service.get(req.query.recordId)&&!service.discovery().items.some(r=>r.id===req.query.recordId||r.record_id===req.query.recordId))return res.status(404).json({error:'记录不存在'});res.json(service.ledger(req.query.recordId));});
+ app.get('/api/evidence/archive',(req,res,next)=>{const file=path.join(service.baseDir,'catalog','archives','public-evidence-2026-10-25.zip');if(!fs.existsSync(file))return res.status(404).json({error:'公开证据归档尚未导入'});res.download(file,'airports-public-evidence-2026-10-25.zip',err=>{if(err)next(err);});});
+ app.get('/api/evidence/current-archive',(req,res,next)=>{const file=path.join(service.baseDir,'catalog','archives','public-refresh-2026-10-26.zip');if(!fs.existsSync(file))return res.status(404).json({error:'本轮证据归档尚未生成'});res.download(file,'airports-public-refresh-2026-10-26.zip',err=>{if(err)next(err);});});
+ const all=(query={})=>{let page=service.list({...query,limit:'100'});const rows=[...page.items];while(page.hasMore){page=service.list({...query,limit:'100',offset:String(rows.length)});rows.push(...page.items);}return rows;};
+ const compat=r=>({id:r.id,name:r.name,category:r.category,url:r.officialUrl,officialUrl:r.officialUrl,stability:null,speed:null,verified:null,realPrices:[],price:r.legacyClaims?.price||null,priceStatus:'historical_unverified',dataSource:'frozen_public_evidence',decision:r.decisionLabel,forecast:r.forecast,evidenceGrade:r.evidenceGrade});
+ app.get('/api/airports',(req,res)=>{const airports=all().map(compat);res.json({count:airports.length,airports,evidenceAsOf:service.evidenceAsOf});});
+ app.get('/api/categories/:category',(req,res)=>{const rows=all({category:req.params.category});res.json({category:req.params.category,count:rows.length,airports:rows.map(compat)});});
+ app.get('/api/search/features/:keyword',(req,res)=>{const rows=all({q:req.params.keyword});res.json({count:rows.length,airports:rows.map(compat),scope:'name_domain_alias_search'});});
+ app.get(['/api/verified-prices','/api/verified-only'],(req,res)=>res.json({count:0,prices:[],airports:[],evidenceAsOf:service.evidenceAsOf,reason:'没有当前结算价或付费业务通过验证的记录；旧价格保留为历史主张。'}));
+ app.get(['/api/price/:name','/api/real-prices/:name'],(req,res)=>{const item=all().find(r=>r.name===req.params.name);res.status(404).json({error:'没有已核实的当前结算价',code:'CURRENT_VERIFIED_PRICE_UNAVAILABLE',historicalClaim:item?.legacyClaims?.price||null,priceStatus:'historical_unverified'});});
+ app.get('/api/filter/price/:min/:max',(req,res)=>res.status(409).json({error:'现有价格缺统一周期与结算证据，暂不按其筛选或排序。',code:'PRICE_COMPARABILITY_UNVERIFIED'}));
+ app.get('/api/export/json',(req,res)=>res.json(service.rawExport()));
+ app.get('/api/export/csv',(req,res)=>{const cell=v=>{let s=String(v??'');if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"';};const rows=[['id','name','category','decision','evidence_grade','probability','observed_at','legacy_price_unverified'],...all().map(r=>[r.id,r.name,r.category,r.decisionLabel,r.evidenceGrade,'',r.observedAt,r.legacyClaims?.price])];res.type('text/csv; charset=utf-8').attachment('airports-catalog.csv').send('\uFEFF'+rows.map(r=>r.map(cell).join(',')).join('\r\n'));});
+ const siteDirectory=path.join(service.baseDir,'public-site','dist');
+ const publicSiteReady=['index.html','app.js','styles.css','data/public-catalog.json','data/public-sources.json','data/public-ledger.json','data/publication-manifest.json'].every(file=>fs.statSync(path.join(siteDirectory,file),{throwIfNoEntry:false})?.isFile());
+ const webDirectory=publicSiteReady?siteDirectory:path.join(service.baseDir,'web');
+ app.get(['/', '/index.html'],(req,res)=>res.sendFile(path.join(webDirectory,'index.html')));
+ for(const file of ['app.js','styles.css'])app.get('/'+file,(req,res)=>res.sendFile(path.join(webDirectory,file)));
+ if(publicSiteReady){
+  for(const file of ['candidates.html','candidates.css','favicon.svg','404.html','robots.txt','sitemap.xml','build-manifest.json','_headers','.nojekyll','integrity.mjs','verification-page.mjs','current-evidence-view.mjs','current-evidence.css','core-view.mjs','core-view.css','verify-publication.cjs','settle-ledger.cjs','settlement.README.md'])app.get('/'+file,(req,res)=>{const target=path.join(siteDirectory,file);fs.statSync(target,{throwIfNoEntry:false})?.isFile()?res.sendFile(target,{dotfiles:file==='.nojekyll'?'allow':'ignore'}):res.status(404).json({error:'公开文件不存在'});});
+  app.get('/browser-data.mjs',(req,res)=>res.sendFile(path.join(siteDirectory,'browser-data.mjs')));
+  for(const file of ['public-catalog.json','public-sources.json','public-ledger.json','publication-manifest.json','public-settlement.json','adjudications.empty.json','browser-index.json'])app.get('/data/'+file,(req,res)=>res.sendFile(path.join(siteDirectory,'data',file)));
+  app.get('/data/details/:file',(req,res)=>{
+   if(!/^A\d{3}\.json$/.test(req.params.file))return res.status(404).json({error:'公开详情不存在'});
+   const target=path.join(siteDirectory,'data','details',req.params.file);
+   fs.lstatSync(target,{throwIfNoEntry:false})?.isFile()?res.sendFile(target):res.status(404).json({error:'公开详情不存在'});
+  });
+ }
+ require('./collector-routes.cjs').mountCollectorRoutes(app,{baseDir:service.baseDir});
+ app.get('/favicon.ico',(req,res)=>res.status(204).end());
+ app.use((req,res)=>res.status(404).json({error:'路径不存在'}));
+ app.use((err,req,res,next)=>{if(res.headersSent)return next(err);const status=err instanceof QueryError?400:Number.isInteger(err.status)?err.status:500;res.status(status).json({error:status<500?err.message:'服务暂时无法处理请求'});if(status>=500)console.error('[airports]',err.message);});
+ return{app,service};
+}
+module.exports={createApp};

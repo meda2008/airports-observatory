@@ -1,0 +1,14 @@
+'use strict';
+// Public native client Dd0CyAEC.js sha256 a562c0494a7ee7c4be70941fdd23d3fb857be9260ccb3d3baac569ab444f1f36
+// declares these API bases. User explicitly approved all three on 2026-11-17.
+// The client's IP fallback is deliberately excluded. No order/payment writes.
+const entryOrigin='https://portal.yepfast.cc',origins=['https://cdn.yepfast.cc','https://lc-cdn.yepfast.cc','https://cf-cdn.yepfast.cc'];
+const loginPath='/yep/api/v1/passport/auth/login';
+const reads=new Set(['/yep/api/v1/guest/comm/config','/yep/api/v1/user/info','/yep/api/v1/user/comm/config','/yep/api/v1/user/plan/fetch','/yep/api/v1/user/notice/fetch','/yep/api/v1/user/order/getPaymentMethod']);
+function validConsent(c,{siteId=c?.recordId}={}){try{const a=c.businessApiConsent;return siteId==='A048'&&c.recordId==='A048'&&new URL(c.entryUrl).origin===entryOrigin&&a&&typeof a==='object'&&!Array.isArray(a)&&Object.keys(a).sort().join(',')==='backendOrigins,confirmation,contract,login,readOnly,recordedAt'&&a.contract==='yepfast_declared_api_v1'&&a.confirmation==='user_reply_call_df5c2a39279f4b7bb1f24d4ccbed28dc'&&a.login===true&&a.readOnly===true&&Number.isFinite(Date.parse(a.recordedAt))&&Array.isArray(a.backendOrigins)&&a.backendOrigins.length===3&&JSON.stringify([...a.backendOrigins].sort())===JSON.stringify([...origins].sort())&&origins.every(o=>c.allowedHosts?.includes(new URL(o).hostname));}catch{return false;}}
+function configured(c){return !!validConsent(c);}
+function backend(url){try{const u=new URL(url);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&origins.includes(u.origin)?u:null;}catch{return null;}}
+function readRequest(req,c){if(!configured(c)||req.isNavigationRequest?.())return false;const u=backend(req.url());if(!u||u.hash)return false;const method=req.method();if(method==='OPTIONS'&&u.pathname===loginPath)return !u.search;if(!['GET','HEAD','OPTIONS'].includes(method)||!reads.has(u.pathname))return false;return [...u.searchParams].every(([k,v])=>['_t','page','page_size','size'].includes(k)&&/^\d{1,16}$/.test(v));}
+function authRequest(req,c,credential){if(!configured(c)||req.isNavigationRequest?.()||req.method()!=='POST'||credential?.origin!==entryOrigin)return false;const u=backend(req.url());if(!u||u.pathname!==loginPath||u.search||u.hash)return false;const body=req.postData?.();if(typeof body!=='string'||body.length>2048)return false;let value;try{value=JSON.parse(body);}catch{return false;}return value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')==='email,password'&&(body.match(/"(?:email|password)"\s*:/g)||[]).length===2&&typeof value.email==='string'&&typeof value.password==='string'&&value.email===credential.email&&value.password===credential.password;}
+function contextOptions(c){return configured(c)?{locale:'zh-CN'}:{};}
+module.exports={validConsent,configured,backend,readRequest,authRequest,contextOptions,origins,entryOrigin,loginPath,readPaths:[...reads]};

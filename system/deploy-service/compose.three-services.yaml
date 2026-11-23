@@ -1,0 +1,130 @@
+# Standalone replacement topology; do not merge with the legacy compose.yaml.
+# Run from deploy-service; pre-load/build the approved local app image explicitly.
+services:
+  api:
+    image: ${AIRPORTS_IMAGE:-airports-observatory:local}
+    user: "1000:1000"
+    pull_policy: never
+    command: [node, deploy-service/three-service-api.cjs]
+    healthcheck:
+      test: [CMD, node, deploy-service/three-services/healthcheck.cjs]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8080
+      STORE_FILE: /data/airports.sqlite
+      SINGLE_DATABASE: "true"
+      MEASUREMENT_STORE_FILE: /data/airports.sqlite
+      INTERNAL_TOKEN_FILE: /run/secrets/internal-token
+      ADMIN_TOKEN_FILE: /run/secrets/admin-token
+      COLLECTION_ENABLED: "false"
+    volumes:
+      - airports-data:/data
+      - type: bind
+        source: ${ADMIN_TOKEN_FILE:-./data/three-services/admin-token}
+        target: /run/secrets/admin-token
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${INTERNAL_TOKEN_FILE:-./data/three-services/internal-token}
+        target: /run/secrets/internal-token
+        read_only: true
+        bind: {create_host_path: false}
+    networks: [backend]
+  collector:
+    image: ${AIRPORTS_IMAGE:-airports-observatory:local}
+    pull_policy: never
+    command: [node, deploy-service/collector-runtime.cjs]
+    healthcheck:
+      test: [CMD, node, deploy-service/three-services/collector-healthcheck.cjs]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+    shm_size: 1gb
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    environment:
+      INTERNAL_API_URL: http://api:8080
+      INTERNAL_TOKEN_FILE: /run/secrets/internal-token
+      CREDENTIALS_FILE: /run/secrets/website-credentials.json
+      MEASUREMENT_PROXY_PORT: ${MEASUREMENT_PROXY_PORT:?Set the verified configured loopback proxy port}
+      MEASUREMENT_SECRET_DIR: /run/secrets/measurement-auth
+      MIHOMO_BINARY: /opt/mihomo/mihomo
+      MIHOMO_CONFIG: /run/secrets/measurement-proxy/config.yaml
+      STANDALONE_OUTPUT_DIR: /collector-state/web-evidence
+      STANDALONE_SESSION_DIR: /collector-state/browser-sessions
+      COLLECTOR_OUTBOX_DIR: /collector-state/outbox
+      COLLECTOR_SITE_ID: ${COLLECTOR_SITE_ID:-}
+      COLLECTOR_SITE_IDS: ${COLLECTOR_SITE_IDS:-}
+    volumes:
+      - collector-state:/collector-state
+      - type: bind
+        source: ${WEBSITE_CREDENTIALS_FILE:?Set the approved existing website credentials JSON path}
+        target: /run/secrets/website-credentials.json
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${INTERNAL_TOKEN_FILE:-./data/three-services/internal-token}
+        target: /run/secrets/internal-token
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MEASUREMENT_AUTH_DIR:-./data/measurement-secrets}
+        target: /run/secrets/measurement-auth
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MEASUREMENT_PROXY_CONFIG:-./data/measurement-runtime/config.yaml}
+        target: /run/secrets/measurement-proxy/config.yaml
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MIHOMO_BINARY_FILE:-./data/measurement-runtime/linux-runtime/v1.19.34/mihomo}
+        target: /opt/mihomo/mihomo
+        read_only: true
+        bind: {create_host_path: false}
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [backend, egress]
+  web:
+    image: ${AIRPORTS_IMAGE:-airports-observatory:local}
+    pull_policy: never
+    command: [node, deploy-service/three-services/web.cjs]
+    healthcheck:
+      test: [CMD, node, deploy-service/three-services/healthcheck.cjs]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8080
+      API_ORIGIN: http://api:8080
+    ports: ["127.0.0.1:${WEB_PORT:-8081}:8080"]
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [backend, ingress]
+volumes:
+  airports-data:
+    name: ${AIRPORTS_DATA_VOLUME:-airports-three-services-data}
+  collector-state:
+    name: ${COLLECTOR_STATE_VOLUME:-airports-three-services-collector-state}
+networks:
+  backend:
+    internal: true
+  egress:
+  ingress:

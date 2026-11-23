@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-75ecbc49d4c0b6ad36a2",
+  "origin": "https://flashfox.pro",
+  "recordIds": [
+    "A064",
+    "A185"
+  ],
+  "entryUrls": [
+    "https://flashfox.pro/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A064",
+        "A185"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://flashfox.pro",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "40d4022c599e322b86c7d266a3493ff157ad5aa9076aadaa9c92007ca7340bd0",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

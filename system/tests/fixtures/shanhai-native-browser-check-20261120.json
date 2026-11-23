@@ -1,0 +1,15 @@
+{
+  "url": "https://shanhai.cfd/",
+  "status": 200,
+  "observedAt": "2026-11-20T05:57:31.537Z",
+  "bodySha256": "c47063013e96b3745d92a006b19b392a96f9ed7228575c69db57e4d5c9e49dc4",
+  "title": "Checking your Browser ...",
+  "scripts": [
+    {
+      "length": 1054,
+      "normalizedSha256": "f44c085ac6fcedd0befa72ac26a9dde2ac6cdef1cffed35c8864585922ec50e0",
+      "script": "\nvar cpk = \"fl_ua_p\"\nvar step = \"prev\";\nvar nonce = 8371;\nfunction loadFunc(){var e=document.cookie,t=5;if(null!=e){for(var n=e.toString().split(\";\"),o=\"\",i=0;i<n.length;i++){var a=(e=n[i].trim()).split(\"=\");if(2==a.length&&a[0]==cpk){o=a[1];break}}if(0!=o.length){for(var d=12345,i=0;i<o.length;i++){var r=o[i];/^[a-zA-Z0-9]$/.test(r)&&(d+=o.charCodeAt(i)*(nonce+i))}var l=window.location.toString(),s=new XMLHttpRequest;s.open(\"POST\",l,!0),s.setRequestHeader(\"Content-type\",\"application/x-www-form-urlencoded\"),s.setRequestHeader(\"X-FL-UA-Step\",step),s.onreadystatechange=function(){4==this.readyState&&200==this.status&&(window.setTimeout(function(){window.location.reload()},1e3*t),window.setInterval(function(){if(!(t<=0)){var e=document.getElementsByClassName(\"ui-counter\");if(0<e.length)for(var n=0;n<e.length;n++)e[n].innerHTML=t.toString(),t--}},1e3))},s.send(\"sum=\"+d+\"&nonce=\"+nonce)}}else window.setTimeout(function(){window.location.reload()},sleepMs)}window.addEventListener?window.addEventListener(\"load\",loadFunc):window.onload=loadFunc;\n"
+    }
+  ],
+  "credentialsSubmitted": false
+}

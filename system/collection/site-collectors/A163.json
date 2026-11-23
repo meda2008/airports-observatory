@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A163",
+  "name": "Firefly",
+  "entryUrl": "https://fly.fireflyxx.cfd/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "fly.fireflyxx.cfd"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "公开客户端订阅变更弹窗监控；仅局部退款条件，不等于普通购买政策或登录/报价采集已跑通。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "refund"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "latestFinancialFollowup": {
+    "runId": "financial-20261109-v18",
+    "status": "old_origin_credentials_rejected_new_origin_confirmation_pending",
+    "checkedAt": "2026-11-09T15:38:32.637Z",
+    "receipt": "work/collection-runs/financial-20261109-v18/run-result.json",
+    "resumeWhen": "current_new_origin_confirmation_or_recovered_existing_session",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "discoveredAlternate": {
+    "url": "https://fire.fireflyxx.cfd/#/login",
+    "publisher": "https://umi.fireflychat.net/",
+    "status": "observed_native_publisher_auto_selection_pending_credential_authority",
+    "operatorIdentityVerified": false,
+    "credentialPropagationAllowed": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "Firefly",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "Firefly",
+    "receipt": "work/collection-runs/financial-20261109-v18/A163-directory.json",
+    "sha256": "f1db89b4f34bf45e1ab026245a2f35ad57eb2b46b9cc714b9e9c8f50234151c5",
+    "status": "new_candidate_needs_origin_review",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "collectPerformanceReferences": true,
+  "readOnlyRecipe": "public_change_policy",
+  "publicOnly": true
+}

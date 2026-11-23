@@ -1,0 +1,406 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "A054-image",
+      "recordId": "A054",
+      "mode": "image",
+      "url": "https://runtushare.net/7528/",
+      "ref": {
+        "sourceId": "ROUND21-A054-ARTICLE",
+        "file": "work/performance-20261112-twentyfirst/live/naiu-review.json",
+        "fileSha256": "e6ff0e5ca54ecf0f54492a4af3bfe74e675d56540c360b9b4d455f9cff59e0e2",
+        "url": "https://runtushare.net/7528/",
+        "observedAt": "2026-11-12T08:23:06.093Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "a7e7db2ea12036047dda07cb5a07e13c97aa5a0ed833a0bbf9d55de58216381a"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND21-A054-ARTICLE",
+          "file": "work/performance-20261112-twentyfirst/live/naiu-review.json",
+          "fileSha256": "e6ff0e5ca54ecf0f54492a4af3bfe74e675d56540c360b9b4d455f9cff59e0e2",
+          "url": "https://runtushare.net/7528/",
+          "observedAt": "2026-11-12T08:23:06.093Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "a7e7db2ea12036047dda07cb5a07e13c97aa5a0ed833a0bbf9d55de58216381a"
+        },
+        {
+          "sourceId": "ROUND21-A054-DESTINATION",
+          "file": "work/performance-20261112-twentyfirst/live/naiu-native-destination.json",
+          "fileSha256": "bc817c4af33f3ffbee190da87fcb05ad778418c4b9e7ef49fd1356d8335f0064",
+          "url": "https://www.naiunet.com/#/register?code=GFOfX0d3",
+          "observedAt": "2026-11-12T08:23:30.965Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "7b026df154bf18181d3ddbc2f629f043733e4a4dea6b7ba91a1c7fb41e69f59d"
+        },
+        {
+          "sourceId": "ROUND21-A054-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentyfirst/naiu-image-review.json",
+          "fileSha256": "8cbe2ff2042d3d91486b55ad8537ed004c6ae1311037a16a1958019997c418c4",
+          "url": "https://runtushare.net/7528/",
+          "observedAt": "2026-11-12T08:28:07.919Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "8cbe2ff2042d3d91486b55ad8537ed004c6ae1311037a16a1958019997c418c4"
+        },
+        {
+          "sourceId": "RETAINED-A054-CURRENT-ROOT",
+          "file": "work/performance-20261112-sixteenth/status-originals/A054-current-root.json",
+          "fileSha256": "5b131aeac1fc6a758c1bfb5c12a2015f3fae067cc0983eddc5bea3d6c120e6f7",
+          "url": "https://access.naiunet.com/#/login",
+          "observedAt": "2026-11-12T04:09:36.408Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "8c4b6bbeed7ee500023e2918563149895d5e07a308b9da20ddd07f973326ce89"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://access.naiunet.com/",
+      "nativeHref": "https://runtushare.net/go/naiu/",
+      "quote": "Naiu 机场测速",
+      "review": {
+        "pageUrl": "https://runtushare.net/7528/",
+        "url": "https://runtushare.net/7528/",
+        "observedAt": "2026-11-12T08:28:07.919Z",
+        "clockScope": "local_original_image_visual_review_time_not_historical_test_or_browser_download_time",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentyfirst/images/A054-naiu.webp",
+        "imageSha256": "ff8012b11ccabef636a019551d45cfb66ba8666816e48feb7e65b4b40e04ebea",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2024/01/NaiU-%E6%9C%BA%E5%9C%BA-202401-%E6%B5%8B%E9%80%9F.webp",
+        "testedAt": "2024-01-11",
+        "imageTestDateLiteral": "测试时间：2024-01-11 15:45:29 (CST)",
+        "reportedLocalTime": "2024-01-11 15:45:29 (CST)",
+        "reportedTimeZone": "CST",
+        "displayedRows": 56,
+        "publisherSummaryAsPrinted": "56/56",
+        "threadCount": 4,
+        "scope": "单次历史图；前3行是剩余流量、重置倒计时、套餐到期等订阅元数据，不是节点。行数不当节点数或独立样本数。",
+        "selectedRows": [
+          {
+            "displayRow": 4,
+            "label": "香港 01",
+            "protocol": "Shadowsocks",
+            "tls": "42ms",
+            "https": "143ms",
+            "mean": "78.19MB",
+            "max": "100.55MB"
+          },
+          {
+            "displayRow": 28,
+            "label": "美国 01",
+            "protocol": "Shadowsocks",
+            "tls": "204ms",
+            "https": "650ms",
+            "mean": "39.03MB",
+            "max": "65.72MB"
+          },
+          {
+            "displayRow": 54,
+            "label": "玩具 | 朝鲜",
+            "protocol": "Shadowsocks",
+            "tls": "140ms",
+            "https": "310ms",
+            "mean": "40.65MB",
+            "max": "59.23MB"
+          }
+        ],
+        "headersAsPrinted": [
+          "平均速度",
+          "最高速度"
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false
+      },
+      "binding": {
+        "kind": "native_destination_current_host_anchor",
+        "currentAnchor": "https://access.naiunet.com/tos.html",
+        "brandLiteral": "NaiU_Net",
+        "description": "新评测原生落点www.naiunet.com同名注册页真实条款链接指向当前access.naiunet.com；保留当前access登录同名原件，仅核现时入口引用关系，非历史主体或法律关系认证。"
+      },
+      "counterQuotes": [
+        "事件：Naiu 从3月8号开始便出现了节点超时，官网无法注册的问题，一天后恢复，后再次出现节点全部超时的问题。现已恢复，出现问题的情况为运营团队交割，现 Naiu 机场已由新的团队运营，节点、线路、协议都有所调整。"
+      ],
+      "addHistory": false,
+      "fields": [
+        "speed"
+      ]
+    },
+    {
+      "key": "A053-image",
+      "recordId": "A053",
+      "mode": "image",
+      "url": "https://runtushare.net/8875/",
+      "ref": {
+        "sourceId": "ROUND21-A053-ARTICLE",
+        "file": "work/performance-20261112-twentyfirst/live/wushu-review.json",
+        "fileSha256": "6619c89a54bc1246a6f4d386a9a26ac8d108dbfd7daae888a99b1a9f93dbd794",
+        "url": "https://runtushare.net/8875/",
+        "observedAt": "2026-11-12T08:27:44.051Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "12529db167759230bda146828e4901eb1763f12dcf137faf4fb971e9f5ea27ac"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND21-A053-ARTICLE",
+          "file": "work/performance-20261112-twentyfirst/live/wushu-review.json",
+          "fileSha256": "6619c89a54bc1246a6f4d386a9a26ac8d108dbfd7daae888a99b1a9f93dbd794",
+          "url": "https://runtushare.net/8875/",
+          "observedAt": "2026-11-12T08:27:44.051Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "12529db167759230bda146828e4901eb1763f12dcf137faf4fb971e9f5ea27ac"
+        },
+        {
+          "sourceId": "ROUND21-A053-DESTINATION",
+          "file": "work/performance-20261112-twentyfirst/live/wushu-native-destination.json",
+          "fileSha256": "8e3718e631830c79a133122dc9926430b9a83ee81caff523adb37dcd255fad3b",
+          "url": "https://a04.xiaomiaffa01.cc/register.html?invitecode=SLijcFSL",
+          "observedAt": "2026-11-12T08:27:54.320Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "90affc161849657c772e204a5a590cb695f559597ba5aad3d9240d2b096f1d0b"
+        },
+        {
+          "sourceId": "ROUND21-A053-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentyfirst/wushu-image-review.json",
+          "fileSha256": "c6c1199199b3e3ef373fb941f13549382d17d8b4d84ee0968703d8a2c5200527",
+          "url": "https://runtushare.net/8875/",
+          "observedAt": "2026-11-12T08:29:23.233Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "c6c1199199b3e3ef373fb941f13549382d17d8b4d84ee0968703d8a2c5200527"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://a04.xiaomiaffa01.cc/",
+      "nativeHref": "https://runtushare.net/go/wushuyun/",
+      "quote": "五树云机场测速",
+      "review": {
+        "pageUrl": "https://runtushare.net/8875/",
+        "url": "https://runtushare.net/8875/",
+        "observedAt": "2026-11-12T08:29:23.233Z",
+        "clockScope": "local_original_image_visual_review_time_not_historical_test_or_browser_download_time",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentyfirst/images/A053-wushu.webp",
+        "imageSha256": "e93c84a3259580553c88ee6c638c9c294fe64afee6bda196ed13d85831a03c06",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2024/12/%E4%BA%94%E6%A0%91%E4%BA%91%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2026-02.webp",
+        "testedAt": "2026-02-05",
+        "imageTestDateLiteral": "测试时间：2026-02-05 14:26:10 (CST)",
+        "reportedLocalTime": "2026-02-05 14:26:10 (CST)",
+        "reportedTimeZone": "CST",
+        "displayedRows": 45,
+        "publisherSummaryAsPrinted": "45/45",
+        "threadCount": 8,
+        "scope": "单次历史图；图脚自标华东-杭州电信[1Gbps]，未独立核实接入条件。韩国两行及法国02图示零字节，不扩成当前地区或全站故障。",
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "香港 01树",
+            "protocol": "Trojan",
+            "tls": "65ms",
+            "https": "301ms",
+            "mean": "121.24MB",
+            "max": "133.99MB"
+          },
+          {
+            "displayRow": 32,
+            "label": "韩国 01树",
+            "protocol": "Trojan",
+            "tls": "-",
+            "https": "-",
+            "mean": "0.00B",
+            "max": "0.00B"
+          },
+          {
+            "displayRow": 44,
+            "label": "巴西 01树",
+            "protocol": "Trojan",
+            "tls": "545ms",
+            "https": "5020ms",
+            "mean": "191.33KB",
+            "max": "911.88KB"
+          }
+        ],
+        "headersAsPrinted": [
+          "平均速度",
+          "最高速度"
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB",
+          "B",
+          "KB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false,
+        "downloadMetadataObservedAt": "2026-11-12T08:27:47.513Z"
+      },
+      "binding": {
+        "kind": "native_current_exact_host",
+        "brandLiteral": "五树云",
+        "destinationQuote": "i love 5 Tree Clouds!",
+        "description": "原生官网落点a04.xiaomiaffa01.cc与当前精确hostname一致，仅核现时页面关联，不证明2026历史法律主体或与小米梯子连续。"
+      },
+      "counterQuotes": [
+        "五大常用地区节点依旧还不错，韩国节点这轮挂完了。",
+        "这家最早叫小米梯子，名字真的是槽点满满，不过好在现在是改名了，其实节点线路的表现一直都还算是不错，这倒是蛮意外的，改名估计也是意识到的草创初期命名所致的「负资产」问题。"
+      ],
+      "addHistory": true,
+      "fields": [
+        "speed",
+        "operatingHistory",
+        "stability"
+      ],
+      "statusQuote": "2026/02/05 测速：\n\n五大常用地区节点依旧还不错，韩国节点这轮挂完了。"
+    },
+    {
+      "key": "A085-image",
+      "recordId": "A085",
+      "mode": "image",
+      "url": "https://runtushare.net/6745/",
+      "ref": {
+        "sourceId": "ROUND21-A085-ARTICLE",
+        "file": "work/performance-20261112-twentyfirst/live/paopao-review.json",
+        "fileSha256": "6a89cfcb69502e0e9ce57f04f0741edb580571e7004cb6c0bc710ed304674183",
+        "url": "https://runtushare.net/6745/",
+        "observedAt": "2026-11-12T08:26:29.722Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "ceab4348d19f3c79326100bf4600731e81debf60f506315ae1b4e586c105fd49"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND21-A085-ARTICLE",
+          "file": "work/performance-20261112-twentyfirst/live/paopao-review.json",
+          "fileSha256": "6a89cfcb69502e0e9ce57f04f0741edb580571e7004cb6c0bc710ed304674183",
+          "url": "https://runtushare.net/6745/",
+          "observedAt": "2026-11-12T08:26:29.722Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "ceab4348d19f3c79326100bf4600731e81debf60f506315ae1b4e586c105fd49"
+        },
+        {
+          "sourceId": "ROUND21-A085-INITIAL-CHALLENGE",
+          "file": "work/performance-20261112-twentyfirst/live/paopao-native-destination.json",
+          "fileSha256": "bd569cff94cdc86c2c2de2678feda5ad4b2db1302e70f982fcbabf4706878bd0",
+          "url": "https://1224.ppg02-mqelltoq.top/#/register?code=7hvy60jl",
+          "observedAt": "2026-11-12T08:26:46.225Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "285d1fc931cd031f8ff32087b056fcba9e47513dda47831180da5ae96325f89e"
+        },
+        {
+          "sourceId": "ROUND21-A085-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentyfirst/paopao-image-review.json",
+          "fileSha256": "99429c0919db0e5b49d0f3b46d7ce33e445c406cb1d7dd7e66df3c040fbdd060",
+          "url": "https://runtushare.net/6745/",
+          "observedAt": "2026-11-12T08:32:40.450Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "99429c0919db0e5b49d0f3b46d7ce33e445c406cb1d7dd7e66df3c040fbdd060"
+        },
+        {
+          "sourceId": "ROUND21-A085-PUBLISHED-ENTRY",
+          "file": "work/performance-20261112-twentyfirst/live/paopao-published-entry.json",
+          "fileSha256": "704a153a1d9b68d7a8d06215ad2221f93b099af5fa285efacde54c69f9406e4c",
+          "url": "https://ppgfabu.com/",
+          "observedAt": "2026-11-12T08:30:45.658Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "326c13e6a0b76efec23cf9fb3e87de387aaaf7c035ce9601b941a79deb264f26"
+        },
+        {
+          "sourceId": "ROUND21-A085-CURRENT-RETURN",
+          "file": "work/performance-20261112-twentyfirst/live/paopao-published-entry-destination.json",
+          "fileSha256": "6d907c5e9e33728d218a50517ca9e26e015a3a977140d3eed521c821158bb49d",
+          "url": "https://www.paopao.dog/#/login",
+          "observedAt": "2026-11-12T08:30:53.080Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "b05b353e40c3cfbfbdccf35d7ae719450f583923b52049929bf8860b7db6df6e"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://www.paopao.dog/",
+      "nativeHref": "https://runtushare.net/go/paopaodog/",
+      "quote": "泡泡狗机场测速",
+      "review": {
+        "pageUrl": "https://runtushare.net/6745/",
+        "url": "https://runtushare.net/6745/",
+        "observedAt": "2026-11-12T08:32:40.450Z",
+        "clockScope": "local_original_image_visual_review_time_not_historical_test_or_browser_download_time",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentyfirst/images/A085-paopao.webp",
+        "imageSha256": "7e2b5a0cfb34fb7eb78aa0d4d0feb0f402934f696c52de2e5401986accf3672b",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2023/09/%E6%B3%A1%E6%B3%A1%E7%8B%97%E6%9C%BA%E5%9C%BA-%E6%B6%A6%E5%9C%9F%E5%88%86%E4%BA%AB%E6%B5%8B%E9%80%9F-20241104.webp",
+        "testedAt": "2024-11-04",
+        "imageTestDateLiteral": "测试时间：2024-11-04 19:12:04 (CST)",
+        "reportedLocalTime": "2024-11-04 19:12:04 (CST)",
+        "reportedTimeZone": "CST",
+        "displayedRows": 48,
+        "publisherSummaryAsPrinted": "48/48",
+        "threadCount": 4,
+        "scope": "单次历史图；页脚自标A组-深圳必胜客移动[1000M]，未独立核实接入。正文称节点限速，低KB及零字节只保留为本图结果。发布页网址延迟不是机场节点测速。",
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "香港01",
+            "protocol": "Trojan",
+            "tls": "46ms",
+            "https": "172ms",
+            "mean": "12.45MB",
+            "max": "24.90MB"
+          },
+          {
+            "displayRow": 2,
+            "label": "香港02",
+            "protocol": "Trojan",
+            "tls": "39ms",
+            "https": "163ms",
+            "mean": "6.00KB",
+            "max": "48.00KB"
+          },
+          {
+            "displayRow": 35,
+            "label": "台湾01",
+            "protocol": "Trojan",
+            "tls": "-",
+            "https": "-",
+            "mean": "0.00B",
+            "max": "0.00B"
+          }
+        ],
+        "headersAsPrinted": [
+          "平均速度",
+          "最高速度"
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB",
+          "KB",
+          "B"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false
+      },
+      "binding": {
+        "kind": "observed_delayed_publication_and_native_current_return",
+        "brandLiteral": "泡泡Dog",
+        "destinationQuote": "1224.ppg02-mqelltoq.top",
+        "description": "首次落点为CF原件并保留；后续实际观察自动转ppgfabu.com发布页，原生paopao.dog入口实际到当前www.paopao.dog且当前正文回指ppgfabu.com。只核现时往返入口关系，不编HTTP头、精确跳转时刻或历史法律连续。"
+      },
+      "counterQuotes": [
+        "节点作了限速处理。"
+      ],
+      "materialQuotes": [
+        null,
+        [
+          "1224.ppg02-mqelltoq.top"
+        ],
+        null,
+        [
+          "泡泡狗地址发布页",
+          "paopao.dog"
+        ],
+        [
+          "防失联 ppgfabu.com"
+        ]
+      ],
+      "addHistory": false,
+      "fields": [
+        "speed"
+      ]
+    }
+  ]
+}

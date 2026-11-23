@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Airports · 可用性判断</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Airports 首页"><span class="brand-mark" aria-hidden="true">A</span><span>Airports<span class="brand-caption">可用性判断</span></span></a>
+    <div class="header-meta"><span class="connection-dot" id="connection-dot"></span><span id="connection-status">正在连接本机服务</span><span class="local-label">本地工作台</span></div>
+  </header>
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">先看证据，再做决定</p><h1 id="page-title">准备付费之前，<br>先弄清楚哪些还不知道。</h1><p class="intro-copy">查看公开观察、相反线索和最缺的证据。资料不足时保留未知，让每次判断都能追溯。</p></div>
+      <aside class="scope-note"><span class="scope-icon" aria-hidden="true">↗</span><h2>当前是证据调查</h2><p>公开页面和域名记录不能证明付费线路可用。未经历史校准的记录，不提供生存概率或购买推荐。</p><p class="scope-asof">材料冻结时间<br><strong id="evidence-asof">等待数据</strong></p></aside>
+    </section>
+    <section class="metrics" aria-label="数据概况">
+      <div class="metric"><span class="metric-label">调查名录</span><strong id="metric-total">—</strong><small>名称候选，尚未去重为经营主体</small></div>
+      <div class="metric"><span class="metric-label">有域名登记观察</span><strong id="metric-domain">—</strong><small>登记事实不等于营业状态</small></div>
+      <div class="metric"><span class="metric-label">数值概率预测</span><strong id="metric-forecasts">—</strong><small>仅统计后台已登记的预测</small></div>
+      <div class="metric metric-muted"><span class="metric-label">待核身份的发现清单</span><strong id="metric-discovery">—</strong><small>单列保存，不计入调查名录</small></div>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title">
+      <div class="section-heading"><div><p class="eyebrow">判断与证据</p><h2 id="catalog-title">调查名录 <span id="result-count" class="count-label"></span></h2></div><p class="section-hint">证据等级衡量材料，不代表服务可靠性</p></div>
+      <form id="filter-form" class="filter-panel" role="search">
+        <div class="search-field"><label for="search">搜索名称、域名或关键词</label><div class="input-wrap"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="例如 WgetCloud、奶昔、ssrdog.com" autocomplete="off"></div></div>
+        <div class="select-field"><label for="category">类别</label><select id="category"><option value="">全部类别</option></select></div>
+        <div class="select-field"><label for="evidence-grade">技术材料等级</label><select id="evidence-grade"><option value="">全部等级</option><option value="E1">E1 · 有原始观察</option><option value="E0">E0 · 证据不足</option></select></div>
+        <div class="select-field sort-field"><label for="sort">排序</label><select id="sort"><option value="name">名称顺序</option><option value="observedAt">材料抓取时间</option></select></div>
+        <button type="button" id="reset-filters" class="button button-quiet">重置</button>
+        <button type="submit" class="sr-only">搜索</button>
+      </form>
+      <div class="catalog-notice"><span aria-hidden="true">i</span><p><strong>“目前无法判断”是一项明确结论。</strong>详情会列出支撑、反证、翻盘条件与原始材料；历史价格、星级和速度单独标为旧主张。</p></div>
+      <div id="catalog-status" class="list-status" role="status" aria-live="polite">正在读取名录…</div>
+      <div id="cards" class="card-grid" aria-busy="true"></div>
+      <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">⌕</span><h3>没有找到符合条件的记录</h3><p>换一个名称、域名，或重置筛选。</p><button type="button" id="empty-reset" class="button button-primary">重置筛选</button></div>
+      <div id="error-state" class="error-state" hidden><h3>名录暂时无法读取</h3><p id="error-message">请确认本机服务仍在运行。</p><button type="button" id="retry-load" class="button button-primary">重新读取</button></div>
+      <div class="pagination" id="pagination" hidden><button type="button" id="previous-page" class="button button-secondary">上一页</button><span id="page-label"></span><button type="button" id="next-page" class="button button-secondary">下一页</button></div>
+    </section>
+    <footer class="page-footer"><p>经营主体、原始材料与最后验证时间分别记录。新证据应追加到同一记录，不抹去旧判断。</p><a href="/api/stats" target="_blank" rel="noopener noreferrer">查看数据接口 <span aria-hidden="true">↗</span></a></footer>
+  </main>
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="detail-shell"><header class="detail-header"><div><p class="eyebrow" id="detail-record-id">判断详情</p><h2 id="detail-title">正在读取…</h2></div><button type="button" id="close-detail" class="icon-button" aria-label="关闭详情">×</button></header><div id="detail-content" class="detail-content" aria-live="polite"></div></div>
+  </dialog>
+</body>
+</html>

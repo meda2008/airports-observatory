@@ -1,0 +1,21 @@
+{
+  "origin": "https://cp.v2-tun.net",
+  "recordIds": [
+    "A203"
+  ],
+  "rules": [
+    {
+      "bodySha256": "4e4ad5f3cd613b06a886275e1ea1a30fd1360096f00bedfaa3f98f14b7a8dd3e",
+      "quote": "仅限账户拥有人使用\n3 IP限制",
+      "summary": "V2Tun公开MINI、LITE、PRO套餐均称仅限账户拥有人使用、3 IP限制。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "3 IP不等于3台设备，原文未列设备数上限。",
+        "TOS条6只写“共享V2Tun服务”，未据此单独推断禁令；本人使用约束有购物页明确原文。",
+        "A203与A008共享同一当前来源组，不当独立证据。"
+      ],
+      "originalSourceId": "CORE-PUBLIC-V2TUN-B182-CART",
+      "originalCapturedAt": "2026-10-28T08:21:01.412Z"
+    }
+  ]
+}

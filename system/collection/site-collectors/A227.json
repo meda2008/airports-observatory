@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A227",
+  "name": "蜻蜓 Dragonfly",
+  "entryUrl": "https://api.9dragonfly.com/plan",
+  "entrySource": "review_link_and_observed_same_brand_candidate",
+  "allowedHosts": [
+    "9dragonfly.com",
+    "api.9dragonfly.com",
+    "runtushare.net"
+  ],
+  "adapter": "generic",
+  "maxPages": 2,
+  "enabled": true,
+  "publicReferenceEnabled": false,
+  "eligibility": "queued",
+  "reason": "官网声明的公开套餐接口，保留客户端金额及配额单位契约，不认证、不建单或付款。",
+  "fields": [
+    "pricing"
+  ],
+  "refreshIntervalMs": 604800000,
+  "policy": {
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "publication": "review_required"
+  },
+  "discovery": {
+    "reviewUrl": "https://runtushare.net/12498/",
+    "observedAt": "2026-11-15T23:27:00.667Z",
+    "originalReferralOwnedByUser": false,
+    "priceStatus": "unverified_third_party_price"
+  },
+  "publicOnly": true,
+  "readOnlyRecipe": "dragonfly_public_plans",
+  "urlCollector": {
+    "collectorId": "dragonfly-public-plans-A227",
+    "recipe": "dragonfly_public_plans",
+    "recipeModule": "deploy-service/dragonfly-public-plans.cjs",
+    "status": "live_verified_public_native_plans",
+    "completedAllFields": false,
+    "lastVerifiedAt": "2026-11-16T04:10:05.091Z"
+  },
+  "acceptance": {
+    "runId": "46b1cac9-4129-4cd8-94f0-c6c1f8ae3090",
+    "scope": "operator_public_plan_api",
+    "plans": 15,
+    "products": 4,
+    "checkoutVerified": false,
+    "receipt": "work/official-completion-20261116/A227-published.json"
+  }
+}

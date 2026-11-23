@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-14T00:55:01.440Z",
+  "scope": "isolated local Docker fixture and Compose validation only; no real subscription, DB, credential or other project container changes",
+  "docker": {
+    "clientVersion": "29.8.2",
+    "serverVersion": "29.8.2",
+    "desktopVersion": "4.94.0 (241994)",
+    "serverPlatform": "linux/amd64",
+    "composeVersion": "5.5.1"
+  },
+  "production": {
+    "imageBuilt": false,
+    "servicesStarted": false,
+    "proxyClientConfigured": false,
+    "realSubscriptionLoaded": false,
+    "blockedBy": [
+      {
+        "command": "docker image inspect node:24-bookworm-slim --format {{.Id}}",
+        "exitCode": 1,
+        "error": "Error response from daemon: No such image: node:24-bookworm-slim"
+      }
+    ],
+    "imagePullPerformed": false
+  },
+  "checks": [
+    {
+      "command": "RUN_MEASUREMENT_COMPOSE_VALIDATION=1 node --test tests/measurement-sidecar-compose.test.cjs tests/deploy-worker-packaging.test.cjs",
+      "initial": {
+        "passed": 8,
+        "failed": 1,
+        "cause": "Static test service locator matched nested depends_on measurement-proxy key; no Compose or container failure"
+      },
+      "correction": "Anchor locator at exactly two spaces and start of line",
+      "afterCorrection": {
+        "passed": 9,
+        "failed": 0
+      }
+    },
+    {
+      "command": "RUN_MEASUREMENT_COMPOSE_VALIDATION=1 node --test tests/measurement-sidecar-compose.test.cjs",
+      "afterFinalPullPolicyChange": {
+        "passed": 5,
+        "failed": 0
+      },
+      "envFilesExpanded": false
+    }
+  ],
+  "fixture": {
+    "project": "airports-measurement-fixture-20261114",
+    "image": "sha256:d649c27dae7ba0137b3cef5dd75baa422c08dc3d9e3fc0c23dfb172dc3cc6436",
+    "nodeVersion": "22.23.2",
+    "pullPolicy": "never",
+    "buildPerformed": false,
+    "composeUpExitCode": 0,
+    "workerOutput": {
+      "synthetic": true,
+      "sharedLoopbackVerified": true,
+      "bytesRead": 4096,
+      "bodyComplete": true,
+      "measurementVerified": false,
+      "routePerformanceClaim": false
+    },
+    "inspection": {
+      "sidecar": {
+        "networkMode": "none",
+        "readOnlyRoot": true,
+        "portBindings": {},
+        "mountReadWrite": [
+          false,
+          false
+        ]
+      },
+      "worker": {
+        "networkMode": "container:78d902cfa961eddae56e371f3fb8c3dbced7ece9a4e8f6dcf49723a436ab2d81",
+        "readOnlyRoot": true,
+        "portBindings": {},
+        "mountReadWrite": [
+          false,
+          false
+        ]
+      }
+    },
+    "cleanup": {
+      "composeDownExitCode": 0,
+      "removedContainers": [
+        "airports-measurement-fixture-20261114-fixture-worker-1",
+        "airports-measurement-fixture-20261114-fixture-sidecar-1"
+      ],
+      "otherProjectContainersTouched": false
+    }
+  },
+  "files": [
+    {
+      "file": "deploy-service/compose.yaml",
+      "fileSha256": "4c49702995d7c860ede7c5d3eb824458203eedce146fe9034956996c0a239347"
+    },
+    {
+      "file": "deploy-service/compose.production.yaml",
+      "fileSha256": "16204cfd5c5911b495e594b949a95b45e13bd64c0193d9bb8486fd126dd98949"
+    },
+    {
+      "file": "deploy-service/Dockerfile",
+      "fileSha256": "f8dec67d89deebccdfa20eff233a64cbca2117b6411f3a5ae233bb7d5bc439d1"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/config.example.yaml",
+      "fileSha256": "eb68f698532854aeef8f2505c68c1754013fd109598a0378432aa154870de1e2"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/compose.example.env",
+      "fileSha256": "19e86bef8632a986383cf8b8aaa4b41d2e970e15e42f524d049cfcd3e5961d70"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/compose.fixture.yaml",
+      "fileSha256": "26ec15de317a050617502788f9efc04444e661d52b824ae5103577fd243f2702"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/fixture.cjs",
+      "fileSha256": "0d356c1f09fde3d4352ddfa9edc3ac5df147ffaccebf786cbf417b1c7c8a8c39"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/README.md",
+      "fileSha256": "cdead11b1cdac18f3331eb43a18af8cb746e88031261c6886a4d02cd94063b8b"
+    },
+    {
+      "file": "tests/measurement-sidecar-compose.test.cjs",
+      "fileSha256": "ceeab094eb81465fe316a78f51b923ff5f63698d347db45c9b50aa43101873b8"
+    }
+  ],
+  "limitations": [
+    "Fixture image and loopback server only; this does not validate Mihomo client configuration, real egress or route performance.",
+    "Production measurements profile is opt-in and no working proxy image, subscription or real route is supplied.",
+    "No complete production image build; missing base image was not pulled.",
+    "Measurement database volume path changed; existing DB migration was not attempted."
+  ]
+}

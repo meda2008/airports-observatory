@@ -1,0 +1,22 @@
+'use strict';
+const crypto=require('node:crypto');
+const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+function transportFailure(e){const known=['ENOTFOUND','EAI_AGAIN','ECONNREFUSED','ECONNRESET','ETIMEDOUT','ERR_CERT_DATE_INVALID','ERR_CERT_AUTHORITY_INVALID','ERR_CERT_COMMON_NAME_INVALID','CERT_HAS_EXPIRED','UNABLE_TO_VERIFY_LEAF_SIGNATURE'];for(const c of known)if([e?.code,e?.cause?.code].includes(c)||new RegExp('(?:^|[^A-Z_])'+c+'(?:$|[^A-Z_])').test(String(e?.message||'')))return c;if(/Timeout \d+ms|timed out/i.test(e?.message||''))return'ETIMEDOUT';return null;}
+async function collect({config,beforePage=async()=>{},clock=Date.now,transportFactory,lookup,jobBudgetMs=45000}={}){
+ const origin=new URL(config.entryUrl).origin,originals=[],started=clock();let ctx,checkpoint=null,anchors=[];
+ try{
+  if(config.publicOnly!==true||config.publicPublisherDiscovery!==true||!config.allowedHosts?.includes(new URL(origin).hostname))throw Error('scope_rejected');
+  ctx=transportFactory?await transportFactory():await require('playwright').request.newContext({ignoreHTTPSErrors:false});
+  async function get(url){if(new URL(url).origin!==origin)throw Error('publisher_origin_changed');await beforePage();await require('./collector.cjs').assertPublicUrl(url,lookup);const remaining=jobBudgetMs-(clock()-started);if(remaining<1000)throw Error('publisher_budget_exhausted');const r=await ctx.get(url,{maxRedirects:0,timeout:Math.min(12000,remaining)}),body=await r.text();if(body.length>160000)throw Error('publisher_source_too_large');const original={url,status:r.status(),body,sha256:sha(body),observedAt:new Date(clock()).toISOString()};if(JSON.stringify({representation:'published_entry_original_bundle',originals:[...originals,original]}).length>190000)throw Error('publisher_bundle_too_large');originals.push(original);if(r.status()!==200)throw Error('publisher_http_'+r.status());return body;}
+  const home=await get(config.entryUrl);const inline=require('../collection/inline-domain-publisher.cjs'),yangfan=require('../collection/yangfan-publisher-contract.cjs');if(require('../collection/hutao-publisher-contract.cjs').configured(config)){anchors=require('../collection/hutao-publisher-contract.cjs').anchors(home);}else if(inline.configured(config)){anchors=inline.anchors(home);}else if(require('../collection/cylink-published-entries.cjs').configured(config)){anchors=require('../collection/cylink-published-entries.cjs').anchors(home);}else if(require('../collection/biubiu-publisher-contract.cjs').configured(config)){anchors=require('../collection/biubiu-publisher-contract.cjs').anchors(home,await get(origin+'/links.json'));}else if(yangfan.configured(config)){const script=await get(yangfan.scriptUrl(home));const configuration=JSON.parse(await get(yangfan.configurationUrl(script,clock())));anchors=yangfan.anchors(configuration);}else{const sources=[...home.matchAll(/<script[^>]*src=["']([^"']+)["']/g)].map(m=>new URL(m[1],origin)).filter(u=>u.origin===origin&&/^\/assets\/index-[\w-]+\.js$/.test(u.pathname)&&!u.search&&!u.hash);
+  if(sources.length!==1)throw Error('publisher_script_ambiguous');
+  const script=await get(sources[0].href);
+  if(!/\bfetch\(["']\/config\.json["']\)/.test(script))throw Error('publisher_config_not_declared');
+  const configuration=JSON.parse(await get(origin+'/config.json'));
+  if(typeof configuration.title!=='string'||!configuration.title.trim()||!Array.isArray(configuration.urls)||!configuration.urls.length||configuration.urls.length>20)throw Error('publisher_config_schema_changed');
+  anchors=configuration.urls.map(value=>{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.search||u.hash||u.port||u.pathname!=='/')throw Error('publisher_candidate_not_plain_origin');return{url:u.origin+'/',label:configuration.title+' · 发布配置原生列出；归属待核'};});}
+ }catch(e){checkpoint={type:'published_entry_discovery_incomplete',url:originals.at(-1)?.url||config.entryUrl,reason:/^[a-z0-9_]+$/.test(e.message)?e.message:'publisher_transport_or_json_failed',transportFailure:transportFailure(e)};}
+ finally{await ctx?.dispose?.();}
+ return{captures:originals.length?[{url:config.entryUrl,body:JSON.stringify({representation:'published_entry_original_bundle',originals}),observedAt:new Date(clock()).toISOString(),kind:'unverified_entry_candidate',metadata:{anchors,identityVerified:false}}]:[],checkpoint,ordersCreated:0,paymentExecuted:false,capabilities:{login:{status:'not_attempted'},entryDiscovery:{status:'unverified_candidates_only'}}};
+}
+module.exports={collect};

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-67bf4eed1e53a59319af",
+  "origin": "https://eqxmg.wavenetttt.homes",
+  "recordIds": [
+    "A165"
+  ],
+  "entryUrls": [
+    "https://eqxmg.wavenetttt.homes/#/plans"
+  ],
+  "capabilities": {
+    "literalParser": "wavenet-public-native-plans",
+    "readOnlyRecipe": "wavenet_public_guest_catalog_readonly",
+    "auth": null,
+    "authStatus": "not_required_public_catalog",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "7b4116d9bdaf568c95bd910db9b15291159758549cfe1b35e333b1b03f28cb46",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

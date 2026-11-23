@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BiuBiu 地址发布页，专属停机坪。收藏本页，随时登机。</title>
+<meta name="description" content="BiuBiu 地址发布页：收藏本页，随时找到最新可用地址。自动检测每个地址是否可用，一键前往最快线路。">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="https://www.biubiu.one/assets/favicon.png">
+<style>
+@font-face { font-family: "NotoHeading"; src: url(/assets/fonts/heading.woff2?v=3743f1d3) format("woff2"); font-weight: 800; font-display: swap; }
+:root { --bg:#fafafa; --fg:#0b0b0c; --muted:#6b6f76; --line:#e7e8ea; --btn-bg:#0b0b0c; --btn-fg:#fff; --a1:#5fd8cc; --a2:#8cc4f5; --ok:#1f9d6b; --glow-a:rgba(155,231,224,.5); --glow-b:rgba(169,216,245,.45); color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+body::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 620px; z-index: -1; pointer-events: none; background: radial-gradient(560px 340px at 20% 0%, var(--glow-a), transparent 70%), radial-gradient(560px 340px at 82% 6%, var(--glow-b), transparent 70%); }
+a { color: inherit; }
+.wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; }
+main { flex: 1; }
+.hero { text-align: center; padding-top: 56px; }
+h1 { font-family: "NotoHeading", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; font-weight: 800; font-size: clamp(36px, 7vw, 58px); line-height: 1.15; letter-spacing: -0.03em; }
+.sub { margin: 16px auto 0; max-width: 520px; color: var(--muted); font-size: 17px; }
+.sub kbd { font: inherit; font-size: 14px; font-weight: 700; color: var(--fg); padding: 2px 9px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 7px; margin: 0 2px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; height: 52px; padding: 0 32px; border-radius: 99px; font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer; background: var(--btn-bg); color: var(--btn-fg); border: 1px solid var(--btn-bg); transition: transform .15s ease, opacity .15s ease; }
+.btn:hover { transform: translateY(-1px); opacity: .92; }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.sm { height: 38px; padding: 0 20px; font-size: 14px; }
+.btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+.go { margin-top: 32px; }
+.go small { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); min-height: 1.7em; }
+.list { list-style: none; margin-top: 52px; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.nm { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
+.best { display: none; font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 1px 9px; border-radius: 99px; color: var(--fg); background: linear-gradient(90deg, var(--a1), var(--a2)); }
+.row.is-best .best { display: inline-block; }
+.addr { display: block; margin-top: 2px; font-size: clamp(18px, 3.2vw, 24px); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; word-break: break-all; }
+.st { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); white-space: nowrap; min-width: 98px; }
+.st i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); flex: none; }
+.st[data-s="check"] i { animation: blink 1s ease-in-out infinite; }
+.st[data-s="ok"] i { background: var(--ok); box-shadow: 0 0 0 4px rgba(31,157,107,.15); }
+.st[data-s="ok"] b { color: var(--fg); font-weight: 700; }
+.st[data-s="slow"] i { background: var(--a2); }
+.st[data-s="fail"] i { background: transparent; border: 1.5px solid var(--muted); }
+.st b { font-weight: 500; }
+@keyframes blink { 50% { opacity: .25; } }
+.act { display: flex; align-items: center; gap: 14px; }
+.cp { background: none; border: 0; font: inherit; font-size: 14px; color: var(--muted); cursor: pointer; padding: 4px 2px; }
+.cp:hover { color: var(--fg); }
+.notice { margin: 28px auto 0; text-align: center; font-size: 13.5px; color: var(--muted); max-width: 560px; }
+footer { margin-top: 64px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding-top: 24px; padding-bottom: 32px; font-size: 13px; color: var(--muted); }
+footer a { text-decoration: none; } footer a:hover { color: var(--fg); }
+@media (max-width: 620px) {
+  .hero { padding-top: 40px; }
+  .row { grid-template-columns: 1fr auto; gap: 14px 12px; padding: 22px 0; }
+  .st { grid-column: 2; grid-row: 1; justify-self: end; min-width: 0; }
+  .act { grid-column: 1 / -1; }
+  .act .btn { flex: 1; }
+  .go .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="wrap hero">
+    <h1>BiuBiu 地址发布页</h1>
+    <p class="sub">专属停机坪。收藏本页，随时登机。<br><span id="bm">按 <kbd>Ctrl</kbd> + <kbd>D</kbd> 收藏本页</span></p>
+    <div class="go"><a class="btn" id="fast" href="#list" aria-disabled="true">正在检测可用线路…</a><small id="fast-note">自动检测每个地址能否连接，并为你选出最快的</small></div>
+  </div>
+
+  <div class="wrap">
+    <ul class="list" id="list">
+      <li class="row" data-url="https://account.biubiu.club"><div><span class="nm">大陆访问地址 1<span class="best">最快</span></span><a class="addr" href="https://account.biubiu.club" rel="noopener">account.biubiu.club</a></div><span class="st" data-s="check"><i></i><b>检测中…</b></span><div class="act"><a class="btn sm" href="https://account.biubiu.club" rel="noopener">访问</a><button class="cp" type="button">复制</button></div></li>
+      <li class="row" data-url="https://my.biubiu.club"><div><span class="nm">大陆访问地址 2<span class="best">最快</span></span><a class="addr" href="https://my.biubiu.club" rel="noopener">my.biubiu.club</a></div><span class="st" data-s="check"><i></i><b>检测中…</b></span><div class="act"><a class="btn sm" href="https://my.biubiu.club" rel="noopener">访问</a><button class="cp" type="button">复制</button></div></li>
+      <li class="row" data-url="https://www.biubiu.one"><div><span class="nm">海外永久官网<span class="best">最快</span></span><a class="addr" href="https://www.biubiu.one" rel="noopener">www.biubiu.one</a></div><span class="st" data-s="check"><i></i><b>检测中…</b></span><div class="act"><a class="btn sm" href="https://www.biubiu.one" rel="noopener">访问</a><button class="cp" type="button">复制</button></div></li>
+    </ul>
+    <p class="notice" id="notice">大陆站点链接可能随时更新，请定期检查。如无法访问，可点击右下角与我们即时联系。</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 BiuBiu</span><span><a href="https://www.biubiu.one">官网 www.biubiu.one</a></span></div>
+</footer>
+
+<script id="chatway" async src="https://cdn.chatway.app/widget.js?id=5rNP0iIqAmqM"></script>
+<script>
+(function () {
+  var FALLBACK = {"links": [{"name": "大陆访问地址 1", "url": "https://account.biubiu.club"}, {"name": "大陆访问地址 2", "url": "https://my.biubiu.club"}, {"name": "海外永久官网", "url": "https://www.biubiu.one"}]};
+  var rowsEl = document.getElementById('list'), fast = document.getElementById('fast'), fastNote = document.getElementById('fast-note');
+  var ua = navigator.userAgent, isMobile = /Android|iPhone|iPad|iPod/i.test(ua), isMac = /Mac|iPhone|iPad/i.test(ua);
+  // 收藏提示：电脑显示快捷键，手机提示用菜单
+  var bm = document.getElementById('bm');
+  if (isMobile) bm.textContent = '用浏览器菜单「添加书签」或「添加到主屏幕」收藏本页';
+  else if (isMac) bm.innerHTML = '按 <kbd>⌘</kbd> + <kbd>D</kbd> 收藏本页';
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function host(u) { try { return new URL(u).host; } catch (e) { return u; } }
+  function safe(list) { return list.filter(function (l) { return l && /^https?:\/\//i.test(l.url); }); }
+  var gen = 0;   // 每次重新渲染加 1，用来丢弃过期的检测结果
+  function render(list) {
+    gen++;
+    rowsEl.innerHTML = list.map(function (l) {
+      return '<li class="row" data-url="' + esc(l.url) + '"><div><span class="nm">' + esc(l.name) + '<span class="best">最快</span></span><a class="addr" href="' + esc(l.url) + '" rel="noopener">' + esc(host(l.url)) + '</a></div>' +
+        '<span class="st" data-s="check"><i></i><b>检测中…</b></span>' +
+        '<div class="act"><a class="btn sm" href="' + esc(l.url) + '" rel="noopener">访问</a><button class="cp" type="button">复制</button></div></li>';
+    }).join('');
+  }
+
+  // 检测：向地址发一个“不看内容”的请求，能连上就算可用；测两次，取第二次（排除首次握手的偏差）
+  function ping(url, ms) {
+    return new Promise(function (resolve) {
+      var ctl = window.AbortController ? new AbortController() : null, done = false;
+      var timer = setTimeout(function () { if (!done) { done = true; if (ctl) ctl.abort(); resolve(-1); } }, ms);
+      var t0 = performance.now();
+      fetch(url.replace(/\/+$/, '') + '/?_=' + Date.now(), { mode: 'no-cors', cache: 'no-store', credentials: 'omit', signal: ctl ? ctl.signal : undefined })
+        .then(function () { if (!done) { done = true; clearTimeout(timer); resolve(Math.round(performance.now() - t0)); } })
+        .catch(function () { if (!done) { done = true; clearTimeout(timer); resolve(-1); } });
+    });
+  }
+  function probe(url) { return ping(url, 6000).then(function (a) { if (a < 0) return -1; return ping(url, 4000).then(function (b) { return b < 0 ? a : b; }); }); }
+
+  function check(list) {
+    var results = [], pending = list.length, my = gen;
+    list.forEach(function (l, i) {
+      var row = rowsEl.children[i], st = row.querySelector('.st');
+      probe(l.url).then(function (ms) {
+        if (my !== gen) return;
+        results[i] = ms;
+        if (ms < 0) { st.dataset.s = 'fail'; st.innerHTML = '<i></i><b>暂时无法连接</b>'; }
+        else if (ms > 2500) { st.dataset.s = 'slow'; st.innerHTML = '<i></i><b>较慢 ' + ms + ' ms</b>'; }
+        else { st.dataset.s = 'ok'; st.innerHTML = '<i></i><b>' + ms + ' ms</b>'; }
+        if (--pending === 0) finish(list, results);
+      });
+    });
+  }
+  function finish(list, results) {
+    var best = -1;
+    results.forEach(function (ms, i) { if (ms >= 0 && (best < 0 || ms < results[best])) best = i; });
+    if (best < 0) { fast.textContent = '暂时都连不上，请联系客服'; fast.setAttribute('aria-disabled', 'true'); fastNote.textContent = '可以稍后刷新重试，或点击右下角联系我们。'; return; }
+    rowsEl.children[best].classList.add('is-best');
+    fast.removeAttribute('aria-disabled'); fast.href = list[best].url; fast.rel = 'noopener';
+    fast.textContent = '前往最快线路 · ' + host(list[best].url);
+    var ok = results.filter(function (m) { return m >= 0; }).length;
+    fastNote.textContent = '共 ' + list.length + ' 个地址，当前 ' + ok + ' 个可用';
+  }
+
+  // 复制
+  rowsEl.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.cp'); if (!b) return;
+    var url = b.closest('.row').getAttribute('data-url');
+    function ok() { b.textContent = '已复制'; setTimeout(function () { b.textContent = '复制'; }, 1600); }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(ok, fallback); else fallback();
+    function fallback() { var t = document.createElement('textarea'); t.value = url; t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); ok(); } catch (_) {} document.body.removeChild(t); }
+  });
+
+  // 先用页面内置的地址立刻开始检测；同时拉取最新的 links.json，有更新就以它为准重新检测
+  var current = safe(FALLBACK.links);
+  render(current); check(current);
+  fetch('links.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !d.links || !d.links.length) return;
+    var fresh = safe(d.links);
+    if (fresh.length && JSON.stringify(fresh) !== JSON.stringify(current)) { current = fresh; fast.setAttribute('aria-disabled', 'true'); fast.textContent = '正在检测可用线路…'; fast.removeAttribute('href'); render(current); check(current); }
+    if (d.notice) document.getElementById('notice').textContent = d.notice;
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>

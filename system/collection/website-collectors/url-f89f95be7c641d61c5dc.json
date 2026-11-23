@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-f89f95be7c641d61c5dc",
+  "origin": "https://www.amytele.co",
+  "recordIds": [
+    "A016"
+  ],
+  "entryUrls": [
+    "https://www.amytele.co/cart.php"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.amytele.co",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "710ab6431027556fc1182664022b4e174613551058d225e68354a08b36deca2f",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

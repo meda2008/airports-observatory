@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A015",
+      "url": "https://t.me/s/oixcloud_news",
+      "permalink": "https://t.me/oixcloud_news/197",
+      "publishedAt": "2026-11-10T17:08:04+00:00",
+      "postId": "oixcloud_news/197",
+      "quote": "OpenAI ChatGPT YES (Region: US)\nAnthropic Claude YES (Region: US)\nMicrosoft Copilot YES (Region: US)\nGoogle Gemini YES (Region: US)\nQuora Poe YES (Region: US)\nPerplexity AI Banned\nMistral AI YES (Region: US)\nx.AI Grok YES (Region: US)\nByteDance Coze YES (Region: US)\nDeepSeek Banned\nMoonshot Kimi YES (Region: CN)\nDola AI YES (Region: US)\n\n电信 / 联通用户可直连使用，也可作为套餐外的额外节点使用（联通实测速度可达 550Mbps）",
+      "quoteSha256": "171cfee93018c49b24f37921a19ce7336294e37536e059ece52b3ed9ae431f0f",
+      "quotedContext": "🇺🇸 美国·洛杉矶 (BGP) 独享 IP 上架通知 美国·洛杉矶 (BGP) 独享 IP 现已上架，本次共提供 11 枚独享 IP 资源 库存有限，先到先得，售完即止 购买链接：https://oixcloud.com/user/node?node_level=Exclusive 感谢各位用户一直以来的支持与理解 —— 🇺🇸 Los Angeles, USA (BGP) Dedicated IP Availability Notice Los Angeles, USA (BGP) dedicated…",
+      "quotedContextSha256": "6bac3e5232609e3fdf83e27f149432043c69e70c1cfb99e124a94d3697561a81",
+      "quotedReportedValueMbps": 550,
+      "currentRef": {
+        "file": "work/performance-discovery/A015-0a29c36c-1b55-4e8a-806d-49f1928c7811-899db85c-48ed-46ff-a79a-021d1c311547/capture-0.json",
+        "fileSha256": "a3e22437bd2fef415b8414903317af58ae9876091ac0ff428277cc1a60475522",
+        "url": "https://oixcloud.com/",
+        "observedAt": "2026-11-13T03:05:11.011Z",
+        "bodySha256": "d0f3ef12a25e1f416bf94576851be4deadcac779e41d31495ecf4d745d7c47c6",
+        "representation": "builtin_browser_visible_DOM_text",
+        "sourceId": "DISCOVERY-CURRENT-OIX-0a29c36c-1b55-4e8a-806d-49f1928c7811"
+      },
+      "channelLinkProof": {
+        "file": "work/performance-discovery/dom/oix-current-public-home/0a29c36c-1b55-4e8a-806d-49f1928c7811.json",
+        "fileSha256": "e557d49de4e84c6cea73dc16e082e339203a36f85e963d908f1b56874c0be095",
+        "capturedAt": "2026-11-13T03:05:11.088Z",
+        "linkIndex": 16
+      },
+      "initialChannelRef": {
+        "file": "work/performance-discovery/A015-05be4cb7-6a7e-4ded-b2d0-fcae4e5d276b-3c29d300-6443-4f41-a7ca-62543b1571ee/capture-0.json",
+        "fileSha256": "c77f6f4f3bcb3f6832aa1db9cbac6bb6faeef30f2d9675cc21b58ea93197f940",
+        "url": "https://t.me/s/oixcloud_news",
+        "observedAt": "2026-11-13T15:56:03.952Z",
+        "bodySha256": "2d60fb53ecb092d4e23a6b6d892a32eb55e3f5b863dc02d09aecaff766dfb1ff",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "associatedSavedRecordIds": [
+        "A184"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b25e5d8987d3227a2d29",
+  "origin": "https://linkcube.org",
+  "recordIds": [
+    "A038"
+  ],
+  "entryUrls": [
+    "https://linkcube.org/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://linkcube.org",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "b0970540f6e1e1018bf70e918acd2e37d57118e5a4d5ec7765e635d676440bd0",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

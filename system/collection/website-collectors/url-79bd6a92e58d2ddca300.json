@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-79bd6a92e58d2ddca300",
+  "origin": "https://nexuscloud.ch",
+  "recordIds": [
+    "A055"
+  ],
+  "entryUrls": [
+    "https://nexuscloud.ch/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nexuscloud.ch",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "d784b5e865171012604e3cd848439ec85a283629d54fa4441d24f0f5e27b57a3",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

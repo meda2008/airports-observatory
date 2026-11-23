@@ -1,0 +1,89 @@
+{
+  "siteId": "A144",
+  "profileRevision": 3,
+  "config": {
+    "recordId": "A144",
+    "name": "小蜜蜂 (XMF)",
+    "entryUrl": "https://a30.xmfvipaffa01.cc/shop",
+    "allowedHosts": [
+      "a30.xmfvipaffa01.cc"
+    ],
+    "adapter": "generic",
+    "maxPages": 4,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "websiteCollectorId": "url-a4b2a6093805e78ab12f",
+    "collectPerformanceReferences": false,
+    "auth": {
+      "mode": "login",
+      "discoverFromVisibleForm": true,
+      "successSelector": "a[href$=\"/profile\"]:visible"
+    },
+    "reconcileVerifiedCheckpoints": true
+  },
+  "lastRunId": "f70091e2-bd72-46cf-ab70-f07a801fa2d5",
+  "lastRunProfileRevision": 3,
+  "lastStatus": "completed",
+  "capabilities": {
+    "pageReadable": {
+      "status": "observed",
+      "reason": "2 页可见正文已留存"
+    },
+    "login": {
+      "status": "session_observed",
+      "reason": "会话按可见退出标识、已配置的唯一可见登录后控件或已审核的同域账户读取响应确认；仅在已批准目的地使用绑定凭据尝试正常登录。未自动注册、接受新协议或付款；专站可见验证控件按有界适配处理，验证操作不等于登录成功。"
+    },
+    "plans": {
+      "status": "extracted_no_change",
+      "reason": "字面解析结果，仍须复核"
+    },
+    "payment": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "refund": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "privacy": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "compatibility": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "speed": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "stability": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "operatingHistory": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "challenge": {
+      "status": "not_observed",
+      "reason": "本轮未观察到交互验证；不证明永远无需验证"
+    },
+    "dataBasis": {
+      "status": "standalone_browser",
+      "reason": "独立后台浏览器本次可见页面观察"
+    }
+  },
+  "nextRunAt": "2026-11-25T16:00:21.211Z",
+  "nextRunChina": "2026/11/26 00:00:21",
+  "openCheckpoints": 0
+}

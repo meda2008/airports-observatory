@@ -1,0 +1,4 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),p=require('../lib/ninecloud-native-policy.cjs');
+const c={recordId:'A176',entryUrl:'https://shop.starpro.one/#/plan',readOnlyRecipe:'ninecloud_native_catalog_readonly',auth:{mode:'login'}};
+test('reviewed NineCloud normal client gets enough bounded time without changing other accounts or routes',()=>{assert(p.configured(c));assert.equal(p.jobBudget(c,35000),60000);assert.equal(p.jobBudget(c,90000),90000);assert.equal(p.formWait(c,60000),16000);assert.equal(p.formWait(c,6000),4500);for(const patch of [{recordId:'A177'},{entryUrl:'https://other.invalid/#/plan'},{readOnlyRecipe:'other'},{publicOnly:true},{auth:{mode:'none'}}]){const x={...c,...patch};assert.equal(p.configured(x),false);assert.equal(p.jobBudget(x,35000),35000);assert.equal(p.formWait(x,60000),10000);}});

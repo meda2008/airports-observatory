@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-16f3a59f0434ecb3492e",
+  "origin": "https://kkj.flashleaptt.xyz",
+  "recordIds": [
+    "A160"
+  ],
+  "entryUrls": [
+    "https://kkj.flashleaptt.xyz/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://kkj.flashleaptt.xyz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ff9d75c66e3a265370d43b1294799f8f1639361ec7e13cdf541905a6276a8f31",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

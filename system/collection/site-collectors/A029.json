@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A029",
+  "name": "速云梯",
+  "entryUrl": "https://suyunti.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "suyunti.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "本次原名录域名已有授权登录态，实际读取同名首页可见公告/FAQ与未标日期的重要通知弹窗，不含余额/个人订阅等区域。与另一站FAQ大量相同，保守按一个内容依赖组降I0，但不合并法律主体或历史经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

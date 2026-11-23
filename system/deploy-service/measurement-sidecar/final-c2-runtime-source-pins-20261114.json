@@ -1,0 +1,58 @@
+{
+  "sourceInputSha256": "c2aca4697abe4117cf9798468e9c7d085fbe7248f073be4e02278aa1161930c7",
+  "projectionCandidateSha256": "68b7d6e141f3b499f19c0636b00bd727d49973d1ff511c2e08ac8ceea2f5a630",
+  "sourcePins": [
+    {
+      "file": "deploy-service/measurement-store.cjs",
+      "sha256": "8dde825b7548e10eed445148802155900d53ad589e6aa153d919c6fbb38d93b0"
+    },
+    {
+      "file": "deploy-service/measurement-worker.cjs",
+      "sha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967"
+    },
+    {
+      "file": "deploy-service/measurement-api.cjs",
+      "sha256": "04446c83f8a032731a4b026aeac4a31948ad0dfb66ec156b351c187c03a7eca7"
+    },
+    {
+      "file": "lib/proxy-route-observer.cjs",
+      "sha256": "7919cc5af07d2a4ed6ba0d9fbf6c8cda16f5fdd885a94ab51b9a77eef1af3254"
+    },
+    {
+      "file": "lib/measurement-conclusions.cjs",
+      "sha256": "e8fc990747a1ec1526d077107b34993584110f097fc6cb173df42a8a90553c9f"
+    },
+    {
+      "file": "lib/core-info.cjs",
+      "sha256": "7f98903d4448c96262002cb062c8473d79a819ac5d0fc36f7869956a64c50785"
+    },
+    {
+      "file": "deploy-service/server.cjs",
+      "sha256": "8f848f7a9ec66274f0ca901b86284e1d478533228e7bb7caf3558aa94218c6d6"
+    },
+    {
+      "file": "scripts/measurements.cjs",
+      "sha256": "c245a4e4a7fa492758dbc701905309f34ecd412cacd91100143fe93b7d6b5eba"
+    },
+    {
+      "file": "deploy-service/line-client-supervisor.cjs",
+      "sha256": "fb9e147d7a6578c697b07c581de2ef887eb5b20fc07cd43f6cb61eac7c9dc9f1"
+    },
+    {
+      "file": "scripts/local-product.cjs",
+      "sha256": "5c4ca89178612cf6448840c056eea3e22827ba442b465a6e41b2d5071c70b290"
+    },
+    {
+      "file": "public-site/src/core-view.mjs",
+      "sha256": "4c0b4796ed7327d8497d9e5827fdb444bb7f5c0146f2787163b6393b05121090"
+    },
+    {
+      "file": "lib/performance-summary.cjs",
+      "sha256": "f9118e1a53dc003e79287a134ca65d50965d1ceca137162df1ae1dc2c70c0168"
+    },
+    {
+      "file": "deploy-service/public/index.js",
+      "sha256": "8e3d677a63396706ed3415f42e8a969bc9340c829591ba4248549be43935f8e6"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A199",
+  "name": "尔湾云",
+  "entryUrl": "https://erwancdec.cc/user/shop",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "erwancdec.cc",
+    "ewfdl.net"
+  ],
+  "adapter": "generic",
+  "maxPages": 8,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存入口原生跳转、同名登录标题及登录后尔湾云页脚，账号业务页原文；不证明旧irvine.cloud迁移或法律经营主体连续性。 2026-11-19内置浏览器核实精确普通ewfdl导航回同域登录；后台应用相同站点加载等待。只有真实报价实跑通过后更新验收状态。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/erwan-current-shop.cjs",
+    "fields": [
+      "pricing"
+    ],
+    "status": "real_independent_login_and_30_period_cards_observed_review_pending",
+    "automaticPublication": false
+  },
+  "collectPerformanceReferences": true,
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true
+  },
+  "entryContinue": {
+    "buttonText": "点击访问网站",
+    "notice": "点击访问网站"
+  }
+}

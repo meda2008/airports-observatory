@@ -1,0 +1,8 @@
+'use strict';
+const crypto=require('node:crypto'),grant='user_reply_call_d8869a8f5be840b1ad3783d5e089015c_independent_current_brands_existing_account_login';
+const specs=[
+ {recordId:'A149',name:'光速云',portal:'https://efbng.guangzssytt.buzz',recipe:'guangsu_native_api_readonly',appUrl:'https://j8m.gsyvipaff.com',client:'https://efbng.guangzssytt.buzz/assets/index-CIWBuvYy.js',sha256:'59e6b0ea807930710d5b0bf05e2e2e40fc8d1ce2e9bd52ccf47770ef8b5dbc67'},
+ {recordId:'A150',name:'全球云',portal:'https://dv2dsdgf.quanqiugttt1.club',recipe:'global_native_api_readonly',appUrl:'https://web02.globalcloud.cc',client:'https://dv2dsdgf.quanqiugttt1.club/assets/index-B0lMradG.js',sha256:'c45c03f1e2564df57b7546828a1660ee0b3b50833eab6c2746265ddb229428c2'}
+];
+function unitCapture(spec,body){if(!specs.includes(spec)||crypto.createHash('sha256').update(body).digest('hex')!==spec.sha256)throw Error('native_login_price_client_changed');const token='children:["¥",(V.price/100).toFixed(2)]',at=body.indexOf(token),field=body.indexOf(spec.recordId==='A149'?'case"monthly":return N.month_price||N.price||0':'case"monthly":return S.month_price||S.price||0');if(at<0||field<0||!body.slice(Math.max(0,at-700),at).includes('src/pages/plans/Plans.tsx'))throw Error('native_login_price_unit_not_proven');return JSON.stringify({representation:'current_brand_native_price_unit_contract',recordId:spec.recordId,url:spec.client,sourceBodySha256:spec.sha256,sourceLength:body.length,divisor:100,excerpts:[field,at].map(i=>({start:Math.max(0,i-800),end:Math.min(body.length,i+1300),text:body.slice(Math.max(0,i-800),Math.min(body.length,i+1300))})),demoDataIsNotLivePlans:true});}
+module.exports={specs,grant,unitCapture};

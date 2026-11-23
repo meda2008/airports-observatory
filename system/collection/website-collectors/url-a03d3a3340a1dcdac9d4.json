@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a03d3a3340a1dcdac9d4",
+  "origin": "https://shanhai.cfd",
+  "recordIds": [
+    "A154"
+  ],
+  "entryUrls": [
+    "https://shanhai.cfd/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://shanhai.cfd",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "3a318a6cb307a2ca551501f4d48d1dd22056e04132dd1f0c7fe72484fddd5641",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,7 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),E=require('../lib/collection-engine.cjs');
+const {retainOriginals}=require('../scripts/repair-collection-originals.cjs');
+test('incremental evidence: original bytes retained once and tampered ancestor refused',()=>{
+ const base=path.resolve(__dirname,'../work/collection-runs'),old=fs.mkdtempSync(path.join(base,'SYNTHETIC-')),next=fs.mkdtempSync(path.join(base,'SYNTHETIC-'));const source={originalFile:'original-evidence/source.json',originalSha256:E.sha('original bytes'),reusedFromRun:path.basename(old)};
+ try{fs.mkdirSync(path.join(old,'original-evidence'));fs.writeFileSync(path.join(old,source.originalFile),'original bytes');fs.writeFileSync(path.join(next,'plan.json'),JSON.stringify({tasks:[{seedSources:[source]}]}));fs.writeFileSync(path.join(next,'state.json'),JSON.stringify({results:{}}));assert.equal(retainOriginals(path.basename(next)).copiedOriginals,1);assert.equal(fs.readFileSync(path.join(next,source.originalFile),'utf8'),'original bytes');assert.equal(retainOriginals(path.basename(next)).copiedOriginals,0);fs.unlinkSync(path.join(next,source.originalFile));fs.writeFileSync(path.join(old,source.originalFile),'changed bytes');assert.throws(()=>retainOriginals(path.basename(next)),/hash mismatch/);}
+ finally{for(const target of [old,next]){assert.equal(path.dirname(path.resolve(target)),base);assert(path.basename(target).startsWith('SYNTHETIC-'));fs.rmSync(target,{recursive:true});}}
+});

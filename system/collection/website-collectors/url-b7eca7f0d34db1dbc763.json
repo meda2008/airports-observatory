@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b7eca7f0d34db1dbc763",
+  "origin": "https://www.webitz.net",
+  "recordIds": [
+    "A189"
+  ],
+  "entryUrls": [
+    "https://www.webitz.net/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.webitz.net",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "47e03b24cd79a2bba75ad566240512f2a99c58779405afb011c6fb585edd0e7a",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

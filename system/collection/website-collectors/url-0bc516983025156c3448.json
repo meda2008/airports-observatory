@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-0bc516983025156c3448",
+  "origin": "https://home.cocoduck.co",
+  "recordIds": [
+    "A083"
+  ],
+  "entryUrls": [
+    "https://home.cocoduck.co/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A083"
+      ],
+      "fields": [
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://home.cocoduck.co",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "d46b336203d85fe9d669479532d9f2c13cff502d76f6cb367076a9b084075131",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

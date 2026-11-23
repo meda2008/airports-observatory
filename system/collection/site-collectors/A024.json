@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A024",
+  "name": "忍者云 (NinjaCloud)",
+  "entryUrl": "https://app5.ninjiacloud.online/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "app5.ninjiacloud.online"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": true,
+  "eligibility": "needs_identity_review",
+  "reason": "当前入口环球网络加速公开配置及目录可读，13档普通套餐与1档不续费试用分开；旧忍者云经营归属待核。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-45152ce2cbfc7315caf3",
+  "validateWhileDisabled": true,
+  "publicOnly": true,
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "ninja_public_catalog_readonly",
+  "auth": null,
+  "accountReadOnly": false,
+  "knowledgeAdapter": false,
+  "recoveryAcceptance": {
+    "configurationRevision": 5,
+    "capturedAt": "2026-11-21T11:11:03.501Z",
+    "status": "pricing_only_public_collection_review_publication_frontend_weekly_verified",
+    "runId": "859013da-d12d-4473-a119-e5174d185fbf",
+    "weeklyEnabled": true,
+    "nextRunAt": "2026-11-28T11:10:10.674Z",
+    "fullSiteCoverageVerified": false,
+    "authenticationVerified": false,
+    "historicalIdentityUnchanged": true,
+    "receipt": "/data/recovery-receipts/remaining20-final-verified-v317.json"
+  }
+}

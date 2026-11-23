@@ -1,0 +1,328 @@
+{
+  "body": "echoc's blog\n首页\n归档\n分类\n标签\n关于\n搜索\n开灯\n机场测评报告_\n 2026年10月15日 凌晨\n 6.3k 字  53 分钟\n背景\n\n原来一直用的 AmyTelecom 到期了，借这个机会想换个机场试试，目前先试了一下 Gatern，并在中国移动和中国联通两个网络环境下对它们的全量订阅节点跑了一轮延迟测试。\n\n下面先按机场梳理各自的情况与评价，具体的测试口径和详细数据表格放在文末。\n\nAmyTelecom\n官网：https://www.amytele.co/（对代理及海外 IP 拦截较严，需国内直连打开）\n综合评分：4 / 5\n节点概况：去重后共 56 个节点（均为 anytls 协议），全部集中在 香港（21）、美国（13）、台湾（10）、日本（8）、新加坡（4） 五个高频地区，没有冷门国家节点。\n测试表现：\n联通网络表现极佳：全量节点 100% 连通零失败，港、台、日、新四地的 HTTPS 请求延迟均在 190-280 ms 之间，美国在 780-900 ms 左右，且同地区各节点延迟非常均衡。\n港、台、新双网都很稳：切到中国移动后，这三个地区依然保持 100% 成功率，延迟仅比联通慢 50-60 ms（250-330 ms）。\n移动网络下日、美劣化明显：移动网络下日本延迟飙升至 1000 ms 以上；美国更是有超过一半节点（7/13）出现超时失败，延迟也翻倍到 1700 ms 左右。\n主观评价：\n作为一家老牌机场，整体运行相对稳定；工单响应也比较及时，平时遇到一些客户端使用上的问题，客服也会提供技术支持。\n支付方式很朴实，直接支持支付宝、微信等国内常规支付渠道，不需要折腾加密货币。\n订阅链接仅临时有效：提供的订阅链接并非长期有效，给日常使用带来了不少不便。\n比较遗憾的是我用的 Silver 套餐（官网拼作 Sliver）：不支持月付，价格为 196 元/半年（折合 32.67 元/月）或 367 元/年（折合 30.58 元/月），但每个月只有 150 GB 流量（往上一档的 Gold 则是 300 GB/月，半年付 294 元）。每月 150 GB 现在用起来有点捉襟见肘，这也是我这次想换机场的直接原因之一。\nGatern\n官网：https://gatern.com/（面板：https://s.gtnb.net/，防失联页：https://gatern.github.io/）\n综合评分：1 / 5\n节点概况：去重后共 62 个节点（均为 anytls 协议），主打全球广覆盖，共覆盖 40 个国家/地区。除了美（6）、港（5）、日（4）、英/韩/新/台（各 3）、澳/菲（各 2）外，其余 31 个国家/地区各配 1 个节点，包含大量冷门落地（如土耳其、阿根廷、巴西、埃及、尼日利亚、东欧各国等）。\n测试表现：\n冷门地区全通，双网表现一致：不挑运营商，移动和联通下的整体表现高度接近，31 个单节点冷门国家在双网下全部 100% 连通。\n移动下日、美反超 AmyTelecom：在移动网络下，其日本（480-700 ms）和美国（1050-1090 ms）无论连通率还是延迟都明显好于 AmyTelecom。\n主力地区节点少、延迟偏高，且存在死节点：港、台、日、新节点数量少（3-5 个），延迟普遍比 AmyTelecom 慢 100-200 ms；此外测试期间有 3 个节点（新加坡 2 个、菲律宾 1 个）在双网下均 100% 失联，导致新加坡实际只有 1/3 的节点可用，冗余度不足。\n主观评价：\n支付方式让人难绷：虽然支持加密货币支付，但只支持 TRC20，这一点直接让我好感全无。感觉这条链现在基本是做灰产的骗子才最常用的链；如果真是正经想做加密货币支付，为什么不多支持几条手续费低的链？不放加密货币就算了，放上了却只放一条灰产链，实在很难绷。如果走国内支付渠道，则需要额外收 5% 的手续费；但离谱的是，就算加上这 5% 的手续费，算下来居然还是比用 TRC20 转账（手续费高）更便宜，这就很难评了。\n工单支持不够友好：如果遇到一些具体的使用问题，像 AmyTelecom 的工单是会提供技术支持的，但他家就不会管。\n默认 DNS 配置不省心：我用移动热点时，导入订阅并开启 TUN 全局代理后，Google 还是打不开，最后发现是 DNS 没处理好。作为付费机场，这种基础配置还要用户自己排查修改，实在有些说不过去。\n没有原生 Loon 订阅：用 Loon 的话，官方没有现成的订阅链接可以直接导入，得自己用 Sub-Store 转换一遍才行，比较麻烦。\nSLA 与稳定性堪忧：才刚买了两三天，就直接碰上了全线断联的情况。虽然提了工单后一小时内就收到回复，解释说是“机房断电”，但这种全线失联的情况在之前用 AmyTelecom 的时候从来没有遇到过，给人感觉相当不靠谱。目前还不确定是因为买的时间太短刚好赶上巧合，还是常态如此——如果这种 SLA 只有 90% 的状况一直持续下去，那用完这一个月肯定要跑路了。\n生产完全不可用：在重要政治活动时发生小时级的服务中断。\n总结\n\n目前试下来，两家机场的对比还是挺鲜明的：\n\nAmyTelecom（4 / 5）：无论是客观的常用地区延迟，还是长期使用下来的稳定性、支付体验和工单服务，都更像一家省心的老牌机场；不足之处是流量给得比较抠，Silver 套餐每个月 150 GB 不太够用，订阅链接也仅临时有效，日常使用不够方便。\nGatern（1 / 5）：优势在于 40 个国家/地区的超广覆盖以及对移动网络相对友好，但常用地区的延迟表现一般、存在失联死节点，再加上只支持 TRC20 的奇葩加密货币支付和刚买两三天就碰上的“机房断电”全线断联，初体验实在有些劝退。之后又在重要政治活动时发生小时级的服务中断，这种稳定性对生产来说完全不可用。\n附录：详细测试数据\n测试环境与统计口径\n\n本次延迟测试在 Windows 11（Mihomo 1.19.31）下通过绑定独立物理接口完成全量节点采样（覆盖率 100%）：\n\n测试网络：中国移动（移动数据网络，绑定物理以太网接口）、中国联通（联通流量，绑定物理 WLAN 接口）。\n探测目标与轮数：对每个节点分别请求 Cloudflare（https://cp.cloudflare.com/generate_204）和 Google（https://www.gstatic.com/generate_204）各 3 轮，超时 5 秒，并发 4。\n指标说明：\n延迟为完整 HTTPS 请求耗时（elapsed_ms），而非 ICMP Ping 值。\n合格节点：在两个探测目标共 6 次请求中全部成功（3/3 + 3/3）的节点。\n最快 F（ms）：该地区最快合格节点的多轮延迟中位数（p50）。\n典型 M（ms）：该地区各节点成功请求 p50 的中位数（节点等权）。\n加权 W（ms）：80% × F + 20% × M，越低越好，兼顾该地区最快可用节点与整体水平。\n核心地区横向对比\n\n下表为两家机场在五个核心常用地区的加权延迟 W（ms）与合格节点占比：\n\n中国联通\n地区\tAmyTelecom 合格节点\tGatern 合格节点\tAmyTelecom (CF / Google)\tGatern (CF / Google)\n香港\t21/21\t5/5\t190.73 / 194.60 ms\t365.13 / 342.95 ms\n台湾\t10/10\t3/3\t243.29 / 258.30 ms\t507.10 / 442.88 ms\n日本\t8/8\t4/4\t246.17 / 226.05 ms\t756.90 / 513.83 ms\n新加坡\t4/4\t1/3\t278.77 / 267.14 ms\t537.98 / 610.24 ms\n美国\t13/13\t5/6\t905.66 / 777.75 ms\t909.20 / 1037.25 ms\n中国移动\n地区\tAmyTelecom 合格节点\tGatern 合格节点\tAmyTelecom (CF / Google)\tGatern (CF / Google)\n香港\t21/21\t5/5\t250.00 / 263.39 ms\t331.82 / 417.60 ms\n台湾\t10/10\t3/3\t297.00 / 301.84 ms\t416.28 / 500.41 ms\n日本\t6/8\t4/4\t1057.93 / 1061.14 ms\t705.07 / 477.47 ms\n新加坡\t4/4\t1/3\t329.96 / 316.84 ms\t555.87 / 908.52 ms\n美国\t6/13\t6/6\t1753.58 / 1689.11 ms\t1053.99 / 1091.22 ms\nAmyTelecom 分地区测试明细\n中国联通\n地区\t合格/候选节点\t样本成功率 (CF / Google)\tCloudflare 加权 W (最快 F / 典型 M)\tGoogle 加权 W (最快 F / 典型 M)\n香港\t21/21\t100.0% / 100.0%\t190.73 ms (183.79 / 218.48)\t194.60 ms (186.35 / 227.60)\n台湾\t10/10\t100.0% / 100.0%\t243.29 ms (235.08 / 276.12)\t258.30 ms (259.23 / 254.60)\n日本\t8/8\t100.0% / 100.0%\t246.17 ms (233.33 / 297.53)\t226.05 ms (205.36 / 308.82)\n新加坡\t4/4\t100.0% / 100.0%\t278.77 ms (277.99 / 281.89)\t267.14 ms (265.62 / 273.22)\n美国\t13/13\t100.0% / 100.0%\t905.66 ms (897.50 / 938.29)\t777.75 ms (779.25 / 771.73)\n中国移动\n地区\t合格/候选节点\t样本成功率 (CF / Google)\tCloudflare 加权 W (最快 F / 典型 M)\tGoogle 加权 W (最快 F / 典型 M)\n香港\t21/21\t100.0% / 100.0%\t250.00 ms (243.41 / 276.37)\t263.39 ms (261.96 / 269.10)\n台湾\t10/10\t100.0% / 100.0%\t297.00 ms (292.09 / 316.64)\t301.84 ms (301.73 / 302.29)\n日本\t6/8\t95.8% / 95.8%\t1057.93 ms (1050.07 / 1089.35)\t1061.14 ms (1039.60 / 1147.29)\n新加坡\t4/4\t100.0% / 100.0%\t329.96 ms (327.93 / 338.11)\t316.84 ms (313.81 / 328.94)\n美国\t6/13\t82.1% / 84.6%\t1753.58 ms (1709.21 / 1931.04)\t1689.11 ms (1552.29 / 2236.43)\nGatern 多节点地区测试明细\n中国联通\n地区\t合格/候选节点\t样本成功率 (CF / Google)\tCloudflare 加权 W (最快 F / 典型 M)\tGoogle 加权 W (最快 F / 典型 M)\n香港\t5/5\t100.0% / 100.0%\t365.13 ms (348.38 / 432.13)\t342.95 ms (342.95 / 342.95)\n台湾\t3/3\t100.0% / 100.0%\t507.10 ms (497.48 / 545.59)\t442.88 ms (422.94 / 522.64)\n日本\t4/4\t100.0% / 100.0%\t756.90 ms (756.86 / 757.09)\t513.83 ms (506.29 / 544.01)\n新加坡\t1/3\t33.3% / 33.3%\t537.98 ms (537.98 / 537.98)\t610.24 ms (610.24 / 610.24)\n韩国\t3/3\t100.0% / 100.0%\t467.20 ms (467.20 / 467.20)\t544.84 ms (542.29 / 555.04)\n菲律宾\t1/2\t50.0% / 50.0%\t676.08 ms (676.08 / 676.08)\t393.58 ms (393.58 / 393.58)\n美国\t5/6\t100.0% / 94.4%\t909.20 ms (880.66 / 1023.39)\t1037.25 ms (1024.50 / 1088.27)\n英国\t3/3\t100.0% / 100.0%\t1301.73 ms (1279.36 / 1391.23)\t1309.79 ms (1293.61 / 1374.51)\n澳大利亚\t2/2\t100.0% / 100.0%\t815.83 ms (805.77 / 856.05)\t1178.51 ms (1170.90 / 1208.93)\n中国移动\n地区\t合格/候选节点\t样本成功率 (CF / Google)\tCloudflare 加权 W (最快 F / 典型 M)\tGoogle 加权 W (最快 F / 典型 M)\n香港\t5/5\t100.0% / 100.0%\t331.82 ms (300.00 / 459.07)\t417.60 ms (417.60 / 417.60)\n台湾\t3/3\t100.0% / 100.0%\t416.28 ms (401.30 / 476.20)\t500.41 ms (500.41 / 500.41)\n日本\t4/4\t100.0% / 100.0%\t705.07 ms (671.85 / 837.96)\t477.47 ms (467.13 / 518.81)\n新加坡\t1/3\t33.3% / 33.3%\t555.87 ms (555.87 / 555.87)\t908.52 ms (908.52 / 908.52)\n韩国\t3/3\t100.0% / 100.0%\t420.59 ms (417.84 / 431.57)\t514.97 ms (491.68 / 608.11)\n菲律宾\t1/2\t50.0% / 50.0%\t445.30 ms (445.30 / 445.30)\t603.91 ms (603.91 / 603.91)\n美国\t6/6\t100.0% / 100.0%\t1053.99 ms (1017.63 / 1199.43)\t1091.22 ms (1084.63 / 1117.60)\n英国\t3/3\t100.0% / 100.0%\t1231.67 ms (1211.23 / 1313.42)\t1244.15 ms (1235.58 / 1278.44)\n澳大利亚\t2/2\t100.0% / 100.0%\t771.01 ms (765.70 / 792.28)\t1133.29 ms (1092.82 / 1295.21)\n工具\n #机场 #代理 #网络测试\n灯影牛肉丝试吃记录\n把 rsshub-balancer 搬回 VPS，保留 Workers 作为备用\nHexo  Fluid",
+  "images": [],
+  "links": [
+    {
+      "text": "echoc's blog",
+      "url": "https://echoccc.online/"
+    },
+    {
+      "text": "\n                \n                首页\n              ",
+      "url": "https://echoccc.online/"
+    },
+    {
+      "text": "\n                \n                归档\n              ",
+      "url": "https://echoccc.online/archives/"
+    },
+    {
+      "text": "\n                \n                分类\n              ",
+      "url": "https://echoccc.online/categories/"
+    },
+    {
+      "text": "\n                \n                标签\n              ",
+      "url": "https://echoccc.online/tags/"
+    },
+    {
+      "text": "\n                \n                关于\n              ",
+      "url": "https://echoccc.online/about/"
+    },
+    {
+      "text": "\n              \n            ",
+      "url": "javascript:;"
+    },
+    {
+      "text": "\n              \n            ",
+      "url": "javascript:;"
+    },
+    {
+      "text": "首页",
+      "url": "https://echoccc.online/"
+    },
+    {
+      "text": "归档",
+      "url": "https://echoccc.online/archives/"
+    },
+    {
+      "text": "分类",
+      "url": "https://echoccc.online/categories/"
+    },
+    {
+      "text": "标签",
+      "url": "https://echoccc.online/tags/"
+    },
+    {
+      "text": "关于",
+      "url": "https://echoccc.online/about/"
+    },
+    {
+      "text": "搜索",
+      "url": "javascript:;"
+    },
+    {
+      "text": "开灯",
+      "url": "javascript:;"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E8%83%8C%E6%99%AF"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E8%83%8C%E6%99%AF"
+    },
+    {
+      "text": "AmyTelecom",
+      "url": "https://www.amytele.co/"
+    },
+    {
+      "text": "Gatern",
+      "url": "https://gatern.com/"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom"
+    },
+    {
+      "text": "https://www.amytele.co/",
+      "url": "https://www.amytele.co/"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern"
+    },
+    {
+      "text": "https://gatern.com/",
+      "url": "https://gatern.com/"
+    },
+    {
+      "text": "https://s.gtnb.net/",
+      "url": "https://s.gtnb.net/"
+    },
+    {
+      "text": "https://gatern.github.io/",
+      "url": "https://gatern.github.io/"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%80%BB%E7%BB%93"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%80%BB%E7%BB%93"
+    },
+    {
+      "text": "AmyTelecom",
+      "url": "https://www.amytele.co/"
+    },
+    {
+      "text": "Gatern",
+      "url": "https://gatern.com/"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E9%99%84%E5%BD%95%EF%BC%9A%E8%AF%A6%E7%BB%86%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E9%99%84%E5%BD%95%EF%BC%9A%E8%AF%A6%E7%BB%86%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%8F%A3%E5%BE%84"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%8F%A3%E5%BE%84"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%A0%B8%E5%BF%83%E5%9C%B0%E5%8C%BA%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%A0%B8%E5%BF%83%E5%9C%B0%E5%8C%BA%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom-%E5%88%86%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom-%E5%88%86%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-1"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-1"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-1"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-1"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern-%E5%A4%9A%E8%8A%82%E7%82%B9%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern-%E5%A4%9A%E8%8A%82%E7%82%B9%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-2"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-2"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-2"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-2"
+    },
+    {
+      "text": "工具",
+      "url": "https://echoccc.online/categories/%E5%B7%A5%E5%85%B7/"
+    },
+    {
+      "text": "#机场",
+      "url": "https://echoccc.online/tags/%E6%9C%BA%E5%9C%BA/"
+    },
+    {
+      "text": "#代理",
+      "url": "https://echoccc.online/tags/%E4%BB%A3%E7%90%86/"
+    },
+    {
+      "text": "#网络测试",
+      "url": "https://echoccc.online/tags/%E7%BD%91%E7%BB%9C%E6%B5%8B%E8%AF%95/"
+    },
+    {
+      "text": "灯影牛肉丝试吃记录",
+      "url": "https://echoccc.online/posts/dengying-beef-review/"
+    },
+    {
+      "text": "把 rsshub-balancer 搬回 VPS，保留 Workers 作为备用",
+      "url": "https://echoccc.online/posts/rsshub-balancer-worker-migration/"
+    },
+    {
+      "text": "背景",
+      "url": "https://echoccc.online/posts/airport-review/#%E8%83%8C%E6%99%AF"
+    },
+    {
+      "text": "AmyTelecom",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom"
+    },
+    {
+      "text": "Gatern",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern"
+    },
+    {
+      "text": "总结",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%80%BB%E7%BB%93"
+    },
+    {
+      "text": "附录：详细测试数据",
+      "url": "https://echoccc.online/posts/airport-review/#%E9%99%84%E5%BD%95%EF%BC%9A%E8%AF%A6%E7%BB%86%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"
+    },
+    {
+      "text": "测试环境与统计口径",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%8F%A3%E5%BE%84"
+    },
+    {
+      "text": "核心地区横向对比",
+      "url": "https://echoccc.online/posts/airport-review/#%E6%A0%B8%E5%BF%83%E5%9C%B0%E5%8C%BA%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94"
+    },
+    {
+      "text": "中国联通",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A"
+    },
+    {
+      "text": "中国移动",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8"
+    },
+    {
+      "text": "AmyTelecom 分地区测试明细",
+      "url": "https://echoccc.online/posts/airport-review/#AmyTelecom-%E5%88%86%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "中国联通",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-1"
+    },
+    {
+      "text": "中国移动",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-1"
+    },
+    {
+      "text": "Gatern 多节点地区测试明细",
+      "url": "https://echoccc.online/posts/airport-review/#Gatern-%E5%A4%9A%E8%8A%82%E7%82%B9%E5%9C%B0%E5%8C%BA%E6%B5%8B%E8%AF%95%E6%98%8E%E7%BB%86"
+    },
+    {
+      "text": "中国联通",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A-2"
+    },
+    {
+      "text": "中国移动",
+      "url": "https://echoccc.online/posts/airport-review/#%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-2"
+    },
+    {
+      "text": "",
+      "url": "https://echoccc.online/posts/airport-review/#"
+    },
+    {
+      "text": "Hexo",
+      "url": "https://hexo.io/"
+    },
+    {
+      "text": "Fluid",
+      "url": "https://github.com/fluid-dev/hexo-theme-fluid"
+    }
+  ],
+  "posts": [
+    {
+      "postId": null,
+      "postUrl": null,
+      "publishedAt": "2026-10-15 00:00",
+      "text": null
+    }
+  ],
+  "url": "https://echoccc.online/posts/airport-review/",
+  "title": "机场测评报告 - echoc's blog",
+  "observedAt": "2026-11-11T09:16:41.094Z",
+  "sha256": "657739768dbacfa43d8305beb6db866256ce4debac99aaadaf9d9331118bcdaa",
+  "representation": "builtin_browser_visible_DOM_text",
+  "fixtureBasis": "Retained IAB public DOM from 2026-11-11, actual original body unchanged; test evidence IDs are synthetic."
+}

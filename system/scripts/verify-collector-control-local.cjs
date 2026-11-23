@@ -1,0 +1,27 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{DatabaseSync}=require('node:sqlite');
+async function main(){
+ const root=path.resolve(__dirname,'..'),output=path.join(root,'work/collector-control-20261110'),envFile=path.join(root,'deploy-service/.env');if(fs.existsSync(envFile))process.loadEnvFile(envFile);
+ const token=process.env.ADMIN_TOKEN||fs.readFileSync(path.join(root,'deploy-service/data/local-runtime/admin-token'),'utf8').trim(),base='http://127.0.0.1:8081';
+ const request=async(route,body,authenticated=true)=>{const response=await fetch(base+route,{method:body===undefined?'GET':'POST',headers:authenticated?{Authorization:'Bearer '+token,'Content-Type':'application/json'}:{},body:body===undefined?undefined:JSON.stringify(body)});assert.equal(response.status,200,route);return response.json();};
+ const db=new DatabaseSync(path.join(root,'deploy-service/data/collector.sqlite'),{readOnly:true}),before=new DatabaseSync(path.join(output,'collector-before-controls.sqlite'),{readOnly:true});
+ try{
+  const admin=await request('/api/admin/status'),state=await request('/api/admin/collection/status'),profiles=await request('/api/admin/collectors'),publicStats=await request('/api/stats',undefined,false),detail=await request('/api/airports/A036',undefined,false);
+  assert.equal((await fetch(base+'/api/admin/collection/status')).status,401);assert.equal(db.prepare('PRAGMA integrity_check').get().integrity_check,'ok');assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);
+  assert.equal(profiles.items.length,146);assert.equal(profiles.items.filter(p=>p.enabled).length,127);assert.equal(state.control.weeklyEnabled,true);assert.equal(state.control.engineEnabled,true);assert.equal(state.runtime.connected,false);
+  assert.equal(db.prepare("SELECT count(*) n FROM jobs WHERE purpose IN ('validation','managed_collection') AND status IN ('queued','leased')").get().n,0);
+  const originalColumns=before.prepare('PRAGMA table_info(jobs)').all().map(c=>c.name),columns=originalColumns.filter(c=>db.prepare('PRAGMA table_info(jobs)').all().some(n=>n.name===c));
+  const oldRows=before.prepare('SELECT '+columns.join(',')+' FROM jobs ORDER BY id').all(),legacyRows=db.prepare("SELECT "+columns.join(',')+" FROM jobs WHERE purpose='collection' ORDER BY id").all();assert.deepEqual(legacyRows,oldRows);
+  const {liveBasis}=require('./export-collector-validation.cjs'),liveRuns=state.runs.filter(r=>liveBasis(r,{root}));assert.equal(new Set(liveRuns.map(r=>r.siteId)).size,127);
+  for(const jobId of ['616eab5d-5e3d-49b0-8802-ef2e27609b99','1c1c2a7d-ca87-4dec-ab3e-57a6b7157720']){const row=db.prepare('SELECT status,token,lease_until FROM jobs WHERE id=?').get(jobId);assert.equal(row.status,'cancelled');assert.equal(row.token,null);assert.equal(row.lease_until,null);}
+  assert.equal(db.prepare("SELECT count(*) n FROM collector_cancellation_acks WHERE job_id=?").get('616eab5d-5e3d-49b0-8802-ef2e27609b99').n,1);
+  const proposal=db.prepare('SELECT * FROM proposals WHERE id=?').get('ba03d58a-30d5-488d-a5c9-b2a10420a78d');assert.equal(proposal.status,'approved');assert.equal(detail.item.pricing.plans.length,21);assert(detail.item.pricing.plans.every(p=>p.observedAt.startsWith('2026-11-10T13:11:')));assert.equal(detail.snapshotId,publicStats.snapshotId);
+  const oldReview=JSON.parse(fs.readFileSync(path.join(output,'A036-source-review.json')));assert.equal(oldReview.aggregate.proposalPlanCount,21);
+  const currentSnapshot=publicStats.snapshotId,synced=await request('/api/admin/sync',{});assert.equal(synced.result.status,'unchanged');assert.equal(synced.result.snapshotId,currentSnapshot);
+  const sourceFiles=['deploy-service/server.cjs','deploy-service/control-store.cjs','deploy-service/control-plane.cjs','deploy-service/control-daemon.cjs','deploy-service/profile-registry.cjs','deploy-service/catalog-db.cjs','deploy-service/diff.cjs','deploy-service/public/console.js','collection/console-iab-runner.mjs','collection/site-recipes/rabbit-prices.mjs','collection/url-collectors/mkrused-v2saat-club.cjs'];
+  const sourceHashes=Object.fromEntries(sourceFiles.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')]));
+  const receipt={checkedAt:new Date().toISOString(),base,snapshotId:currentSnapshot,controls:state.control,runtime:state.runtime,checks:{sqliteIntegrity:true,foreignKeys:true,anonymousAdminDenied:true,profileCount146:true,enabledLiveAttempted127:true,legacyQueueUnchanged:oldRows.length,managedQueueEmpty:true,leasedStopAcknowledged:true,retryCreatesSeparateCancelledJob:true,realA036ReviewPublished:true,A036QuoteCount21:true,A036AmountsUnchangedSeeSourceReview:true,noOpSync:true},services:admin.updateService,sourceHashes,limitations:['Actual real-site result is an evidence/time refresh, not 21 new quotes.','Live attempt count includes blockers; see per-site capability report.','IAB runtime is disconnected; scheduler may queue due tasks but cannot browse without a runtime.','Weekly future date behavior is clock-tested locally, not a seven-day wall-clock observation.']};
+  fs.writeFileSync(path.join(output,'live-control-acceptance.json'),JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
+ }finally{db.close();before.close();}
+}
+main().catch(e=>{console.error(e.message);process.exitCode=1;});

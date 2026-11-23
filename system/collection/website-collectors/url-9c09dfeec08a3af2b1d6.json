@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-9c09dfeec08a3af2b1d6",
+  "origin": "https://pqjc.site",
+  "recordIds": [
+    "A039"
+  ],
+  "entryUrls": [
+    "https://pqjc.site/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://pqjc.site",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "af0b7dc3937bf31b50c3a4e1acb27bcca838a577f9634fc5827a0b9e20bee068",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

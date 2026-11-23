@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c3aa5aabcb478571ee63",
+  "origin": "https://www.kuromis.com",
+  "recordIds": [
+    "A022",
+    "A191"
+  ],
+  "entryUrls": [
+    "https://www.kuromis.com/personal-plan"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A022",
+        "A191"
+      ],
+      "fields": [
+        "refund"
+      ]
+    },
+    "readOnlyRecipe": "kuromis_financial_policy_readonly",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.kuromis.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ad62c73eb05555d8aa68f3e0bd605d7f34413406f7e848ce8f5d77d759861613",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

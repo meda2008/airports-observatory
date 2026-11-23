@@ -1,0 +1,376 @@
+{
+  "name": "deploy-service",
+  "networks": {
+    "default": {
+      "name": "deploy-service_default",
+      "ipam": {}
+    },
+    "measurement-egress": {
+      "name": "deploy-service_measurement-egress",
+      "ipam": {}
+    }
+  },
+  "services": {
+    "controller": {
+      "command": [
+        "node",
+        "deploy-service/control-daemon.cjs"
+      ],
+      "depends_on": {
+        "web": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "STORE_FILE": "/data/collector.sqlite"
+      },
+      "env_file": [
+        {
+          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+        }
+      ],
+      "image": "airports-observatory:local",
+      "networks": {
+        "default": null
+      },
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "observatory-data",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    },
+    "measurement-proxy": {
+      "profiles": [
+        "measurement-route"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "command": [
+        "-d",
+        "/tmp/measurement-proxy",
+        "-f",
+        "/run/secrets/measurement-proxy/config.yaml"
+      ],
+      "entrypoint": [
+        "/run/measurement-bin/mihomo"
+      ],
+      "image": "airports-observatory:real-line-readiness-20261114",
+      "init": true,
+      "networks": {
+        "measurement-egress": null
+      },
+      "platform": "linux/amd64",
+      "pull_policy": "never",
+      "read_only": true,
+      "restart": "unless-stopped",
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "tmpfs": [
+        "/tmp:rw,noexec,nosuid,size=64m"
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "D:\\AI_Projects\\Airports\\deploy-service\\measurement-sidecar\\config.example.yaml",
+          "target": "/run/secrets/measurement-proxy/config.yaml",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "D:/AI_Projects/Airports/deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/mihomo",
+          "target": "/run/measurement-bin/mihomo",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ]
+    },
+    "measurements": {
+      "profiles": [
+        "measurement-route"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "command": [
+        "node",
+        "deploy-service/measurement-worker.cjs"
+      ],
+      "depends_on": {
+        "measurement-proxy": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "MEASUREMENT_SECRET_DIR": "/run/secrets/measurement-auth",
+        "MEASUREMENT_STORE_FILE": "/measurement-data/measurements.sqlite"
+      },
+      "image": "airports-observatory:local",
+      "init": true,
+      "network_mode": "service:measurement-proxy",
+      "pull_policy": "never",
+      "restart": "unless-stopped",
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "measurement-data",
+          "target": "/measurement-data",
+          "volume": {}
+        },
+        {
+          "type": "bind",
+          "source": "D:\\AI_Projects\\Airports\\deploy-service\\data\\measurement-secrets",
+          "target": "/run/secrets/measurement-auth",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ]
+    },
+    "proxy": {
+      "command": null,
+      "depends_on": {
+        "web": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "image": "caddy:2",
+      "networks": {
+        "default": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 80,
+          "published": "80",
+          "protocol": "tcp"
+        },
+        {
+          "mode": "ingress",
+          "target": 443,
+          "published": "443",
+          "protocol": "tcp"
+        },
+        {
+          "mode": "ingress",
+          "target": 443,
+          "published": "443",
+          "protocol": "udp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "D:\\AI_Projects\\Airports\\deploy-service\\Caddyfile",
+          "target": "/etc/caddy/Caddyfile",
+          "read_only": true,
+          "bind": {}
+        },
+        {
+          "type": "volume",
+          "source": "caddy-data",
+          "target": "/data",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "caddy-config",
+          "target": "/config",
+          "volume": {}
+        }
+      ]
+    },
+    "publisher": {
+      "command": [
+        "node",
+        "deploy-service/publisher.cjs"
+      ],
+      "depends_on": {
+        "web": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "STORE_FILE": "/data/collector.sqlite"
+      },
+      "env_file": [
+        {
+          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+        }
+      ],
+      "image": "airports-observatory:local",
+      "networks": {
+        "default": null
+      },
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "observatory-data",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    },
+    "standalone": {
+      "command": [
+        "node",
+        "deploy-service/standalone-worker.cjs"
+      ],
+      "depends_on": {
+        "web": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "STANDALONE_CONCURRENCY": "2",
+        "STORE_FILE": "/data/collector.sqlite"
+      },
+      "env_file": [
+        {
+          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+        }
+      ],
+      "image": "airports-observatory:local",
+      "init": true,
+      "networks": {
+        "default": null
+      },
+      "restart": "unless-stopped",
+      "shm_size": "1073741824",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "observatory-data",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    },
+    "web": {
+      "build": {
+        "context": "D:\\AI_Projects\\Airports",
+        "dockerfile": "deploy-service/Dockerfile"
+      },
+      "command": [
+        "node",
+        "deploy-service/server.cjs"
+      ],
+      "entrypoint": null,
+      "environment": {
+        "HOST": "0.0.0.0",
+        "MEASUREMENT_STORE_FILE": "/measurement-data/measurements.sqlite",
+        "STORE_FILE": "/data/collector.sqlite"
+      },
+      "env_file": [
+        {
+          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+        }
+      ],
+      "image": "airports-observatory:local",
+      "networks": {
+        "default": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 8080,
+          "published": "8080",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "observatory-data",
+          "target": "/data",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "measurement-data",
+          "target": "/measurement-data",
+          "volume": {}
+        }
+      ]
+    },
+    "worker": {
+      "command": [
+        "node",
+        "deploy-service/worker.cjs"
+      ],
+      "depends_on": {
+        "web": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "COLLECTION_ENABLED": "false",
+        "STORE_FILE": "/data/collector.sqlite"
+      },
+      "env_file": [
+        {
+          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+        }
+      ],
+      "image": "airports-observatory:local",
+      "init": true,
+      "networks": {
+        "default": null
+      },
+      "restart": "unless-stopped",
+      "shm_size": "1073741824",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "observatory-data",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    }
+  },
+  "volumes": {
+    "caddy-config": {
+      "name": "deploy-service_caddy-config"
+    },
+    "caddy-data": {
+      "name": "deploy-service_caddy-data"
+    },
+    "measurement-data": {
+      "name": "deploy-service_measurement-data"
+    },
+    "observatory-data": {
+      "name": "deploy-service_observatory-data"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-eb4c60ca4285d55877cf",
+  "origin": "https://vv3dbvb.guangnianertt1.homes",
+  "recordIds": [
+    "A148"
+  ],
+  "entryUrls": [
+    "https://vv3dbvb.guangnianertt1.homes/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://vv3dbvb.guangnianertt1.homes",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "3718f333f7d91781c6c112a6811e5f74faa9b7c17ca4c9527484b542f2314e8b",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

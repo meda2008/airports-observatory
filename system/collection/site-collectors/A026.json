@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A026",
+  "name": "KyCloud",
+  "entryUrl": "https://my.ihcloud.cc/store/accelerate",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "my.ihcloud.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "名录my.cloudnz.cc实际导航到diy05.kydiypro.xyz，页脚显示KyCloud Network Limited并直接链接my.ihcloud.cc产品商店；读取公开配置未登录或注册。法律主体、域名归属和连续经营未独立核实。 2026-11-19站内购买服务公开目录可读，避免错误地从首页登录墙判断套餐不可采集；仅固定周期总价及明确年费。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true,
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/kycloud-public-store.cjs",
+    "fields": [
+      "pricing"
+    ],
+    "status": "real_public_collection_reparse_review_publish_and_independent_recollection_passed",
+    "automaticPublication": false
+  }
+}

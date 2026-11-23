@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-14T02:09:23.857Z",
+  "frozenRouteHash": "96772309ff88633333eeeb10132338e3455c3d91f6a20c9a2fec52aa0a8f3414",
+  "files": {
+    "config": {
+      "file": "deploy-service/data/real-line-secrets/A010/mihomo-private.json",
+      "sha256": "48ddc834fbb46a587e3af8c40c28b09d657e54b18c43bc84e2ce5fb227a55521"
+    },
+    "authorization": {
+      "file": "deploy-service/data/measurement-secrets/A010-proxy.json",
+      "sha256": "e5b614b6f657e67b62a45aea992d1fa41d55d74299a2c5549a494b3173fb8957"
+    },
+    "egress": {
+      "file": "deploy-service/data/real-line-secrets/A010/verified-egress.json",
+      "sha256": "b7a1284383a4fe92a3612fc4d3a2372de8336c6c78d046016a50707f45347add"
+    },
+    "binary": {
+      "file": "deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/mihomo",
+      "sha256": "5b6644c487e5dffae86b0e0e9bb5cec445579a3a9d03977c09576fee2aeefc01"
+    }
+  },
+  "imageSources": {
+    "lib/proxy-route-observer.cjs": "7919cc5af07d2a4ed6ba0d9fbf6c8cda16f5fdd885a94ab51b9a77eef1af3254",
+    "deploy-service/measurement-store.cjs": "8dde825b7548e10eed445148802155900d53ad589e6aa153d919c6fbb38d93b0"
+  }
+}

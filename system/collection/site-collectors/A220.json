@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A220",
+  "name": "Lumo",
+  "entryUrl": "https://lumonet.net/",
+  "entrySource": "review_link_and_observed_same_brand_candidate",
+  "allowedHosts": [
+    "www.lumogo.sbs",
+    "www.ermao.net",
+    "lumonet.net",
+    "sec.lumoapi.net"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": false,
+  "publicReferenceEnabled": false,
+  "eligibility": "authenticated_ui_material_published_native_cap_checkpoint",
+  "reason": "已取得4档13组官网常规报价和购买并开通后的无退款公告；独立普通登录成功，但账户读取返回NEED_CAPTCHA，暂停每周任务，未建单付款。",
+  "fields": [
+    "pricing",
+    "payment",
+    "refund"
+  ],
+  "refreshIntervalMs": 604800000,
+  "policy": {
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "publication": "review_required"
+  },
+  "discovery": {
+    "reviewUrl": "https://www.ermao.net/blog/lumo/",
+    "observedAt": "2026-11-15T23:20:57.269Z",
+    "originalReferralOwnedByUser": false,
+    "priceStatus": "unverified_third_party_price"
+  },
+  "publicOnly": false,
+  "readOnlyRecipe": "official_entry_probe",
+  "urlCollector": {
+    "collectorId": "official-entry-A220",
+    "recipe": "official_entry_probe",
+    "recipeModule": "deploy-service/standalone-collector.cjs",
+    "status": "payment_observed_cancelled_native_verification_checkpoint",
+    "completedAllFields": false,
+    "parserModule": "collection/url-collectors/lumo-visible.cjs",
+    "nativeTransportModule": "deploy-service/lumo-readonly-transport.cjs",
+    "orderObservationModule": "deploy-service/lumo-order-observation.cjs"
+  },
+  "recovery": {
+    "nativeLoginObserved": true,
+    "nativeSessionReadVerified": false,
+    "automaticWeeklyEnabled": false,
+    "paymentMethodConfirmed": true,
+    "sourceOriginals": [
+      "work/payment-pricing-next-20261116/A220-plans-visible.json",
+      "work/payment-pricing-next-20261116/A220-auth-notice-visible.json"
+    ],
+    "publishedSnapshot": "catalog-47bf1a6527456c01dd58b9a5",
+    "orderCreated": false,
+    "paymentExecuted": false,
+    "rule": "NEED_CAPTCHA立即断点；不改密、不重复注册、不降级到绕过验证的接口。",
+    "temporaryOrdersCreatedThisRun": 1,
+    "temporaryOrderCancellationVerified": true
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-next-pass-20261116",
+    "status": "authenticated_unpaid_order_payment_observed_cancelled",
+    "sourceFiles": [
+      "work/financial-next-pass-20261116/A220-unpaid-payment-visible-redacted.json",
+      "work/financial-next-pass-20261116/A220-cancelled-order-visible-redacted.json"
+    ],
+    "temporaryOrdersCreated": 1,
+    "paymentExecuted": false,
+    "cancellationVerified": true,
+    "next": "reuse_payment_evidence_no_duplicate_orders_native_CAP_checkpoint"
+  }
+}

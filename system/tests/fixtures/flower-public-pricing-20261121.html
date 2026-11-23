@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>价格 - FlowerCloud</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/animation.css">
+    <link rel="stylesheet" href="assets/css/plugins/feature.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnify.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick-theme.css">
+    <link rel="stylesheet" href="assets/css/plugins/lightbox.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="active-dark-mode">
+    <main class="page-wrapper">
+        <header class="rn-header header-default header-not-transparent header-sticky">
+            <div class="container position-relative">
+                <div class="row align-items-center row--0">
+                    <div class="col-lg-3 col-md-6 col-4">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img class="logo-light" src="assets/images/logo/logo.png" alt="FlowerCloud Logo">
+                                <img class="logo-dark" src="assets/images/logo/logo.png" alt="FlowerCloud Logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-6 col-8 position-static">
+                        <div class="header-right">
+                            <nav class="mainmenu-nav d-none d-lg-block">
+                                <ul class="mainmenu">
+                                    <li><a href="index.html">主页</a></li>
+                                    <li><a href="pricing.html">价格</a></li>
+                                    <li><a href="https://help.huacloud.dev">帮助文档</a></li>
+                                    <li><a href="https://status.huacloud.dev">服务状态</a></li>
+                                    <li class="has-droupdown has-menu-child-item"><a>软件下载</a>
+                                        <ul class="submenu">
+                                            <li><a
+                                                    href="https://help.huacloud.dev/huacloud/59c6f45067654c429d1e82b1485119a8">Windows</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/18bef700a3184705b24d1585d0bf57c7">macOS</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/e1da5366aa5e400bb3cffbda179dca3d">Android</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/huacloud/FlowerCloud-17108fcb32a4480db4f8aaaae14ac483?pvs=25#1b2c1d6a89d4473fb801a1f672ac63a7">iOS</a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                    <li><a href="https://api-flowercloud.com/clientarea.php">登录</a></li>
+                                </ul>
+                            </nav>
+                            
+                            <div class="header-btn"><a class="btn-default btn-small round" target="_blank"
+                                    href="https://api-flowercloud.com/register.php">免费注册</a></div>
+                            
+
+                            
+                            <div class="mobile-menu-bar ml--5 d-block d-lg-none">
+                                <div class="hamberger">
+                                    <button class="hamberger-button">
+                                        <i class="feather-menu"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+
+
+                            <div id="my_switcher" class="my_switcher">
+                                <ul>
+                                    <li>
+                                        <a href="javascript: void(0);" data-theme="light" class="setColor light">
+                                            <img class="sun-image" src="assets/index/images/icons/sun-01.svg"
+                                                alt="Sun images">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" data-theme="dark" class="setColor dark">
+                                            <img class="Victor Image" src="assets/index/images/icons/vector.svg"
+                                                alt="Vector Images">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="popup-mobile-menu">
+            <div class="inner">
+                <div class="header-top">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img class="logo-light" src="assets/images/logo/logo.png" alt="FlowerCloud Logo">
+                            <img class="logo-dark" src="assets/images/logo/logo.png" alt="FlowerCloud Logo">
+                        </a>
+                    </div>
+                    <div class="close-menu">
+                        <button class="close-button">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="mainmenu">
+                    <li><a href="index.html">主页</a></li>
+                    <li><a href="pricing.html">价格</a></li>
+                    <li><a href="https://help.huacloud.dev">帮助文档</a></li>
+                    <li><a href="https://status.huacloud.dev">服务状态</a></li>
+                    <li class="has-droupdown has-menu-child-item"><a>软件下载</a>
+                        <ul class="submenu">
+                            <li><a
+                                    href="https://help.huacloud.dev/huacloud/59c6f45067654c429d1e82b1485119a8">Windows</a>
+                            </li>
+                            <li><a href="https://help.huacloud.dev/18bef700a3184705b24d1585d0bf57c7">macOS</a>
+                            </li>
+                            <li><a href="https://help.huacloud.dev/e1da5366aa5e400bb3cffbda179dca3d">Android</a>
+                            </li>
+                            <li><a
+                                    href="https://help.huacloud.dev/huacloud/FlowerCloud-17108fcb32a4480db4f8aaaae14ac483?pvs=25#1b2c1d6a89d4473fb801a1f672ac63a7">iOS</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li><a href="https://api-flowercloud.com/register.php">登录</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div>
+            <div class="rn-gradient-circle"></div>
+            <div class="rn-gradient-circle theme-pink"></div>
+        </div>
+        
+
+        
+        <div class="main-content">
+            
+            <div class="rwt-pricing-area rn-section-gap">
+                <div class="wrapper plr--100 plr_md--15 plr_sm--15">
+                    <div class="row mb--40 mb_sm--0">
+                        <div class="col-lg-12">
+                            <div class="section-title text-center" data-sal="slide-up" data-sal-duration="400"
+                                data-sal-delay="150">
+                                <h4 class="subtitle "><span class="theme-gradient">国际加速 - 基础版</span></h4>
+                                <h2 class="title w-600 mb--20">选择适合您的计划</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row--0">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="rn-pricing style-4">
+                                <div class="pricing-table-inner">
+                                    <div class="pricing-header">
+                                        <h4 class="title">Air - 20GiB</h4>
+                                        <div class="pricing">
+                                            <div class="price-wrapper"><span class="currency">¥</span><span
+                                                    class="price">128</span></div><span class="subtitle">CNY/年</span>
+                                        </div>
+                                    </div>
+                                    <div class="pricing-body">
+                                        <ul class="list-style--1">
+                                            <li><i class="feather-check"></i> 国际专线传输</li>
+                                            <li><i class="feather-check"></i> 多运营商优化</li>
+                                            <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                            <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                            <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                            <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                            <li><i class="feather-check"></i> 20 GiB 月流量</li>
+                                            <li><i class="feather-check"></i> 适用于 SLA 保障</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-footer"><a class="btn-default btn-border"
+                                            href="https://api-flowercloud.com/cart.php?a=add&pid=7">现在购买</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="rn-pricing style-4 active">
+                                <div class="pricing-table-inner">
+                                    <div class="pricing-header">
+                                        <h4 class="title">Lite - 150GiB</h4>
+                                        <div class="pricing">
+                                            <div class="price-wrapper"><span class="currency">¥</span><span
+                                                    class="price">39</span></div><span class="subtitle">CNY/月</span>
+                                        </div>
+                                    </div>
+                                    <div class="pricing-body">
+                                        <ul class="list-style--1">
+                                            <li><i class="feather-check"></i> 国际专线传输</li>
+                                            <li><i class="feather-check"></i> 多运营商优化</li>
+                                            <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                            <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                            <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                            <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                            <li><i class="feather-check"></i> 150 GiB 月流量</li>
+                                            <li><i class="feather-check"></i> 适用于 SLA 保障</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-footer"><a class="btn-default btn-border"
+                                            href="https://api-flowercloud.com/cart.php?a=add&pid=1">现在购买</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="rn-pricing style-4">
+                                <div class="pricing-table-inner">
+                                    <div class="pricing-header">
+                                        <h4 class="title">Plus - 400GiB</h4>
+                                        <div class="pricing">
+                                            <div class="price-wrapper"><span class="currency">¥</span><span
+                                                    class="price">58</span></div><span class="subtitle">CNY/月</span>
+                                        </div>
+                                    </div>
+                                    <div class="pricing-body">
+                                        <ul class="list-style--1">
+                                            <li><i class="feather-check"></i> 国际专线传输</li>
+                                            <li><i class="feather-check"></i> 多运营商优化</li>
+                                            <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                            <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                            <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                            <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                            <li><i class="feather-check"></i> 400 GiB 月流量</li>
+                                            <li><i class="feather-check"></i> 适用于 SLA 保障</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-footer"><a class="btn-default btn-border"
+                                            href="https://api-flowercloud.com/cart.php?a=add&pid=2">现在购买</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="rn-pricing style-4">
+                                <div class="pricing-table-inner">
+                                    <div class="pricing-header">
+                                        <h4 class="title">Max - 1000GiB</h4>
+                                        <div class="pricing">
+                                            <div class="price-wrapper"><span class="currency">¥</span><span
+                                                    class="price">113</span></div><span class="subtitle">CNY/月</span>
+                                        </div>
+                                    </div>
+                                    <div class="pricing-body">
+                                        <ul class="list-style--1">
+                                            <li><i class="feather-check"></i> 国际专线传输</li>
+                                            <li><i class="feather-check"></i> 多运营商优化</li>
+                                            <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                            <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                            <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                            <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                            <li><i class="feather-check"></i> 1000 GiB 月流量</li>
+                                            <li><i class="feather-check"></i> 适用于 SLA 保障</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-footer"><a class="btn-default btn-border"
+                                            href="https://api-flowercloud.com/cart.php?a=add&pid=3">现在购买</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="rbt-separator-mid">
+                <div class="container">
+                    <hr class="rbt-separator m-0">
+                </div>
+            </div>
+            
+
+            
+            <div class="rwt-pricing-area rn-section-gap">
+                <div class="container">
+                    <div class="row mb--40 mb_sm--0">
+                        <div class="col-lg-12">
+                            <div class="section-title text-center" data-sal="slide-up" data-sal-duration="400"
+                                data-sal-delay="150">
+                                <h4 class="subtitle "><span class="theme-gradient">国际加速 - 企业版</span></h4>
+                                <h2 class="title w-600 mb--20">助力您的商业增长</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="row row--0">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="rn-pricing style-2">
+                                        <div class="pricing-table-inner">
+                                            <div class="pricing-header">
+                                                <h4 class="title">Basic - 3000GiB</h4>
+                                                <div class="pricing">
+                                                    <div class="price-wrapper"><span class="currency">¥</span><span
+                                                            class="price">500</span></div><span
+                                                        class="subtitle">CNY/月</span>
+                                                </div>
+                                            </div>
+                                            <div class="pricing-body">
+                                                <ul class="list-style--1">
+                                                    <li><i class="feather-check"></i> 国际专线传输</li>
+                                                    <li><i class="feather-check"></i> 多运营商优化</li>
+                                                    <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                                    <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                                    <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                                    <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                                    <li><i class="feather-check"></i> 1000 GiB 月流量</li>
+                                                    <li><i class="feather-check"></i> 高级 SLA 保障</li>
+                                                    <li><i class="feather-check"></i> 企业级技术支持</li>
+                                                </ul>
+                                            </div>
+                                            <div class="pricing-footer"><a class="btn-default btn-border"
+                                                    href="https://api-flowercloud.com/cart.php?a=add&pid=6">现在购买</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="rn-pricing style-2 active">
+                                        <div class="pricing-table-inner">
+                                            <div class="pricing-header">
+                                                <h4 class="title">Standard - 5000GiB</h4>
+                                                <div class="pricing">
+                                                    <div class="price-wrapper"><span class="currency">¥</span><span
+                                                            class="price">780</span></div><span
+                                                        class="subtitle">CNY/月</span>
+                                                </div>
+                                            </div>
+                                            <div class="pricing-body">
+                                                <ul class="list-style--1">
+                                                    <li><i class="feather-check"></i> 国际专线传输</li>
+                                                    <li><i class="feather-check"></i> 多运营商优化</li>
+                                                    <li><i class="feather-check"></i> 80+ 边缘网络</li>
+                                                    <li><i class="feather-check"></i> 多流媒体解锁</li>
+                                                    <li><i class="feather-check"></i> ChatGPT 解锁</li>
+                                                    <li><i class="feather-check"></i> 高达 1000Mbps</li>
+                                                    <li><i class="feather-check"></i> 5000 GiB 月流量</li>
+                                                    <li><i class="feather-check"></i> 高级 SLA 保障</li>
+                                                    <li><i class="feather-check"></i> 企业级技术支持</li>
+                                                </ul>
+                                            </div>
+                                            <div class="pricing-footer"><a class="btn-default btn-border"
+                                                    href="https://api-flowercloud.com/cart.php?a=add&pid=5">现在购买</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="rbt-separator-mid">
+                <div class="container">
+                    <hr class="rbt-separator m-0">
+                </div>
+            </div>
+            
+
+            <div class="rn-company-mission-are rn-section-gap">
+                <div class="container">
+                    <div class="row row--30">
+                        <div class="col-lg-6">
+                            <div class="mission-title" data-sal="slide-up" data-sal-duration="800">
+                                <h2 class="title">接下来享受？ <br>
+                                    <span class="header-caption">
+                                        <span class="cd-headline clip is-full-width">
+                                            <span class="cd-words-wrapper">
+                                                <b class="is-visible theme-gradient">与国际友人来一场精彩的游戏。</b>
+                                                <b class="is-hidden theme-gradient">观看全球高质量电影电视剧。</b>
+                                                <b class="is-hidden theme-gradient">获取海内外博主的最新动态。</b>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </h2>
+                                <p>
+                                    通过 FlowerCloud，您将体验到前所未有的网络速度和稳定性。无论是游戏、视频还是工作，我们都能为您提供最佳的网络解决方案。加入我们，畅享全球网络的无限可能！
+                                </p>
+                                <p>
+                                    无论您是个人用户还是企业客户，FlowerCloud 都能为您提供量身定制的网络加速服务。我们的解决方案不仅能提升您的网络速度，还能保障您的数据安全。选择
+                                    FlowerCloud，享受无与伦比的网络体验！
+                                </p>
+                                <div class="read-more-btn mt--50"><a class="btn-default btn-icon"
+                                        href="https://api-flowercloud.com/register.php">立即注册 <i
+                                            class="icon feather-arrow-right"></i></a></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt_md--30 mt_sm--30">
+                            <div class="rn-accordion-style accordion" data-sal="slide-up" data-sal-duration="800">
+                                <div class="accordion" id="accordionExamplea">
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                                如何购买你们的产品？
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                            aria-labelledby="headingOne" data-bs-parent="#accordionExamplea">
+                                            <div class="accordion-body card-body">
+                                                您可以在本页面的产品展示卡选择您要购买的产品并点击 [立即购买] 来进入购买页面，进入购买页面后可以选择您所需要的详细配置，随后点击继续以结账。
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                                我付款了以后产品多久会开通?
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExamplea">
+                                            <div class="accordion-body card-body">
+                                                常规产品在您付款后立即开通，如果您购买的产品属于特殊产品，则购买时会在产品介绍页面说明开通时间。
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                                有没有使用的教程？
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                            aria-labelledby="headingThree" data-bs-parent="#accordionExamplea">
+                                            <div class="accordion-body card-body">
+                                                您可以在资源文档中查看教程以及其它说明。
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item card">
+                                        <h2 class="accordion-header card-header" id="headingFour">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                aria-expanded="false" aria-controls="collapseFour">
+                                                购买了产品后支不支持退款？
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                            aria-labelledby="headingFour" data-bs-parent="#accordionExamplea">
+                                            <div class="accordion-body card-body">
+                                                如果您购买的是常规产品，一经付款后，我们将不提供退款服务，特殊产品按照产品购买时的说明为准。
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="rwt-callto-action-area rn-section-gapBottom">
+                <div class="wrapper">
+                    <div class="rn-callto-action clltoaction-style-default style-5">
+                        <div class="container">
+                            <div class="row row--0 align-items-center content-wrapper theme-shape">
+                                <div class="col-lg-12">
+                                    <div class="inner">
+                                        <div class="content text-center">
+                                            <h2 class="title">准备好享受无与伦比的网络体验了吗？</h2>
+                                            <h6 class="subtitle">现在注册以加入 FlowerCloud</h6>
+                                            <div class="call-to-btn">
+                                                <a class="btn-default btn-icon"
+                                                    href="https://api-flowercloud.com/register.php">立即注册
+                                                    <i class="feather-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <footer class="rn-footer footer-style-default variation-two">
+            <div class="rn-callto-action clltoaction-style-default style-7">
+                <div class="container">
+                    <div class="row row--0 align-items-center content-wrapper">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="inner">
+                                <div class="content text-left">
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img class="logo-light" src="assets/images/logo/logo.png"
+                                                alt="FlowerCloud Logo">
+                                            <img class="logo-dark" src="assets/images/logo/logo.png"
+                                                alt="FlowerCloud Logo">
+                                        </a>
+                                    </div>
+                                    <p class="subtitle" data-sal="slide-up" data-sal-duration="400"
+                                        data-sal-delay="150">我们致力于国际网络加速服务，竭诚为客户带来优质、快速、稳定的网络体验。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4" data-sal="slide-up" data-sal-duration="400" data-sal-delay="150">
+                            <div class="call-to-btn text-left mt_sm--20 text-lg-right">
+                                <a class="btn-default" href="https://api-flowercloud.com/register.php">免费注册
+                                    <i class="feather-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                            <div class="rn-footer-widget">
+                                <h4 class="title">菜单</h4>
+                                <div class="inner">
+                                    <ul class="footer-link link-hover">
+                                        <li>
+                                            <a href="index.html">主页</a>
+                                        </li>
+                                        <li>
+                                            <a href="pricing.html">价格</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://api-flowercloud.com/clientarea.php">登录</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://api-flowercloud.com/register.php">免费注册</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                            <div class="rn-footer-widget">
+                                <div class="widget-menu-top">
+                                    <h4 class="title">客户端</h4>
+                                    <div class="inner">
+                                        <ul class="footer-link link-hover">
+                                            <li><a
+                                                    href="https://help.huacloud.dev/huacloud/59c6f45067654c429d1e82b1485119a8">Windows</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/18bef700a3184705b24d1585d0bf57c7">macOS</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/e1da5366aa5e400bb3cffbda179dca3d">Android</a>
+                                            </li>
+                                            <li><a
+                                                    href="https://help.huacloud.dev/huacloud/FlowerCloud-17108fcb32a4480db4f8aaaae14ac483?pvs=25#1b2c1d6a89d4473fb801a1f672ac63a7">iOS</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                            <div class="rn-footer-widget">
+                                <h4 class="title">条款</h4>
+                                <div class="inner">
+                                    <ul class="footer-link link-hover">
+                                        <li>
+                                            <a href="tos.html">服务条款</a>
+                                        </li>
+                                        <li>
+                                            <a href="sla.html">服务水平协议</a>
+                                        </li>
+                                        <li>
+                                            <a href="privacy-policy.html">客户隐私政策</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="rn-footer-widget">
+                                <h4 class="title">联系我们</h4>
+                                <div class="inner">
+                                    <br>
+                                    <ul class="social-icon social-default justify-content-start">
+                                        <li><a href="https://t.me/+RWVD0p1uXI4zNTI1">
+                                                <i class="feather-send"></i>
+                                            </a>
+                                        </li>
+                                        <li><a href="/cdn-cgi/l/email-protection#88e9ece5e1e6c8eee4e7ffedfaebe4e7fdeca6e6edfc">
+                                                <i class="feather-mail"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <h6 class="subtitle">版权所有 © 2024 FlowerCloud 团队</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <div class="rn-back-top">
+        <i class="feather-arrow-up"></i>
+    </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor/modernizr.min.js"></script>
+    <script src="assets/js/vendor/jquery.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <script src="assets/js/vendor/waypoint.min.js"></script>
+    <script src="assets/js/vendor/wow.min.js"></script>
+    <script src="assets/js/vendor/counterup.min.js"></script>
+    <script src="assets/js/vendor/feather.min.js"></script>
+    <script src="assets/js/vendor/sal.min.js"></script>
+    <script src="assets/js/vendor/masonry.js"></script>
+    <script src="assets/js/vendor/imageloaded.js"></script>
+    <script src="assets/js/vendor/magnify.min.js"></script>
+    <script src="assets/js/vendor/lightbox.js"></script>
+    <script src="assets/js/vendor/slick.min.js"></script>
+    <script src="assets/js/vendor/easypie.js"></script>
+    <script src="assets/js/vendor/text-type.js"></script>
+    <script src="assets/js/vendor/jquery.style.swicher.js"></script>
+    <script src="assets/js/vendor/js.cookie.js"></script>
+    <script src="assets/js/vendor/jquery-one-page-nav.js"></script>
+    
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="e07ddf89-08e1-4a47-93a8-5514d6bb1c1f";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5df1931bafc98a8',t:'MTc5NTI1Nzg1OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5df1931bafc98a8',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>

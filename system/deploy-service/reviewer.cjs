@@ -1,0 +1,5 @@
+'use strict';
+const {propose}=require('./extractor.cjs');
+function eligible(patch,observations){const raw=observations.map(x=>x.body).join('\n');for(const [field,value]of Object.entries(patch)){if(field==='payment'){if(!Array.isArray(value.methods)||!value.methods.length||value.methods.some(m=>typeof m!=='string'||!raw.includes(m)))return false;if(value.transactionVerified!==false)return false;}else if(field==='refund'||field==='privacy'||field==='compatibility'){if(typeof value.summary!=='string'||!raw.includes(value.summary))return false;}else return false;}return Object.keys(patch).length>0;}
+async function secondReview(patch,observations,options={}){if(!eligible(patch,observations))return{approved:false,reason:'requires_manual_review'};const second=await (options.extract||propose)(observations,options);const canonical=x=>JSON.stringify(Object.fromEntries(Object.entries(x).sort(([a],[b])=>a.localeCompare(b))));return{approved:second.patch&&canonical(second.patch)===canonical(patch),reason:'two_pass_model_agreement_with_literal_field_checks_not_independent_audit'};}
+module.exports={eligible,secondReview};

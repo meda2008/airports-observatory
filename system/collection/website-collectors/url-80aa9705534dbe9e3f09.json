@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-80aa9705534dbe9e3f09",
+  "origin": "https://huacloud.dev",
+  "recordIds": [
+    "A014"
+  ],
+  "entryUrls": [
+    "https://huacloud.dev/pricing.html"
+  ],
+  "capabilities": {
+    "literalParser": "flower-public-pricing",
+    "readOnlyRecipe": "flower_public_pricing_readonly",
+    "auth": null,
+    "authStatus": "not_required_public_catalog",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "5f08e28ce93e765e6da726042b1c904596566ef5504fb6990b19923fe050d064",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

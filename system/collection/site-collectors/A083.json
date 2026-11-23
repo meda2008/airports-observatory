@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A083",
+  "name": "COCODUCK (黄鸭)",
+  "entryUrl": "https://home.cocoduck.co/user/product",
+  "entrySource": "collection/site-overrides.json",
+  "allowedHosts": [
+    "home.cocoduck.co",
+    "cocoduck.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Use retained authenticated COCODUCK business origin CORE-AUTH-COCODUCK-B298-MONTH-CARDS (2026-10-29), reverified 2026-11-02; historical official homepage is not the account billing origin. Current cleanup hold must block new orders.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "allowIdentityReview": true,
+  "collectPerformanceReferences": false,
+  "auth": {
+    "mode": "login",
+    "emailSelector": "input#email",
+    "passwordSelector": "input#passwd",
+    "submitSelector": "button#login-dashboard"
+  },
+  "readOnlyRecipe": "cocoduck_cookie_login_readonly",
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "reconcileVerifiedCheckpoints": true
+}

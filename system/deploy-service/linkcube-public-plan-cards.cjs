@@ -1,0 +1,4 @@
+'use strict';
+const url='https://711-cloud.net/',names=['轻量套餐','标准套餐','大流量套餐'],pids=['1','3','2'];
+async function read(page){if(page.url()!==url)return null;if(await page.title()!=='LinkCube - 超快的国际网络加速服务')return[];const cards=await page.locator('.pricing-box').evaluateAll(es=>es.filter(e=>e.getClientRects().length).map(e=>({text:e.innerText,links:[...e.querySelectorAll('a[href]')].map(a=>({url:a.href,label:a.innerText.trim()})),unsafe:!!e.querySelector('form,input,iframe')})));if(cards.length!==3)return[];return cards.map((c,i)=>{if(c.unsafe||!c.text.includes(names[i]+'\n')||c.links.length!==1||c.links[0].label!=='立即购买'||c.links[0].url!=='https://www.linkcube.org/cart.php?a=add&pid='+pids[i])throw Error('linkcube_public_plan_card_changed');return{name:names[i],text:c.text,buttonLabel:'立即购买',checkoutUrl:c.links[0].url,headingCount:0};});}
+module.exports={url,names,pids,read};

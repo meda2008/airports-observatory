@@ -1,0 +1,28 @@
+{
+  "captures": [
+    {
+      "url": "https://xxyun-api.xxvip.de/api/v1/user/order/getPaymentMethod",
+      "body": "{\"clientUrl\":\"https://cloud.xxvip.shop/assets/methods-D78E1IqH.js\",\"clientSha256\":\"fec324ade9d3ef8d06d0018e857099e5b87d11306c58649c1174dffc19a1163d\",\"encodedResponse\":\"bCJrbzVvIk5PbCJGayJOezEiSm9YbiJOIlxkdDlvblxkezluTVwvXGR3dHo5XGR7bmszXGR0MnFrIjEiRW9lWG5KNSJOIllzb2UiMSJGWlRKIk5KZDAwMSJTb0prMEZKOF85bm5fOUZhbmsiTkpkMDAxIlNvSmswRko4Xzlubl9Fbjdabko1Ik5KZDAwTDFsIkZrIk50MSJKb1huIk4iKFxkdHFIYlxkYnR6Myl6XGR3dHo5XGR7bmszXGR0MnFrXC9cZHQ5b25cZHs5bk0iMSJFb2VYbko1Ik4iWXNvZSIxIkZaVEoiTkpkMDAxIlNvSmswRko4Xzlubl85RmFuayJOSmQwMDEiU29KazBGSjhfOW5uX0VuN1puSjUiTkpkMDBMdkw=\",\"data\":[{\"id\":4,\"name\":\"微信/支付宝\",\"payment\":\"EPay\",\"icon\":null,\"handling_fee_fixed\":null,\"handling_fee_percent\":null},{\"id\":5,\"name\":\"(备用)2支付宝/微信\",\"payment\":\"EPay\",\"icon\":null,\"handling_fee_fixed\":null,\"handling_fee_percent\":null}]}",
+      "observedAt": "2026-11-23T09:45:53.209Z",
+      "kind": "authorized_account_page",
+      "metadata": {
+        "representation": "official_client_decoded_payment_with_encoded_original",
+        "authenticationObserved": true
+      }
+    }
+  ],
+  "browser": "service_chromium",
+  "capabilities": {
+    "login": {
+      "status": "session_observed"
+    },
+    "paymentRead": {
+      "status": "official_client_decoded",
+      "clientSha256": "fec324ade9d3ef8d06d0018e857099e5b87d11306c58649c1174dffc19a1163d",
+      "originalEncodedResponseRetained": true,
+      "signinRequests": 0
+    }
+  },
+  "ordersCreated": 0,
+  "paymentExecuted": false
+}

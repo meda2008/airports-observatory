@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A180",
+  "name": "隐云 (YinYun)",
+  "entryUrl": "https://x.yinyun365.com/purchase",
+  "entrySource": "work/collection-runs/new-entries-20261104-v2/new-origin-login-authorization.json",
+  "allowedHosts": [
+    "x.yinyun365.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "needs_official_entry",
+  "reason": "User approved this specific new login destination for read-only collection. Native docs links support.yinyun.ltd. Collection target does not verify old IP identity or historical continuity.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "new-entries-20261104-v2",
+    "status": "authorized_current_named_panel_authenticated_native_help_observed",
+    "operatorIdentityVerified": false,
+    "receipt": "work/collection-runs/new-entries-20261104-v2/new-origin-login-authorization.json"
+  },
+  "previousEntryUrl": null,
+  "accountReadOnly": true,
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "current_login_authenticated_native_help_trial_reviewed",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "Authorized x.yinyun365.com is a collection target, old IP legal continuity remains unverified. Official native help link and loaded article support current scoped trial statement. Reuse known pricing/payment/refund."
+  },
+  "collectPerformanceReferences": false,
+  "auth": {
+    "mode": "login",
+    "emailSelector": "form input[type=\"email\"]:visible",
+    "passwordSelector": "form input[type=\"password\"]:visible",
+    "submitSelector": "form button[type=\"submit\"]:visible"
+  },
+  "readOnlyRecipe": "yinyun_native_readonly",
+  "publicOnly": false,
+  "reconcileVerifiedCheckpoints": true
+}

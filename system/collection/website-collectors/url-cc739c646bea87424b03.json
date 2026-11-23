@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-cc739c646bea87424b03",
+  "origin": "https://nyxen.org",
+  "recordIds": [
+    "A075"
+  ],
+  "entryUrls": [
+    "https://nyxen.org/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nyxen.org",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "7fcc84d748891fd8bd591940e3c1f132939c9d4cb8a9ab10198c8d0ecffb096d",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

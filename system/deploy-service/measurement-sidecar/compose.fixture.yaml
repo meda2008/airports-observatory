@@ -1,0 +1,34 @@
+# Engineering fixture only. No subscriptions, database, ports or external network.
+services:
+  fixture-sidecar:
+    image: ${MEASUREMENT_FIXTURE_IMAGE:?Set an already cached Node 22+ image ID}
+    pull_policy: never
+    entrypoint: [node]
+    command: [/fixture/fixture.cjs, server]
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - ./fixture.cjs:/fixture/fixture.cjs:ro
+      - ./config.example.yaml:/fixture/inert-config.yaml:ro
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:17890/identity').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+  fixture-worker:
+    image: ${MEASUREMENT_FIXTURE_IMAGE:?Set an already cached Node 22+ image ID}
+    pull_policy: never
+    entrypoint: [node]
+    command: [/fixture/fixture.cjs, worker]
+    network_mode: service:fixture-sidecar
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - ./fixture.cjs:/fixture/fixture.cjs:ro
+      - ../../lib/local-network-observer.cjs:/fixture/local-network-observer.cjs:ro
+    depends_on:
+      fixture-sidecar:
+        condition: service_healthy

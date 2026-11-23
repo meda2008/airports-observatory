@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-8a6c326a85eca403f8c6",
+  "origin": "https://asfawsf.twilightttt.sbs",
+  "recordIds": [
+    "A158",
+    "A167"
+  ],
+  "entryUrls": [
+    "https://asfawsf.twilightttt.sbs/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://asfawsf.twilightttt.sbs",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "05c4bdf4b7eb6d751eaedc3e46d86577b424d91127d93aba491cfce4cbe7bf63",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A065",
+  "name": "FlyingBird (飞鸟)",
+  "entryUrl": "https://flyingbird.cc/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "flyingbird.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "当前同名已登录业务的原生套餐页；历史连续经营及法律主体未核实。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/retained-flyingbird-cc.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "retained_source_verified_navigation_not_yet_live_tested",
+    "automaticPublication": false
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a47187fbc21320ff3359",
+  "origin": "https://ndfkhh.aboutjump.xyz",
+  "recordIds": [
+    "A166"
+  ],
+  "entryUrls": [
+    "https://ndfkhh.aboutjump.xyz/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A166"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ndfkhh.aboutjump.xyz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "838ad45ea38e75f50edae77cdd8d394b31936b28dc93399479cd736cac378b0a",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

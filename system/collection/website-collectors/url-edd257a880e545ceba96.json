@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-edd257a880e545ceba96",
+  "origin": "https://fastlink.ws",
+  "recordIds": [
+    "A186"
+  ],
+  "entryUrls": [
+    "https://fastlink.ws/user/shop"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://fastlink.ws",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "9e53f19ff11d66a68f3d4665a1db47af7f010f8b96aa1409ea93480a7ced9f40",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-fbcd6c0b73c40c4a6f5b",
+  "origin": "https://nicecloud.cyou",
+  "recordIds": [
+    "A005"
+  ],
+  "entryUrls": [
+    "https://nicecloud.cyou/#/plans"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": "nicecloud_authenticated_visible_cards_readonly",
+    "auth": null,
+    "authStatus": "record_scoped_credentials_not_copied",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nicecloud.cyou",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": true
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "a9f0b34e31d946eb0abff13052316810e86074a82d6c9d6f60dc64a694e054a1",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

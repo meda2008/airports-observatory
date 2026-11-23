@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A060",
+  "name": "SkyLinX",
+  "entryUrl": "https://user.skylinx.org.uk/",
+  "entrySource": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+  "allowedHosts": [
+    "user.skylinx.org.uk"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Retained old-site explicit new-entry notice plus current named login observed; public-only until credentials separately authorized for this new origin.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "operator_announced_current_login_verified",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Use announced current login for public collection. Separate approval before transmitting credentials to new origin.",
+    "credentialPropagationAllowed": false
+  },
+  "previousEntryUrl": "https://portal.skylinx.org/",
+  "publicOnly": true,
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v27",
+    "status": "authenticated_current_prices_unchanged_preorder_has_no_refund",
+    "receipt": "work/collection-runs/financial-20261110-v27/result.json",
+    "sourceFiles": [
+      "work/collection-runs/financial-20261110-v27/A060-announcement.json",
+      "work/collection-runs/financial-20261110-v27/A060-current-cards.json",
+      "work/collection-runs/financial-20261110-v27/A060-preorder-no-refund.json"
+    ],
+    "next": "new_policy_article_or_current_original_refund_text",
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "financialFollowupHistory": [
+    {
+      "runId": "new-entries-20261104-v2",
+      "status": "authenticated_current_new_entry_no_refund_article_found",
+      "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+      "next": "Reuse existing pricing/payment; current docs are client guides. Refund stays unknown, no duplicate orders."
+    }
+  ],
+  "collectPerformanceReferences": true
+}

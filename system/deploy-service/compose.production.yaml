@@ -1,0 +1,23 @@
+services:
+  # Measurement services inherit the opt-in measurement-route profile, private
+  # mounts and shared loopback namespace from compose.yaml. Publish no ports.
+  measurements:
+    restart: unless-stopped
+  measurement-proxy:
+    restart: unless-stopped
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - web
+volumes:
+  caddy-data:
+  caddy-config:

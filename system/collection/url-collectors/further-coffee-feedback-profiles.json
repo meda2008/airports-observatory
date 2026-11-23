@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "qualification": "Pinned anonymous historical visitor comments on a current-linked CoffeeCloud article; no verified incident, measurement, legal identity or historical service attribution.",
+  "profiles": [
+    {
+      "recordId": "A078",
+      "url": "https://guatizi.com/sites/143.html/",
+      "name": "CoffeeCloud",
+      "currentOfficialUrlAtReview": "https://aicoffee.app/",
+      "ref": {
+        "sourceId": "FURTHER-SPEED-A078-ARTICLE",
+        "file": "work/performance-20261112-eighteenth/live/coffee-review.json",
+        "fileSha256": "2507d1c8dbd4c1b6d3d45f1e0679093bb74152dce4bc1c9b0bb8e3349444a5b8",
+        "bodySha256": "8c42bc25ce0e930f8dfe03db9dff03b59d538b831a34b4b9b4201762bf25ead8",
+        "url": "https://guatizi.com/sites/143.html/",
+        "observedAt": "2026-11-12T06:38:35.431Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "FURTHER-SPEED-A078-IDENTITY",
+        "file": "work/performance-20261112-eighteenth/live/coffee-native-destination.json",
+        "fileSha256": "74b7a99a2487d1a16922056c6e75cd519cc611c0a9172e17d5c26a428a496804",
+        "bodySha256": "51aaf18034323bef95173c1bdb35f2f10576c469fbcd557e02da5588e13afd96",
+        "url": "https://aicoffee.app/#/register?code=lULZMIKu",
+        "observedAt": "2026-11-12T06:39:11.473Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "routeRef": {
+        "sourceId": "FURTHER-SPEED-A078-ROUTE",
+        "file": "work/performance-20261112-eighteenth/further-speed-originals/A078-route.json",
+        "fileSha256": "7f2ae9bbdda34018670d2a1a96435f5ad0affefae6229f4cda995cf396f4bcf3",
+        "bodySha256": "7f2ae9bbdda34018670d2a1a96435f5ad0affefae6229f4cda995cf396f4bcf3",
+        "url": "https://guatizi.com/sites/143.html/",
+        "observedAt": "2026-11-12T06:39:11.473Z",
+        "representation": "builtin_browser_metadata_json"
+      },
+      "validationProfile": {
+        "recordId": "A078",
+        "url": "https://guatizi.com/sites/143.html/",
+        "publisher": "挂梯子（guatizi.com，第三方推广评测）",
+        "quote": "速度测试：",
+        "nativeOfficialLink": "https://guatizi.com/go/?url=aHR0cHM6Ly9ndWF0aXppLmNvbS9nby9jb2ZmZWVjbG91ZC8=",
+        "currentCatalogHostname": "aicoffee.app",
+        "article": {
+          "sourceId": "FURTHER-SPEED-A078-ARTICLE",
+          "file": "work/performance-20261112-eighteenth/live/coffee-review.json",
+          "fileSha256": "2507d1c8dbd4c1b6d3d45f1e0679093bb74152dce4bc1c9b0bb8e3349444a5b8",
+          "bodySha256": "8c42bc25ce0e930f8dfe03db9dff03b59d538b831a34b4b9b4201762bf25ead8",
+          "url": "https://guatizi.com/sites/143.html/",
+          "observedAt": "2026-11-12T06:38:35.431Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identity": {
+          "sourceId": "FURTHER-SPEED-A078-IDENTITY",
+          "file": "work/performance-20261112-eighteenth/live/coffee-native-destination.json",
+          "fileSha256": "74b7a99a2487d1a16922056c6e75cd519cc611c0a9172e17d5c26a428a496804",
+          "bodySha256": "51aaf18034323bef95173c1bdb35f2f10576c469fbcd557e02da5588e13afd96",
+          "url": "https://aicoffee.app/#/register?code=lULZMIKu",
+          "observedAt": "2026-11-12T06:39:11.473Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "route": {
+          "sourceId": "FURTHER-SPEED-A078-ROUTE",
+          "file": "work/performance-20261112-eighteenth/further-speed-originals/A078-route.json",
+          "fileSha256": "7f2ae9bbdda34018670d2a1a96435f5ad0affefae6229f4cda995cf396f4bcf3",
+          "bodySha256": "7f2ae9bbdda34018670d2a1a96435f5ad0affefae6229f4cda995cf396f4bcf3",
+          "url": "https://guatizi.com/sites/143.html/",
+          "observedAt": "2026-11-12T06:39:11.473Z",
+          "representation": "builtin_browser_metadata_json"
+        },
+        "imageReview": {
+          "sourceId": "FURTHER-SPEED-A078-IMAGE-REVIEW",
+          "file": "work/performance-20261112-eighteenth/further-speed-originals/A078-image-review.json",
+          "fileSha256": "e99ab5b00d7d4b434b0b2a0df3e2a1975e96071ae14182f851620c0b1ae2baed",
+          "bodySha256": "e99ab5b00d7d4b434b0b2a0df3e2a1975e96071ae14182f851620c0b1ae2baed",
+          "url": "https://guatizi.com/sites/143.html/",
+          "observedAt": "2026-11-12T06:38:59.415Z",
+          "representation": "builtin_browser_metadata_json"
+        }
+      },
+      "events": [
+        {
+          "commentId": 47309,
+          "authorDisplayName": "test",
+          "date": "2026-05-27",
+          "datePrecision": "day",
+          "reportedLocalTime": "27 5 月, 2026 5:30 下午",
+          "message": "一个节点都用不了，浪费22块钱，妈的",
+          "issueType": "reported_nodes_unusable",
+          "summary": "匿名访客test在该CoffeeCloud评测页自述“一个节点都用不了，浪费22块钱，妈的”；这是2026-05-27自标日期的历史评论，不是已核实事故或当前状态。",
+          "postUrl": "https://guatizi.com/sites/143.html/#comment-47309",
+          "linkIndex": 39,
+          "quote": "test说道：\n27 5 月, 2026 5:30 下午\n\n一个节点都用不了，浪费22块钱，妈的"
+        },
+        {
+          "commentId": 47474,
+          "authorDisplayName": "f",
+          "date": "2026-05-29",
+          "datePrecision": "day",
+          "reportedLocalTime": "29 5 月, 2026 12:27 上午",
+          "message": "试了一个月，速度不行",
+          "issueType": "reported_poor_speed",
+          "summary": "匿名访客f在该CoffeeCloud评测页自述“试了一个月，速度不行”；这是2026-05-29自标日期的历史体验评论，不是独立测速、已核实事故或当前状态。",
+          "postUrl": "https://guatizi.com/sites/143.html/#comment-47474",
+          "linkIndex": 41,
+          "quote": "f说道：\n29 5 月, 2026 12:27 上午\n\n试了一个月，速度不行"
+        }
+      ]
+    }
+  ]
+}

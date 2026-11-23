@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "A060-operator-degradation",
+      "recordId": "A060",
+      "url": "https://portal.skylinx.org/#/dashboard",
+      "ref": {
+        "sourceId": "CORE-AUTH-SKYLINX-B348-NOTICE-REVISION",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch348/raw/core-auth-skylinx-b348-notice-revision-7bc114a1064e.json",
+        "fileSha256": "7bc114a1064ecf4d647b3739132fcbc39c99ca5fc1a62ea4e7860c644148f2c0",
+        "url": "https://portal.skylinx.org/#/dashboard",
+        "observedAt": "2026-10-29T13:02:51.086Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "b005dccff8d7e8e09d674399a0beeb2fc30d203efce9d39d053639c0ed3f4c57"
+      },
+      "refs": [
+        {
+          "sourceId": "CORE-AUTH-SKYLINX-B348-NOTICE-REVISION",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch348/raw/core-auth-skylinx-b348-notice-revision-7bc114a1064e.json",
+          "fileSha256": "7bc114a1064ecf4d647b3739132fcbc39c99ca5fc1a62ea4e7860c644148f2c0",
+          "url": "https://portal.skylinx.org/#/dashboard",
+          "observedAt": "2026-10-29T13:02:51.086Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "b005dccff8d7e8e09d674399a0beeb2fc30d203efce9d39d053639c0ed3f4c57"
+        },
+        {
+          "sourceId": "RETAINED-A060-CURRENT-LOGIN",
+          "file": "work/collection-runs/breakpoints-20261104-v1/originals/A060-official-announced-user-org-uk-current-65d2a45db77c.json",
+          "fileSha256": "65d2a45db77cc7894a2202ef63cd60e9b05f055e2770162c8519f368f714a3f5",
+          "url": "https://user.skylinx.org.uk/#/login",
+          "observedAt": "2026-11-03T23:20:40.108Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "1bf937c7585e26accc74ee2566f76c3b17718573d1a8b20db388464c599a251a"
+        }
+      ],
+      "materials": [
+        {
+          "key": "primary",
+          "ref": {
+            "sourceId": "CORE-AUTH-SKYLINX-B348-NOTICE-REVISION",
+            "file": "catalog/refresh/2026-10-26/core-auth-batch348/raw/core-auth-skylinx-b348-notice-revision-7bc114a1064e.json",
+            "fileSha256": "7bc114a1064ecf4d647b3739132fcbc39c99ca5fc1a62ea4e7860c644148f2c0",
+            "url": "https://portal.skylinx.org/#/dashboard",
+            "observedAt": "2026-10-29T13:02:51.086Z",
+            "representation": "normalized_retained_visible_DOM_text",
+            "bodySha256": "b005dccff8d7e8e09d674399a0beeb2fc30d203efce9d39d053639c0ed3f4c57"
+          },
+          "quotes": [
+            "2026.10.28公告\n【 今日公告 】\n最近国内形势紧张，低倍节点被国内阻断严重，先用可用节点，会在晚上7点后逐步恢复，在客户端把ipv6打开可让部分节点正常使用",
+            "近期国内部分移动用户被运营商限制，可能出现 节点全红 / 使用一段时间后断网。请务必 删除订阅重新导入后不要测速，直接使用节点；同时关闭客户端 IPv6。若异常：手机开飞行模式 1 分钟，或宽带断电光猫几分钟重启。可尝试切换运营商网络或 DNS。近期封锁加强，建议准备多运营商流量（联通 / 移动 / 电信）避免全部受限。",
+            "🔴 根据用户反馈，分流策略已恢复",
+            "发布时间：2026年04月07日",
+            "https://portal.skylinx.org",
+            "https://user.skylinx.org.uk"
+          ],
+          "attachments": [
+            {
+              "file": "catalog/refresh/2026-10-26/core-auth-batch348/sources.json",
+              "sha256": "6e864611dab6d32b2d1b1904f5fa39314a5c0c4349d860a2a4d33bcb8c3abab2"
+            }
+          ]
+        },
+        {
+          "key": "current",
+          "ref": {
+            "sourceId": "RETAINED-A060-CURRENT-LOGIN",
+            "file": "work/collection-runs/breakpoints-20261104-v1/originals/A060-official-announced-user-org-uk-current-65d2a45db77c.json",
+            "fileSha256": "65d2a45db77cc7894a2202ef63cd60e9b05f055e2770162c8519f368f714a3f5",
+            "url": "https://user.skylinx.org.uk/#/login",
+            "observedAt": "2026-11-03T23:20:40.108Z",
+            "representation": "normalized_retained_visible_DOM_text",
+            "bodySha256": "1bf937c7585e26accc74ee2566f76c3b17718573d1a8b20db388464c599a251a"
+          },
+          "quotes": [
+            "SkyLinX"
+          ]
+        }
+      ],
+      "rawIdentityCaptureProof": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch348/sources.json",
+        "fileSha256": "6e864611dab6d32b2d1b1904f5fa39314a5c0c4349d860a2a4d33bcb8c3abab2",
+        "representation": "original_capture_metadata_bytes"
+      },
+      "registrySourceId": "CORE-AUTH-SKYLINX-B348-NOTICE-REVISION",
+      "currentOfficialUrlAtReview": "https://user.skylinx.org.uk/",
+      "quote": "2026.10.28公告\n【 今日公告 】\n最近国内形势紧张，低倍节点被国内阻断严重，先用可用节点，会在晚上7点后逐步恢复，在客户端把ipv6打开可让部分节点正常使用",
+      "mobile": "近期国内部分移动用户被运营商限制，可能出现 节点全红 / 使用一段时间后断网。请务必 删除订阅重新导入后不要测速，直接使用节点；同时关闭客户端 IPv6。若异常：手机开飞行模式 1 分钟，或宽带断电光猫几分钟重启。可尝试切换运营商网络或 DNS。近期封锁加强，建议准备多运营商流量（联通 / 移动 / 电信）避免全部受限。",
+      "recovery": "🔴 根据用户反馈，分流策略已恢复",
+      "published": "发布时间：2026年04月07日",
+      "date": "2026-10-28",
+      "fields": [
+        "stability"
+      ],
+      "retainedOnly": true,
+      "sourceTargets": [],
+      "identityQualification": "current_operator_published_portal_and_user_entries_relation_only_no_legal_continuity"
+    }
+  ]
+}

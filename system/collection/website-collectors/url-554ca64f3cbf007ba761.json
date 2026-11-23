@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-554ca64f3cbf007ba761",
+  "origin": "https://prpr.96110.cn.com",
+  "recordIds": [
+    "A034"
+  ],
+  "entryUrls": [
+    "https://prpr.96110.cn.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://prpr.96110.cn.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "16bcd6156dfaea689ba755ff3b0f0ef78f826f6248a252f8d3bd73c13568cddf",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

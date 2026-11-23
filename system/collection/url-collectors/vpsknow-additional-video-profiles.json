@@ -1,0 +1,48 @@
+{
+  "profiles": [
+    {
+      "recordId": "A018",
+      "url": "https://vpsknow.com/reviews/airports/bywave-airport-review/",
+      "nativeOfficialLink": "https://go.uukk.de/ByWave",
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "file": "work/performance-20261111-tenth/live/bywave-official-destination.json",
+          "fileSha256": "369c4e2eabd22358c26266f690c31029969325beabbdc1df20bfdd3d4ac44cd6",
+          "bodySha256": "58f8378c73e5b10acf1fa931f9a7010705f98b78cf996867b47662e268cd0678",
+          "observedAt": "2026-11-11T15:45:08.346Z",
+          "url": "https://u.bws.lol/register"
+        }
+      ]
+    },
+    {
+      "recordId": "A189",
+      "url": "https://vpsknow.com/reviews/airports/bitz-net-airport-review/",
+      "nativeOfficialLink": "https://go.uukk.de/Bitz",
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-official-destination.json",
+          "fileSha256": "8c054a66f0e6790b51f702d3c06062b5ccd749ba717a737f3d2f2551b8cada83",
+          "bodySha256": "86ae388ee7125751650b2dc11680c6cf58a410fe4b216777f8aec2349fa9ff3a",
+          "observedAt": "2026-11-11T15:45:37.146Z",
+          "url": "https://bas.webitz.net/#/register?code=sirxUs5C"
+        },
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-current-official-home.json",
+          "fileSha256": "5859c69584bddd8387ca3f6bdafbf3b4c7b9215ac3a9a34e0dcc146e7ac15d3b",
+          "bodySha256": "2de883b32ab46a0dcf38f6305b0782977720867bc43102b83f9dc041f744a4ce",
+          "observedAt": "2026-11-11T15:46:05.312Z",
+          "url": "https://www.webitz.net/"
+        },
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-official-panel-destination.json",
+          "fileSha256": "5dca83e3eb1f679209911c47c7d81b84efe6d2b73834fbf17aa0f1fa941b8a48",
+          "bodySha256": "ea2725cf34468238a16748d791b05c4af93ba0187bc56fde5bd7a5be24a20641",
+          "observedAt": "2026-11-11T15:46:25.207Z",
+          "url": "https://enf.webitz.net/#/login"
+        }
+      ]
+    }
+  ]
+}

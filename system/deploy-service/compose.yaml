@@ -1,0 +1,120 @@
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: deploy-service/Dockerfile
+    image: airports-observatory:local
+    command: node deploy-service/server.cjs
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file: .env
+    environment:
+      STORE_FILE: /data/collector.sqlite
+      HOST: 0.0.0.0
+      MEASUREMENT_STORE_FILE: /measurement-data/measurements.sqlite
+    volumes:
+      - observatory-data:/data
+      - measurement-data:/measurement-data
+  worker:
+    image: airports-observatory:local
+    command: node deploy-service/worker.cjs
+    restart: unless-stopped
+    init: true
+    shm_size: 1gb
+    env_file: .env
+    environment:
+      STORE_FILE: /data/collector.sqlite
+      COLLECTION_ENABLED: ${COLLECTION_ENABLED:-false}
+    volumes:
+      - observatory-data:/data
+    depends_on:
+      - web
+  publisher:
+    image: airports-observatory:local
+    command: node deploy-service/publisher.cjs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      STORE_FILE: /data/collector.sqlite
+    volumes:
+      - observatory-data:/data
+    depends_on:
+      - web
+  controller:
+    image: airports-observatory:local
+    command: node deploy-service/control-daemon.cjs
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      STORE_FILE: /data/collector.sqlite
+    volumes:
+      - observatory-data:/data
+    depends_on:
+      - web
+  standalone:
+    image: airports-observatory:local
+    command: node deploy-service/standalone-worker.cjs
+    restart: unless-stopped
+    init: true
+    shm_size: 1gb
+    env_file: .env
+    environment:
+      STORE_FILE: /data/collector.sqlite
+      STANDALONE_CONCURRENCY: 2
+    volumes:
+      - observatory-data:/data
+    depends_on:
+      - web
+  measurements:
+    profiles: [measurement-route]
+    image: airports-observatory:local
+    pull_policy: never
+    command: node deploy-service/measurement-worker.cjs
+    restart: unless-stopped
+    init: true
+    network_mode: service:measurement-proxy
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    environment:
+      MEASUREMENT_STORE_FILE: /measurement-data/measurements.sqlite
+      MEASUREMENT_SECRET_DIR: /run/secrets/measurement-auth
+    volumes:
+      - measurement-data:/measurement-data
+      - type: bind
+        source: ${MEASUREMENT_AUTH_DIR:-./data/measurement-secrets}
+        target: /run/secrets/measurement-auth
+        read_only: true
+        bind:
+          create_host_path: false
+    depends_on:
+      measurement-proxy:
+        condition: service_started
+  measurement-proxy:
+    profiles: [measurement-route]
+    # Load an explicitly approved client image locally; never pull implicitly.
+    image: ${MEASUREMENT_PROXY_IMAGE:-airports-measurement-proxy:unconfigured}
+    pull_policy: never
+    command: ["-d", "/tmp/measurement-proxy", "-f", "/run/secrets/measurement-proxy/config.yaml"]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    networks: [measurement-egress]
+    volumes:
+      - type: bind
+        source: ${MEASUREMENT_PROXY_CONFIG:-./measurement-sidecar/config.example.yaml}
+        target: /run/secrets/measurement-proxy/config.yaml
+        read_only: true
+        bind:
+          create_host_path: false
+volumes:
+  observatory-data:
+  measurement-data:
+networks:
+  measurement-egress:

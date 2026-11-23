@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A182",
+  "name": "Gatern",
+  "entryUrl": "https://s.gtnb.net/intro",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "gatern.com",
+    "s.gtnb.net"
+  ],
+  "adapter": "whmcs",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "从本轮Gatern.com同名主站的查看套餐真实链接，实际进入s.gtnb.net商店；本轮价格只对应这套当前入口，不证明旧gatern.io法律主体或历史连续。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "privacy"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-2dd54d4fd3e568f6314b",
+  "validateWhileDisabled": true,
+  "publicOnly": true,
+  "readOnlyRecipe": "gatern_public_landing_readonly",
+  "recoveryNote": "2026-11-19: anonymous official public catalog; literal quote ranges; history separate; actual weekly acceptance passed."
+}

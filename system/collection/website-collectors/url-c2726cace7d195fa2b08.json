@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c2726cace7d195fa2b08",
+  "origin": "https://ncdn1.sntp.uk",
+  "recordIds": [
+    "A042"
+  ],
+  "entryUrls": [
+    "https://ncdn1.sntp.uk/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ncdn1.sntp.uk",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "24c9211c73586fe1a3c37803886dd8c35a6b49333878b5573c30fddaeefe0335",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

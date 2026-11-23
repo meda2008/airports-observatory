@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A144",
+  "name": "小蜜蜂 (XMF)",
+  "entryUrl": "https://a30.xmfvipaffa01.cc/shop",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "a30.xmfvipaffa01.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "用户完成现存页面登录；只读留存业务区，不证明法律主体或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "小蜜蜂",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "小蜜蜂",
+    "receipt": "work/collection-runs/financial-20261109-v18/A144-directory.json",
+    "sha256": "2ffde33e94c13a34613955f7865ee9598349a5465ce52b9a0552a94d1d246486",
+    "status": "no_matching_directory_card_observed_not_service_absence",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v20",
+    "status": "access_verification_checkpoint",
+    "receipt": "work/collection-runs/financial-20261110-v20/A144-checkpoint.json",
+    "next": "New readable official policy or current user verification; no automatic repeated gate attempt"
+  }
+}

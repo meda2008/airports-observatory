@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-4e301387694a4c93f5aa",
+  "origin": "https://1yunti.com",
+  "recordIds": [
+    "A045",
+    "A205"
+  ],
+  "entryUrls": [
+    "https://1yunti.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://1yunti.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "d4ab31129cecd953d8e9a7a788a416c5e899389dbaa73926f1620a7828e4eab3",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

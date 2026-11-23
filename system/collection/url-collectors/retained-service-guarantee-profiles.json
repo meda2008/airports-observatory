@@ -1,0 +1,33 @@
+{
+  "profiles": [
+    {
+      "recordId": "A197",
+      "url": "https://renzhe.cloud/tos",
+      "currentCatalogHostname": "renzhe.cloud",
+      "collection": "operatorSlaClaims",
+      "kind": "operator_sla_claim",
+      "ref": {
+        "sourceId": "REVIEWED-7061c8199a6552aa2ab5ddf7",
+        "file": "work/collection-runs/priority-20261103-v2/originals/A197-original-domain-tos.json",
+        "fileSha256": "7061c8199a6552aa2ab5ddf7d0429575df24bb0a99ca6e7b64f7042ced420f66",
+        "bodySha256": "ed5499b12f85e3e168f5c15be842a187671d7d121ebe9d32073b241c124343b8",
+        "url": "https://renzhe.cloud/tos",
+        "observedAt": "2026-11-03T05:41:29.365Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "clauses": {
+        "availabilityEffort": "11.1   忍者云 RenzheCloud 尽力保证服务可用性。当遇到不可抗拒因素，软件故障等问题导致服务中断，忍者云会尽速恢复基础服务的运行，但不能保障完全恢复。",
+        "conditionalCompensation": "如果没有达到我们所承诺的SLA，则会给与一定补偿。",
+        "contactExclusion": "4.3   提供任何种类的错误或不准确的联系信息，将导致 忍者云 RenzheCloud 无法正确提供应有的服务，此问题导致的服务中断不会获得 SLA 保证；提供任何种类的虚假/欺诈信息，将依据本协议3中相关条款，可能会导致你的账户被终止。",
+        "noInterruptionGuarantee": "忍者云 RenzheCloud 不保证服务符合您的要求，或者服务绝对不会中断，服务能及时提供，服务绝对安全且无错误；也不对使用忍者云 RenzheCloud 所提供的服务所获得的结果或通过本服务获得的任何信息的准确性、可靠性或任何软硬件的缺陷将得到纠正等提供保障。",
+        "sameBrand": "忍者云 RenzheCloud 是 renzhe.cloud 网站及相关服务的品牌名称，由 Ninja Cloud Networks Ltd. 运营。",
+        "policyDate": "最后更新：2020-07-18"
+      },
+      "nativeHomeLink": {
+        "index": 0,
+        "url": "https://renzhe.cloud/",
+        "label": "忍者云\nRenzheCloud Global Network Service"
+      }
+    }
+  ]
+}

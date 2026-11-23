@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A056",
+  "name": "狗狗加速",
+  "entryUrl": "https://xn--yfrp36ea9901a.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "xn--yfrp36ea9901a.com"
+  ],
+  "adapter": "v2board",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "原名录域名公开页面自称狗狗加速，链接userpanel.dginv.click用户面板及自身FAQ/条款/隐私政策。只读取公开页面，没有向目标面板传凭据；法律主体、地址真实性与连续经营未独立核实。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

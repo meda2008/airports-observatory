@@ -1,0 +1,5 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');
+test('ViewTurbo privacy distinguishes browsing logs, connection/account processing, deletion recovery and payment scope',()=>{
+ const s=require('./fixtures/viewturbo-privacy-rendered.json'),parser=require('../collection/url-collectors/viewturbo-web.cjs'),patch=parser.extract({...s,evidenceId:'SYNTHETIC_SOURCE'});assert.deepEqual(Object.keys(patch),['privacy']);const p=patch.privacy;assert.equal(p.pageUpdatedAt,'2026-10-06');assert.equal(p.observedAt,s.capturedAt);assert.equal(p.deletionRecoveryDays,7);assert.equal(p.retentionPeriod,null);assert.equal(p.independentlyAudited,false);assert(p.loggedData.includes('连接IP'));assert.match(p.conditions.join(' '),/不代表网页收银台/);assert.equal(parser.extract({...s,text:s.text.replace('connection IP address','redacted')}),null);assert.equal(parser.extract({...s,url:'https://web.vtpro.xyz/terms-of-use'}),null);assert.throws(()=>parser.extract({...s,url:'https://unrelated.example/privacy-policy'}),/origin_mismatch/);
+});

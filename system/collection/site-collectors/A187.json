@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A187",
+  "name": "XingLin (杏林)",
+  "entryUrl": "https://xinglin.live/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "xinglin.live"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "archived_user_request",
+  "reason": "用户要求移除长期无法确认可用入口的记录；不认定停服或跑路。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "no_identifiable_new_entry",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Preserve focused-search originals. Unrelated airlines/SkyLinX/Xlink/BigME/Guga are not an identity bridge.",
+    "credentialPropagationAllowed": false
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.958Z",
+    "status": "exact_domain_no_results_fallback_unrelated",
+    "result": "xinglin.live精确检索无结果，搜索回退SkyLinX等其他服务，不替换为杏林。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A187-search.json"
+    ],
+    "resumeWhen": "可识别杏林机场的原始商户资料",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.612Z",
+      "result": "原域精确检索没有取得可归属的商户或迁移材料",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A187-search.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "latestOfficialEntryDiscovery": {
+    "runId": "entry-discovery-eight-20261115",
+    "checkedAt": "2026-11-15T15:20:20.055Z",
+    "status": "no_bound_new_entry",
+    "source": {
+      "file": "work/entry-discovery-eight-20261115/A187-search.json",
+      "url": "https://www.google.com.hk/search?q=%E6%9D%8F%E6%9E%97%E6%9C%BA%E5%9C%BA+xinglin+%E5%AE%98%E7%BD%91",
+      "observedAt": "2026-11-15T15:00:13.279Z",
+      "bodySha256": "09b867874bcbdaef0b84b5024d49c8d4e92a7359c88a9126eb422897c5cf76c4"
+    },
+    "officialPriceVerified": false,
+    "credentialPropagationAllowed": false,
+    "weeklyActivationAllowed": false
+  },
+  "publicReferenceEnabled": false
+}

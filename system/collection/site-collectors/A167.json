@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A167",
+  "name": "暮光加速",
+  "entryUrl": "https://asfawsf.twilightttt.sbs/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "asfawsf.twilightttt.sbs"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "queued",
+  "reason": "目录暮光与幕光当前均指向此同一端点，页面标题幕光、套餐名称暮光；只挂同一套当前页面报价，不证明两者法律主体或历史一致，不计独立信源。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "new_candidate_register_visible_identity_unverified",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Third-party navigator -> native line selector -> exact nonbinding continue -> registration. Preserve both old names separately. New credential destination/terms require approval.",
+    "credentialPropagationAllowed": false
+  },
+  "validateWhileDisabled": true
+}

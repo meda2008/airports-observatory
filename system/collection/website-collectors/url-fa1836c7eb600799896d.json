@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-fa1836c7eb600799896d",
+  "origin": "https://guolicheng.cc",
+  "recordIds": [
+    "A069"
+  ],
+  "entryUrls": [
+    "https://guolicheng.cc/index.php"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://guolicheng.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "edd31c1345bb0e1d1b6246e6c42b8606433bce85e1ba66647705a4fd925d0335",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

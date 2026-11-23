@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-7b9ac63d0e3236f9440a",
+  "origin": "https://ss-id.com",
+  "recordIds": [
+    "A059",
+    "A200"
+  ],
+  "entryUrls": [
+    "https://ss-id.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ss-id.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e2460ed6aec9cf77f6e74fce0ee94d989311201bdd0ec5429da2c56c6ee4d3c7",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

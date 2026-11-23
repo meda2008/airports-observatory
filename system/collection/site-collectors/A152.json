@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A152",
+  "name": "寰宇云",
+  "entryUrl": "https://dv2dsdgf.quanqiugttt1.club/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "dv2dsdgf.quanqiugttt1.club"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": false,
+  "eligibility": "needs_identity_review",
+  "reason": "当前品牌全球云由A150独立监控；旧寰宇云历史归属保持待核，不能强行合并。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/retained-dv2dsdgf-quanqiugttt1-club.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "retained_source_verified_navigation_not_yet_live_tested",
+    "automaticPublication": false
+  },
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-8532e47b48c278935857",
+  "validateWhileDisabled": true,
+  "publicOnly": true,
+  "collectPerformanceReferences": false,
+  "recoveryAcceptance": {
+    "configurationRevision": 2,
+    "capturedAt": "2026-11-21T09:18:56.687351+00:00",
+    "status": "blocked",
+    "runId": "96c7eeaf-9893-4122-a164-5f82e1dad1a9",
+    "blocker": "terms_confirmation_required",
+    "weeklyEnabled": false,
+    "fullSiteCoverageVerified": false,
+    "evidenceReuseRequired": true
+  }
+}

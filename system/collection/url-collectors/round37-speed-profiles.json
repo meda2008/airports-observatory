@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A039",
+      "url": "https://jichangclub.com/peiqianjichang-review/",
+      "publisher": "机场社团（jichangclub.com）",
+      "currentOfficialUrl": "https://xn--mes358aby2apfg.com/",
+      "initialSourceRef": {
+        "file": "work/performance-discovery/A039-c8eef054-5cdb-4a4f-aa94-561d51a61585-6b3a25a2-b90f-4037-9a83-1e6be52d70b9/capture-0.json",
+        "fileSha256": "dfd4fdc155f9c0c9cbe5367e077ea3a9d169a8286e346a668c44820697caf643",
+        "url": "https://jichangclub.com/peiqianjichang-review/",
+        "observedAt": "2026-11-13T14:31:04.149Z",
+        "bodySha256": "4d6372420a541674f168a8f5931e270213c585497ac5ae6fcb6a37e842287742",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "nativeDom": {
+        "file": "work/performance-discovery/dom/pqjc-club-exact-article-p37/c8eef054-5cdb-4a4f-aa94-561d51a61585.json",
+        "fileSha256": "1a1b8a29ef88ae5cb85eb17b933e8229e0f24b5f97a09b14ef0b3c6842e52294"
+      },
+      "nativeOfficialHref": "https://jichangclub.com/go/peiqianjichang",
+      "nativeOfficialLabel": "进入赔钱机场官网",
+      "nativeDestinationRef": {
+        "file": "work/performance-discovery/A039-834c3346-1cdc-42f4-a09c-f59a2273fcd9-8d48206e-0ed6-43c8-afe9-670183528bd6/capture-0.json",
+        "fileSha256": "496615feb19caf2ae2344f70bc71ec2583ad175c3925098fabd5e74ff0dafad7",
+        "url": "https://xn--mes358aby2apfg.com/register?code=GSJIXYFk&cover=sfw",
+        "observedAt": "2026-11-13T14:32:23.155Z",
+        "bodySha256": "caaecd196158fbc9d9eb5d448545b387a20849d6d0f504e8e90b5e9999574b3d",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "nativeDestinationReceipt": {
+        "file": "work/performance-discovery/A039-834c3346-1cdc-42f4-a09c-f59a2273fcd9-8d48206e-0ed6-43c8-afe9-670183528bd6/receipt.json",
+        "fileSha256": "c3351f3cd897a62685075ad9169a6e982364d51be25f8c56440f5a53d8819a00"
+      },
+      "imageReviewFile": "work/performance-20261113-thirtyseventh/pqjc-image-review.json",
+      "imageReviewSha256": "3ba45b43b72d4a239abc1908666df736f3be2f317466d6bfe00e6ad3b6e3a083",
+      "quote": "赔钱机场节点测速结果",
+      "brandHeading": "赔钱机场怎么样？套餐价格与节点线路测评",
+      "counterQuotes": [
+        "购买前注意：赔钱机场只提供订阅链接，不支持试用和退款。0.1倍率只适用于指定节点，部分台湾线路还标有“避免晚高峰使用”，选购时要结合常用地区和时段。便宜的晚高峰体验一般都不会特别好，买之前想清楚。",
+        "官方使用“赔钱机场.com”域名，可通过以下入口访问。"
+      ],
+      "image": {
+        "recordId": "A039",
+        "reviewedAt": "2026-11-13T14:36:37.020Z",
+        "reviewKind": "manual_visual_literal_review_of_original_image_bytes",
+        "date": null,
+        "testedAt": null,
+        "threadCount": null,
+        "network": null,
+        "probeLocation": null,
+        "accessBandwidth": null,
+        "sampleCount": null,
+        "nodeCount": null,
+        "displayedRows": 70,
+        "imageCount": 3,
+        "headersAsPrinted": [
+          "节点",
+          "协议",
+          "峰值速度",
+          "平均速度",
+          "测试流量",
+          "状态"
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB/s",
+          "MB"
+        ],
+        "unitPerSecondExplicit": true,
+        "rowsAreIndependentSamples": false,
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "publisherRowLabel": "图1第1行：日本东京04，0.1倍",
+            "protocolAsPrinted": "VLESS",
+            "latency": "457 ms",
+            "peak": "47.2 MB/s",
+            "mean": "24.7 MB/s",
+            "testTraffic": "100.0 MB",
+            "status": "已完成",
+            "metrics": [
+              {
+                "metric": "displayed_latency",
+                "valueText": "457 ms",
+                "unit": "ms"
+              },
+              {
+                "metric": "displayed_peak_download",
+                "valueText": "47.2 MB/s",
+                "unit": "MB/s"
+              },
+              {
+                "metric": "displayed_average_download",
+                "valueText": "24.7 MB/s",
+                "unit": "MB/s"
+              },
+              {
+                "metric": "displayed_test_traffic",
+                "valueText": "100.0 MB",
+                "unit": "MB"
+              }
+            ]
+          },
+          {
+            "displayRow": 56,
+            "publisherRowLabel": "图3第7行：台湾（避免晚高峰使用提示）",
+            "protocolAsPrinted": "HYSTERIA2",
+            "latency": "1167 ms",
+            "peak": "0.2 MB/s",
+            "mean": "0.0 MB/s",
+            "testTraffic": "0.5 MB",
+            "status": "已完成",
+            "metrics": [
+              {
+                "metric": "displayed_latency",
+                "valueText": "1167 ms",
+                "unit": "ms"
+              },
+              {
+                "metric": "displayed_peak_download",
+                "valueText": "0.2 MB/s",
+                "unit": "MB/s"
+              },
+              {
+                "metric": "displayed_average_download",
+                "valueText": "0.0 MB/s",
+                "unit": "MB/s"
+              },
+              {
+                "metric": "displayed_test_traffic",
+                "valueText": "0.5 MB",
+                "unit": "MB"
+              }
+            ]
+          },
+          {
+            "displayRow": 58,
+            "publisherRowLabel": "图3第9行：日本东京01，0.1倍",
+            "protocolAsPrinted": "VLESS",
+            "latency": "—",
+            "peak": "—",
+            "mean": "—",
+            "testTraffic": "0 MB",
+            "status": "失败",
+            "metrics": [
+              {
+                "metric": "displayed_latency",
+                "valueText": "—",
+                "unit": null
+              },
+              {
+                "metric": "displayed_peak_download",
+                "valueText": "—",
+                "unit": null
+              },
+              {
+                "metric": "displayed_average_download",
+                "valueText": "—",
+                "unit": null
+              },
+              {
+                "metric": "displayed_test_traffic",
+                "valueText": "0 MB",
+                "unit": "MB"
+              }
+            ]
+          }
+        ],
+        "images": [
+          {
+            "index": 3,
+            "url": "https://jichangclub.com/wp-content/uploads/2026/10/341b973e90346be.png",
+            "alt": "赔钱机场节点测速图1",
+            "loaded": true,
+            "width": 1024,
+            "height": 556,
+            "file": "work/performance-20261113-thirtyseventh/images/A039-1.webp",
+            "fileSha256": "05f18742cd50d33feb3ab333d9752ba980a2455540ef51e4934a9a205d591a4c",
+            "bytes": 32548,
+            "mime": "image/webp",
+            "responseObservedAt": "2026-11-13T14:31:04.136Z",
+            "bodyCompletedAt": "2026-11-13T14:31:04.280Z",
+            "source": "native_visible_image_loaded_resource_not_full_anchor_equivalence",
+            "originalSourceFile": "work/performance-discovery/media/pqjc-club-exact-article-p37/c8eef054-5cdb-4a4f-aa94-561d51a61585/05f18742cd50d33feb3ab333d9752ba980a2455540ef51e4934a9a205d591a4c.webp"
+          },
+          {
+            "index": 4,
+            "url": "https://jichangclub.com/wp-content/uploads/2026/10/9a958a2806894bf.png",
+            "alt": "赔钱机场节点测速图2",
+            "loaded": true,
+            "width": 1024,
+            "height": 555,
+            "file": "work/performance-20261113-thirtyseventh/images/A039-2.webp",
+            "fileSha256": "6855cf720e157d8dc330351689225fc15fd5c7c2e6bbc8b146a0b6e7aea2cac0",
+            "bytes": 32894,
+            "mime": "image/webp",
+            "responseObservedAt": "2026-11-13T14:31:04.159Z",
+            "bodyCompletedAt": "2026-11-13T14:31:04.280Z",
+            "source": "native_visible_image_loaded_resource_not_full_anchor_equivalence",
+            "originalSourceFile": "work/performance-discovery/media/pqjc-club-exact-article-p37/c8eef054-5cdb-4a4f-aa94-561d51a61585/6855cf720e157d8dc330351689225fc15fd5c7c2e6bbc8b146a0b6e7aea2cac0.webp"
+          },
+          {
+            "index": 5,
+            "url": "https://jichangclub.com/wp-content/uploads/2026/10/f265289665d18c4.png",
+            "alt": "赔钱机场节点测速图3",
+            "loaded": true,
+            "width": 1024,
+            "height": 469,
+            "file": "work/performance-20261113-thirtyseventh/images/A039-3.webp",
+            "fileSha256": "0c0d4433dbd6c2e8e59655fcf23cd3e360575acd4e79e9950a1e85feff4ab957",
+            "bytes": 23064,
+            "mime": "image/webp",
+            "responseObservedAt": "2026-11-13T14:31:04.310Z",
+            "bodyCompletedAt": "2026-11-13T14:31:04.525Z",
+            "source": "native_visible_image_loaded_resource_not_full_anchor_equivalence",
+            "originalSourceFile": "work/performance-discovery/media/pqjc-club-exact-article-p37/c8eef054-5cdb-4a4f-aa94-561d51a61585/0c0d4433dbd6c2e8e59655fcf23cd3e360575acd4e79e9950a1e85feff4ab957.webp"
+          }
+        ],
+        "limitations": [
+          "三图未见测试日期、网络/地点、线程、样本定义或原始日志；页面最后更新日不是测试日。",
+          "显示行含失败/等待状态及剩余流量、有效期说明，不等于独立节点或可用率。",
+          "单元格明确MB/s、MB、ms，仅原样保留所选行，不计算整体均值、中位、Mbps或当前速度。",
+          "延迟数字及ms单位可读，但延迟列中文完整标题字形未完全确认；没有补写该标题。"
+        ]
+      }
+    }
+  ]
+}

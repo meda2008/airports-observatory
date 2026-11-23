@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-7290742773a5c112f1f0",
+  "origin": "https://my.ihcloud.cc",
+  "recordIds": [
+    "A026"
+  ],
+  "entryUrls": [
+    "https://my.ihcloud.cc/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://my.ihcloud.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "973a469e3bd7aa66fe7c7966dc866f15c12e4dddb229f37a0ab214aed2769f1a",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

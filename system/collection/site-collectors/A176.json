@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A176",
+  "name": "九云",
+  "entryUrl": "https://starpro.one/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "starpro.one"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": true,
+  "eligibility": "needs_identity_review",
+  "reason": "官方频道列出的主域公开配置及套餐接口已读到5档；本次候选品牌九霄云，旧九云归属待核，完整发布和调度验收前禁用。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlCollector": {
+    "id": "url-113d2db6847ad49e941b",
+    "status": "live_payment_and_cancellation_verified",
+    "lastVerifiedAt": "2026-11-02T14:54:00.726Z",
+    "completeAllFields": false
+  },
+  "knowledgeAdapter": false,
+  "knowledgeCollectionNote": "2026-11-03 delayed Ant dialog recipe retained. Keep disabled identity-review eligibility; no refund clause observed; do not reopen known FAQ without new content.",
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-0310c61dbea9a31c0afb",
+  "validateWhileDisabled": true,
+  "publicOnly": true,
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "ninecloud_public_catalog_readonly",
+  "recoveryAcceptance": {
+    "configurationRevision": 7,
+    "capturedAt": "2026-11-21T11:11:03.501Z",
+    "status": "pricing_only_public_collection_review_publication_frontend_weekly_verified",
+    "runId": "b35ba1f9-dee1-46d7-b900-69901be2db2a",
+    "weeklyEnabled": true,
+    "nextRunAt": "2026-11-28T11:10:08.469Z",
+    "fullSiteCoverageVerified": false,
+    "authenticationVerified": false,
+    "historicalIdentityUnchanged": true,
+    "receipt": "/data/recovery-receipts/remaining20-final-verified-v317.json"
+  }
+}

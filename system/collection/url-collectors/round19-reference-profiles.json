@@ -1,0 +1,313 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A075",
+      "url": "https://runtushare.net/9232/",
+      "currentOfficialUrlAtReview": "https://nyxen.org/",
+      "ref": {
+        "sourceId": "ROUND19-NYXEN-ARTICLE",
+        "file": "work/performance-20261112-nineteenth/live/nyxen-review.json",
+        "fileSha256": "2de38b7fcfb3692f73ef72519914f1cc8352cf42f389ca4dc2dd58002443aae2",
+        "url": "https://runtushare.net/9232/",
+        "observedAt": "2026-11-12T07:22:56.974Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "ead093cb44faa99572b12258a9a0e14520dac38b36b7d5ebaee90381825b017c"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND19-NYXEN-ARTICLE",
+          "file": "work/performance-20261112-nineteenth/live/nyxen-review.json",
+          "fileSha256": "2de38b7fcfb3692f73ef72519914f1cc8352cf42f389ca4dc2dd58002443aae2",
+          "url": "https://runtushare.net/9232/",
+          "observedAt": "2026-11-12T07:22:56.974Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "ead093cb44faa99572b12258a9a0e14520dac38b36b7d5ebaee90381825b017c"
+        },
+        {
+          "sourceId": "ROUND19-NYXEN-NATIVE-DESTINATION",
+          "file": "work/performance-20261112-nineteenth/live/nyxen-native-destination.json",
+          "fileSha256": "7acca8b1345937ebbfe2ea864b682e9faaf5b77333467d1c40e8cebe267a3cd3",
+          "url": "https://nyxen.org/#/register?code=3tUusdRc",
+          "observedAt": "2026-11-12T07:23:17.828Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "40004ce20267b492ec3c50a8f09eda3194ecd2a3f9c8b1df483605798da0f999"
+        },
+        {
+          "sourceId": "ROUND19-NYXEN-IMAGE-REVIEW",
+          "file": "work/performance-20261112-nineteenth/nyxen-image-review.json",
+          "fileSha256": "d085a25999d67de111c41fbb160c1ad3c33d6f5d1eae2019c3b261f46f23683a",
+          "url": "https://runtushare.net/9232/",
+          "observedAt": "2026-11-12T07:23:32.538Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "d085a25999d67de111c41fbb160c1ad3c33d6f5d1eae2019c3b261f46f23683a"
+        }
+      ],
+      "nativeHref": "https://runtushare.net/go/nyxenbar",
+      "destination": {
+        "sourceId": "ROUND19-NYXEN-NATIVE-DESTINATION",
+        "file": "work/performance-20261112-nineteenth/live/nyxen-native-destination.json",
+        "fileSha256": "7acca8b1345937ebbfe2ea864b682e9faaf5b77333467d1c40e8cebe267a3cd3",
+        "url": "https://nyxen.org/#/register?code=3tUusdRc",
+        "observedAt": "2026-11-12T07:23:17.828Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "40004ce20267b492ec3c50a8f09eda3194ecd2a3f9c8b1df483605798da0f999"
+      },
+      "openingQuote": "Nyxen Bar 酒馆机场于 2024 年开业",
+      "openingYear": "2024",
+      "speedQuote": "Nyxen Bar 机场速度测试",
+      "image": {
+        "url": "https://runtushare.net/9232/",
+        "observedAt": "2026-11-12T07:23:32.538Z",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-nineteenth/images/A075-nyxen.webp",
+        "imageSha256": "4a95557207d079cf7cccfa078b44b1b2fd7016fca08eae16c3c13aa347437290",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2025/04/Nyxen-Bar-VPN-speedtest-%E9%85%92%E9%A6%86%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2025-04.webp",
+        "articleBodySha256": "ead093cb44faa99572b12258a9a0e14520dac38b36b7d5ebaee90381825b017c",
+        "testedAt": "2025-04-15",
+        "imageTestDateLiteral": "测试时间：2025-04-15 18:01:28 (CST)",
+        "reportedLocalTime": "2025-04-15 18:01:28 (CST)",
+        "reportedTimeZone": "CST",
+        "timeZoneOffset": null,
+        "exactTestInstant": null,
+        "displayedRows": 10,
+        "publisherSummaryAsPrinted": "10/10",
+        "threadCount": 4,
+        "clientLiteral": "主端=4.3.3 (697) 喵速=5.0.0-beta6 (A组-深圳必胜客移动(1000M))",
+        "scope": "专线套餐测速。",
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "香港威士忌",
+            "protocol": "Shadowsocks",
+            "tls": "18ms",
+            "https": "94ms",
+            "mean": "108.12MB",
+            "max": "112.25MB"
+          },
+          {
+            "displayRow": 5,
+            "label": "新加坡琴酒",
+            "protocol": "Shadowsocks",
+            "tls": "65ms",
+            "https": "201ms",
+            "mean": "105.57MB",
+            "max": "114.68MB"
+          },
+          {
+            "displayRow": 9,
+            "label": "美国伏特加",
+            "protocol": "Shadowsocks",
+            "tls": "206ms",
+            "https": "604ms",
+            "mean": "5.15MB",
+            "max": "12.01MB"
+          }
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false,
+        "independentMeasurement": false,
+        "pageUrl": "https://runtushare.net/9232/"
+      },
+      "fields": [
+        "speed",
+        "operatingHistory"
+      ]
+    },
+    {
+      "recordId": "A171",
+      "url": "https://www.nicecc.cc/#/docs/4",
+      "currentOfficialUrlAtReview": "https://www.nicecc.cc/",
+      "ref": {
+        "sourceId": "COLLECT-83c43a83d25321838f3f4b47",
+        "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/83c43a83d25321838f3f4b47547b9e6e603bc8d9ac9adaefe6302391753a6cb5.json",
+        "fileSha256": "83c43a83d25321838f3f4b47547b9e6e603bc8d9ac9adaefe6302391753a6cb5",
+        "bodySha256": "f6736923ebfa55f73b0d571fa25af2d4f4a3928083d016c8e84a9a493f00184f",
+        "url": "https://www.nicecc.cc/#/docs/4",
+        "observedAt": "2026-10-29T13:37:58.571Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "sourceId": "COLLECT-83c43a83d25321838f3f4b47",
+          "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/83c43a83d25321838f3f4b47547b9e6e603bc8d9ac9adaefe6302391753a6cb5.json",
+          "fileSha256": "83c43a83d25321838f3f4b47547b9e6e603bc8d9ac9adaefe6302391753a6cb5",
+          "bodySha256": "f6736923ebfa55f73b0d571fa25af2d4f4a3928083d016c8e84a9a493f00184f",
+          "url": "https://www.nicecc.cc/#/docs/4",
+          "observedAt": "2026-10-29T13:37:58.571Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        {
+          "sourceId": "COLLECT-75de8e256d21f538492fb64e",
+          "file": "work/collection-runs/collection-20261101-discovery-v39/evidence/75de8e256d21f538492fb64ec6f7d7fc978064301f808f06ec8dc9deacad84cc.json",
+          "fileSha256": "75de8e256d21f538492fb64ec6f7d7fc978064301f808f06ec8dc9deacad84cc",
+          "bodySha256": "c6cc5c18a740030734da644aa854eaa7b46a667924b25d7454af9c9dab87a303",
+          "url": "https://www.nicecc.cc/#/docs",
+          "observedAt": "2026-11-01T03:12:08.989Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "date": "2026-08-16",
+      "dateQuote": "优惠活动 最后更新: 2026年8月16日",
+      "businessQuotes": [
+        "新人专享优惠码",
+        "在结算页面输入下方优惠码并点击验证，即可享受新人优惠。",
+        "oldfriend 长按或双击优惠码即可选中复制"
+      ],
+      "bindingQuote": "新人专享优惠码\n最后更新: 2026年8月16日",
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "recordId": "A037",
+      "url": "https://guatizi.com/sites/1787.html/",
+      "currentOfficialUrlAtReview": "https://access.shandiancn.com/",
+      "ref": {
+        "sourceId": "NEXT-SPEED-A037-ARTICLE",
+        "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-guatizi-candidate.json",
+        "fileSha256": "d313a67a08bc12debefaef2dc1a280654085d280868fbb750e30661982ce8eea",
+        "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82",
+        "url": "https://guatizi.com/sites/1787.html/",
+        "observedAt": "2026-11-12T04:11:15.977Z",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "sourceId": "NEXT-SPEED-A037-ARTICLE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-guatizi-candidate.json",
+          "fileSha256": "d313a67a08bc12debefaef2dc1a280654085d280868fbb750e30661982ce8eea",
+          "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:11:15.977Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "NEXT-SPEED-A037-IDENTITY",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-no-measurement-candidate.json",
+          "fileSha256": "9ed319aafd8b55a6d78447778edc45eaec839567ff762d63f4b2949acc984e68",
+          "bodySha256": "ba07524f8712d8e50407edd8a18684142f397206a38bd917018e0b25b5d09bb9",
+          "url": "https://jichangtuijian1.com/pianyijichang/shandianpro",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "NEXT-SPEED-A037-ROUTE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-route.json",
+          "fileSha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "bodySha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_metadata_json"
+        }
+      ],
+      "comments": [
+        {
+          "commentId": 52578,
+          "author": "fafafa",
+          "label": "16 7 月, 2026 3:00 上午",
+          "message": "节点全红几天了一个都不能用，工单也发不出去，怕是跑路了",
+          "postUrl": "https://guatizi.com/sites/1787.html/#comment-52578",
+          "quote": "fafafa说道：\n16 7 月, 2026 3:00 上午\n\n节点全红几天了一个都不能用，工单也发不出去，怕是跑路了",
+          "date": "2026-07-16",
+          "datePrecision": "day",
+          "reportedLocalTime": "16 7 月, 2026 3:00 上午",
+          "reportedTimeZone": null,
+          "timeZoneOffset": null,
+          "exactPublicationInstant": null,
+          "sourceLocator": {
+            "kind": "body_utf16_range",
+            "start": 913,
+            "end": 972,
+            "quoteSha256": "2fcaab8ea857269f38cbd6d30b00e68b13ce2ca5a8ba7845321b048a34a0791d",
+            "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82"
+          },
+          "nativePermalink": {
+            "url": "https://guatizi.com/sites/1787.html/#comment-52578",
+            "label": "16 7 月, 2026 3:00 上午",
+            "linkIndex": 33,
+            "linksMetadataSha256": "e43a9787eb2c8685b7ccddd5f6620507144a8724e0ea64c66fc29096dfb3836b"
+          }
+        },
+        {
+          "commentId": 52579,
+          "author": "fafafa",
+          "label": "16 7 月, 2026 3:01 上午",
+          "message": "有跑路前科的以后还是不要用了，刚用了十几天直接跑了",
+          "postUrl": "https://guatizi.com/sites/1787.html/#comment-52579",
+          "quote": "fafafa说道：\n16 7 月, 2026 3:01 上午\n\n有跑路前科的以后还是不要用了，刚用了十几天直接跑了",
+          "date": "2026-07-16",
+          "datePrecision": "day",
+          "reportedLocalTime": "16 7 月, 2026 3:01 上午",
+          "reportedTimeZone": null,
+          "timeZoneOffset": null,
+          "exactPublicationInstant": null,
+          "sourceLocator": {
+            "kind": "body_utf16_range",
+            "start": 977,
+            "end": 1034,
+            "quoteSha256": "e3ac7acda098d7ec53752a344555529598db19f59bd51e10e9e0eaec527d0290",
+            "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82"
+          },
+          "nativePermalink": {
+            "url": "https://guatizi.com/sites/1787.html/#comment-52579",
+            "label": "16 7 月, 2026 3:01 上午",
+            "linkIndex": 35,
+            "linksMetadataSha256": "e43a9787eb2c8685b7ccddd5f6620507144a8724e0ea64c66fc29096dfb3836b"
+          }
+        }
+      ],
+      "validationProfile": {
+        "recordId": "A037",
+        "url": "https://guatizi.com/sites/1787.html/",
+        "quote": "速度测试：",
+        "publisher": "挂梯子（guatizi.com，第三方含推广链接）",
+        "nativeOfficialLink": "https://guatizi.com/go/?url=aHR0cHM6Ly9ndWF0aXppLmNvbS9nby9zaGFuZGlhbi8=",
+        "currentCatalogHostname": "access.shandiancn.com",
+        "article": {
+          "sourceId": "NEXT-SPEED-A037-ARTICLE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-guatizi-candidate.json",
+          "fileSha256": "d313a67a08bc12debefaef2dc1a280654085d280868fbb750e30661982ce8eea",
+          "bodySha256": "15bbb59c1e872c28b735454500a6a83e29d997817f11e0d8ea8074c2aab5fe82",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:11:15.977Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "identity": {
+          "sourceId": "NEXT-SPEED-A037-IDENTITY",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-no-measurement-candidate.json",
+          "fileSha256": "9ed319aafd8b55a6d78447778edc45eaec839567ff762d63f4b2949acc984e68",
+          "bodySha256": "ba07524f8712d8e50407edd8a18684142f397206a38bd917018e0b25b5d09bb9",
+          "url": "https://jichangtuijian1.com/pianyijichang/shandianpro",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "route": {
+          "sourceId": "NEXT-SPEED-A037-ROUTE",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-route.json",
+          "fileSha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "bodySha256": "d0b2a486ef32805e1c142248934775b18ead169f9bcef797b52f33592d614ac3",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:10:35.585Z",
+          "representation": "builtin_browser_metadata_json"
+        },
+        "imageReview": {
+          "sourceId": "NEXT-SPEED-A037-IMAGE-REVIEW",
+          "file": "work/performance-20261112-sixteenth/next-speed-originals/A037-image-review.json",
+          "fileSha256": "b931c4a12b5d7b7c96449d44e2d5503c951e045d1f878d5a51d846f40f679574",
+          "bodySha256": "b931c4a12b5d7b7c96449d44e2d5503c951e045d1f878d5a51d846f40f679574",
+          "url": "https://guatizi.com/sites/1787.html/",
+          "observedAt": "2026-11-12T04:11:15.977Z",
+          "representation": "builtin_browser_metadata_json"
+        }
+      },
+      "fields": [
+        "stability"
+      ]
+    }
+  ]
+}

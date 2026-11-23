@@ -1,0 +1,80 @@
+# Independent local runtime. Use this file alone, never merge the production stack.
+# Supply all private paths explicitly; configuration does not start sampling.
+services:
+  measurement-proxy:
+    image: ${MEASUREMENT_LOCAL_IMAGE:-sha256:09ba1fcfb4c5c103241c4c238c4c149e25e9c1f7e7d89ecd239050375a5f331b}
+    pull_policy: never
+    platform: linux/amd64
+    entrypoint: [/run/measurement-bin/mihomo]
+    command: ["-d", "/tmp/measurement-proxy", "-f", "/run/secrets/measurement-proxy/config.yaml"]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    environment:
+      MEASUREMENT_PROXY_PORT: ${MEASUREMENT_PROXY_PORT:?Set configured loopback proxy port}
+    volumes:
+      - type: bind
+        source: ${MEASUREMENT_PROXY_BINARY:?Set verified Linux mihomo binary path}
+        target: /run/measurement-bin/mihomo
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MEASUREMENT_PROXY_CONFIG:?Set private proxy config path}
+        target: /run/secrets/measurement-proxy/config.yaml
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MEASUREMENT_LOCAL_HELPERS:?Set measurement-sidecar directory}
+        target: /run/measurement-helpers
+        read_only: true
+        bind: {create_host_path: false}
+    healthcheck:
+      test: [CMD, node, /run/measurement-helpers/local-healthcheck.cjs]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+  measurements:
+    image: ${MEASUREMENT_LOCAL_IMAGE:-sha256:09ba1fcfb4c5c103241c4c238c4c149e25e9c1f7e7d89ecd239050375a5f331b}
+    pull_policy: never
+    command: [node, /run/measurement-helpers/local-worker-supervisor.cjs]
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 45s
+    network_mode: service:measurement-proxy
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    environment:
+      MEASUREMENT_STORE_FILE: /measurement-data/measurements.sqlite
+      MEASUREMENT_SECRET_DIR: /run/secrets/measurement-auth
+      MEASUREMENT_EXECUTOR_ID: docker-local
+      MEASUREMENT_PROXY_PORT: ${MEASUREMENT_PROXY_PORT:?Set configured loopback proxy port}
+    volumes:
+      - measurement-data:/measurement-data
+      - type: bind
+        source: ${MEASUREMENT_AUTH_DIR:?Set existing measurement auth directory}
+        target: /run/secrets/measurement-auth
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${MEASUREMENT_LOCAL_HELPERS:?Set measurement-sidecar directory}
+        target: /run/measurement-helpers
+        read_only: true
+        bind: {create_host_path: false}
+    healthcheck:
+      test: [CMD, node, /run/measurement-helpers/local-healthcheck.cjs, --worker]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+    depends_on:
+      measurement-proxy:
+        condition: service_healthy
+        restart: true
+volumes:
+  measurement-data:
+    external: true
+    name: ${MEASUREMENT_LOCAL_VOLUME:?Set initialized native Docker measurement volume}

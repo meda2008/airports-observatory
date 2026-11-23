@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-8b02a7c3637e38bd78b8",
+  "origin": "https://glados.rocks",
+  "recordIds": [
+    "A009"
+  ],
+  "entryUrls": [
+    "https://glados.rocks/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://glados.rocks",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "120721f8ac51ff5766d305c71292db15b470bb43f9a76e82cdc79d8faadd4c8c",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

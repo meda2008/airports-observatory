@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-bf25d5736bd5712dc0e7",
+  "origin": "https://user.riolu-node.link",
+  "recordIds": [
+    "A067",
+    "A188"
+  ],
+  "entryUrls": [
+    "https://user.riolu-node.link/shop"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://user.riolu-node.link",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "5e74233c7f3d8e0457fed3d8f80efcfa06700fbbdeb8144c6370ed0904b95d1b",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

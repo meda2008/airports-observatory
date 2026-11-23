@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "qualification": "Pinned retained business statements only; native post clocks or explicit announcement labels. Candidate service history is scoped separately from the legacy record identity.",
+  "profiles": [
+    {
+      "recordId": "A074",
+      "name": "YkkCloud",
+      "kind": "platform_message_date",
+      "validationModule": "reviewed-operator-status-parsers.cjs",
+      "validationProfile": {
+        "currentOfficialUrlAtReview": "https://cloud.ykkk.tech/",
+        "rootBindingRef": {
+          "sourceId": "CORE-PUBLIC-YKK-B246-PLANS-FAQ",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch246/raw/core-public-ykk-b246-plans-faq-8b783a114a2b.json",
+          "fileSha256": "8b783a114a2b8ce9a442f96fdccc9d8f6dff33b025e1bdc206c45e008b286b65",
+          "bodySha256": "0e4115dd7646e1251ca2f2712e9315b3b1fdf2f6c45c0ad938d456fef6d4c984",
+          "url": "https://cloud.ykkk.tech/",
+          "observedAt": "2026-10-28T23:33:12.331Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "recordId": "A074",
+        "name": "YkkCloud",
+        "url": "https://t.me/s/YkkCloud_Channel",
+        "channel": "YkkCloud_Channel",
+        "officialUrl": "https://cloud.ykkk.tech/",
+        "ref": {
+          "sourceId": "REVIEWED-A074-20261112-OPERATOR-CHANNEL",
+          "file": "work/performance-20261112-fourteenth/status-originals/A074-operator-channel-c1c595b41980.json",
+          "fileSha256": "c1c595b419805e8bd47b4f3253353881f375bca855e38a147dd95a4821c536cb",
+          "bodySha256": "0349af4f04adf9685cbdb1347204e73194f2154f10d62d3baf4d223531f1b226",
+          "url": "https://t.me/s/YkkCloud_Channel",
+          "observedAt": "2026-11-12T01:08:08.309Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityRef": {
+          "sourceId": "CORE-PUBLIC-YKK-B246-DOCS-BINDING",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch246/raw/core-public-ykk-b246-docs-binding-6e2cf9cfc8ea.json",
+          "fileSha256": "6e2cf9cfc8ea0b7b364da25b80042dcb6cb96f13e15d4f9921bf90d8dcfa7c16",
+          "bodySha256": "742510ffe921bcebe7b860709e3a1f3fd4ecff92c8061bc55d88c30d92b31541",
+          "url": "https://doc.ykkk.best/",
+          "observedAt": "2026-10-28T23:33:22.537Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityLink": {
+          "index": 0,
+          "url": "https://t.me/YkkCloud_Channel",
+          "label": "YkkCloud - 通知频道\nTelegram"
+        },
+        "channelOfficialLink": {
+          "label": "https://cloud.ykkk.tech",
+          "url": "https://cloud.ykkk.tech/"
+        },
+        "events": [
+          {
+            "post": 220,
+            "kind": "operator_outage_statement",
+            "related": [
+              221
+            ],
+            "scope": "官网及Emby服务；不证明代理转发节点同步中断。后续系统基本恢复和Emby待恢复、已恢复编辑文字均保留，编辑时间未知。",
+            "summary": "2025-06-26站方称官网及Emby宕机；6月27日后续称迁移后系统基本恢复，Emby仍待上游恢复，同帖现有编辑文字又写已恢复。未取得编辑时刻和实际恢复时刻，不能计算停服时长或推定代理节点中断。",
+            "permalink": "https://t.me/YkkCloud_Channel/220",
+            "dateTime": "2025-06-26T11:24:54+00:00",
+            "timeMetadataIndex": 11,
+            "quote": "由于我们的失误，导致官网及 Emby 服务出现宕机。目前我们已第一时间启动抢修流程，正在全力恢复服务。\n\n由此给大家带来的不便，我们深表歉意，感谢大家的理解与支持。",
+            "relatedStatements": [
+              {
+                "post": 221,
+                "permalink": "https://t.me/YkkCloud_Channel/221",
+                "dateTime": "2025-06-27T03:55:47+00:00",
+                "timeMetadataIndex": 12,
+                "quote": "由于 Hetzner 未能及时处理相关问题，我们已将服务迁移至其他服务商。目前系统已基本恢复正常。\n\n1. 2025/06/26 18:05 - 19:00 期间进行充值的用户，如发现未到账，请通过频道联系补单。\n2. Emby 服务需等待 Hetzner 恢复后上线，敬请关注后续通知。\n\n已恢复\n\nP.S. 特殊时期烦请各位大佬尽量不要在公开群组中提到我们，不胜感激。"
+              }
+            ]
+          }
+        ]
+      },
+      "ref": {
+        "sourceId": "REVIEWED-A074-20261112-OPERATOR-CHANNEL",
+        "file": "work/performance-20261112-fourteenth/status-originals/A074-operator-channel-c1c595b41980.json",
+        "fileSha256": "c1c595b419805e8bd47b4f3253353881f375bca855e38a147dd95a4821c536cb",
+        "bodySha256": "0349af4f04adf9685cbdb1347204e73194f2154f10d62d3baf4d223531f1b226",
+        "url": "https://t.me/s/YkkCloud_Channel",
+        "observedAt": "2026-11-12T01:08:08.309Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "selected": {
+        "postUrl": "https://t.me/YkkCloud_Channel/220",
+        "date": "2025-06-26T11:24:54+00:00",
+        "datePrecision": "second",
+        "quote": "由于我们的失误，导致官网及 Emby 服务出现宕机。目前我们已第一时间启动抢修流程，正在全力恢复服务。\n\n由此给大家带来的不便，我们深表歉意，感谢大家的理解与支持。",
+        "timeMetadataIndex": 11
+      },
+      "websiteScopeRef": null
+    },
+    {
+      "recordId": "A184",
+      "name": "oixCloud",
+      "kind": "current_candidate_service_message_date",
+      "validationModule": "fresh-gap-status-parsers.cjs",
+      "validationProfile": {
+        "recordId": "A184",
+        "name": "oixCloud（A184当前登记入口）",
+        "channel": "oixcloud_news",
+        "url": "https://t.me/s/oixcloud_news/162",
+        "currentOfficialUrlAtReview": "https://oixcloud.com/",
+        "ref": {
+          "sourceId": "FRESH-GAP-A184-20261112-STATUS",
+          "file": "work/performance-20261112-fifteenth/status-originals/A184-oixcloud-162-context-v2.json",
+          "fileSha256": "f2a078e5ad2ccd9de49ecd5067e44d5934d0fe89b99536065faf175d0b033282",
+          "bodySha256": "83667fa23d243fc21ec90c299a4841815dec7eca6871a899548bf05766215fc5",
+          "url": "https://t.me/s/oixcloud_news/162",
+          "observedAt": "2026-11-12T03:08:37.688Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityRef": {
+          "sourceId": "REVIEWED-a819c536cd21136ed9472383",
+          "file": "work/collection-runs/financial-20261109-v17/oix-tos.json",
+          "fileSha256": "a819c536cd21136ed947238323701b9b5915ceba7917ae7f361f975ad2bf99e1",
+          "bodySha256": "8fd96505c4227c8e31497f96256ff76b2b0bd9d4a7918e3df37b35ce1f58713f",
+          "url": "https://oixcloud.com/tos",
+          "observedAt": "2026-11-09T14:54:16.765Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityLink": {
+          "index": 17,
+          "url": "https://t.me/oixcloud_news",
+          "label": "Telegram 公告频道"
+        },
+        "identityBinding": {
+          "kind": "capture_metadata_link",
+          "index": 17,
+          "url": "https://t.me/oixcloud_news",
+          "label": "Telegram 公告频道"
+        },
+        "identityQualification": "current_registered_origin_native_channel_link_and_same_origin_channel_backlink_no_legacy_identity_proof",
+        "migrationRef": null,
+        "channelBindingRef": null,
+        "officialDeclaration": null,
+        "hostnameOnlyBinding": false,
+        "channelOfficialLink": {
+          "label": "https://oixcloud.com/user/benefits",
+          "url": "https://oixcloud.com/user/benefits"
+        },
+        "additionalLimitations": [
+          "A184当前oixCloud入口与A015同源，不计独立运营商或独立来源；不证明原Dler恢复、主体连续或旧权益继承。"
+        ],
+        "events": [
+          {
+            "post": 161,
+            "kind": "operator_degradation_statement",
+            "related": [],
+            "scope": "游戏加速场景及部分高位端口UDP转发，站方称多位用户反馈PS4/PS5联机异常；不是全站故障。",
+            "summary": "当前关联候选oixCloud：2026-10-12站方称收到游戏加速无法联网或联机异常反馈，数日排查后归因为部分高位端口重定向可能改变源IP或使UDP转发不稳；将优化转发策略。拟优化不等于已恢复。",
+            "permalink": "https://t.me/oixcloud_news/161",
+            "dateTime": "2026-10-12T13:35:47+00:00",
+            "timeMetadataIndex": 1,
+            "quote": "📢 游戏加速连接异常及后续优化说明\n\n近期，我们陆续收到多位用户反馈，在游戏加速场景下（如 PS4／PS5 等设备）出现无法正常联网或联机异常的问题，经过数日持续排查，目前已成功定位问题原因\n\n此前，为降低 SPAM 滥用投诉风险，我们将部分高位端口的流量重定向至其他具备较强抗投诉能力的服务商，但这一调整可能导致部分连接的源 IP 发生变化，或出现 UDP 转发不稳定的情况，进而影响游戏联机及加速体验\n\n为改善这一问题，我们将进一步加强服务端对 BT（BitTorrent）下载流量的识别与阻断能力，减少滥用流量对正常业务的影响，并优化相关端口的流量转发策略\n\n虽然相关调整可能增加 BT 下载流量绕过限制的风险，但我们预计能够有效改善部分特殊端口的连接稳定性，提升游戏加速及其他 UDP 应用场景下的使用体验\n\n感谢各位用户一直以来的理解与耐心，我们将持续优化网络环境与服务质量\n\n——\n\n📢 Gaming Connectivity Issues & Upcoming Improvements\n\nRecently, we’ve received reports from several users experiencing connectivity issues when using our services for gaming, particularly on devices such as PS4 and PS5. After several days of investigation, we have successfully identified the root cause.\n\nPreviously, to reduce the risk of SPAM and abuse complaints, we redirected traffic on certain high-numbered ports through alternative providers with greater tolerance for abuse-related complaints. However, this adjustment could cause source IP changes or unstable UDP forwarding for some connections, affecting online gaming and acceleration performance.\n\nTo address this issue, we will further strengthen our server-side BT (BitTorrent) traffic detection and blocking capabilities, reducing the impact of abusive traffic on legitimate usage while optimizing traffic forwarding policies for affected ports.\n\nAlthough these adjustments may increase the risk of BT traffic bypassing existing restrictions, we expect them to significantly improve connection stability on certain ports and enhance the experience for gaming acceleration and other UDP-based applications.\n\nWe sincerely appreciate your continued understanding and patience as we continue to optimize our network infrastructure and overall service quality.",
+            "relatedStatements": []
+          },
+          {
+            "post": 162,
+            "kind": "operator_outage_statement",
+            "related": [
+              163
+            ],
+            "scope": "华南地区Fusion节点国内接入点失联离线；仅此地区及节点组，不推及其他节点或全站。",
+            "summary": "当前关联候选oixCloud：2026-10-13T18:48:07Z站方称华南Fusion国内接入点离线，18:50:31Z后续称接入点及相关节点恢复。两个帖子的发布时间不是实际故障起止，保留恢复声明但不计算中断时长。",
+            "permalink": "https://t.me/oixcloud_news/162",
+            "dateTime": "2026-10-13T18:48:07+00:00",
+            "timeMetadataIndex": 2,
+            "quote": "📢 华南地区 Fusion 节点异常通知\n\n目前，华南地区 Fusion 节点的国内接入点出现失联并处于离线状态，可能导致相关节点暂时无法正常连接或使用\n\n我们正在紧急联系相关技术人员进行排查与处理，争取尽快恢复服务\n\n对于此次故障给您带来的不便，我们深表歉意，感谢您的理解与耐心等待\n\n——\n\n📢 Fusion Node Outage in South China\n\nThe domestic access points for Fusion nodes in South China have become unreachable and are currently offline, which may prevent affected nodes from connecting or functioning normally.\n\nWe are urgently contacting the relevant technical team to investigate and resolve the issue, and will work to restore service as soon as possible.\n\nWe sincerely apologize for the inconvenience and appreciate your understanding and patience.",
+            "relatedStatements": [
+              {
+                "post": 163,
+                "permalink": "https://t.me/oixcloud_news/163",
+                "dateTime": "2026-10-13T18:50:31+00:00",
+                "timeMetadataIndex": 3,
+                "quote": "✅ 华南地区 Fusion 节点恢复通知\n\n华南地区 Fusion 节点的国内接入点现已恢复正常，相关节点服务已恢复正常使用\n\n感谢各位用户的理解与耐心等待\n\n——\n\n✅ Fusion Node Service Restored in South China\n\nThe domestic access points for Fusion nodes in South China are now back online, and the affected node services have been fully restored.\n\nThank you for your understanding and patience."
+              }
+            ]
+          }
+        ]
+      },
+      "ref": {
+        "sourceId": "FRESH-GAP-A184-20261112-STATUS",
+        "file": "work/performance-20261112-fifteenth/status-originals/A184-oixcloud-162-context-v2.json",
+        "fileSha256": "f2a078e5ad2ccd9de49ecd5067e44d5934d0fe89b99536065faf175d0b033282",
+        "bodySha256": "83667fa23d243fc21ec90c299a4841815dec7eca6871a899548bf05766215fc5",
+        "url": "https://t.me/s/oixcloud_news/162",
+        "observedAt": "2026-11-12T03:08:37.688Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "selected": {
+        "postUrl": "https://t.me/oixcloud_news/161",
+        "date": "2026-10-12T13:35:47+00:00",
+        "datePrecision": "second",
+        "quote": "📢 游戏加速连接异常及后续优化说明\n\n近期，我们陆续收到多位用户反馈，在游戏加速场景下（如 PS4／PS5 等设备）出现无法正常联网或联机异常的问题，经过数日持续排查，目前已成功定位问题原因\n\n此前，为降低 SPAM 滥用投诉风险，我们将部分高位端口的流量重定向至其他具备较强抗投诉能力的服务商，但这一调整可能导致部分连接的源 IP 发生变化，或出现 UDP 转发不稳定的情况，进而影响游戏联机及加速体验\n\n为改善这一问题，我们将进一步加强服务端对 BT（BitTorrent）下载流量的识别与阻断能力，减少滥用流量对正常业务的影响，并优化相关端口的流量转发策略\n\n虽然相关调整可能增加 BT 下载流量绕过限制的风险，但我们预计能够有效改善部分特殊端口的连接稳定性，提升游戏加速及其他 UDP 应用场景下的使用体验\n\n感谢各位用户一直以来的理解与耐心，我们将持续优化网络环境与服务质量\n\n——\n\n📢 Gaming Connectivity Issues & Upcoming Improvements\n\nRecently, we’ve received reports from several users experiencing connectivity issues when using our services for gaming, particularly on devices such as PS4 and PS5. After several days of investigation, we have successfully identified the root cause.\n\nPreviously, to reduce the risk of SPAM and abuse complaints, we redirected traffic on certain high-numbered ports through alternative providers with greater tolerance for abuse-related complaints. However, this adjustment could cause source IP changes or unstable UDP forwarding for some connections, affecting online gaming and acceleration performance.\n\nTo address this issue, we will further strengthen our server-side BT (BitTorrent) traffic detection and blocking capabilities, reducing the impact of abusive traffic on legitimate usage while optimizing traffic forwarding policies for affected ports.\n\nAlthough these adjustments may increase the risk of BT traffic bypassing existing restrictions, we expect them to significantly improve connection stability on certain ports and enhance the experience for gaming acceleration and other UDP-based applications.\n\nWe sincerely appreciate your continued understanding and patience as we continue to optimize our network infrastructure and overall service quality.",
+        "timeMetadataIndex": 1
+      },
+      "websiteScopeRef": {
+        "sourceId": "ev-819f62d29ba7f862556db12cd2c881246cbed5d4f144f17d8f1008202a95aad9",
+        "file": "work/collection-runs/pricing-13-20261105-v13/A184-native-plans-guide.json",
+        "fileSha256": "7d0728d735093cd79ec9bf02dfe20faa711feaa0281a36b1be6ad5163bc47c76",
+        "url": "https://docs.dler.io/account/plans.html",
+        "observedAt": "2026-11-05T07:52:57.977Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "c5f1d25c386aedb39f531df100b11d22eda45e7df254d69f82bc72d6579c83f8"
+      }
+    },
+    {
+      "recordId": "A196",
+      "name": "BiuBiu",
+      "kind": "current_candidate_service_message_date",
+      "validationModule": "fresh-gap-status-parsers.cjs",
+      "validationProfile": {
+        "recordId": "A196",
+        "name": "BiuBiu（A196当前认可候选）",
+        "channel": "biubiugroup",
+        "url": "https://t.me/s/biubiugroup/97",
+        "currentOfficialUrlAtReview": "https://biubiux.online/",
+        "ref": {
+          "sourceId": "FRESH-GAP-A196-20261112-STATUS",
+          "file": "work/performance-20261112-fifteenth/status-originals/A196-biubiugroup-97-context.json",
+          "fileSha256": "880e3419cd314308758f590d3c6d1739a38d62e61806df6d2fb6127fe865a701",
+          "bodySha256": "0b04963bcf47d41700c5320af5e513cae99886e3b5b1c53fb2319edfca6ccb95",
+          "url": "https://t.me/s/biubiugroup/97",
+          "observedAt": "2026-11-12T03:08:57.024Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityRef": {
+          "sourceId": "COLLECT-754bf8d4a1b0d2e4ea4bb3db",
+          "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/754bf8d4a1b0d2e4ea4bb3dba22a94349c07f4a066ff8ef09cd9aa7c0e353d22.json",
+          "fileSha256": "754bf8d4a1b0d2e4ea4bb3dba22a94349c07f4a066ff8ef09cd9aa7c0e353d22",
+          "bodySha256": "c3fd1fb8e2e45eb7805f43e73aae7bd71c2dd9ec43f06bb7174346462cacd537",
+          "url": "https://biubiux.online/#/dashboard",
+          "observedAt": "2026-10-30T04:06:58.767Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "identityLink": {
+          "index": 10,
+          "url": "https://t.me/biubiugroup",
+          "label": "Telegram 频道"
+        },
+        "identityBinding": {
+          "kind": "capture_metadata_link",
+          "index": 10,
+          "url": "https://t.me/biubiugroup",
+          "label": "Telegram 频道"
+        },
+        "identityQualification": "current_registered_origin_native_channel_link_and_exact_hostname_http_backlink_no_redirect_or_legacy_identity_proof",
+        "migrationRef": null,
+        "channelBindingRef": {
+          "sourceId": "FRESH-GAP-A196-DOMAIN-DECLARATION",
+          "file": "work/performance-20261112-fifteenth/status-originals/A196-biubiugroup-domain-declaration.json",
+          "fileSha256": "0c8869b3d972543d52c54e4e408569a00056920582b1a4d2391a6fb0d1cd4aad",
+          "bodySha256": "f91e43c3a7dc925c93bda30217929e155f7f237bd6985b0b60471f75e65125b7",
+          "url": "https://t.me/s/biubiugroup?q=biubiux.online",
+          "observedAt": "2026-11-12T03:09:51.250Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        "officialDeclaration": {
+          "post": 362,
+          "permalink": "https://t.me/biubiugroup/362",
+          "dateTime": "2025-10-29T08:00:49+00:00",
+          "timeMetadataIndex": 0,
+          "quote": "重要公告：域名更换通知\n\n原域名到期也因被墙准备弃用，我们将正式弃用原域名请您从此日起使用我们的新域名biubiux.online访问服务。\n\n同时，您也可以随时通过发布页biubiu.info获取我们最新的域名信息，以确保访问不中断。感谢您一直以来的支持与信任！\n\nImportant Announcement: Domain Change Notice\n\nOur original domain has expired and will be discontinued due to being blocked. We will officially cease using the original domain. Please use our new domain biubiux.online to access our services starting today.\n\nAdditionally, you may always check our latest domain information via the release page at biubiu.info to ensure uninterrupted access. Thank you for your continued support and trust!"
+        },
+        "hostnameOnlyBinding": true,
+        "channelOfficialLink": {
+          "label": "biubiux.online",
+          "url": "http://biubiux.online/"
+        },
+        "additionalLimitations": [
+          "频道原生回链为http://biubiux.online/，当前登记入口为https://biubiux.online/；仅核对精确hostname，不推断协议跳转、TLS或原SuperBiu主体迁移。"
+        ],
+        "events": [
+          {
+            "post": 97,
+            "kind": "operator_outage_statement",
+            "related": [
+              98
+            ],
+            "scope": "香港HK节点1及2内存故障，仅这两个标号节点，不扩为香港全区或全站。",
+            "summary": "当前候选BiuBiu：2025-01-17站方称HK节点1、2内存故障、预计1小时恢复，后续98帖称这两个节点恢复。预计时长与帖子间隔均不当作实测中断时长。只关联当前已认可候选的同host声明，不证明原SuperBiu经营主体连续。",
+            "permalink": "https://t.me/biubiugroup/97",
+            "dateTime": "2025-01-17T05:09:45+00:00",
+            "timeMetadataIndex": 9,
+            "quote": "#节点 #香港\nHK节点1、2内存故障，预计1小时内恢复，请更换其他节点使用。",
+            "relatedStatements": [
+              {
+                "post": 98,
+                "permalink": "https://t.me/biubiugroup/98",
+                "dateTime": "2025-01-17T06:24:27+00:00",
+                "timeMetadataIndex": 10,
+                "quote": "#节点 #香港\nHK节点1、2节点恢复"
+              }
+            ]
+          }
+        ]
+      },
+      "ref": {
+        "sourceId": "FRESH-GAP-A196-DOMAIN-DECLARATION",
+        "file": "work/performance-20261112-fifteenth/status-originals/A196-biubiugroup-domain-declaration.json",
+        "fileSha256": "0c8869b3d972543d52c54e4e408569a00056920582b1a4d2391a6fb0d1cd4aad",
+        "bodySha256": "f91e43c3a7dc925c93bda30217929e155f7f237bd6985b0b60471f75e65125b7",
+        "url": "https://t.me/s/biubiugroup?q=biubiux.online",
+        "observedAt": "2026-11-12T03:09:51.250Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "selected": {
+        "postUrl": "https://t.me/biubiugroup/362",
+        "date": "2025-10-29T08:00:49+00:00",
+        "datePrecision": "second",
+        "quote": "重要公告：域名更换通知\n\n原域名到期也因被墙准备弃用，我们将正式弃用原域名请您从此日起使用我们的新域名biubiux.online访问服务。\n\n同时，您也可以随时通过发布页biubiu.info获取我们最新的域名信息，以确保访问不中断。感谢您一直以来的支持与信任！\n\nImportant Announcement: Domain Change Notice\n\nOur original domain has expired and will be discontinued due to being blocked. We will officially cease using the original domain. Please use our new domain biubiux.online to access our services starting today.\n\nAdditionally, you may always check our latest domain information via the release page at biubiu.info to ensure uninterrupted access. Thank you for your continued support and trust!",
+        "timeMetadataIndex": 0
+      },
+      "websiteScopeRef": {
+        "sourceId": "CORE-AUTH-BIUBIU-B250-PLAN-CARDS-COMPLETE",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch250/raw/core-auth-biubiu-b250-plan-cards-complete-69d25cf1b83b.json",
+        "fileSha256": "69d25cf1b83bec23711968e1cd1cd04a3affa58e88dc7b8be23047ef079f3f02",
+        "url": "https://biubiux.online/#/plan",
+        "observedAt": "2026-10-28T23:39:28.074Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "456b03030c8cc54980c1bb4dddb2027855b409d61633ccae8c4a9a6a49e82831"
+      }
+    },
+    {
+      "recordId": "A173",
+      "name": "速界",
+      "kind": "operator_announcement_date",
+      "ref": {
+        "sourceId": "CORE-AUTH-SPEEDWORLD-B20-NOTICE",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch20/raw/core-auth-speedworld-b20-notice-ca42ffa47583.json",
+        "fileSha256": "ca42ffa4758305666c6bf57ca68dc26232f93b12a80791518d9061da845487ed",
+        "url": "https://binfk.szjtfp.xyz/#/dashboard",
+        "observedAt": "2026-10-26T18:12:11.535Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "5dcf5c97a25e7c7668b9a0c14280553e1f02936cf9fb616b58641876dedae3c2"
+      },
+      "identityRef": {
+        "sourceId": "CORE-PUBLIC-SPEEDWORLD-B20-LOGIN",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch20/raw/core-public-speedworld-b20-login-d552ece926a9.json",
+        "fileSha256": "d552ece926a9e104c96c17edd07b11cfe979983f1b241d2f02d20d8a79aa3884",
+        "url": "https://binfk.szjtfp.xyz/#/login",
+        "observedAt": "2026-10-26T18:10:50.957Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "89acbe1b5afbc958ee48d06b331f406a32ffe5de42e2689ea1b5e40daac4588d"
+      },
+      "currentOfficialUrlAtReview": "https://binfk.szjtfp.xyz/",
+      "selected": {
+        "date": "2026-10-19",
+        "datePrecision": "day",
+        "dateQuote": "2026年10月19日",
+        "quote": "由于遇到恶意攻击，节点抢修已经结束，所有节点都正常"
+      }
+    }
+  ]
+}

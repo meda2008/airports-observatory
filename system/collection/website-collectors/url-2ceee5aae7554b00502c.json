@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-2ceee5aae7554b00502c",
+  "origin": "https://888.youtu7.shop",
+  "recordIds": [
+    "A206"
+  ],
+  "entryUrls": [
+    "https://888.youtu7.shop/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "fields": [
+        "website",
+        "pricing",
+        "payment",
+        "refund"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://888.youtu7.shop",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "f8965f98e71e12b0a443f8353bbf1495127e89e6c860316338adefd313e6f5fa",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

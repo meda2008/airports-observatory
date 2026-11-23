@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "qualification": "Pinned actual scoped historical operator defects and own native post times; no measured uptime.",
+  "profiles": [
+    {
+      "recordId": "A039",
+      "name": "赔钱机场",
+      "channel": "peiqianjichangpd",
+      "url": "https://t.me/s/peiqianjichangpd?before=84",
+      "currentOfficialUrlAtReview": "https://xn--mes358aby2apfg.com/",
+      "ref": {
+        "sourceId": "NEXT-GAP-A039-20261112-STATUS",
+        "file": "work/performance-20261112-sixteenth/status-originals/A039-telegram-before84.json",
+        "fileSha256": "6c0e8674bab524272eebc1818185f38da34c11cb90878ceceedb2e0ef7e7e726",
+        "bodySha256": "4a3bcdc2587bf83db37e674221dc9599d7ffa74abd0676aed0c1570037cd0dae",
+        "url": "https://t.me/s/peiqianjichangpd?before=84",
+        "observedAt": "2026-11-12T04:12:17.579Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "NEXT-GAP-A039-20261112-CURRENT-CHANNEL",
+        "file": "work/performance-20261112-sixteenth/status-originals/A039-current-channel-announcement.json",
+        "fileSha256": "03c3649f4afe1c3450364e079b58f1d457d8287274fef27433fa05cc3d3fc025",
+        "bodySha256": "b78581c9d1b7f50621efb5c4de4e8c215782960ef6faf9bc38be863056047995",
+        "url": "https://xn--mes358aby2apfg.com/dashboard",
+        "observedAt": "2026-11-12T04:11:48.201Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityLink": {
+        "index": 17,
+        "url": "https://t.me/peiqianjichangpd",
+        "label": "https://t.me/peiqianjichangpd"
+      },
+      "identityBinding": {
+        "kind": "native_anchor_href"
+      },
+      "channelOfficialLink": {
+        "url": "https://xn--mes358aby2apfg.com/",
+        "label": "https://赔钱机场.com"
+      },
+      "identityQualification": "current_registered_origin_native_channel_link_native_exact_current_host_backlink_no_legal_continuity",
+      "events": [
+        {
+          "post": 63,
+          "kind": "operator_degradation_statement",
+          "scope": "站方称之前无效的日本线路，未说明具体节点、样本或起止时刻；同帖称已砍掉这些线路",
+          "summary": "站方在更新通知中称已砍掉之前日本无效线路。只保留线路无效与移除处置的自述。",
+          "permalink": "https://t.me/peiqianjichangpd/63",
+          "dateTime": "2024-02-06T01:18:04+00:00",
+          "timeMetadataIndex": 2,
+          "quote": "赔钱官网更新线路通知\n请更新订阅~请更新订阅~请更新订阅~请更新订阅~请更新订阅~\n1.砍掉之前日本无效线路增加线路稳定性,替换亚马逊落地采用,添加额外新加坡线路。\n2.添加大量地区hy2线路支持。\n3.增加vless线路稳定性质量，速度提升更明显~\n4.官网升级改动。\n\n再说一遍优惠码，六折优惠：饺子，本月29号到期，别掐日期买了\n请一定要更新最新版软件\n最后预祝大家新年快乐！",
+          "relatedStatements": []
+        },
+        {
+          "post": 65,
+          "kind": "operator_recovery_statement",
+          "scope": "个别用户流量未重置的后台功能问题；同帖称官网升级时已修复",
+          "summary": "站方称官网升级修复了个别用户流量未重置问题；修复完成时刻及用户数未知。",
+          "permalink": "https://t.me/peiqianjichangpd/65",
+          "dateTime": "2024-04-23T22:07:43+00:00",
+          "timeMetadataIndex": 3,
+          "quote": "1.因添加大量节点，添加了更多地区和带宽冗余，机场成本有所增加。为了让机场长期发展下去，对于月年付套餐涨价30%-50%，个别月年付套餐50%浮动涨价，一次性套餐涨价20%-30%，除\"（顶级王冠永久无限流量订阅）\"套餐未涨价，还请各位谅解。\n2.为了提前预祝五一节，加上群反馈，本次提前做五折优惠，相当于没涨价前，月年付套餐优惠6.5-7.5折，一次性套餐优惠6-6.5折，这也是最后一次大力优惠到五折。\n3.官网升级改动，修复了个别用户流量未重置问题。\n4.升级了hy2后端，尽量避免断流问题，速度得到50%提升。\n\n五折不限次数优惠：五一优惠\n本次五折优惠持续到下个月底，一轮机器续费期，还请各位多多支持赔钱机场。",
+          "relatedStatements": []
+        }
+      ],
+      "additionalLimitations": [
+        "/63只涉及站方称之前无效的日本线路及移除处置；不据此推断全部日本节点同时中断、起始日或其余地区故障。",
+        "/65只保留个别用户流量未重置的后台功能错误与站方修复自述；并非全站连接故障，hy2避免断流和速度提升宣传不纳入测量。"
+      ]
+    }
+  ]
+}

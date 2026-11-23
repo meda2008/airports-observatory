@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A206",
+  "name": "悠兔 (Youtu Shop)",
+  "entryUrl": "https://888.youtu7.shop/plan",
+  "entrySource": "retained_shared_official_entry_selector_and_current_user_session",
+  "allowedHosts": [
+    "111.youtu6.shop",
+    "888.youtu7.shop"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Shared youtunice.com selector lists known 111.youtu6.shop and current 888.youtu7.shop. Current business session, 12 quotes, two checkout channels and no-refund notice observed; no independent operator-identity verification.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/888-youtu7-shop.cjs",
+    "fields": [
+      "website",
+      "pricing",
+      "payment",
+      "refund"
+    ],
+    "status": "literal_sources_reviewed_and_local_admitted",
+    "automaticPublication": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "youtu-kuromis-20261104-v5",
+    "status": "pricing_payment_refund_reviewed_local_admitted",
+    "receipt": "work/collection-runs/youtu-kuromis-20261104-v5/review/admission-receipts.json",
+    "newOrdersCreated": 1,
+    "paymentExecuted": false,
+    "cancellationConfirmed": true,
+    "next": "Reuse confirmed channels and refund clause; never recreate an order merely to repeat known evidence."
+  },
+  "entryRecovery": {
+    "runId": "youtu-alternate-20261104-v4",
+    "status": "current_alternate_session_successfully_collected",
+    "candidateUrl": "https://888.youtu7.shop/login",
+    "publisherUrl": "https://youtunice.com/",
+    "sourceFiles": [
+      "work/collection-runs/financial-chrome-20261104-v3/originals/Youtu-native-alternate-login-ready-cfca7b5140ee.json",
+      "work/collection-runs/financial-chrome-20261104-v3/originals/Youtu-alternate-permanent-publisher-18db73a04400.json",
+      "work/collection-runs/financial-chrome-20261104-v3/originals/Youtu-publisher-before-auto-redirect-33ab2f6ebb40.json"
+    ],
+    "credentialPropagationAllowed": false,
+    "next": "Use existing session only. New credential submissions remain origin- and action-scoped.",
+    "authorizationReceipt": "work/collection-runs/youtu-alternate-20261104-v4/authorization.json"
+  },
+  "recoveryMethod": {
+    "nativeNavigation": "Observed menu click; hard navigation to profile reset to dashboard.",
+    "nativeCapture": "Full native AX required; reject diffs or no-change results.",
+    "coordinates": "After cycle selection, recapture screenshot because current-selection panel moves order button.",
+    "orderPreflight": "Existing orders empty and profile wallet zero were observed before the one temporary order.",
+    "paymentCapture": "Channels available before 去支付; never clicked 去支付.",
+    "cleanup": "Cancel, confirm, wait for explicit 已取消, retain separate terminal receipt.",
+    "domFallback": "Browser Playwright CDP timed out; native AX/screenshot controls exercised. Server Playwright path not revalidated."
+  },
+  "collectPerformanceReferences": true
+}

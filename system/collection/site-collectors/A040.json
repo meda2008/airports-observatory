@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A040",
+  "name": "ofoNET (小黄车)",
+  "entryUrl": "https://ofosg.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "ofosg.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存入口当前显示ofoNET，使用保存账号成功登录；法律主体及连续经营未核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "readOnlyRecipe": "ofo_configuration_cycles",
+  "websiteCollectorId": "url-56e314d3d6fc3262ab9b",
+  "collectPerformanceReferences": true
+}

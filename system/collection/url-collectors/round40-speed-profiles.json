@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A023",
+      "url": "https://bwgjms.com/post/justmysocks-speed-test/",
+      "publisher": "搬瓦工 JMS 机场（非官方评测站）",
+      "articleTitle": "Just My Socks 速度测试",
+      "articlePublicationLocalTime": "2019-03-18 17:53",
+      "articlePublishedDate": "2019-03-18",
+      "initialSourceObservedAt": "2026-11-14T14:23:07.415Z",
+      "nativeTutorialUrl": "https://bwgjms.com/post/how-to-buy-justmysocks/",
+      "currentOfficialOrigin": "https://justmysocks.net",
+      "reviewedOfficialOrigins": [
+        "https://justmysocks.net",
+        "https://justmysocks5.net"
+      ],
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "role": "publisher_tutorial",
+          "url": "https://bwgjms.com/post/how-to-buy-justmysocks/",
+          "observedAt": "2026-11-14T14:27:02.617Z",
+          "bodySha256": "225df5d474d997c207a6c2c1d7f2b452e6dc74a919ea4a393f5205ea615a78ed",
+          "nativeOutboundUrl": "https://by.affpass.com/go/jms"
+        },
+        {
+          "role": "native_destination",
+          "url": "https://by.affpass.com/go/jms",
+          "observedAt": "2026-11-14T14:30:06.547Z",
+          "destinationUrl": "https://justmysocks5.net/members/cart.php?gid=1"
+        },
+        {
+          "role": "current_official",
+          "url": "https://justmysocks5.net/members/cart.php?gid=1",
+          "observedAt": "2026-11-14T14:30:06.547Z",
+          "bodySha256": "f0550c0d3b2ebefc98097c4d41ad93f4d54061ac2131749c62865843c1eb3d41"
+        }
+      ],
+      "identityLimitation": "当前发布者原生教程与已读官方备用命名空间关联；不证明2019经营者、历史线路或法律连续性。"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+'use strict';
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+test('replacement compose has exactly three isolated roles and a single business volume', () => {
+  const compose = fs.readFileSync(path.join(root,'deploy-service/compose.three-services.yaml'),'utf8');
+  const services = compose.split('services:\n')[1].split('\nvolumes:')[0];
+  assert.deepEqual([...services.matchAll(/^  ([\w-]+):$/gm)].map(match => match[1]), ['api','collector','web']);
+  const api = services.split('  api:')[1].split('\n  collector:')[0];
+  const collector = services.split('  collector:')[1].split('\n  web:')[0];
+  const web = services.split('  web:')[1];
+  assert.match(api,/STORE_FILE: \/data\/airports\.sqlite/);
+  assert.match(api,/MEASUREMENT_STORE_FILE: \/data\/airports\.sqlite/);
+  assert.match(api,/- airports-data:\/data/);
+  assert.match(api,/user: "1000:1000"/);
+  assert.match(api,/SINGLE_DATABASE: "true"/);
+  assert.match(api,/networks: \[backend\]/);
+  assert.match(collector,/networks: \[backend, egress\]/);
+  assert.match(web,/networks: \[backend, ingress\]/);
+  const networks=compose.split('\nnetworks:\n')[1];
+  assert.match(networks,/  backend:\n    internal: true/);
+  assert.match(networks,/  ingress:\s*$/);
+  assert.doesNotMatch(networks.split('  ingress:')[1],/internal: true/);
+  assert.doesNotMatch(collector+web,/airports-data|sqlite|docker\.sock|network_mode/);
+  assert.equal((services.match(/ports:/g)||[]).length,1);
+  assert.match(web,/127\.0\.0\.1:\$\{WEB_PORT:-8081\}:8080/);
+  assert.doesNotMatch(web,/volumes:|TOKEN|SECRET|env_file/);
+  assert.equal((services.match(/pull_policy: never/g)||[]).length,3);
+  assert.match(collector,/COLLECTOR_OUTBOX_DIR: \/collector-state\/outbox/);
+  assert.doesNotMatch(collector,/COLLECTION_ENABLED:|MEASUREMENT_ENABLED:/);
+  const mounts=[...services.matchAll(/      - type: bind\n([\s\S]*?)(?=      - type: bind|    depends_on:|    networks:)/g)];
+  assert.equal(mounts.length,7);
+  for(const mount of mounts){assert.match(mount[1],/read_only: true/);assert.match(mount[1],/create_host_path: false/);}
+  assert.match(fs.readFileSync(path.join(root,'deploy-service/Dockerfile'),'utf8'),/COPY deploy-service\/three-services \/app\/deploy-service\/three-services/);
+});

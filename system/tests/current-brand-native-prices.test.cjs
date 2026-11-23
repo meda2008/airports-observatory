@@ -1,0 +1,16 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),crypto=require('crypto'),p=require('../collection/url-collectors/current-brand-native-plans.cjs');
+const load=id=>JSON.parse(fs.readFileSync('tests/fixtures/'+id+'-native-prices-20261120.json','utf8').replace(/^\uFEFF/,''));
+for(const[id,count,products,min]of [['A149',27,7,25],['A150',29,9,20]])test(id+' retained real API, client units and brand proof produce only qualified current cycle amounts',()=>{
+ const docs=load(id),s=docs.find(s=>s.url.endsWith('/user/plan/fetch')),x=p.extract(s,{recordId:id,observations:docs,prior:{pricing:{plans:[{name:'old not revalidated',amount:1,billingPeriod:'年付'}]}}});assert(x);assert.equal(x.pricing.plans.length,count);assert.equal(x.pricing.observedProductCount,products);assert.equal(x.pricing.plans[0].amount,min);assert.equal(x.pricing.plans[0].billingPeriod,'月付');assert.equal(x.pricing.priorPlansNotRevalidated.length,1);assert.equal(x.speed,undefined);assert.equal(x.stability,undefined);assert.equal(x.website.operatorIdentityVerified,false);assert.deepEqual(x.website.unverifiedLegacyRecordIds,[id==='A149'?'A043':'A152']);
+ for(const q of x.pricing.plans){assert.equal(q.amount,q.apiUnits.rawValue/100);assert.equal(q.currency,null);assert.equal(q.checkoutVerified,false);assert.notEqual(q.apiUnits.priceField,'reset_price');assert.equal(q.quote,s.body.slice(q.sourceLocator.start,q.sourceLocator.end));assert.equal(q.sourceLocator.quoteSha256,crypto.createHash('sha256').update(q.quote).digest('hex'));assert.equal(q.observedAt,s.observedAt);}
+ if(id==='A150'){const q=x.pricing.plans.find(q=>q.nativePlanId===7);assert.equal(q.quotaConflict.apiRawValue,59);assert.equal(q.quotaConflict.advertisedAmount,60);assert(q.quota.includes('待核'));}
+ assert.equal(p.extract(s,{recordId:id==='A149'?'A043':'A152',observations:docs}),null);
+});
+test('missing/changed client unit or brand and unauthenticated material are rejected; legitimate new API prices remain dynamic',()=>{
+ const docs=load('A149'),s=docs.find(s=>s.url.endsWith('/user/plan/fetch')),ctx={recordId:'A149',observations:docs};assert.equal(p.extract({...s,metadata:{...s.metadata,authenticationObserved:false}},ctx),null);assert.equal(p.extract(s,{...ctx,observations:docs.filter(o=>!o.url.endsWith('.js'))}),null);
+ const bad=docs.map(o=>o.url.endsWith('/guest/comm/config')?{...o,body:JSON.stringify({data:{title:'other brand',app_url:'https://wrong.example'}})}:o);assert.equal(p.extract(s,{...ctx,observations:bad}),null);
+ const value=JSON.parse(s.body),row=value.data.find(v=>v.month_price===2500);row.month_price=2600;const x=p.extract({...s,body:JSON.stringify(value)},ctx);assert(x.pricing.plans.some(q=>q.nativePlanId===row.id&&q.billingPeriod==='月付'&&q.amount===26));row.month_price=-1;assert.equal(p.extract({...s,body:JSON.stringify(value)},ctx),null);
+});
+
+test('custom minimum stays distinct from fixed private line total',()=>{for(const id of ['A149','A150']){const docs=load(id),s=docs.find(s=>s.url.endsWith('/user/plan/fetch')),x=p.extract(s,{recordId:id,observations:docs}),q=x.pricing.plans.find(q=>q.amount===680);assert(q);assert.equal(q.customQuote===true,id==='A149');assert.equal(q.amountBasis,id==='A149'?'advertised_starting_price_not_period_total':'original_billing_period_total');}});

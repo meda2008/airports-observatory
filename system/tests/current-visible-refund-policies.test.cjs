@@ -1,0 +1,4 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),p=require('../collection/url-collectors/current-visible-refund-policies.cjs');
+for(const id of ['A015','A018'])test(id+' binds original current terms and retains exceptions',()=>{const s=require('./fixtures/refund-'+id+'-20261117.json'),r=p.extract(s,{recordId:id});assert.ok(r.refund.summary);assert.equal(s.body.slice(r.refund.sourceLocator.start,r.refund.sourceLocator.end),r.refund.quote);assert.equal(r.refund.executionVerified,false);assert.equal(r.refund.observedAt,s.observedAt);for(const patch of [{url:'https://thirdparty.invalid/terms'},{passwordForm:true},{evidenceId:null},{body:s.body.replaceAll(id==='A015'?'Where plan management explicitly offers a return of an unused plan to balance':'6.5 重复扣款','removed essential exception')}])assert.equal(p.extract({...s,...patch},{recordId:id}),null);});
+

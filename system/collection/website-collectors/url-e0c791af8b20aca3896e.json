@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-e0c791af8b20aca3896e",
+  "origin": "https://nxonearth.com",
+  "recordIds": [
+    "A002"
+  ],
+  "entryUrls": [
+    "https://nxonearth.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nxonearth.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "d884d0dc6055015e6b6a71363cdb2c55cdbd6c85aa51c803d3053b4b38a3c27c",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

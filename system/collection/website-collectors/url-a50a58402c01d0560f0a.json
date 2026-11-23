@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a50a58402c01d0560f0a",
+  "origin": "https://a66.jf033.com",
+  "recordIds": [
+    "A084"
+  ],
+  "entryUrls": [
+    "https://a66.jf033.com/user/shop"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://a66.jf033.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "94fd41fd0de1c3d89c55118ee2c1129ebf36b7967c453bf8e4b8463767e6a123",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://a02.yfy02.com/api/v1/user/order/getPaymentMethod",
+  "body": "{\"status\":\"success\",\"message\":\"\\u64cd\\u4f5c\\u6210\\u529f\",\"data\":[{\"id\":26,\"name\":\"\\u652f\\u4ed8\\u5b9d\\uff08\\u65b0\\u4eba\\u51cf\\u514d\\uff1a\\u6700\\u5c111\\u5143\\uff0c\\u6700\\u9ad8\\u5168\\u989d\\u51cf\\u514d\\uff09\",\"payment\":\"EPay\",\"icon\":\"http:\\/\\/yangfanyun.net\\/file.svg\",\"handling_fee_fixed\":0,\"handling_fee_percent\":\"0.00\"},{\"id\":21,\"name\":\"\\u5fae\\u4fe1\\u652f\\u4ed8\",\"payment\":\"EPay\",\"icon\":\"http:\\/\\/yangfanyun.net\\/file.svg\",\"handling_fee_fixed\":0,\"handling_fee_percent\":\"0.00\"}],\"error\":null}",
+  "observedAt": "2026-11-23T05:49:55.212Z",
+  "kind": "authorized_account_page",
+  "metadata": {
+    "representation": "original_native_payment_methods_json",
+    "authenticationObserved": true
+  }
+}

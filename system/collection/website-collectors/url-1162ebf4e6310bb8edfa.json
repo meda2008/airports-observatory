@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-1162ebf4e6310bb8edfa",
+  "origin": "https://fdsh.kuajiecloudtttt.xyz",
+  "recordIds": [
+    "A162"
+  ],
+  "entryUrls": [
+    "https://fdsh.kuajiecloudtttt.xyz/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A162"
+      ],
+      "fields": [
+        "promotions"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://fdsh.kuajiecloudtttt.xyz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "cb74297f3a5260afe753fb9d47680131387547856ffcdb3ed9eba93537840eb5",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

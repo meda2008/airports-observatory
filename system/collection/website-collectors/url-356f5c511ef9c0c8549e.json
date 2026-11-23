@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-356f5c511ef9c0c8549e",
+  "origin": "https://ehju.flyvastt.lol",
+  "recordIds": [
+    "A178"
+  ],
+  "entryUrls": [
+    "https://ehju.flyvastt.lol/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A178"
+      ],
+      "fields": [
+        "compatibility",
+        "promotions"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ehju.flyvastt.lol",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "efa186cc02960d3647bf3ff8e8f0bf563f30008a08ff496a4d29e0736760fdbf",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

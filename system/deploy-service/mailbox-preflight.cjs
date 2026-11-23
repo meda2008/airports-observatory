@@ -1,0 +1,2 @@
+'use strict';
+(async()=>{const file=process.argv[2]||process.env.GMAIL_READONLY_CONFIG_FILE;try{await require('./gmail-readonly-code.cjs').createProvider({file}).prepare({siteId:'A001',origin:'https://b8cfff2a4jquxdbmwbaj.wgetcloud.org',recipient:'collector@example.invalid'});console.log(JSON.stringify({status:'mailbox_readonly_identity_verified',messagesRead:0,secretsExported:false}));}catch(e){console.log(JSON.stringify({status:/^mailbox_[a-z0-9_]+$/.test(e.message)?e.message:'mailbox_preflight_failed',messagesRead:0,secretsExported:false}));process.exitCode=2;}})();

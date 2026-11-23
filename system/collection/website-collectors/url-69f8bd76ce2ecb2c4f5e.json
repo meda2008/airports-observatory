@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-69f8bd76ce2ecb2c4f5e",
+  "origin": "https://fly.fireflyxx.cfd",
+  "recordIds": [
+    "A163"
+  ],
+  "entryUrls": [
+    "https://fly.fireflyxx.cfd/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://fly.fireflyxx.cfd",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "23e970b9c17a69e54f1c63a0037e95a0a8851a6e19815f9222b6f61cf10415ca",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

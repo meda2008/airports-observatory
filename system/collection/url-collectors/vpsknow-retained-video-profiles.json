@@ -1,0 +1,46 @@
+{
+  "profiles": [
+    {
+      "recordId": "A051",
+      "url": "https://vpsknow.com/reviews/airports/tntcloud-airport-review/",
+      "identityQualified": false,
+      "identityQualification": "same_named_reviewed_native_current_official_namespace",
+      "reviewedOfficialOrigins": [],
+      "identityProofs": [],
+      "holdReason": "Current candidate tntvipaffb01.cc differs from reviewed recommendation destination web01.tntyun.cc; no verified namespace continuity bridge."
+    },
+    {
+      "recordId": "A017",
+      "url": "https://vpsknow.com/reviews/airports/mesl-airport-review/",
+      "identityQualified": true,
+      "identityQualification": "same_named_reviewed_native_current_official_namespace",
+      "reviewedOfficialOrigins": [
+        "https://in.mesl.cloud"
+      ],
+      "identityProofs": [
+        {
+          "file": "work/performance-20261112-twelfth/live/mesl-native-link-proof.json",
+          "fileSha256": "95735c31ef581733c66fab767df2137086da28b6fa415976430514b3d1a8bb99",
+          "bodySha256": "95735c31ef581733c66fab767df2137086da28b6fa415976430514b3d1a8bb99",
+          "url": "https://vpsknow.com/reviews/airports/mesl-airport-review/",
+          "observedAt": "2026-11-11T17:43:41.916Z",
+          "captureClock": "2026-11-11T17:43:41.916Z",
+          "representation": "builtin_browser_metadata_json",
+          "proofRole": "native_review_official_link"
+        },
+        {
+          "file": "work/performance-20261112-twelfth/live/mesl-official-destination.json",
+          "fileSha256": "856c760bec99ff01e1266ec5fcdc68c651f152e2049119bd914b547e519fbee7",
+          "bodySha256": "856c760bec99ff01e1266ec5fcdc68c651f152e2049119bd914b547e519fbee7",
+          "url": "https://in.mesl.cloud/#/register?code=xg5hqMFI",
+          "observedAt": "2026-11-11T17:46:43.476Z",
+          "captureClock": "2026-11-11T17:46:43.476Z",
+          "representation": "builtin_browser_metadata_json",
+          "proofRole": "reviewed_official_destination"
+        }
+      ],
+      "nativeOfficialHref": "https://go.uukk.de/mesl",
+      "reviewedDestinationUrl": "https://in.mesl.cloud/#/register?code=xg5hqMFI"
+    }
+  ]
+}

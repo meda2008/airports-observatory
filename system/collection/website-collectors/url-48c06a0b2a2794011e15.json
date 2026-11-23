@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-48c06a0b2a2794011e15",
+  "origin": "https://oknbg.fjumpy.mom",
+  "recordIds": [
+    "A161"
+  ],
+  "entryUrls": [
+    "https://oknbg.fjumpy.mom/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://oknbg.fjumpy.mom",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "59b353528234f232b849c2db93c6e387250bb4072baf78002b3285d6af9f987c",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A080",
+  "name": "夜煞云 (Night Furyx)",
+  "entryUrl": "https://mm.goyesha.com/",
+  "entrySource": "retained_publisher_ev-19cc1ed09276973e7559c3a82a97280b6671f01775a5826acd3c31ef09927bd2",
+  "allowedHosts": [
+    "mm.goyesha.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 5,
+  "enabled": true,
+  "eligibility": "current_origin_normal_gate_cold_warm_pricing_review_public_frontend_verified",
+  "reason": "发布页列出的mm入口，正常可见验证、账号会话、异步公告关闭、套餐菜单与五档原周期报价已实跑复核。历史主体连续未独立证明。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website",
+    "payment"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "validateWhileDisabled": true,
+  "priorEntryBeforeRecovery20261120": "https://www.night-furyx.com/index.php",
+  "publicOnly": false,
+  "readOnlyRecipe": "night_owned_native_app_readonly",
+  "collectPerformanceReferences": false,
+  "accountReadOnly": true,
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/yeshayun-current-plans.cjs",
+    "fields": [
+      "pricing",
+      "website"
+    ],
+    "status": "live_current_authenticated_catalog_reviewed_and_cached_session_verified",
+    "automaticPublication": false
+  },
+  "acceptance": {
+    "version": "v265",
+    "coldRunId": "a28632c8-dd26-48f5-aaec-6a1ca964ca3e",
+    "parsedSourceRunId": "2a6e91cb-06fb-46f6-a747-850a6aeb1f7d",
+    "repeatWarmRunId": "c4353017-9994-4b27-9553-ddbc248a3036",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795188471551/receipt.json",
+    "weeklyReceipt": "/data/recovery-receipts/A080-v265-weekly-enabled.json"
+  },
+  "recoveryAcceptanceV351": {
+    "status": "real_combined_warm_literal_review_anonymous_frontend_and_checkpoint_scope_passed_weekly_enabled",
+    "collectorVersion": "v353",
+    "apiVersion": "v354",
+    "runId": "a04b5954-4015-46e5-adeb-2d5e4f4e833a",
+    "fields": [
+      "pricing",
+      "website",
+      "payment"
+    ],
+    "evidenceReuseRequired": true,
+    "historicalCheckpointsPreserved": true,
+    "ordersCreated": 0,
+    "paymentExecuted": false
+  }
+}

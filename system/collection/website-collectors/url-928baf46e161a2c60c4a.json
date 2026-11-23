@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-928baf46e161a2c60c4a",
+  "origin": "https://oixcloud.com",
+  "recordIds": [
+    "A015",
+    "A184"
+  ],
+  "entryUrls": [
+    "https://oixcloud.com/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A015",
+        "A184"
+      ],
+      "fields": [
+        "pricing",
+        "payment",
+        "refund",
+        "privacy",
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": "oix_store_or_financial_readonly_no_order",
+    "auth": {
+      "mode": "existing_session_or_public_only",
+      "automaticCredentialSubmissionAllowed": false
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://oixcloud.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e98e1e76d246421a28364d00f5eb9062e1e5d810fd1a0273dbf3189e0a6045c2",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

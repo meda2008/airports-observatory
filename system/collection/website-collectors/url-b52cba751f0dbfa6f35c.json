@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b52cba751f0dbfa6f35c",
+  "origin": "https://hjusdr.u1sat.my",
+  "recordIds": [
+    "A179"
+  ],
+  "entryUrls": [
+    "https://hjusdr.u1sat.my/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://hjusdr.u1sat.my",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e84cfc655b055093800254a4eedb93855efe0b2d33f7ee060248f7901247005f",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

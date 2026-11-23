@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-25404893e52af4f7cfbb",
+  "origin": "https://711-cloud.net",
+  "recordIds": [
+    "A038"
+  ],
+  "entryUrls": [
+    "https://711-cloud.net/"
+  ],
+  "capabilities": {
+    "literalParser": "collection/url-collectors/linkcube-public-plans.cjs",
+    "readOnlyRecipe": "linkcube_public_marketing_readonly",
+    "auth": null,
+    "authStatus": "record_scoped_credentials_not_copied",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://711-cloud.net",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "2257553c44526c5aa520a1fdaca749db6e35064b13b68885492359c1abd86e9f",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,46 @@
+{
+  "siteId": "A061",
+  "revision": 9,
+  "config": {
+    "recordId": "A061",
+    "name": "小旋风 (XXF)",
+    "entryUrl": "https://a01.xxfaffa01.cc/#/store",
+    "allowedHosts": [
+      "a01.xxfaffa01.cc"
+    ],
+    "adapter": "generic",
+    "maxPages": 5,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions",
+      "speed",
+      "operatingHistory"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "knowledgeAdapter": true,
+    "urlCollector": {
+      "id": "url-64bb9116b9e4a3063eb8",
+      "status": "empty_document",
+      "lastAttemptAt": "2026-11-02T14:32:21.068Z",
+      "completedAllFields": false
+    },
+    "websiteCollectorId": "url-bb6ef50de6dab5c4183f",
+    "auth": {
+      "mode": "login",
+      "discoverFromVisibleForm": true,
+      "successSelector": "text=/^(User Center|个人中心)$/"
+    },
+    "readiness": {
+      "selector": "text=/每月可用流量：/",
+      "timeoutMs": 15000
+    },
+    "collectPerformanceReferences": true,
+    "reconcileVerifiedCheckpoints": true
+  }
+}

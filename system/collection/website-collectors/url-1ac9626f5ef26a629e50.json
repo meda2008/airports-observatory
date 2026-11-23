@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-1ac9626f5ef26a629e50",
+  "origin": "https://ccount.biubiu.club",
+  "recordIds": [
+    "A196"
+  ],
+  "entryUrls": [
+    "https://ccount.biubiu.club/#/login",
+    "https://ccount.biubiu.club/#/plan"
+  ],
+  "capabilities": {
+    "literalParser": "biubiu-current-plans",
+    "readOnlyRecipe": "biubiu_authorized_login_readonly",
+    "auth": null,
+    "authStatus": "desktop_user_verified_catalog_observed_server_login_not_verified",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ccount.biubiu.club",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": true
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "b21637d4a265e716edf72cebe53447cf2a04183a3ecec48edc67fefbc49d8049",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

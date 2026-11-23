@@ -1,0 +1,171 @@
+{
+  "at": "2026-11-14T01:49:24.311Z",
+  "status": "VERIFIED_LINUX_BINARY_CONTAINER_VERSION_PASSED_NOT_ROUTE_TEST",
+  "officialAsset": {
+    "url": "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.34/mihomo-linux-amd64-compatible-v1.19.34.gz",
+    "expectedSha256": "2763f5b414527f7baf6dc57e3f82f3ab561eedf34bfd7c2f2cde1f7e592efe06",
+    "expectedDigestProvenance": "root supplied exact SHA from IAB native official release listing; not independently re-browsed by this subagent",
+    "httpStatusObserved": 200,
+    "downloadExitCode": 0,
+    "archiveBytes": 22766457,
+    "archiveSha256": "2763f5b414527f7baf6dc57e3f82f3ab561eedf34bfd7c2f2cde1f7e592efe06",
+    "strictHashMatched": true,
+    "downloadLog": {
+      "file": "deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/download-attempt-1.log",
+      "fileSha256": "1dfb60ef067bb6b4509fe901e3b2262abf2280089bb6bdbf48ce706619b8ef9e"
+    },
+    "archiveFilesystemModifiedAt": "2026-11-14T01:42:37.394Z",
+    "filesystemClockIsNotServerPublication": true
+  },
+  "runtime": {
+    "directory": "deploy-service/data/measurement-runtime/linux-runtime/v1.19.34",
+    "binaryPath": "D:\\AI_Projects\\Airports\\deploy-service\\data\\measurement-runtime\\linux-runtime\\v1.19.34\\mihomo",
+    "binaryBytes": 61948030,
+    "binarySha256": "5b6644c487e5dffae86b0e0e9bb5cec445579a3a9d03977c09576fee2aeefc01",
+    "elf": {
+      "format": "ELF64",
+      "byteOrder": "little",
+      "machine": "x86_64"
+    },
+    "verificationRecordedAt": "2026-11-14T01:44:30.950Z",
+    "prepareExitCode": 0,
+    "prepareReceipt": {
+      "file": "deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/prepare-attempt-1.json",
+      "fileSha256": "86d203ca4682e87f95e7c98432a666be887a8476972b25abba163adeb376a8ee"
+    },
+    "retainedForLead": true,
+    "ignoredByExistingRule": "/deploy-service/data/",
+    "excludedByDockerfileSpecificContextAllowlist": true
+  },
+  "execution": {
+    "imageReference": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+    "imageRebuilt": false,
+    "proxyRegistryPullPerformed": false,
+    "containerExitCode": 0,
+    "versionOutput": "Mihomo Meta v1.19.34 linux amd64 with go1.26.11 Wed Nov 11 06:48:42 UTC 2026\r\nUse tags: with_gvisor",
+    "networkMode": "none",
+    "readOnlyRoot": true,
+    "capDrop": [
+      "ALL"
+    ],
+    "securityOpt": [
+      "no-new-privileges:true"
+    ],
+    "mounts": [
+      {
+        "type": "bind",
+        "destination": "/run/measurement-bin/mihomo",
+        "readWrite": false
+      }
+    ],
+    "portBindings": {},
+    "onlyArguments": [
+      "-v"
+    ],
+    "configurationMounted": false,
+    "subscriptionLoaded": false,
+    "databaseMounted": false,
+    "binaryBytesUnchanged": true,
+    "inspection": {
+      "file": "deploy-service/measurement-sidecar/linux-runtime-docker-inspect-20261114.json",
+      "fileSha256": "3152e9ba77a8f65d3a6e8ebe88aec052b9093516236c17b90f1c4932adf038ae"
+    },
+    "log": {
+      "file": "deploy-service/measurement-sidecar/linux-runtime-docker-version-20261114.log",
+      "fileSha256": "122ad954b29735cfab65ed24d9aaa52501ae076df6e93bcd9195d386358cb732"
+    }
+  },
+  "overlay": {
+    "file": {
+      "file": "deploy-service/measurement-sidecar/compose.native-binary.yaml",
+      "fileSha256": "383f9e33d7c0aa0baf937fb6a4ea6ec76ca95329e4371080b4f371b6fd4711ac"
+    },
+    "actualComposeConfigExitCode": 0,
+    "resolvedConfig": {
+      "file": "deploy-service/measurement-sidecar/linux-runtime-compose-resolved-20261114.json",
+      "fileSha256": "b0f363ab6b89943eaab3c5d2a00fd000e27f9e5a7ab3a2dda45278fe469a9ffa"
+    },
+    "contract": {
+      "proxyImage": "airports-observatory:real-line-readiness-20261114",
+      "proxyEntrypoint": [
+        "/run/measurement-bin/mihomo"
+      ],
+      "proxyCommand": [
+        "-d",
+        "/tmp/measurement-proxy",
+        "-f",
+        "/run/secrets/measurement-proxy/config.yaml"
+      ],
+      "proxyPorts": [],
+      "workerNamespace": "service:measurement-proxy",
+      "proxyMounts": [
+        {
+          "type": "bind",
+          "target": "/run/secrets/measurement-proxy/config.yaml",
+          "readOnly": true,
+          "createHostPath": false
+        },
+        {
+          "type": "bind",
+          "target": "/run/measurement-bin/mihomo",
+          "readOnly": true,
+          "createHostPath": false
+        }
+      ],
+      "authMount": [
+        {
+          "type": "bind",
+          "target": "/run/secrets/measurement-auth",
+          "readOnly": true,
+          "createHostPath": false
+        }
+      ]
+    }
+  },
+  "tests": {
+    "passed": 4,
+    "failed": 0,
+    "log": {
+      "file": "deploy-service/measurement-sidecar/linux-runtime-focused-20261114.log",
+      "fileSha256": "9da6fbe8a9baf432042fe0559062510194f051b0221dac008ab8b1714e59d40e"
+    }
+  },
+  "cleanup": {
+    "dockerRmExitCode": 0,
+    "containerRemoved": true,
+    "verificationExitCode": 1,
+    "verificationMessage": "error: no such object: airports-mihomo-linux-version-20261114",
+    "log": {
+      "file": "deploy-service/measurement-sidecar/linux-runtime-docker-cleanup-20261114.log",
+      "fileSha256": "547d447bb75ac8faf8da6be955972ae895d1f4ecfdc4408963f5e172068d5792"
+    },
+    "binaryAndArchiveRetained": true,
+    "otherContainersTouched": false
+  },
+  "failures": [],
+  "realRouteStarted": false,
+  "realLineMeasured": false,
+  "measurementVerified": false,
+  "mainDatabaseTouched": false,
+  "subscriptionRead": false,
+  "additionalSourceFiles": [
+    {
+      "file": "deploy-service/measurement-sidecar/prepare-linux-runtime.cjs",
+      "fileSha256": "db2034a1c8cbeb9dce9d5e642903e2a7d72988f9edd06d78edb050f1750c4361"
+    },
+    {
+      "file": "tests/measurement-linux-runtime.test.cjs",
+      "fileSha256": "387d62168fcf3c10e5169301d21f19676514d67c1659ed9f1a88060229d7f1d0"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/README.md",
+      "fileSha256": "8a4f1c6394e334ef438fcfebe6d4f3ff060de9519b9869cad366b7296e66f4c8"
+    }
+  ],
+  "limitations": [
+    "Official-source hash provenance was supplied by root IAB; this task separately verified actual downloaded bytes.",
+    "ELF and -v success establish execution compatibility in the existing production image, not proxy egress or service performance.",
+    "Overlay was parsed with inert public env and --no-env-resolution; actual private route configuration was not loaded.",
+    "Runtime files remain in the pre-existing ignored private data tree, outside the production image build context."
+  ]
+}

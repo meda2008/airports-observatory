@@ -1,0 +1,131 @@
+{
+  "accountManagementObserved": false,
+  "agreementCheckbox": false,
+  "authenticationObserved": true,
+  "blocks": [],
+  "buttons": [
+    "1",
+    "重置订阅",
+    "退出登录",
+    "余额充值",
+    "购买套餐",
+    "下载客户端",
+    "复制订阅链接",
+    "导入进 Shadowrocket",
+    "取消",
+    "前往支付"
+  ],
+  "emailInputCount": 0,
+  "formFields": [
+    {
+      "name": "",
+      "placeholder": "输入充值金额（元）",
+      "type": "number"
+    },
+    {
+      "name": "react-aria5288318969-«r3j»",
+      "placeholder": "",
+      "type": "radio"
+    },
+    {
+      "name": "react-aria5288318969-«r3j»",
+      "placeholder": "",
+      "type": "radio"
+    },
+    {
+      "name": "react-aria5288318969-«r3j»",
+      "placeholder": "",
+      "type": "radio"
+    },
+    {
+      "name": "react-aria5288318969-«r3j»",
+      "placeholder": "",
+      "type": "radio"
+    },
+    {
+      "name": "react-aria5288318969-«r3j»",
+      "placeholder": "",
+      "type": "radio"
+    }
+  ],
+  "inputValuesRead": false,
+  "links": [
+    {
+      "label": "下载",
+      "url": "https://forest-01.com/download"
+    },
+    {
+      "label": "充值",
+      "url": "https://forest-01.com/plan"
+    },
+    {
+      "label": "邀请",
+      "url": "https://forest-01.com/invite"
+    },
+    {
+      "label": "账号",
+      "url": "https://forest-01.com/profile"
+    },
+    {
+      "label": "已购独享账号",
+      "url": "https://forest-01.com/apple-id/orders"
+    },
+    {
+      "label": "服务检测",
+      "url": "https://forest-01.com/status"
+    },
+    {
+      "label": "网站政策",
+      "url": "https://forest-01.com/policy"
+    },
+    {
+      "label": "X（Twitter）",
+      "url": "https://x.com/forest_vpn"
+    },
+    {
+      "label": "常见问题",
+      "url": "https://forest-01.com/help"
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/forest_asia_bot"
+    }
+  ],
+  "passwordForm": false,
+  "passwordInputCount": 0,
+  "representation": "redacted_visible_DOM_text_not_original_HTML",
+  "text": "您好，[email redacted]\n重置订阅\n退出登录\n已购独享账号\n账户余额:\n¥0.00\n余额充值\n剩余时间\n无可用时长\n请先购买套餐\n0\nB\n剩余流量\n购买套餐\n下载客户端\n复制订阅链接\n导入进 Shadowrocket\n\n余额充值\n余额充值\n支付宝\n微信\n支付宝-微信 2\n支付宝-微信\nUSDT-Trc20\n取消\n前往支付",
+  "textInputCount": 0,
+  "timeMetadata": [],
+  "title": "Forest",
+  "verificationWidgetObserved": false,
+  "visibleDialogCount": 1,
+  "url": "https://forest-01.com/profile",
+  "capturedAt": "2026-11-03T08:15:27.358Z",
+  "walletPreview": true,
+  "paymentOptions": [
+    {
+      "checked": true,
+      "label": "支付宝"
+    },
+    {
+      "checked": false,
+      "label": "微信"
+    },
+    {
+      "checked": false,
+      "label": "支付宝-微信 2"
+    },
+    {
+      "checked": false,
+      "label": "支付宝-微信"
+    },
+    {
+      "checked": false,
+      "label": "USDT-Trc20"
+    }
+  ],
+  "dialogText": "余额充值\n余额充值\n支付宝\n微信\n支付宝-微信 2\n支付宝-微信\nUSDT-Trc20\n取消\n前往支付",
+  "paymentActionClicked": false,
+  "amountEntered": false
+}

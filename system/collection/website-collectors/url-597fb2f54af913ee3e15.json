@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-597fb2f54af913ee3e15",
+  "origin": "https://www.paopao.dog",
+  "recordIds": [
+    "A085"
+  ],
+  "entryUrls": [
+    "https://www.paopao.dog/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.paopao.dog",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "2248b0a6280f2e81e4fe081611c3a96c987265698f84a896b7990ed3d4f842cc",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

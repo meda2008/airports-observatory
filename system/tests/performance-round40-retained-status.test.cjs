@@ -1,0 +1,40 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const parser=require('../collection/url-collectors/round40-retained-status-parsers.cjs'),{sha}=require('../lib/performance-evidence.cjs'),root=path.resolve(__dirname,'..');
+function original(p){const bytes=fs.readFileSync(path.join(root,p.ref.file)),raw=JSON.parse(bytes);assert.equal(sha(bytes),p.ref.fileSha256);return{raw,body:raw.document?.text||raw.text||raw.body};}
+function observation(p){const {body}=original(p);return{url:p.url,body,observedAt:p.ref.observedAt,evidenceId:'ev-fixture-'+p.id,kind:'rendered_public_or_authorized_page',sha256:sha(body),metadata:{originalSourceId:p.ref.sourceId,retainedArtifactSha256:p.ref.fileSha256,retainedReplayVerified:true,currentCatalogHostname:p.currentCatalogHostname}};}
+function prior(p){return{website:{url:'https://'+p.currentCatalogHostname+'/'},speed:{sentinel:'retain'},stability:{status:'not_measured',reviewedIssueSignals:[{id:'old-signal',summary:'preserved'}],sourceIds:['old-source'],measured:{status:'not_confirmed',observations:[]}}};}
+test('round40 exact retained artifacts and original clocks yield three source-bound non-current facts',()=>{
+ assert.equal(parser.profiles.length,3);
+ for(const p of parser.profiles){assert.equal(p.retainedOnly,true);const o=observation(p),d=parser.diagnose(o,{recordId:p.recordId,prior:prior(p)});assert.equal(d.accepted,true,d.reasons.join(','));const f=d.facts[0].fact;assert.equal(d.facts[0].collection,'reviewedIssueSignals');assert.equal(f.observedAt,p.ref.observedAt);assert.equal(f.sourceOriginalObservedAt,p.ref.observedAt);assert.equal(f.retainedArtifactSha256,p.ref.fileSha256);assert.equal(f.bodySha256,sha(o.body));assert.deepEqual(f.sourceIds,[o.evidenceId]);assert.equal(f.current,false);assert.equal(f.independentMeasurement,false);assert.equal(f.measurementVerified,false);assert.equal(f.sourceWasRecaptured,false);assert.equal(f.retainedSourceReuse,true);assert.equal(f.newIndependentDiscovery,false);assert.equal(f.independentSourceCount,1);assert.equal(f.measurementWindow,null);assert.equal(f.durationMinutes,null);assert.equal(f.sampleCount,null);assert(!Object.hasOwn(f,'availabilityPct'));assert(!Object.hasOwn(f,'packetLossPct'));assert(o.body.includes(f.quote));}
+});
+test('round40 A042 missing year and brand conflict remain unknown; later client-scope override is retained',()=>{
+ const ps=parser.profiles.filter(p=>p.recordId==='A042');let core=prior(ps[0]);
+ for(const p of ps){const patch=parser.extract(observation(p),{recordId:p.recordId,prior:core});core={...core,...patch};}
+ const rows=core.stability.reviewedIssueSignals.filter(x=>x.id.startsWith('round40-'));assert.equal(rows.length,2);
+ for(const f of rows){assert.equal(f.createdAt,null);assert.equal(f.publishedAt,null);assert.equal(f.testedAt,null);assert.equal(f.dateEvidence.value,null);assert.equal(f.datePrecision,'month_day_time_year_unknown');assert.equal(f.currentCandidateOnly,true);assert.equal(f.currentHistoricalIdentityVerified,false);assert.equal(f.operatorIdentityVerified,false);assert.equal(f.countsAsVerifiedStability,false);assert.equal(f.configurationEffectivenessVerified,false);}
+ assert.equal(rows[0].laterNoticeOverridesEarlierClientScope,false);assert.equal(rows[1].laterNoticeOverridesEarlierClientScope,true);
+ assert(rows[1].quote.includes('此前公告中的客户端适用范围，以本公告及官网当前说明为准'));assert(rows[1].relatedStatements[0].quote.includes('导入成功也不代表 DoH 已生效'));assert.equal(rows[0].canonicalSourceGroup,rows[1].canonicalSourceGroup);
+});
+test('round40 A001 is a node denominator snapshot, never a temporal reliability estimate',()=>{
+ const p=parser.profiles.find(p=>p.recordId==='A001'),f=parser.diagnose(observation(p),{recordId:p.recordId}).facts[0].fact;
+ assert.equal(f.kind,'historical_node_connectivity_snapshot');assert.equal(f.createdAt,'2026-09-02');assert.equal(f.testedAt,'2026-09-02');assert.equal(f.reportedTimeZone,null);assert.equal(f.nativeDateTime,null);assert.equal(f.reportedNodeCount,29);assert.equal(f.reportedAvailableNodeCount,29);assert.equal(f.reportedFailedNodeCount,0);assert.equal(f.nodeCountDefinition,'publisher_reported_nodes_in_single_snapshot_not_time_samples');assert.equal(f.measurementWindowStart,null);assert.equal(f.measurementWindowEnd,null);assert(f.summary.includes('分母为节点而非时间'));assert.equal(f.currentCandidateOnly,false);
+});
+test('round40 idempotent extracts preserve existing fields and append each fact once',()=>{
+ const p=parser.profiles[0],before=prior(p),frozen=structuredClone(before),patch=parser.extract(observation(p),{recordId:p.recordId,prior:before});assert.deepEqual(before,frozen);assert.deepEqual(Object.keys(patch),['stability']);assert.deepEqual(patch.stability.measured,before.stability.measured);assert.deepEqual(patch.stability.reviewedIssueSignals[0],before.stability.reviewedIssueSignals[0]);assert.deepEqual(patch.stability.sourceIds,['old-source','ev-fixture-'+p.id]);assert.equal(parser.extract(observation(p),{recordId:p.recordId,prior:{...before,...patch}}),null);assert.equal(parser.extract(observation(p),{recordId:p.recordId,prior:{}}),null);
+});
+test('round40 wrong record, source, artifact, namespace, clock and fresh-recapture markers fail closed',()=>{
+ const p=parser.profiles[0],o=observation(p),mutations=[x=>x.metadata.originalSourceId='another-source',x=>x.metadata.retainedArtifactSha256='f'.repeat(64),x=>x.metadata.retainedReplayVerified=false,x=>x.metadata.currentCatalogHostname='another.example',x=>x.metadata.sourceWasRecaptured=true,x=>x.metadata.originalAuthenticationObserved=false,x=>x.observedAt=new Date().toISOString(),x=>x.metadata.retainedOriginalObservedAt='2026-10-27T10:45:28.845Z',x=>x.url='http://ncdn1.sntp.uk/',x=>x.url+='?tracking=1',x=>x.url+='auth/login',x=>x.evidenceId=''];
+ for(const mutate of mutations){const x=structuredClone(o);mutate(x);assert.equal(parser.diagnose(x,{recordId:p.recordId,prior:prior(p)}).accepted,false);assert.equal(parser.extract(x,{recordId:p.recordId,prior:prior(p)}),null);}
+ assert.equal(parser.diagnose(o,{recordId:'A043'}).accepted,false);assert.equal(parser.diagnose(o,{recordId:p.recordId,prior:{website:{url:'https://unbound.example/'}}}).accepted,false);
+});
+test('round40 tampered counterevidence or body fails even when request body hash is recomputed',()=>{
+ for(const p of parser.profiles){const o=observation(p);o.body=o.body.replace(p.counterquote,'');o.sha256=sha(o.body);assert.equal(parser.diagnose(o,{recordId:p.recordId}).accepted,false);const raw=observation(p);raw.bodySha256='f'.repeat(64);assert.equal(parser.diagnose(raw,{recordId:p.recordId}).accepted,false);const checkpoint=observation(p);checkpoint.kind='verification_checkpoint';assert.equal(parser.diagnose(checkpoint,{recordId:p.recordId}).accepted,false);}
+});
+test('round40 retained-only URL contracts expose no guessed route or new browser entry',()=>{
+ for(const p of parser.profiles){const r=parser.forOrigin(p.url,{recordId:p.recordId});assert(r);assert.equal(r.retainedOnly,true);assert.deepEqual(r.fields,['stability']);assert.equal(parser.forOrigin(p.url+'?next=1',{recordId:p.recordId}),null);assert.equal(parser.forOrigin(p.url,{recordId:'A999'}),null);const t=parser.sourceTargets(p.recordId,prior(p));assert(t.length);assert(t.every(x=>x.retainedOnly===true));assert(t.some(x=>x.retainedArtifactSha256===p.ref.fileSha256&&x.originalSourceId===p.ref.sourceId));}
+ assert.deepEqual(parser.sourceTargets('A001',{}),[]);assert(Object.isFrozen(parser.profiles));assert(Object.isFrozen(parser.profiles[0].ref));
+});
+test('round40 original same-instant clock formatting preserves the canonical captured timestamp',()=>{
+ const p=parser.profiles[0],o=observation(p);o.observedAt='2026-10-26T18:45:28.845+08:00';const d=parser.diagnose(o,{recordId:p.recordId});assert.equal(d.accepted,true);assert.equal(d.facts[0].fact.observedAt,'2026-10-26T10:45:28.845Z');
+});

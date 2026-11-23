@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-51e21fe58738c22cc6c7",
+  "origin": "https://aicoffee.app",
+  "recordIds": [
+    "A078"
+  ],
+  "entryUrls": [
+    "https://aicoffee.app/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://aicoffee.app",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "11facab2933b46a4d65c652cb7fd0c66be8f7c5ffbc73198e795aca7b462b5fe",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

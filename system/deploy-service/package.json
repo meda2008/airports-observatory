@@ -1,0 +1,19 @@
+{
+  "name": "airports-observatory-service",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server.cjs",
+    "worker": "node worker.cjs",
+    "schedule": "node worker.cjs",
+    "publish:retained": "node publisher.cjs",
+    "worker:standalone": "node standalone-worker.cjs",
+    "schedule:controller": "node control-daemon.cjs"
+  },
+  "dependencies": {
+    "playwright": "1.64.1"
+  }
+}

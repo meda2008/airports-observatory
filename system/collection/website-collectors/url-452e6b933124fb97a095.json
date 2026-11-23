@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-452e6b933124fb97a095",
+  "origin": "https://5qf0zkp6ut.flyvttt.sbs",
+  "recordIds": [
+    "A178"
+  ],
+  "entryUrls": [
+    "https://5qf0zkp6ut.flyvttt.sbs/"
+  ],
+  "capabilities": {
+    "literalParser": "flyv-public-native-plans",
+    "readOnlyRecipe": "flyv_public_guest_catalog_readonly",
+    "auth": null,
+    "authStatus": "not_required_public_catalog",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "0be120658f8a35e8d974ddc89183fd77b9c753456661491ab62f27b9a608c3be",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

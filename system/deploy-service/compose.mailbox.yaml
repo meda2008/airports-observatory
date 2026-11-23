@@ -1,0 +1,12 @@
+# Optional read-only Gmail configuration; add explicitly after the private file exists.
+# No secret values in this file; no new service or public endpoint.
+services:
+  collector:
+    environment:
+      GMAIL_READONLY_CONFIG_FILE: /run/secrets/mailbox/gmail-readonly.json
+    volumes:
+      - type: bind
+        source: ${GMAIL_READONLY_CONFIG_DIR:?Set the private Gmail config directory}
+        target: /run/secrets/mailbox
+        read_only: true
+        bind: {create_host_path: false}

@@ -1,0 +1,214 @@
+{
+  "profiles": [
+    {
+      "recordId": "A175",
+      "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://everett7623.kosingaff.com"
+      ],
+      "identityProofs": [
+        {
+          "file": "work/performance-20261112-eleventh/live/kexinyun-official-route-list.json",
+          "fileSha256": "06679ed051952656349eb24a7d59fbef3a14ad49f106e4ec0e0bb59349b27344",
+          "bodySha256": "3573321f2b233bfecd21c3883240e0f80d36a078364e05c34bae1fe78d30c5ae",
+          "observedAt": "2026-11-11T16:23:33.746Z",
+          "url": "https://everett7623.kosingaff.com/#/register?code=NjIXMFUd",
+          "sourceId": "PERFORMANCE-ELEVENTH-KEXINYUN-OFFICIAL-ROUTE-LIST",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:23:33.746Z"
+        }
+      ],
+      "identityQualification": "same_named_reviewed_native_current_official_namespace"
+    },
+    {
+      "recordId": "A168",
+      "url": "https://vpsknow.com/reviews/airports/edgenova-airport-review/",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://nvbnb.lonka.click",
+        "https://evervip01.edgenovaaff.com",
+        "https://vnbngt.lonka.click"
+      ],
+      "identityProofs": [
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch28/raw/core-auth-edge-b28-plans-43e81eea0c77.json",
+          "fileSha256": "43e81eea0c7704780bffee05773169f8f5913fd32c81f0a15758a85e585bee06",
+          "bodySha256": "1bf14a4b67baf2b9d53f2dcb97dc074175b0d69a39d7577392e5e8e78fd2ae2a",
+          "observedAt": "2026-10-27T01:07:59.415Z",
+          "url": "https://nvbnb.lonka.click/#/plans",
+          "sourceId": "CORE-AUTH-EDGE-B28-PLANS",
+          "representation": "retained_document",
+          "captureClock": "2026-10-27T01:07:59.415Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/edgenova-official-route-list.json",
+          "fileSha256": "53590835470e806d7ef0afcf269d8204e7c0e88dd0514e2c452d5083faa8feb9",
+          "bodySha256": "c8a50e5ad2b2df5428b8d0f20082d75feed1e4ae1cc543da4b0032123cb6a586",
+          "observedAt": "2026-11-11T16:31:29.530Z",
+          "url": "https://evervip01.edgenovaaff.com/#/register?code=8u9TG7fo",
+          "sourceId": "PERFORMANCE-ELEVENTH-EDGENOVA-OFFICIAL-ROUTE-LIST",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:31:29.530Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/edgenova-official-destination.json",
+          "fileSha256": "cc99d69d4e710b1660e2d6a5cc518c12d26a3518c2c6633055d307dfc6ba5284",
+          "bodySha256": "97651a77e30e9e9d75b3af5fce1bcda7395ca7af821793b89aae9c78651dda23",
+          "observedAt": "2026-11-11T16:23:17.235Z",
+          "url": "https://vnbngt.lonka.click/#/register?code=8u9TG7fo",
+          "sourceId": "PERFORMANCE-ELEVENTH-EDGENOVA-OFFICIAL-DESTINATION",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:23:17.235Z"
+        }
+      ],
+      "identityQualification": "current_candidate_namespace_match_not_legal_or_historical_operator_identity"
+    },
+    {
+      "recordId": "A173",
+      "url": "https://vpsknow.com/reviews/airports/speedworld-airport-review/",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://binfk.szjtfp.xyz",
+        "https://everett7623.speedworldaff.com",
+        "https://momlise.szjtfp.xyz"
+      ],
+      "identityProofs": [
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch20/raw/core-public-speedworld-b20-login-d552ece926a9.json",
+          "fileSha256": "d552ece926a9e104c96c17edd07b11cfe979983f1b241d2f02d20d8a79aa3884",
+          "bodySha256": "89acbe1b5afbc958ee48d06b331f406a32ffe5de42e2689ea1b5e40daac4588d",
+          "observedAt": "2026-10-26T18:10:50.957Z",
+          "url": "https://binfk.szjtfp.xyz/#/login",
+          "sourceId": "CORE-PUBLIC-SPEEDWORLD-B20-LOGIN",
+          "representation": "retained_document",
+          "captureClock": "2026-10-26T18:10:50.957Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/speedworld-official-navigation.json",
+          "fileSha256": "425175cb778ce91b861461bfc62824bdad4e0df27087d6b601ede3580be33387",
+          "bodySha256": "73a3573b74d52db802725323a6c52cdb23cd7bf9fde7baba89eb606f2cd48a5f",
+          "observedAt": "2026-11-11T16:23:39.425Z",
+          "url": "https://everett7623.speedworldaff.com/#/register?code=Gjo1VmJc",
+          "sourceId": "PERFORMANCE-ELEVENTH-SPEEDWORLD-OFFICIAL-NAVIGATION",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:23:39.425Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/speedworld-official-destination.json",
+          "fileSha256": "c57ae796f1c44cb623b5ef3190562c5901f1d5d13e693aeb6f05d77f43be33e1",
+          "bodySha256": "e32a57882d51aa70250c40e31d5c278c717cff63b54958e24696cff083a5ac2e",
+          "observedAt": "2026-11-11T16:24:27.472Z",
+          "url": "https://momlise.szjtfp.xyz/#/register?code=Gjo1VmJc",
+          "sourceId": "PERFORMANCE-ELEVENTH-SPEEDWORLD-OFFICIAL-DESTINATION",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:24:27.472Z"
+        }
+      ],
+      "identityQualification": "current_candidate_namespace_match_not_legal_or_historical_operator_identity"
+    },
+    {
+      "recordId": "A083",
+      "url": "https://vpsknow.com/reviews/airports/cocoduck-vpn-review/",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://home.cocoduck.co",
+        "https://cocoduck.cc",
+        "https://www.cocoduck.site"
+      ],
+      "identityProofs": [
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch434/raw/84db76ac0b45a4e32d85306f5ec91c84624d09cc0c643bdfa0e117b2a193edc9.json",
+          "fileSha256": "84db76ac0b45a4e32d85306f5ec91c84624d09cc0c643bdfa0e117b2a193edc9",
+          "bodySha256": "7d096212f24d994d4ca06f820f42b06ab06942c239f44462bdbcc40962015166",
+          "observedAt": "2026-11-01T16:30:50.542Z",
+          "url": "https://home.cocoduck.co/",
+          "representation": "retained_document",
+          "captureClock": "2026-11-01T16:30:50.542Z",
+          "sourceId": "CORE-AUTO-CORE-AUTH-BATCH434-84db76ac0b45a4e32d85306f"
+        },
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch298/raw/core-public-cocoduck-b298-terms-75bb07956fd5.json",
+          "fileSha256": "75bb07956fd553df94c4aa97a2203d7cc2a38a641f64d267b18838d2e6f37c57",
+          "bodySha256": "390547bb9c73d9134f43bcc8b3ba470eaba0957007ba5994afb2db982562135e",
+          "observedAt": "2026-10-29T06:32:58.536Z",
+          "url": "https://cocoduck.cc/docs/tos/",
+          "representation": "retained_document",
+          "captureClock": "2026-10-29T06:32:58.536Z",
+          "sourceId": "CORE-PUBLIC-COCODUCK-B298-TERMS"
+        },
+        {
+          "file": "work/performance-docker-20261114/cocoduck-official-bridge.json",
+          "fileSha256": "9ad1351d961343caf723f19a026a70fcc4f0af2e07111777cb05ef698b8c9cf7",
+          "bodySha256": "8ef22b9455276236665d20d4e81d58319796c6afca70ec9062ed57b31dfc79b7",
+          "observedAt": "2026-11-14T14:24:18.888Z",
+          "url": "https://cocoduck.cc/",
+          "representation": "retained_document",
+          "captureClock": "2026-11-14T14:24:18.888Z",
+          "sourceId": "PERFORMANCE-DOCKER-20261114-COCODUCK-OFFICIAL-NATIVE-BRIDGE"
+        },
+        {
+          "file": "work/performance-docker-20261114/cocoduck-destination-checkpoint.json",
+          "fileSha256": "21562ffa8b232c32130e8002c4f571d399ea473af238a4c9a4af3328357339c9",
+          "bodySha256": "3ecc0eeb38ab6e6271a9dbbfd782630e46766e9c13056b48d57cdf7636fa0490",
+          "observedAt": "2026-11-14T14:21:53.280Z",
+          "url": "https://www.cocoduck.site/auth/register?code=5c32ae5445",
+          "representation": "retained_document",
+          "captureClock": "2026-11-14T14:21:53.280Z",
+          "sourceId": "PERFORMANCE-DOCKER-20261114-COCODUCK-PUBLISHER-DESTINATION-CHECKPOINT"
+        }
+      ],
+      "identityQualification": "current_candidate_namespace_match_not_legal_or_historical_operator_identity"
+    },
+    {
+      "recordId": "A156",
+      "url": "https://vpsknow.com/reviews/airports/lingmao-network-airport-review/",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://lingmao.civetxx.cfd",
+        "https://lm.civetxx.cfd"
+      ],
+      "identityProofs": [
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch175/raw/core-auth-civet-b175-plan-cards-a5f2a06925f8.json",
+          "fileSha256": "a5f2a06925f8eb43f29638b3c46c6aebd9be861e22703e39487411e7415e6425",
+          "bodySha256": "d238f2da8fe084da4850cd33de95fcfa41b6d64ce9b02f9bc54b76c17735d88d",
+          "observedAt": "2026-10-28T05:05:54.391Z",
+          "url": "https://lingmao.civetxx.cfd/#/plans",
+          "sourceId": "CORE-AUTH-CIVET-B175-PLAN-CARDS",
+          "representation": "retained_document",
+          "captureClock": "2026-10-28T05:05:54.391Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/lingmao-official-destination.json",
+          "fileSha256": "6a70119d71adeef6bda70b8133a9c78b8a7f37707dd832027136ad1eae7eba3f",
+          "bodySha256": "22159844394439ea5b529b605d1d14a3ea4eeeb4bae71833848c789735256002",
+          "observedAt": "2026-11-11T16:37:00.870Z",
+          "url": "https://lm.civetxx.cfd/#/?code=j3BLPwVY",
+          "sourceId": "PERFORMANCE-ELEVENTH-LINGMAO-OFFICIAL-DESTINATION",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:37:00.870Z"
+        },
+        {
+          "file": "work/performance-20261112-eleventh/live/lingmao-official-entered.json",
+          "fileSha256": "d0338fe9d54acfc84c2eb37e812df32b4538059c387ba11a4dd78299f8a792c2",
+          "bodySha256": "10e3b029245af066f25f32f3688450fb916eef32d9cc247eb25f244b334af5ca",
+          "observedAt": "2026-11-11T16:38:14.321Z",
+          "url": "https://lm.civetxx.cfd/#/home?code=j3BLPwVY",
+          "sourceId": "PERFORMANCE-ELEVENTH-LINGMAO-OFFICIAL-ENTERED",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T16:38:14.321Z"
+        }
+      ],
+      "identityQualification": "current_candidate_namespace_match_not_legal_or_historical_operator_identity"
+    },
+    {
+      "recordId": "A159",
+      "url": "https://vpsknow.com/reviews/airports/jisucloud-airport-review/",
+      "identityQualified": false,
+      "identityQualification": "current_candidate_namespace_match_not_legal_or_historical_operator_identity",
+      "reviewedOfficialOrigins": [],
+      "identityProofs": []
+    }
+  ]
+}

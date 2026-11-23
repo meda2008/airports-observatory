@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A028",
+  "name": "尔湾云 (Irvine Cloud)",
+  "entryUrl": "https://erwancdec.cc/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "erwancdec.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存ewanwtt.net本次实际导航到erwancdec.cc同名尔湾云，已保存对应账号正常登录成功。商店先给普通点击访问链接，按链接进入后取得套餐；未注册/下单/充值/购买外站服务。与irvine.cloud的经营关系未核，不向A199转移报价；法律主体与连续经营未知。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "collectPerformanceReferences": true
+}

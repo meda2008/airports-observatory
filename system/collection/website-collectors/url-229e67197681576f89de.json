@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-229e67197681576f89de",
+  "origin": "https://111.youtu6.shop",
+  "recordIds": [
+    "A206"
+  ],
+  "entryUrls": [
+    "https://111.youtu6.shop/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://111.youtu6.shop",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "dc8e8fd03dae5b0d052d2225a00c455b46c3228e1e59b5b420d8f841bff8b757",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

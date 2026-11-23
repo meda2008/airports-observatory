@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-518385c4e66499db4580",
+  "origin": "https://w17.xiaojiweb01.cc",
+  "recordIds": [
+    "A062"
+  ],
+  "entryUrls": [
+    "https://w17.xiaojiweb01.cc/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://w17.xiaojiweb01.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "4bd55b5223e5c8167f88b0cf5199a1152971cdd12864824ed81cd9f28679b776",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

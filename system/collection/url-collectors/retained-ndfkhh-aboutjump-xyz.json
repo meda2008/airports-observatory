@@ -1,0 +1,30 @@
+{
+  "origin": "https://ndfkhh.aboutjump.xyz",
+  "recordIds": [
+    "A166"
+  ],
+  "rules": [
+    {
+      "bodySha256": "f777b59f1f922e7d2fb7638c28beb5025a64c113106dd0290dd878208a74f0a1",
+      "quote": "⚡ 采用高性能 Shadowsocks (SS) 协议架构，不限制同时在线设备数。",
+      "summary": "初阶网络·基础视界方案称采用Shadowsocks (SS)协议、不限制同时在线设备数。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "仅约束此方案；不把协议和无限设备扩展到其他方案。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH424-b6beb789b2b0407f19d6261d",
+      "originalCapturedAt": "2026-11-01T09:57:18.902Z"
+    },
+    {
+      "bodySha256": "6c91f24ebc16010ba10ae30950ce4bcc964b4148ef5e9554f8555f35ca502a84",
+      "quote": "⚡ 专属高性能骨干网络加持，不限制设备连接数，适合多设备极客用户。",
+      "summary": "高阶专线·全球智联方案称不限制设备连接数。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "高阶文本没有明确协议名称；不从初阶套用。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH424-baf351ed48bc676e7645b66f",
+      "originalCapturedAt": "2026-11-01T09:57:26.011Z"
+    }
+  ]
+}

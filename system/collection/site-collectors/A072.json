@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A072",
+  "name": "可莉云",
+  "entryUrl": "https://xn--9kqr4ksp3c.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "xn--9kqr4ksp3c.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "archived_user_request",
+  "reason": "用户要求移除长期无法确认可用入口的记录；不认定停服或跑路。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "no_new_operator_source",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A072-discovery.json",
+      "work/collection-runs/pricing-9-20261109-v16/A072-ranking-visible-search.json"
+    ],
+    "resumeWhen": "可莉原发布渠道对当前商户入口的绑定，以及可读套餐原文。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "可莉云",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "可莉原发布渠道对当前商户入口的绑定，以及可读套餐原文。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.892Z",
+    "status": "no_new_bound_merchant_prior_negative_reused",
+    "result": "新检索仍为keliyuncn.com模板站及既有目录/历史评测；复用其既有否定证据，不重扫旧ETON冲突入口。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A072-search.json"
+    ],
+    "resumeWhen": "可莉原发布方与当前商户的原生绑定",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.596Z",
+      "result": "精确品牌检索命中历史评测；原同名域显示ETON的归属冲突未解决",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A072-search.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "latestOfficialEntryDiscovery": {
+    "runId": "entry-discovery-eight-20261115",
+    "checkedAt": "2026-11-15T15:20:20.060Z",
+    "status": "existing_unbound_templates_reused",
+    "source": {
+      "file": "work/entry-discovery-eight-20261115/A072-search.json",
+      "url": "https://www.google.com.hk/search?q=%E5%8F%AF%E8%8E%89%E4%BA%91+%E5%AE%98%E7%BD%91+%E6%9C%BA%E5%9C%BA",
+      "observedAt": "2026-11-15T15:00:42.817Z",
+      "bodySha256": "ba2600f615a4863e8d29e9c3db855f890d8157609f58203580d80f02ebe5b410"
+    },
+    "officialPriceVerified": false,
+    "credentialPropagationAllowed": false,
+    "weeklyActivationAllowed": false
+  },
+  "publicReferenceEnabled": false,
+  "discoveryRejectionHistory": [
+    {
+      "recordId": "A072",
+      "observedAt": "2026-11-16T09:10:43.774Z",
+      "sourceUrl": "https://www.keliyuncn.com/FAQ",
+      "claim": "可莉云",
+      "visibleRefundText": "退款规则根据服务条款和购买页面说明执行。如遇特殊情况，可联系客服协商处理。",
+      "clickedUrl": "https://www.keliyuncn.com/register?event=login_click&source=login",
+      "actualDestination": "https://w1.feihouyun.com/#/register?code=QLHGeVUT",
+      "actualVisibleBrand": "飞猴云",
+      "inviteFieldDisabled": true,
+      "decision": "reject_as_A072_operator_evidence",
+      "reason": "同名SEO页面注册指向另一品牌且带固定邀请码；未证明与旧可莉云经营关系。",
+      "credentialsSubmitted": false,
+      "registered": false,
+      "paymentExecuted": false
+    }
+  ]
+}

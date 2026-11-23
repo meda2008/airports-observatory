@@ -1,0 +1,188 @@
+{
+  "recordedAt": "2026-11-14T01:28:41.562Z",
+  "containers": [
+    {
+      "name": "/airports-measurement-readiness-20261114-a-namespace-holder-1",
+      "id": "d29a8faeed04d779c46453b2166d3d08b4ff591dc86e7c835a69a2bc14454492",
+      "image": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+      "configuredImage": "airports-observatory:real-line-readiness-20261114",
+      "state": {
+        "status": "running",
+        "running": true,
+        "exitCode": 0,
+        "health": "healthy"
+      },
+      "networkMode": "none",
+      "readOnlyRoot": true,
+      "portBindings": {},
+      "binds": [],
+      "composeProject": "airports-measurement-readiness-20261114-a"
+    },
+    {
+      "name": "/airports-measurement-readiness-20261114-a-measurements-1",
+      "id": "85b27efed445fce771c0be60ddbbd28d1cd5ec58b5eb76c3abebe39f544c57f6",
+      "image": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+      "configuredImage": "airports-observatory:real-line-readiness-20261114",
+      "state": {
+        "status": "exited",
+        "running": false,
+        "exitCode": 0,
+        "health": null
+      },
+      "networkMode": "container:d29a8faeed04d779c46453b2166d3d08b4ff591dc86e7c835a69a2bc14454492",
+      "readOnlyRoot": true,
+      "portBindings": {},
+      "binds": [
+        {
+          "type": "volume",
+          "name": "airports-measurement-readiness-20261114-a_isolated-measurement-data",
+          "destination": "/measurement-data",
+          "readWrite": true
+        }
+      ],
+      "tmpfs": {
+        "/run/secrets/measurement-auth": "ro,noexec,nosuid,size=1m"
+      },
+      "composeProject": "airports-measurement-readiness-20261114-a"
+    },
+    {
+      "name": "/airports-measurement-readiness-20261114-a-readiness-check-1",
+      "id": "2f1779ec45b6643c79f104e904b33b70f9b1f95990c13a6937984535011882f0",
+      "image": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+      "configuredImage": "airports-observatory:real-line-readiness-20261114",
+      "state": {
+        "status": "exited",
+        "running": false,
+        "exitCode": 1,
+        "health": null
+      },
+      "networkMode": "container:d29a8faeed04d779c46453b2166d3d08b4ff591dc86e7c835a69a2bc14454492",
+      "readOnlyRoot": true,
+      "portBindings": {},
+      "binds": [
+        {
+          "type": "volume",
+          "name": "airports-measurement-readiness-20261114-a_isolated-measurement-data",
+          "destination": "/measurement-data",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "name": null,
+          "destination": "/readiness/readiness.cjs",
+          "readWrite": false
+        }
+      ],
+      "composeProject": "airports-measurement-readiness-20261114-a"
+    },
+    {
+      "name": "/airports-measurement-readiness-20261114-a-checker-final",
+      "id": "8699b4b60f54e0f40ffa708542d4e799d4af0714bc369746358f360f25eccf34",
+      "image": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+      "configuredImage": "airports-observatory:real-line-readiness-20261114",
+      "state": {
+        "status": "exited",
+        "running": false,
+        "exitCode": 0,
+        "health": null
+      },
+      "networkMode": "container:d29a8faeed04d779c46453b2166d3d08b4ff591dc86e7c835a69a2bc14454492",
+      "readOnlyRoot": true,
+      "portBindings": {},
+      "binds": [
+        {
+          "type": "volume",
+          "name": "airports-measurement-readiness-20261114-a_isolated-measurement-data",
+          "destination": "/measurement-data",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "name": null,
+          "destination": "/readiness/readiness.cjs",
+          "readWrite": false
+        }
+      ],
+      "tmpfs": {
+        "/tmp": "rw,noexec,nosuid,size=8m"
+      },
+      "composeProject": "airports-measurement-readiness-20261114-a"
+    }
+  ],
+  "image": {
+    "id": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+    "repoTags": [
+      "airports-observatory:real-line-readiness-20261114"
+    ],
+    "repoDigests": [
+      "airports-observatory@sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09"
+    ],
+    "sizeBytes": 2065642123,
+    "created": "2026-11-14T01:07:44.956244084Z"
+  },
+  "checker": {
+    "productionImageReadiness": true,
+    "nodeVersion": "v24.22.3",
+    "realMeasurementStatus": "NOT_CONFIGURED",
+    "enabled": false,
+    "configuredProfiles": 0,
+    "rawObservationCount": 0,
+    "runCount": 0,
+    "workerStatus": "stopped",
+    "automaticApproval": false,
+    "realRouteVerified": false,
+    "readOnlySnapshotCopy": true,
+    "originalBytesUnchanged": true,
+    "originalFiles": [
+      {
+        "name": "measurements.sqlite",
+        "sha256": "f9876e272709e104a70665f59712b2a7aae1c9de9d3bba725a068caa4984ddd0",
+        "bytes": 65536
+      }
+    ],
+    "sourceFiles": [
+      {
+        "file": "deploy-service/measurement-worker.cjs",
+        "sha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967"
+      },
+      {
+        "file": "deploy-service/measurement-store.cjs",
+        "sha256": "3837267f8453daee04f6002f9052b05374f7e831ca889532498d2919dba7929d"
+      },
+      {
+        "file": "lib/proxy-route-observer.cjs",
+        "sha256": "5ab0877d3da7f1b63a4122fbf7c8004b37f8e18779256535a68febf709e066bc"
+      },
+      {
+        "file": "lib/local-network-observer.cjs",
+        "sha256": "e9364b7b2cc42015059b1723a04ebdbe96b7c6935bcbfdbfea8bf7218fc3b10a"
+      }
+    ]
+  },
+  "sourceComparison": [
+    {
+      "file": "deploy-service/measurement-worker.cjs",
+      "sha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967",
+      "currentHostSha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967",
+      "matchesCurrentHost": true
+    },
+    {
+      "file": "deploy-service/measurement-store.cjs",
+      "sha256": "3837267f8453daee04f6002f9052b05374f7e831ca889532498d2919dba7929d",
+      "currentHostSha256": "3837267f8453daee04f6002f9052b05374f7e831ca889532498d2919dba7929d",
+      "matchesCurrentHost": true
+    },
+    {
+      "file": "lib/proxy-route-observer.cjs",
+      "sha256": "5ab0877d3da7f1b63a4122fbf7c8004b37f8e18779256535a68febf709e066bc",
+      "currentHostSha256": "5ab0877d3da7f1b63a4122fbf7c8004b37f8e18779256535a68febf709e066bc",
+      "matchesCurrentHost": true
+    },
+    {
+      "file": "lib/local-network-observer.cjs",
+      "sha256": "e9364b7b2cc42015059b1723a04ebdbe96b7c6935bcbfdbfea8bf7218fc3b10a",
+      "currentHostSha256": "e9364b7b2cc42015059b1723a04ebdbe96b7c6935bcbfdbfea8bf7218fc3b10a",
+      "matchesCurrentHost": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-1fdd2a7ba504af183808",
+  "origin": "https://www.blnew.com",
+  "recordIds": [
+    "A033"
+  ],
+  "entryUrls": [
+    "https://www.blnew.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": {
+      "readyPlaceholder": "邮箱验证码",
+      "emailMode": "split_local_and_domain",
+      "emailDomainLabelPrefix": "@",
+      "mailServiceName": "BosLife",
+      "emailSendConfirmation": "button_countdown",
+      "responseObserver": "boslife"
+    }
+  },
+  "policy": {
+    "credentialOrigin": "https://www.blnew.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "7f3712cd36b786a2704dbc7a0ab283c107f47fce08a2208782e48a146e096f94",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

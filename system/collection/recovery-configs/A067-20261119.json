@@ -1,0 +1,96 @@
+{
+  "siteId": "A067",
+  "profileRevision": 6,
+  "config": {
+    "recordId": "A067",
+    "name": "Riolu (精灵学院)",
+    "entryUrl": "https://user.riolu-node.link/shop",
+    "allowedHosts": [
+      "user.riolu-node.link"
+    ],
+    "adapter": "generic",
+    "maxPages": 4,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions",
+      "operatingHistory",
+      "stability",
+      "speed"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "websiteCollectorId": "url-bf25d5736bd5712dc0e7",
+    "collectPerformanceReferences": true,
+    "auth": {
+      "mode": "login",
+      "discoverFromVisibleForm": true
+    },
+    "reconcileVerifiedCheckpoints": true
+  },
+  "lastRunId": "5a6ede06-fc0d-4979-aa6d-ca2e7a647da6",
+  "lastRunProfileRevision": 6,
+  "lastStatus": "completed",
+  "capabilities": {
+    "pageReadable": {
+      "status": "observed",
+      "reason": "5 页可见正文已留存"
+    },
+    "login": {
+      "status": "session_observed",
+      "reason": "会话按可见退出标识、已配置的唯一可见登录后控件或已审核的同域账户读取响应确认；仅在已批准目的地使用绑定凭据尝试正常登录。未自动注册、接受新协议或付款；专站可见验证控件按有界适配处理，验证操作不等于登录成功。"
+    },
+    "plans": {
+      "status": "extracted_no_change",
+      "reason": "字面解析结果，仍须复核"
+    },
+    "payment": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "refund": {
+      "status": "extracted_no_change",
+      "reason": "字面解析结果，仍须复核"
+    },
+    "privacy": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "compatibility": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "speed": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "stability": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "operatingHistory": {
+      "status": "not_verified",
+      "reason": "本轮未提取到可追溯字段"
+    },
+    "challenge": {
+      "status": "not_observed",
+      "reason": "本轮未观察到交互验证；不证明永远无需验证"
+    },
+    "referenceCollection": {
+      "status": "observed",
+      "checkpointTypes": [],
+      "officialValidationUnchanged": true
+    },
+    "dataBasis": {
+      "status": "standalone_browser",
+      "reason": "独立后台浏览器本次可见页面观察"
+    }
+  },
+  "nextRunAt": "2026-11-25T16:04:57.399Z",
+  "nextRunChina": "2026/11/26 00:04:57",
+  "openCheckpoints": 0
+}

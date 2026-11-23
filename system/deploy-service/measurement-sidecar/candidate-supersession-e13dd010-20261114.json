@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-11-14T02:41:52.586Z",
+  "status": "PASS_SUPERSEDED",
+  "sourceInputSha256": "e13dd010815abf2ad5fbb35d57fd3e37e5c7f196298182263e0bb47fa867b531",
+  "imageId": "sha256:00578134f641150aa34092e75fd57f69c03b8bc2226530445881378d762dcb01",
+  "reason": "Root/lead identified consumer projection contract: retained empty measured.observations caused materialAvailable=false; proposal not approved. Raw source/math pass and image byte match did not prove this contract.",
+  "rawSourcePassRetained": true,
+  "consumerContractAccepted": false,
+  "currentFinalCandidate": false,
+  "requiredNext": "new frozen input/source pins; affected DTO delta audit and new cached image; do not repeat unchanged13raw or route requests",
+  "preserved": [
+    {
+      "kind": "source_audit",
+      "file": "work/real-line-20261114/cross-audit-real-measurement-source.superseded-e13dd010.json",
+      "expectedFileSha256": "5cb8026799fea25e6e76f349011ac364d752b6ecb7de933448cbf7fc7c310952",
+      "bytesPreserved": true
+    },
+    {
+      "kind": "image_byte_pin_audit",
+      "file": "deploy-service/measurement-sidecar/final-image-validation-20261114.superseded-e13dd010.json",
+      "expectedFileSha256": "19aa5a3672a1248bfefb9bcd157148401aab4000df86b42b35afa846f57a76c6",
+      "bytesPreserved": true
+    },
+    {
+      "kind": "frozen_input",
+      "file": "work/real-line-20261114/source-review-input.superseded-e13dd010.json",
+      "expectedFileSha256": "e13dd010815abf2ad5fbb35d57fd3e37e5c7f196298182263e0bb47fa867b531",
+      "bytesPreserved": false
+    }
+  ]
+}

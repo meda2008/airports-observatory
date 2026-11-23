@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-56193d5341ce7ed08b0e",
+  "origin": "https://www.night-furyx.com",
+  "recordIds": [
+    "A080"
+  ],
+  "entryUrls": [
+    "https://www.night-furyx.com/index.php"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.night-furyx.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "b020d6187a563bfe8994e39c8dfb260178d79af5b0ee21bf0917b52614f6a8ae",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

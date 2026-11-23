@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A165",
+  "name": "浪网",
+  "entryUrl": "https://eqxmg.wavenetttt.homes/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "eqxmg.wavenetttt.homes"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": true,
+  "eligibility": "new_published_portal_native_login_http404",
+  "reason": "已读到当前认可入口9档公开目录，原认证404及旧入口失败保留，固定官方计价客户端实跑复核调度前保持禁用。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-67bf4eed1e53a59319af",
+  "entryContinue": {
+    "buttonText": "继续",
+    "notice": "为了您的安全和更好的体验，请点击继续"
+  },
+  "auth": null,
+  "validateWhileDisabled": true,
+  "readOnlyRecipe": "wavenet_public_guest_catalog_readonly",
+  "accountReadOnly": false,
+  "publicOnly": true,
+  "collectPerformanceReferences": false
+}

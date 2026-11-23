@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A172",
+  "name": "云图",
+  "entryUrl": "https://apiapi.ytjcok.com/api/v1/user/plan/fetch",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "apiapi.ytjcok.com",
+    "ez-theme-for-yt-sub-rjki3.vercel.app"
+  ],
+  "adapter": "generic",
+  "maxPages": 2,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "用户已将现存云图页登录到vip.ytjcok.org商店；首轮获取失败，经同标签刷新后实得五卡。不是停服结论，也不采第三方所称上线年份。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-3f00ab49ef50a0844eec",
+  "readOnlyRecipe": "yuntu_native_api_readonly",
+  "validateWhileDisabled": false,
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "auth": {
+    "mode": "login"
+  },
+  "recoveryAcceptance": {
+    "configurationRevision": 8,
+    "recordedAt": "2026-11-19T13:34:12.726Z",
+    "executionMode": "standalone",
+    "fullSiteCoverageVerified": false,
+    "status": "actual_weekly_price_collection_passed",
+    "runId": "2bfe1eab-095a-4de8-8afb-0eba9d015f2f",
+    "enqueueActor": "weekly_scheduler",
+    "verifiedFields": [
+      "pricing"
+    ],
+    "access": "verified_account_session",
+    "nextRunAt": "2026-11-26T13:11:32.824Z",
+    "retainedIndependentCheckpoints": 4
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/yuntu-native-plans.cjs",
+    "fields": [
+      "pricing"
+    ],
+    "verifiedByActualRunId": "2bfe1eab-095a-4de8-8afb-0eba9d015f2f"
+  }
+}

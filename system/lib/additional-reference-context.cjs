@@ -1,0 +1,14 @@
+'use strict';
+const bound=r=>r?.literalChecked===true&&Array.isArray(r.sourceIds)&&r.sourceIds.length>0;
+const day=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&Number.isFinite(Date.parse(d))&&new Date(d+'T00:00:00Z').toISOString().slice(0,10)===d;
+function speedTestContext(r,now){
+ const profile=require('../collection/url-collectors/vpsknow-speedtest-parsers.cjs').profiles.find(p=>p.url===r?.sourceUrl);
+ if(!profile||!bound(r)||r.kind!=='historical_third_party_speedtest_snapshot'||r.metric!=='download_throughput'||r.statistic!=='single_reported_test'||r.unit!=='Mbps'||r.testedAt!==null||r.sampleCount!==null||r.currentSpeedVerified!==false||r.independentMeasurement!==false||r.measurementVerified!==false||r.dateEvidenceKind!=='publisher_session_label_not_individual_test_date'||!day(r.date)||!day(r.testWindowStart)||!day(r.testWindowEnd)||r.testWindowStart>r.testWindowEnd||r.date!==r.testWindowEnd||Date.parse(r.date)>now||!Number.isFinite(r.valueMbps)||r.valueMbps<=0||!Number.isFinite(r.uploadMbps)||r.uploadMbps<0||!Number.isFinite(r.latencyMs)||r.latencyMs<0)return null;
+ const candidate=r.identityQualification==='current_candidate_namespace_match_not_legal_or_historical_operator_identity',dateLabel=r.testWindowStart===r.testWindowEnd?r.date:r.testWindowStart+'—'+r.testWindowEnd;
+ return{kind:r.kind,dateLabel:dateLabel+' 发布者测试批次；单图日期未确认',testedAt:null,publisher:r.publisher,network:r.network||'测试接入网络未完整披露',valueMbps:r.valueMbps,uploadMbps:r.uploadMbps,latencyMs:r.latencyMs,unit:'Mbps',candidateIdentityOnly:candidate,description:'第三方 '+r.platform+' 历史单次结果：下载 '+r.valueMbps+' Mbps、上传 '+r.uploadMbps+' Mbps、Ping '+r.latencyMs+' ms。'+(candidate?'仅与当前同名候选入口关联，旧经营主体及历史连续性未核实。':'')+'样本次数与原始日志未取得，不是总体分位数、长期表现或当前实测，不参与当前速度排名。'};
+}
+function statusContext(r,now){
+ if(!bound(r)||r.kind!=='historical_third_party_service_status_claim'||r.current!==false||r.independentMeasurement!==false||r.measurementVerified!==false||r.sampleCount!==null||!['vpsknow-status-parsers','vpsknow-additional-status-parsers'].some(n=>require('../collection/url-collectors/'+n+'.cjs').profiles.some(p=>p.identityQualified&&p.url===r.sourceUrl))||!Array.isArray(r.events)||r.events.length<1||r.events.length>4||r.events.some(e=>!day(e.date)||Date.parse(e.date)>now||!e.quote||!e.scope))return null;
+ return{kind:r.kind,publisher:r.publisher,signalSummaries:r.events.map(e=>e.date+'：'+({conditional_access_change:'发布者转述订阅升级与客户端接入条件变化；不是停服记录。',partial_timeout_with_other_responses:'发布者所见俄罗斯个别节点超时，其他部分节点仍有响应；不是整网故障。',outage:'评测作者转述用户客户端多地区节点 Timeout，未独立核实。',partial_recovery:'评测作者称美国、日本部分节点恢复响应；仅单晚样本。',partial_response:'评测作者所见部分节点有响应，同时存在超时。',partial_timeout:'评测作者所见部分日本、美国节点 Timeout；不代表整网停服。'}[e.kind]||'历史状态描述待进一步核实。')),description:'第三方历史状态记录，未独立核实。异常与恢复均限发布者所述客户端、节点及当次时段，不代表当前状态、全网故障或长期稳定率。'};
+}
+module.exports={speedTestContext,statusContext};

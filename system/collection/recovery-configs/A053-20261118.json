@@ -1,0 +1,46 @@
+{
+  "siteId": "A053",
+  "profileRevision": 5,
+  "config": {
+    "recordId": "A053",
+    "name": "五树云",
+    "entryUrl": "https://a04.xiaomiaffa01.cc/",
+    "allowedHosts": [
+      "a04.xiaomiaffa01.cc",
+      "t01.xiaomicf.com"
+    ],
+    "adapter": "generic",
+    "maxPages": 4,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions",
+      "speed",
+      "operatingHistory",
+      "stability"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "websiteCollectorId": "url-9d87dc05c820d197ca5c",
+    "collectPerformanceReferences": false,
+    "auth": {
+      "mode": "login",
+      "discoverFromVisibleForm": true
+    },
+    "readOnlyRecipe": "five_tree_native_readonly",
+    "businessApiConsent": {
+      "contract": "five_tree_native_readonly",
+      "confirmation": "user_reply_call_09d049825cfc4c85bdbaedc7677da7be",
+      "login": true,
+      "readOnly": true,
+      "recordedAt": "2026-11-18T14:18:09.023Z"
+    },
+    "reconcileVerifiedCheckpoints": true
+  },
+  "nextRunAt": "2026-11-25T14:24:07.618Z",
+  "openCheckpoints": 0
+}

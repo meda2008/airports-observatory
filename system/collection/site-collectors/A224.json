@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A224",
+  "name": "榴莲云",
+  "entryUrl": "https://a01vipaff.liulianyunaff.com/#/",
+  "entrySource": "review_link_and_observed_same_brand_candidate",
+  "allowedHosts": [
+    "a01vipaff.liulianyunaff.com",
+    "www.ermao.net",
+    "yicrjyds.liulianyunzxcz.sbs"
+  ],
+  "adapter": "generic",
+  "maxPages": 2,
+  "enabled": true,
+  "publicReferenceEnabled": false,
+  "eligibility": "native_account_required",
+  "reason": "已由原生config.json恢复并核实同名后台，套餐接口403未登录；等待本次账号操作授权后正常认证，不重复第三方扫描。",
+  "fields": [
+    "pricing"
+  ],
+  "refreshIntervalMs": 604800000,
+  "policy": {
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "publication": "review_required"
+  },
+  "discovery": {
+    "reviewUrl": "https://www.ermao.net/blog/liulianyun/",
+    "observedAt": "2026-11-15T23:21:01.384Z",
+    "originalReferralOwnedByUser": false,
+    "priceStatus": "unverified_third_party_price"
+  },
+  "publicOnly": false,
+  "readOnlyRecipe": "gateway_native_readonly",
+  "urlCollector": {
+    "collectorId": "gateway-native-A224",
+    "recipe": "gateway_native_readonly",
+    "recipeModule": "deploy-service/gateway-native-readonly.cjs",
+    "status": "native_account_required",
+    "completedAllFields": false
+  },
+  "acceptance": {
+    "scope": "third_party_review_only",
+    "runId": "a1ea9294-6eac-4dac-b997-a561cc5e042f",
+    "profileRevision": 2,
+    "evidenceIds": [
+      "ev-a30e786790e34c303ab5426f920b6f634931b073842986c877f38983fd51818a",
+      "ev-4629e94ad7e5429ff4a0fb89635fc57924eed7252a73e73574358a9cce764c78"
+    ],
+    "receipt": "work/new-candidate-collectors-20261116/FINAL_STATE.json",
+    "officialPlansVerified": false
+  },
+  "nativeAccountConsent": {
+    "origin": "https://yicrjyds.liulianyunzxcz.sbs",
+    "login": true,
+    "register": false,
+    "confirmation": "user_reply_call_707fd50e79f04515ad7adfd0e1b31f52",
+    "confirmedAt": "2026-11-16T05:22:51.853Z",
+    "scope": "normal_login_free_registration_readonly_no_orders_no_payment"
+  },
+  "webEgress": "direct",
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-bcf0aa0949fa8c337540",
+  "validateWhileDisabled": true,
+  "collectPerformanceReferences": false,
+  "reconcileVerifiedCheckpoints": true,
+  "recoveryNote": "2026-11-20: current native user/info email matches bound account, restored private session and current explicit-period price catalog verified; no registration, payment read, order or payment write; old unmatched prices retained separately; current profile real run accepted and old account-required checkpoint reconciled."
+}

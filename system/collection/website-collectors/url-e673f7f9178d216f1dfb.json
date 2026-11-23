@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-e673f7f9178d216f1dfb",
+  "origin": "https://pigfnv.civetnetfttt1.xyz",
+  "recordIds": [
+    "A153"
+  ],
+  "entryUrls": [
+    "https://pigfnv.civetnetfttt1.xyz/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://pigfnv.civetnetfttt1.xyz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "90224ed0a4f5ab10ed1588310c28ec46fc4511f3faccf932081ac5fc45c37408",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

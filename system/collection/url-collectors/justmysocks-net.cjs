@@ -1,0 +1,41 @@
+'use strict';
+const crypto=require('node:crypto'),{planKey}=require('./site-literal-profiles.cjs');
+const origin='https://justmysocks.net';
+const names=['LA 500','LA 1000','LA 5000','LA 10000','London 500','London 1000','London 5000','HK China Mobile ONLY – 500','HK China Mobile ONLY – 1000','HK China Mobile ONLY – 5000','Tokyo 100','Tokyo 500','Tokyo 1000','Tokyo 5000','Premium Hong Kong 100','Premium Hong Kong 500','Premium Hong Kong 1000'].map(n=>'Just My Socks '+n);
+const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
+function source(s,quote){const body=s.body||s.text,start=body.indexOf(quote);if(start<0)throw Error('justmysocks_quote_not_bound');return{quote,sourceIds:[s.evidenceId],sourceUrl:s.url,observedAt:s.observedAt||s.capturedAt,sourceBodySha256:sha(body),sourceLocator:{kind:'body_utf16_range',start,end:start+quote.length,quoteSha256:sha(quote),bodySha256:sha(body)}};}
+function pricing(s,prior){
+ const body=s.body||s.text,matches=[...body.matchAll(/^(Just My Socks [^\r\n]+)\n\$((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d{2}))\/mo\n\nOrder Now\n((?:CT\+CU\+CM 3-carriers )?(\d+(?:\.\d+)?)(GB|TB)\/mo (?:on|at) ([\d.]+) (Gbps|Mbps) \| (\d+|∞) devices)(?:\n(Hong Kong CMI IP transit \(NO CT\/CU\)))?/gm)];
+ if(matches.length!==17||new Set(matches.map(m=>m[1])).size!==17||names.some(n=>!matches.some(m=>m[1]===n)))return null;
+ const plans=matches.map(m=>({name:m[1],productName:m[1],amount:Number(m[2].replace(/,/g,'')),amountBasis:'original_billing_period_total',currency:null,currencySymbol:'$',currencyStatus:'symbol_only_not_ISO_confirmed',currencyReason:'当前公开商品卡仅标$；不从符号或旧LA500配置页的USD选项外推当前卡片币种。',billingPeriod:'月付',quota:m[4]+m[5]+'/月',quotaReset:'站方卡片按每月标流量；具体重置日、结转与实际执行未验证。',maxDevices:m[8]==='∞'?null:Number(m[8]),deviceLimit:m[8]==='∞'?'站方称不限设备，实际执行未验证':m[8]+'设备（站方声明，未验证执行）',advertisedBandwidth:m[6]+' '+m[7],routingStatement:m[9]||null,...source(s,m[0]),checkoutVerified:false,priceStatus:'advertised_not_checkout_verified',restrictions:['当前公开商品卡片月价；未点击Order Now、建单、付款或验证库存/结账价。','流量、设备、带宽与地区路由都是站方声明，不是测速、履约或法律主体连续经营证明。']}));
+ const old=prior.pricing||{},merged=new Map((old.plans||[]).map(p=>[planKey(p),p]));
+ for(const p of plans){const previous=merged.get(planKey(p));if(previous&&Date.parse(previous.observedAt)>Date.parse(p.observedAt))continue;merged.set(planKey(p),{...p,name:previous?.name||p.name});}
+ const at=s.observedAt||s.capturedAt;return{pricing:{...old,status:'advertised_not_checkout_verified',plans:[...merged.values()],sourceIds:[s.evidenceId],observedAt:Date.parse(old.observedAt)>Date.parse(at)?old.observedAt:at,sourceBodySha256:sha(body),checkoutVerified:false,scope:'current_registered_entry_visible_prices',operatorIdentityVerified:false,mergeScope:'same_named_product_and_explicit_period_aliases_only_preserve_unobserved_prior_cycles',limitation:'17张公开卡片月价；仅更新本次实际观察到的命名产品/月付，保留未观察到的旧周期。$不确认ISO币种；未验证结账、库存、服务执行或经营连续性。'}};
+}
+function refund(s,prior){
+ const body=s.body||s.text,requirements=["1. Customer's account is in good standing and there have been no violations of Terms of Services",'2. None of the payments have been previously or currently disputed','3. Monthly data transfer usage is under 10%','4. Customer\'s account was created 7 or fewer days ago','5. Client had not used the right to Refund previously under current or different account','Refunds are issued to the original form of payment.','After the refund is processed, account may be used for future orders, however it will not be eligible for further refunds.'];
+ const start=body.indexOf('Cancellations and Refunds\n'),end=body.indexOf('\nChargebacks and Paypal Disputes',start);if(start<0||end<start)return null;const quote=body.slice(start,end).trim();if(!requirements.every(q=>quote.includes(q)))return null;
+ const exceptions=['Repeat offences may result in account termination without refund.','We reserve the right to terminate services without providing a reason. In this case we will provide a refund for the unused service.'];if(!exceptions.every(q=>body.includes(q)))return null;
+ const disputes="Furthermore, initiating a chargeback or a Paypal dispute will result in an immediate suspension of all services under your name (and possibly any other associated accounts) until the dispute is resolved. In addition we reserve the right to bill you for the chargeback fees we incur plus time we spend on dealing with the dispute (time spent locating and suspending affected services, communicating with payment processors and/or banks and dealing with customer's tickets etc). We bill $40 per hour in 15-minute increments and services will not be resumed until the bill is paid.";if(!body.includes(disputes))return null;
+ const disputeStatement={...source(s,disputes),statementType:'chargeback_or_paypal_dispute_consequences_not_payment_channel_verification',disputeHandlingRate:{amount:40,currency:null,currencySymbol:'$',currencyStatus:'symbol_only_not_ISO_confirmed',unit:'hour',billingIncrementMinutes:15,additionalChargebackFees:'站方保留另计实际拒付费用的权利，金额未明确。'},executionVerified:false};
+ return{refund:{...(prior.refund||{}),status:'stated_terms_not_execution_verified',summary:'站方称全部条件满足时可申请全额原路退款：账户创建不超过7天、当月用量低于10%、无违规和付款争议，且当前或其他账号均未曾使用退款权；不等于购买后任意7天或保证批准。',conditions:['账户状态正常且未违反服务条款；所有付款以前及当前均未发起争议。','月用量严格低于10%；账户创建距今7天或更短，不是本次订单距今7天。','当前或其他账号均不得曾使用退款权；退款后账号可再下单，但不能再次获得退款资格。','退款退回原付款方式；实际审批、到账时长、扣费和执行未验证。','重复违规可能停号且不退款；站方无理由终止服务时条款另称退款未使用服务。','站方称拒付或PayPal争议会立即暂停名下全部服务，并可能涉及其他关联账号，直至争议解决；保留另收拒付实际费用及处理时间费用的权利，处理时间按$40/小时、每15分钟计费，账单付清前不恢复服务。$仅为原文符号，ISO币种、实际收费与恢复执行未验证；争议条款不证明当前可用PayPal支付渠道。'],...source(s,quote),additionalStatements:[...exceptions.map(q=>source(s,q)),disputeStatement],executionVerified:false}};
+}
+function privacy(s,prior){
+ const body=s.body||s.text,start=body.indexOf('Full Privacy Policy\n'),suffix=body.slice(Math.max(0,start)),footer=/\n\s*\d+ Users Found This Useful/.exec(suffix),end=footer?start+footer.index:-1,quote=end>start?body.slice(start,end).trim():body.slice(start).trim();
+ if(start<0||!['Account Information','Email address\nCountry','Usage Data (No-Logs Policy)','Bandwidth or traffic volume tied to your activity besides a single monthly bandwidth usage counter','Your IP address','Payment processing is handled by third-party providers. We do not store payment details on our servers.','Legal Requirements','International Transfers','Data Retention'].every(q=>quote.includes(q)))return null;
+ return{privacy:{...(prior.privacy||{}),status:'operator_policy_observed',summary:'站方隐私政策称不保留服务活动日志，但收集账号邮箱和国家，并保留单个月度带宽用量计数；这是站方声明，未独立审计实际执行。',loggedData:['账号邮箱、国家；页面称不要求姓名或其他身份资料。','单个月度带宽用量计数；不能将无活动日志理解为完全不计量流量。','网站Cookie用于功能、性能及防欺诈。','支付由第三方处理，站方称不在自身服务器保存支付详情；不代表支付方不留记录。','必要服务商或法律要求情形可能披露资料，资料可能在境外存储处理。'],retentionPeriod:'仅称按服务及政策所述目的需要保留，法律可要求或允许更久；未给具体天数或删除周期。',...source(s,quote),independentlyAudited:false,executionVerified:false}};
+}
+function extract(s,context={}){
+ if(s?.metadata?.representation==='original_jms_public_catalog_html')return require('./justmysocks-public-html.cjs').extract(s,context);
+ if(context.recordId!=='A023'||!s?.evidenceId||!Number.isFinite(Date.parse(s.observedAt||s.capturedAt)))return null;
+ let u;try{u=new URL(s.url);}catch{return null;}const body=s.body||s.text;
+ if(u.origin!==origin||u.username||u.password||u.hash||typeof body!=='string'||!/^Just My Socks\s*$/m.test(body)||s.passwordForm||s.metadata?.passwordForm||s.verificationWidgetObserved||s.metadata?.verificationWidgetObserved||/checkpoint/.test(s.kind||'')||s.sha256&&s.sha256!==sha(body))return null;
+ const prior=context.prior?.coreInfo||context.prior||{};
+ if(u.pathname==='/members/cart.php'&&!u.search)return pricing(s,prior);
+ if(u.pathname!=='/members/index.php'||[...u.searchParams.keys()].length!==1||!u.searchParams.has('rp'))return null;
+ const route=u.searchParams.get('rp');
+ if(route==='/knowledgebase/1/Terms-of-Service.html'&&body.includes('Terms of Service and Acceptable Use Policy'))return Date.parse(prior.refund?.observedAt)>Date.parse(s.observedAt||s.capturedAt)?null:refund(s,prior);
+ if(route==='/knowledgebase/17/Privacy-Policy.html')return Date.parse(prior.privacy?.observedAt)>Date.parse(s.observedAt||s.capturedAt)?null:privacy(s,prior);
+ return null;
+}
+module.exports={origin,recordIds:['A023'],fields:['pricing','refund','privacy'],extract};

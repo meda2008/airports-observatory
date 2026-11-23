@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A070",
+  "name": "Galaxy Cloud",
+  "entryUrl": "https://galaxycloud.cc/shop",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "galaxycloud.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Galaxy Cloud保存域名当前为银河云登录页，需要邮箱密码；项目没有对应保存账号，未注册、发码或使用他站凭证。不能仅因同名/端点相等确认与银河云其他记录的同一主体。 本批用户确认现有会话已登录后，实际读到套餐正文。登录和同名页面不证明法律主体、旧域迁移或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "financialFollowupHistory": [],
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v27",
+    "status": "current_docs_only_ios_guide_no_refund_policy",
+    "receipt": "work/collection-runs/financial-20261110-v27/result.json",
+    "sourceFiles": [
+      "work/collection-runs/financial-20261110-v27/A070-docs-index.json",
+      "work/collection-runs/financial-20261110-v27/A070-dashboard-no-refund.json"
+    ],
+    "next": "new_native_policy_link_or_article",
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  }
+}

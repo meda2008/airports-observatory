@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A226",
+  "name": "CTC02",
+  "entryUrl": "https://www.ctc.run/",
+  "entrySource": "review_link_and_observed_same_brand_candidate",
+  "allowedHosts": [
+    "www.ctc.run",
+    "runtushare.net"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": false,
+  "publicReferenceEnabled": false,
+  "eligibility": "native_account_required",
+  "reason": "官网原生套餐接口要求认证，公开配置要求邀请码及邮箱验证；不猜测邀请码或重置账号。",
+  "fields": [
+    "pricing",
+    "payment"
+  ],
+  "refreshIntervalMs": 604800000,
+  "policy": {
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "publication": "review_required"
+  },
+  "discovery": {
+    "reviewUrl": "https://runtushare.net/12626/",
+    "observedAt": "2026-11-15T23:26:59.514Z",
+    "originalReferralOwnedByUser": false,
+    "priceStatus": "unverified_third_party_price"
+  },
+  "publicOnly": false,
+  "readOnlyRecipe": "ctc02_native_api_readonly",
+  "urlCollector": {
+    "collectorId": "official-entry-A226",
+    "recipe": "official_entry_probe",
+    "recipeModule": "deploy-service/standalone-collector.cjs",
+    "status": "native_account_required",
+    "completedAllFields": false
+  },
+  "webEgress": "direct"
+}

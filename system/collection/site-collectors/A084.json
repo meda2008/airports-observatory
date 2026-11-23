@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A084",
+  "name": "疾风云",
+  "entryUrl": "https://a66.jf033.com/user/shop",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "a66.jf033.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "此前无登录会话，本轮用户操作后实际进入同名JFCLOUD商店；法律主体、持续交付和历史仍未独立验证。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true,
+    "successSelector": "a[href=\"/user/shop\"]:visible"
+  },
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "reconcileVerifiedCheckpoints": true
+}

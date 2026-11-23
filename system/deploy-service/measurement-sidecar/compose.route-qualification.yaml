@@ -1,0 +1,51 @@
+# Isolated real-route qualification; never starts the main pipeline or catalog.
+services:
+  measurement-proxy:
+    image: ${QUALIFICATION_IMAGE:-airports-observatory:real-line-qualification-20261114}
+    pull_policy: never
+    platform: linux/amd64
+    entrypoint: [/bin/sh, -c]
+    command: ["exec /run/measurement-bin/mihomo -d /tmp/qualification-proxy -f /run/secrets/qualification/config.json >/dev/null 2>&1"]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    networks: [qualification-egress]
+    volumes:
+      - ../data/real-line-secrets/A010/mihomo-private.json:/run/secrets/qualification/config.json:ro
+      - ../data/measurement-runtime/linux-runtime/v1.19.34/mihomo:/run/measurement-bin/mihomo:ro
+      - ./docker-route-qualification.cjs:/qualification/qualify.cjs:ro
+      - ./qualification-private-input-pins-20261114.json:/qualification/input-pins.json:ro
+    healthcheck:
+      test: [CMD, node, /qualification/qualify.cjs, health]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+  qualification:
+    image: ${QUALIFICATION_IMAGE:-airports-observatory:real-line-qualification-20261114}
+    pull_policy: never
+    platform: linux/amd64
+    entrypoint: [node]
+    command: [/qualification/qualify.cjs, qualify]
+    network_mode: service:measurement-proxy
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      NODE_NO_WARNINGS: '1'
+    volumes:
+      - ../data/real-line-secrets/A010/mihomo-private.json:/run/secrets/qualification/config.json:ro
+      - ../data/measurement-secrets/A010-proxy.json:/run/secrets/measurement-auth/A010-proxy.json:ro
+      - ../data/real-line-secrets/A010/verified-egress.json:/run/secrets/qualification/verified-egress.json:ro
+      - ../data/measurement-runtime/linux-runtime/v1.19.34/mihomo:/run/measurement-bin/mihomo:ro
+      - ./docker-route-qualification.cjs:/qualification/qualify.cjs:ro
+      - ./qualification-private-input-pins-20261114.json:/qualification/input-pins.json:ro
+      - qualification-data:/qualification-data
+    depends_on:
+      measurement-proxy:
+        condition: service_healthy
+volumes:
+  qualification-data:
+networks:
+  qualification-egress:

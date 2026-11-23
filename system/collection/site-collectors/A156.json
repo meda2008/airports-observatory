@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A156",
+  "name": "灵猫网络",
+  "entryUrl": "https://lingmao.civetxx.cfd/#/plans",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "lingmao.civetxx.cfd"
+  ],
+  "adapter": "generic",
+  "maxPages": 8,
+  "enabled": false,
+  "eligibility": "queued",
+  "reason": "仅监控经品牌配置核对的公开客户端订阅变更条款；普通购买退款政策仍未知，不代表登录/全字段采集完成。 2026-11-19普通导航及同域账号绑定已补；真实正常登录一次被站方明确拒绝，当前域凭据标拒绝并暂停；不是套餐解析成功，不重试默认密码。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "refund",
+    "pricing",
+    "payment"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "灵猫网络",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "灵猫网络",
+    "receipt": "work/collection-runs/financial-20261109-v18/A156-directory.json",
+    "sha256": "473798c462368a667afd6c540dbb51fb928a8712e01db5892d5eb176014860c9",
+    "status": "no_matching_directory_card_observed_not_service_absence",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "collectPerformanceReferences": true,
+  "readOnlyRecipe": "lingmao_authenticated_readonly",
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "entryContinue": {
+    "buttonText": "继续",
+    "notice": "为了您的安全和更好的体验，请点击继续"
+  },
+  "auth": {
+    "mode": "login",
+    "emailSelector": "input[name=\"email\"]:visible",
+    "passwordSelector": "input[name=\"password\"]:visible",
+    "submitSelector": "form button[type=\"submit\"]:visible"
+  }
+}

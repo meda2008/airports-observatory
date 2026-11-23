@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-414b02267708a03c4a6d",
+  "origin": "https://eggtart.pro",
+  "recordIds": [
+    "A077"
+  ],
+  "entryUrls": [
+    "https://eggtart.pro/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A077"
+      ],
+      "fields": [
+        "refund"
+      ]
+    },
+    "readOnlyRecipe": "eggtart_native_notification_channel",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://eggtart.pro",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "4f04e7f0e679f450cea4f54b7b64decb78ce7ea2f73ccb28f5c88e01a63cff61",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

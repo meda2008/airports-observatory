@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-475c13777b7b3e2c8176",
+  "origin": "https://www.xiaoliyu.me",
+  "recordIds": [
+    "A058",
+    "A201"
+  ],
+  "entryUrls": [
+    "https://www.xiaoliyu.me/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.xiaoliyu.me",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ce0b1ce55190a06692c39248580fac2d299d6a114598fdeae291586dd31f33d1",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

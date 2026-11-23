@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A150",
+  "name": "全球云",
+  "entryUrl": "https://dv2dsdgf.quanqiugttt1.club/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "dv2dsdgf.quanqiugttt1.club"
+  ],
+  "adapter": "generic",
+  "maxPages": 5,
+  "enabled": true,
+  "eligibility": "native_cold_login_warm_session_price_review_public_frontend_verified",
+  "reason": "当前品牌独立监控；真实冷登录、缓存会话恢复、报价复核发布和匿名前台验收已通过。旧品牌归属不合并。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website",
+    "refund"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "global_native_api_readonly",
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "acceptance": {
+    "runtimeVersion": "v255",
+    "warmRunId": "02ff77fd-c15f-4b30-bf3f-ab37bf928d1a",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795184836360/receipt.json",
+    "weeklyEnableReceipt": "/data/recovery-receipts/current-brand-weekly-enabled-v255.json"
+  }
+}

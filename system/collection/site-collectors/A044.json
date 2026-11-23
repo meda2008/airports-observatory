@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A044",
+  "name": "E-IX 云加速",
+  "entryUrl": "https://cloud.e-ix.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "cloud.e-ix.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存入口此前指向同名E-IX公开站；用户完成登录后读取当前shop和订单提交前确认页，法律主体及连续经营未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-4faf67540968cf82ba99",
+  "readiness": {
+    "text": "E-IX 256G",
+    "timeoutMs": 12000
+  },
+  "validateWhileDisabled": false,
+  "publicOnly": true,
+  "readOnlyRecipe": "eix_public_plans_readonly",
+  "reconcileVerifiedCheckpoints": true,
+  "recoveryAcceptance": {
+    "configurationRevision": 6,
+    "recordedAt": "2026-11-19T13:34:12.726Z",
+    "executionMode": "standalone",
+    "fullSiteCoverageVerified": false,
+    "status": "actual_weekly_price_collection_passed",
+    "runId": "c3494768-2b8b-49d9-a933-b14cdbfafa53",
+    "enqueueActor": "weekly_scheduler",
+    "verifiedFields": [
+      "pricing"
+    ],
+    "access": "anonymous_public_no_account_required",
+    "nextRunAt": "2026-11-26T13:32:40.791Z",
+    "retainedIndependentCheckpoints": 1
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/eix-public-prices.cjs",
+    "fields": [
+      "pricing"
+    ],
+    "verifiedByActualRunId": "c3494768-2b8b-49d9-a933-b14cdbfafa53"
+  }
+}

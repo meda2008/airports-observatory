@@ -1,0 +1,87 @@
+{
+  "version": 2,
+  "qualification": "Exact reviewed native captures and cited original, pinned full-file/body hashes and separate primary/identity clocks. Third-party year claims only, no founding verification, age or independent historical corroboration.",
+  "profiles": [
+    {
+      "recordId": "A146",
+      "url": "https://jichangclub.com/shunyun-review/",
+      "currentOfficialHostname": "syjccloud.com",
+      "nativeOfficialHref": "https://syjccloud.com/#/register?code=vBybQcyb",
+      "identityMode": "native_current_official_host",
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "sourceId": "CORE-AUTO-CORE-AUTH-BATCH442-5961eefc1fadfa4acb989b24",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch442/raw/5961eefc1fadfa4acb989b24891cd941edd974eeabebe83c8da3f9db33ce0cdd.json",
+          "fileSha256": "5961eefc1fadfa4acb989b24891cd941edd974eeabebe83c8da3f9db33ce0cdd",
+          "url": "https://jichangclub.com/shunyun-review/",
+          "observedAt": "2026-11-02T08:53:11.934Z",
+          "bodySha256": "1181dddb9debe501445cc68b76204ab3e59a6b3f48de664de1f674964dfd483e",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        {
+          "sourceId": "PERFORMANCE-TWELFTH-SHUNYUN-OPENING-IDENTITY",
+          "file": "work/performance-20261112-twelfth/live/shunyun-opening-identity.json",
+          "fileSha256": "d71b75eb8971a6d5b2e8a40eff190efcca408c060a00f6a28dba092a1b10e4ae",
+          "url": "https://jichangclub.com/shunyun-review/",
+          "observedAt": "2026-11-11T17:46:47.174Z",
+          "bodySha256": "509b342a00985bec034a4a0822309867c9b74a163b2008286d41986d6f765df2",
+          "representation": "builtin_browser_visible_DOM_text"
+        }
+      ],
+      "reviewedDestinationUrl": null,
+      "checkpoint": null
+    },
+    {
+      "recordId": "A031",
+      "url": "https://shadowrocket.one/vcity-ss-iepl/",
+      "currentOfficialHostname": "dowancheng.com",
+      "nativeOfficialHref": "https://shadowrocket.one/vcity",
+      "identityMode": "reviewed_recommendation_redirect_bridge",
+      "identityQualified": false,
+      "identityProofs": [],
+      "reviewedDestinationUrl": null,
+      "checkpoint": "held_publisher_native_redirect_connection_closed_no_verified_current_host_bridge"
+    },
+    {
+      "recordId": "A175",
+      "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+      "currentOfficialHostname": "sygzfd.kexintztz2.xyz",
+      "nativeOfficialHref": "https://go.uukk.de/kexinyun",
+      "identityMode": "reviewed_cited_claim_native_entry_route_list",
+      "identityQualified": true,
+      "identityProofs": [
+        {
+          "sourceId": "ev-93bffe06065ae1242d4b3b7b7f87d140aebead65b872942fb15fc1aa94e43f44",
+          "file": "work/performance-20261112-eleventh/live/kexinyun-review.json",
+          "fileSha256": "61e735c6557afa7c6724979251cc254543582fecfe74f531ab6b0d8ebf27f3b1",
+          "url": "https://vpsknow.com/reviews/airports/kexinyun-airport-review/",
+          "observedAt": "2026-11-11T16:18:01.147Z",
+          "bodySha256": "49683fdd18dcb1d70d5c55939aa6e9e7d5a7f931143574f586043fa42fa85955",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "PERFORMANCE-ELEVENTH-KEXINYUN-OFFICIAL-ROUTE-LIST",
+          "file": "work/performance-20261112-eleventh/live/kexinyun-official-route-list.json",
+          "fileSha256": "06679ed051952656349eb24a7d59fbef3a14ad49f106e4ec0e0bb59349b27344",
+          "url": "https://everett7623.kosingaff.com/#/register?code=NjIXMFUd",
+          "observedAt": "2026-11-11T16:23:33.746Z",
+          "bodySha256": "3573321f2b233bfecd21c3883240e0f80d36a078364e05c34bae1fe78d30c5ae",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "PERFORMANCE-TWELFTH-KEXINYUN-VPSRANK-ORIGINAL",
+          "file": "work/performance-20261112-twelfth/live/kexinyun-vpsrank-original.json",
+          "fileSha256": "4cd28bcd1ebc5a12143614dbe1e61ed56c93724b013f81550144f5c81935f26a",
+          "url": "https://vpsrank.com/kosingcloudt/",
+          "observedAt": "2026-11-11T17:48:03.833Z",
+          "bodySha256": "73934c3cd26db85e0b74e990627249cb2943f66a70a0d91b01ecdcf87948fbf6",
+          "representation": "builtin_browser_visible_DOM_text"
+        }
+      ],
+      "reviewedDestinationUrl": "https://everett7623.kosingaff.com/#/register?code=NjIXMFUd",
+      "reviewedNavigation": "Previous eleventh-round actual go.uukk.de/kexinyun navigation reached exact route list URL. Route list names current sygzfd.kexintztz2.xyz. No equivalence between kosingaff.cc and kosingaff.com is inferred.",
+      "checkpoint": null
+    }
+  ]
+}

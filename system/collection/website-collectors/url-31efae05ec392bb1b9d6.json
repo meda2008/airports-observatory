@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-31efae05ec392bb1b9d6",
+  "origin": "https://efbng.guangzssytt.buzz",
+  "recordIds": [
+    "A043",
+    "A149"
+  ],
+  "entryUrls": [
+    "https://efbng.guangzssytt.buzz/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A043",
+        "A149"
+      ],
+      "fields": [
+        "compatibility",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": {
+      "mode": "login",
+      "emailSelector": "input[type=\"email\"]",
+      "passwordSelector": "input[type=\"password\"]",
+      "submitSelector": "button[type=\"submit\"]",
+      "successSelector": "button:has-text(\"退出登录\")"
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": true,
+    "includeClientGuides": true,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://efbng.guangzssytt.buzz",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "5baad8f0df678553b1a03acbb0d97b86d5ba2b74df4b2a8da60f417d550c2806",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

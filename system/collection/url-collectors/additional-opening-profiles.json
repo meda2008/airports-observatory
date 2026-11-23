@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "qualification": "Pinned current third-party year statements plus actually followed native article links to exact catalog hosts. Claims only, no continuous-operation or founding verification.",
+  "profiles": [
+    {
+      "recordId": "A004",
+      "url": "https://vpnoe.com/tag-review/",
+      "currentOfficialHostname": "tagss.pro",
+      "nativeOfficialHref": "https://affvpn.com/6eaPv",
+      "identityMode": "reviewed_native_redirect_current_host",
+      "identityQualified": true,
+      "primaryProof": {
+        "file": "work/performance-20261112-thirteenth/live/tag-vpnoe-review.json",
+        "fileSha256": "2c3e5b246000368fa3e69e74d2ba4fca3a4642f28b11c4f900ffea0ede78424a",
+        "bodySha256": "4f4be1a6fdd06552e42cb62cee4afd3ca2810e8729621ce038d3060d1e66c2f9",
+        "url": "https://vpnoe.com/tag-review/",
+        "observedAt": "2026-11-11T23:47:46.244Z"
+      },
+      "destinationProof": {
+        "file": "work/performance-20261112-thirteenth/live/tag-vpnoe-native-destination.json",
+        "fileSha256": "4d3a59b6315458364bf21de70dc7318f53721db3235457330160bd5c09c60ad4",
+        "observedAt": "2026-11-11T23:48:00.202Z",
+        "requestedNativeHref": "https://affvpn.com/6eaPv",
+        "resolvedUrl": "https://tagss.pro/#/auth/bxDGDHCN"
+      }
+    }
+  ]
+}

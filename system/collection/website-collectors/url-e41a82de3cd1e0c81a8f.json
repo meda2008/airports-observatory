@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-e41a82de3cd1e0c81a8f",
+  "origin": "https://anyland.club",
+  "recordIds": [
+    "A190"
+  ],
+  "entryUrls": [
+    "https://anyland.club/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://anyland.club",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "22ac7b0e39d5ecbed6c116b3b58ed6e6ca41b846e7565f748435aa58c2ce5144",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

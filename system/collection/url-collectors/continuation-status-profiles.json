@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "admissionClass": "linked_channel_historical_claim_unverified_current_service_identity",
+  "profiles": [
+    {
+      "recordId": "A002",
+      "name": "奶昔",
+      "url": "https://t.me/s/Nexitally_Official",
+      "channel": "Nexitally_Official",
+      "currentOfficialUrlAtReview": "https://nxonearth.com/",
+      "ref": {
+        "recordId": "A002",
+        "sourceId": "CONTINUATION-STATUS-A002-EVENTS",
+        "file": "work/performance-20261112-seventeenth/status-originals/A002-events.json",
+        "fileSha256": "fe5d533bae04d603ba4162eb9901e7bc6051495acf132be0ea2ad64f020f4d27",
+        "bodySha256": "d73d40d1b9beebad303a367419f578877c7262b51f6f476bef34a135a3395e26",
+        "url": "https://t.me/s/Nexitally_Official",
+        "observedAt": "2026-11-12T04:53:12.081Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "recordId": "A002",
+        "sourceId": "CONTINUATION-STATUS-A002-ROOT",
+        "file": "work/performance-20261112-seventeenth/status-originals/A002-root.json",
+        "fileSha256": "21fa5d5b00eaf2bf67e587705680e9870a85a6801f0feb499cc1cda9f6410078",
+        "bodySha256": "9fd66142bf550b1e5eb915df0b135f48d3512f34da7e5a52ccc0b054879311ce",
+        "url": "https://nxonearth.com/",
+        "observedAt": "2026-11-12T04:52:54.085Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "groupRef": {
+        "recordId": "A002",
+        "sourceId": "CONTINUATION-STATUS-A002-ROUTE",
+        "file": "work/performance-20261112-seventeenth/status-originals/A002-route.json",
+        "fileSha256": "6039f22174be788c40cdb994f46038bf52e80d4946ecf379145030507e40f750",
+        "bodySha256": "0d1b9ae2ab3e3e8c9730421cd8e4bb1d71f07301c90c3faf79045aa3d57a8aec",
+        "url": "https://t.me/nexitallyusers",
+        "observedAt": "2026-11-12T04:52:59.943Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "rootNativeLink": {
+        "index": 62,
+        "url": "https://t.me/nexitallyusers",
+        "label": ""
+      },
+      "groupDeclaration": {
+        "quote": "奶昔通知频道：@Nexitally_Official",
+        "kind": "public_group_landing_description",
+        "nativeLink": {
+          "index": 5,
+          "url": "https://t.me/Nexitally_Official",
+          "label": "@Nexitally_Official"
+        }
+      },
+      "channelOfficialLink": {
+        "index": 2,
+        "url": "http://nexitally.com/",
+        "label": "nexitally.com"
+      },
+      "events": [
+        {
+          "post": 1358,
+          "scope": "频道历史自述：美国洛杉矶节点物理故障，同一已编辑帖子写有已修复；未核实属于当前nxonearth.com服务，也无实际修复时刻。",
+          "summary": "所引频道称洛杉矶节点曾发生物理故障，同帖保留已修复文字。",
+          "issueType": "operator_outage_statement",
+          "permalink": "https://t.me/Nexitally_Official/1358",
+          "dateTime": "2024-01-24T09:53:05+00:00",
+          "quote": "美国洛杉矶节点出现物理故障，修复中。\n\n已修复",
+          "timeMetadataIndex": 3
+        },
+        {
+          "post": 1362,
+          "scope": "频道历史自述：白天最高500M为软件bug；未核实当前域服务归属、实际速度、样本或后续修复。",
+          "summary": "所引频道称白天最高只能跑500M是软件bug问题，承诺尽快修复。",
+          "issueType": "operator_degradation_statement",
+          "permalink": "https://t.me/Nexitally_Official/1362",
+          "dateTime": "2024-04-05T04:13:41+00:00",
+          "quote": "辟谣一下 白天最高只能跑500M是软件bug问题 不是故意的 我们会尽快修复",
+          "timeMetadataIndex": 7
+        },
+        {
+          "post": 1368,
+          "scope": "频道历史自述：East 1入口硬件物理故障；预计2小时为站方预测，未核实属于当前域服务或实际中断时长。",
+          "summary": "所引频道称East 1入口突发硬件物理故障并维修中。",
+          "issueType": "operator_outage_statement",
+          "permalink": "https://t.me/Nexitally_Official/1368",
+          "dateTime": "2024-05-10T18:31:09+00:00",
+          "quote": "East 1入口突发硬件物理故障，维修中，预计2小时内修复。\n给各位尊贵的用户们造成不便深表歉意！",
+          "timeMetadataIndex": 13
+        }
+      ]
+    }
+  ]
+}

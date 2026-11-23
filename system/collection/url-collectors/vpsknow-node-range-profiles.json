@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "qualification": "Only reviewed historical publisher range with original-image visual conflicts preserved; no current speed or overall mean.",
+  "profiles": [
+    {
+      "recordId": "A171",
+      "url": "https://vpsknow.com/reviews/airports/nicecc-airport-review/",
+      "identityQualified": true,
+      "proofs": {
+        "article": {
+          "file": "work/performance-20261112-thirteenth/live/nicecc-vpsknow-review.json",
+          "fileSha256": "dcd284209a938c7806e90c9186e4a6fa01bcbb2555d9a99089563570420f9f2f",
+          "bodySha256": "0da3e33958a0be00a5b204484ba8381b2e9abb8d90098333aecc4b9545557ed6",
+          "url": "https://vpsknow.com/reviews/airports/nicecc-airport-review/",
+          "observedAt": "2026-11-11T23:57:05.714Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-NICE-NODE-RANGE-ARTICLE",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T23:57:05.714Z"
+        },
+        "destination": {
+          "file": "work/performance-20261112-thirteenth/live/nicecc-vpsknow-native-destination.json",
+          "fileSha256": "4dd5d101f4106d8069d8eb37699ccb79fe97c5ff2e397362c37d429da6631943",
+          "bodySha256": "4dd5d101f4106d8069d8eb37699ccb79fe97c5ff2e397362c37d429da6631943",
+          "url": "https://go.nicecc.cc/#/register?code=sNW9OWcx",
+          "observedAt": "2026-11-11T23:58:00.848Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-NICE-NODE-RANGE-DESTINATION",
+          "representation": "builtin_browser_metadata_json",
+          "captureClock": "2026-11-11T23:58:00.848Z"
+        },
+        "visual": {
+          "file": "work/performance-20261112-thirteenth/live/nicecc-node-range-visual.json",
+          "fileSha256": "65d9964fa06c899c91f9ffe9b84ce7f2d8fae8ce1b8e00b89e6678ba5a1773db",
+          "bodySha256": "65d9964fa06c899c91f9ffe9b84ce7f2d8fae8ce1b8e00b89e6678ba5a1773db",
+          "url": "https://vpsknow.com/images/reviews/nicecc-airport-review/speed-test.jpg",
+          "observedAt": "2026-11-12T00:00:10.958Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-NICE-NODE-RANGE-VISUAL",
+          "representation": "builtin_browser_metadata_json",
+          "captureClock": "2026-11-12T00:00:10.958Z"
+        },
+        "image": {
+          "file": "work/performance-20261112-thirteenth/live/nicecc-node-range-original.jpg",
+          "fileSha256": "285ea57e73d2c625c9efdc9e8005128a3b17761531d662c4e1b7735fb67360f9",
+          "url": "https://vpsknow.com/images/reviews/nicecc-airport-review/speed-test.jpg",
+          "representation": "original_image_capture_bytes"
+        }
+      }
+    }
+  ]
+}

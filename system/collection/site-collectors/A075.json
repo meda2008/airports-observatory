@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A075",
+  "name": "Nyxen Bar (酒馆)",
+  "entryUrl": "https://nyxen.org/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "nyxen.org"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": false,
+  "eligibility": "queued",
+  "reason": "当前入口Cloudflare；保留验证断点，不把验证失败记录成账号密码错误。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-cc739c646bea87424b03",
+  "publicOnly": true,
+  "recoveryAcceptance": {
+    "configurationRevision": 4,
+    "capturedAt": "2026-11-21T09:18:56.687351+00:00",
+    "status": "blocked",
+    "runId": "9218102d-3f1a-40f6-a3c2-e4e818789bf4",
+    "blocker": "cloudflare",
+    "weeklyEnabled": false,
+    "fullSiteCoverageVerified": false,
+    "evidenceReuseRequired": true
+  }
+}

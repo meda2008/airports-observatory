@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "recordId": "A171",
+      "monitorUrl": "https://jichang.watch/airport/3",
+      "methodUrl": "https://jichang.watch/scoring",
+      "name": "Nice 加速",
+      "identityQuote": "官网：www.nicecc.cc",
+      "binding": {
+        "monitor": {
+          "sourceId": "CORE-PUBLIC-NICECC-B193-MONITOR",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch193/raw/core-public-nicecc-b193-monitor-e069feee38d8.json",
+          "fileSha256": "e069feee38d82071a082ae2dc20bf66b3effe187891529f7fc3a471faeef2185",
+          "url": "https://jichang.watch/airport/3",
+          "observedAt": "2026-10-28T09:56:12.968Z",
+          "bodySha256": "32ff81b0b1f07f730331365a5643ed735bbbbdf5b09f930ffa7b8cd6aeeb4e6d"
+        },
+        "method": {
+          "sourceId": "CORE-PUBLIC-NICECC-B193-MONITOR-METHOD",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch193/raw/core-public-nicecc-b193-monitor-method-b3525521c6d8.json",
+          "fileSha256": "b3525521c6d8f1dd23d8a6b4e0280a4353bf243bc14bebc7882653a213e3bc1b",
+          "url": "https://jichang.watch/scoring",
+          "observedAt": "2026-10-28T09:58:24.072Z",
+          "bodySha256": "c8f13207173b81f887e29963838a5adf302448b45611a34e973d92929532cb40"
+        },
+        "qualification": "same_named_historical_publisher_snapshot_with_literal_current_domain; independence and legal identity unverified"
+      }
+    },
+    {
+      "recordId": "A172",
+      "name": "云图",
+      "monitorUrl": "https://jichang.watch/airport/12",
+      "methodUrl": "https://jichang.watch/scoring",
+      "identityMode": "native_official_link",
+      "officialHostname": "vip.ytjcok.org",
+      "binding": {
+        "monitor": {
+          "file": "work/performance-20261111-tenth/live/monitor-yuntu.json",
+          "fileSha256": "034efbd66294feb780df3b960fce922d6cc8d4379f420c08d37078e01292dc2f",
+          "url": "https://jichang.watch/airport/12",
+          "observedAt": "2026-11-11T15:19:15.249Z",
+          "bodySha256": "e9a80893528d12a07402a81266e4dcf60c3ebf7295ede95acb2221c096db1482",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "method": {
+          "file": "work/performance-20261111-tenth/live/monitor-method-batch1.json",
+          "fileSha256": "a17e2ef58694560450227763a1cfa5a6660b31caed30d9e1c08001ae356aae65",
+          "url": "https://jichang.watch/scoring",
+          "observedAt": "2026-11-11T15:18:31.659Z",
+          "bodySha256": "ef924efb1ab2418c37a6971c1c30296a1ea1bf055af669ecdeb62e0dcd81fd64",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "qualification": "same_named_publisher_page_native_official_link_matches_current_exact_hostname_not_legal_identity_or_continuity"
+      }
+    },
+    {
+      "recordId": "A159",
+      "name": "极速Cloud",
+      "monitorUrl": "https://jichang.watch/airport/11",
+      "methodUrl": "https://jichang.watch/scoring",
+      "identityMode": "native_official_link",
+      "officialHostname": "191.101.132.80",
+      "binding": {
+        "monitor": {
+          "file": "work/performance-20261111-tenth/live/monitor-jisu.json",
+          "fileSha256": "6c692cc6acb57b4c1d9fcd5c2bc129212e2480115e824d8ff44bbe4f77b7b913",
+          "url": "https://jichang.watch/airport/11",
+          "observedAt": "2026-11-11T15:19:41.105Z",
+          "bodySha256": "84246f9638a1af97f32da808eeb842eea52e52a4c8466c1eb39ce805b89d5445",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "method": {
+          "file": "work/performance-20261111-tenth/live/monitor-method-batch1.json",
+          "fileSha256": "a17e2ef58694560450227763a1cfa5a6660b31caed30d9e1c08001ae356aae65",
+          "url": "https://jichang.watch/scoring",
+          "observedAt": "2026-11-11T15:18:31.659Z",
+          "bodySha256": "ef924efb1ab2418c37a6971c1c30296a1ea1bf055af669ecdeb62e0dcd81fd64",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "qualification": "same_named_publisher_page_native_official_link_matches_current_exact_hostname_not_legal_identity_or_continuity"
+      },
+      "operationalNote": "Existing service collector remains disabled; this is read-only public-reference parser configuration only, no enable action authorized or performed."
+    },
+    {
+      "recordId": "A182",
+      "name": "Gatern 机场",
+      "monitorUrl": "https://jichang.watch/airport/7",
+      "methodUrl": "https://jichang.watch/scoring",
+      "identityMode": "reviewed_redirect_alias_bridge",
+      "officialHostname": "gatern.com",
+      "bridge": {
+        "observedAt": "2026-11-11T15:21:50.289Z",
+        "ttlDays": 14,
+        "officialHomeUrl": "https://gatern.com/",
+        "monitorHref": "https://s.gtna.net/aff.php?aff=5181",
+        "resolvedUrl": "https://s.gtnb.net/index.php/store/ding-yue-fu-wu",
+        "officialNativeLinkUrl": "https://s.gtnb.net/cart.php",
+        "refs": [
+          {
+            "file": "work/performance-20261111-tenth/live/gatern-official-home.json",
+            "fileSha256": "0489ffbb098a9e04c6586d8c4878d764f161d786ca22fa079e7fc7b38dcdc95d",
+            "url": "https://gatern.com/",
+            "observedAt": "2026-11-11T15:21:41.302Z",
+            "bodySha256": "cfc31961d897fcc1d1fcd43886c85a77d9c74e6116bf06c22e0437a5bbbb4d7f",
+            "representation": "builtin_browser_visible_DOM_text"
+          },
+          {
+            "file": "work/performance-20261111-tenth/live/gatern-monitor-destination.json",
+            "fileSha256": "1e7807221c412befb505c462cde3635beda670dab5cd00b1a348fa9d237d03f5",
+            "url": "https://s.gtnb.net/index.php/store/ding-yue-fu-wu",
+            "observedAt": "2026-11-11T15:21:50.289Z",
+            "bodySha256": "31818799f1780665d12986028ceb6408c3305313afb690337e56092f90ec0798",
+            "representation": "builtin_browser_visible_DOM_text"
+          }
+        ],
+        "qualification": "reviewed current native links and observed redirect destination only, not legal identity or historical continuity"
+      },
+      "binding": {
+        "monitor": {
+          "file": "work/performance-20261111-tenth/live/monitor-gatern.json",
+          "fileSha256": "6870602bd813aa0dbd57aefe611ef56b273bbeb070e6ef05b1ae7e847cd35b7b",
+          "url": "https://jichang.watch/airport/7",
+          "observedAt": "2026-11-11T15:18:33.191Z",
+          "bodySha256": "1db79bdc9ac17fa840f3dd841a8c8652673d6d8249c6283ab44efd631efd01fd",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "method": {
+          "file": "work/performance-20261111-tenth/live/monitor-method-batch1.json",
+          "fileSha256": "a17e2ef58694560450227763a1cfa5a6660b31caed30d9e1c08001ae356aae65",
+          "url": "https://jichang.watch/scoring",
+          "observedAt": "2026-11-11T15:18:31.659Z",
+          "bodySha256": "ef924efb1ab2418c37a6971c1c30296a1ea1bf055af669ecdeb62e0dcd81fd64",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        "qualification": "same_named_publisher_page_reviewed_redirect_bridge_current_official_site_not_legal_identity"
+      }
+    }
+  ]
+}

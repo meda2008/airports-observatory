@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a586a6ec91a751d6f327",
+  "origin": "https://xn--mes358aby2apfg.com",
+  "recordIds": [
+    "A039"
+  ],
+  "entryUrls": [
+    "https://xn--mes358aby2apfg.com/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A039"
+      ],
+      "fields": [
+        "website",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": "pqjc_candidate_current_balance_card_or_order_only",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://xn--mes358aby2apfg.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "3c7d4ba718d7b3708fb883217b027fc6a5d738156f3158432febb1554e4b3750",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

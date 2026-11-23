@@ -1,0 +1,55 @@
+{
+  "origin": "https://flashfox.pro",
+  "recordIds": [
+    "A064",
+    "A185"
+  ],
+  "rules": [
+    {
+      "bodySha256": "d45b36efa0a844caf776f16aa26636136adf159ec5b1acb0d9da0543c4413ae0",
+      "quote": "5 - 无设备和ip限制。",
+      "summary": "原采集时flashfox.pro商店Basic、Standard、Advanced、Premium Plan均称使用trojan协议、无设备和IP限制。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "A064与A185共用同一份来源，不当作两个独立服务或独立证据。",
+        "营销域flashfox.cloud导向其他品牌的旧套餐不采用。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH423-12959981983301b92c7c9f62",
+      "originalCapturedAt": "2026-11-01T09:32:57.771Z"
+    },
+    {
+      "bodySha256": "a255b2c24c1e2e7750604b9c1e2255bacb28b684f4a326f1488200214473c38f",
+      "quote": "订阅链接、节点域名和 IP：用户严禁泄露、分享或以任何方式发布与 闪狐云-BGP入口+IPLC专线出口，稳定，延迟低 服务相关的订阅链接、节点域名或节点 IP 等信息。",
+      "summary": "同站服务条款禁止泄露、分享或发布订阅链接、节点域名和节点IP。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "不把无设备限制解释为允许分享订阅；引用条款仅表达站方当时文本。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH426-a66093651cf64501904db65c",
+      "originalCapturedAt": "2026-11-01T08:38:33.830Z"
+    },
+    {
+      "bodySha256": "d45b36efa0a844caf776f16aa26636136adf159ec5b1acb0d9da0543c4413ae0",
+      "quote": "5 - 无设备和ip限制。",
+      "summary": "原采集时flashfox.pro商店Basic、Standard、Advanced、Premium Plan均称使用trojan协议、无设备和IP限制。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "A064与A185共用同一份来源，不当作两个独立服务或独立证据。",
+        "营销域flashfox.cloud导向其他品牌的旧套餐不采用。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH423-12959981983301b92c7c9f62",
+      "originalCapturedAt": "2026-11-01T09:32:57.771Z"
+    },
+    {
+      "bodySha256": "a255b2c24c1e2e7750604b9c1e2255bacb28b684f4a326f1488200214473c38f",
+      "quote": "订阅链接、节点域名和 IP：用户严禁泄露、分享或以任何方式发布与 闪狐云-BGP入口+IPLC专线出口，稳定，延迟低 服务相关的订阅链接、节点域名或节点 IP 等信息。",
+      "summary": "同站服务条款禁止泄露、分享或发布订阅链接、节点域名和节点IP。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "不把无设备限制解释为允许分享订阅；引用条款仅表达站方当时文本。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH426-a66093651cf64501904db65c",
+      "originalCapturedAt": "2026-11-01T08:38:33.830Z"
+    }
+  ]
+}

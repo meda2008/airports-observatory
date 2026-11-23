@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A054",
+  "name": "Naiu (奶优)",
+  "entryUrl": "https://access.naiunet.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "access.naiunet.com"
+  ],
+  "adapter": "v2board",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "对应奶优保存账号的access.naiunet.com正常登录成功，实际读取NaiU_Net六档套餐；页面初始异步无卡片，加载完成后才保留六卡原文，不按初始空页认定无套餐。当前法律主体、与旧推广落地关系及历史连续经营未独立确认。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

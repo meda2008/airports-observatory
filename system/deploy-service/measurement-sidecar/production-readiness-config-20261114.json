@@ -1,0 +1,125 @@
+{
+  "name": "airports-measurement-readiness-20261114",
+  "services": {
+    "measurements": {
+      "cap_drop": [
+        "ALL"
+      ],
+      "command": [
+        "deploy-service/measurement-worker.cjs",
+        "--max-ticks=3"
+      ],
+      "depends_on": {
+        "namespace-holder": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "entrypoint": [
+        "node"
+      ],
+      "environment": {
+        "MEASUREMENT_SECRET_DIR": "/run/secrets/measurement-auth",
+        "MEASUREMENT_STORE_FILE": "/measurement-data/measurements.sqlite"
+      },
+      "image": "airports-observatory:real-line-readiness-20261114",
+      "network_mode": "service:namespace-holder",
+      "pull_policy": "never",
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "tmpfs": [
+        "/run/secrets/measurement-auth:ro,noexec,nosuid,size=1m"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "isolated-measurement-data",
+          "target": "/measurement-data",
+          "volume": {}
+        }
+      ]
+    },
+    "namespace-holder": {
+      "cap_drop": [
+        "ALL"
+      ],
+      "command": [
+        "-e",
+        "setInterval(()=\u003e{},60000)"
+      ],
+      "entrypoint": [
+        "node"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "node",
+          "-e",
+          "process.exit(0)"
+        ],
+        "timeout": "3s",
+        "interval": "1s",
+        "retries": 10
+      },
+      "image": "airports-observatory:real-line-readiness-20261114",
+      "network_mode": "none",
+      "pull_policy": "never",
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ]
+    },
+    "readiness-check": {
+      "cap_drop": [
+        "ALL"
+      ],
+      "command": [
+        "/readiness/readiness.cjs"
+      ],
+      "depends_on": {
+        "measurements": {
+          "condition": "service_completed_successfully",
+          "required": true
+        },
+        "namespace-holder": {
+          "condition": "service_started",
+          "restart": true,
+          "required": true
+        }
+      },
+      "entrypoint": [
+        "node"
+      ],
+      "image": "airports-observatory:real-line-readiness-20261114",
+      "network_mode": "service:namespace-holder",
+      "pull_policy": "never",
+      "read_only": true,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "isolated-measurement-data",
+          "target": "/measurement-data",
+          "read_only": true,
+          "volume": {}
+        },
+        {
+          "type": "bind",
+          "source": "D:\\AI_Projects\\Airports\\deploy-service\\measurement-sidecar\\readiness.cjs",
+          "target": "/readiness/readiness.cjs",
+          "read_only": true,
+          "bind": {}
+        }
+      ]
+    }
+  },
+  "volumes": {
+    "isolated-measurement-data": {
+      "name": "airports-measurement-readiness-20261114_isolated-measurement-data"
+    }
+  }
+}

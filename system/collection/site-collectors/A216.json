@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A216",
+  "name": "飞猴云",
+  "entryUrl": "https://w1.feihouyun.com/",
+  "allowedHosts": [
+    "w1.feihouyun.com",
+    "api1.feihouyun.com"
+  ],
+  "adapter": "generic",
+  "enabled": true,
+  "fields": [
+    "pricing",
+    "payment"
+  ],
+  "maxPages": 2,
+  "refreshIntervalMs": 604800000,
+  "readOnlyRecipe": "feihou_native_api_readonly",
+  "challengePolicy": "checkpoint",
+  "publicOnly": false,
+  "webEgress": "direct",
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "recoveryNote": "2026-11-19 v160: cold signin1 then cached signin0 and normal weekly collection accepted; 23 cycle offers; pinned official amount unit, device conflict retained; no orders/payment."
+}

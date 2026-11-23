@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "A021-issue335-retained-feedback",
+      "recordId": "A021",
+      "url": "https://api.github.com/repos/limbopro/Paolujichang/issues?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=1&state=all",
+      "ref": {
+        "sourceId": "COMM-20261026-gh-issues-p1",
+        "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.json",
+        "fileSha256": "5aa6d22af9d08c7b6c93869ab420c677ccd686ec88615e996be9caea486893d1",
+        "url": "https://api.github.com/repos/limbopro/Paolujichang/issues?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=1&state=all",
+        "observedAt": "2026-10-26T03:47:14.702Z",
+        "bodySha256": "ae5ac9d18c1b3378fc9589cbd8059c7a776bc3cb2edc4f63ba16d3b3f2b3a8e5",
+        "representation": "retained_public_api_item",
+        "itemSelection": {
+          "format": "github_rest_array",
+          "arrayIndex": 26,
+          "identityField": "number",
+          "identityValue": 335,
+          "selectedField": "body",
+          "jsonPointer": "/26/body"
+        },
+        "publishedAt": "2026-09-24T01:27:36.000Z",
+        "captureReceipt": {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.metadata.json",
+          "fileSha256": "a28a4537f85fb3393b54a657a608b90230e888232a93511605ff91bfe430b6cb",
+          "sourceId": "COMM-20261026-gh-issues-p1",
+          "receivedAt": "2026-10-26T03:47:14.702Z",
+          "representation": "GitHub CLI response body bytes; response transport compression not retained"
+        }
+      },
+      "currentRef": {
+        "sourceId": "CORE-PUBLIC-YTOO-B202-POLICY-LINKS",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch202/raw/core-public-ytoo-b202-policy-links-4366d85c043f.json",
+        "fileSha256": "4366d85c043f3f1c0c680423946820fe749785deed328071654bb65593f32808",
+        "url": "https://y-too.net/cart.php",
+        "observedAt": "2026-10-28T11:08:19.598Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "4f7e0d9d3213a9544bd8612ff975f880392302a8d559974946fa41b95ffa4253"
+      },
+      "currentOfficialUrlAtReview": "https://y-too.net/cart.php",
+      "issue": {
+        "id": 5561681080,
+        "number": 335,
+        "author": "Albelt",
+        "createdAt": "2026-09-24T01:27:36Z",
+        "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/335"
+      },
+      "comments": [
+        {
+          "id": 5832637348,
+          "author": "y79uhJIIpK",
+          "createdAt": "2026-09-25T12:49:12Z",
+          "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5832637348",
+          "ownStatement": "我在用Y-Too，自从换了AnyTLS接入以后就开始颠了，也不清楚是不是我的配置策略有问题。\n第一台设备OpenWRT+openclash，可以订阅也可以更新，节点也大多数是全绿速度也还行（包括0.2倍率，除了小众），但不能使用订阅转换（可以曲线支持订阅转换，但转换后无法上网不清楚咋回事）。\n第二台普通电脑，Clash全红，v2ray也全红，不能订阅。\n第三台OpenWRT+openclash（测试用），anytls节点不可用，但ss节点正常。\n第四台OpenWRT+openclash（测试用）除了低倍率和小众节点是timeout，其他还行。\n\nduyaoss测速过了大部分其实没啥问题\n\n这个问题困扰了我好久，昨天狠下心换了个，舒服了。订阅转换，订阅节点终于正常了（这个机场没anytls节点）。\n\n我想咨询个事情，为啥anytls在订阅转换后网络不能用了。我有一个amytelecom也是这个情况，订阅转换前好的，订阅转换后有问题。",
+          "ref": {
+            "sourceId": "GH-comment-5832637348",
+            "file": "work/performance-20261113-twentyeighth/originals/github-comments-archive-20261025.json",
+            "fileSha256": "d3b26eba196a2a2ef242f1894a95cab0b8bb2dbef181378e1cc110bc42121efc",
+            "url": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5832637348",
+            "observedAt": "2026-10-25T12:34:56.425333+00:00",
+            "bodySha256": "37768513f3f49724e25e0d72a34d31162b583ccd1f101ec4d94d0edf322663d5",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 9,
+              "identityField": "id",
+              "identityValue": 5832637348,
+              "selectedField": "body",
+              "jsonPointer": "/9/body"
+            },
+            "publishedAt": "2026-09-25T12:49:12.000Z",
+            "captureReceipt": {
+              "archiveFile": "catalog/archives/public-evidence-2026-10-25.zip",
+              "archiveFileSha256": "33356a411fb861ce74af2f62b66b7d1275eb05e67e95244a37be2d0f6392c1a6",
+              "archiveEntry": "github_comments_raw.json",
+              "containerSha256": "d3b26eba196a2a2ef242f1894a95cab0b8bb2dbef181378e1cc110bc42121efc",
+              "originalRequestUrl": null,
+              "publicReplayUrl": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5832637348",
+              "observedAt": "2026-10-25T12:34:56.425333+00:00",
+              "scope": "Exact original member bytes materialized locally; URL is original public comment permalink, not an invented API request URL or new capture."
+            }
+          }
+        },
+        {
+          "id": 5844777051,
+          "author": "limbopro",
+          "createdAt": "2026-09-26T08:55:45Z",
+          "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5844777051",
+          "ownStatement": "能看到配置文件详细吗？转换前后有什么区别？对比一下就知道了。",
+          "ref": {
+            "sourceId": "COMM-20261026-gh-comments-p4",
+            "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.json",
+            "fileSha256": "34954936d5d0497169aa942d9b3d1a82057ab6aadefd7e6810b0f6d3e7753a9b",
+            "url": "https://api.github.com/repos/limbopro/Paolujichang/issues/comments?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=4",
+            "observedAt": "2026-10-26T03:47:21.129Z",
+            "bodySha256": "6c36ac82a02c5d7cf82289a40f64413501af9ff1ecf5dc149d4c3e0260a24fbd",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 0,
+              "identityField": "id",
+              "identityValue": 5844777051,
+              "selectedField": "body",
+              "jsonPointer": "/0/body"
+            },
+            "publishedAt": "2026-09-26T08:55:45.000Z",
+            "captureReceipt": {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.metadata.json",
+              "fileSha256": "6fcae23be91ecba2baa6e08f18870473357cd8346a671b882ca067ca1c7a5745",
+              "sourceId": "COMM-20261026-gh-comments-p4",
+              "receivedAt": "2026-10-26T03:47:21.129Z",
+              "representation": "GitHub CLI response body bytes; response transport compression not retained"
+            }
+          }
+        },
+        {
+          "id": 6315754575,
+          "author": "maxfong",
+          "createdAt": "2026-10-21T12:20:37Z",
+          "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-6315754575",
+          "ownStatement": "还没跑路，在正常使用中",
+          "ref": {
+            "sourceId": "COMM-20261026-gh-comments-p1",
+            "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.json",
+            "fileSha256": "7f039307b5bb9968d88e87093c3aa388e5effdb5a92378c0aa3be9cece78dc23",
+            "url": "https://api.github.com/repos/limbopro/Paolujichang/issues/comments?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=1",
+            "observedAt": "2026-10-26T03:47:15.994Z",
+            "bodySha256": "c4f6444b6c154d9a303080a3b076dc32bec9f5d8a6ead848e8bd4beaf7ab45f9",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 74,
+              "identityField": "id",
+              "identityValue": 6315754575,
+              "selectedField": "body",
+              "jsonPointer": "/74/body"
+            },
+            "publishedAt": "2026-10-21T12:20:37.000Z",
+            "captureReceipt": {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.metadata.json",
+              "fileSha256": "0d4059c685b067fccc04c0b2f56ba4dd9760dc92a42cb2704be0931ea27e0677",
+              "sourceId": "COMM-20261026-gh-comments-p1",
+              "receivedAt": "2026-10-26T03:47:15.994Z",
+              "representation": "GitHub CLI response body bytes; response transport compression not retained"
+            }
+          }
+        }
+      ],
+      "attachments": [
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.metadata.json",
+          "sha256": "a28a4537f85fb3393b54a657a608b90230e888232a93511605ff91bfe430b6cb"
+        },
+        {
+          "file": "catalog/archives/public-evidence-2026-10-25.zip",
+          "sha256": "33356a411fb861ce74af2f62b66b7d1275eb05e67e95244a37be2d0f6392c1a6"
+        },
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.metadata.json",
+          "sha256": "6fcae23be91ecba2baa6e08f18870473357cd8346a671b882ca067ca1c7a5745"
+        },
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.metadata.json",
+          "sha256": "0d4059c685b067fccc04c0b2f56ba4dd9760dc92a42cb2704be0931ea27e0677"
+        },
+        {
+          "file": "catalog/source-provenance.json",
+          "sha256": "a722fa89e2c78623054f4f8335450aa22e34c16c612596f3628cb5e65ba03f67"
+        }
+      ],
+      "requiredAttachments": [
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.metadata.json",
+          "sha256": "a28a4537f85fb3393b54a657a608b90230e888232a93511605ff91bfe430b6cb"
+        },
+        {
+          "file": "catalog/archives/public-evidence-2026-10-25.zip",
+          "sha256": "33356a411fb861ce74af2f62b66b7d1275eb05e67e95244a37be2d0f6392c1a6"
+        },
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.metadata.json",
+          "sha256": "6fcae23be91ecba2baa6e08f18870473357cd8346a671b882ca067ca1c7a5745"
+        },
+        {
+          "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.metadata.json",
+          "sha256": "0d4059c685b067fccc04c0b2f56ba4dd9760dc92a42cb2704be0931ea27e0677"
+        },
+        {
+          "file": "catalog/source-provenance.json",
+          "sha256": "a722fa89e2c78623054f4f8335450aa22e34c16c612596f3628cb5e65ba03f67"
+        }
+      ],
+      "fields": [
+        "stability"
+      ],
+      "retainedOnly": true,
+      "sourceTargets": [],
+      "materials": [
+        {
+          "key": "primary",
+          "ref": {
+            "sourceId": "COMM-20261026-gh-issues-p1",
+            "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.json",
+            "fileSha256": "5aa6d22af9d08c7b6c93869ab420c677ccd686ec88615e996be9caea486893d1",
+            "url": "https://api.github.com/repos/limbopro/Paolujichang/issues?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=1&state=all",
+            "observedAt": "2026-10-26T03:47:14.702Z",
+            "bodySha256": "ae5ac9d18c1b3378fc9589cbd8059c7a776bc3cb2edc4f63ba16d3b3f2b3a8e5",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 26,
+              "identityField": "number",
+              "identityValue": 335,
+              "selectedField": "body",
+              "jsonPointer": "/26/body"
+            },
+            "publishedAt": "2026-09-24T01:27:36.000Z",
+            "captureReceipt": {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.metadata.json",
+              "fileSha256": "a28a4537f85fb3393b54a657a608b90230e888232a93511605ff91bfe430b6cb",
+              "sourceId": "COMM-20261026-gh-issues-p1",
+              "receivedAt": "2026-10-26T03:47:14.702Z",
+              "representation": "GitHub CLI response body bytes; response transport compression not retained"
+            }
+          },
+          "quotes": [
+            "## issue 详情说明\n\n🏷️ **机场名称**：  YToo 歪兔\n\n🔗 **机场网址**：  https://y-too.net\n\n🔄 **机场状态**：已跑路\n\n⏳ **已使用时长**：半年\n\n\n💰 **近期续费套餐时长**：1年\n\n\n📖 **机场此前使用体验**： 节点较多，大部分情况下稳定，偶尔超时提工单，客服会回应\n\n\n📊 **机场当前使用体验**：  所有节点都超时，网站打不开，客服完全联系不上\n\n\n🕐 **异常开始时间**：2026-09-24 09:00\n\n今年4月份买的，充了1年370多，很多人推荐的老牌机场，没想到才用了半年就跑了，艹他马\n\n"
+          ],
+          "attachments": [
+            {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-issues-p1.metadata.json",
+              "sha256": "a28a4537f85fb3393b54a657a608b90230e888232a93511605ff91bfe430b6cb"
+            },
+            {
+              "file": "catalog/archives/public-evidence-2026-10-25.zip",
+              "sha256": "33356a411fb861ce74af2f62b66b7d1275eb05e67e95244a37be2d0f6392c1a6"
+            },
+            {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.metadata.json",
+              "sha256": "6fcae23be91ecba2baa6e08f18870473357cd8346a671b882ca067ca1c7a5745"
+            },
+            {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.metadata.json",
+              "sha256": "0d4059c685b067fccc04c0b2f56ba4dd9760dc92a42cb2704be0931ea27e0677"
+            },
+            {
+              "file": "catalog/source-provenance.json",
+              "sha256": "a722fa89e2c78623054f4f8335450aa22e34c16c612596f3628cb5e65ba03f67"
+            }
+          ]
+        },
+        {
+          "key": "comment-0",
+          "ref": {
+            "sourceId": "GH-comment-5832637348",
+            "file": "work/performance-20261113-twentyeighth/originals/github-comments-archive-20261025.json",
+            "fileSha256": "d3b26eba196a2a2ef242f1894a95cab0b8bb2dbef181378e1cc110bc42121efc",
+            "url": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5832637348",
+            "observedAt": "2026-10-25T12:34:56.425333+00:00",
+            "bodySha256": "37768513f3f49724e25e0d72a34d31162b583ccd1f101ec4d94d0edf322663d5",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 9,
+              "identityField": "id",
+              "identityValue": 5832637348,
+              "selectedField": "body",
+              "jsonPointer": "/9/body"
+            },
+            "publishedAt": "2026-09-25T12:49:12.000Z",
+            "captureReceipt": {
+              "archiveFile": "catalog/archives/public-evidence-2026-10-25.zip",
+              "archiveFileSha256": "33356a411fb861ce74af2f62b66b7d1275eb05e67e95244a37be2d0f6392c1a6",
+              "archiveEntry": "github_comments_raw.json",
+              "containerSha256": "d3b26eba196a2a2ef242f1894a95cab0b8bb2dbef181378e1cc110bc42121efc",
+              "originalRequestUrl": null,
+              "publicReplayUrl": "https://github.com/limbopro/Paolujichang/issues/335#issuecomment-5832637348",
+              "observedAt": "2026-10-25T12:34:56.425333+00:00",
+              "scope": "Exact original member bytes materialized locally; URL is original public comment permalink, not an invented API request URL or new capture."
+            }
+          },
+          "quotes": [
+            "我在用Y-Too，自从换了AnyTLS接入以后就开始颠了，也不清楚是不是我的配置策略有问题。\n第一台设备OpenWRT+openclash，可以订阅也可以更新，节点也大多数是全绿速度也还行（包括0.2倍率，除了小众），但不能使用订阅转换（可以曲线支持订阅转换，但转换后无法上网不清楚咋回事）。\n第二台普通电脑，Clash全红，v2ray也全红，不能订阅。\n第三台OpenWRT+openclash（测试用），anytls节点不可用，但ss节点正常。\n第四台OpenWRT+openclash（测试用）除了低倍率和小众节点是timeout，其他还行。\n\nduyaoss测速过了大部分其实没啥问题\n\n这个问题困扰了我好久，昨天狠下心换了个，舒服了。订阅转换，订阅节点终于正常了（这个机场没anytls节点）。\n\n我想咨询个事情，为啥anytls在订阅转换后网络不能用了。我有一个amytelecom也是这个情况，订阅转换前好的，订阅转换后有问题。"
+          ]
+        },
+        {
+          "key": "comment-1",
+          "ref": {
+            "sourceId": "COMM-20261026-gh-comments-p4",
+            "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.json",
+            "fileSha256": "34954936d5d0497169aa942d9b3d1a82057ab6aadefd7e6810b0f6d3e7753a9b",
+            "url": "https://api.github.com/repos/limbopro/Paolujichang/issues/comments?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=4",
+            "observedAt": "2026-10-26T03:47:21.129Z",
+            "bodySha256": "6c36ac82a02c5d7cf82289a40f64413501af9ff1ecf5dc149d4c3e0260a24fbd",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 0,
+              "identityField": "id",
+              "identityValue": 5844777051,
+              "selectedField": "body",
+              "jsonPointer": "/0/body"
+            },
+            "publishedAt": "2026-09-26T08:55:45.000Z",
+            "captureReceipt": {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p4.metadata.json",
+              "fileSha256": "6fcae23be91ecba2baa6e08f18870473357cd8346a671b882ca067ca1c7a5745",
+              "sourceId": "COMM-20261026-gh-comments-p4",
+              "receivedAt": "2026-10-26T03:47:21.129Z",
+              "representation": "GitHub CLI response body bytes; response transport compression not retained"
+            }
+          },
+          "quotes": [
+            "> 我在用Y-Too，自从换了AnyTLS接入以后就开始颠了，也不清楚是不是我的配置策略有问题。 第一台设备OpenWRT+openclash，可以订阅也可以更新，节点也大多数是全绿速度也还行（包括0.2倍率，除了小众），但不能使用订阅转换（可以曲线支持订阅转换，但转换后无法上网不清楚咋回事）。 第二台普通电脑，Clash全红，v2ray也全红，不能订阅。 第三台OpenWRT+openclash（测试用），anytls节点不可用，但ss节点正常。 第四台OpenWRT+openclash（测试用）除了低倍率和小众节点是timeout，其他还行。\n> \n> duyaoss测速过了大部分其实没啥问题\n> \n> 这个问题困扰了我好久，昨天狠下心换了个，舒服了。订阅转换，订阅节点终于正常了（这个机场没anytls节点）。\n> \n> 我想咨询个事情，为啥anytls在订阅转换后网络不能用了。我有一个amytelecom也是这个情况，订阅转换前好的，订阅转换后有问题。\n\n能看到配置文件详细吗？转换前后有什么区别？对比一下就知道了。"
+          ]
+        },
+        {
+          "key": "comment-2",
+          "ref": {
+            "sourceId": "COMM-20261026-gh-comments-p1",
+            "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.json",
+            "fileSha256": "7f039307b5bb9968d88e87093c3aa388e5effdb5a92378c0aa3be9cece78dc23",
+            "url": "https://api.github.com/repos/limbopro/Paolujichang/issues/comments?since=2026-09-26T03%3A43%3A16.253Z&sort=updated&direction=desc&per_page=100&page=1",
+            "observedAt": "2026-10-26T03:47:15.994Z",
+            "bodySha256": "c4f6444b6c154d9a303080a3b076dc32bec9f5d8a6ead848e8bd4beaf7ab45f9",
+            "representation": "retained_public_api_item",
+            "itemSelection": {
+              "format": "github_rest_array",
+              "arrayIndex": 74,
+              "identityField": "id",
+              "identityValue": 6315754575,
+              "selectedField": "body",
+              "jsonPointer": "/74/body"
+            },
+            "publishedAt": "2026-10-21T12:20:37.000Z",
+            "captureReceipt": {
+              "file": "catalog/refresh/2026-10-26/community/raw/gh-comments-p1.metadata.json",
+              "fileSha256": "0d4059c685b067fccc04c0b2f56ba4dd9760dc92a42cb2704be0931ea27e0677",
+              "sourceId": "COMM-20261026-gh-comments-p1",
+              "receivedAt": "2026-10-26T03:47:15.994Z",
+              "representation": "GitHub CLI response body bytes; response transport compression not retained"
+            }
+          },
+          "quotes": [
+            "还没跑路，在正常使用中"
+          ]
+        },
+        {
+          "key": "current",
+          "ref": {
+            "sourceId": "CORE-PUBLIC-YTOO-B202-POLICY-LINKS",
+            "file": "catalog/refresh/2026-10-26/core-auth-batch202/raw/core-public-ytoo-b202-policy-links-4366d85c043f.json",
+            "fileSha256": "4366d85c043f3f1c0c680423946820fe749785deed328071654bb65593f32808",
+            "url": "https://y-too.net/cart.php",
+            "observedAt": "2026-10-28T11:08:19.598Z",
+            "representation": "normalized_retained_visible_DOM_text",
+            "bodySha256": "4f7e0d9d3213a9544bd8612ff975f880392302a8d559974946fa41b95ffa4253"
+          },
+          "quotes": [
+            "网站首页 用户登录\n选择产品\n产品配置\n结账\nGlobal Accelerate\n\n暂不支持单独注册账户，购买时即可注册\n\nGlobal Accelerate\nGlobal Accelerate Team\n查看购物车\nAIR\n￥98.00 /每年\n中国大陆多线网络优化\n中国大陆国际专线传输\n海外常用国家 / 地区落地\n每月 15GB可用流量\n多种流媒体服务访问解锁\nChatGPT 访问解锁\n最高 1000Mbps 速率可用\n仅限账户拥有人使用\n3 IP限制\n标准技术支持\n立即订购\nBASIC\n￥36.00 /每月\n中国大陆多线网络优化\n中国大陆国际专线传输\n海外常用国家 / 地区落地\n每月 200GB可用流量\n多种流媒体服务访问解锁\nChatGPT 访问解锁\n最高 1000Mbps 速率可用\n仅限账户拥有人使用\n4 IP限制\n标准技术支持\n立即订购\nPLUS\n￥54.00 /每月\n中国大陆多线网络优化\n中国大陆国际专线传输\n海外常用国家 / 地区落地\n每月 400GB可用流量\n多种流媒体服务访问解锁\nChatGPT 访问解锁\n最高 1000Mbps 速率可用\n仅限账户拥有人使用\n4 IP限制\n标准技术支持\n立即订购\nPRO\n￥108.00 /每月\n中国大陆多线网络优化\n中国大陆国际专线传输\n海外常用国家 / 地区落地\n每月 1000GB可用流量\n多种流媒体服务访问解锁\nChatGPT 访问解锁\n最高 1000Mbps 速率可用\n仅限账户拥有人使用\n5 IP限制\n标准技术支持\n立即订购\n\nYToo\n\n订阅式跨区域网络连接与访问优化服务。\n\nCopyright © 2019-2026 YToo.\n\nYToo 为独立运营的跨区域网络连接与访问优化服务平台，主要用于提升用户在中国大陆与海外资源之间的访问稳定性与连接体验。\n\n我们不会冒充、代表或关联任何第三方品牌、组织或服务提供商。\n\nWe do not impersonate or claim affiliation with any third-party services.\n\n服务条款 · 隐私政策 · 联系我们\n\n3"
+          ]
+        }
+      ]
+    }
+  ]
+}

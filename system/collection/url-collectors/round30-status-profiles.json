@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A015",
+      "url": "https://t.me/s/oixcloud_news",
+      "createdAt": "2026-11-08T04:32:26+00:00",
+      "permalink": "https://t.me/oixcloud_news/191",
+      "quoteSha256": "a8ff0f8d4be76aec525b1244e797839f5ff7c9327e14a53920f9b94ca1501f09",
+      "currentRef": {
+        "file": "work/performance-discovery/A015-0a29c36c-1b55-4e8a-806d-49f1928c7811-899db85c-48ed-46ff-a79a-021d1c311547/capture-0.json",
+        "fileSha256": "a3e22437bd2fef415b8414903317af58ae9876091ac0ff428277cc1a60475522",
+        "url": "https://oixcloud.com/",
+        "observedAt": "2026-11-13T03:05:11.011Z",
+        "bodySha256": "d0f3ef12a25e1f416bf94576851be4deadcac779e41d31495ecf4d745d7c47c6",
+        "representation": "builtin_browser_visible_DOM_text",
+        "sourceId": "DISCOVERY-CURRENT-OIX-0a29c36c-1b55-4e8a-806d-49f1928c7811"
+      },
+      "channelLinkProof": {
+        "file": "work/performance-discovery/dom/oix-current-public-home/0a29c36c-1b55-4e8a-806d-49f1928c7811.json",
+        "fileSha256": "e557d49de4e84c6cea73dc16e082e339203a36f85e963d908f1b56874c0be095",
+        "capturedAt": "2026-11-13T03:05:11.088Z",
+        "linkIndex": 16
+      },
+      "initialChannelRef": {
+        "file": "work/performance-discovery/A015-525050a5-bb0d-4c6c-8b2e-5d50b3a5c7d6-76b2db0e-1a4a-458c-96c0-4059e04a25f3/capture-0.json",
+        "fileSha256": "6becccf2c027dfee71b93b2e7646b650c358dba92ffcbdabe8f943ee5c39fa8f",
+        "url": "https://t.me/s/oixcloud_news",
+        "observedAt": "2026-11-13T03:07:24.067Z",
+        "bodySha256": "e96c833310cdd14e467c973019b7a11c1174faa1f356d01e9c88755e0e6a09e1",
+        "representation": "builtin_browser_visible_DOM_text"
+      }
+    }
+  ]
+}

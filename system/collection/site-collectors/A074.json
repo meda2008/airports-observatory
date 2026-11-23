@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A074",
+  "name": "YkkCloud",
+  "entryUrl": "https://cloud.ykkk.tech/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "cloud.ykkk.tech"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "公开YKKCLOUD介绍页链接ykkk.best注册/登录及doc.ykkk.best条款隐私；文档欢迎页反链cloud.ykkk.tech。保存panel.ykkk.best现只显示版本v0.3.8，未取得商店；同根域与同品牌仅作为候选服务归属，不等于经营主体独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

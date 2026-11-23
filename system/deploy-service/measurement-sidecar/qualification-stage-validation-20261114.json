@@ -1,0 +1,101 @@
+{
+  "recordedAt": "2026-11-14T02:17:19.617Z",
+  "status": "STAGE_DOCKER_REAL_ROUTE_QUALIFIED_NOT_FORMAL_SAMPLES",
+  "candidate": "stage_not_final_source_freeze",
+  "scope": "one explicit echo plus one bounded download through frozen single VMess route; no host execution endpoint",
+  "image": {
+    "id": "sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0",
+    "repoDigests": [
+      "airports-observatory@sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0"
+    ],
+    "sizeBytes": 2065660760
+  },
+  "sourcePins": {
+    "file": "deploy-service/measurement-sidecar/qualification-private-input-pins-20261114.json",
+    "fileSha256": "e13bd3fd41a91865d9eab358230516b90b83e9b5216d55749a051f614fcaf57d"
+  },
+  "script": {
+    "file": "deploy-service/measurement-sidecar/docker-route-qualification.cjs",
+    "fileSha256": "28eb6ef9bf271e12d0018f99466932509a0d2092bcffc0bfa68b5a4e46eae808"
+  },
+  "compose": {
+    "file": "deploy-service/measurement-sidecar/compose.route-qualification.yaml",
+    "fileSha256": "e2dc27962a60dc172315f21bab7ad3c1121f45d7d3bdbb2dbdd58f69ce6350af"
+  },
+  "processExitCode": 0,
+  "egressMatch": true,
+  "egressTlsVerified": true,
+  "downloadComplete": true,
+  "downloadTlsVerified": true,
+  "downloadBytes": 262144,
+  "privateInputsUnchanged": true,
+  "recordHash": "a996d08dad6c1a5ce8b81f3b4353910db76c74e5c76fb05f222d07fcd282f9a9",
+  "valueMbps": null,
+  "formalSamplesAdded": 0,
+  "formalProfilesAdded": 0,
+  "mainDatabaseTouched": false,
+  "mainNativeWorkerTouched": false,
+  "stdoutSchemaVerified": true,
+  "privateEchoAndAuthorizationAbsent": true,
+  "independentDbAudit": {
+    "recordedAt": "2026-11-14T02:15:19.514Z",
+    "profileCount": 0,
+    "formalObservationCount": 0,
+    "formalRunCount": 0,
+    "qualificationCount": 1,
+    "measurementEnabled": false,
+    "qualificationHashVerified": true,
+    "qualificationRecordHash": "a996d08dad6c1a5ce8b81f3b4353910db76c74e5c76fb05f222d07fcd282f9a9",
+    "databaseBytesUnchanged": true
+  },
+  "cleanup": {
+    "completed": true,
+    "remainingScopedContainers": 0,
+    "isolatedVolumeRemoved": true,
+    "independentDbCopyRetained": true,
+    "otherProjectContainersTouched": false
+  },
+  "retainedArtifacts": [
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-build-20261114.log",
+      "fileSha256": "24904d6afbcb54298c363577498945ceead943652be7d05a1dd6bc102856f584"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-exit-20261114.json",
+      "fileSha256": "082b43288cbd760dba5dd6a212f10d393e0d994203292be62f84c7e301044b69"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-stdout-20261114.log",
+      "fileSha256": "de635092de59ac6a82ca5fb82612873021e7ef6079f55255cf656d43a155d1bc"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-stderr-20261114.log",
+      "fileSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-result-20261114.json",
+      "fileSha256": "19bfd10c416a6ba043a0ebf4278801b37a99b7341e3ca51eec30880ef1de9fcf"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-inspect-20261114.json",
+      "fileSha256": "1d6addc326b26b069f94f046f3fbf12528234f4045694bb5f676685370fbf688"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-db-audit-20261114.json",
+      "fileSha256": "fa8af5a3087ccad7742f8600579fdc719e1c45a187e9554eb18800da290d6361"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-cleanup-20261114.log",
+      "fileSha256": "0caa885c9cfd3715a5af7cff0855aef6256240706948229c00d8235c777bb557"
+    }
+  ],
+  "initialPreflightFailure": {
+    "file": "deploy-service/measurement-sidecar/qualification-preflight.initial-path-error-20261114.json",
+    "fileSha256": "fc82d921b549c52a879ef9ef90cbf4f8a3124398b6b6b2fd37f1847a7b1c5fba"
+  },
+  "limitations": [
+    "Stage image only; final source-frozen cached build remains required.",
+    "Echo matches a local successful egress pin; this is not external operator/identity certification.",
+    "Only route execution qualification; not part of the native worker formal13 source prefix or a new coverage fact."
+  ]
+}

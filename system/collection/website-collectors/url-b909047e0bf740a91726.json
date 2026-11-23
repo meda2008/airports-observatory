@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b909047e0bf740a91726",
+  "origin": "https://in.mesl.cloud",
+  "recordIds": [
+    "A017"
+  ],
+  "entryUrls": [
+    "https://in.mesl.cloud/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A017"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://in.mesl.cloud",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ae724970d1ea91253980dd0d930f0e599c73ad9ccadd4bb91fc8be15b3b964ff",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-5637e53b60eafc9713e4",
+  "origin": "https://nicecloud.co",
+  "recordIds": [
+    "A005"
+  ],
+  "entryUrls": [
+    "https://nicecloud.co/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nicecloud.co",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ba78c6ca2e8c2d849be61f5f5b781f0946fec0c2e9b744aed20b405d108d1ea9",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-3e9bf6e63098a163de2a",
+  "origin": "https://asdfb4.xingdaotatt.homes",
+  "recordIds": [
+    "A151"
+  ],
+  "entryUrls": [
+    "https://asdfb4.xingdaotatt.homes/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A151"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": {
+      "mode": "login",
+      "emailSelector": "input[type=\"email\"]",
+      "passwordSelector": "input[type=\"password\"]",
+      "submitSelector": "button[type=\"submit\"]",
+      "successSelector": "button:has-text(\"退出登录\")"
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": true,
+    "includeClientGuides": true,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://asdfb4.xingdaotatt.homes",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "b85ac76921f3c84c73db7b7644adc5727a06cceb092de305bd4d7a938eccbad5",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

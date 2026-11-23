@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-f689661bff1f88a5b581",
+  "origin": "https://cp.v2-tun.net",
+  "recordIds": [
+    "A008",
+    "A203"
+  ],
+  "entryUrls": [
+    "https://cp.v2-tun.net/",
+    "https://cp.v2-tun.net/cart.php"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A203"
+      ],
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://cp.v2-tun.net",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "8c99699014f5118355d13e4bcdab4bda6902795370d758616f5cc64250290317",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

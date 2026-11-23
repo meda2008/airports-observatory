@@ -1,0 +1,36 @@
+{
+  "siteId": "A185",
+  "profileRevision": 5,
+  "config": {
+    "recordId": "A185",
+    "name": "Flashfox (闪狐云)",
+    "entryUrl": "https://flashfox.pro/shop",
+    "allowedHosts": [
+      "flashfox.pro"
+    ],
+    "adapter": "generic",
+    "maxPages": 4,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "websiteCollectorId": "url-75ecbc49d4c0b6ad36a2",
+    "auth": {
+      "mode": "login",
+      "emailSelector": "input[name=\"email\"]",
+      "passwordSelector": "input[name=\"pass\"]",
+      "submitSelector": "button:text-is(\"登入\")",
+      "successSelector": "a[href$=\"/profile\"]:visible"
+    },
+    "reconcileVerifiedCheckpoints": true
+  },
+  "nextRunAt": "2026-11-25T14:29:19.803Z",
+  "openCheckpoints": 0
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-d5fd403e6c8aaa676613",
+  "origin": "https://web.vtpro.xyz",
+  "recordIds": [
+    "A057"
+  ],
+  "entryUrls": [
+    "https://web.vtpro.xyz/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A057"
+      ],
+      "fields": [
+        "privacy",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": "viewturbo_public_policy_pair",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "27356e15693f4e8b2b9eeb3c6b35881c4cd73118c881230696d3b975214e8ebf",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A178",
+  "name": "FlyV",
+  "entryUrl": "https://5qf0zkp6ut.flyvttt.sbs/",
+  "entrySource": "native_publisher_ev-a46b9eed7c9378512c086562e5e4e5aa0566152f19930771edac0fbb681f4908",
+  "allowedHosts": [
+    "5qf0zkp6ut.flyvttt.sbs"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": true,
+  "eligibility": "native_login_endpoint_unavailable",
+  "reason": "已读到当前认可入口9档公开目录，原认证404及旧入口失败保留，固定官方计价客户端实跑复核调度前保持禁用。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/retained-ehju-flyvastt-lol.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "retained_source_verified_navigation_not_yet_live_tested",
+    "automaticPublication": false
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "no_identifiable_new_entry",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Preserve focused-search originals. Unrelated airlines/SkyLinX/Xlink/BigME/Guga are not an identity bridge.",
+    "credentialPropagationAllowed": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261109-v18",
+    "status": "new_origin_readable_login_confirmation_pending",
+    "checkedAt": "2026-11-09T15:38:32.637Z",
+    "receipt": "work/collection-runs/financial-20261109-v18/run-result.json",
+    "resumeWhen": "current_new_origin_confirmation_and_account_status_check",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "discoveredAlternate": {
+    "url": "https://hjklmns.flyvttt.sbs/#/login",
+    "publisher": "https://varnexa.flyvaff.com/",
+    "source": "https://flyv.site/terms",
+    "status": "native_publisher_selected_readable_login_pending_current_authority",
+    "operatorIdentityVerified": false,
+    "credentialPropagationAllowed": false
+  },
+  "priorAccountRestriction": {
+    "status": "account_disabled_by_server_last_observed",
+    "scope": "previous_authorized_account_on_previous_entry_not_service_closure",
+    "receipt": "work/collection-runs/financial-chrome-20261104-v3/FlyV-financial-checkpoint.json",
+    "automaticCredentialVariantsAllowed": false,
+    "replacementRegistrationAllowed": false
+  },
+  "validateWhileDisabled": true,
+  "priorEntryBeforeRecovery20261121": "https://ehju.flyvastt.lol/",
+  "readOnlyRecipe": "flyv_public_guest_catalog_readonly",
+  "publicOnly": true,
+  "accountReadOnly": false,
+  "collectPerformanceReferences": false,
+  "latestNativeValidation": {
+    "runtimeVersion": "v268",
+    "runId": "15e1e9f2-1d73-4f59-8108-2255e3512f34",
+    "observedAt": "2026-11-20T16:19:34.837Z",
+    "httpStatus": 404,
+    "loginEncoding": "json",
+    "holdRunId": "220208c1-e20b-4d45-9b7f-73b7d0e51670",
+    "holdSigninRequests": 0,
+    "ordersCreated": 0,
+    "paymentExecuted": false
+  },
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-452e6b933124fb97a095",
+  "auth": null,
+  "knowledgeAdapter": false
+}

@@ -1,0 +1,1848 @@
+{
+  "version": 1,
+  "qualification": "Source-specific literal contracts; historical/operator claims only, mandatory review, no measurements or financial actions.",
+  "contracts": [
+    {
+      "siteId": "A077",
+      "url": "https://eggtartcloud.dev/#/dashboard",
+      "collection": "historyStatements",
+      "fact": {
+        "id": "eggtart-opening-20231110",
+        "literalChecked": true,
+        "quote": "蛋挞云正式扬帆起航！\n\n2023-11-10\n\n当前打开的公告正文原文：\n蛋挞云正式扬帆起航！\n官网： danta26.biz\n\n中文：蛋挞云.com\n\n备用： danta26.cloud\n\n\n通知： https://t.me/eggtartcloud\n\n- 内部群组：请在 [@eggtart_assistantbot]\n(https://t.me/eggtart_assistantbot) 绑定后入群\n我们采用正价公网与专线中转的方式进行机场的运营。",
+        "limitations": [
+          "Native authenticated named-service dashboard observed, but no original 2023 archive, legal operator continuity or paid-service continuity established.",
+          "Card date is a current operator claim, not verified founding or continuous operation."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": false,
+        "kind": "operator_opening_claim",
+        "date": "2023-11-10",
+        "continuousOperationVerified": false,
+        "dateEvidence": {
+          "kind": "literal_page_label",
+          "quote": "2023-11-10"
+        }
+      },
+      "quotes": [
+        "蛋挞云正式扬帆起航！\n\n2023-11-10",
+        "我们采用正价公网与专线中转的方式进行机场的运营。"
+      ]
+    },
+    {
+      "siteId": "A014",
+      "url": "https://huacloud.dev/sla.html",
+      "collection": "operatorSlaClaims",
+      "fact": {
+        "id": "flower-sla-20241009-label",
+        "literalChecked": true,
+        "quote": "最后更新: 2024 年 10 月 09 日\n服务水平协议\n\nFlowerCloud 提供基于网络和节点主机 100% 的正常运行时间保证，总的来说，这些保证是作为上托管服务条款和条件的一个补充。阁下成为 FlowerCloud 的客户时，这些条款就将自动生效，并成为 FlowerCloud 整个服务周期中不可或缺的一部分。这些保证适用于阁下的每一个产品/服务，而不是适用于所有账单。以下情况不适用于该 SLA。\n\n阁下所购买服务的正常例行维护，我们会提前通知阁下，并通知调整流量策略和DNS策略临时迁移阁下的服务到可以正常使用的部分。但由于阁下网络服务提供商造成的调整延迟；\nFlowerCloud 提供的 API、控制面板和中继服务器、路由器插件等；\n客户在购买前已经被告知该服务属于单节点服务，不能提供 SLA 的。\n禁止使用我们的服务进行邮件群发或发送垃圾邮件（SPAM）。任何违反此条款的行为将导致服务的立即终止。\n禁止发布或传播违反运营商当地法律的内容。用户有责任确保其使用行为符合所有适用的法律法规。\n禁止共享 FlowerCloud 服务。每个账户仅限个人使用，不得与他人共享。\n禁止转卖 FlowerCloud 账号。任何形式的账号转卖行为将导致服务的立即终止。\n禁止用户在中国大陆的任何社区、网站等媒体上讨论本服务有关的内容。如我们发现并核实此类行为，我们有权随时终止服务。\n丢包和延迟\n\nFlowerCloud 会主动监测 FlowerCloud 各连接点的链路情况，并在出现网络波动时尽可能调整网络策略以减少波动可能带来的影响。FlowerCloud 的全球加速网络在所在地境内的链路是 0 丢包和低延迟的，但当客户在其所在国家的网络连接时，可能会因为线缆质量、运营商路由策略、用户宽带使用和其他因素造成丢包和高延迟。在这种情况下将不再适用于此 SLA。\n\n限制\n\n如果用户使用 FlowerCloud 加速网络进行违反用户和连接点所在地相关法律法规和 FlowerCloud 服务条款的行为，将不再适用于此 SLA。\n\n维护\n\n当 FlowerCloud 对连接点软件和硬件进行例行维护时，将会提前 24 小时通知用户，对于紧急发生的问题，FlowerCloud 将在 10-30 分钟内处理完成，并保证同可用区仍然有正常工作的连接点以供用户使用。",
+        "limitations": [
+          "100% and emergency 10-30 minute handling are promises, not achieved uptime or actual repairs.",
+          "SLA excludes specified maintenance, API/control panel and customer-network cases.",
+          "Registered same-service source attribution is not independently verified legal-operator identity.",
+          "Do not infer cash refund policy, opening date, current speed or measured stability."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": false,
+        "kind": "operator_sla_claim",
+        "summary": "站方SLA承诺网络及节点主机100%正常运行；API、面板、中继和路由器插件等另有排除项，属合同目标，实际达到情况未验证。",
+        "targetAvailabilityPercent": 100,
+        "pageUpdatedAt": "2024-10-09"
+      },
+      "quotes": [
+        "最后更新: 2024 年 10 月 09 日",
+        "FlowerCloud 提供基于网络和节点主机 100% 的正常运行时间保证",
+        "FlowerCloud 提供的 API、控制面板和中继服务器、路由器插件等；",
+        "当 FlowerCloud 对连接点软件和硬件进行例行维护时，将会提前 24 小时通知用户，对于紧急发生的问题，FlowerCloud 将在 10-30 分钟内处理完成，并保证同可用区仍然有正常工作的连接点以供用户使用。"
+      ]
+    },
+    {
+      "siteId": "A015",
+      "url": "https://oixcloud.com/sla_full",
+      "collection": "operatorSlaClaims",
+      "fact": {
+        "id": "oix-sla-performance-limits",
+        "literalChecked": true,
+        "quote": "本 SLA 是运营目标，不构成独立保证；文件不一致时，依次以购买时明确列示的特定条件、服务条款和本 SLA 为准\n\n本 SLA 仅适用于正常付费状态下的核心网络与节点服务。以下情形不在其范围内：\n\n已公告的计划维护、紧急维护、安全修复、升级、容量调整以及为降低风险而进行的路由或配置变更；\n用户设备、软件、本地网络、互联网服务提供商、公共骨干网、DNS、目标服务或其他第三方系统造成的问题；\n错误配置、超出配额、违反使用政策、账户被限制，以及测试版、免费或购买前已明确排除的服务和不可抗力事件\n\n简要说明：\n\n我们会持续监测核心系统，并以恢复可用服务为优先\n\n本 SLA 说明处理方式；除适用法律强制要求外，中断不产生退款、余额、服务延期或其他补偿\n\n网络性能与测量\n\n延迟、抖动、丢包、带宽和路由会随时间、地点、运营商及网络拥塞变化。我们监测由 oixCloud 控制的网络段并采取合理措施改善质量，但不承诺零丢包、固定延迟、固定带宽或永久使用某条线路\n\n不同套餐、区域和接入方式使用不同资源与路由。单次测速或第三方检测仅供参考；我们会结合多个时点的监测、日志和调查结果判断影响，用户也可提交连续测试与完整日志协助排查\n\n简要说明：\n\n如遇异常，请提供发生时间、节点、运营商、设备、客户端版本及必要日志。运营商路由、公共互联网、目标网站策略、地区限制或第三方内容可用性不属于可保证范围\n\n维护、报告与限制\n\n用户应使用受支持的客户端和有效配置，妥善保管凭据，遵守使用政策，并及时提交足以复现问题的资料。因用户配置、设备、超额使用或违规行为导致的问题不适用本 SLA\n\n计划维护会在合理可行时提前公告；安全事件和紧急故障可立即处理。我们会按影响范围进行缓解、绕行、隔离和恢复，并在重大事件中尽可能提供状态更新\n\n简要说明：\n\n响应和修复时间取决于事件性质、供应商及外部网络，不作固定承诺。",
+        "limitations": [
+          "No quantitative achieved availability, speed percentile, probe network or sampling denominator supplied.",
+          "No founding or first operation date follows from this SLA.",
+          "oixCloud/Dler attribution is a retained source mapping, not proof of legal ownership."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": false,
+        "kind": "operator_performance_scope_statement",
+        "summary": "站方明确不承诺零丢包、固定延迟、固定带宽，也不作固定修复时限承诺。",
+        "targetAvailabilityPercent": null,
+        "pageUpdatedAt": null
+      },
+      "quotes": [
+        "本 SLA 是运营目标，不构成独立保证",
+        "我们监测由 oixCloud 控制的网络段并采取合理措施改善质量，但不承诺零丢包、固定延迟、固定带宽或永久使用某条线路",
+        "响应和修复时间取决于事件性质、供应商及外部网络，不作固定承诺。"
+      ]
+    },
+    {
+      "siteId": "A081",
+      "url": "https://w3jsq.com/article/1",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "web3-quality-degradation-20260823",
+        "literalChecked": true,
+        "quote": "公告1：最近由于整个行业管控越来越严，导致服务没之前稳定。对此我们深感抱歉，近期已经在实验新的线路和方案。预计9月会进行一波优化。\n2026-08-23 23:34:32",
+        "limitations": [
+          "Historical operator admission only; no exact incident duration, affected denominator, independent cause or achieved recovery.",
+          "Expected September optimization is a future plan, not proof of completion.",
+          "Vague operating-many-years wording cannot provide founding date or operating age.",
+          "Preserve observed w3jsq.com article-to-web3aa.com reference without proving legal continuity."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": false,
+        "kind": "operator_degradation_statement",
+        "createdAt": "2026-08-23T23:34:32",
+        "url": "https://w3jsq.com/article/1",
+        "relation": "direct_text_match",
+        "summary": "2026-08-23站方自述服务不如以前稳定，并预计9月优化；预计优化没有作为已恢复证据。",
+        "dateEvidence": {
+          "kind": "retained_operator_page_or_post_label",
+          "value": "2026-08-23T23:34:32"
+        }
+      },
+      "quotes": [
+        "公告1：最近由于整个行业管控越来越严，导致服务没之前稳定。对此我们深感抱歉，近期已经在实验新的线路和方案。预计9月会进行一波优化。\n2026-08-23 23:34:32"
+      ]
+    },
+    {
+      "siteId": "A016",
+      "url": "https://amytelecom.statuspage.io/history",
+      "collection": "operatorStatusReports",
+      "fact": {
+        "id": "amy-status-20261028",
+        "literalChecked": true,
+        "quote": "All Systems Operational\nAbout This Site\n\nAmyTelecom provides High-quality「IPLC」to ensure customers' Internet access quality.\n\nThis is the system status for the Amytelecom Services.\n\nUptime over the past 90 days. View historical uptime.\n Main interface\nOperational\n90 days ago\n100 % uptime\nToday",
+        "limitations": [
+          "Operator-maintained component status, not independently measured uptime.",
+          "No-incidents statement does not prove zero failures or complaints."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": true,
+        "kind": "operator_status_page_claim",
+        "windowDays": 90,
+        "claimedAvailabilityPercent": null,
+        "scope": "状态页组件自报，主界面100%不代表所有节点",
+        "summary": "2026-10-28站方状态页自报各组件Operational、主界面过去90天100% uptime，并在当时9/10月历史列表未列事故；不等于全部节点无故障，也不是当前监测结果。"
+      },
+      "quotes": [
+        "All Systems Operational",
+        "Uptime over the past 90 days. View historical uptime.",
+        " Main interface\nOperational\n90 days ago\n100 % uptime\nToday"
+      ]
+    },
+    {
+      "siteId": "A018",
+      "url": "https://u.bws.lol/status",
+      "collection": "operatorStatusReports",
+      "fact": {
+        "id": "bywave-status-20261028",
+        "literalChecked": true,
+        "quote": "部分节点异常\n\n2 个节点需要关注\n\n30 天综合在线率\n86.77%\n监测节点\n20\n正常节点\n18\n需关注\n2\n节点可用性\n\n每格代表一天，聚合结果按 UTC+8 自然日计算\n\n正常\n波动\n异常\n暂无数据\n正常\nCN丨香港丨负载均衡\n\n最近上报：35 秒前\n\n30 天在线率\n100%\n30 天前\n今天\n正常\nCN丨香港01\n\n最近上报：1 分钟前\n\n30 天在线率\n97.73%\n30 天前\n今天\n正常\nCN丨香港02\n\n最近上报：1 分钟前\n\n30 天在线率\n96.23%\n30 天前\n今天\n正常\nCN丨香港03\n\n最近上报：1 分钟前\n\n30 天在线率\n96.94%\n30 天前\n今天\n正常\nCN丨香港04\n\n最近上报：1 分钟前\n\n30 天在线率\n98.48%\n30 天前\n今天\n异常\nCN丨香港家宽\n\n最近上报：8 天前\n\n30 天在线率\n70.30%\n30 天前\n今天\n异常\nCN丨台湾01\n\n最近上报：11 天前",
+        "limitations": [
+          "86.77% is an operator rolling-display rate; weight, denominator, probe location and raw samples unverified.",
+          "Thirty-second page refresh is not probe cadence.",
+          "Old report ages do not prove continuous user outage durations."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": true,
+        "kind": "operator_status_page_claim",
+        "windowDays": 30,
+        "claimedAvailabilityPercent": 86.77,
+        "scope": "站方20监测节点的综合页面值，权重与原始分母未知",
+        "summary": "2026-10-28站方页面自报30天综合在线率86.77%，20监测节点中18正常、2异常；两个异常节点上报分别已陈旧8天和11天，原始采样及统计分母未取得。"
+      },
+      "quotes": [
+        "部分节点异常\n\n2 个节点需要关注\n\n30 天综合在线率\n86.77%\n监测节点\n20\n正常节点\n18\n需关注\n2",
+        "每格代表一天，聚合结果按 UTC+8 自然日计算",
+        "CN丨香港家宽\n\n最近上报：8 天前",
+        "CN丨台湾01\n\n最近上报：11 天前"
+      ]
+    },
+    {
+      "siteId": "A083",
+      "url": "https://t.me/s/cocoduck_pub",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "cocoduck_pub/289",
+        "literalChecked": true,
+        "quote": "致使大部分节点不可用，影响时长41分钟。\n\n以上为故障通报，目前服务已经全部恢复",
+        "limitations": [
+          "2025 historical operator statement, not recent-30-day complaint.",
+          "Retained structured post publication label, not independently re-opened per-post DOM.",
+          "Cause, 41-minute duration where stated, impact and recovery are unverified operator accounts.",
+          "Retained wrapper asserts channel binding; stronger attribution requires retained native link evidence."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": true,
+        "kind": "operator_outage_statement",
+        "createdAt": "2025-10-21T17:19:02+00:00",
+        "url": "https://t.me/cocoduck_pub/289",
+        "relation": "direct_text_match",
+        "summary": "2025年站方历史故障及恢复声明：致使大部分节点不可用，影响时长41分钟。 以上为故障通报，目前服务已经全部恢复",
+        "dateEvidence": {
+          "kind": "retained_operator_page_or_post_label",
+          "value": "2025-10-21T17:19:02+00:00"
+        }
+      },
+      "quotes": [
+        "致使大部分节点不可用，影响时长41分钟。",
+        "以上为故障通报，目前服务已经全部恢复"
+      ]
+    },
+    {
+      "siteId": "A083",
+      "url": "https://t.me/s/cocoduck_pub",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "cocoduck_pub/290",
+        "literalChecked": true,
+        "quote": "目前COCODUCK官网暂时无法打开，大部分节点由于解析层深度绑定的原因也出现大面积不稳定的情况。\n\n目前全球还有数十万个网站和我们共享此至暗时刻。此事之后，我们将带着基础设施与信任一起撤离Cloudflare，然而现在我们只能苦笑等待，感谢并麻烦您与COCODUCK共同见证历史:\n\nhttps://www.cloudflarestatus.com/\n\n更新： 根据Cloudflare官方公告，我们确信相关故障已经修复，我们的服务已经全面恢复，感谢理解与支持。",
+        "limitations": [
+          "2025 historical operator statement, not recent-30-day complaint.",
+          "Retained structured post publication label, not independently re-opened per-post DOM.",
+          "Cause, 41-minute duration where stated, impact and recovery are unverified operator accounts.",
+          "Retained wrapper asserts channel binding; stronger attribution requires retained native link evidence."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": true,
+        "kind": "operator_outage_statement",
+        "createdAt": "2025-11-18T13:52:42+00:00",
+        "url": "https://t.me/cocoduck_pub/290",
+        "relation": "direct_text_match",
+        "summary": "2025年站方历史故障及恢复声明：目前COCODUCK官网暂时无法打开，大部分节点由于解析层深度绑定的原因也出现大面积不稳定的情况。 更新： 根据Cloudflare官方公告，我们确信相关故障已经修复，我们的服务已经全面恢复，感谢理解与支持。",
+        "dateEvidence": {
+          "kind": "retained_operator_page_or_post_label",
+          "value": "2025-11-18T13:52:42+00:00"
+        }
+      },
+      "quotes": [
+        "目前COCODUCK官网暂时无法打开，大部分节点由于解析层深度绑定的原因也出现大面积不稳定的情况。",
+        "更新： 根据Cloudflare官方公告，我们确信相关故障已经修复，我们的服务已经全面恢复，感谢理解与支持。"
+      ]
+    },
+    {
+      "siteId": "A083",
+      "url": "https://t.me/s/cocoduck_pub",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "cocoduck_pub/291",
+        "literalChecked": true,
+        "quote": "造成部分客户端出现连通性故障。\n\n该问题现已修复，需要您在客户端手动更新订阅方可继续使用。",
+        "limitations": [
+          "2025 historical operator statement, not recent-30-day complaint.",
+          "Retained structured post publication label, not independently re-opened per-post DOM.",
+          "Cause, 41-minute duration where stated, impact and recovery are unverified operator accounts.",
+          "Retained wrapper asserts channel binding; stronger attribution requires retained native link evidence."
+        ],
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "reusedRetainedMaterial": true,
+        "kind": "operator_outage_statement",
+        "createdAt": "2025-11-24T10:12:08+00:00",
+        "url": "https://t.me/cocoduck_pub/291",
+        "relation": "direct_text_match",
+        "summary": "2025年站方历史故障及恢复声明：造成部分客户端出现连通性故障。 该问题现已修复，需要您在客户端手动更新订阅方可继续使用。",
+        "dateEvidence": {
+          "kind": "retained_operator_page_or_post_label",
+          "value": "2025-11-24T10:12:08+00:00"
+        }
+      },
+      "quotes": [
+        "造成部分客户端出现连通性故障。",
+        "该问题现已修复，需要您在客户端手动更新订阅方可继续使用。"
+      ]
+    },
+    {
+      "siteId": "A022",
+      "url": "https://t.me/s/kuromis_xiaoxi?before=20",
+      "collection": "historyStatements",
+      "fact": {
+        "id": "kuromis-platform-service-message-15",
+        "literalChecked": true,
+        "kind": "platform_message_date",
+        "canonicalServiceId": "A022",
+        "quote": "官网： https://www.kuromis.com/\n优惠码： kaiyedaji\n折扣： 88折\n使用商品： 全部\n使用门槛： 无\n开始时间 : 立即开始\n结束时间： 7月31号\n备注： 开业大吉",
+        "limitations": [
+          "Not an independently archived 2022 original; post is marked edited and text may have changed after platform creation timestamp.",
+          "Opening-greeting promo text does not establish exact founding or uninterrupted operation.",
+          "Do not count channel creation post1 or copyright 2021 as first operation.",
+          "Coupon and expired end date are historical text, not current price/promotion."
+        ],
+        "independentMeasurement": false,
+        "continuousOperationVerified": false,
+        "dateEvidence": {
+          "kind": "same_post_DOM_datetime",
+          "value": "2022-06-26T10:20:47+00:00",
+          "postUrl": "https://t.me/kuromis_xiaoxi/15",
+          "postTextSha256": "589edb48410c1577d9fcdb07576e8d134d69f6e3d5db62ccffc4cde6e301b3d4"
+        },
+        "date": "2022-06-26T10:20:47+00:00"
+      },
+      "quotes": [
+        "官网： https://www.kuromis.com/\n优惠码： kaiyedaji\n折扣： 88折\n使用商品： 全部\n使用门槛： 无\n开始时间 : 立即开始\n结束时间： 7月31号\n备注： 开业大吉"
+      ]
+    },
+    {
+      "siteId": "A022",
+      "url": "https://t.me/s/kuromis_xiaoxi",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "kuromis-operator-degradation-702",
+        "literalChecked": true,
+        "kind": "operator_degradation_statement",
+        "canonicalServiceId": "A022",
+        "quote": "⚠️ 网络性能降级预警 (East1)\n\n时间： 1月31日 - 2月5日\n\n原因： 上游海缆故障抢修\n\n影响： East1 ⇋ 美国/日本方向\n\n现象： 全天所有时段轻微丢包、抖动以及延迟上升。\n\n目前运维团队正在监控链路状态，维修完成后将自动恢复，抱歉带来不便。",
+        "limitations": [
+          "Network degradation warning is not a claim of all-site service outage.",
+          "Light loss/jitter/increased latency are qualitative statements without raw samples, denominator or probe network.",
+          "Repair-completion wording is conditional future restoration, not confirmation repair happened on February 5.",
+          "2026 year comes from same-post datetime metadata, not inferred from current capture or month/day alone.",
+          "January message is historical, not a recent-30-day incident at November capture."
+        ],
+        "independentMeasurement": false,
+        "continuousOperationVerified": false,
+        "dateEvidence": {
+          "kind": "same_post_DOM_datetime",
+          "value": "2026-01-31T07:59:36+00:00",
+          "postUrl": "https://t.me/kuromis_xiaoxi/702",
+          "postTextSha256": "81f149e48d8009d53ca2fd0291d7e1e86fdfa77cb94350536c8f4e649be4d8cb"
+        },
+        "createdAt": "2026-01-31T07:59:36+00:00",
+        "url": "https://t.me/kuromis_xiaoxi/702",
+        "relation": "direct_text_match",
+        "summary": "2026-01-31站方预警East1与美日方向在1月31日至2月5日期间可能轻微丢包、抖动和延迟上升；只有条件式未来恢复说明，未证明已经恢复，也不是全站停服。"
+      },
+      "quotes": [
+        "⚠️ 网络性能降级预警 (East1)\n\n时间： 1月31日 - 2月5日\n\n原因： 上游海缆故障抢修\n\n影响： East1 ⇋ 美国/日本方向\n\n现象： 全天所有时段轻微丢包、抖动以及延迟上升。",
+        "目前运维团队正在监控链路状态，维修完成后将自动恢复，抱歉带来不便。"
+      ]
+    },
+    {
+      "siteId": "A191",
+      "url": "https://t.me/s/kuromis_xiaoxi?before=20",
+      "collection": "historyStatements",
+      "fact": {
+        "id": "kuromis-platform-service-message-15",
+        "literalChecked": true,
+        "kind": "platform_message_date",
+        "canonicalServiceId": "A022",
+        "quote": "官网： https://www.kuromis.com/\n优惠码： kaiyedaji\n折扣： 88折\n使用商品： 全部\n使用门槛： 无\n开始时间 : 立即开始\n结束时间： 7月31号\n备注： 开业大吉",
+        "limitations": [
+          "Not an independently archived 2022 original; post is marked edited and text may have changed after platform creation timestamp.",
+          "Opening-greeting promo text does not establish exact founding or uninterrupted operation.",
+          "Do not count channel creation post1 or copyright 2021 as first operation.",
+          "Coupon and expired end date are historical text, not current price/promotion."
+        ],
+        "independentMeasurement": false,
+        "continuousOperationVerified": false,
+        "dateEvidence": {
+          "kind": "same_post_DOM_datetime",
+          "value": "2022-06-26T10:20:47+00:00",
+          "postUrl": "https://t.me/kuromis_xiaoxi/15",
+          "postTextSha256": "589edb48410c1577d9fcdb07576e8d134d69f6e3d5db62ccffc4cde6e301b3d4"
+        },
+        "date": "2022-06-26T10:20:47+00:00"
+      },
+      "quotes": [
+        "官网： https://www.kuromis.com/\n优惠码： kaiyedaji\n折扣： 88折\n使用商品： 全部\n使用门槛： 无\n开始时间 : 立即开始\n结束时间： 7月31号\n备注： 开业大吉"
+      ]
+    },
+    {
+      "siteId": "A191",
+      "url": "https://t.me/s/kuromis_xiaoxi",
+      "collection": "reviewedIssueSignals",
+      "fact": {
+        "id": "kuromis-operator-degradation-702",
+        "literalChecked": true,
+        "kind": "operator_degradation_statement",
+        "canonicalServiceId": "A022",
+        "quote": "⚠️ 网络性能降级预警 (East1)\n\n时间： 1月31日 - 2月5日\n\n原因： 上游海缆故障抢修\n\n影响： East1 ⇋ 美国/日本方向\n\n现象： 全天所有时段轻微丢包、抖动以及延迟上升。\n\n目前运维团队正在监控链路状态，维修完成后将自动恢复，抱歉带来不便。",
+        "limitations": [
+          "Network degradation warning is not a claim of all-site service outage.",
+          "Light loss/jitter/increased latency are qualitative statements without raw samples, denominator or probe network.",
+          "Repair-completion wording is conditional future restoration, not confirmation repair happened on February 5.",
+          "2026 year comes from same-post datetime metadata, not inferred from current capture or month/day alone.",
+          "January message is historical, not a recent-30-day incident at November capture."
+        ],
+        "independentMeasurement": false,
+        "continuousOperationVerified": false,
+        "dateEvidence": {
+          "kind": "same_post_DOM_datetime",
+          "value": "2026-01-31T07:59:36+00:00",
+          "postUrl": "https://t.me/kuromis_xiaoxi/702",
+          "postTextSha256": "81f149e48d8009d53ca2fd0291d7e1e86fdfa77cb94350536c8f4e649be4d8cb"
+        },
+        "createdAt": "2026-01-31T07:59:36+00:00",
+        "url": "https://t.me/kuromis_xiaoxi/702",
+        "relation": "direct_text_match",
+        "summary": "2026-01-31站方预警East1与美日方向在1月31日至2月5日期间可能轻微丢包、抖动和延迟上升；只有条件式未来恢复说明，未证明已经恢复，也不是全站停服。"
+      },
+      "quotes": [
+        "⚠️ 网络性能降级预警 (East1)\n\n时间： 1月31日 - 2月5日\n\n原因： 上游海缆故障抢修\n\n影响： East1 ⇋ 美国/日本方向\n\n现象： 全天所有时段轻微丢包、抖动以及延迟上升。",
+        "目前运维团队正在监控链路状态，维修完成后将自动恢复，抱歉带来不便。"
+      ]
+    },
+    {
+      "siteId": "A029",
+      "url": "https://suyunti.com/user",
+      "collection": "reviewedIssueSignals",
+      "publicReference": false,
+      "quotes": [
+        "通知：2026.8.5，因防火墙升级，IOS暂时下架，恢复时间待定。，请使用其他设备。"
+      ],
+      "fact": {
+        "id": "A029-ios-temporary-delisting-20260805",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "通知：2026.8.5，因防火墙升级，IOS暂时下架，恢复时间待定。，请使用其他设备。",
+        "createdAt": "2026-08-05",
+        "url": "https://suyunti.com/user",
+        "relation": "direct_text_match",
+        "summary": "站方标2026-08-05的公告称iOS暂时下架、恢复待定并建议其他设备；只说明该平台的历史使用限制，未独立确认目前状态。",
+        "dateEvidence": {
+          "kind": "literal_operator_notice_label_not_independent_publication",
+          "originalLabel": "2026.8.5"
+        },
+        "independentMeasurement": false,
+        "limitations": [
+          "只反映苹果/iOS平台的历史限制，不是全站停服，也没有当前恢复证明。",
+          "两家文字高度相似，分属记录保存，不能互相充当独立佐证。",
+          "公告可编辑，标注日期不等于独立历史存档日期；没有连续探针样本或可用率分母。"
+        ]
+      }
+    },
+    {
+      "siteId": "A029",
+      "url": "https://suyunti.com/user",
+      "collection": "reviewedIssueSignals",
+      "publicReference": false,
+      "quotes": [
+        "紧急通知:2026.5.24目前防火墙升级，请务必下载我们官网软件。苹果手机设备目前极其不稳定，请更换其他安卓或者PC端。软路由暂时不支持，请直通网络使用我们官网软件。"
+      ],
+      "fact": {
+        "id": "A029-apple-instability-20260524",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "紧急通知:2026.5.24目前防火墙升级，请务必下载我们官网软件。苹果手机设备目前极其不稳定，请更换其他安卓或者PC端。软路由暂时不支持，请直通网络使用我们官网软件。",
+        "createdAt": "2026-05-24",
+        "url": "https://suyunti.com/user",
+        "relation": "direct_text_match",
+        "summary": "站方标2026-05-24的公告称苹果设备不稳定并建议安卓/PC，另称软路由暂不支持；非全站停服或实测稳定率。",
+        "dateEvidence": {
+          "kind": "literal_operator_notice_label_not_independent_publication",
+          "originalLabel": "2026.5.24"
+        },
+        "independentMeasurement": false,
+        "limitations": [
+          "只反映苹果/iOS平台的历史限制，不是全站停服，也没有当前恢复证明。",
+          "两家文字高度相似，分属记录保存，不能互相充当独立佐证。",
+          "公告可编辑，标注日期不等于独立历史存档日期；没有连续探针样本或可用率分母。"
+        ]
+      }
+    },
+    {
+      "siteId": "A030",
+      "url": "https://feijicloud.com/user",
+      "collection": "reviewedIssueSignals",
+      "publicReference": false,
+      "quotes": [
+        "通知：2026.8.5，因防火墙升级，IOS暂时下架，恢复时间待定。，请使用其他设备。"
+      ],
+      "fact": {
+        "id": "A030-ios-temporary-delisting-20260805",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "通知：2026.8.5，因防火墙升级，IOS暂时下架，恢复时间待定。，请使用其他设备。",
+        "createdAt": "2026-08-05",
+        "url": "https://feijicloud.com/user",
+        "relation": "direct_text_match",
+        "summary": "站方标2026-08-05的公告称iOS暂时下架、恢复待定并建议其他设备；只说明该平台的历史使用限制，未独立确认目前状态。",
+        "dateEvidence": {
+          "kind": "literal_operator_notice_label_not_independent_publication",
+          "originalLabel": "2026.8.5"
+        },
+        "independentMeasurement": false,
+        "limitations": [
+          "只反映苹果/iOS平台的历史限制，不是全站停服，也没有当前恢复证明。",
+          "两家文字高度相似，分属记录保存，不能互相充当独立佐证。",
+          "公告可编辑，标注日期不等于独立历史存档日期；没有连续探针样本或可用率分母。"
+        ]
+      }
+    },
+    {
+      "siteId": "A030",
+      "url": "https://feijicloud.com/user",
+      "collection": "reviewedIssueSignals",
+      "publicReference": false,
+      "quotes": [
+        "紧急通知:2026.5.24目前防火墙升级，请务必下载我们官网软件。苹果手机设备目前极其不稳定，请更换其他安卓或者PC端。软路由暂时不支持，请直通网络使用我们官网软件。"
+      ],
+      "fact": {
+        "id": "A030-apple-instability-20260524",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "紧急通知:2026.5.24目前防火墙升级，请务必下载我们官网软件。苹果手机设备目前极其不稳定，请更换其他安卓或者PC端。软路由暂时不支持，请直通网络使用我们官网软件。",
+        "createdAt": "2026-05-24",
+        "url": "https://feijicloud.com/user",
+        "relation": "direct_text_match",
+        "summary": "站方标2026-05-24的公告称苹果设备不稳定并建议安卓/PC，另称软路由暂不支持；非全站停服或实测稳定率。",
+        "dateEvidence": {
+          "kind": "literal_operator_notice_label_not_independent_publication",
+          "originalLabel": "2026.5.24"
+        },
+        "independentMeasurement": false,
+        "limitations": [
+          "只反映苹果/iOS平台的历史限制，不是全站停服，也没有当前恢复证明。",
+          "两家文字高度相似，分属记录保存，不能互相充当独立佐证。",
+          "公告可编辑，标注日期不等于独立历史存档日期；没有连续探针样本或可用率分母。"
+        ]
+      }
+    },
+    {
+      "siteId": "A145",
+      "url": "https://t.me/s/flybitvpn?before=20",
+      "collection": "reviewedIssueSignals",
+      "publicReference": true,
+      "quotes": [
+        "上星期切换了网络的服务商， 网络一直不是很稳定， 之前服务商甩锅了几天，现在终于找到了问题的所在，也正在解决中.....",
+        "暂时解决了问题， 再观察两天， 如果还出现问题的话， 就换服务商了",
+        "主要是江苏地区订阅拉取的问题和线路不稳定的问题。"
+      ],
+      "fact": {
+        "id": "flybit-supplier-instability-20250714-15",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "上星期切换了网络的服务商， 网络一直不是很稳定， 之前服务商甩锅了几天，现在终于找到了问题的所在，也正在解决中.....",
+        "createdAt": "2025-07-14T11:14:24+00:00",
+        "url": "https://t.me/flybitvpn/8",
+        "relation": "direct_text_match",
+        "dateEvidence": {
+          "kind": "same_post_DOM_datetime",
+          "value": "2025-07-14T11:14:24+00:00",
+          "postUrl": "https://t.me/flybitvpn/8",
+          "postTextSha256": "727a4944931e1c971f075f384b9dcb94a3ef536ab331173e642874702434f667"
+        },
+        "summary": "2025-07-14站方称更换供应商后网络持续不稳；7月15日称暂时解决但仍需观察，又提江苏订阅与线路问题。同一事件叙述，未据此认定长期恢复。",
+        "independentMeasurement": false,
+        "limitations": [
+          "同一频道的连续叙述按一组历史问题保存，不当作独立来源或多个独立事故。",
+          "平台发帖时间不等于故障精确起止；补偿或供应商退款承诺不是用户退款政策。"
+        ]
+      }
+    },
+    {
+      "siteId": "A023",
+      "url": "https://justmysocks.net/members/index.php?rp=/announcements/1/Just-My-Socks---Main-Page.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "Just My Socks - Main Page",
+        "Our mission is to give you freedom.",
+        "Sunday, November 25, 2018"
+      ],
+      "fact": {
+        "id": "performance-fifth-A023-jms-official-2018-announcement",
+        "kind": "operator_announcement_date",
+        "literalChecked": true,
+        "quote": "Just My Socks - Main Page",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "The announcement title and mission are actual service-related content, but contain no claim that service opened or began operations on this date.",
+          "Do not use copyright 2026 or announcement id=1 as founding evidence."
+        ],
+        "date": "2018-11-25",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "dateEvidence": {
+          "kind": "operator_publication_english_date_label",
+          "quote": "Sunday, November 25, 2018",
+          "value": "2018-11-25"
+        }
+      }
+    },
+    {
+      "siteId": "A023",
+      "url": "https://justmysocks.net/members/index.php?rp=/announcements/25/HK-IPLC-circuit-migration-Completed.html",
+      "publicReference": true,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "Today we are migrating the HK IPLC circuit to support China Telecom and China Unicom direct connection.",
+        "Originally, this change was planned to be performed without causing any service interruption. However, during the implementation, we have encountered a disruption.",
+        "UPDATE: New IPLC circuit is online.",
+        "Monday, June 30, 2025"
+      ],
+      "fact": {
+        "id": "performance-fifth-A023-jms-iplc-migration-2025",
+        "kind": "operator_outage_statement",
+        "literalChecked": true,
+        "quote": "Today we are migrating the HK IPLC circuit to support China Telecom and China Unicom direct connection.",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "An actual disruption during migration is explicitly admitted, rather than only a planned maintenance notice.",
+          "No exact start/end time or duration; do not derive it from publication date."
+        ],
+        "createdAt": "2025-06-30",
+        "incidentAt": null,
+        "relation": "direct_text_match",
+        "summary": "2025-06-30站方承认香港IPLC迁移时中断，后更新称新电路已上线；仅限该子产品，无准确中断时长。",
+        "dateEvidence": {
+          "kind": "operator_publication_date_label",
+          "quote": "Monday, June 30, 2025",
+          "value": "2025-06-30"
+        }
+      }
+    },
+    {
+      "siteId": "A023",
+      "url": "https://justmysocks.net/members/index.php?rp=/announcements/23/IPLC-service-outage-on-February-14-2025---RESOLVED.html",
+      "publicReference": true,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "We have been informed of a fiber cut which is affecting IPLC services in Hong Kong. ETR is pending.",
+        "Update: We will reroute the affected segment. An engineer has been diapatched.",
+        "Update: Fiber cut has been fixed. IPLC service is fully operational now.",
+        "Friday, February 14, 2025"
+      ],
+      "fact": {
+        "id": "performance-fifth-A023-jms-iplc-fiber-2025",
+        "kind": "operator_outage_statement",
+        "literalChecked": true,
+        "quote": "We have been informed of a fiber cut which is affecting IPLC services in Hong Kong. ETR is pending.",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "Fiber cut cause and recovery are operator statements; no independent network observation.",
+          "Reroute is a planned intermediate step; final fixed statement is retained in the same event, not split into a second incident."
+        ],
+        "createdAt": "2025-02-14",
+        "incidentAt": null,
+        "relation": "direct_text_match",
+        "summary": "2025-02-14香港IPLC光纤中断，站方更新称光纤已修复、服务恢复；非全站或当前故障，无独立恢复日志。",
+        "dateEvidence": {
+          "kind": "operator_publication_date_label",
+          "quote": "Friday, February 14, 2025",
+          "value": "2025-02-14"
+        }
+      }
+    },
+    {
+      "siteId": "A023",
+      "url": "https://justmysocks.net/members/index.php?rp=/announcements/20/IPLC-service-experienced-an-outage-RECOVERED.html",
+      "publicReference": true,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "Our IPLC service had an approx. 2 hour outage today due to upstream provider's router failure. Emergency crew had promptly resolved this issue and IPLC service is back to normal.",
+        "Wednesday, July 24, 2024"
+      ],
+      "fact": {
+        "id": "performance-fifth-A023-jms-iplc-router-2024",
+        "kind": "operator_outage_statement",
+        "literalChecked": true,
+        "quote": "Our IPLC service had an approx. 2 hour outage today due to upstream provider's router failure. Emergency crew had promptly resolved this issue and IPLC service is back to normal.",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "Duration is explicitly approximate and operator-reported; do not treat it as a measured repair time.",
+          "Cause router failure is not independently established."
+        ],
+        "createdAt": "2024-07-24",
+        "incidentAt": null,
+        "relation": "direct_text_match",
+        "summary": "2024-07-24站方称IPLC因上游路由器故障中断约2小时，已恢复正常；时长仅属站方自述。",
+        "dateEvidence": {
+          "kind": "operator_publication_date_label",
+          "quote": "Wednesday, July 24, 2024",
+          "value": "2024-07-24"
+        }
+      }
+    },
+    {
+      "siteId": "A023",
+      "url": "https://justmysocks.net/members/index.php?rp=/announcements/31/Gemini-access.html",
+      "publicReference": true,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "Some of our clients are still having issues accessing Gemini. We have a solution:",
+        "We offer different routing to reach Google on servers s1, s2, and s3 (each one of these offers a unique path).",
+        "Please try s1, s2, s3 and one of s4/s5/s801 to see which routing works best for you.",
+        "Friday, February 6, 2026"
+      ],
+      "fact": {
+        "id": "performance-fifth-A023-jms-gemini-degradation",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "Some of our clients are still having issues accessing Gemini. We have a solution:",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "Not all-site outage, all-client incident, or current stability result.",
+          "An offered routing workaround is not confirmation that all affected clients recovered."
+        ],
+        "createdAt": "2026-02-06",
+        "incidentAt": null,
+        "relation": "direct_text_match",
+        "summary": "2026-02-06站方称部分客户访问Gemini仍有问题，建议切换到Google的不同路由；不代表全站停服，也未确认全部恢复。",
+        "dateEvidence": {
+          "kind": "operator_publication_date_label",
+          "quote": "Friday, February 6, 2026",
+          "value": "2026-02-06"
+        }
+      }
+    },
+    {
+      "siteId": "A173",
+      "url": "https://binfk.szjtfp.xyz/#/dashboard",
+      "publicReference": false,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "由于遇到恶意攻击，节点抢修已经结束，所有节点都正常",
+        "因最近一段时间管控太严，线路频繁被拔线，客服回复不及时，给老顾客和新朋友造成了很多不便和不愉快，所有节点已经全部升级",
+        "2026年10月19日"
+      ],
+      "fact": {
+        "id": "speedworld-attack-recovery-20261019",
+        "kind": "operator_outage_statement",
+        "literalChecked": true,
+        "quote": "由于遇到恶意攻击，节点抢修已经结束，所有节点都正常",
+        "independentMeasurement": false,
+        "limitations": [
+          "A later operator-authored page is an attributed historical statement, not an independent contemporaneous archive.",
+          "Same publisher and duplicate catalogue entries are one source chain.",
+          "No ongoing availability denominator, uptime percentage, current speed, verified founding date or continuous operating age is established.",
+          "The cause and all-normal statement are operator claims; no node sample, outage interval or independent recovery observation.",
+          "Repeated line removals and a repaired attack appear together in a promotional notice; do not invent separate dated incidents.",
+          "Saved-entry same-brand navigation supports candidate service attribution, not legal-operator or continuous historical ownership proof."
+        ],
+        "createdAt": "2026-10-19",
+        "incidentAt": null,
+        "relation": "direct_text_match",
+        "summary": "2026-10-19公告自述曾受恶意攻击、线路频繁被拔，现称抢修结束且节点正常；无具体中断区间或独立恢复观察。",
+        "dateEvidence": {
+          "kind": "operator_publication_date_label",
+          "quote": "2026年10月19日",
+          "value": "2026-10-19"
+        }
+      }
+    },
+    {
+      "siteId": "A035",
+      "url": "https://33.33laomao.com/#/dashboard",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "老猫云通知：协议升级通知（必须更新）",
+        "未更新用户将无法继续使用服务。",
+        "2026-04-02"
+      ],
+      "fact": {
+        "id": "operator-service-notice-A035-2026-04-02",
+        "kind": "operator_announcement_date",
+        "date": "2026-04-02",
+        "datePrecision": "day",
+        "quote": "老猫云通知：协议升级通知（必须更新）",
+        "literalChecked": true,
+        "dateEvidence": {
+          "kind": "literal_page_label",
+          "quote": "2026-04-02",
+          "value": "2026-04-02"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "independentMeasurement": false,
+        "limitations": [
+          "原采集公告正文与对应可见日期标签的结构化快照；不等于独立历史存档。",
+          "此日期仅证明站方服务公告所标日期，不是成立日期、连续运营年限或实际中断发生日期。"
+        ]
+      }
+    },
+    {
+      "siteId": "A040",
+      "url": "https://ofosg.com/#/dashboard",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "节点调整：新增美国家宽，特色线路升级为中级会员专享",
+        "感谢支持，ofo团队敬上。",
+        "2026-10-16"
+      ],
+      "fact": {
+        "id": "operator-service-notice-A040-2026-10-16",
+        "kind": "operator_announcement_date",
+        "date": "2026-10-16",
+        "datePrecision": "day",
+        "quote": "节点调整：新增美国家宽，特色线路升级为中级会员专享",
+        "literalChecked": true,
+        "dateEvidence": {
+          "kind": "literal_page_label",
+          "quote": "2026-10-16",
+          "value": "2026-10-16"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "independentMeasurement": false,
+        "limitations": [
+          "原采集公告正文与对应可见日期标签的结构化快照；不等于独立历史存档。",
+          "此日期仅证明站方服务公告所标日期，不是成立日期、连续运营年限或实际中断发生日期。"
+        ]
+      }
+    },
+    {
+      "siteId": "A170",
+      "url": "https://www.bianjiecloud.com/help/line-benchmark",
+      "publicReference": true,
+      "collection": "reviewedIssueSignals",
+      "quotes": [
+        "它当前的带宽明显低于优选 2 倍和标准线路，我们已经在排查中转侧的带宽问题。",
+        "更新于 2026-10-17",
+        "补测用的是国内 BGP 多线机房的一台云主机",
+        "补测窗口是北京时间 2026-10-17 06:46–07:38。",
+        "同一台机器走尊享 5 倍，单流 4.7 Mbps，开 4 个并发合计还是 4.7 Mbps，叠加并发完全不涨；再换一台境外测试机，用同一个订阅、同一时刻测，优选 2 倍 234 Mbps、标准线路（日本）225 Mbps 都正常，而尊享 5 倍只有 4.2 Mbps。"
+      ],
+      "fact": {
+        "id": "boundary-operator-premium-bandwidth-degradation-20261017",
+        "kind": "operator_degradation_statement",
+        "literalChecked": true,
+        "quote": "它当前的带宽明显低于优选 2 倍和标准线路，我们已经在排查中转侧的带宽问题。",
+        "relation": "direct_text_match",
+        "createdAt": "2026-10-17",
+        "incidentAt": null,
+        "independentMeasurement": false,
+        "independentlyVerified": false,
+        "dateEvidence": {
+          "kind": "operator_page_update_label",
+          "quote": "更新于 2026-10-17",
+          "value": "2026-10-17"
+        },
+        "summary": "站方2026-10-17更新称，国内BGP机房云机补测尊享5倍线路只有4.7Mbps，单流与4并发总量相同，并称正在排查中转带宽；只限该补测场景，未取得修复复测，不能推为当前全站异常。",
+        "limitations": [
+          "仅站方历史自报；页面更新日不是精确故障起止时间。",
+          "国内机房补测、境外对照与海外晚高峰53线路主测是不同范围，不混用。",
+          "56次HTTP探测无失败不等于网络可用率、长期稳定率或当前无故障。"
+        ]
+      }
+    },
+    {
+      "siteId": "A170",
+      "url": "https://www.bianjiecloud.com/help/line-benchmark",
+      "publicReference": true,
+      "collection": "operatorTestReports",
+      "quotes": [
+        "同一台机器走尊享 5 倍，单流 4.7 Mbps，开 4 个并发合计还是 4.7 Mbps，叠加并发完全不涨；再换一台境外测试机，用同一个订阅、同一时刻测，优选 2 倍 234 Mbps、标准线路（日本）225 Mbps 都正常，而尊享 5 倍只有 4.2 Mbps。",
+        "补测用的是国内 BGP 多线机房的一台云主机",
+        "补测窗口是北京时间 2026-10-17 06:46–07:38。",
+        "同一台机器走尊享 5 倍，单流 4.7 Mbps，开 4 个并发合计还是 4.7 Mbps，叠加并发完全不涨；再换一台境外测试机，用同一个订阅、同一时刻测，优选 2 倍 234 Mbps、标准线路（日本）225 Mbps 都正常，而尊享 5 倍只有 4.2 Mbps。",
+        "它当前的带宽明显低于优选 2 倍和标准线路，我们已经在排查中转侧的带宽问题。"
+      ],
+      "fact": {
+        "id": "operator-test-A170-2026-10-17-domestic-bgp-premium",
+        "kind": "operator_reported_historical_test",
+        "metric": "download_throughput",
+        "statistic": "reported_single_point_and_parallel_aggregate",
+        "testedAt": "2026-10-17",
+        "testedAtPrecision": "day",
+        "windowPrecision": "minute",
+        "timeWindow": "2026-10-17 06:46–07:38（北京时间）",
+        "windowStart": "2026-10-17T06:46:00+08:00",
+        "windowEnd": "2026-10-17T07:38:00+08:00",
+        "testWindowQuote": "补测窗口是北京时间 2026-10-17 06:46–07:38。",
+        "testWindowSourceLocator": {
+          "kind": "body_utf16_range",
+          "start": 2973,
+          "end": 3006,
+          "quoteSha256": "53ba89c3b99aa0a506d8340b0143ef78b607febd0655ba1aeb08a45d177a6dce",
+          "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+        },
+        "network": "国内 BGP 多线机房云主机；另有位置及网络未披露的境外测试机",
+        "networkQuote": "补测用的是国内 BGP 多线机房的一台云主机",
+        "networkSourceLocator": {
+          "kind": "body_utf16_range",
+          "start": 2802,
+          "end": 2824,
+          "quoteSha256": "e3ac658bdcf19520c234bcae96bc992a3bb33367465d8f3a3f2b49e91801af06",
+          "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+        },
+        "methodology": "内核仍然是 mihomo，全局模式逐条切换，和官方客户端一致。",
+        "methodologySourceLocator": {
+          "kind": "body_utf16_range",
+          "start": 3499,
+          "end": 3530,
+          "quoteSha256": "a3a220d6193560c8d57302e86c009b5593427b83bbc6abd73bf90a655e5059ae",
+          "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+        },
+        "scope": "尊享 5 倍线路补测；两个观测点、非家庭宽带、非全53条线路",
+        "scopeQuote": "补测：换一台国内测试机重新测尊享 5 倍",
+        "scopeSourceLocator": {
+          "kind": "body_utf16_range",
+          "start": 2780,
+          "end": 2800,
+          "quoteSha256": "d784c2fe61ba52748524e2b7a92ba8ac649b644219054cca696f4f9731fab53d",
+          "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+        },
+        "rows": [
+          {
+            "probe": "国内 BGP 多线机房云主机（具体位置未披露）",
+            "network": "国内 BGP 多线机房",
+            "flowCount": 1,
+            "aggregation": "single_flow",
+            "valueMbps": 4.7,
+            "unit": "Mbps",
+            "quote": "单流 4.7 Mbps",
+            "sourceLocator": {
+              "kind": "body_utf16_range",
+              "start": 4424,
+              "end": 4435,
+              "quoteSha256": "bec4a9b25fe14ad1861c9695e8a94ad3bbf6d5b49299166c4d02dcc458944457",
+              "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+            }
+          },
+          {
+            "probe": "国内 BGP 多线机房云主机（具体位置未披露）",
+            "network": "国内 BGP 多线机房",
+            "flowCount": 4,
+            "aggregation": "aggregate_parallel_flows",
+            "valueMbps": 4.7,
+            "unit": "Mbps",
+            "quote": "开 4 个并发合计还是 4.7 Mbps",
+            "sourceLocator": {
+              "kind": "body_utf16_range",
+              "start": 4436,
+              "end": 4456,
+              "quoteSha256": "2d3f81c92357d748b9fedbab08d799e9a1d6b1249d2c832d5b71b2704cda0e71",
+              "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+            }
+          },
+          {
+            "probe": "境外测试机（具体位置及网络未披露）",
+            "network": null,
+            "flowCount": null,
+            "aggregation": "unspecified_flow_count",
+            "valueMbps": 4.2,
+            "unit": "Mbps",
+            "quote": "而尊享 5 倍只有 4.2 Mbps。",
+            "sourceLocator": {
+              "kind": "body_utf16_range",
+              "start": 4526,
+              "end": 4545,
+              "quoteSha256": "ae376405469125fc3d96ba20fc4b2927f0098480deb45a132c398f1d2c4dc00d",
+              "bodySha256": "a25d91dc24b1bc0ea9e7f62187435898ecbee472dbdd7ba26b1566e3f876f1fd"
+            }
+          }
+        ],
+        "publisher": "边界云（站方自报）",
+        "sampleCount": null,
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "literalChecked": true,
+        "identityQualification": "same_brand_operator_page",
+        "quote": "同一台机器走尊享 5 倍，单流 4.7 Mbps，开 4 个并发合计还是 4.7 Mbps，叠加并发完全不涨；再换一台境外测试机，用同一个订阅、同一时刻测，优选 2 倍 234 Mbps、标准线路（日本）225 Mbps 都正常，而尊享 5 倍只有 4.2 Mbps。",
+        "limitations": [
+          "运营方历史自报，未独立复测；不代表当前或家庭宽带速度，不参与当前速度排名。",
+          "国内为 BGP 多线机房云主机，具体城市和运营商未披露；境外点位置、网络及并发数未披露。",
+          "单流与4并发合计是不同口径，重复次数未知；不计算中位数、分位数或长期可用率。",
+          "HTTP探测无失败不等于包级丢包率或连续稳定率；全53线海外晚测不属于本报告。"
+        ]
+      }
+    },
+    {
+      "siteId": "A016",
+      "url": "https://www.amytele.co/index.php?rp=/announcements/2/AUPTOS.html",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "修订时间：2020/6/12",
+        "我们订立可接受使用政策(AUP)与服务条款(TOS)用以约束用户的服务，也用来保障我们的服务质量。"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A016-2020-06-12",
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2020-06-12",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "修订时间：2020/6/12",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2020-06-12",
+          "quote": "修订时间：2020/6/12",
+          "policyContextQuote": "我们订立可接受使用政策(AUP)与服务条款(TOS)用以约束用户的服务，也用来保障我们的服务质量。"
+        }
+      }
+    },
+    {
+      "siteId": "A025",
+      "url": "https://www.paofu.cloud/tos",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "本协议从即日起2019年8月01日起适用。",
+        "泡芙云\n服务协议"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A025-2019-08-01",
+        "kind": "operator_policy_date",
+        "policyDateType": "effective",
+        "date": "2019-08-01",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "本协议从即日起2019年8月01日起适用。",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2019-08-01",
+          "quote": "本协议从即日起2019年8月01日起适用。",
+          "policyContextQuote": "泡芙云\n服务协议"
+        },
+        "canonicalSourceGroup": "operator-policy:paofu:2019-08-01",
+        "duplicateCatalogRecordIds": [
+          "A025",
+          "A198"
+        ]
+      }
+    },
+    {
+      "siteId": "A018",
+      "url": "https://u.bws.lol/terms",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "更新于 2026/8/14 00:17:16",
+        "ByWave 使用条款\n\nTerms of Service"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A018-2026-08-14",
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2026-08-14",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "更新于 2026/8/14 00:17:16",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2026-08-14",
+          "quote": "更新于 2026/8/14 00:17:16",
+          "policyContextQuote": "ByWave 使用条款\n\nTerms of Service"
+        }
+      }
+    },
+    {
+      "siteId": "A019",
+      "url": "https://daskfljasdf918.ssrdog12.com/terms-of-service",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "最后修订日期：2026年6月1日",
+        "服务条款\n\n欢迎您访问我们的产品 SSRDOG（包括网站等产品提供的服务，以下简称「产品和服务」），其由 SSRDOG Team（以下简称「我们」）开发并运营。"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A019-2026-06-01",
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2026-06-01",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "最后修订日期：2026年6月1日",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2026-06-01",
+          "quote": "最后修订日期：2026年6月1日",
+          "policyContextQuote": "服务条款\n\n欢迎您访问我们的产品 SSRDOG（包括网站等产品提供的服务，以下简称「产品和服务」），其由 SSRDOG Team（以下简称「我们」）开发并运营。"
+        }
+      }
+    },
+    {
+      "siteId": "A083",
+      "url": "https://cocoduck.cc/docs/tos/",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "COCODUCK团队\n2025年7月12日",
+        "服务条款\n\nCOCODUCK VPN 有权在任何时间无需事先通知的情况下修改、终止、增补或替代本协议中的任何条款。"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A083-2025-07-12",
+        "kind": "operator_policy_date",
+        "policyDateType": "document",
+        "date": "2025-07-12",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "COCODUCK团队\n2025年7月12日",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2025-07-12",
+          "quote": "COCODUCK团队\n2025年7月12日",
+          "policyContextQuote": "服务条款\n\nCOCODUCK VPN 有权在任何时间无需事先通知的情况下修改、终止、增补或替代本协议中的任何条款。"
+        }
+      }
+    },
+    {
+      "siteId": "A197",
+      "url": "https://renzhe.cloud/",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "忍者云自 2018 年起提供全球代理网络服务，专注稳定连接、便捷配置与持续维护，服务日常工作、学习和娱乐需求。"
+      ],
+      "fact": {
+        "id": "operator-operating-since-A197-2018",
+        "kind": "operator_operating_since_claim",
+        "date": "2018",
+        "datePrecision": "year",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "忍者云自 2018 年起提供全球代理网络服务，专注稳定连接、便捷配置与持续维护，服务日常工作、学习和娱乐需求。",
+        "dateEvidence": {
+          "kind": "operator_operating_since_label",
+          "value": "2018",
+          "quote": "忍者云自 2018 年起提供全球代理网络服务，专注稳定连接、便捷配置与持续维护，服务日常工作、学习和娱乐需求。"
+        }
+      }
+    },
+    {
+      "siteId": "A198",
+      "url": "https://www.paofu.cloud/tos",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "本协议从即日起2019年8月01日起适用。",
+        "本《泡芙云 用户服务协议》"
+      ],
+      "fact": {
+        "id": "operator-policy-date-A198-2019-08-01",
+        "kind": "operator_policy_date",
+        "policyDateType": "effective",
+        "date": "2019-08-01",
+        "datePrecision": "day",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "literalChecked": true,
+        "quote": "本协议从即日起2019年8月01日起适用。",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2019-08-01",
+          "quote": "本协议从即日起2019年8月01日起适用。",
+          "policyContextQuote": "本《泡芙云 用户服务协议》"
+        },
+        "canonicalSourceGroup": "operator-policy:paofu:2019-08-01",
+        "duplicateCatalogRecordIds": [
+          "A025",
+          "A198"
+        ]
+      }
+    },
+    {
+      "siteId": "A051",
+      "url": "https://tntvipaffb01.cc/#/dashboard",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "各位TNT的用户：",
+        "如果节点超时 断断续续，请重新下载最新版本客户端v3.2.1，IOS用户识别码: tntcloud\n\n2026-05-24 13:37:02"
+      ],
+      "fact": {
+        "id": "operator-announcement-A051-2026-05-24",
+        "kind": "operator_announcement_date",
+        "date": "2026-05-24",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "literal_page_label",
+          "value": "2026-05-24",
+          "quote": "2026-05-24 13:37:02"
+        },
+        "quote": "如果节点超时 断断续续，请重新下载最新版本客户端v3.2.1，IOS用户识别码: tntcloud\n\n2026-05-24 13:37:02",
+        "literalChecked": true,
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "同品牌客户端业务公告所标日期，不是成立日、故障发生日或连续运营年限。"
+        ]
+      }
+    },
+    {
+      "siteId": "A159",
+      "url": "https://191.101.132.80/#/dashboard",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "最新公告！\n\n2026/6/10\n\n新增4个低倍率的下载专用节点，更新订阅后即可使用！"
+      ],
+      "fact": {
+        "id": "operator-business-notice-A159-2026-06-10",
+        "kind": "operator_announcement_date",
+        "date": "2026-06-10",
+        "datePrecision": "day",
+        "literalChecked": true,
+        "quote": "最新公告！\n\n2026/6/10\n\n新增4个低倍率的下载专用节点，更新订阅后即可使用！",
+        "dateEvidence": {
+          "kind": "literal_business_announcement_calendar_label",
+          "value": "2026-06-10",
+          "quote": "2026/6/10",
+          "interpretation": "业务公告所标发布日期；非成立日或预期完成日。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "The source uses generic 本机场 in this announcement; site linkage is the retained same-record source binding, not a new operator identity proof.",
+          "Business notice date is not opening date or continuous operation."
+        ]
+      }
+    },
+    {
+      "siteId": "A010",
+      "url": "https://mojie.app/docs?id=11",
+      "publicReference": false,
+      "collection": "operatorSlaClaims",
+      "quotes": [
+        "6.可用性保证-SLA\n6.1 可用性保证做到“尽力而为”，我们尽可能的提供多入口多出口，更新新的协议以保证稳定",
+        "6.2 不限制端口速度，指我们不会通过技术手段进行限速，实际速度以连接速度为准"
+      ],
+      "fact": {
+        "id": "operator-service-level-terms-A010-retained",
+        "kind": "operator_performance_scope_statement",
+        "literalChecked": true,
+        "quote": "6.可用性保证-SLA\n6.1 可用性保证做到“尽力而为”，我们尽可能的提供多入口多出口，更新新的协议以保证稳定",
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "targetAvailabilityPercent": null,
+        "pageUpdatedAt": null,
+        "summary": "站方可用性保证仅为“尽力而为”，不承诺数值可用率；不限制端口速度也不代表用户可达到某个带宽。",
+        "canonicalSourceGroup": "https://mojie.app/docs?id=11",
+        "limitations": [
+          "Best effort clause has no numerical availability promise, measurement denominator, compensation formula or independently verified outcome.",
+          "No policy or incident date inferred from footer year/capture date."
+        ]
+      }
+    },
+    {
+      "siteId": "A034",
+      "url": "https://prpr.96110.cn.com/index.php?rp=/announcements/2/%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AETOS.html",
+      "publicReference": true,
+      "collection": "operatorSlaClaims",
+      "quotes": [
+        "1.4 prprCloud 保证 99％ 的服务正常运行时间。在任何情况下，prprCloud 对超出客户向 prprCloud 支付的任何损失，金钱或非金钱损失概不负责，并且不包括律师费或法院费用，与任何法律或其他成文法则无关。",
+        "1.3 我们授予您使用 prprCloud 的许可，但要遵守这些条款中规定的限制。您使用 prprCloud 的风险自负。prprCloud 可以随时修改，更新，中断或暂停，恕不另行通知或承担责任。对于由此造成的对您的任何伤害或其他不利后果，我们不承担任何责任。prprCloud，其所有者，员工，代理商和其他与 prprCloud 服务相关的人员，对于因使用或向使用其注册的任何账户而产生或引起的任何已执行或未执行的任何形式的损害，概不负责。"
+      ],
+      "fact": {
+        "id": "operator-service-level-terms-A034-retained",
+        "kind": "operator_sla_claim",
+        "literalChecked": true,
+        "quote": "1.4 prprCloud 保证 99％ 的服务正常运行时间。在任何情况下，prprCloud 对超出客户向 prprCloud 支付的任何损失，金钱或非金钱损失概不负责，并且不包括律师费或法院费用，与任何法律或其他成文法则无关。",
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "targetAvailabilityPercent": 99,
+        "pageUpdatedAt": null,
+        "summary": "留存站方条款写明99%服务正常运行时间，但同时允许暂停服务、限制赔偿责任；没有计量窗口或独立日志，不能视为已达到99%。",
+        "canonicalSourceGroup": "https://prpr.96110.cn.com/index.php?rp=/announcements/2/%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AETOS.html",
+        "limitations": [
+          "99% is an operator contractual statement, not measured uptime. No measurement window/denominator has been established.",
+          "Same file was used for earlier policy/history work; only the unadmitted availability clause is proposed, no repeated policy date or history statement."
+        ]
+      }
+    },
+    {
+      "siteId": "A182",
+      "url": "https://s.gtnb.net/index.php/announcements/55/Gatern-%E8%8A%82%E7%82%B9%E5%8D%8F%E8%AE%AE%E5%8F%8A%E7%BA%BF%E8%B7%AF%E6%9B%B4%E6%96%B0%E5%85%AC%E5%91%8A.html",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "Gatern 节点协议及线路更新公告\n 星期四, 27第 八月, 2026  21:24下午",
+        "本次更新将主要针对近期出现的连接波动、线路稳定性等问题进行优化，包括：",
+        "本次更新预计于北京时间 8 月 28 日凌晨 5:00 前完成。更新完成后，请所有用户重新更新一次订阅，以获取最新的节点协议及线路配置，否则部分旧节点可能无法正常连接。"
+      ],
+      "fact": {
+        "id": "operator-business-notice-A182-2026-08-27",
+        "kind": "operator_announcement_date",
+        "date": "2026-08-27",
+        "datePrecision": "day",
+        "literalChecked": true,
+        "quote": "Gatern 节点协议及线路更新公告\n 星期四, 27第 八月, 2026  21:24下午",
+        "dateEvidence": {
+          "kind": "literal_business_announcement_calendar_label",
+          "value": "2026-08-27",
+          "quote": "星期四, 27第 八月, 2026",
+          "interpretation": "业务公告所标发布日期；非成立日或预期完成日。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "The expected completion on Aug28 is a plan, not recovery verification.",
+          "Publication day can be parsed from named Chinese calendar date; awkward 21:24下午 is not normalized to timestamp/timezone.",
+          "Stability already has a separate October complaint; this candidate addresses absent operating history only, not a duplicate new incident."
+        ]
+      }
+    },
+    {
+      "siteId": "A067",
+      "url": "https://user.riolu-node.link/tos",
+      "publicReference": true,
+      "collection": "operatorSlaClaims",
+      "quotes": [
+        "精靈學院 可能会对一些服务为您提供服务水平保障协议(SLA)，以保证该服务一定的可用性。当您需要额外的 SLA 保障时，请与我们联系，这将作为本协议额外的一部分引入并作为不可或缺的一部分。",
+        "为了您能够获取 SLA 中断补偿，您必须按照一定的流程通知我们，您理解并同意，当您未能遵循一定的程序在 SLA 中断事件触发的三天后，您将自动放弃获取 SLA 补偿的权力。更多详情请参考 服务水平保障协议页面。"
+      ],
+      "fact": {
+        "id": "operator-service-level-terms-A067-retained",
+        "kind": "operator_performance_scope_statement",
+        "literalChecked": true,
+        "quote": "精靈學院 可能会对一些服务为您提供服务水平保障协议(SLA)，以保证该服务一定的可用性。当您需要额外的 SLA 保障时，请与我们联系，这将作为本协议额外的一部分引入并作为不可或缺的一部分。",
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "targetAvailabilityPercent": null,
+        "pageUpdatedAt": null,
+        "summary": "站方称部分服务可另行约定SLA，并要求按流程及时申请中断补偿；未证实普通套餐已有此保障，没有默认可用率承诺。",
+        "canonicalSourceGroup": "operator:riolu:conditional-sla",
+        "limitations": [
+          "Conditional additional SLA, not all products covered; no default percentage or observed incident.",
+          "Compensation requires a separate SLA and notification procedure; native SLA hyperlink was not retained in this source.",
+          "A067 and A188 share this one operator-source clause, not independent corroboration."
+        ],
+        "duplicateCatalogRecordIds": [
+          "A067",
+          "A188"
+        ]
+      }
+    },
+    {
+      "siteId": "A188",
+      "url": "https://user.riolu-node.link/tos",
+      "publicReference": true,
+      "collection": "operatorSlaClaims",
+      "quotes": [
+        "精靈學院 可能会对一些服务为您提供服务水平保障协议(SLA)，以保证该服务一定的可用性。当您需要额外的 SLA 保障时，请与我们联系，这将作为本协议额外的一部分引入并作为不可或缺的一部分。",
+        "为了您能够获取 SLA 中断补偿，您必须按照一定的流程通知我们，您理解并同意，当您未能遵循一定的程序在 SLA 中断事件触发的三天后，您将自动放弃获取 SLA 补偿的权力。更多详情请参考 服务水平保障协议页面。"
+      ],
+      "fact": {
+        "id": "operator-service-level-terms-A188-retained",
+        "kind": "operator_performance_scope_statement",
+        "literalChecked": true,
+        "quote": "精靈學院 可能会对一些服务为您提供服务水平保障协议(SLA)，以保证该服务一定的可用性。当您需要额外的 SLA 保障时，请与我们联系，这将作为本协议额外的一部分引入并作为不可或缺的一部分。",
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "targetAvailabilityPercent": null,
+        "pageUpdatedAt": null,
+        "summary": "站方称部分服务可另行约定SLA，并要求按流程及时申请中断补偿；未证实普通套餐已有此保障，没有默认可用率承诺。",
+        "canonicalSourceGroup": "operator:riolu:conditional-sla",
+        "limitations": [
+          "Conditional additional SLA, not all products covered; no default percentage or observed incident.",
+          "Compensation requires a separate SLA and notification procedure; native SLA hyperlink was not retained in this source.",
+          "A067 and A188 share this one operator-source clause, not independent corroboration."
+        ],
+        "duplicateCatalogRecordIds": [
+          "A067",
+          "A188"
+        ]
+      }
+    },
+    {
+      "siteId": "A189",
+      "url": "https://www.webitz.net/tos/",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "Bitz Net 用戶服務協議（TOS）",
+        "本協議從2021年1月8日起適用。"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "effective",
+        "date": "2021-01-08",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2021-01-08",
+          "quote": "本協議從2021年1月8日起適用。",
+          "policyContextQuote": "Bitz Net 用戶服務協議（TOS）"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A189-effective-2021-01-08",
+        "literalChecked": true,
+        "quote": "本協議從2021年1月8日起適用。",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。",
+          "effective label uses traditional 適用; extend exact locale grammar, do not rewrite original"
+        ]
+      }
+    },
+    {
+      "siteId": "A033",
+      "url": "https://file.boslife.net/boslife-tos.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "*BosLife 为本服务条款签署方，其中BosLife在本条款中称之为“本站”，使用者或使用当事人称之为“用户”",
+        "更新时间: 2026-07-01"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2026-07-01",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2026-07-01",
+          "quote": "更新时间: 2026-07-01",
+          "policyContextQuote": "*BosLife 为本服务条款签署方，其中BosLife在本条款中称之为“本站”，使用者或使用当事人称之为“用户”"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A033-revision-2026-07-01",
+        "literalChecked": true,
+        "quote": "更新时间: 2026-07-01",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。"
+        ]
+      }
+    },
+    {
+      "siteId": "A073",
+      "url": "https://dageyun.com/tos.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "本协议最终解释权归 大哥云加速 所有，并且保留一切解释和修改的权力。",
+        "本协议从即日起2019年8月01日起适用。"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "effective",
+        "date": "2019-08-01",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2019-08-01",
+          "quote": "本协议从即日起2019年8月01日起适用。",
+          "policyContextQuote": "本协议最终解释权归 大哥云加速 所有，并且保留一切解释和修改的权力。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A073-effective-2019-08-01",
+        "literalChecked": true,
+        "quote": "本协议从即日起2019年8月01日起适用。",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。",
+          "same old boilerplate date also appears in unrelated policies; self-label only, not independent contemporary proof"
+        ]
+      }
+    },
+    {
+      "siteId": "A056",
+      "url": "https://xn--yfrp36ea9901a.com/privacypolicy/",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "我们（狗狗加速VPN，简称\"我们\"）始终将用户隐私保护置于首位。为帮助您清晰理解我们的数据处理方式，特制定本隐私政策说明。",
+        "更新日期：2024年1月26日"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2024-01-26",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2024-01-26",
+          "quote": "更新日期：2024年1月26日",
+          "policyContextQuote": "我们（狗狗加速VPN，简称\"我们\"）始终将用户隐私保护置于首位。为帮助您清晰理解我们的数据处理方式，特制定本隐私政策说明。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A056-revision-2024-01-26",
+        "literalChecked": true,
+        "quote": "更新日期：2024年1月26日",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。"
+        ]
+      }
+    },
+    {
+      "siteId": "A014",
+      "url": "https://huacloud.dev/privacy-policy.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "FlowerCloud 尊重并全力保护用户隐私。",
+        "最后更新: 2024 年 10 月 09 日",
+        "客户隐私政策\n\nFlowerCloud 尊重并全力保护用户隐私。"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2024-10-09",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2024-10-09",
+          "quote": "最后更新: 2024 年 10 月 09 日",
+          "policyContextQuote": "客户隐私政策\n\nFlowerCloud 尊重并全力保护用户隐私。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A014-revision-2024-10-09",
+        "literalChecked": true,
+        "quote": "最后更新: 2024 年 10 月 09 日",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。",
+          "literal date has spaces between Chinese components; current numeric date grammar requires explicit expansion"
+        ]
+      }
+    },
+    {
+      "siteId": "A015",
+      "url": "https://oixcloud.com/tos",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "本服务条款适用于 oixCloud 提供的网站、账户、订阅、网络接入及相关产品和服务。请在注册、付款或使用前完整阅读",
+        "最后修订日期：2026年9月29日"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2026-09-29",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2026-09-29",
+          "quote": "最后修订日期：2026年9月29日",
+          "policyContextQuote": "本服务条款适用于 oixCloud 提供的网站、账户、订阅、网络接入及相关产品和服务。请在注册、付款或使用前完整阅读"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A015-revision-2026-09-29",
+        "literalChecked": true,
+        "quote": "最后修订日期：2026年9月29日",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。",
+          "claim belongs current oixCloud service policy; do not infer historical Dler operator continuity"
+        ]
+      }
+    },
+    {
+      "siteId": "A068",
+      "url": "https://sanfennetwork.github.io/tos.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "三分机场用户服务协议（Terms of Service）",
+        "最后更新：2025年12月1日"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2025-12-01",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2025-12-01",
+          "quote": "最后更新：2025年12月1日",
+          "policyContextQuote": "三分机场用户服务协议（Terms of Service）"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A068-revision-2025-12-01",
+        "literalChecked": true,
+        "quote": "最后更新：2025年12月1日",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。"
+        ]
+      }
+    },
+    {
+      "siteId": "A008",
+      "url": "https://cp.v2-tun.net/index.php/knowledgebase/1/V2Tun-s-TOS.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "请注意，以下的用户服务条款(TOS)用以约束用户的服务，也用来保障我们的服务质量。",
+        "TOS修订时间：2020/4/27"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2020-04-27",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2020-04-27",
+          "quote": "TOS修订时间：2020/4/27",
+          "policyContextQuote": "请注意，以下的用户服务条款(TOS)用以约束用户的服务，也用来保障我们的服务质量。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A008-revision-2020-04-27",
+        "literalChecked": true,
+        "quote": "TOS修订时间：2020/4/27",
+        "limitations": [
+          "同品牌原文自报的政策日期，不是开业或成立日期，不证明从该日起连续经营或法律主体延续。",
+          "当前留存页面回述旧政策日期，不等于取得当年独立网页存档。",
+          "same policy also retained for A203 alias; one service statement, do not count aliases as independent sources"
+        ]
+      }
+    },
+    {
+      "siteId": "A005",
+      "url": "https://nicecloud.co/#/dashboard",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "站内提醒\n这里会展示最新通知与公告。\n订阅服务使用须知及重要提示\n2026/06/29",
+        "官方文档提供了官方客户端及三方订阅软件使用，并支持不同入口线路体验。 仅保证官方推荐软件稳定性，其它第三方软件不保证可用性。 不建议继续使用旧版客户端（如 Clash for Windows 等）。",
+        "当前节点多采用国内优化线路入口，海外可用性不保证；新疆地区可能存在较高不稳定性，请谨慎使用。"
+      ],
+      "fact": {
+        "id": "operator-service-use-notice-A005-2026-06-29",
+        "kind": "operator_announcement_date",
+        "date": "2026-06-29",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "literal_business_announcement_calendar_label",
+          "value": "2026-06-29",
+          "quote": "2026/06/29"
+        },
+        "literalChecked": true,
+        "quote": "站内提醒\n这里会展示最新通知与公告。\n订阅服务使用须知及重要提示\n2026/06/29",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "Original nicecloud.co is bound to A005; same named alternate nicecloud.cyou still does not prove legal/operator continuity. No relation to Nice加速(A171) or 九云(A176) is inferred.",
+          "Only the June29 service announcement date is proposed. Stability wording may be retained as an operator scope restriction, not a fault event, independent measurement or uptime guarantee.",
+          "No founding date, continuous operating years, current state or publication timezone is generated."
+        ]
+      }
+    },
+    {
+      "siteId": "A005",
+      "url": "https://nicecloud.co/#/dashboard",
+      "publicReference": false,
+      "collection": "operatorSlaClaims",
+      "quotes": [
+        "站内提醒\n这里会展示最新通知与公告。\n订阅服务使用须知及重要提示\n2026/06/29",
+        "官方文档提供了官方客户端及三方订阅软件使用，并支持不同入口线路体验。 仅保证官方推荐软件稳定性，其它第三方软件不保证可用性。 不建议继续使用旧版客户端（如 Clash for Windows 等）。",
+        "当前节点多采用国内优化线路入口，海外可用性不保证；新疆地区可能存在较高不稳定性，请谨慎使用。"
+      ],
+      "fact": {
+        "id": "operator-client-availability-scope-A005-retained",
+        "kind": "operator_performance_scope_statement",
+        "literalChecked": true,
+        "quote": "官方文档提供了官方客户端及三方订阅软件使用，并支持不同入口线路体验。 仅保证官方推荐软件稳定性，其它第三方软件不保证可用性。 不建议继续使用旧版客户端（如 Clash for Windows 等）。",
+        "independentMeasurement": false,
+        "measurementVerified": false,
+        "targetAvailabilityPercent": null,
+        "pageUpdatedAt": null,
+        "summary": "站方只保证官方推荐软件的稳定性，不保证其他第三方软件及海外可用性；另提示新疆地区可能不稳定。这是使用范围声明，未给出实际可用率或故障记录。",
+        "limitations": [
+          "Original nicecloud.co is bound to A005; same named alternate nicecloud.cyou still does not prove legal/operator continuity. No relation to Nice加速(A171) or 九云(A176) is inferred.",
+          "Only the June29 service announcement date is proposed. Stability wording may be retained as an operator scope restriction, not a fault event, independent measurement or uptime guarantee.",
+          "No founding date, continuous operating years, current state or publication timezone is generated."
+        ]
+      }
+    },
+    {
+      "siteId": "A055",
+      "url": "https://nexuscloud.ch/index.php?rp=/announcements/1/XIANYUCLOUD-IS-BEST.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "请谨慎使用第三方API，如泄露订阅一经发现将会直接终止服务且不退款。\n\n禁止在任何大陆渠道宣传本服务，一经查证将会直接终止服务且不退款。",
+        "星期一, 十一月 29, 2021"
+      ],
+      "fact": {
+        "id": "operator-earlier-business-notice-A055-2021-11-29",
+        "kind": "operator_announcement_date",
+        "date": "2021-11-29",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "literal_business_announcement_calendar_label",
+          "value": "2021-11-29",
+          "quote": "星期一, 十一月 29, 2021"
+        },
+        "literalChecked": true,
+        "quote": "请谨慎使用第三方API，如泄露订阅一经发现将会直接终止服务且不退款。\n\n禁止在任何大陆渠道宣传本服务，一经查证将会直接终止服务且不退款。",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "Current display already has third-party2023-11-08 test evidence. These are earlier official-claim materials, not new record coverage.",
+          "2021 notice body uses generic service wording, with current nexuscloud.ch path namedXIANYUCLOUD-IS-BEST and retained A055 site binding; not independent operator legal identity proof.",
+          "Restriction notice is not initial launch announcement; SSR protocol withdrawal is not an all-protocol outage.",
+          "No source timezone or continuous-operation claim is inferred."
+        ]
+      }
+    },
+    {
+      "siteId": "A038",
+      "url": "https://linkcube.org/index.php?rp=/announcements/1/-LinkCube.html",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "感谢您选择 LinkCube",
+        "请谨慎使用第三方API，如泄露订阅一经发现将会直接终止服务且不退款。推荐使用官方提供的API，使用方法见官方频道。",
+        "星期六, 八月 31, 2024"
+      ],
+      "fact": {
+        "id": "operator-earlier-business-notice-A038-2024-08-31",
+        "kind": "operator_announcement_date",
+        "date": "2024-08-31",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "literal_business_announcement_calendar_label",
+          "value": "2024-08-31",
+          "quote": "星期六, 八月 31, 2024"
+        },
+        "literalChecked": true,
+        "quote": "感谢您选择 LinkCube",
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "limitations": [
+          "Record already has operating-history evidence, so not counted as new coverage.",
+          "A dated announcement now visible on current domain is operator-reported historical content, not an independent contemporaneous archive.",
+          "No founding date, actual sustained availability or legal continuity is proven."
+        ]
+      }
+    },
+    {
+      "siteId": "A042",
+      "url": "https://ncdn1.sntp.uk/pages/knowledge",
+      "publicReference": false,
+      "collection": "historyStatements",
+      "quotes": [
+        "服务条款\n\n服务条款\n\n1. 订阅使用",
+        "2026-05-27 18:36"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "document",
+        "date": "2026-05-27",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2026-05-27",
+          "quote": "2026-05-27 18:36",
+          "policyContextQuote": "服务条款\n\n服务条款\n\n1. 订阅使用"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A042-document-2026-05-27",
+        "literalChecked": true,
+        "quote": "2026-05-27 18:36",
+        "limitations": [
+          "该文档日期只标在当前可编辑服务条款页；不能证明该年成立、该日已营业或连续经营。",
+          "正文末尾上一篇守候影院开号使用教程，与当前同host业务上下文相符；不是独立历史存档。",
+          "continuousOperationVerified=false；independentHistoricalArchiveVerified=false；禁止foundedAt/yearsSinceStart或运营年限推算。"
+        ]
+      }
+    },
+    {
+      "siteId": "A057",
+      "url": "https://web.vtpro.xyz/terms-of-use/",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "Welcome to www.viewturbo.com (hereinafter referred to as \"the Website\"). Before using the services provided by the Website, please carefully read and agree to the following terms. By accessing or using the Website, you agree to comply with these terms of use. If you do not agree with these terms, please do not use the Website.",
+        "Last updated: September 20, 2024"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2024-09-20",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2024-09-20",
+          "quote": "Last updated: September 20, 2024",
+          "policyContextQuote": "Welcome to www.viewturbo.com (hereinafter referred to as \"the Website\"). Before using the services provided by the Website, please carefully read and agree to the following terms. By accessing or using the Website, you agree to comply with these terms of use. If you do not agree with these terms, please do not use the Website."
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A057-revision-2024-09-20",
+        "literalChecked": true,
+        "quote": "Last updated: September 20, 2024",
+        "limitations": [
+          "当前官网web.vtpro.xyz本身承载该协议，正文称www.viewturbo.com；仅认当前ViewTurbo页面的自述标签，不证明旧域迁移、2024营业或经营连续。",
+          "当前日期校验若不接受英文月份应留解析断点，不手改原文日期。",
+          "同条款B25与B290是同页重复原件，不是两独立来源。",
+          "continuousOperationVerified=false；independentHistoricalArchiveVerified=false；禁止foundedAt/yearsSinceStart或运营年限推算。"
+        ]
+      }
+    },
+    {
+      "siteId": "A188",
+      "url": "https://user.riolu-node.link/privacy",
+      "publicReference": true,
+      "collection": "historyStatements",
+      "quotes": [
+        "本隐私政策（以下简称“政策”）适用于 精靈學院 和您，精靈學院 的用户。",
+        "最后修改：2018-06-15"
+      ],
+      "fact": {
+        "kind": "operator_policy_date",
+        "policyDateType": "revision",
+        "date": "2018-06-15",
+        "datePrecision": "day",
+        "dateEvidence": {
+          "kind": "operator_policy_date_label",
+          "value": "2018-06-15",
+          "quote": "最后修改：2018-06-15",
+          "policyContextQuote": "本隐私政策（以下简称“政策”）适用于 精靈學院 和您，精靈學院 的用户。"
+        },
+        "continuousOperationVerified": false,
+        "independentHistoricalArchiveVerified": false,
+        "id": "operator-policy-date-A188-revision-2018-06-15",
+        "literalChecked": true,
+        "quote": "最后修改：2018-06-15",
+        "limitations": [
+          "当前user.riolu-node.link正文品牌为精靈學院；只认当前政策自标修改日期，不把旧目录Riolu.443历史经营主体关系视作已证。",
+          "A067/A188已共用同一当前政策服务组，复用时需canonicalSourceGroup去重，不构成独立证据。",
+          "页脚2014-2026版权被明确排除，不用于历史日期。",
+          "continuousOperationVerified=false；independentHistoricalArchiveVerified=false；禁止foundedAt/yearsSinceStart或运营年限推算。"
+        ]
+      }
+    }
+  ]
+}

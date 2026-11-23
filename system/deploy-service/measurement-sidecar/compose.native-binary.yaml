@@ -1,0 +1,19 @@
+# Overlay after compose.yaml (and production override if used).
+# Existing production app image, verified external Linux binary, no registry pull.
+services:
+  measurement-proxy:
+    image: ${MEASUREMENT_NATIVE_IMAGE:-airports-observatory:real-line-readiness-20261114}
+    pull_policy: never
+    platform: linux/amd64
+    entrypoint: [/run/measurement-bin/mihomo]
+    command: ["-d", "/tmp/measurement-proxy", "-f", "/run/secrets/measurement-proxy/config.yaml"]
+    read_only: true
+    volumes:
+      - type: bind
+        source: ${MEASUREMENT_PROXY_BINARY:?Set verified private Linux amd64 binary path}
+        target: /run/measurement-bin/mihomo
+        read_only: true
+        bind:
+          create_host_path: false
+  measurements:
+    network_mode: service:measurement-proxy

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A048",
+  "name": "YepFast (椰皮)",
+  "entryUrl": "https://portal.yepfast.cc/#/store",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "portal.yepfast.cc",
+    "yepfast.cc",
+    "cdn.yepfast.cc",
+    "lc-cdn.yepfast.cc",
+    "cf-cdn.yepfast.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "用户已将现存页登录并进入portal.yepfast.cc提交前配置；名称与主站一致。旧U1s1保存入口资料不转入本服务，当前登录不证明经营主体或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-b495b47b63cb526e2165",
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true,
+    "successSelector": "#page-header-user-dropdown"
+  },
+  "readiness": {
+    "text": "椰皮 Lite丨100G",
+    "timeoutMs": 12000
+  },
+  "businessApiConsent": {
+    "contract": "yepfast_declared_api_v1",
+    "confirmation": "user_reply_call_df5c2a39279f4b7bb1f24d4ccbed28dc",
+    "backendOrigins": [
+      "https://cdn.yepfast.cc",
+      "https://lc-cdn.yepfast.cc",
+      "https://cf-cdn.yepfast.cc"
+    ],
+    "login": true,
+    "readOnly": true,
+    "recordedAt": "2026-11-17T15:52:15.822Z"
+  },
+  "reconcileVerifiedCheckpoints": true,
+  "validateWhileDisabled": false,
+  "collectPerformanceReferences": false,
+  "recoveryAcceptance": {
+    "configurationRevision": 6,
+    "capturedAt": "2026-11-19T11:42:42.901Z",
+    "fullSiteCoverageVerified": false,
+    "evidenceReuseRequired": true
+  }
+}

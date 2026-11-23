@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A019",
+  "name": "SSRDOG",
+  "entryUrl": "https://daskfljasdf918.ssrdog12.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "daskfljasdf918.ssrdog12.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 2,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "保存入口经SSRDOG导航给出当前域名，页面同名且用户已手动登录；只确认所见入口与资料，经营法律主体及未来可用性未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-1c27262b1cf50b192db9",
+  "validateWhileDisabled": false,
+  "publicOnly": true,
+  "readOnlyRecipe": "ssrdog_public_product_navigation",
+  "reconcileVerifiedCheckpoints": true,
+  "recoveryAcceptance": {
+    "configurationRevision": 5,
+    "recordedAt": "2026-11-19T13:34:12.726Z",
+    "executionMode": "standalone",
+    "fullSiteCoverageVerified": false,
+    "status": "actual_weekly_price_collection_passed",
+    "runId": "bf947958-3a99-407e-9da9-f108e10ec1a0",
+    "enqueueActor": "weekly_scheduler",
+    "verifiedFields": [
+      "pricing"
+    ],
+    "access": "anonymous_public_no_account_required",
+    "nextRunAt": "2026-11-26T13:32:34.795Z",
+    "retainedIndependentCheckpoints": 1
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/ssrdog-public-product-navigation.cjs",
+    "fields": [
+      "pricing"
+    ],
+    "verifiedByActualRunId": "bf947958-3a99-407e-9da9-f108e10ec1a0"
+  }
+}

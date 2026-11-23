@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-4faf67540968cf82ba99",
+  "origin": "https://cloud.e-ix.com",
+  "recordIds": [
+    "A044"
+  ],
+  "entryUrls": [
+    "https://cloud.e-ix.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://cloud.e-ix.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "3e95eed7cd76b2efdcf6828da033beae607b74d604055502186807de2af2c5a2",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

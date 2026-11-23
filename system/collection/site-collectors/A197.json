@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A197",
+  "name": "忍者云",
+  "entryUrl": "https://renzhe.cloud/user/shop",
+  "entrySource": "reviewed_original_catalog_domain_A197",
+  "allowedHosts": [
+    "renzhe.cloud"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "native_cold_remember_warm_price_review_public_frontend_verified",
+  "reason": "当前原登记域名报价链路已真实冷登录、勾选记住我、跨容器暖恢复、逐价原文复核、自动发布和匿名前台验收。每周仅采pricing/website；原privacy断点仍保留，不代表退款隐私性能已重验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": false,
+  "readOnlyRecipe": "renzhe_shop_wallet_and_policies",
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true
+  },
+  "readiness": {
+    "text": "付费中心",
+    "timeoutMs": 12000
+  },
+  "reconcileVerifiedCheckpoints": true,
+  "acceptance": {
+    "runtimeVersion": "v272",
+    "verifiedFields": [
+      "pricing"
+    ],
+    "coldRunId": "4b7153fd-9638-4b22-8a73-b803614a3aaa",
+    "reviewRunId": "3fe70ef0-f8b7-41eb-b912-4448bb884229",
+    "warmRunId": "e4af9d38-eb92-42b8-869e-feb3b6ed97ad",
+    "managedRunId": "ebdb269e-001c-4cfc-9440-87b75fbb3f62",
+    "reviewReceipt": "/data/recovery-receipts/renzhe-v270-prices-reviewed-published-20261121.json",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795193622235/receipt.json",
+    "weeklyEnableReceipt": "/data/recovery-receipts/A197-v272-weekly-enabled-20261121.json",
+    "optionalPrivacyCheckpointPreserved": true
+  }
+}

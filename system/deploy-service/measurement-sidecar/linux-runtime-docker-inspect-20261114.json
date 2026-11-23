@@ -1,0 +1,73 @@
+{
+  "at": "2026-11-14T01:47:31.993Z",
+  "container": {
+    "id": "9a11419d454cc0a3f4a1642c1fc11c4054c8242faefcc2e28923f06074a28c49",
+    "name": "/airports-mihomo-linux-version-20261114",
+    "imageId": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+    "configuredImage": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+    "entrypoint": [
+      "/run/measurement-bin/mihomo"
+    ],
+    "args": [
+      "-v"
+    ],
+    "exitCode": 0,
+    "status": "exited",
+    "networkMode": "none",
+    "readOnlyRoot": true,
+    "capDrop": [
+      "ALL"
+    ],
+    "securityOpt": [
+      "no-new-privileges:true"
+    ],
+    "portBindings": {},
+    "mounts": [
+      {
+        "type": "bind",
+        "destination": "/run/measurement-bin/mihomo",
+        "readWrite": false
+      }
+    ],
+    "project": "airports-mihomo-native-preflight-20261114"
+  },
+  "archiveSha256After": "2763f5b414527f7baf6dc57e3f82f3ab561eedf34bfd7c2f2cde1f7e592efe06",
+  "binarySha256After": "5b6644c487e5dffae86b0e0e9bb5cec445579a3a9d03977c09576fee2aeefc01",
+  "binaryUnchanged": true,
+  "overlay": {
+    "proxyImage": "airports-observatory:real-line-readiness-20261114",
+    "proxyEntrypoint": [
+      "/run/measurement-bin/mihomo"
+    ],
+    "proxyCommand": [
+      "-d",
+      "/tmp/measurement-proxy",
+      "-f",
+      "/run/secrets/measurement-proxy/config.yaml"
+    ],
+    "proxyPorts": [],
+    "workerNamespace": "service:measurement-proxy",
+    "proxyMounts": [
+      {
+        "type": "bind",
+        "target": "/run/secrets/measurement-proxy/config.yaml",
+        "readOnly": true,
+        "createHostPath": false
+      },
+      {
+        "type": "bind",
+        "target": "/run/measurement-bin/mihomo",
+        "readOnly": true,
+        "createHostPath": false
+      }
+    ],
+    "authMount": [
+      {
+        "type": "bind",
+        "target": "/run/secrets/measurement-auth",
+        "readOnly": true,
+        "createHostPath": false
+      }
+    ]
+  }
+}

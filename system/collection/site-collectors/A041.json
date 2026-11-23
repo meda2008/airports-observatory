@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A041",
+  "name": "飞天猪 (Fliggy)",
+  "entryUrl": "https://web01.fliggycloud.cc/",
+  "entrySource": "retained_channel_ev-6f6525f51ce4c6bd566bf22b80634ca8a98909490f797213090d4f8d6df9eef3",
+  "allowedHosts": [
+    "web01.fliggycloud.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 5,
+  "enabled": true,
+  "eligibility": "current_origin_login_cached_session_price_review_frontend_verified",
+  "reason": "频道保留原文列出web01，已正常登录并核对唯一绑定账号按钮；五档原周期报价实跑、复核和匿名前台通过。旧域历史经营连续仍未独立证明，不合并其他品牌。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/fliggy-current-plans.cjs",
+    "fields": [
+      "pricing",
+      "website"
+    ],
+    "status": "live_authenticated_directory_and_cached_session_verified",
+    "automaticPublication": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v20",
+    "status": "pricing_revalidated_unchanged_refund_not_found",
+    "checkedAt": "2026-11-10T00:00:05.341Z",
+    "receipt": "work/collection-runs/financial-20261110-v20/review-A041/admission-receipts.json",
+    "resumeWhen": "new_unread_official_financial_document_or_due_refresh",
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [
+      "pricing"
+    ],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "rejectedPolicyCandidates": [
+    {
+      "url": "https://fliggy.cloud/",
+      "status": "checkout_destination_different_brand",
+      "claimedRefund": "24小时、5GB内的连接问题退款宣传",
+      "destination": "https://budsae.u1sat.homes/#/home?code=bBETqiVQ",
+      "destinationTitle": "U1s1",
+      "receipt": "work/collection-runs/financial-20261109-v18/A041-candidate-register-after-notice.json",
+      "observedAt": "2026-11-09T15:41:55.414Z",
+      "currentOfficialPolicyConfirmed": false
+    }
+  ],
+  "recovery": {
+    "reuseAuthenticatedTab": true,
+    "pricingRoute": "/#/plan",
+    "readyWhen": "five distinct Fliggy plan cards with amount, period, quota and subscribe label",
+    "onIncomplete": "retain checkpoint; do not admit partial or empty first frame",
+    "refund": "knowledge list and support drawer contain no refund rule; do not infer no-refund",
+    "doNotReuse": "fliggy.cloud routes purchases to U1s1; not current Fliggy policy"
+  },
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "publicOnly": false,
+  "recoveryNativeAccess": {
+    "module": "deploy-service/native-access-gate.cjs",
+    "origin": "https://web01.fliggycloud.cc",
+    "path": "/verify",
+    "method": "POST",
+    "allowedHiddenFields": {
+      "_token": "",
+      "next": "/"
+    },
+    "accountSubmission": false,
+    "identityReviewPending": true
+  },
+  "accountReadOnly": true,
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true
+  },
+  "acceptance": {
+    "version": "v259",
+    "coldRunId": "92c6025f-96f1-4db7-89d5-efdc5862a8b8",
+    "parsedWarmRunId": "28e6a159-a05e-471b-9894-8e96bfb0c244",
+    "repeatWarmRunId": "75e8bc1b-349e-417e-8d35-4f48ca04fc95",
+    "frontendReceipt": "/collector-state/frontend-acceptance-20261120/run-1795186457813/receipt.json",
+    "weeklyReceipt": "/data/recovery-receipts/A041-v259-weekly-enabled.json"
+  }
+}

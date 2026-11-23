@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "qualification": "Pinned third-party opening-year claims and separately observed native destinations. A047 qualifies only current www/apex namespace association. No legal, historical, continuous operation or independence verification.",
+  "profiles": [
+    {
+      "recordId": "A059",
+      "url": "https://runtushare.net/8327/",
+      "currentOfficialHostname": "ss-id.com",
+      "nativeOfficialHref": "https://runtushare.net/go/ss-id/",
+      "identityMode": "reviewed_native_redirect_current_host",
+      "identityQualified": true,
+      "primaryProof": {
+        "file": "work/performance-20261112-fourteenth/live/history-ssid-source.json",
+        "fileSha256": "6fb73db52fb82ad65a1f669f76fee5ef21f8c62492f9bb16bb3a692d64172904",
+        "bodySha256": "f3a594b47e57a4417d2e3197e6b52bd29052787d6704fb3cdc742d11a132a70c",
+        "url": "https://runtushare.net/8327/",
+        "observedAt": "2026-11-12T01:07:47.827Z"
+      },
+      "destinationProof": {
+        "file": "work/performance-20261112-fourteenth/live/history-ssid-native-destination.json",
+        "fileSha256": "f6a8cc3895d2209b047fd4527ea5a316cad90542f8bcc059f14d8b19ff23c494",
+        "observedAt": "2026-11-12T01:07:57.141Z",
+        "requestedNativeHref": "https://runtushare.net/go/ss-id/",
+        "resolvedUrl": "https://ss-id.com/#/register?code=f3SGM87e"
+      }
+    },
+    {
+      "recordId": "A047",
+      "url": "https://runtushare.net/7033/",
+      "currentOfficialHostname": "www.cyberguard.best",
+      "nativeOfficialHref": "https://runtushare.net/go/cyberguard/",
+      "identityMode": "reviewed_native_redirect_current_namespace",
+      "identityQualified": true,
+      "primaryProof": {
+        "file": "work/performance-20261112-fourteenth/live/history-cyberguard-source.json",
+        "fileSha256": "bc448b44eb1e23cc790c6cbbaa1e6b50477af639dc115469690ba18f8c3308ee",
+        "bodySha256": "92010db2ec9376659e870c2fe34ea021cdd604e8f5016f1b69883ee6b35d2ea2",
+        "url": "https://runtushare.net/7033/",
+        "observedAt": "2026-11-12T01:07:06.570Z"
+      },
+      "destinationProof": {
+        "file": "work/performance-20261112-fourteenth/live/history-cyberguard-native-destination-v3.json",
+        "fileSha256": "db6dd4b5ddc408b260980ab002efa69b2f79532290d8314cfaf2c2c5ce7f866b",
+        "observedAt": "2026-11-12T01:17:04.144Z",
+        "requestedNativeHref": "https://runtushare.net/go/cyberguard/",
+        "resolvedUrl": "https://cyberguard.best/#/register?code=ILTQCdgz"
+      }
+    }
+  ]
+}

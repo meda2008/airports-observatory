@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-6c01f392bb838958e6a9",
+  "origin": "https://inv06.lmaff01.cc",
+  "recordIds": [
+    "A142"
+  ],
+  "entryUrls": [
+    "https://inv06.lmaff01.cc/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://inv06.lmaff01.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "ed5a2bd925aa64df0940b5b257d2b74a8112b6271e4b7794dbea49bc979720e5",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

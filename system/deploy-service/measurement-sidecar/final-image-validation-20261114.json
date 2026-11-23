@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-11-14T02:26:54.335Z",
+  "status": "FINAL_FROZEN_IMAGE_13_RUNTIME_PINS_PASSED",
+  "sourceInput": {
+    "file": "work/real-line-20261114/source-review-input.json",
+    "fileSha256": "e13dd010815abf2ad5fbb35d57fd3e37e5c7f196298182263e0bb47fa867b531"
+  },
+  "projectionCandidate": {
+    "file": "work/real-line-20261114/projection-compat-candidate.json",
+    "fileSha256": "95749f36cd0bbcb578abe406c7a64382296a0b8a1183c07f98fe6a7a8cf32c1c"
+  },
+  "finalCandidate": {
+    "file": "work/real-line-20261114/final-candidate.json",
+    "fileSha256": "6716dd59af8614b3c02a6a64c442f2893bde5ba7b006e364d76b6242e3d4d0a7"
+  },
+  "image": {
+    "id": "sha256:00578134f641150aa34092e75fd57f69c03b8bc2226530445881378d762dcb01",
+    "repoTags": [
+      "airports-observatory:real-line-final-20261114"
+    ],
+    "repoDigests": [
+      "airports-observatory@sha256:00578134f641150aa34092e75fd57f69c03b8bc2226530445881378d762dcb01"
+    ],
+    "sizeBytes": 2065759276,
+    "nodeVersion": "v24.22.3"
+  },
+  "checked": 13,
+  "failed": 0,
+  "runtimeCheck": {
+    "file": "deploy-service/measurement-sidecar/final-image-runtime-check.final-20261114.json",
+    "fileSha256": "15e975b259cee875e2aac9754b17b0d610252f3a94d371940dd40871a5612960"
+  },
+  "runtimePins": {
+    "file": "deploy-service/measurement-sidecar/final-runtime-source-pins-20261114.json",
+    "fileSha256": "993fd8b4bfbcea4260bf849e8e906562414caa68d250d217dfffa80d98f922fe"
+  },
+  "dockerPackaging": [
+    {
+      "file": "deploy-service/Dockerfile",
+      "fileSha256": "705e31865f282fe941d17496196f9f4d4b46c61a64cd5c9274f7049fb147395b"
+    },
+    {
+      "file": "deploy-service/Dockerfile.dockerignore",
+      "fileSha256": "20ffc463030b68b1a796e0351a53b4dafb2d6398eb35098ec074c6c5f9098859"
+    }
+  ],
+  "buildExitCode": 0,
+  "sourceCheckExitCode": 0,
+  "checksWereActualContainerFileReads": true,
+  "sourceCheckNetwork": "none",
+  "sourceCheckRootReadOnly": true,
+  "sourceCheckPrivateSecretsMounted": false,
+  "sourceCheckAutoRemoveConfigured": true,
+  "initialPackagingFailure": {
+    "checked": 11,
+    "failed": 3,
+    "check": {
+      "file": "deploy-service/measurement-sidecar/final-image-runtime-check.initial-20261114.json",
+      "fileSha256": "53a75c59241e84a3ad81270d782b4fa6ed87722aee4e5ee6d472836cc2666607"
+    },
+    "missingFiles": [
+      "scripts/measurements.cjs",
+      "scripts/local-product.cjs",
+      "public-site/src/core-view.mjs"
+    ],
+    "correctedBy": "Explicit COPY and Dockerfile-specific context allowlist for the three runtime paths; no business source changes"
+  },
+  "routeQualification": {
+    "scope": "reused independent stage real-route qualification only; no extra formal sample",
+    "receipt": {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-validation-20261114.json",
+      "fileSha256": "5a2a27bc4cd7f540faa3a89025d39e78d90d477992373da926ab3f205ecba18b"
+    },
+    "runtimeSourceChecks": [
+      {
+        "file": "lib/proxy-route-observer.cjs",
+        "sha256": "7919cc5af07d2a4ed6ba0d9fbf6c8cda16f5fdd885a94ab51b9a77eef1af3254",
+        "unchangedInFinalImage": true
+      },
+      {
+        "file": "deploy-service/measurement-store.cjs",
+        "sha256": "8dde825b7548e10eed445148802155900d53ad589e6aa153d919c6fbb38d93b0",
+        "unchangedInFinalImage": true
+      }
+    ],
+    "repeatedExternalRequests": 0,
+    "formalSamplesAdded": 0
+  },
+  "logs": [
+    {
+      "file": "deploy-service/measurement-sidecar/final-cached-build-20261114.log",
+      "fileSha256": "a2405a8b5ef59c9196abf86481b32a57e898d232808936531083f7f7cc10d581"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/final-cached-build-packaging-corrected-20261114.log",
+      "fileSha256": "cd76ddba5c958379977347c9e36b14ab0525f098a72f36ede42c5df625fa41ee"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/final-image-runtime-check.initial-20261114.log",
+      "fileSha256": "fa47b8412be25069e2c53b6fa93068504a0ef9141d5051f90614c2858117e665"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/final-image-runtime-check.final-20261114.log",
+      "fileSha256": "5220afce7d1fcabc4438ab1d5f1de8e70b4ce7d4e14a71c7f294f002e8d50632"
+    }
+  ],
+  "mainDatabaseTouched": false,
+  "mainNativeWorkerTouched": false,
+  "remoteDeploymentPerformed": false
+}

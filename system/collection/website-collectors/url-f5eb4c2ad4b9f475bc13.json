@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-f5eb4c2ad4b9f475bc13",
+  "origin": "https://a32.qytaff03.cc",
+  "recordIds": [
+    "A141"
+  ],
+  "entryUrls": [
+    "https://a32.qytaff03.cc/shop"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A141"
+      ],
+      "fields": [
+        "refund",
+        "pricing"
+      ]
+    },
+    "readOnlyRecipe": "qing_native_refund_coverage",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://a32.qytaff03.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "1f71b87cea08e666dee55e95847c6e137aebba65c19b8dc684935e66a9af1152",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

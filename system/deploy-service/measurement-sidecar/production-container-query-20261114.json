@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-14T01:26:19.430Z",
+  "project": "airports-measurement-readiness-20261114-a",
+  "elapsedMs": 171,
+  "status": "response",
+  "statusCode": 200,
+  "containers": [
+    {
+      "id": "2f1779ec45b6643c79f104e904b33b70f9b1f95990c13a6937984535011882f0",
+      "names": [
+        "/airports-measurement-readiness-20261114-a-readiness-check-1"
+      ],
+      "state": "exited",
+      "status": "Exited (1) About a minute ago"
+    },
+    {
+      "id": "85b27efed445fce771c0be60ddbbd28d1cd5ec58b5eb76c3abebe39f544c57f6",
+      "names": [
+        "/airports-measurement-readiness-20261114-a-measurements-1"
+      ],
+      "state": "exited",
+      "status": "Exited (0) About a minute ago"
+    },
+    {
+      "id": "d29a8faeed04d779c46453b2166d3d08b4ff591dc86e7c835a69a2bc14454492",
+      "names": [
+        "/airports-measurement-readiness-20261114-a-namespace-holder-1"
+      ],
+      "state": "running",
+      "status": "Up About a minute (healthy)"
+    }
+  ]
+}

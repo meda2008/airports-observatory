@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-14T01:30:13.172Z",
+  "status": "PRODUCTION_IMAGE_READINESS_PASSED_NOT_CONFIGURED",
+  "scope": "Real production image build and isolated no-route container readiness only; no remote deployment or real line acceptance",
+  "build": {
+    "exitCode": 0,
+    "imageTag": "airports-observatory:real-line-readiness-20261114",
+    "imageId": "sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09",
+    "manifest": "sha256:cd433bc14b82adf3b98c00db4f92c2862e65fc0ea39a3c5a30001284f7e1bfa1",
+    "configDigest": "sha256:53853398a17ea4d5de1e1401abdfb433c2c41268a83b932fbce51be8bbc729d5",
+    "sizeBytes": 2065642123,
+    "officialBase": "docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54",
+    "exportSeconds": 801,
+    "unpackSeconds": 449.8,
+    "log": {
+      "file": "deploy-service/measurement-sidecar/production-build-20261114-ca-retry.log",
+      "fileSha256": "49b3aa47a0887f08748a1e650e16681655bd09811a42c755a68b4588e0b7bed4"
+    },
+    "preservedFailures": [
+      {
+        "exitCode": 1,
+        "aptExitCode": 100,
+        "reason": "Debian official HTTP port80 connection failed",
+        "log": {
+          "file": "deploy-service/measurement-sidecar/production-build-20261114.log",
+          "fileSha256": "5041e6d31c53b2e42c8d3a1fd774128b565664c0a67059952c7eb91c7b1786bc"
+        }
+      },
+      {
+        "exitCode": 1,
+        "aptExitCode": 100,
+        "reason": "slim image missing system CA certificates; official HTTPS certificate not trusted",
+        "log": {
+          "file": "deploy-service/measurement-sidecar/production-build-20261114-retry.log",
+          "fileSha256": "f8d01e5be38c7823bc8d0daeef8abe1530f81f07ec2f2026f23232b265d3af0e"
+        }
+      }
+    ],
+    "fixes": [
+      "Use same official Debian origin over HTTPS with bounded retries",
+      "Bootstrap system public CA bundle from official Node tls.rootCertificates; TLS verification remains enabled",
+      "Dockerfile-specific build context allowlist excludes private deployment state"
+    ],
+    "initialSizeObservedDuringUnpackBytes": 582689419,
+    "repoDigests": [
+      "airports-observatory@sha256:2a8dee5ed98fb1050fc4b2644c2db5a5f5d84c0ffd8695b13e6c77cadf6cfd09"
+    ],
+    "registryPushPerformed": false
+  },
+  "focused": {
+    "passed": 11,
+    "failed": 0,
+    "log": {
+      "file": "deploy-service/measurement-sidecar/production-readiness-focused-20261114.log",
+      "fileSha256": "8b46449f2f47ece94dff950c8131b40d1c6f87c7e062b600c0e0afa4f631014f"
+    },
+    "finalAfterCheckerCorrection": {
+      "passed": 7,
+      "failed": 0,
+      "log": {
+        "file": "deploy-service/measurement-sidecar/production-readiness-focused-final-20261114.log",
+        "fileSha256": "22d15069cd9c587bd2bc70f1df6ebf61b27caeb67c4de0a764b2aa22ae863cea"
+      },
+      "unchangedDockerfilePackagingChecksReused": 4
+    }
+  },
+  "readiness": {
+    "project": "airports-measurement-readiness-20261114-a",
+    "status": "passed_not_configured",
+    "composeUpExitCode": 0,
+    "workerExitCode": 0,
+    "initialCheckerExitCode": 1,
+    "finalCheckerExitCode": 0,
+    "configuredProfiles": 0,
+    "rawObservationCount": 0,
+    "runCount": 0,
+    "realMeasurementStatus": "NOT_CONFIGURED",
+    "enabled": false,
+    "workerStatus": "stopped",
+    "nodeVersion": "v24.22.3",
+    "newVolumeCreated": true,
+    "fixtureUsedAsSubstitute": false,
+    "namespaceHolderIsProxy": false,
+    "publicPorts": [],
+    "allContainerRootsReadOnly": true,
+    "originalBytesUnchanged": true,
+    "readOnlySnapshotCopy": true,
+    "originalFiles": [
+      {
+        "name": "measurements.sqlite",
+        "sha256": "f9876e272709e104a70665f59712b2a7aae1c9de9d3bba725a068caa4984ddd0",
+        "bytes": 65536
+      }
+    ],
+    "preservedInitialFailure": {
+      "code": "ERR_SQLITE_ERROR",
+      "errcode": 14,
+      "reason": "WAL auxiliary file access on read-only mount caused unable to open database file",
+      "log": {
+        "file": "deploy-service/measurement-sidecar/production-readiness-check-initial-20261114.log",
+        "fileSha256": "3644595729f28bcd2f6ee37b282d988badc334db3ba0d28a5940ea21bc053033"
+      }
+    },
+    "correction": "Stopped-worker DB/WAL/SHM originals copied from RO volume into checker tmpfs, exact SHA matched before/after; SQLite readOnly snapshot query; no production/store change",
+    "logs": [
+      {
+        "file": "deploy-service/measurement-sidecar/production-readiness-up-20261114.log",
+        "fileSha256": "2ba5694b9af27eb4be517480afcc115108111812f1fe3edf759e8287bdb0bd8d"
+      },
+      {
+        "file": "deploy-service/measurement-sidecar/production-readiness-check-final-20261114.log",
+        "fileSha256": "1a24d5fac14972d10e43bd47c25f13d454f750372650a685c4a6d4d997cf4cad"
+      }
+    ],
+    "inspection": {
+      "file": "deploy-service/measurement-sidecar/production-readiness-inspect-20261114.json",
+      "fileSha256": "3ec204ec0827188c7ee74b1ef599ddd15265c624532d5c9511e21fd6bc87d6bb"
+    },
+    "sourceComparison": [
+      {
+        "file": "deploy-service/measurement-worker.cjs",
+        "sha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967",
+        "currentHostSha256": "7247c4850a9aadf018d74560f01a95d5d0632c2e2ccf9e16d305213bb1b7e967",
+        "matchesCurrentHost": true
+      },
+      {
+        "file": "deploy-service/measurement-store.cjs",
+        "sha256": "3837267f8453daee04f6002f9052b05374f7e831ca889532498d2919dba7929d",
+        "currentHostSha256": "3837267f8453daee04f6002f9052b05374f7e831ca889532498d2919dba7929d",
+        "matchesCurrentHost": true
+      },
+      {
+        "file": "lib/proxy-route-observer.cjs",
+        "sha256": "5ab0877d3da7f1b63a4122fbf7c8004b37f8e18779256535a68febf709e066bc",
+        "currentHostSha256": "5ab0877d3da7f1b63a4122fbf7c8004b37f8e18779256535a68febf709e066bc",
+        "matchesCurrentHost": true
+      },
+      {
+        "file": "lib/local-network-observer.cjs",
+        "sha256": "e9364b7b2cc42015059b1723a04ebdbe96b7c6935bcbfdbfea8bf7218fc3b10a",
+        "currentHostSha256": "e9364b7b2cc42015059b1723a04ebdbe96b7c6935bcbfdbfea8bf7218fc3b10a",
+        "matchesCurrentHost": true
+      }
+    ]
+  },
+  "cleanup": {
+    "completed": true,
+    "composeDownExitCode": 0,
+    "remainingScopedContainers": [],
+    "isolatedVolumeRemoved": true,
+    "productionImageRetained": true,
+    "otherProjectContainersTouched": false,
+    "warning": "Compose printed Error while Stopping for checker-final after its prior orphan removal; command exit0 and post-cleanup query confirms zero scoped containers and removed volume.",
+    "log": {
+      "file": "deploy-service/measurement-sidecar/production-readiness-cleanup-20261114.log",
+      "fileSha256": "c5643801399698875f6f6893c5d5d032d4a81381cec12751ccf264b7c3bd2ae9"
+    },
+    "verification": {
+      "file": "deploy-service/measurement-sidecar/production-readiness-cleanup-verification-20261114.json",
+      "fileSha256": "b4ed6cf0634b0203aec47e4af4ad28648689c2d2f41001975845b30287a8cdc4"
+    }
+  },
+  "realSubscriptionsLoaded": false,
+  "realLineMeasured": false,
+  "productionMainDatabaseTouched": false,
+  "sourceConfigPins": [
+    {
+      "file": "deploy-service/Dockerfile",
+      "fileSha256": "3a9ee305aaea30a944b431357880c2daf6775339800d2ac40a3e8d65c291c197"
+    },
+    {
+      "file": "deploy-service/Dockerfile.dockerignore",
+      "fileSha256": "b924873a5d6c888d82e9517bbecb56784b2d010b4e3e478888daddc9bf3ff6a4"
+    },
+    {
+      "file": "deploy-service/compose.yaml",
+      "fileSha256": "4c49702995d7c860ede7c5d3eb824458203eedce146fe9034956996c0a239347"
+    },
+    {
+      "file": "deploy-service/compose.production.yaml",
+      "fileSha256": "16204cfd5c5911b495e594b949a95b45e13bd64c0193d9bb8486fd126dd98949"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/compose.readiness.yaml",
+      "fileSha256": "24661ecd174f17608c294d5c5aa0d53580eed4762c6d9a326d37751829c81725"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/readiness.cjs",
+      "fileSha256": "a8196c29303e41ae425d064d8ac2476946453876a91aab55606d38ffa1a43cdb"
+    },
+    {
+      "file": "tests/measurement-sidecar-compose.test.cjs",
+      "fileSha256": "7b795bc2c06766af8ac8bf870b3ec1fbb15adfcfc6461471f7b8270767e116d2"
+    }
+  ],
+  "initialPendingReceipt": {
+    "file": "deploy-service/measurement-sidecar/production-readiness-validation-20261114.initial-pending.json",
+    "fileSha256": "dae1c6418edcd32867d4f966b8d64391b8f96d4ff85640b97b8a1ef654b41d58"
+  },
+  "additionalEvidence": [
+    {
+      "file": "deploy-service/measurement-sidecar/production-daemon-ping-20261114.json",
+      "fileSha256": "e6ea839865e69ae3528e6156dadb2b1dc6486cc7fcd34d52427a5b6e1cf8be47"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/production-container-query-20261114.json",
+      "fileSha256": "d0c79e78eb70ea6edfe0bf0ff8dad6d128e936abc35fa3a2b8d6b0c32d9f8a49"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/production-readiness-config-20261114.json",
+      "fileSha256": "fd190a3336893ee1cd1d98559b433834c8460a5589408f6936c75c82268bff2c"
+    }
+  ],
+  "limitations": [
+    "Local actual production image build and real worker NOT_CONFIGURED readiness only; no remote-server deployment performed.",
+    "No real proxy/client, subscription or route configured in this project; namespace holder is inert and route performance is not measured.",
+    "Initial build failures and first read-only checker failure retained; no TLS verification disabled.",
+    "Only new isolated project volume was created and removed; production main DB and credentials were not mounted or changed."
+  ]
+}

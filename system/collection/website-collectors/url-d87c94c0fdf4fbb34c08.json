@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-d87c94c0fdf4fbb34c08",
+  "origin": "https://hutao.cloud",
+  "recordIds": [
+    "A011"
+  ],
+  "entryUrls": [
+    "https://hutao.cloud/"
+  ],
+  "capabilities": {
+    "literalParser": "collection/url-collectors/hutao-public-plans.cjs",
+    "readOnlyRecipe": "hutao_public_catalog_readonly",
+    "auth": null,
+    "authStatus": "record_scoped_credentials_not_copied",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://hutao.cloud",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; identities, account bindings and evidence remain record scoped.",
+  "recipeHash": "a5df55a1850ecf4742924ed89c12a23d781c337aeb98f640567e9516e47eb5cb",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

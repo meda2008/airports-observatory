@@ -1,0 +1,10 @@
+'use strict';
+function contexts(core={},now=Date.now()){
+ const out={},bound=r=>r?.literalChecked===true&&r.sourceIds?.length&&r.independentMeasurement===false&&r.measurementVerified===false&&Date.parse(r.observedAt)<=now;
+ const image=(core.speed?.imageReports||[]).find(r=>r.id?.startsWith('round22-image-')&&bound(r)&&r.currentSpeedVerified===false&&r.rateUnit===null&&r.valueMbps===null&&r.sampleCount===null);
+ if(image){const youtu=image.id.includes('A206');out.image={kind:image.kind,testedAt:image.testedAt,publisher:image.publisher,displayedRows:image.displayedRows,reportedLocalTime:image.reportedLocalTime,reportedTimeZone:'CST',timeZoneOffset:null,exactTestInstant:null,sampleCount:null,rateUnit:null,valueMbps:null,description:'第三方历史测速图，'+image.displayedRows+'显示行，选核3例。MB/KB/B未明确每秒，不换算Mbps或总体统计；CST偏移未知，不代表当前速度。'+(youtu?'专线/隧道及不同倍率混合；52/52不当可用率。官方公告可关联备用入口，但本轮落地为错误页，业务可用性未确认；不证明历史主体或连续经营。':'前三行为站点/群组/说明，108行不是108个节点。全球地区与倍率混合，标题回国机场不证明本图是回国专用测试；仅关联当前入口，历史主体未核实。')};}
+ const history=(core.operatingHistory?.historyStatements||[]).find(r=>/^round22-history-A0(?:06|10|28)-/.test(r.id||'')&&bound(r)&&r.dateEvidence?.kind==='retained_report_test_date_literal');if(history)out.history={id:history.id,description:'复用已审第三方测速报告原文明确测试日，非新独立发现或新增一次测试；不是成立、最早业务或连续经营，历史测量和法律主体未独立核实。'+(history.id.includes('A010')?'原报告含旧端点与Anycast方法冲突及直连失败，保留而不修改既有速度。':history.id.includes('A028')?'2026页面核验/发表日期不是2025测试日；A199与当前入口关系仍未核实，不跨记录转移。':'保留原报告的同名无已知冲突关联等级，不增加独立来源。')};
+ const feedback=(core.stability?.reviewedIssueSignals||[]).find(r=>r.id==='round22-feedback-A190-github266'&&bound(r)&&r.currentCandidateOnly===true&&r.legacyRecordIdentityVerified===false&&r.current===false&&r.sampleCount===null&&r.durationMinutes===null);if(feedback)out.candidateIssue={candidateServiceName:'安妮office',createdAt:feedback.createdAt,signalSummaries:[feedback.summary],description:'仅当前候选安妮office的历史反馈，旧Anyland主体归属未核，不计主稳定性。印尼节点为个人自述，客服仍能联系；网络、客户端和时长未知，发帖日期非实际异常起点，不是全站或当前事故。'};
+ return out;
+}
+module.exports={contexts};

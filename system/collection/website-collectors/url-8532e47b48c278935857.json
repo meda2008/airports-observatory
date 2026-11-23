@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-8532e47b48c278935857",
+  "origin": "https://dv2dsdgf.quanqiugttt1.club",
+  "recordIds": [
+    "A150",
+    "A152"
+  ],
+  "entryUrls": [
+    "https://dv2dsdgf.quanqiugttt1.club/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A152"
+      ],
+      "fields": [
+        "compatibility",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://dv2dsdgf.quanqiugttt1.club",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "c17f97f17bb31b7bf1c2a921b38ba4fee291f3cd4c09bab718f9fab752b34402",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

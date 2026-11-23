@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "qualification": "Retained exact operator responsibility/scope statements only; not actual historical incidents or achieved stability.",
+  "profiles": [
+    {
+      "recordId": "A044",
+      "name": "E-IX 云加速",
+      "currentOfficialUrlAtReview": "https://cloud.e-ix.com/",
+      "url": "https://tos.cloud.e-ix.com/terms",
+      "ref": {
+        "sourceId": "CORE-AUTO-CORE-AUTH-BATCH414-c846a394794483f4439ca579",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch414/raw/c846a394794483f4439ca5791e3c5bfdeaa1279a6d0c35db3a07e2154f4e45fc.json",
+        "fileSha256": "c846a394794483f4439ca5791e3c5bfdeaa1279a6d0c35db3a07e2154f4e45fc",
+        "bodySha256": "9f10e930ccd4be90c9096124be5c8c3120d1f8df2a0b3e736714b8f303baaa6d",
+        "url": "https://tos.cloud.e-ix.com/terms",
+        "observedAt": "2026-11-01T02:33:37.660Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "kind": "operator_performance_scope_statement",
+      "sourceAuthenticationAtOriginalCapture": "public_rendered_dom",
+      "clauses": {
+        "scope0": "我们会尽力保持服务稳定，但不保证服务不中断、不出错，或在所有网络环境下都能使用。我们可能为维护、安全或法律原因暂停部分服务，也可能调整服务器、功能和套餐；对你已购买的套餐有明显不利影响的变更，会提前通知。",
+        "conditionalRemedy": "因我们的原因导致服务长时间无法使用时，我们会按情况补偿时长，或退款。"
+      },
+      "bindingOriginal": {
+        "originalSourceId": "RETAINED-A044-REGISTRATION-0abcc5bf2dece4beaa914078",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch414/raw/0abcc5bf2dece4beaa914078629237a23dc9a1583a77cb967fdd99caf2210c11.json",
+        "fileSha256": "0abcc5bf2dece4beaa914078629237a23dc9a1583a77cb967fdd99caf2210c11",
+        "bodySha256": "0abcc5bf2dece4beaa914078629237a23dc9a1583a77cb967fdd99caf2210c11",
+        "url": "https://cloud.e-ix.com/#/register",
+        "observedAt": "2026-11-01T02:33:36.529Z",
+        "representation": "original_capture_metadata_bytes",
+        "nativeLink": {
+          "label": "服务条款",
+          "url": "https://tos.cloud.e-ix.com/"
+        },
+        "nativeLinkIndex": 2
+      }
+    },
+    {
+      "recordId": "A085",
+      "name": "泡泡狗 (PaoPaoDog)",
+      "currentOfficialUrlAtReview": "https://www.paopao.dog/",
+      "url": "https://www.paopao.dog/#/knowledge",
+      "ref": {
+        "sourceId": "CORE-AUTH-PAOPAO-B16-TERMS",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch16/raw/core-auth-paopao-b16-terms-23e2cdff31a9.json",
+        "fileSha256": "23e2cdff31a926450d52becccf8e4aa8593de830c2e999c3ae42050bdaf7eede",
+        "bodySha256": "5ace13957f5f745902205d448bb3f265415f090911d1b008ad88b69aa2b1d01e",
+        "url": "https://www.paopao.dog/#/knowledge",
+        "observedAt": "2026-10-26T17:23:37.903Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "kind": "operator_performance_scope_statement",
+      "sourceAuthenticationAtOriginalCapture": "authenticated_rendered_dom",
+      "clauses": {
+        "scope0": "本服务不保证于任何地区、网络环境或时间内持续可用。",
+        "scope1": "本站可能因以下原因中断服务：系统维护、网络故障、上游供应商问题、不可抗力。前述中断不构成违约。",
+        "scope2": "如因天灾、战争、政策限制、网络封锁或电信故障等不可抗力事件导致服务中断，本公司不负责任。"
+      }
+    }
+  ]
+}

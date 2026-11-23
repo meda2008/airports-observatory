@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-f69cdceab120ad20e30d",
+  "origin": "https://u.bws.lol",
+  "recordIds": [
+    "A018"
+  ],
+  "entryUrls": [
+    "https://u.bws.lol/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://u.bws.lol",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "4227e818f3a17c1e79a73e4a5f4d676450224a1415515b3f8aa2f76b8206b9aa",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

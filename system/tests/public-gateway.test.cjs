@@ -1,0 +1,30 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),http=require('node:http');
+const {createWebServer}=require('../deploy-service/three-services/web.cjs');
+const listen=server=>new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const close=server=>new Promise(resolve=>server.close(resolve));
+test('production gateway separates public reads, protected management and internal RPC',async()=>{
+ const key='local-test-only-secret-'.repeat(3),seen=[];
+ const upstream=http.createServer((req,res)=>{seen.push({url:req.url,authorization:req.headers.authorization});res.setHeader('content-type','application/json');res.end(JSON.stringify({ok:true}));});await listen(upstream);
+ const web=createWebServer({upstream:'http://127.0.0.1:'+upstream.address().port,gatewayOptions:{apiHost:'airports-api.example.com',adminHost:'airports-admin.example.com',frontendOrigin:'https://airports.example.com',adminToken:key}});await listen(web);
+ const base='http://127.0.0.1:'+web.address().port;
+ const get=(url,{host='airports-api.example.com',headers={},body,...options}={})=>new Promise((resolve,reject)=>{
+  const req=http.request(base+url,{...options,headers:{Host:host,...headers}},res=>{res.resume();res.on('end',()=>resolve({status:res.statusCode,headers:new Headers(res.headers)}));});req.on('error',reject);req.end(body);
+ });
+ try{
+  const read=await get('/api/catalog',{headers:{Origin:'https://airports.example.com',Authorization:'Bearer do-not-forward'}});assert.equal(read.status,200);assert.equal(read.headers.get('access-control-allow-origin'),'https://airports.example.com');assert.equal(seen.at(-1).authorization,undefined);
+  assert.equal((await get('/api/catalog',{headers:{Origin:'https://evil.example'}})).status,403);
+  for(const route of ['/api/admin/status','/console.html','/internal/web-collector/claim'])assert.equal((await get(route)).status,404);
+  assert.equal((await get('/api/catalog',{method:'POST',body:'{}'})).status,405);
+  assert.equal((await get('/api/catalog',{method:'OPTIONS',headers:{Origin:'https://airports.example.com','Access-Control-Request-Method':'POST'}})).status,405);
+  assert.equal((await get('/api/catalog',{method:'OPTIONS',headers:{Origin:'https://airports.example.com','Access-Control-Request-Method':'GET','Access-Control-Request-Headers':'Authorization'}})).status,403);
+  assert.equal((await get('/api/catalog',{host:'unrelated.example.com'})).status,404);
+  const admin={host:'airports-admin.example.com'};
+  for(const route of ['/','/console.html','/console.js','/api/admin/status'])assert.equal((await get(route,admin)).status,401);
+  const credentials={Authorization:'Basic '+Buffer.from('admin:'+key).toString('base64')};
+  assert.equal((await get('/',{...admin,headers:credentials})).status,200);
+  assert.equal((await get('/api/admin/status',{...admin,headers:credentials})).status,200);assert.equal(seen.at(-1).authorization,'Bearer '+key);
+  assert.equal((await get('/api/admin/review',{...admin,method:'POST',body:'{}',headers:{...credentials,Origin:'https://evil.example','Sec-Fetch-Site':'cross-site'}})).status,403);
+  assert.equal((await get('/internal/web-collector/claim',{...admin,headers:credentials})).status,404);
+ }finally{await close(web);await close(upstream);}
+});

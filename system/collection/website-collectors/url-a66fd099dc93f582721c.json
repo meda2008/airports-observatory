@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a66fd099dc93f582721c",
+  "origin": "https://www.bianjiecloud.com",
+  "recordIds": [
+    "A003",
+    "A170"
+  ],
+  "entryUrls": [
+    "https://www.bianjiecloud.com/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A170"
+      ],
+      "fields": [
+        "trial",
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.bianjiecloud.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "3d2054905cc96b2266f9b08ad4e185c87df38eb2a0fdf1fb5217583ad753eba5",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

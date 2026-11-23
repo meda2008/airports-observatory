@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-42304debc601050faa87",
+  "origin": "https://nvbnb.lonka.click",
+  "recordIds": [
+    "A168"
+  ],
+  "entryUrls": [
+    "https://nvbnb.lonka.click/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nvbnb.lonka.click",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "58a24176e85f48e898a6bf62bc0612d76abb4c6eba8ef7720a6bac3964bf2d6d",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

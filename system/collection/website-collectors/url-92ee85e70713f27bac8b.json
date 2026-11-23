@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-92ee85e70713f27bac8b",
+  "origin": "https://api-flowercloud.com",
+  "recordIds": [
+    "A014",
+    "A183"
+  ],
+  "entryUrls": [
+    "https://api-flowercloud.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://api-flowercloud.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e82a6184d09bd35de6a64df137f94c77ad412789add28de8432d59bc82b09a95",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

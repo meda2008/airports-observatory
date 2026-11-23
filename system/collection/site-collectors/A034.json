@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A034",
+  "name": "prprCloud",
+  "entryUrl": "https://prpr.96110.cn.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "prpr.96110.cn.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "current_price_source_review_frontend_and_followup_verified",
+  "reason": "2026-11-20 独立Docker两次采集，每次7次读取/14次出口核验通过；公开商店4组原周期标价经原始整数金额、客户端除100单位与当前发布记录复核，匿名前台4行通过。每周仅公开报价；不代表原账号全部可购目录或定制流量结账总额已核实。旧直连失败断点保留，不伪称原保护已解除。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "prpr_public_capabilities",
+  "publicOnly": true,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-554ca64f3cbf007ba761",
+  "validateWhileDisabled": true,
+  "webEgress": "authenticated_local_proxy",
+  "reconcileVerifiedCheckpoints": true
+}

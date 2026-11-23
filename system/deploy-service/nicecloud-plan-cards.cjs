@@ -1,0 +1,4 @@
+'use strict';
+const url='https://nicecloud.cyou/#/plans',names=require('../collection/url-collectors/nicecloud-current-plans.cjs').names;
+async function read(page){if(page.url()!==url)return null;if(await page.title()!=='Nice Cloud')return[];const cards=await page.locator('article').evaluateAll(es=>es.filter(e=>e.getClientRects().length&&e.querySelector('h2')).map(e=>({name:e.querySelector('h2').innerText.trim(),text:e.innerText,headingCount:e.querySelectorAll('h2,h3,h4').length,buttonLabel:[...e.querySelectorAll('button')].filter(b=>b.getClientRects().length).map(b=>b.innerText.trim()).join('|'),unsafe:!!e.querySelector('form,input,iframe')})));if(cards.length!==8||cards.some((c,i)=>c.unsafe||c.name!==names[i]||c.headingCount!==1||c.buttonLabel!=='立即购买'))return[];return cards.map(({unsafe,...c})=>c);}
+module.exports={url,read};

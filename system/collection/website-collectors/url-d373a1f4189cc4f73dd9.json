@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-d373a1f4189cc4f73dd9",
+  "origin": "https://www.nicecc.cc",
+  "recordIds": [
+    "A171"
+  ],
+  "entryUrls": [
+    "https://www.nicecc.cc/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A171"
+      ],
+      "fields": [
+        "refund"
+      ]
+    },
+    "readOnlyRecipe": "nicecc_authenticated_refund_coverage",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://www.nicecc.cc",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "dc159e46d05c9b3f2b98d9c3fbdf48b4b618ea40be4f819f6dfc935107d969af",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

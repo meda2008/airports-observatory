@@ -1,0 +1,38 @@
+{
+  "observedAt": "2026-11-14T02:11:46.252Z",
+  "scope": "isolated_stage_candidate_route_qualification_not_formal_samples",
+  "status": "qualified_not_formal_measurement",
+  "egressMatch": true,
+  "realMeasurementFactCreated": false,
+  "valueMbps": null,
+  "privateInputHashes": {
+    "config": "48ddc834fbb46a587e3af8c40c28b09d657e54b18c43bc84e2ce5fb227a55521",
+    "authorization": "e5b614b6f657e67b62a45aea992d1fa41d55d74299a2c5549a494b3173fb8957",
+    "egress": "b7a1284383a4fe92a3612fc4d3a2372de8336c6c78d046016a50707f45347add",
+    "binary": "5b6644c487e5dffae86b0e0e9bb5cec445579a3a9d03977c09576fee2aeefc01"
+  },
+  "imageSourceHashes": {
+    "lib/proxy-route-observer.cjs": "7919cc5af07d2a4ed6ba0d9fbf6c8cda16f5fdd885a94ab51b9a77eef1af3254",
+    "deploy-service/measurement-store.cjs": "8dde825b7548e10eed445148802155900d53ad589e6aa153d919c6fbb38d93b0"
+  },
+  "egress": {
+    "status": "ok",
+    "statusCode": 200,
+    "bodyComplete": true,
+    "tlsHandshakeVerified": true,
+    "errorCode": null
+  },
+  "download": {
+    "status": "ok",
+    "statusCode": 200,
+    "bodyComplete": true,
+    "bytesRead": 262144,
+    "tlsHandshakeVerified": true,
+    "errorCode": null
+  },
+  "privateInputsUnchanged": true,
+  "formalProfileCount": 0,
+  "formalObservationCount": 0,
+  "measurementSwitchEnabled": false,
+  "recordHash": "a996d08dad6c1a5ce8b81f3b4353910db76c74e5c76fb05f222d07fcd282f9a9"
+}

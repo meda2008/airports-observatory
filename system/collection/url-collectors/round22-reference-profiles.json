@@ -1,0 +1,516 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "A020-image",
+      "recordId": "A020",
+      "mode": "image",
+      "url": "https://runtushare.net/12334/",
+      "ref": {
+        "sourceId": "ROUND22-A020-ARTICLE",
+        "file": "work/performance-20261112-twentysecond/live/ednovas-review.json",
+        "fileSha256": "8b0e9b225ea60ecc747895ab4d161e97a953eba5be6a7bbfdb949129356e3e84",
+        "url": "https://runtushare.net/12334/",
+        "observedAt": "2026-11-12T08:57:32.181Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "47b09a4c8dda1b4ab2c86920e9dcbaf81bde0c86f0b7dabf1a2c81b85c7a0703"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND22-A020-ARTICLE",
+          "file": "work/performance-20261112-twentysecond/live/ednovas-review.json",
+          "fileSha256": "8b0e9b225ea60ecc747895ab4d161e97a953eba5be6a7bbfdb949129356e3e84",
+          "url": "https://runtushare.net/12334/",
+          "observedAt": "2026-11-12T08:57:32.181Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "47b09a4c8dda1b4ab2c86920e9dcbaf81bde0c86f0b7dabf1a2c81b85c7a0703"
+        },
+        {
+          "sourceId": "ROUND22-A020-DESTINATION",
+          "file": "work/performance-20261112-twentysecond/live/ednovas-native-destination-loaded.json",
+          "fileSha256": "371aa7bd184f1e05e0c756738c38abaece8b701b26bff8ba5465a769338bf2ca",
+          "url": "https://ednovas.org/#/register?code=CO0gJK0M",
+          "observedAt": "2026-11-12T09:04:48.768Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "b28be4de1463814fb3ae5d26daae6da09971f4c9dfef350fdc01c39d32da336d"
+        },
+        {
+          "sourceId": "ROUND22-A020-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentysecond/ednovas-image-review.json",
+          "fileSha256": "27c7473422e42ef3bbd49a8463c6cdeaf59bf6d626870604da914e6db9896cde",
+          "url": "https://runtushare.net/12334/",
+          "observedAt": "2026-11-12T09:06:21.620Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "27c7473422e42ef3bbd49a8463c6cdeaf59bf6d626870604da914e6db9896cde"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://ednovas.org/",
+      "nativeHref": "https://runtushare.net/go/ednovas",
+      "quote": "Ednovas 云机场节点测速",
+      "destinationQuote": "用户说明 https://help.ednovas.me",
+      "review": {
+        "pageUrl": "https://runtushare.net/12334/",
+        "url": "https://runtushare.net/12334/",
+        "observedAt": "2026-11-12T09:06:21.620Z",
+        "clockScope": "local_original_image_visual_review_record_not_download_or_historical_test_instant",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentysecond/images/A020-ednovas.webp",
+        "imageSha256": "adc486b2c842f6ebe2f42112863ac126c5dd42b1348513d8d0c2a8bafaa177f7",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2026/03/Ednovas-%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2026-03-scaled.webp",
+        "testedAt": "2026-03-10",
+        "imageTestDateLiteral": "测试时间：2026-03-10 17:41:16 (CST)",
+        "reportedLocalTime": "2026-03-10 17:41:16 (CST)",
+        "displayedRows": 108,
+        "publisherSummaryAsPrinted": "108/108",
+        "threadCount": 8,
+        "scope": "常用与全球冷门地区混合、倍率混合图；前三行为站点/群组/说明等非节点信息，108行及108/108不当节点数或可用率。文章回国标题不证明本图为回国专用套餐测试；页脚华东杭州电信1Gbps仅第三方自标。",
+        "selectedRows": [
+          {
+            "displayRow": 8,
+            "label": "0.5X 美国10",
+            "protocol": "Vmess",
+            "tls": "285ms",
+            "https": "871ms",
+            "mean": "27.04MB",
+            "max": "38.50MB"
+          },
+          {
+            "displayRow": 12,
+            "label": "1.5X 加拿大1",
+            "protocol": "Vmess",
+            "tls": "-",
+            "https": "-",
+            "mean": "0.00B",
+            "max": "0.00B"
+          },
+          {
+            "displayRow": 23,
+            "label": "1.0X 阿根廷",
+            "protocol": "Vmess",
+            "tls": "354ms",
+            "https": "1094ms",
+            "mean": "54.40KB",
+            "max": "112.00KB"
+          }
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB",
+          "B",
+          "KB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false,
+        "correction": {
+          "reviewedAt": "2026-11-12T09:15:56.931Z",
+          "field": "selectedRows.displayRow23.tls",
+          "previous": "353ms",
+          "corrected": "354ms",
+          "basis": "Independent auditor directly inspected immutable original image; image bytes and original browser capture clocks unchanged."
+        }
+      },
+      "counterQuotes": [
+        "直接看测速图的话，很多节点表现不太好，不过仔细看就发现很多都是冷门地区节点，而常用几大地区节点尤其是亚太低延迟节点速度表现则大多还不错。",
+        "下次准备筛选一下，仅测试 5 大地区节点，这样更直观的了解常用地区的表现。"
+      ],
+      "fields": [
+        "speed"
+      ]
+    },
+    {
+      "key": "A190-feedback",
+      "recordId": "A190",
+      "mode": "issue",
+      "url": "https://github.com/limbopro/Paolujichang/issues/266",
+      "ref": {
+        "sourceId": "ROUND22-A190-ISSUE",
+        "file": "work/performance-20261112-twentysecond/live/anyland-issue266.json",
+        "fileSha256": "7858daacbd28d45392b9d1a56c7dd75585e166c8d4ef98128a2651ad4f6fbedc",
+        "url": "https://github.com/limbopro/Paolujichang/issues/266",
+        "observedAt": "2026-11-12T08:55:04.526Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "edb6a66371c428a81be7443f5888b43197bfc1d6f2457d3e619bded2f1a6fb08"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND22-A190-ISSUE",
+          "file": "work/performance-20261112-twentysecond/live/anyland-issue266.json",
+          "fileSha256": "7858daacbd28d45392b9d1a56c7dd75585e166c8d4ef98128a2651ad4f6fbedc",
+          "url": "https://github.com/limbopro/Paolujichang/issues/266",
+          "observedAt": "2026-11-12T08:55:04.526Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "edb6a66371c428a81be7443f5888b43197bfc1d6f2457d3e619bded2f1a6fb08"
+        },
+        {
+          "sourceId": "ROUND22-A190-ISSUE-TIME",
+          "file": "work/performance-20261112-twentysecond/anyland-time-metadata-wrapper.json",
+          "fileSha256": "3549a9ee553d96bcaa91a21d5b33fe3f624a4905e4cfd01c1a065f47adc3a917",
+          "url": "https://github.com/limbopro/Paolujichang/issues/266",
+          "observedAt": "2026-11-12T08:56:54.131Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "3549a9ee553d96bcaa91a21d5b33fe3f624a4905e4cfd01c1a065f47adc3a917"
+        },
+        {
+          "sourceId": "ROUND22-A190-CURRENT-HOME",
+          "file": "work/performance-20261112-twentysecond/live/anyland-current-home.json",
+          "fileSha256": "b342427dc7936259d9daebd1d0fe4668cccc0eb386236e1649c54df6ff884e34",
+          "url": "https://anyland.club/",
+          "observedAt": "2026-11-12T08:54:49.272Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "cfb6db3ec3da1ab1bba06dba101a76b237ae715369bcea0bf4edc7e3a9c5a5b6"
+        }
+      ],
+      "timeOriginal": {
+        "file": "work/performance-20261112-twentysecond/live/anyland-issue266-time-evidence.json",
+        "fileSha256": "d615c28d16404ef186e491e3dc0e684bf2ee748e009fcbc7c9d59ceb1c71780e",
+        "representation": "original_capture_metadata_bytes"
+      },
+      "currentOfficialUrlAtReview": "https://anyland.club/",
+      "subjectUrl": "https://103.118.42.128:11111/",
+      "postUrl": "https://github.com/limbopro/Paolujichang/issues/266#issue-4681182044",
+      "createdAt": "2026-06-17T07:42:09.000Z",
+      "quote": "机场名称： anyland 安妮office\n机场网址： https://103.118.42.128:11111/\n已使用时长： 半个月\n近期续费套餐时长：1个月\n机场此前使用体验： 刚充上的时候还行，我主要用印尼节点\n机场当前使用体验： 印尼节点没两天就红了！然后联系客服，客服说往技术反馈，但是一直没有结果，现在红的越来越多了，时时刻刻都断连，没感觉有要拯救的迹象\n机场当前能否与机场方取的联系：能\n近期不可用情况起止时间： 1星期\n1周内的不可用天数：\n所使用的运营商：\n所使用的客户端：\n其他细节补充：",
+      "retainedOnly": true,
+      "fields": [
+        "stability"
+      ]
+    },
+    {
+      "key": "A206-image",
+      "recordId": "A206",
+      "mode": "image",
+      "url": "https://runtushare.net/6841/",
+      "ref": {
+        "sourceId": "ROUND22-A206-ARTICLE",
+        "file": "work/performance-20261112-twentysecond/live/youtu-review.json",
+        "fileSha256": "c00f9e4f53be904a2f402a32c1bd2ada7ad5fcf533dd735fb01f7a028b977421",
+        "url": "https://runtushare.net/6841/",
+        "observedAt": "2026-11-12T08:58:27.382Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "b2bc8b814657dd40fd2b73ab82566f8ba1e650970d77ee401e59b17233199505"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND22-A206-ARTICLE",
+          "file": "work/performance-20261112-twentysecond/live/youtu-review.json",
+          "fileSha256": "c00f9e4f53be904a2f402a32c1bd2ada7ad5fcf533dd735fb01f7a028b977421",
+          "url": "https://runtushare.net/6841/",
+          "observedAt": "2026-11-12T08:58:27.382Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "b2bc8b814657dd40fd2b73ab82566f8ba1e650970d77ee401e59b17233199505"
+        },
+        {
+          "sourceId": "ROUND22-A206-DESTINATION-METADATA",
+          "file": "work/performance-20261112-twentysecond/live/youtu-native-destination.json",
+          "fileSha256": "9e77ee0de05ea0487241127f791784ed9ce30eaa2e193026cdf9a01c27a9751e",
+          "url": "https://666.youtu1.xyz/error-page",
+          "observedAt": "2026-11-12T08:59:16.899Z",
+          "representation": "retained_original_metadata_json",
+          "bodySha256": "9e77ee0de05ea0487241127f791784ed9ce30eaa2e193026cdf9a01c27a9751e"
+        },
+        {
+          "sourceId": "ROUND22-A206-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentysecond/youtu-image-review.json",
+          "fileSha256": "3327ea37a49fa7bfd287e6eeed4907f3aac681e54658fd18791bb12802abccff",
+          "url": "https://runtushare.net/6841/",
+          "observedAt": "2026-11-12T09:10:15.314Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "3327ea37a49fa7bfd287e6eeed4907f3aac681e54658fd18791bb12802abccff"
+        },
+        {
+          "sourceId": "RETAINED-A206-PUBLISHED-ENTRIES",
+          "file": "work/collection-runs/financial-chrome-20261104-v3/originals/Youtu-alternate-permanent-publisher-18db73a04400.json",
+          "fileSha256": "18db73a044005c1bdc968f910189de604333ff715a880e67035fe320d417e989",
+          "url": "https://888.youtu0.com/",
+          "observedAt": "2026-11-04T04:14:54.653Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "03dd51192ed86dfdf5e99a3c17639ad5ace895564a3d17c3ae719e43e5cd7a5b"
+        },
+        {
+          "sourceId": "RETAINED-A206-CURRENT-COUNTERPART",
+          "file": "work/collection-runs/youtu-kuromis-20261104-v5/originals/Youtu-current-purchase-notice-refund-0d60874c2bc3.json",
+          "fileSha256": "0d60874c2bc38a74fb96a0acfa8962a40566ac9ff309056a71d146ba7793392f",
+          "url": "https://888.youtu7.shop/dashboard",
+          "observedAt": "2026-11-04T05:42:37.057Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "01c2dc75f9834a17d8786ac5a8d28d39311dd809792e81ab5e913b73278d9b9f"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://888.youtu7.shop/",
+      "nativeHref": "https://runtushare.net/go/youtu/",
+      "quote": "悠兔机场测速",
+      "destinationQuote": "666.youtu1.xyz/error-page",
+      "review": {
+        "pageUrl": "https://runtushare.net/6841/",
+        "url": "https://runtushare.net/6841/",
+        "observedAt": "2026-11-12T09:10:15.314Z",
+        "clockScope": "local_original_image_visual_review_record_not_download_or_historical_test_instant",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentysecond/images/A206-youtu.webp",
+        "imageSha256": "f493ffc7c86428c20fdf7aecbcc89b714883c02ff4cc8f119341ab543812312d",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2023/09/%E6%82%A0%E5%85%94%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2025-09.webp",
+        "testedAt": "2025-09-30",
+        "imageTestDateLiteral": "测试时间：2025-09-30 14:52:37 (CST)",
+        "reportedLocalTime": "2025-09-30 14:52:37 (CST)",
+        "displayedRows": 52,
+        "publisherSummaryAsPrinted": "52/52",
+        "threadCount": 8,
+        "scope": "专线及高速隧道混合，2.5/3/5等倍率混合；页脚东北哈尔滨联通1Gbps仅第三方自标，不是独立测量条件确认。某行TLS/HTTPS缺失但吞吐非零，不从缺格推故障或可用率。新native目的只读到error-page，仅官方公布入口关联。",
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "专线2.5x-香港1",
+            "protocol": "Shadowsocks",
+            "tls": "544ms",
+            "https": "1457ms",
+            "mean": "72.96MB",
+            "max": "84.00MB"
+          },
+          {
+            "displayRow": 32,
+            "label": "高速隧道1x-日本2-GPT",
+            "protocol": "Shadowsocks",
+            "tls": "-",
+            "https": "-",
+            "mean": "68.54MB",
+            "max": "83.13MB"
+          },
+          {
+            "displayRow": 48,
+            "label": "高速隧道2.5x-马来西亚",
+            "protocol": "Shadowsocks",
+            "tls": "218ms",
+            "https": "946ms",
+            "mean": "7.15MB",
+            "max": "11.74MB"
+          }
+        ],
+        "unitsAsPrinted": [
+          "ms",
+          "MB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false
+      },
+      "bridge": {
+        "kind": "operator_published_alternate_entries",
+        "currentQuote": "永久官网（请收藏）：youtu1.com youtunice.com\n\t\t\t\t\t245 text 当前可用官网：\n\t\t\t\t\t246 text 111.youtu6.shop , 888.youtu7.shop , 666.youtu1.xyz"
+      },
+      "counterQuotes": [
+        "2025/07 订阅链接启用 5 分钟有效期（针对国内通报的临时措施）",
+        "如果导入订阅失败，提示403，forbidden等失败则为已经禁止第三方客户端导入订阅使用."
+      ],
+      "addHistory": true,
+      "fields": [
+        "speed",
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A006-retained-test",
+      "recordId": "A006",
+      "mode": "retained_test",
+      "url": "https://jcnotes.com/airports/sdm/20260828_230619/",
+      "ref": {
+        "file": "work/performance-20261111-sixth/live/jcnotes-sdm-snapshot.json",
+        "fileSha256": "e34bd882ae8e7d90aa167d7f398c27b5e75f216ca6cde82e3c1ec02ad71dbc1a",
+        "bodySha256": "0605a090bdd162e10ccdebac5050538fe780981495cae98b16e824b524bebf76",
+        "url": "https://jcnotes.com/airports/sdm/20260828_230619/",
+        "observedAt": "2026-11-11T11:14:59.501Z",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "file": "work/performance-20261111-sixth/live/jcnotes-sdm-snapshot.json",
+          "fileSha256": "e34bd882ae8e7d90aa167d7f398c27b5e75f216ca6cde82e3c1ec02ad71dbc1a",
+          "bodySha256": "0605a090bdd162e10ccdebac5050538fe780981495cae98b16e824b524bebf76",
+          "url": "https://jcnotes.com/airports/sdm/20260828_230619/",
+          "observedAt": "2026-11-11T11:14:59.501Z",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "CORE-AUTH-SPEED-SHOP",
+          "file": "catalog/refresh/2026-10-26/core-auth/raw/speedcat-shop-rendered.txt",
+          "fileSha256": "da17e9a278977b628ae4ca82784aa874c3f22448e11c056bd1b166fc8bdd047d",
+          "url": "https://speedcat.xyz/user/shop",
+          "observedAt": "2026-10-26T08:36:29.111Z",
+          "bodySha256": "da17e9a278977b628ae4ca82784aa874c3f22448e11c056bd1b166fc8bdd047d",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://speedcat.xyz/",
+      "quote": "← 返回 闪电猫 长期观察\n\n历史快照\n这是一次历史记录，不代表当前状态。\n闪电猫\n\n测速快照 · 🌙 晚高峰 · 2026-08-28 23:06 · 湖南联通 1000M 家用宽带\n\n下载口径 · Cloudflare Anycast 三样本单连接 v4\n本机经被测节点对 Cloudflare Anycast 运行 3 次独立单连接下载；每次最多 99 MB、最长 15 秒，最终取成功样本平均速度的中位数。\n查看方法说明\n本次快照样本\n主要地区可用节点\n60 / 60\n100% · 香港 / 台湾 / 新加坡 / 日本 / 美国\n中位下载\n186 Mbps\n38–457 Mbps，主要地区",
+      "date": "2026-08-28",
+      "dateQuote": "测速快照 · 🌙 晚高峰 · 2026-08-28 23:06 · 湖南联通 1000M 家用宽带",
+      "reportedLocalTime": "23:06",
+      "validationParser": "performance-reference-parsers",
+      "validationProfile": {
+        "recordId": "A006",
+        "slug": "sdm",
+        "aliases": [
+          "闪电猫"
+        ],
+        "origin": "https://jcnotes.com",
+        "fields": [
+          "speed"
+        ]
+      },
+      "validationParserSha": "de499239043fc83f48d506631696bc54ad7c93b059b9925404d628061c73d432",
+      "identityQualification": "same_named_no_known_conflict",
+      "currentBindingQualification": "saved_candidate_host_body_brand_observed",
+      "currentBindingQuote": "hatGPT及其他AI工具\n支持所有节点线路\n多数流媒体解锁\n快速客服响应\n全平台客户端\n下一步 \n闪电猫\n¥40\n每月\n每 30 天重置流量为 200GB\n不限制客户端数量\n不限制速度\n全节点支持ChatGPT及其他AI工具\n支持所有节点线路\n多数流媒体解锁\n快速客服响应\n全平台客户端\n下一步 \n霹雳猫\n¥100\n每月\n每 30 天重置流量为 500GB\n不限制客户端数量\n不限制速度\n全节点支持ChatGPT及其他AI工具\n支持所有节点线路\n多数流媒体解锁\n快速客服响应\n全平台客户端\n下一步 ",
+      "counterQuotes": [],
+      "previousReportLimitations": [
+        "New capture is source retrieval date, not new test execution; reports are historical August2026 snapshots.",
+        "Only publisher-reported five-region median/limits admitted; population construction and raw per-run observations were not independently reproduced.",
+        "Available-node ratio within one run is not continuous uptime, a monthly stability percentage, service survival probability or an independent SLA result.",
+        "Anycast v4 three-successful-sample median and old first-success dedicated endpoint are different methods; no cross-method speed ranking/trend arithmetic.",
+        "Single tester Hunan Unicom1000M household connection, one observation window; not performance for all regions, networks or current subscribers.",
+        "Major region heading, all-node trend, AI availability and HTTP response percentiles have distinct denominators and units; do not merge.",
+        "发布值仅按字面核对，未独立复算原始样本中位；公开取整节点值或地区选择与发布者原始分组可能不同。"
+      ],
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A010-retained-test",
+      "recordId": "A010",
+      "mode": "retained_test",
+      "url": "https://jcnotes.com/airports/mj/20260901_231417/",
+      "ref": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch73/raw/core-public-mojie-b73-report-snapshot-b57ac62d63cd.json",
+        "fileSha256": "b57ac62d63cd5b9b2481a039527c1dec0ddbbc9b91ca7f99bf16393736fc5fda",
+        "url": "https://jcnotes.com/airports/mj/20260901_231417/",
+        "observedAt": "2026-10-27T12:25:48.295Z",
+        "bodySha256": "3041493f717ec6ec5682560490873b5afdc25b073a27b763dac0b9c5a3a62703",
+        "sourceId": "CORE-PUBLIC-MOJIE-B73-REPORT-SNAPSHOT",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "file": "catalog/refresh/2026-10-26/core-auth-batch73/raw/core-public-mojie-b73-report-snapshot-b57ac62d63cd.json",
+          "fileSha256": "b57ac62d63cd5b9b2481a039527c1dec0ddbbc9b91ca7f99bf16393736fc5fda",
+          "url": "https://jcnotes.com/airports/mj/20260901_231417/",
+          "observedAt": "2026-10-27T12:25:48.295Z",
+          "bodySha256": "3041493f717ec6ec5682560490873b5afdc25b073a27b763dac0b9c5a3a62703",
+          "sourceId": "CORE-PUBLIC-MOJIE-B73-REPORT-SNAPSHOT",
+          "representation": "normalized_retained_visible_DOM_text"
+        },
+        {
+          "sourceId": "CORE-AUTH-MOJIE-B7-SHOP",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch7/raw/core-auth-mojie-b7-shop-7188de898327.json",
+          "fileSha256": "7188de898327342ec08bdbbc9a9742e73ad3cd66689d86052ca436e5e11bda3b",
+          "url": "https://mojie.app/shop",
+          "observedAt": "2026-10-26T15:50:00.213Z",
+          "bodySha256": "19ac5350da7c978a7ee9783a05807fdbceba9129a9b52d7e61463eb4beacc4c8",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://mojie.app/",
+      "quote": "← 返回 魔戒 长期观察\n\n历史快照\n这是一次历史记录，不代表当前状态。\n魔戒\n\n测速快照 · 🌙 晚高峰 · 2026-09-01 23:14 · 湖南联通 1000M 家用宽带\n\n下载口径 · 旧版专用测速端点\n该速度来自旧版首个成功的专用测速端点，只代表当时到该目标的单连接速度，不能与大文件 v3 直接比较。\n查看方法说明\n本轮测试环境\n直连基准\n本轮直连下载基准失败\n开测直连下载\n0 Mbps\n直连基础延迟\n201 ms\n主要地区节点中位 / 基准\n—\n\n基准与节点使用相同的 Cloudflare Anycast 三样本单连接方法，用来判断本地网络是否先成为瓶颈；它不等于机场理论带宽，也不用于跨测速方法归一化。\n\n本次快照样本\n主要地区可用节点\n24 / 26\n92% · 香港 / 台湾 / 新加坡 / 日本 / 美国\n中位下载\n238 Mbps\n97–815 Mbps，主要地区",
+      "date": "2026-09-01",
+      "dateQuote": "测速快照 · 🌙 晚高峰 · 2026-09-01 23:14 · 湖南联通 1000M 家用宽带",
+      "reportedLocalTime": "23:14",
+      "validationParser": "performance-reference-parsers",
+      "validationProfile": {
+        "recordId": "A010",
+        "slug": "mj",
+        "aliases": [
+          "魔戒"
+        ],
+        "origin": "https://jcnotes.com",
+        "fields": [
+          "speed"
+        ]
+      },
+      "validationParserSha": "de499239043fc83f48d506631696bc54ad7c93b059b9925404d628061c73d432",
+      "identityQualification": "same_named_no_known_conflict",
+      "currentBindingQualification": "saved_candidate_host_body_brand_observed",
+      "currentBindingQuote": "期时间\n不限制网络速度\n\n10240GB\n周期流量\n无限速\n速率\n一次性\n888 CNY\n\n\n\n© 魔戒.net. 2026 魔戒.NET\n\nv 2.0.0 ",
+      "counterQuotes": [],
+      "previousReportLimitations": [
+        "旧端点与Anycast三样本描述冲突，原始探针日志、每节点重复次数、成功子集分母尚未复算，sampleCount未知。",
+        "直连下载基准显示失败，不能推算代理/本地带宽比例。",
+        "主要地区与全节点历史表统计范围不同，不把不同中位数当同一范围或混算趋势。",
+        "仅单条网络及历史时点，没有多网多日连续监控；旧快照发布日期与不可变性未独立验证，不证明现在可用。",
+        "同站原文/快照/方法为一个来源组，与WgetCloud同站报告也不独立；返佣自述不证明数字独立可信。",
+        "未将评测站旧套餐、支付或优惠码覆盖官方材料，也未下载客户端、取得订阅或执行测速。"
+      ],
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A028-retained-test",
+      "recordId": "A028",
+      "mode": "retained_test",
+      "url": "https://jichangnote.com/reviews/erwan-cloud/",
+      "ref": {
+        "file": "work/performance-20261111-next/live/irvine-live-parser-validation.json",
+        "fileSha256": "57837772ce2cb662ea16b330782149ed0b2bb0f2bcd6a478c5be9e8112544ba6",
+        "url": "https://jichangnote.com/reviews/erwan-cloud/",
+        "observedAt": "2026-11-11T04:00:12.793Z",
+        "bodySha256": "2dc450351c92e294d7b13e9fcee7e4abbab8e9b80204877b6bffa0672bf02f40",
+        "representation": "builtin_browser_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "file": "work/performance-20261111-next/live/irvine-live-parser-validation.json",
+          "fileSha256": "57837772ce2cb662ea16b330782149ed0b2bb0f2bcd6a478c5be9e8112544ba6",
+          "url": "https://jichangnote.com/reviews/erwan-cloud/",
+          "observedAt": "2026-11-11T04:00:12.793Z",
+          "bodySha256": "2dc450351c92e294d7b13e9fcee7e4abbab8e9b80204877b6bffa0672bf02f40",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "sourceId": "CORE-AUTH-IRVINE-B48-SHOP",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch48/raw/core-auth-irvine-b48-shop-61950cdac499.json",
+          "fileSha256": "61950cdac499f9d2abf6d5f34c4e49cf40f3905af0f14bead5ebb051821fb906",
+          "url": "https://erwancdec.cc/user/shop?",
+          "observedAt": "2026-10-27T07:19:19.057Z",
+          "bodySha256": "0c7b7f2d4afd92f75de8d9fdb2f4f2f975ad711130a91dd007957e6990486bb5",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://erwancdec.cc/",
+      "quote": "测试所在地\t广西（截图状态栏标示测试服务器为「A-广西移动」）\n宽带运营商\t广西移动（截图状态栏标示）\n家宽带宽\t2Gbps（截图状态栏标示）\n测试周期\t2025-10-04 单次测速\n主要测试时段\t12:53:18 CST\n测试设备\t测速服务器（截图未记录具体硬件）\n测试客户端\tMiaoKo 自定义测试（主端 4.3.3(697)，喵速 SC-2.2.0）\n\n状态栏逐项照录，没有推断：主端=4.3.3 (697)、喵速=SC-2.2.0、测试服务器「A-广西移动@2Gbps」、线程=6、",
+      "date": "2025-10-04",
+      "dateQuote": "测试周期\t2025-10-04 单次测速",
+      "reportedLocalTime": "12:53:18 CST",
+      "validationParser": "regional-performance-parsers",
+      "validationProfile": {
+        "recordId": "A028",
+        "slug": "erwan-cloud",
+        "aliases": [
+          "尔湾云"
+        ],
+        "origin": "https://jichangnote.com",
+        "fields": [
+          "speed"
+        ]
+      },
+      "validationParserSha": "5405bc51bc386cd2d07d319c2ead8d32986fc51d27d0365abcdece89ce0bade1",
+      "identityQualification": null,
+      "currentBindingQualification": "saved_candidate_host_exact_url_and_frozen_website_basis_only",
+      "currentBindingQuote": "套餐商店\n🎁 先充值余额再买更划算：余额每次充值 ¥15 起送 1 积分（1 积分 = 1G 流量），可以分几次充（¥15 / ¥19.99 / ¥20），攒够余额再买套餐，积分照送。 去充值 →\n已有套餐想换？先折算，不浪费\n当前套餐还有剩余时长/流量，可先「折算」把剩余价值退回账户余额，再用余额购买新套餐\n💡 想升级 / 降级 / 换年付？方法一样：① 点右侧「折算旧套餐」，把当前套餐折成",
+      "counterQuotes": [
+        "测速证据的时效：全部结论只来自 2025-10-04 的一次测速截图，距本文发布已接近一年，本站没有连续监控数据，也没有更近期的复测。页面上的 2026-08-24 是资料最后核验日期与本文发布日期，不是测速日期。"
+      ],
+      "previousReportLimitations": [
+        "历史单次记录不能代表当前线路、家宽或长期可用性。",
+        "没有可复算分位数与独立重复时序样本，不把地区均值当分位数、当前主卡速度或排名，不复制综合分或低风险标签。",
+        "上传与丢包未采集，不把未测试视为0；协议和节点名称不作为物理专线证明。",
+        "测试日期为原报告/截图的自述，未取得当时不可修改的历史存档，不据此建立成立日期或连续经营年限。",
+        "同名服务及旧推广入口不能独立证明与当前目录入口是同一经营主体；尔湾两目录共用原件不增加独立来源。",
+        "不复制第三方历史套餐、付款渠道或退款条款覆盖当前官网资料。",
+        "仅转录发布者地区均值，未取得该批原始逐次样本，均值不得改称中位数；节点数不是独立时间样本数。",
+        "出版者表内换算值原样保留；原始MB/s值经四舍五入可能与Mbps有微小差异，不反推更精确样本。",
+        "原评测含推广链接；与当前入口的持续经营及法律主体关系未独立验证。"
+      ],
+      "fields": [
+        "operatingHistory"
+      ]
+    }
+  ]
+}

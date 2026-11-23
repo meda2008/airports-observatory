@@ -1,0 +1,52 @@
+{
+  "origin": "https://ehju.flyvastt.lol",
+  "recordIds": [
+    "A178"
+  ],
+  "rules": [
+    {
+      "bodySha256": "53cc8c227a41a040575ed0d7d2bddc5dfe63f709454b79c8b6b8faef6611e40a",
+      "quote": "- 📱 **设备连接：** 不限制在线设备数量",
+      "summary": "FlyV会员入门方案称不限制在线设备数量。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "仅指入门方案，不能推及年付标准轻量版或各单次流量包。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH425-db08758ad56daf6fc5f510e3",
+      "originalCapturedAt": "2026-11-01T12:01:10.811Z"
+    },
+    {
+      "bodySha256": "ff18fb6fbbfd7f9bfecf1631298311dcef72cbbca38a28236b80e0196cc65bd0",
+      "quote": "- 🔒 **高性能连接协议**：采用优化的 Shadowsocks 协议架构，兼顾连接效率、传输性能与日常使用稳定性。",
+      "summary": "FlyV会员高端方案称Shadowsocks协议、不限制日常在线设备，支持电脑/手机/平板同时使用。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "设备类型说明不等于已核验所有操作系统或客户端。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH425-f10554064d26f8ad58b5664e",
+      "originalCapturedAt": "2026-11-01T12:01:13.632Z"
+    },
+    {
+      "bodySha256": "2764854a41e40535934b6b831cbbef4b08f72826be3b22b7efed57672a215e33",
+      "quote": "- 🔒 **高性能连接协议**：采用 Shadowsocks 协议，兼顾传输效率与连接稳定性。",
+      "summary": "FlyV会员进阶方案称Shadowsocks协议、支持电脑/手机/平板多终端连接。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "未明确设备数上限，不写不限设备。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH425-aa1c43687e1b7c4c17f9e477",
+      "originalCapturedAt": "2026-11-01T12:01:11.935Z"
+    },
+    {
+      "bodySha256": "90868cdd444515b0f29f2e92dc4d808cf88714ac7e5ebe3215c1c414b8f6b972",
+      "quote": "- 🔒 **高性能连接协议**：采用成熟的 Shadowsocks 协议架构，兼顾传输效率、连接稳定性与跨平台兼容。",
+      "summary": "FlyV会员商业方案称Shadowsocks协议，明确“多终端团队共享”及多设备同时连接。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "未明确设备数上限；团队共享说明仅限此商业方案。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH425-5b11c349cd4091a5fe4d69f4",
+      "originalCapturedAt": "2026-11-01T12:01:15.106Z"
+    }
+  ]
+}

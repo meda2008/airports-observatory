@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A063",
+  "name": "Nutbit (坚果)",
+  "entryUrl": "https://forest-01.com/profile",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "forest-01.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 6,
+  "enabled": true,
+  "eligibility": "public_candidate_readonly",
+  "reason": "User approved current Forest candidate free registration2026-11-03. Matching IAB Gmail code and authenticated account observed. Read-only account wallet/catalog/policies; no amount entry or orders, no Nutbit identity continuity claim.",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "publicOnly": false,
+  "allowRegistration": false,
+  "readOnlyRecipe": "forest_public_tabs_and_policy",
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/forest-01.cjs",
+    "fields": [
+      "pricing",
+      "compatibility",
+      "refund",
+      "privacy"
+    ],
+    "status": "live_literal_sources_reviewed_current_candidate_only",
+    "automaticPublication": false
+  },
+  "accountReadOnly": true,
+  "registrationProfile": {
+    "emailMode": "split_local_and_domain",
+    "mailServiceName": "Forest",
+    "senderDomains": []
+  },
+  "auth": {
+    "mode": "login",
+    "emailSelector": "input[name=email]",
+    "passwordSelector": "input[name=password]",
+    "submitSelector": "button:has-text(\"登录\")",
+    "successSelector": "button:has-text(\"退出登录\")"
+  }
+}

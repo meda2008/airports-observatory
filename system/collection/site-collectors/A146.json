@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A146",
+  "name": "瞬云 (ShunCloud)",
+  "entryUrl": "https://syjccloud.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "syjccloud.com",
+    "apiapi.syjccloud.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "needs_identity_review",
+  "reason": "本轮只访问名录候选网址，未确认经营主体。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "fresh_repository_only_points_back_to_existing_domain",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Repository is a third-party recommendation, points to previously observed syjccloud.com. No new confirmed entry; demo shell remains non-business evidence.",
+    "credentialPropagationAllowed": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "new_channel_dashboard_blank",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A146-directory-detail.json",
+      "work/collection-runs/pricing-9-20261109-v16/A146-channel-posts.json",
+      "work/collection-runs/pricing-9-20261109-v16/A146-channel-merchant.json",
+      "work/collection-runs/pricing-9-20261109-v16/A146-group.json",
+      "work/collection-runs/pricing-9-20261109-v16/A146-dashboard.json"
+    ],
+    "resumeWhen": "可读的当前商店与套餐周期、实付总额；频道的经营主体身份及宣传有效期仍待核。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "瞬云",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "可读的当前商店与套餐周期、实付总额；频道的经营主体身份及宣传有效期仍待核。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.956Z",
+    "status": "new_third_party_repository_no_new_merchant",
+    "result": "新vpsranklab/syjccloud仓库含返佣链接；正文表20/36/68月价与自荐16元、79年及99年不同口径混列，仍指向旧syjccloud，未新建账号或重跑已失败入口。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A146-search.json",
+      "work/collection-runs/pricing-11-20261110-v28/A146-repository-candidate.json"
+    ],
+    "resumeWhen": "可读原商店及明确计费周期/原价",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "latestAuthFollowup": {
+    "runId": "pricing-auth-20261110-v24",
+    "at": "2026-11-10T05:20:40.756Z",
+    "id": "A146",
+    "status": "navigation_did_not_leave_blank_no_business_page",
+    "receipt": "work/collection-runs/pricing-auth-20261110-v24/result.json",
+    "passwordSaved": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.598Z",
+      "result": "shun-yun.mom明示联盟推广，套餐含隐形人名称、购买指向invisibleaff.com；不采用其价",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A146-candidate-affiliate.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "collectPerformanceReferences": true,
+  "readOnlyRecipe": "shunyun_native_api_readonly",
+  "webEgress": "direct",
+  "nativeApiContract": {
+    "mode": "normal_auth_and_readonly",
+    "noRegistration": true,
+    "noOrders": true,
+    "noPayment": true,
+    "sessionIsolation": "record_and_origin",
+    "receipt": "work/autonomous-pricing-followup-20261115/final-acceptance.json",
+    "paymentDiscovery": "authenticated_readonly_getPaymentMethod_no_order",
+    "readTransportBasis": "20261116_direct_GET_verified_after_proxy_ECONNRESET",
+    "paymentReceipt": "work/official-completion-20261116/A146-payment-published.json"
+  }
+}

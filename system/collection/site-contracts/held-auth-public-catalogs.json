@@ -1,0 +1,148 @@
+{
+  "A165": {
+    "id": "A165",
+    "key": "wavenet",
+    "origin": "https://eqxmg.wavenetttt.homes",
+    "appUrl": "https://wave-net.cloud",
+    "contract": {
+      "url": "https://eqxmg.wavenetttt.homes/assets/index-D5ZyaeYt.js",
+      "sha256": "c434aeb869c73366b9196854c7b2530f0c52b5b71a0be256599d196e9615be0d",
+      "length": 1632833,
+      "excerpts": [
+        {
+          "start": 500133,
+          "end": 500172,
+          "text": "children:[\"¥\",(I.price/100).toFixed(2)]"
+        },
+        {
+          "start": 488640,
+          "end": 488718,
+          "text": ".reduce((U,$)=>$.value<U.value?$:U);return{price:B.value,periodKey:B.labelKey}"
+        },
+        {
+          "start": 512230,
+          "end": 512270,
+          "text": "children:[\"月流量：\",n.transfer_enable,\"GB\"]"
+        }
+      ],
+      "divisor": 100,
+      "demoDataIsNotLivePlans": true,
+      "defaultSelection": "minimum_positive_original_period_total"
+    },
+    "independentHistoricalCheckpoints": [
+      {
+        "type": "native_login_endpoint_unavailable",
+        "url": "https://eqxmg.wavenetttt.homes/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "native_login_non_json_or_verification",
+        "url": "https://embkgf.wavenetttt.homes/",
+        "stage": "normal_login_only"
+      },
+      {
+        "type": "native_login_endpoint_unavailable",
+        "url": "https://nasitj.wavenetttt.sbs/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "native_login_endpoint_unavailable",
+        "url": "https://nkasja.wavenetttt.sbs/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "login_required",
+        "url": "https://nkasja.wavenetttt.sbs/#/home",
+        "stage": "final_capture"
+      },
+      {
+        "type": "credential_not_configured",
+        "url": "https://nkasja.wavenetttt.sbs/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "authentication_not_completed",
+        "url": "https://npqikg.wavenetttt.sbs/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "login_required",
+        "url": "https://npqikg.wavenetttt.sbs/#/home",
+        "stage": "final_capture"
+      },
+      {
+        "type": "login_required",
+        "url": "https://npqikg.wavenetttt.sbs/#/home",
+        "stage": "auth"
+      },
+      {
+        "type": "access_gate",
+        "url": "https://npqikg.wavenetttt.sbs/#/",
+        "stage": "verification"
+      },
+      {
+        "type": "navigation_timeout",
+        "url": "https://npqikg.wavenetttt.sbs/#/plans",
+        "stage": "entry"
+      }
+    ]
+  },
+  "A178": {
+    "id": "A178",
+    "key": "flyv",
+    "origin": "https://5qf0zkp6ut.flyvttt.sbs",
+    "appUrl": "https://flyv.site/",
+    "contract": {
+      "url": "https://5qf0zkp6ut.flyvttt.sbs/assets/index-BlHNFk2Q.js",
+      "sha256": "120b9081ec145b680e34c661593f836803b75d16a054b861f3d644571eedd65a",
+      "length": 1376553,
+      "excerpts": [
+        {
+          "start": 952871,
+          "end": 952910,
+          "text": "children:[\"¥\",(I.price/100).toFixed(2)]"
+        },
+        {
+          "start": 927669,
+          "end": 927747,
+          "text": ".reduce(($,P)=>P.value<$.value?P:$);return{price:I.value,periodKey:I.labelKey}"
+        },
+        {
+          "start": 973510,
+          "end": 973550,
+          "text": "children:[\"月流量：\",n.transfer_enable,\"GB\"]"
+        }
+      ],
+      "divisor": 100,
+      "demoDataIsNotLivePlans": true,
+      "defaultSelection": "minimum_positive_original_period_total"
+    },
+    "independentHistoricalCheckpoints": [
+      {
+        "type": "native_login_endpoint_unavailable",
+        "url": "https://5qf0zkp6ut.flyvttt.sbs/",
+        "stage": "normal_login_only"
+      },
+      {
+        "type": "native_login_endpoint_unavailable",
+        "url": "https://c78yzg0tfe.flyvttt.sbs/",
+        "stage": "normal_login_only"
+      },
+      {
+        "type": "native_login_non_json_or_verification",
+        "url": "https://c78yzg0tfe.flyvttt.sbs/",
+        "stage": "normal_login_only"
+      },
+      {
+        "type": "dns_resolution_failed",
+        "url": "https://ehju.flyvastt.lol/#/plans",
+        "stage": "entry_dns"
+      },
+      {
+        "type": "collector_error",
+        "url": "https://ehju.flyvastt.lol/",
+        "stage": "entry"
+      }
+    ]
+  }
+}

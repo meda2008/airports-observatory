@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-46cef9ed539f1f7437cd",
+  "origin": "https://justmysocks.net",
+  "recordIds": [
+    "A023"
+  ],
+  "entryUrls": [
+    "https://justmysocks.net/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://justmysocks.net",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "493f3b2254972569f0d14ebea2d5ea1da992a2fd5b60e09f5c444df4530ce872",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

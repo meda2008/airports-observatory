@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A052",
+  "name": "酷酷云 (KUKU)",
+  "entryUrl": "https://jichangbaike.kkyvipaffa.cc/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "jichangbaike.kkyvipaffa.cc"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "酷酷云同名宣传页实链含返佣参数的kkyvipaffa后台，用户自行注册登录后实际显示酷酷云商店。报价取登录后原卡，不取宣传页；经营主体及旧扬帆入口关系未证。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "search_candidate_rejected_other_brand_destination",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "kukuyun1.lol native login target shows 环球梯. Never fill KUKU refund from this lookalike."
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "酷酷云",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "latestDirectoryDiscovery": {
+    "runId": "financial-20261109-v18",
+    "query": "酷酷云",
+    "receipt": "work/collection-runs/financial-20261109-v18/A052-directory.json",
+    "sha256": "eacaa85d036c70a61c1c5edf212bbf11b844abcb14cf1eecf0e7cf785eb3da46",
+    "status": "no_matching_directory_card_observed_not_service_absence",
+    "sourceReportDate": "2026-11-08",
+    "resumeWhen": "changed_source_report_or_new_primary_link_not_same_query_again",
+    "financialAdmissions": 0
+  },
+  "collectPerformanceReferences": true
+}

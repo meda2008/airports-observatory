@@ -1,0 +1,50 @@
+{
+  "profiles": [
+    {
+      "recordId": "A172",
+      "name": "云图",
+      "url": "https://gate-rank.com/airports/ccc-jichang",
+      "nativeOfficialLink": "https://gate-rank.com/api/v1/outbound/airports/42?target=website&placement=report_header",
+      "currentCatalogUrl": "https://vip.ytjcok.org/",
+      "reviewedNamespace": "ytjcok.org",
+      "bridge": {
+        "resolvedUrl": "https://super.ytjcok.org/?utm_source=gaterank&utm_medium=referral&utm_campaign=paid_click&gr_click_id=6a738d40-1ea8-4afc-a032-742fa0436ceb#/register?code=fzZCqRZk",
+        "nativeHref": "https://gate-rank.com/api/v1/outbound/airports/42?target=website&placement=report_header",
+        "title": "注册 - 云图",
+        "identityQualification": "same_named_reviewed_native_current_official_namespace_not_legal_or_historical_identity",
+        "ref": {
+          "file": "work/performance-20261112-thirteenth/live/gaterank-yuntu-native-destination.json",
+          "fileSha256": "8467e05564a53989bb399ea886b4ae2c376d8670441af11f4e21f60ba847ef3e",
+          "bodySha256": "8467e05564a53989bb399ea886b4ae2c376d8670441af11f4e21f60ba847ef3e",
+          "url": "https://super.ytjcok.org/?utm_source=gaterank&utm_medium=referral&utm_campaign=paid_click&gr_click_id=6a738d40-1ea8-4afc-a032-742fa0436ceb#/register?code=fzZCqRZk",
+          "observedAt": "2026-11-11T23:50:28.402Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-GATERANK-YUNTU-NATIVE-DESTINATION",
+          "representation": "builtin_browser_metadata_json",
+          "captureClock": "2026-11-11T23:50:28.402Z"
+        }
+      },
+      "binding": {
+        "report": {
+          "file": "work/performance-20261112-thirteenth/live/gaterank-yuntu-complete.json",
+          "fileSha256": "12aa40d812c24b63164e876daa82e502a6d931ecb9ae1c973377bf9adb6243ec",
+          "bodySha256": "1f64724fe40711db96f9c81491495b1f9d18b3f6f2adcb65383bebd690bf09a5",
+          "url": "https://gate-rank.com/airports/ccc-jichang",
+          "observedAt": "2026-11-11T23:49:44.995Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-GATERANK-YUNTU-COMPLETE",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T23:49:44.995Z"
+        },
+        "method": {
+          "file": "work/performance-20261112-thirteenth/live/gaterank-methodology.json",
+          "fileSha256": "e86089624391d693a968e4259430711ae8bf299ee396537db8309e13af542c9d",
+          "bodySha256": "2f801610df8a0e8e882e7561508aaf01ce678dcd234372b58f459fb18faa621d",
+          "url": "https://gate-rank.com/methodology",
+          "observedAt": "2026-11-11T23:48:31.076Z",
+          "sourceId": "PERFORMANCE-THIRTEENTH-GATERANK-METHODOLOGY",
+          "representation": "builtin_browser_visible_DOM_text",
+          "captureClock": "2026-11-11T23:48:31.076Z"
+        }
+      }
+    }
+  ]
+}

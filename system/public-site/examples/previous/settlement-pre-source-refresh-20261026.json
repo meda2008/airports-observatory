@@ -1,0 +1,3344 @@
+{
+  "schemaVersion": "airports-settlement-report.v1",
+  "asOf": "2026-10-25T23:54:33.000Z",
+  "ledgerSha256": "3d4b7b747330682e7d32ba026839e1b62cc6d1e1fb5c8851c3ec41eefa2d00cd",
+  "adjudicationsSha256": "ba1d672bfff7f97ef1ad2dd871e86630bb312024226ea5fdae1713fee3abf51f",
+  "summary": {
+    "entries": 245,
+    "counts": {
+      "ABSTAIN": 245,
+      "NOT_DUE": 0,
+      "UNKNOWN_OUTCOME": 0,
+      "LOST_TO_FOLLOWUP": 0,
+      "INVALID_FORECAST": 0,
+      "INVALID_ADJUDICATION": 0,
+      "SCORED": 0
+    },
+    "count": 0,
+    "brier": null,
+    "reliability": [
+      {
+        "lower": 0,
+        "upper": 0.1,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.3,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.3,
+        "upper": 0.4,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.7,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.7,
+        "upper": 0.8,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "upperInclusive": false,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      },
+      {
+        "lower": 0.9,
+        "upper": 1,
+        "upperInclusive": true,
+        "count": 0,
+        "meanProbability": null,
+        "observedSurvivalRate": null,
+        "brier": null,
+        "calibrationGap": null,
+        "smallSample": true
+      }
+    ],
+    "cohortCount": 0,
+    "calibrationProven": false,
+    "evidenceTruthVerified": false,
+    "independenceVerifiedBeyondDeclarations": false
+  },
+  "cohorts": [],
+  "policy": {
+    "binCount": 10,
+    "minCalibrationBinSize": 30,
+    "probabilityConvention": "P(no adjudicated material service cessation within the declared horizon)",
+    "outcomeConvention": "survived=1; ceased=0",
+    "independentAdjudicationRequired": true,
+    "intervalMidpointSubstitutionAllowed": false,
+    "unresolvedOutcomeImputationAllowed": false
+  },
+  "limitations": [
+    "Structural validation and arithmetic only; an independent human must check original snapshots, prior-publication evidence and adjudicator independence.",
+    "Content hashes establish byte agreement, not a trusted timestamp, source truth or operator identity.",
+    "Reliability bins are descriptive. The configurable minimum bin count is a warning rule, not a statistical proof of calibration; even larger samples may be biased or dependent.",
+    "Overall scores may mix horizons; compare the separate target/horizon cohorts and report missing and abstained outcomes alongside the score.",
+    "No input forecast is modified; corrections require a separately retained version and receipt."
+  ],
+  "rows": [
+    {
+      "forecastId": "AIR-20261025-A001-V1",
+      "recordId": "A001",
+      "forecastSha256": "07817b643e1b7d5f65d139016372f9d6ed278911077dd6a3c4a9e2066c367a77",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A002-V1",
+      "recordId": "A002",
+      "forecastSha256": "2e863ef50d4cdd25b30032905d7bf8e561f1f8b270a420b908b92e3feb71f871",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A003-V1",
+      "recordId": "A003",
+      "forecastSha256": "42722256e2e8f9e5308838fc515a12179362c5956163da4407fc7cdfe5d89fe9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A004-V1",
+      "recordId": "A004",
+      "forecastSha256": "5c33a8bfe693431a7bd91624f47b4b83b58636b6c5843cdaee12104c7b5d0c9e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A005-V1",
+      "recordId": "A005",
+      "forecastSha256": "e7806d2394fd7bcd228f551477ae69e16fe83491ca127f299cbf2b5652c8ab7c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A006-V1",
+      "recordId": "A006",
+      "forecastSha256": "aaec1854bc750c10475a4e41df57bf08a958a5ab54691ef2fb24652551595192",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A007-V1",
+      "recordId": "A007",
+      "forecastSha256": "2a92813c9c9ad9aa9d41c11ad7d1536686a84dc27641a11fac646c8845c7c95f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A008-V1",
+      "recordId": "A008",
+      "forecastSha256": "b3226622fdd93d48fafe0aec5806ad5cf8bdc1f33f89b6bc443d196b8e4a5d5a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A009-V1",
+      "recordId": "A009",
+      "forecastSha256": "e8cd592123e541d94b74486ce1ca0385e0dcd3eefca859c6134f0ccffdb7e9b3",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A010-V1",
+      "recordId": "A010",
+      "forecastSha256": "c8c30d9774980db2ac20dac46d0c4b45a1f3149e45c316a054938e0956a5155e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A011-V1",
+      "recordId": "A011",
+      "forecastSha256": "8f6a86e74fe265b67c77a50b6d113d569518eb56ec0199f977af3cfd3b68d95d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A012-V1",
+      "recordId": "A012",
+      "forecastSha256": "0828f4b14b0f6dede7b4233fccbaec8d70aa7196237890b1bec120bbc22515cd",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A013-V1",
+      "recordId": "A013",
+      "forecastSha256": "8b74e561bd48fc39cd7af2bf22f03a445e43f831d64998bc896384e7b94c3561",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A014-V1",
+      "recordId": "A014",
+      "forecastSha256": "c3803456376b770cf8421b4e23ec71b25b7d6fec472d993cc1f4deab9991afa7",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A015-V1",
+      "recordId": "A015",
+      "forecastSha256": "294a20c370cb5dcaeac1c6fb4700de4db26eebea71854a7b4e64cb4b76a439b6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A016-V1",
+      "recordId": "A016",
+      "forecastSha256": "ca0bc0c5ebfb93cb6906ec28db21637c9386843036264f48078fb814ae4906cc",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A017-V1",
+      "recordId": "A017",
+      "forecastSha256": "f00145dd413b6e5ef0ea079112e65acf8d05273c7d18fe9440eccda4e7a9cdfa",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A018-V1",
+      "recordId": "A018",
+      "forecastSha256": "4739333a03d2718571d3ac320531c35b5baf4b4b44cc1026aa6fa10a324c9b46",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A019-V1",
+      "recordId": "A019",
+      "forecastSha256": "2a6ddb27801553617eb2db4a84e7f07d4dabe8f6755d744645e7e9544ef69051",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A020-V1",
+      "recordId": "A020",
+      "forecastSha256": "35f4020b85ae20d022e5210abe3892c117606b686c57684a7463c46ac6864758",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A021-V1",
+      "recordId": "A021",
+      "forecastSha256": "ba1ac037201bcf1f20f2b7cef7d2daaac6afec7b4d3c9b071cd86217e98e29d7",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A022-V1",
+      "recordId": "A022",
+      "forecastSha256": "e74a27b31dd632716aca037e9f7c79854af774c18174e07a7e34e865f9949ef5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A023-V1",
+      "recordId": "A023",
+      "forecastSha256": "5028d14fe7be262aa0b96e8587292e195048803187737b5b8f94679252b1a364",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A024-V1",
+      "recordId": "A024",
+      "forecastSha256": "e14733e0426a76d6a31ad0480968c11a8a41df1fa788d6849d08f3ab07d6bc36",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A025-V1",
+      "recordId": "A025",
+      "forecastSha256": "6e539e23f7064dca7c60c6a3af2aec55d32efa9eafb3603e80bb1d7ed0174780",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A026-V1",
+      "recordId": "A026",
+      "forecastSha256": "c45e46f5e13a74dfa8612faf4d642a8c1ba568690caa04ae9d2501042db04e73",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A027-V1",
+      "recordId": "A027",
+      "forecastSha256": "3211b856fee82bea82fb2789cb3d6cb15ee3424a6d12ffd42782d3a7e58706c8",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A028-V1",
+      "recordId": "A028",
+      "forecastSha256": "52f308b516e26773962602aa7943eef27f358b52a28e85c9f1cf06d693f76164",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A029-V1",
+      "recordId": "A029",
+      "forecastSha256": "c0aeb9223789012644a7ff6b287d3093363a89ca158bca0b9cbb6aa469895f0c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A030-V1",
+      "recordId": "A030",
+      "forecastSha256": "e39b1e99c08da8d888a598d5e9205faeec0dde5f9e788589509e50db86018644",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A031-V1",
+      "recordId": "A031",
+      "forecastSha256": "8512d581cb7f8f0acea2179c0157eaa4f4d66638b69c2d45d113007586e47ff1",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A032-V1",
+      "recordId": "A032",
+      "forecastSha256": "f3bdddf9b07d98718be39e77c9864be9a53863d449711b0c3b147edd2885cd69",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A033-V1",
+      "recordId": "A033",
+      "forecastSha256": "f06dde9b714e5436c6d60fc0652ea45249e1c96950f8820493650eeb60af68fc",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A034-V1",
+      "recordId": "A034",
+      "forecastSha256": "57ddb5f63ac1b93ab2a9dc85d5a2d909af75a7c49555dd5258122688cd40a47a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A035-V1",
+      "recordId": "A035",
+      "forecastSha256": "e28b768789d0eb4df967fa71f50b89830d712a74044107bd7362cccf187bcc01",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A036-V1",
+      "recordId": "A036",
+      "forecastSha256": "c9523080baf826101c6c082ee6b8d7f310adbec4eebfb84b60bead81051148b2",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A037-V1",
+      "recordId": "A037",
+      "forecastSha256": "c4b6ab8c0d2e8b9ebb1027905f8b38c6cc5f314b6d7645dde7fd6177eb1d3e82",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A038-V1",
+      "recordId": "A038",
+      "forecastSha256": "f5f86ce5ca8931b95936abfce0070dfe8e54ce2902780f6f46f0d217717cc435",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A039-V1",
+      "recordId": "A039",
+      "forecastSha256": "07953471718a612d1bc1f373ea5c7dad95e0a9903dec51ed0ccc1988f7072ddf",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A040-V1",
+      "recordId": "A040",
+      "forecastSha256": "6dda6f6bd284bfeaf579b662ea40050a1801f5370f5358e3b5dda2a9c15cd00a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A041-V1",
+      "recordId": "A041",
+      "forecastSha256": "7168676d1080365f71f0fdac247006fb2f6e0f9c6a39d03ed10eb69303cdfe8b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A042-V1",
+      "recordId": "A042",
+      "forecastSha256": "b63a5213c4547169f76380b952fcd62bfe7d91f5b902f5bdcf91c31e60c29ec8",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A043-V1",
+      "recordId": "A043",
+      "forecastSha256": "6e38e0cd811de07ffb1c269b7e641edbf9a01dbba84216ee0d6bba0cfb2228e7",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A044-V1",
+      "recordId": "A044",
+      "forecastSha256": "9b1141357fbd255e0ada04d7a6481a99c302b31042f86a78d88215e1e95a729d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A045-V1",
+      "recordId": "A045",
+      "forecastSha256": "416dcadfa60d34a2088e0113004209e653a5795cfb39a89c603cc4c9d95c627b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A046-V1",
+      "recordId": "A046",
+      "forecastSha256": "a681ad47ee52234d208c654cb90d4db847af27c1db6423735344b625f8c0c13c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A047-V1",
+      "recordId": "A047",
+      "forecastSha256": "d56cb335a9620e248e9b74567e3f4b4d8282b8dd23bceaa485a9ebec3c508eff",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A048-V1",
+      "recordId": "A048",
+      "forecastSha256": "22e1bb4fd74f0138ca3a4325b533f1df31d2aae0c5df39fa0f455ec528a36e0c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A049-V1",
+      "recordId": "A049",
+      "forecastSha256": "adc10dc278677160d407418c701f4185102c396b6bf91b2bbc85ab38576d64e0",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A050-V1",
+      "recordId": "A050",
+      "forecastSha256": "9c9d33ebdb3ab5d15bea6fb339d6238b2590b3f2f5404e48fe11db6b58e29a67",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A051-V1",
+      "recordId": "A051",
+      "forecastSha256": "4a19a0ff645eaceddacac3c2324920dc797f1098f75c97113abf1bcdce5b46c7",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A052-V1",
+      "recordId": "A052",
+      "forecastSha256": "240a07c5ff2c316fe983052ab6eb1252f93e0baf910857489272466445870916",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A053-V1",
+      "recordId": "A053",
+      "forecastSha256": "9f6f22788ce8cf0608d1f993e81e7e4f964c92ccc032e54a1d103b191e80b65e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A054-V1",
+      "recordId": "A054",
+      "forecastSha256": "22368be39a669994562a761d16df0499d5318c2263e11ae50863512d8a170e82",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A055-V1",
+      "recordId": "A055",
+      "forecastSha256": "d19e97d68196cd428e3c63f838db8fa174856f704aab3a75899ef356e942083e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A056-V1",
+      "recordId": "A056",
+      "forecastSha256": "5c0b31ec62470a75a1d93bc3a591f39ec08316b0fa3412dc360e210765bedaca",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A057-V1",
+      "recordId": "A057",
+      "forecastSha256": "f7592e732dbb06082b501e9e5b8db72f7ad6d7845e3aeec62e3c1d47a2abb4f2",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A058-V1",
+      "recordId": "A058",
+      "forecastSha256": "c0cca3233a058e05f0bf3ccefc15c7cba55855902e6aac2573290c399dcd317a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A059-V1",
+      "recordId": "A059",
+      "forecastSha256": "3b297f8459db444d7913a8ec161ed7b434668bb7d3c665909b573e1ce1c2b13b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A060-V1",
+      "recordId": "A060",
+      "forecastSha256": "e451bca10a57a0c4f0522719fe7350c92366964a60cdea533cec3979c95340d7",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A061-V1",
+      "recordId": "A061",
+      "forecastSha256": "7f34490d0c6f3f5afd4a70baa3c6d22b8aeaafff030770a22ebdf38a6eee5984",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A062-V1",
+      "recordId": "A062",
+      "forecastSha256": "5be1b331b45d14d7f7afe2ea513c4c049c3fe275b726f168a60faeb56ef10e18",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A063-V1",
+      "recordId": "A063",
+      "forecastSha256": "aa9a325b639cf611760864dafacb7d53133a83821951a60d05fb727b0900e7e9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A064-V1",
+      "recordId": "A064",
+      "forecastSha256": "d88cfb6007aafab121624debce057355968c7a62bb35f0ed10b5ba9dbe0a5654",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A065-V1",
+      "recordId": "A065",
+      "forecastSha256": "4e89d4eb991451d598c6f067074473b14cef480a08211bd5601230aba78b78e5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A066-V1",
+      "recordId": "A066",
+      "forecastSha256": "2f4a07dc4bf3bf9083bf80a1cfd9f5ecc7b23e838235cd445c0d32ab90a35bb6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A067-V1",
+      "recordId": "A067",
+      "forecastSha256": "caa55c2d2f50b89c5fd0d71bf683b281688de5ffd341fa609c62bc91f840a049",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A068-V1",
+      "recordId": "A068",
+      "forecastSha256": "e18ddf450de1c9df5e65ae31b63e3eae22bdf1d46ddc10b03a9475bd6a648d68",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A069-V1",
+      "recordId": "A069",
+      "forecastSha256": "5980ce5f61b072128011007875a08f3241e0aaced173e52c2b6723b4b0f975e6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A070-V1",
+      "recordId": "A070",
+      "forecastSha256": "029cb18cc60337bcbcd834f1da307b7b2bfd1947566a314800b447dfe10a2dab",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A071-V1",
+      "recordId": "A071",
+      "forecastSha256": "f8e8c4030ea32d276cf924e49eee6de422b3a5c51fa92e8586603f600c4d2b2d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A072-V1",
+      "recordId": "A072",
+      "forecastSha256": "3ba4a6d23bdd556272e31b40f73708d3acebc6638498106fb3865846062ad6d3",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A073-V1",
+      "recordId": "A073",
+      "forecastSha256": "b7ca9646980b487d828a59162ff084563da742b51cb237f7895714bb2460d454",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A074-V1",
+      "recordId": "A074",
+      "forecastSha256": "ba2c410d0bed41c60a3af260d4d7ceb2b1ba6202ee0cdfcba8728c7ba0415584",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A075-V1",
+      "recordId": "A075",
+      "forecastSha256": "78b378b853d3955a8d35e625a5c80576020f98c016e1a502210099d3be5b22de",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A076-V1",
+      "recordId": "A076",
+      "forecastSha256": "fa8bbaeef0985c9de556cb2609c2cce84cf4b251d6bd63e9fc5f701c4669833a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A077-V1",
+      "recordId": "A077",
+      "forecastSha256": "c243b5a89e49f00b7d688a5cc0a0937c7473162bf6aebc9ce91149335e4d649d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A078-V1",
+      "recordId": "A078",
+      "forecastSha256": "a80536ebd63a6bb6920d305fb42511a84072280b062199b7e1452bd2a506ea73",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A079-V1",
+      "recordId": "A079",
+      "forecastSha256": "163993362d5338b091407175af802d4ceb17352f1ef740a1195af06a852e3e3f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A080-V1",
+      "recordId": "A080",
+      "forecastSha256": "f28baddb45a8380c31fb1dc9b21977c6277d5d428e74312fa8236d0f65f5244e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A081-V1",
+      "recordId": "A081",
+      "forecastSha256": "2d5228fe6b59b555b4beedc90e4d7d6bcede84254f0e5c34dc08c31d3fd5f869",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A082-V1",
+      "recordId": "A082",
+      "forecastSha256": "6c7ffd0a334d257c0807e12ccd29e7e5279236d927b7860fe93a6dbf0921fc50",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A083-V1",
+      "recordId": "A083",
+      "forecastSha256": "eb33942751ff9f32771530fc7f618268d0b8b52b78548d7925aa81496338a740",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A084-V1",
+      "recordId": "A084",
+      "forecastSha256": "208145918db697dd616bc99e145d415e4cc7ad2915edba5f9ef23722e717c4e4",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A085-V1",
+      "recordId": "A085",
+      "forecastSha256": "342d8c237107b5c1f7097ef89e308bd15a854f92b6d30d8a3e5493d7035965a0",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A086-V1",
+      "recordId": "A086",
+      "forecastSha256": "1e410aad67c81a8d666e9ab361594869aba36a2f22ec7f961263b61f9d39d25d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A087-V1",
+      "recordId": "A087",
+      "forecastSha256": "0767fb1e925c3d53d04f81fe39c55af5fec151634bd304c1645725d5eedecc50",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A088-V1",
+      "recordId": "A088",
+      "forecastSha256": "dee0ba6e985c47074aee9a3b331e793d8429f3416fa89847d053143753da086e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A089-V1",
+      "recordId": "A089",
+      "forecastSha256": "10e0dda1df5e7f424c6d4c2cc629b89887d7425f43895f45129ad0129749645d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A090-V1",
+      "recordId": "A090",
+      "forecastSha256": "57c56cc7266caa43c697410ea2673184b5f6300fedbc1f16dc6c505fe74a60fa",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A091-V1",
+      "recordId": "A091",
+      "forecastSha256": "b9d24e9fbad85f6f5309b1aa8e40bfcbbf1e165db5016cca930f4e583f876f16",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A092-V1",
+      "recordId": "A092",
+      "forecastSha256": "f37ac7ff36d46ebf192a2fb8c150dc22f25140be20396f518d161c53833df31f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A093-V1",
+      "recordId": "A093",
+      "forecastSha256": "0112e26a6fc359d2f546da473096782ad8173396632485593cd637344c6aa63e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A094-V1",
+      "recordId": "A094",
+      "forecastSha256": "441d1812115d3ce525e30725cf35b5dd896c05db90b8c151994b279dfa9df84d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A095-V1",
+      "recordId": "A095",
+      "forecastSha256": "e234b31af5e7d4a5157db2d15fd4d9afd76d7d5cf9c185bf293b1bb56a56fb45",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A096-V1",
+      "recordId": "A096",
+      "forecastSha256": "19a88420a09bb06422c8bb84ad448ad8012ad8d9b011ca430478c63034c07d4a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A097-V1",
+      "recordId": "A097",
+      "forecastSha256": "8a57623edad009dee2ee881beff35eb6dcdf78c47bc95899e9a12250101fd9fb",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A098-V1",
+      "recordId": "A098",
+      "forecastSha256": "a92cc54baf3a50b0391d15b106bfad6011fe3dcce91db5a006df16986017d593",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A099-V1",
+      "recordId": "A099",
+      "forecastSha256": "c1b565280a7369fbb4896bc315e9973564d5520f7dd71154f17a10db8c27f3e9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A100-V1",
+      "recordId": "A100",
+      "forecastSha256": "b914ac03e1f1714560babb6e583ee287033518654a772e2605fce20e53cc2c68",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A101-V1",
+      "recordId": "A101",
+      "forecastSha256": "03ca9fd82915977253f20f425a3b2bfd266d8ca106bfa65ce20f4fd21d06b812",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A102-V1",
+      "recordId": "A102",
+      "forecastSha256": "11a111edec279b51486a8f312dcda365853b367e16c4c4b5c323f931304b49a0",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A103-V1",
+      "recordId": "A103",
+      "forecastSha256": "f57c06b867ece2d053386efe84d6c5569ba28729f1442a843c6633daee506114",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A104-V1",
+      "recordId": "A104",
+      "forecastSha256": "187f2d78cc787af7a5ed395f872ffd7ad7c1bf1da3b772c77aec1e1cee68b260",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A105-V1",
+      "recordId": "A105",
+      "forecastSha256": "d49d8616f6f1cce9395b252eaeada8d82ece5da934fa1dd40f2f482be5dfb35e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A106-V1",
+      "recordId": "A106",
+      "forecastSha256": "833f4640195cd808af88059c907a2e7fa192939fa252aa723611b0f6aa01ce84",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A107-V1",
+      "recordId": "A107",
+      "forecastSha256": "c44db1bb0f64f9e42de1bb8af52c5f648d2254bf3c5b2dd1a99d53bf4f49c656",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A108-V1",
+      "recordId": "A108",
+      "forecastSha256": "bc7877814aab26020aa7d15f5221c842241025f9c357a48933aa59c0f2637c9e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A109-V1",
+      "recordId": "A109",
+      "forecastSha256": "89de08fa9934ba0cbae7a84ab8f465043a1178f53a51de2a3b0be7ed109f8143",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A110-V1",
+      "recordId": "A110",
+      "forecastSha256": "50540fac2b79be567b418838f03096623ffa5f4b371519a468448aec299b5d66",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A111-V1",
+      "recordId": "A111",
+      "forecastSha256": "f4312b499fb6f3e231cfdad30f42159977086ea058ec7db0706bd6cbec8e5b92",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A112-V1",
+      "recordId": "A112",
+      "forecastSha256": "81776aa215985d4752c2c80c33be20b1f0a76135f946ebdd0f6998086150ed0a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A113-V1",
+      "recordId": "A113",
+      "forecastSha256": "762a5b1320de1c5c3a7447d3eadb8fc44f722c051845365a23214abcf560c201",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A114-V1",
+      "recordId": "A114",
+      "forecastSha256": "80d353f2f3ffdf125ba6b43b7018d33a839e43ba70bb528e1e4de9505f554c3c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A115-V1",
+      "recordId": "A115",
+      "forecastSha256": "bc185ceb8c8b0906a700a95b53358e8c7befe95a42b3755fd4621b7dfa42963c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A116-V1",
+      "recordId": "A116",
+      "forecastSha256": "741ca6fda526fab55f8256759a2802dcc5f85ef8cc83dc838a66a375dccac1c1",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A117-V1",
+      "recordId": "A117",
+      "forecastSha256": "296779f3b896fb68884676a2103fb4dd8de022a008eafdbf2692f5ee55d1cb49",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A118-V1",
+      "recordId": "A118",
+      "forecastSha256": "6ab0b8566fb83ea3f0a3ffe7a8716dcb94e3084599f2a77769ac518789523617",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A119-V1",
+      "recordId": "A119",
+      "forecastSha256": "9d25bf6b69aea4095ad1085e1fbbd3f1177b8f4b0bcac0f242a65967927fb426",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A120-V1",
+      "recordId": "A120",
+      "forecastSha256": "82c5f1381611e91c85bc8ea4ee9b70b91335ab59cc806d89e8d1fa7be1b4c662",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A121-V1",
+      "recordId": "A121",
+      "forecastSha256": "75848cbc1480488b01be76599436edb68b704ea51853e97fd797d5e32206e312",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A122-V1",
+      "recordId": "A122",
+      "forecastSha256": "b0aa1ee9bb835acb0b10abaaf498c47cad1c72d0a6dcb9d52ed5a930a121cd80",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A123-V1",
+      "recordId": "A123",
+      "forecastSha256": "537d6a6b4b6cc3856e32ea7aea9889b4928db0b2fc566cfa3dff53d227612675",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A124-V1",
+      "recordId": "A124",
+      "forecastSha256": "68fd5937f7a1de255ff23b4ce31d66c102ddbd204f80b172f45708aa7088cf32",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A125-V1",
+      "recordId": "A125",
+      "forecastSha256": "31615748690d00cf14098bdb000aee653b40eab40292f47222ceda2263608b29",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A126-V1",
+      "recordId": "A126",
+      "forecastSha256": "a9625a14b73809f5201d1ba5685922f91c153af92838f38b761cffe4e29e546b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A127-V1",
+      "recordId": "A127",
+      "forecastSha256": "98892e2b4897ca8fc2e935010b65c0cede92aa71bac50ed22364e96208911955",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A128-V1",
+      "recordId": "A128",
+      "forecastSha256": "3a46507ce6555a5e87a47c688bcb01236b8fda6bfbd25a5873417f52c407c77e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A129-V1",
+      "recordId": "A129",
+      "forecastSha256": "f7ca30a532d3580c75b001e8a2aa07f6d1f72f645e10080bfb9d7f2b6b3dba69",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A130-V1",
+      "recordId": "A130",
+      "forecastSha256": "02db163430c1e94e17ad91813d3271f3e998aa52fbf25085eb3396dad4604e4f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A131-V1",
+      "recordId": "A131",
+      "forecastSha256": "d8451e93562de8a2c6731f7e859ae5f916ccf61cafed96e9d0a053bd6be7569c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A132-V1",
+      "recordId": "A132",
+      "forecastSha256": "d6cd11ee6f701392c95f24110cc29189253008b6710b62da74e5474910af2328",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A133-V1",
+      "recordId": "A133",
+      "forecastSha256": "7e4a4a219b9a07e235b02c8cdc7418fa37adbd66c6171e33b4e475a4e46eb039",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A134-V1",
+      "recordId": "A134",
+      "forecastSha256": "6cd08b4ce787ac23808f2ad1a1f1783d13d7a9114ba1c62e406e1e6cc02387b6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A135-V1",
+      "recordId": "A135",
+      "forecastSha256": "00cc9c2d89526c43ab4db5e2548413d6bddeb6cef5bb5272dcce395fef19f813",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A136-V1",
+      "recordId": "A136",
+      "forecastSha256": "3bbbb13226df37f44b8bd7929483f540cf2fe2ba39ebb2a29bd69bcbd2650416",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A137-V1",
+      "recordId": "A137",
+      "forecastSha256": "0e253e36aefd09e168533cfb033e586eee1c5ea520cfff59b67b0a45698188aa",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A138-V1",
+      "recordId": "A138",
+      "forecastSha256": "f4f85d72ba4ae1fd1f46856b9241055ed183006d5c4677bfcd28cbeab118b979",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A139-V1",
+      "recordId": "A139",
+      "forecastSha256": "d08723295104b1033fe575bc4488dd8b6ff7e24bb494ce79f9e51e6ab8b1bb48",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A140-V1",
+      "recordId": "A140",
+      "forecastSha256": "da494d2aa4d334981f4385f93bbfe70a9553324d301fd8010c5de51b7752f42b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A141-V1",
+      "recordId": "A141",
+      "forecastSha256": "a7570983f5fccc15845b65b01dff861ff640376104b9209e2769c48bf7e0967d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A142-V1",
+      "recordId": "A142",
+      "forecastSha256": "81e98af37ccddab9b4188c509ac9c23327261dfa95f8a824d20f636fc5266718",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A143-V1",
+      "recordId": "A143",
+      "forecastSha256": "499a43943636e361e6be7abcfa59965377ee99830acc210953640557f98f7a81",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A144-V1",
+      "recordId": "A144",
+      "forecastSha256": "d35b3d56636c8c39b1d2e6eb2d5a89c2d90ac0e944e5f0d6a48476bc6f62c6aa",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A145-V1",
+      "recordId": "A145",
+      "forecastSha256": "c118a53e6b433038f11e007c372c183d3a1468e0f3f1e51a7af1698f05c559ba",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A146-V1",
+      "recordId": "A146",
+      "forecastSha256": "8a8c38713f68ff07a695ad3e6717063247f002602eb888d943985c8d43f9bafe",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A147-V1",
+      "recordId": "A147",
+      "forecastSha256": "c90c3a27aefe54892009a833bc1dab8851f9d4823dd68e48b39e049fb1a7895d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A148-V1",
+      "recordId": "A148",
+      "forecastSha256": "be6d1fb1e686fb4b227a20a574d5f103276e3c04516025dda2719a57c5039315",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A149-V1",
+      "recordId": "A149",
+      "forecastSha256": "c02059e75c669f79c8aff3793fdd79ba3c756ba7ebdc02ea5e54c72adfdb1d81",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A150-V1",
+      "recordId": "A150",
+      "forecastSha256": "77a19fda1cccefd769279de67d710bcf107b044498b2cf9951ea0cdcd9a0cdb8",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A151-V1",
+      "recordId": "A151",
+      "forecastSha256": "c5de478972433af0373477004820ac1852ce76be51442e15b348e72fc7f4303c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A152-V1",
+      "recordId": "A152",
+      "forecastSha256": "4f23ff4dfc2a099a89ac6d757116feccb819f238ee01be27c1345fd733557838",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A153-V1",
+      "recordId": "A153",
+      "forecastSha256": "8e61ee47c64210388dfac7933720c8e92e5885650551afc148fb5ec251a6fa69",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A154-V1",
+      "recordId": "A154",
+      "forecastSha256": "f0ac48f00938daf7daebdad1e3bf876ace9bcb7d9047aef0a1c910fa3c6830b3",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A155-V1",
+      "recordId": "A155",
+      "forecastSha256": "e1eb5ff2b43752f06df6f98fe9be7ede9027e69d7b65fa04916d65840199587d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A156-V1",
+      "recordId": "A156",
+      "forecastSha256": "b2bba16a06e0bf2df5cfdcf21995fb56bddb2d9a1e12d90186313f1d5df39c48",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A157-V1",
+      "recordId": "A157",
+      "forecastSha256": "c4c44791713b0af0fe10bc7e2eda0e7c0e382ee95079d05f6234598a97a322f5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A158-V1",
+      "recordId": "A158",
+      "forecastSha256": "6b975d71d2601e3907681fcfc0c835f2f4717f9937808092fcee5d217998f89d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A159-V1",
+      "recordId": "A159",
+      "forecastSha256": "bc3e0c22d2e32b18627e937f9bbcbf63e9261281da80a493ff1a4a79c5dfc60b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A160-V1",
+      "recordId": "A160",
+      "forecastSha256": "219ffa4564ed0f20461f4cca8c0a6e2aa4a1b3a2a65276a9773e1f22909402c6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A161-V1",
+      "recordId": "A161",
+      "forecastSha256": "abe44b60ea6bc2be30586ae7f3430f1400b2d95f58831b6b4a24419ad69d5363",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A162-V1",
+      "recordId": "A162",
+      "forecastSha256": "fd488f2365490135739dcadee9ac005adb0a86a68cc05771f58e5860112134d2",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A163-V1",
+      "recordId": "A163",
+      "forecastSha256": "45bb6a7d1964e400f16e121700622ac329aa63d306b68fc85c96ad0caf9cd8fd",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A164-V1",
+      "recordId": "A164",
+      "forecastSha256": "ca8b91abb31910d1948e1617a8a8899002c420937b2b62708f7822b85e3d064b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A165-V1",
+      "recordId": "A165",
+      "forecastSha256": "cf25c9f2f5027a2734c4be7e14be683a0035cf939ae93509e1890a018b590e59",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A166-V1",
+      "recordId": "A166",
+      "forecastSha256": "644770a75298583351ff40240341a9c70702d999606988cddd99d9496a40f1b6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A167-V1",
+      "recordId": "A167",
+      "forecastSha256": "5dc76f2636ecedc3f6e81097f1a928920ab6b1b93a36882a86933d4121fc33d6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A168-V1",
+      "recordId": "A168",
+      "forecastSha256": "ae307bedab3e5467842ddd9492ea4dcf5c25e3c27508cc5f33e54acc55896c0a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A169-V1",
+      "recordId": "A169",
+      "forecastSha256": "90ee065375a424f77e0d729ee1222474036444fa456025d42a0f6f771a368ad1",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A170-V1",
+      "recordId": "A170",
+      "forecastSha256": "39b1106662525b9ffaed8d0393d518a2b223689621857dc7b7b5f45cbf5b8282",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A171-V1",
+      "recordId": "A171",
+      "forecastSha256": "9ea68bc6f8f251a7eb3f3105853f42393fad845dca2a02c97b5fbed9ff71a20c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A172-V1",
+      "recordId": "A172",
+      "forecastSha256": "a7878b01a3dbaafe57420fecdc75b3d0da54e2869e50ae44146ec3b14960f36f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A173-V1",
+      "recordId": "A173",
+      "forecastSha256": "0ac48e3207dd10475f7cc35cc7f780d667aeaaef6b5d46c772e0bda48992aae5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A174-V1",
+      "recordId": "A174",
+      "forecastSha256": "b517994eb0689e6ee180b2fff860f07856de62d3f63910dcfca06d19d2d93c58",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A175-V1",
+      "recordId": "A175",
+      "forecastSha256": "08ec7336ad366ce258c701b5ea6659c17582818a31c460122e0814c44554afea",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A176-V1",
+      "recordId": "A176",
+      "forecastSha256": "815b23f353832fe2b1cd60b5de82721e0a0f21d927ada4a1b516ea9274536157",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A177-V1",
+      "recordId": "A177",
+      "forecastSha256": "e2d0a5ae68cd025bd4516646da88b900168da2e3fd9ed4baa57166de3bd29ad0",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A178-V1",
+      "recordId": "A178",
+      "forecastSha256": "daba08a02123cdc35c2e85c96545bdbb9d12fef96d4d67c0be85e07b00dfa653",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A179-V1",
+      "recordId": "A179",
+      "forecastSha256": "14e4cbbdfb0ad1a38ddbd4cfddb0599c4f2634be6e8c0acab97f749c42d9743e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A180-V1",
+      "recordId": "A180",
+      "forecastSha256": "27cee0558328589fa7467e3fa8059a0ccceb88941c312a507b98273aa446b516",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A181-V1",
+      "recordId": "A181",
+      "forecastSha256": "5432c1eb6be7aacec7cb82e09edc44f575903bb50a3fabb37cf12428e7b661e8",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A182-V1",
+      "recordId": "A182",
+      "forecastSha256": "4d3adfe13ab4219041bf3edcfb5439478be5c811153625514ea28ce2f61b5f4a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A183-V1",
+      "recordId": "A183",
+      "forecastSha256": "f35573fcbacdb46e70bbea88cc3d6bd03217a571b78f17f6c30da71c96c8db3c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A184-V1",
+      "recordId": "A184",
+      "forecastSha256": "4dc538f2bb48fa597bc0797e5d51e5095b74bf3a52ef228f7c5c3b8904ae75ca",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A185-V1",
+      "recordId": "A185",
+      "forecastSha256": "4bf6071c75192ee0a4080bf09131b42f2d162ef22c298059be13627a5c13a19d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A186-V1",
+      "recordId": "A186",
+      "forecastSha256": "1107d678a1d7540b4a7c5688ca9f883e5d1394413693d1c31648770ac69aae97",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A187-V1",
+      "recordId": "A187",
+      "forecastSha256": "f63f65b51f802a73dbb0d7af16006dc651fc195025a97d4a4fcdea525aacd0f5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A188-V1",
+      "recordId": "A188",
+      "forecastSha256": "7cc994967b521ad02f5a3a4ea8da103d281a708491ee7a5cc38be05a07aa1ae4",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A189-V1",
+      "recordId": "A189",
+      "forecastSha256": "3fcca3f4dd6f9fcc8452e320f9d048429b95deabad33603299057bee87c5bb52",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A190-V1",
+      "recordId": "A190",
+      "forecastSha256": "5f27cb14c0aa7ab18931701a93524943d4c4be0a7a6bc33d2bc808afc89c4f7a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A191-V1",
+      "recordId": "A191",
+      "forecastSha256": "639071c0f228d3e13d1b62dd34f7707f27b421128217b737b885afeed2b5839b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A192-V1",
+      "recordId": "A192",
+      "forecastSha256": "8cc8e72403763ad8280b69a168e52d0f6fe778fcfd6cc7f90272eb0eb5fe1e2c",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A193-V1",
+      "recordId": "A193",
+      "forecastSha256": "9859358b623a73c9da485b9b77c58893020ad422288c1d75e864dc7cc9f58515",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A194-V1",
+      "recordId": "A194",
+      "forecastSha256": "c944fc1d1fab4c298709d47a9fbdbcc61e4a6d954f16dc8bbc40835315c39274",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A195-V1",
+      "recordId": "A195",
+      "forecastSha256": "43f7b2c6ed62da9e91a81367124c15dd846b220da129d4de4fc40aa8a797c2ee",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A196-V1",
+      "recordId": "A196",
+      "forecastSha256": "b0a676abc25305aa13a53c3bc97fbf16ab6bfee000b7b8c0d905540d3e48f1c3",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A197-V1",
+      "recordId": "A197",
+      "forecastSha256": "d8a2fbef061618b446eca55cae2a5bc90c726a71984544211fb227ca1278df25",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A198-V1",
+      "recordId": "A198",
+      "forecastSha256": "d9760be905b909c8d6237d6b96a0f8daf3d6b260940419c0f1d4b6e9665e50bc",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A199-V1",
+      "recordId": "A199",
+      "forecastSha256": "94c9d43f1b4928e2ce69e56421efc7747a78c889c9a6ea18a396cf4cdf0c56a9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A200-V1",
+      "recordId": "A200",
+      "forecastSha256": "11fedcfeeda494988939618c0253a729622103514243a9d24fad8a5402fa0bc9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A201-V1",
+      "recordId": "A201",
+      "forecastSha256": "1d7fb951e0be65ca521d793d18861914e8c6e394a2b287331b4198149b8795ae",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A202-V1",
+      "recordId": "A202",
+      "forecastSha256": "f378ffb765a572a5b41e6e6b15bc182cb6d3d6da81c18c9c5266cf42843b272e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A203-V1",
+      "recordId": "A203",
+      "forecastSha256": "d4c309796e9389389ede0efedc0cb61a8d16b1de5126f580d7a506cf18d25c5f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A204-V1",
+      "recordId": "A204",
+      "forecastSha256": "503a3a61e72c5c1ba1dab1bb04c701bcd3243648ab83a2508c500f709752fca5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A205-V1",
+      "recordId": "A205",
+      "forecastSha256": "1039365bb61ecf228f76382325c66ff2cb8d6a39ec568e13c6133feab57eca13",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A206-V1",
+      "recordId": "A206",
+      "forecastSha256": "c8d9702261b2678df658bd6d55cd44efaa553fb21974aaec647856a4eec0061d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A207-V1",
+      "recordId": "A207",
+      "forecastSha256": "9ea795fabded4d5f4b2cf5afd63fe4fae8f4db130db000eb8ff97ef0d09cab70",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A208-V1",
+      "recordId": "A208",
+      "forecastSha256": "6820eb0e17804eb55a4c2d5883578af4b604324bad2cbcb9b9cbea0805772cc9",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A209-V1",
+      "recordId": "A209",
+      "forecastSha256": "945d24352a87eb9faf9e56f0793990ba568a2022a346ba8575bd0965b76948e5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A210-V1",
+      "recordId": "A210",
+      "forecastSha256": "bb3f508d3613a1d93080f34158822935c1759e97b58b3f053c55218c3cf5dced",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A211-V1",
+      "recordId": "A211",
+      "forecastSha256": "e083a318c1133e8d6adb9867ba577045e6b8f781b2ec793e829502c4c5695fe5",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A212-V1",
+      "recordId": "A212",
+      "forecastSha256": "62fbf592b1d80e61bc06b84994d216fc8c004f2c82bd4eb3bae8a8ed1d500e54",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A213-V1",
+      "recordId": "A213",
+      "forecastSha256": "36a0b69cfb35a60a366dbeffe28a3d4225121430d318406c341b281005896e54",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A214-V1",
+      "recordId": "A214",
+      "forecastSha256": "ae58fc909217cb6f1a8a767cc9837cb75811884848f1791097022111a476fcde",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-A215-V1",
+      "recordId": "A215",
+      "forecastSha256": "b5415b20ad0c44fa1e4f071f22f78b89ce65ab1f07f5f243faec457763c627fb",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C001-V1",
+      "recordId": "C001",
+      "forecastSha256": "2a6cbbb5ef79288ccd2af0d1987ba3021c26bb294c6a695d163c72e53735550f",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C002-V1",
+      "recordId": "C002",
+      "forecastSha256": "58ac4cb460b649970aeb310eb3294c1a6cb32009c82601ce840be79fbdd5be85",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C003-V1",
+      "recordId": "C003",
+      "forecastSha256": "0399cc328f6a13688284d83a1ebac132b5f42917357a308dc58ee476d91d5797",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C004-V1",
+      "recordId": "C004",
+      "forecastSha256": "66be3b4f900f632433241e552685d48b51388e5d0ebeebb9de42d7079e90644a",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C005-V1",
+      "recordId": "C005",
+      "forecastSha256": "20cb1a97a24954be9fd6888ae4f525a31538961956ef3776c595a6a37a069737",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C006-V1",
+      "recordId": "C006",
+      "forecastSha256": "cd986f3c6c90a93ee8873fec14221c5894464ae8e96aba75ac17fc1f5e9cfbe6",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C007-V1",
+      "recordId": "C007",
+      "forecastSha256": "1844449fb4d4c3995999af2e75de8203b65fee2ceff9cc98e13e8a686ea3acfe",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C008-V1",
+      "recordId": "C008",
+      "forecastSha256": "5af32b1b7cfe7f52e5f242c4b9a86dd465fabf5c142c15dab9583cdd6a28c111",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C009-V1",
+      "recordId": "C009",
+      "forecastSha256": "ebcad9f02048bfd7511b096b0957a839b8d69042eed0475a69564ecd1587e2ae",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C010-V1",
+      "recordId": "C010",
+      "forecastSha256": "66ebc0b0ca7ca5e878ee8f3193d60d8cead480f3009d0e03e1ddedfeef31b1ca",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C011-V1",
+      "recordId": "C011",
+      "forecastSha256": "cf24de0bdbd2b22263db6d52ee4b047efe23db3e13756eb70137bbc26624c226",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C012-V1",
+      "recordId": "C012",
+      "forecastSha256": "55341d0ad535166e35f587dd93082f637ba13e33c10972142e80e423e3dbc32e",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C013-V1",
+      "recordId": "C013",
+      "forecastSha256": "c01d06a9da3f6ece4a4ca47ff03a593785eeed141e936681a570730c4a3d815d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C014-V1",
+      "recordId": "C014",
+      "forecastSha256": "6749df70ac602622e35a672649246a68ef7d3d6432502b19a466399c7936bb63",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C015-V1",
+      "recordId": "C015",
+      "forecastSha256": "71d6cd50b22f421211ad3a7c3052d5691c0d9e0cd3749f070ba985829246063d",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C016-V1",
+      "recordId": "C016",
+      "forecastSha256": "7d9b8bb5e602e72b9606fcd1ac7b2c58b4c4add2fcdcd3db9d1fadd6f6ca1d63",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C017-V1",
+      "recordId": "C017",
+      "forecastSha256": "8f6213f1f88ef037f4f318da70f58895278370bcadd6c0c870e2112128f5e994",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C018-V1",
+      "recordId": "C018",
+      "forecastSha256": "280b43f404ae1813d2c929ff74cc4fb839e667b7309e3a740d9e1dc81d824d47",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C019-V1",
+      "recordId": "C019",
+      "forecastSha256": "943cc9275a660f5c7779a383d9e0d4a3b3adb78b265c4779674fe82335597a5b",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C020-V1",
+      "recordId": "C020",
+      "forecastSha256": "8f24bd4022556e0fb562c42d3d99a2ca8e29a9e29cceaed9e1511720ee923449",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C021-V1",
+      "recordId": "C021",
+      "forecastSha256": "b439a1b96061c448ff30e85734db2e3191fba4140a92e37959a6d747ced9c922",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C022-V1",
+      "recordId": "C022",
+      "forecastSha256": "d22b901f4a5b40a89ef2674fdd1cf8c3a04933f6156f1cd484698ad1cc141b37",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C023-V1",
+      "recordId": "C023",
+      "forecastSha256": "16aed8294e2479fc685650b06285f7fa1c4a6ea3ef159cc3dc74e3e07c743033",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C024-V1",
+      "recordId": "C024",
+      "forecastSha256": "64964f7b17af04d6ec27b84ccd2b1c4971b0db614ac14b392b8badba7ea93f07",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C025-V1",
+      "recordId": "C025",
+      "forecastSha256": "b27e8e9a01a303e34f8f058aa37ee1defd1561d88f6fad80efdb72166f4de2cc",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C026-V1",
+      "recordId": "C026",
+      "forecastSha256": "f3e99333fa7ffa55689b3d317fe6290f6643fa5b26cc10912cadda9a1fce9ae0",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C027-V1",
+      "recordId": "C027",
+      "forecastSha256": "c79368771406bee469f627b95f5a10ac9719d6543101d292260e355cb199a144",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C028-V1",
+      "recordId": "C028",
+      "forecastSha256": "69f4aa5cc19674d2103d1ca4813c72430bdf895a25aafc5b791b3e42e10298ff",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C029-V1",
+      "recordId": "C029",
+      "forecastSha256": "ba379bd39f1e44b6965c97443c150ead392ac4ba63f1ec32c33704d2388214c2",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    },
+    {
+      "forecastId": "AIR-20261025-C030-V1",
+      "recordId": "C030",
+      "forecastSha256": "385b45498cefa2f59ae3d77ffd6c88573f3c3bc8197e09c6d4bb16ad74f03811",
+      "state": "ABSTAIN",
+      "scorable": false,
+      "pointProbability": null,
+      "outcome": null,
+      "brierContribution": null,
+      "reasons": [
+        "NO_POINT_PROBABILITY_ISSUED"
+      ]
+    }
+  ],
+  "inputFiles": {
+    "ledgerSha256": "4ddd7fc84ea388de22979b84007430b20a513258f6db1bf5bf13c184a124b91f",
+    "adjudicationsSha256": "66f687d32ba62e2d54abe1dedb7bce78e3c2841509f4baef379324a9ae490274"
+  }
+}

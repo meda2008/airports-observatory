@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A073",
+  "name": "大哥云",
+  "entryUrl": "https://aff01.zygbx.com/#/plan",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "aff01.zygbx.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "current_price_source_review_frontend_and_followup_verified",
+  "reason": "2026-11-20 v223跨容器暖恢复run4a528960-8372-48f1-9aa0-bf7f6d794fe9确认原生账户会话，0登录控件/0认证响应/0验证码步骤；5条当前原周期报价复核与匿名公网前台5行均通过，启用每周pricing-only。旧storage_recovery缺失材料及旧验证/第三方断点单独保留，不能声称历史原文已经恢复。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "publicOnly": false,
+  "accountReadOnly": true,
+  "readOnlyRecipe": "dageyun_plain_image_login",
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": false,
+    "emailSelector": "input[placeholder=\"邮箱\"]",
+    "passwordSelector": "input[placeholder=\"密码\"]",
+    "submitSelector": "button:text-is(\"登入\")"
+  },
+  "reconcileVerifiedCheckpoints": true
+}

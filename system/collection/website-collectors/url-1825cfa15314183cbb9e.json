@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-1825cfa15314183cbb9e",
+  "origin": "https://cn.forest2026.com",
+  "recordIds": [
+    "A079"
+  ],
+  "entryUrls": [
+    "https://cn.forest2026.com/plan"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://cn.forest2026.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "76031af0a781c9eab321a64c25efa17465ce1326f1cf42b0fa8ba08d0238533b",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

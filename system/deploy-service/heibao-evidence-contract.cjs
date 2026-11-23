@@ -1,0 +1,14 @@
+'use strict';
+const portal='https://user.heibaojiasu.com',gateway='https://h.ahahub.net';
+function configured(siteId,config){try{return ['A217','A031'].includes(siteId)&&config?.readOnlyRecipe==='heibao_native_api_readonly'&&new URL(config.entryUrl).origin===(siteId==='A031'?'https://user.dowancheng.com':portal)&&config.allowedHosts?.includes('h.ahahub.net');}catch{return false;}}
+function retainQuoteMetadata({siteId,config,url,metadata={}}){
+ if(siteId==='A206')return require('./youtu-native-contract.cjs').retainQuoteMetadata({siteId,config,url,metadata});
+ const portal=siteId==='A031'?'https://user.dowancheng.com':'https://user.heibaojiasu.com';
+ if(!configured(siteId,config)||url!==gateway+'/light/dispatch/v2'||metadata.representation!=='original_native_price_http_json')return{};
+ if(metadata.portalOrigin!==undefined&&metadata.portalOrigin!==portal||metadata.app!==undefined&&metadata.app!=='cham'||metadata.command!==undefined&&metadata.command!=='price')throw Error('native_quote_evidence_scope_mismatch');
+ // Also restores qualification for retained captures from the earlier receiver,
+ // which retained the representation but discarded these fixed protocol fields.
+ return{portalOrigin:portal,app:'cham',command:'price',operation:'read_quote_only',checkoutVerified:false};
+}
+function runtimeProof(siteId,config,caps){if(siteId==='A068')return require('./sanfen-payment-readonly.cjs').runtimeProof(siteId,config,caps);if(siteId==='A180')return require('./yinyun-native-contract.cjs').runtimeProof(siteId,config,caps);if(siteId==='A206')return require('./youtu-native-contract.cjs').runtimeProof(siteId,config,caps);const n=caps?.nativeApi,isFive=siteId==='A053'&&require('./five-tree-native-api.cjs').configured(config),isShunyun=siteId==='A146'&&require('./shunyun-native-api.cjs').configured(config),isTwoSite=require('./two-site-native-login.cjs').configured(config),isGateway=require('./gateway-native-readonly.cjs').configured(config)&&!!config.nativeAccountConsent,check=isFive?'protected_plan_with_unauthenticated_control':isShunyun||isGateway||isTwoSite?'user_info':'access';if(!(configured(siteId,config)||isShunyun||isGateway||isTwoSite||isFive)||caps?.login?.status!=='session_observed'||n?.status!=='verified'||n.authenticatedCheck!==check||!['cold_login','cached_session'].includes(n.sessionMode)||![0,1].includes(n.signinRequests)||![1,2].includes(n.accessRequests)||(isTwoSite&&siteId==='A216'?(![0,1].includes(n.priceRequests)||n.paymentRequests!==1):isFive?![1,2].includes(n.priceRequests):n.priceRequests!==1))return null;return{status:'verified',authenticatedCheck:check,accountIdentityVerified:(isTwoSite||isGateway)&&n.accountIdentityVerified===true,sessionMode:n.sessionMode,recovered:n.recovered===true,signinRequests:n.signinRequests,accessRequests:n.accessRequests,priceRequests:n.priceRequests,readTransportRetries:n.readTransportRetries===1?1:0};}
+module.exports={retainQuoteMetadata,runtimeProof};

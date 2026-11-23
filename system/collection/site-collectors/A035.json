@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A035",
+  "name": "老猫云",
+  "entryUrl": "https://33.33laomao.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "33.33laomao.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "浏览器从保存导航www.laomaourl.com到当前同名老猫云登录页，保存账号登录成功；未采HTTP重定向状态，法律主体及连续经营未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v27",
+    "status": "authenticated_loaded_configuration_no_refund_terms",
+    "receipt": "work/collection-runs/financial-20261110-v27/result.json",
+    "sourceFiles": [
+      "work/collection-runs/financial-20261110-v27/A035-register-no-policy-link.json",
+      "work/collection-runs/financial-20261110-v27/A035-current-cards.json",
+      "work/collection-runs/financial-20261110-v27/A035-preorder-no-refund.json"
+    ],
+    "next": "new_policy_article_or_current_original_refund_text",
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "financialFollowupHistory": [
+    {
+      "runId": "new-entries-20261104-v2",
+      "status": "authenticated_docs_client_guides_only",
+      "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+      "next": "Only current client guide index observed; no refund terms, no scans of unrelated client articles."
+    }
+  ],
+  "collectPerformanceReferences": false
+}

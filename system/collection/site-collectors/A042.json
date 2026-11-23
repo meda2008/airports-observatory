@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A042",
+  "name": "守候网络",
+  "entryUrl": "https://cw.gosntp.com/pages/pricing",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "ncdn1.sntp.uk",
+    "cw.gosntp.com",
+    "push.shvip888.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 6,
+  "enabled": true,
+  "eligibility": "needs_identity_review",
+  "reason": "旧名录名称为“守候网络”，本轮同一候选域名页面显示“SNTP”。仅确认候选同域页面观察；名称关系及经营法律主体归属未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": false,
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-c2726cace7d195fa2b08",
+  "publicReferenceEnabled": false,
+  "publicReferenceFields": [
+    "stability"
+  ],
+  "publicOnly": false,
+  "validateWhileDisabled": true,
+  "readOnlyRecipe": "sntp_authenticated_catalog",
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": true,
+    "successSelector": "#guide-profile"
+  },
+  "reconcileVerifiedCheckpoints": true,
+  "recoveryNote": "2026-11-20: official publisher selected cw.gosntp.com; explicitly authorized saved account normal login, restored own session, six visible period labels, 27 literal totals; actual normal weekly job accepted. No order/payment."
+}

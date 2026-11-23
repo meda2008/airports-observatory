@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A166",
+  "name": "梯子云",
+  "entryUrl": "https://ndfkhh.aboutjump.xyz/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "ndfkhh.aboutjump.xyz"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "逐站公开配置description和app_url精确匹配；仅监控订阅变更局部退款条件，不推定普通购买可退款。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "refund"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/retained-ndfkhh-aboutjump-xyz.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "retained_source_verified_navigation_not_yet_live_tested",
+    "automaticPublication": false
+  },
+  "readOnlyRecipe": "public_change_policy",
+  "publicOnly": true
+}

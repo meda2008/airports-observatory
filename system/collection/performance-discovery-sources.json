@@ -1,0 +1,3114 @@
+{
+  "version": 1,
+  "seeds": [
+    {
+      "id": "oix-runtu-6338",
+      "recordId": "A015",
+      "relatedRecordIds": [
+        "A184"
+      ],
+      "field": "speed",
+      "url": "https://runtushare.net/6338/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentythird/live/shanhai-review.json",
+        "fileSha256": "fd30cb07c814c40b92ce2fb1a440b5aa4ac5c30d3d54453449049c962ebb2959",
+        "linkIndex": 50,
+        "label": "机场推荐\nDlerCloud 机场怎么样？全新墙洞机场 > oixCloud\nDlerCloud 机场简介DlerCloud 是一家 2018 年成立的老牌机场，非正式中文名称为「墙洞机场」，Shadowsocks（SS-2022） 、ShadowsocksR、V2ray（vmess）、Trojan 多种协议支持，自..."
+      }
+    },
+    {
+      "id": "v2tun-askahh-5",
+      "recordId": "A008",
+      "relatedRecordIds": [
+        "A203"
+      ],
+      "field": "stability",
+      "url": "https://www.askahh.com/archives/5/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/ssid-review.json",
+        "fileSha256": "a7c2dac99573dc7c7c90bbe8115a5d721c94a6a69188fed449f11e0a4abb153e",
+        "linkIndex": 75,
+        "label": " V2Tun "
+      }
+    },
+    {
+      "id": "oix-speed-image-20260220",
+      "recordId": "A015",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://runtushare.net/wp-content/uploads/2023/04/DlerCloud-%E6%96%B0%E5%A2%99%E6%B4%9E%E6%B5%8B%E9%80%9F-oixcloud-%E6%B5%8B%E9%80%9F-2026-02-20.webp",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/oix-runtu-6338/314f4efe-3013-4839-8b1b-ee09f3a5e110.json",
+        "fileSha256": "bdb845d681685539bf4b4f87b3beda2f5482bc83abe7059d63e95a1dca5259c9",
+        "linkIndex": 22,
+        "label": ""
+      }
+    },
+    {
+      "id": "oix-native-entry",
+      "recordId": "A015",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://runtushare.net/go/dlercloud/",
+      "allowedHosts": [
+        "runtushare.net",
+        "oixcloud.com",
+        "todesk.io"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/oix-runtu-6338/314f4efe-3013-4839-8b1b-ee09f3a5e110.json",
+        "fileSha256": "bdb845d681685539bf4b4f87b3beda2f5482bc83abe7059d63e95a1dca5259c9",
+        "linkIndex": 15,
+        "label": "访问 Dler Cloud"
+      }
+    },
+    {
+      "id": "oix-current-public-home",
+      "recordId": "A015",
+      "field": "speed",
+      "kind": "current_official",
+      "url": "https://oixcloud.com/",
+      "allowedHosts": [
+        "oixcloud.com",
+        "todesk.io"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtieth/before.json",
+        "fileSha256": "7404d6aabf170427463d4518a06c28f11ba4966e981e09c546707f4496926870",
+        "selection": "frozen_website_url"
+      }
+    },
+    {
+      "id": "oix-official-news-native",
+      "recordId": "A015",
+      "field": "speed",
+      "kind": "official_channel",
+      "url": "https://t.me/oixcloud_news",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/oix-current-public-home/0a29c36c-1b55-4e8a-806d-49f1928c7811.json",
+        "fileSha256": "e557d49de4e84c6cea73dc16e082e339203a36f85e963d908f1b56874c0be095",
+        "linkIndex": 16,
+        "label": "Telegram news channel"
+      }
+    },
+    {
+      "id": "oix-official-news-preview",
+      "recordId": "A015",
+      "field": "stability",
+      "kind": "official_channel_preview",
+      "url": "https://t.me/s/oixcloud_news",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/oix-official-news-native/24cf0e10-8195-4ba3-9264-d4f8294ff0b3.json",
+        "fileSha256": "5bc8f344b520a60fcc6bd475e02805f2c3b578304948d5e666375426e44fc850",
+        "linkIndex": 2,
+        "nativeDomIndex": 4,
+        "label": "Preview channel"
+      }
+    },
+    {
+      "id": "kerry-directory-2",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://kerrynotes.com/proxy/vpn-review/page/2/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentysixth/live/kerry-review-directory.json",
+        "fileSha256": "eb507c8171611b20e80087225f153dfbd1e4d0fee36990abc1f81949b371df2c",
+        "linkIndex": 37,
+        "label": "下一页"
+      },
+      "qualification": "Discovery task scope only; directory is not evidence of the assigned service or a measurement."
+    },
+    {
+      "id": "kerry-directory-3",
+      "recordId": "A048",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://kerrynotes.com/proxy/vpn-review/page/3/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentysixth/live/kerry-review-directory.json",
+        "fileSha256": "eb507c8171611b20e80087225f153dfbd1e4d0fee36990abc1f81949b371df2c",
+        "linkIndex": 39,
+        "label": "3"
+      },
+      "qualification": "Discovery task scope only; directory is not evidence of the assigned service or a measurement."
+    },
+    {
+      "id": "xmf-kerry-review",
+      "recordId": "A144",
+      "field": "speed",
+      "url": "https://kerrynotes.com/xmf-vpn-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-2/54ba5f88-71d8-4a19-9ceb-1e03849fe621.json",
+        "fileSha256": "c3f6b58ccf320ae56e4bb9cecccc7d969efdfe527ac4fc767f51ab458089061a",
+        "linkIndex": 15,
+        "label": "机场测评\n小蜜蜂机场怎么样？| IEPL + 香港家宽 + Trojan协议\n小蜜蜂机场简介小蜜蜂机场于2024年正式运营，采用Trojan协议，提供全IEPL专线连接，以香港家宽为基础，节点实现负载均衡，支持流媒体和AI工具解锁，表现优异。机场不限速、不限制设备连接数量，且无倍率限制。节点覆盖全球多个地区，包括香港...\n2025.06.23\n4"
+      }
+    },
+    {
+      "id": "tnt-kerry-review",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://kerrynotes.com/tntcloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-2/54ba5f88-71d8-4a19-9ceb-1e03849fe621.json",
+        "fileSha256": "c3f6b58ccf320ae56e4bb9cecccc7d969efdfe527ac4fc767f51ab458089061a",
+        "linkIndex": 20,
+        "label": "机场测评\nTNTCloud 💣️机场怎么样？ | IPLC 专线 + 原生IP\nTNTCloud 机场简介TNTCloud 机场是一家 2024 年 7 月开业的 IPLC 专线机场，支持 Trojan 协议。光听这名字感觉有点炸啊。据说之前叫 3A 加速机场。自曝是老牌机场的分站，全部人员都在海外。节点覆盖常用地区：...\n2025.05.05\n1"
+      }
+    },
+    {
+      "id": "xmf-native-entry",
+      "recordId": "A144",
+      "field": "speed",
+      "url": "https://go7.uk/xmf",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/xmf-kerry-review/588b88ed-8c0c-447e-9e6c-f2db64b02bdd.json",
+        "fileSha256": "a62695191855a9a15f512825913b10a8027f4bd2a4d050c22d8ce79b24ac5390",
+        "linkIndex": 14,
+        "label": "访问小蜜蜂机场"
+      }
+    },
+    {
+      "id": "tnt-native-entry",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://go7.uk/tnt",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-kerry-review/e01eb97c-c083-4ae7-bd0b-280085374ee1.json",
+        "fileSha256": "76ed682faa76338388a116045bac1dd014262427b7ac714c0a3f74f6aca204aa",
+        "linkIndex": 13,
+        "label": "访问 TNTCloud 机场"
+      }
+    },
+    {
+      "id": "xxf-kerry-review",
+      "recordId": "A061",
+      "field": "stability",
+      "url": "https://kerrynotes.com/xiaoxuanfeng-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 18,
+        "label": "机场测评\n小旋风机场怎么样？ | 小众 Trojan 专线机场\n小旋风机场简介小旋风机场是最近开的新机场，Trojan 加密协议， IPLC 专线。老板人在海外，专业团队运营。新机场，目前延迟方面还是挺让人满意的，后续要继续观察。大家自己把握好尺寸，按需购买。目前客户端登录一直在报错，有网友反映后我进行...\n2026.07.28\n7"
+      }
+    },
+    {
+      "id": "fastlink-kerry-review",
+      "recordId": "A186",
+      "field": "stability",
+      "url": "https://kerrynotes.com/fastlink-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 17,
+        "label": "机场测评\nFastLink 机场怎么样？ | 老牌稳定机场\nFastLink 机场简介FastLink 机场成立于 2019 年，海外团队，至今已营业 5 年啦。他们的 TG 群有 12900 多人，看来确实是做了蛮久了。FastLink 使用的是 Shadowsocks 和 V2ray（Vmess...\n2025.01.22\n10"
+      }
+    },
+    {
+      "id": "dog-kerry-review",
+      "recordId": "A056",
+      "field": "stability",
+      "url": "https://kerrynotes.com/dog-vpn-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 19,
+        "label": "机场测评\n狗狗加速机场怎么样？ | Clash Verge Rev 官方推荐的，我试了下，还不错\n狗狗加速机场简介狗狗加速机场成立于2021年。知道这个机场还是因为 Clash Verge Rev 在 Github 页面上推荐了它。我目前已经试了半个月，结果嘛，能让客户端官方推荐的机场，还是可以的。机场特点：支持协议：Shadowsoc...\n2025.03.08\n2"
+      }
+    },
+    {
+      "id": "dog-native-entry",
+      "recordId": "A056",
+      "field": "stability",
+      "url": "https://kerrynotes.com/jc/ggaff",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "xn--yfrp36ea9901a.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/dog-kerry-review/755a8a31-eef2-43ed-9baa-58abf23155dd.json",
+        "fileSha256": "6ea868cd5390d73251ffeeeba02b27696cae71c8bcbeb2fbc02d39bfae727862",
+        "linkIndex": 14,
+        "label": "前往狗狗加速机场"
+      }
+    },
+    {
+      "id": "fastlink-native-entry",
+      "recordId": "A186",
+      "field": "stability",
+      "url": "https://kerrynotes.com/go/fastlink",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "fastlink.ws"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/fastlink-kerry-review/794e7199-37ef-49d5-bd71-e7ae7cec8b5d.json",
+        "fileSha256": "da111a143acc5fc579289b057bacdcd836fd7ca761efef5d5bd3a5d0c5464b63",
+        "linkIndex": 14,
+        "label": "访问 FastLink 机场"
+      }
+    },
+    {
+      "id": "tnt-native-entry-bounded-retry",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://go7.uk/tnt",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-kerry-review/e01eb97c-c083-4ae7-bd0b-280085374ee1.json",
+        "fileSha256": "76ed682faa76338388a116045bac1dd014262427b7ac714c0a3f74f6aca204aa",
+        "linkIndex": 13,
+        "label": "访问 TNTCloud 机场"
+      },
+      "retryAuthorization": {
+        "reason": "One bounded retry after native navigation timeout; explicitly authorized by task owner, no CF retry.",
+        "previousJobId": "21948fa3-0e60-475d-8d04-d3f26c7283d2",
+        "maxExtraAttempts": 1
+      }
+    },
+    {
+      "id": "galaxy-kerry-review",
+      "recordId": "A070",
+      "field": "speed",
+      "url": "https://kerrynotes.com/galaxy-cloud/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/xmf-kerry-review/588b88ed-8c0c-447e-9e6c-f2db64b02bdd.json",
+        "fileSha256": "a62695191855a9a15f512825913b10a8027f4bd2a4d050c22d8ce79b24ac5390",
+        "linkIndex": 25,
+        "label": "银河云机场怎么样？| IPLC 专线 + Trojan + 性价比"
+      }
+    },
+    {
+      "id": "round31-current-public-a056",
+      "recordId": "A056",
+      "field": "stability",
+      "kind": "current_official",
+      "url": "https://xn--yfrp36ea9901a.com/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyfirst/before.json",
+        "fileSha256": "d232ec11437317a11885810d82e6182d55f32da1f862a59f5943c28b31cdedd9",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One public namespace check prompted by new native article entry, no account state or challenge interaction."
+    },
+    {
+      "id": "round31-current-public-a144",
+      "recordId": "A144",
+      "field": "stability",
+      "kind": "current_official",
+      "url": "https://a30.xmfvipaffa01.cc/shop",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyfirst/before.json",
+        "fileSha256": "d232ec11437317a11885810d82e6182d55f32da1f862a59f5943c28b31cdedd9",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One public namespace check prompted by new native article entry, no account state or challenge interaction."
+    },
+    {
+      "id": "galaxy-native-entry",
+      "recordId": "A070",
+      "field": "speed",
+      "url": "https://go7.uk/galaxy",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/galaxy-kerry-review/ed01d3d0-7009-430c-a4ca-5f4ba3322407.json",
+        "fileSha256": "4b7d6e6323a55d7e11105a70e1b83d0922eb404c787ea39767d0fd9a090eda85",
+        "linkIndex": 14,
+        "label": "访问银河云机场"
+      }
+    },
+    {
+      "id": "dog-official-changelog",
+      "recordId": "A056",
+      "field": "stability",
+      "url": "https://xn--yfrp36ea9901a.com/changelog",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/round31-current-public-a056/1ecf5c4a-db20-4d9d-8bd8-152f411c22ba.json",
+        "fileSha256": "ebf916126cc72dfeedc08678fd9c63fa104b1d01537d1045ed0ae62f4098f5db",
+        "linkIndex": 10,
+        "label": ""
+      }
+    },
+    {
+      "id": "dog-official-userpanel",
+      "recordId": "A056",
+      "field": "stability",
+      "url": "https://userpanel.dginv.click/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/round31-current-public-a056/1ecf5c4a-db20-4d9d-8bd8-152f411c22ba.json",
+        "fileSha256": "ebf916126cc72dfeedc08678fd9c63fa104b1d01537d1045ed0ae62f4098f5db",
+        "linkIndex": 12,
+        "label": "注册/登陆"
+      }
+    },
+    {
+      "id": "kerry-directory-4",
+      "recordId": "A069",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://kerrynotes.com/proxy/vpn-review/page/4/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 21,
+        "label": "下一页"
+      },
+      "qualification": "Queue task scope only, directory does not establish affiliation with this saved service."
+    },
+    {
+      "id": "kerry-directory-5",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://kerrynotes.com/proxy/vpn-review/page/5/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 26,
+        "label": "5"
+      },
+      "qualification": "Queue task scope only, directory does not establish affiliation with this saved service."
+    },
+    {
+      "id": "kerry-directory-6",
+      "recordId": "A072",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://kerrynotes.com/proxy/vpn-review/page/6/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-3/ead509f2-b0ae-4ce1-b0a4-a9aa9ff17c04.json",
+        "fileSha256": "29558f5dcfabc90288e3b8e0d45afdcf52825e4b2d9a926de220f6d28b397554",
+        "linkIndex": 27,
+        "label": "6"
+      },
+      "qualification": "Queue task scope only, directory does not establish affiliation with this saved service."
+    },
+    {
+      "id": "speedcat-kerry-review",
+      "recordId": "A006",
+      "field": "stability",
+      "url": "https://kerrynotes.com/speedcat-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-6/80eee1f0-e691-48b1-8077-e2aa99b3b345.json",
+        "fileSha256": "72dfdb911e3c83047861bd472124754f4dc31f63ade17a49ee2e7e318d54fb60",
+        "linkIndex": 19,
+        "label": "机场测评\nSpeedCat⚡闪电猫机场怎么样？| IPLC专线机场\nSpeedCat 闪电猫机场简介闪电猫 SpeedCat 机场是一家2022年开业的新机场。机场主是外国人，专业团队来做这个，不是当兼职搞的。他的活动力度都还不错。逢年过节就是全场8折，加上年付也有8折，就是64折了。还是挺有吸引力的。高速...\n2025.12.29\n5"
+      }
+    },
+    {
+      "id": "cyberguard-kerry-review",
+      "recordId": "A047",
+      "field": "stability",
+      "url": "https://kerrynotes.com/cyberguard-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-5/6e167610-29f5-4b03-8641-c562a28fc987.json",
+        "fileSha256": "291b5269d25e3c3fdb9d6dfbb579524bd02ed99a6baa4989cdd9f5a4d6ef17e8",
+        "linkIndex": 19,
+        "label": "机场测评\nCyberGuard机场怎么样？| IEPL专线多入口，主打稳定 + 零日志\nCyberGuard机场简介CyberGuard机场是2023年成立的IEPL专线机场，机场主已肉身翻墙，机场的特点是稳定、快速、零日志。除了基础套餐是500Mbps速率，其余均是1000Mbps。他们的线路入口相比其他专线机场来说更多，有...\n2026.01.10\n8"
+      }
+    },
+    {
+      "id": "wget-kerry-review",
+      "recordId": "A001",
+      "field": "stability",
+      "url": "https://kerrynotes.com/wgetcloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-6/80eee1f0-e691-48b1-8077-e2aa99b3b345.json",
+        "fileSha256": "72dfdb911e3c83047861bd472124754f4dc31f63ade17a49ee2e7e318d54fb60",
+        "linkIndex": 20,
+        "label": "机场测评\nWgetCloud全球加速怎么样？| 主打一个稳定\nWgetCloud 全球加速简介WgetCloud 全球加速（原 GaCloud）是一款主打高端稳定翻墙线路的机场，有着6年的稳定运行经验。它提供多线BGP+双程CN2的优质线路，高达10000Mbps的总线接入能力：主要是阿里云 BGP ...\n2024.09.20\n0"
+      }
+    },
+    {
+      "id": "chickenrun-kerry-review",
+      "recordId": "A062",
+      "field": "speed",
+      "url": "https://kerrynotes.com/xjkp-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-4/93efbf35-4c04-46e2-be73-b4f2abc96b57.json",
+        "fileSha256": "ec35c73c053f1b6130fa01e26ea14520a91de95034804ccb6464486f62f78c3b",
+        "linkIndex": 13,
+        "label": "机场测评\n小鸡快跑机场怎么样？| 全IPLC专线机场\n小鸡快跑是我最近在观察的机场。本文记录使用体验，仅供参考。更新：2024-9-11：新增了一个年包，￥108一年，每个月60GB流量。2024-5-29：针对xj、fj地区，上线了一个特殊地区订阅地址。供所在地区的人使用。2024-5-31...\n2024.09.11\n1"
+      }
+    },
+    {
+      "id": "speedcat-kerry-native",
+      "recordId": "A006",
+      "field": "stability",
+      "url": "https://kerrynotes.com/go/sdm",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "speedcat.xyz"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/speedcat-kerry-review/9f50a5db-24ff-4412-9aa0-cac65c95006a.json",
+        "fileSha256": "ae0a1ff3574fb165de4dcf91707a740792e4a4d3b392f4047a48d56e7bd0275d",
+        "linkIndex": 14,
+        "label": "访问SpeedCat⚡闪电猫机场"
+      }
+    },
+    {
+      "id": "cyberguard-kerry-native",
+      "recordId": "A047",
+      "field": "stability",
+      "url": "https://kerrynotes.com/jc/cyberaff",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "www.cyberguard.best"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/cyberguard-kerry-review/c4b6bc13-e1e3-435a-bfee-7ddd542d2c32.json",
+        "fileSha256": "eed3c5a95dadbc05272aa813225eb8e88a56f564eca20f16bf04f7d1ea07901a",
+        "linkIndex": 14,
+        "label": "访问CyberGuard机场"
+      }
+    },
+    {
+      "id": "chickenrun-kerry-native",
+      "recordId": "A062",
+      "field": "speed",
+      "url": "https://kerrynotes.com/jc/xjj",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "w17.xiaojiweb01.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/chickenrun-kerry-review/cdf0bfdc-f76b-40d0-87dd-ac41e41d47e4.json",
+        "fileSha256": "6b955260957c3c364353a9304aa72fb80e2c52884f8311a01c01eff23665fdda",
+        "linkIndex": 14,
+        "label": "前往小鸡快跑机场"
+      }
+    },
+    {
+      "id": "round32-current-public-a047",
+      "recordId": "A047",
+      "field": "stability",
+      "kind": "current_official",
+      "url": "https://www.cyberguard.best/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtysecond/before.json",
+        "fileSha256": "c9d5d14e0a16d9a37fef697d49fd4d96d2fab11be04aa2acd8aa818fdcb5cbf3",
+        "selection": "frozen_website_url"
+      }
+    },
+    {
+      "id": "dage-kerry-review",
+      "recordId": "A073",
+      "field": "stability",
+      "url": "https://kerrynotes.com/dageyun-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-4/93efbf35-4c04-46e2-be73-b4f2abc96b57.json",
+        "fileSha256": "ec35c73c053f1b6130fa01e26ea14520a91de95034804ccb6464486f62f78c3b",
+        "linkIndex": 19,
+        "label": "机场测评\n大哥云机场怎么样？ | 中转/专线机场，稳定运营5年\n大哥云机场简介大哥云机场，5年老品牌了。老板人在东南亚。机场是 Vmess 和 Trojan 的中转机场，出口是湖南联通和广州移动。50个节点，覆盖香港、日本、台湾、韩国、新加坡、美国、英国、印度、加拿大、越南、菲律宾、泰国等国家地区。有自...\n2025.12.29\n21"
+      }
+    },
+    {
+      "id": "glados-kerry-review",
+      "recordId": "A009",
+      "field": "stability",
+      "url": "https://kerrynotes.com/gladosjc-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-6/80eee1f0-e691-48b1-8077-e2aa99b3b345.json",
+        "fileSha256": "72dfdb911e3c83047861bd472124754f4dc31f63ade17a49ee2e7e318d54fb60",
+        "linkIndex": 14,
+        "label": "机场测评\nGLaDOS机场怎么样？| 免费试用，教育邮箱可以免费1年\nGLaDOS 机场简介GLaDOS 是一家老牌机场，2017年开始运营的。名字有点拗口，但其实是传送门系列游戏里的人工智能，这么看其实是跟机场是很配的。他们提倡先免费试用，感觉好再付费。并且他们对高校学生老师提供一年免费的教育套餐，着实跟其...\n2026.04.15\n17"
+      }
+    },
+    {
+      "id": "dage-kerry-native",
+      "recordId": "A073",
+      "field": "stability",
+      "kind": "native_entry",
+      "allowUnencryptedPublicEntry": false,
+      "url": "https://kerrynotes.com/jc/dgyunaff",
+      "allowedHosts": [
+        "kerrynotes.com",
+        "aff01.zygbx.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/dage-kerry-review/4c524e25-5985-4f15-9fff-e818cf9f0f6f.json",
+        "fileSha256": "0ce731f14b0cf2da91886b633766a6663b00df9791f9fb60ccdb44d78245e2b7",
+        "linkIndex": 14,
+        "label": "访问大哥云机场"
+      }
+    },
+    {
+      "id": "glados-kerry-native",
+      "recordId": "A009",
+      "field": "stability",
+      "kind": "native_entry",
+      "allowUnencryptedPublicEntry": true,
+      "url": "http://go7.uk/glados",
+      "allowedHosts": [
+        "go7.uk",
+        "glados.rocks"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/glados-kerry-review/b9539709-8dac-4018-b9cc-7e03b3274c79.json",
+        "fileSha256": "9e612a19fa918c70ed938275f451af8e9460ae6fac2fe65f37b6386564dd874b",
+        "linkIndex": 14,
+        "label": "访问GLaDOS"
+      }
+    },
+    {
+      "id": "cyberguard-kerry-own-comment-metadata",
+      "recordId": "A047",
+      "field": "stability",
+      "url": "https://kerrynotes.com/cyberguard-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-5/6e167610-29f5-4b03-8641-c562a28fc987.json",
+        "fileSha256": "291b5269d25e3c3fdb9d6dfbb579524bd02ed99a6baa4989cdd9f5a4d6ef17e8",
+        "linkIndex": 19,
+        "label": "机场测评\nCyberGuard机场怎么样？| IEPL专线多入口，主打稳定 + 零日志\nCyberGuard机场简介CyberGuard机场是2023年成立的IEPL专线机场，机场主已肉身翻墙，机场的特点是稳定、快速、零日志。除了基础套餐是500Mbps速率，其余均是1000Mbps。他们的线路入口相比其他专线机场来说更多，有...\n2026.01.10\n8"
+      },
+      "qualification": "One source-specific schema recapture after adding existing own-comment tooltip/native clipboard extraction; not a new source or independent discovery."
+    },
+    {
+      "id": "dage-kerry-own-comment-metadata",
+      "recordId": "A073",
+      "field": "stability",
+      "url": "https://kerrynotes.com/dageyun-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/kerry-directory-4/93efbf35-4c04-46e2-be73-b4f2abc96b57.json",
+        "fileSha256": "ec35c73c053f1b6130fa01e26ea14520a91de95034804ccb6464486f62f78c3b",
+        "linkIndex": 19,
+        "label": "机场测评\n大哥云机场怎么样？ | 中转/专线机场，稳定运营5年\n大哥云机场简介大哥云机场，5年老品牌了。老板人在东南亚。机场是 Vmess 和 Trojan 的中转机场，出口是湖南联通和广州移动。50个节点，覆盖香港、日本、台湾、韩国、新加坡、美国、英国、印度、加拿大、越南、菲律宾、泰国等国家地区。有自...\n2025.12.29\n21"
+      },
+      "qualification": "One source-specific schema recapture after adding existing own-comment tooltip/native clipboard extraction; not a new source or independent discovery."
+    },
+    {
+      "id": "clashx-airport-directory",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://clashx.pro/airport-recommendation/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/laomao-clashx.json",
+        "fileSha256": "1ea9e78842eef6926ad7b01d165f6d46350f9ba72764bcc5118d296be63181b2",
+        "linkIndex": 1,
+        "label": "✅机场推荐"
+      },
+      "qualification": "Public discovery only. Directory task record is not service attribution; article native entry/test image must be reviewed before any speed admission.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Directory discovery task only; directory content is not attribution to this saved service.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "yepfast-clashx-review",
+      "recordId": "A048",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/yepfast-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/laomao-clashx.json",
+        "fileSha256": "1ea9e78842eef6926ad7b01d165f6d46350f9ba72764bcc5118d296be63181b2",
+        "linkIndex": 27,
+        "label": "YepFast 椰皮加速机场测速&评测"
+      },
+      "qualification": "Public discovery only. Directory task record is not service attribution; article native entry/test image must be reviewed before any speed admission.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review native button resolved back to the review article, not the saved current service. November2025 protocol/line upgrade limits the older graphs.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "lightyear-clashx-review",
+      "recordId": "A148",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/lightyearti-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/laomao-clashx.json",
+        "fileSha256": "1ea9e78842eef6926ad7b01d165f6d46350f9ba72764bcc5118d296be63181b2",
+        "linkIndex": 37,
+        "label": "光年梯机场测速&评测"
+      },
+      "qualification": "Public discovery only. Directory task record is not service attribution; article native entry/test image must be reviewed before any speed admission.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review native route closed the connection; no official published entry relation to the saved current host.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "nightfury-clashx-review",
+      "recordId": "A080",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/yeshayun-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 31,
+        "nativeDomIndex": 32,
+        "label": "夜煞云 评测"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed yeshayun.com; fresh saved current website remained Cloudflare-blocked. Exact service relation remains unverified.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ykk-clashx-review",
+      "recordId": "A074",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/ykkcloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 50,
+        "nativeDomIndex": 51,
+        "label": "Ykk 机场评测"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed panel.ykkk.best. Fresh current cloud website explicitly links www.ykkk.best; that native official link encountered CAPTCHA, with no observed panel relation.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "yepfast-clashx-native",
+      "recordId": "A048",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/yepfast",
+      "allowedHosts": [
+        "clashx.pro",
+        "yepfast.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/yepfast-clashx-review/93b06620-eae9-4bbc-be0f-a2c1650581f6.json",
+        "fileSha256": "d73448ddf1e0f115bcd2548af7b00f92d61c9c0af01f06585551bec652803767",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "椰皮机场"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review native button resolved back to the review article, not the saved current service. November2025 protocol/line upgrade limits the older graphs.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "lightyear-clashx-native",
+      "recordId": "A148",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/lightyearti",
+      "allowedHosts": [
+        "clashx.pro",
+        "vv3dbvb.guangnianertt1.homes"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/lightyear-clashx-review/673b974e-7d28-41c7-9c2a-01c1e285a154.json",
+        "fileSha256": "368388d2c6186605f6af1ec334c40988e4fb34cead0c20d989fa83252fd99dd9",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "光年梯"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review native route closed the connection; no official published entry relation to the saved current host.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "guangsu-regional-review",
+      "recordId": "A149",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://jichangnote.com/reviews/guangsu-cloud/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261111-sixth/live/jichangnote-reviews-index.json",
+        "fileSha256": "60013944dd26fe143abdc7e40298f530b1c34e5f29a23916397f44f442c63929",
+        "linkIndex": 58,
+        "nativeDomIndex": null,
+        "label": "光速云机场测评：60个节点测速与套餐分析"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report has real download measurements but explicitly unknown test date. Native publisher list shows other domains; visible expand control remained disabled and auto-navigation changed origin. No exact current-host binding.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "huanyu-jcnotes-review",
+      "recordId": "A152",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://jcnotes.com/airports/hyy/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261111-eighth/live/jcnotes-directory.json",
+        "fileSha256": "9654665e7db8663f4d1c8719d9c69cea8f134527941101ec315198bf31c8de7a",
+        "linkIndex": 24,
+        "nativeDomIndex": null,
+        "label": "寰宇云"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report route observed hyy.52kok.cn; saved current candidate is a different global-cloud branded domain behind a new agreement gate. Do not transfer measurements across the brand conflict.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "nightfury-clashx-native",
+      "recordId": "A080",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/yesha",
+      "allowedHosts": [
+        "clashx.pro",
+        "www.night-furyx.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/nightfury-clashx-review/8418462b-982e-4757-bc18-41cdd5a4d040.json",
+        "fileSha256": "8d97d6820699bbbbf01f60554a1b106e95f107254dba0aaa2a7190793a640155",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "夜煞云官网"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed yeshayun.com; fresh saved current website remained Cloudflare-blocked. Exact service relation remains unverified.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ykk-clashx-native",
+      "recordId": "A074",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/ykkcloud",
+      "allowedHosts": [
+        "clashx.pro",
+        "cloud.ykkk.tech"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/ykk-clashx-review/0a145911-a531-40fe-a09e-b683ff7d81d7.json",
+        "fileSha256": "eb2c9e8988d63ea240179ad63fe37e717c432777ea9779077a68a2f7ac24ff8e",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "YkkCloud"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed panel.ykkk.best. Fresh current cloud website explicitly links www.ykkk.best; that native official link encountered CAPTCHA, with no observed panel relation.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "guangsu-regional-native",
+      "recordId": "A149",
+      "field": "speed",
+      "kind": "native_entry",
+      "allowNativeReferralFragment": true,
+      "url": "https://mdlky.gsyaff.com/#/?code=CInYE5m0",
+      "allowedHosts": [
+        "mdlky.gsyaff.com",
+        "efbng.guangzssytt.buzz"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/guangsu-regional-review/bd3e826e-c683-47e8-ba4d-679e48ad3fa8.json",
+        "fileSha256": "6f172b51f94431701f5256beaef818be116912de8245f8c13e143608b99c7b02",
+        "linkIndex": 11,
+        "nativeDomIndex": 11,
+        "label": "查看光速云官网\n（在新窗口打开，推广链接）"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report has real download measurements but explicitly unknown test date. Native publisher list shows other domains; visible expand control remained disabled and auto-navigation changed origin. No exact current-host binding.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "huanyu-jcnotes-native",
+      "recordId": "A152",
+      "field": "speed",
+      "kind": "native_entry",
+      "allowNativeReferralFragment": true,
+      "url": "https://go7.uk/hyy",
+      "allowedHosts": [
+        "go7.uk",
+        "dv2dsdgf.quanqiugttt1.club"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/huanyu-jcnotes-review/b9ae64df-115f-4018-86ff-ff983defbb5a.json",
+        "fileSha256": "151f26b4c18d1d31859537c92a46169c017e7eb88d09e91542da3d9386c1af6a",
+        "linkIndex": 7,
+        "nativeDomIndex": 7,
+        "label": "查看官网套餐 →"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report route observed hyy.52kok.cn; saved current candidate is a different global-cloud branded domain behind a new agreement gate. Do not transfer measurements across the brand conflict.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "a074-current-official-p33",
+      "recordId": "A074",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://cloud.ykkk.tech/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtythird/before.json",
+        "fileSha256": "f0c96b8256cc0f3ca09e1b844e763d843b0985d31c4298965b1c212710982515",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "Public fresh official entry only, no login or attribution upgrade.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed panel.ykkk.best. Fresh current cloud website explicitly links www.ykkk.best; that native official link encountered CAPTCHA, with no observed panel relation.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "a080-current-official-p33",
+      "recordId": "A080",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://www.night-furyx.com/index.php",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtythird/before.json",
+        "fileSha256": "f0c96b8256cc0f3ca09e1b844e763d843b0985d31c4298965b1c212710982515",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "Public fresh official entry only, no login or attribution upgrade.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed yeshayun.com; fresh saved current website remained Cloudflare-blocked. Exact service relation remains unverified.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "a152-current-official-p33",
+      "recordId": "A152",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://dv2dsdgf.quanqiugttt1.club/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtythird/before.json",
+        "fileSha256": "f0c96b8256cc0f3ca09e1b844e763d843b0985d31c4298965b1c212710982515",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "Public fresh official entry only, no login or attribution upgrade.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report route observed hyy.52kok.cn; saved current candidate is a different global-cloud branded domain behind a new agreement gate. Do not transfer measurements across the brand conflict.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ykk-official-native-login-p33",
+      "recordId": "A074",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://www.ykkk.best/",
+      "allowedHosts": [
+        "www.ykkk.best",
+        "panel.ykkk.best",
+        "cloud.ykkk.tech"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/a074-current-official-p33/4596a40e-c05d-4262-82b4-61796c165f8e.json",
+        "fileSha256": "03f04c90d66bfc41930a22b7b5b14fa5cab4b4f3c50bdb5535b8deba40ab8c33",
+        "linkIndex": 0,
+        "nativeDomIndex": 0
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed panel.ykkk.best. Fresh current cloud website explicitly links www.ykkk.best; that native official link encountered CAPTCHA, with no observed panel relation.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "guangsu-publisher-expanded-p33",
+      "recordId": "A149",
+      "field": "speed",
+      "kind": "native_entry",
+      "allowNativeReferralFragment": true,
+      "url": "https://mdlky.gsyaff.com/#/?code=CInYE5m0",
+      "allowedHosts": [
+        "mdlky.gsyaff.com",
+        "efbng.guangzssytt.buzz"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/guangsu-regional-review/bd3e826e-c683-47e8-ba4d-679e48ad3fa8.json",
+        "fileSha256": "6f172b51f94431701f5256beaef818be116912de8245f8c13e143608b99c7b02",
+        "linkIndex": 11,
+        "nativeDomIndex": 11,
+        "label": "查看光速云官网\n（在新窗口打开，推广链接）"
+      },
+      "visibleExpansion": {
+        "kind": "visible_list_expansion",
+        "text": "显示更多",
+        "nativeObservation": {
+          "file": "work/performance-discovery/A149-a64119ea-032e-42c9-8e21-6b87db328b5b-16bf66e4-9c97-4604-947f-643fc5fc39cb/capture-0.json",
+          "fileSha256": "c2b1dff686a4add0d4ea503beb83a58c62aefd2cfb126d39da2e786e94578e5a"
+        }
+      },
+      "recaptureReason": "Prior raw explicitly displayed only5 of14; one visible readonly expansion, not a separate source or independent test.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report has real download measurements but explicitly unknown test date. Native publisher list shows other domains; visible expand control remained disabled and auto-navigation changed origin. No exact current-host binding.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "guangsu-publisher-expansion-ready-p33",
+      "recordId": "A149",
+      "field": "speed",
+      "kind": "native_entry",
+      "allowNativeReferralFragment": true,
+      "url": "https://mdlky.gsyaff.com/#/?code=CInYE5m0",
+      "allowedHosts": [
+        "mdlky.gsyaff.com",
+        "efbng.guangzssytt.buzz"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/guangsu-regional-review/bd3e826e-c683-47e8-ba4d-679e48ad3fa8.json",
+        "fileSha256": "6f172b51f94431701f5256beaef818be116912de8245f8c13e143608b99c7b02",
+        "linkIndex": 11,
+        "nativeDomIndex": 11,
+        "label": "查看光速云官网\n（在新窗口打开，推广链接）"
+      },
+      "visibleExpansion": {
+        "kind": "visible_list_expansion",
+        "text": "显示更多",
+        "nativeObservation": {
+          "file": "work/performance-discovery/A149-a64119ea-032e-42c9-8e21-6b87db328b5b-16bf66e4-9c97-4604-947f-643fc5fc39cb/capture-0.json",
+          "fileSha256": "c2b1dff686a4add0d4ea503beb83a58c62aefd2cfb126d39da2e786e94578e5a"
+        }
+      },
+      "recaptureReason": "First visible button remained disabled during1500ms; allow one bounded5000ms native enabled wait; no forced click and no verification.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New report has real download measurements but explicitly unknown test date. Native publisher list shows other domains; visible expand control remained disabled and auto-navigation changed origin. No exact current-host binding.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ykk-clashx-media-final-p33",
+      "recordId": "A074",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/ykkcloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 50,
+        "nativeDomIndex": 51,
+        "label": "Ykk 机场评测"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New review route observed panel.ykkk.best. Fresh current cloud website explicitly links www.ykkk.best; that native official link encountered CAPTCHA, with no observed panel relation.",
+        "evidenceReport": "work/performance-20261113-thirtythird/candidate-review.json",
+        "businessFieldAdmitted": false
+      },
+      "recaptureReason": "One same-source regression of native lazy-loaded images after excluding shared placeholder and duplicate bytes; unchanged attribution hold, not independent evidence."
+    },
+    {
+      "id": "eggtart-clashx-p34",
+      "recordId": "A077",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/eggtart-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 131,
+        "nativeDomIndex": 132,
+        "label": "蛋挞云 评测"
+      },
+      "qualification": "New publisher discovery only; no release of old alias holds or current measurement claim."
+    },
+    {
+      "id": "flashfox-clashx-p34",
+      "recordId": "A064",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/flashfox-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 46,
+        "nativeDomIndex": 47,
+        "label": "闪狐云机场评测"
+      },
+      "qualification": "New publisher discovery only; no release of old alias holds or current measurement claim."
+    },
+    {
+      "id": "cocoduck-clashx-p34",
+      "recordId": "A083",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/cocoduck-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 82,
+        "nativeDomIndex": 83,
+        "label": "COCODUCK 评测"
+      },
+      "qualification": "New publisher discovery only; no release of old alias holds or current measurement claim."
+    },
+    {
+      "id": "tnt-clashx-p34",
+      "recordId": "A051",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/tnt-cloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 71,
+        "nativeDomIndex": 72,
+        "label": "TNT Cloud 评测"
+      },
+      "qualification": "New publisher discovery only; no release of old alias holds or current measurement claim."
+    },
+    {
+      "id": "eggtart-clashx-p34-native",
+      "recordId": "A077",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/eggtart",
+      "allowedHosts": [
+        "clashx.pro",
+        "eggtart.pro"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/eggtart-clashx-p34/144deabf-d109-4c7d-9213-b80baa136699.json",
+        "fileSha256": "cf4e91926b6f32258673790c0561e23c9791543e0136797e6094550e197bd664",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "蛋挞云机场"
+      }
+    },
+    {
+      "id": "flashfox-clashx-p34-native",
+      "recordId": "A064",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/flashfox",
+      "allowedHosts": [
+        "clashx.pro",
+        "flashfox.pro"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flashfox-clashx-p34/c7ec9fa2-89d9-4f2c-8b16-26f0a601fea3.json",
+        "fileSha256": "c33d3e0f1a8cbeac3a1fdb4a48ad0511af1cf6c6a82f0514ffee9a3e186eaf55",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "闪狐云机场"
+      }
+    },
+    {
+      "id": "cocoduck-clashx-p34-native",
+      "recordId": "A083",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/cocoduck",
+      "allowedHosts": [
+        "clashx.pro",
+        "home.cocoduck.co"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/cocoduck-clashx-p34/bfa1e6ee-2a4d-440d-a54a-8599c9d8c458.json",
+        "fileSha256": "c4feec667b4906bed49824acb9e07693ebdc986a634e4b525deee3d10e2e99df",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "COCODUCK 机场"
+      }
+    },
+    {
+      "id": "tnt-clashx-p34-native",
+      "recordId": "A051",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/tntcloud",
+      "allowedHosts": [
+        "clashx.pro",
+        "tntvipaffb01.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-clashx-p34/a934e10c-21fb-4c9a-af62-f0d7ea76f593.json",
+        "fileSha256": "c92532f909c136b13c01623266898c002d070328f4f4ab81ad9cc052ad76c41b",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "TNT Cloud 机场"
+      }
+    },
+    {
+      "id": "tnt-current-official-p34",
+      "recordId": "A051",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://tntvipaffb01.cc/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyfourth/before.json",
+        "fileSha256": "6b84062e50bbe0a46a319c8eab84fd301ab23e774131c38a6d1eee777c8b1943",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One fresh current operator public entry to check newly observed a05 relation; no login or same-root inference."
+    },
+    {
+      "id": "chicken-clashx-p35",
+      "recordId": "A062",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/chicken-run-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 69,
+        "nativeDomIndex": 70,
+        "label": "小鸡快跑 评测"
+      },
+      "qualification": "Public discovery only; Galaxy task record does not establish A070 versus A082 identity. Prior affiliate holds stay intact.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New Clashx native entry observed ccv2.xiaojikp.pro, no exact saved current w17.xiaojiweb01.cc relationship established.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "flyingbird-clashx-p35",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/flyingbird-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 78,
+        "nativeDomIndex": 79,
+        "label": "FlyingBird 评测"
+      },
+      "qualification": "Public discovery only; Galaxy task record does not establish A070 versus A082 identity. Prior affiliate holds stay intact.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Clashx first native destination unknown and retained as unknown; new Shadowrocket separately observed fba01.fbva-hen.cc. Selected current official originals contain no exact published relationship.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "galaxy-clashx-p35",
+      "recordId": "A070",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://clashx.pro/galaxy-cloud-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/clashx-airport-directory/ebd95917-cf38-480e-ba99-00e628560076.json",
+        "fileSha256": "cfdca9b29cb51b85343ef9ee641cca1ab89331420b617bbf775384edbeefae84",
+        "linkIndex": 80,
+        "nativeDomIndex": 81,
+        "label": "银河云 评测"
+      },
+      "qualification": "Public discovery only; Galaxy task record does not establish A070 versus A082 identity. Prior affiliate holds stay intact.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Galaxy new Shadowrocket observed inv01.galaxyaff.cc; selected current A070/A082 originals do not establish this entry relationship. Do not allocate it to either record by name.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "chicken-clashx-p35-native",
+      "recordId": "A062",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/chickenrun",
+      "allowedHosts": [
+        "clashx.pro",
+        "w17.xiaojiweb01.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/chicken-clashx-p35/a53aaf06-6b0e-4188-bfa4-d87e416f71c0.json",
+        "fileSha256": "b18aa00b324fb01a06ff34157ecf99a8e4321137b593fd5c40687ea63bc17b9f",
+        "linkIndex": 12,
+        "nativeDomIndex": 13,
+        "label": "小鸡快跑机场"
+      },
+      "qualification": "Public native entry observation only; saved Galaxy alternatives are not assumed equivalent.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New Clashx native entry observed ccv2.xiaojikp.pro, no exact saved current w17.xiaojiweb01.cc relationship established.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "flyingbird-clashx-p35-native",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/flyingbird",
+      "allowedHosts": [
+        "clashx.pro",
+        "flyingbird.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flyingbird-clashx-p35/1d5a6874-9b7d-4490-911c-bb3243aed192.json",
+        "fileSha256": "a974b3965dfd8b6be8cb542eb56d84e847a70d25400e69d1a8b5391a361c6c18",
+        "linkIndex": 13,
+        "nativeDomIndex": 14,
+        "label": "FlyingBird 飞鸟官网"
+      },
+      "qualification": "Public native entry observation only; saved Galaxy alternatives are not assumed equivalent.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Clashx first native destination unknown and retained as unknown; new Shadowrocket separately observed fba01.fbva-hen.cc. Selected current official originals contain no exact published relationship.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "galaxy-clashx-p35-native",
+      "recordId": "A070",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://clashx.pro/galaxycloud",
+      "allowedHosts": [
+        "clashx.pro",
+        "galaxycloud.cc",
+        "galaxycloud.homes"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/galaxy-clashx-p35/732c0307-76d5-4ac9-82d5-594138cd54b4.json",
+        "fileSha256": "e998c5ab7613012d0229c6bdabd47a0c7f8b42471a15f6d5c1ae7ee3cd9e737e",
+        "linkIndex": 12,
+        "nativeDomIndex": 13,
+        "label": "银河云机场"
+      },
+      "qualification": "Public native entry observation only; saved Galaxy alternatives are not assumed equivalent.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Galaxy new Shadowrocket observed inv01.galaxyaff.cc; selected current A070/A082 originals do not establish this entry relationship. Do not allocate it to either record by name.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-review-directory-p35",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-sixteenth/next-speed-originals/A197-article.json",
+        "fileSha256": "aebe03b4dd4e9616531b15ea6aff262c86a6e98db075f0cb82fee925b9a66080",
+        "linkIndex": 7,
+        "label": "机场评测"
+      },
+      "qualification": "New publisher directory only. Task site is not content attribution; no original old-brand hold release.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-laomao-tag-p35",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/tag/%e8%80%81%e7%8c%ab%e4%ba%91/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-sixteenth/next-speed-originals/A197-article.json",
+        "fileSha256": "aebe03b4dd4e9616531b15ea6aff262c86a6e98db075f0cb82fee925b9a66080",
+        "linkIndex": 194,
+        "label": "老猫云"
+      },
+      "qualification": "New publisher directory only. Task site is not content attribution; no original old-brand hold release.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "laomao-shadowrocket-p35",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://shadowrocket.one/laomao-cloud-trojan-iepl/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-laomao-tag-p35/be1f22f3-2aa8-4d07-afb3-0608ad9904f2.json",
+        "fileSha256": "bd96d7a75cfb6ae748df0152c16a16301dd9f5eafe1af03d56588d579572db2f",
+        "linkIndex": 5,
+        "nativeDomIndex": 7,
+        "label": ""
+      },
+      "qualification": "Read new native publisher source only; pagination task is not service attribution; exact current binding and measurement qualification still required.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New image prints55laomao.com, but23 selected registered current original files have no such publication. New native article route pointslaomao.biz, which remains unclosed to33.33laomao.com.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-2-p35",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/2/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-review-directory-p35/b5068d7d-5518-467a-96ee-f52cb57c0243.json",
+        "fileSha256": "90b2051b4956b54d459b7354782d02514282da88863665e091a2ea4740c3204c",
+        "linkIndex": 46,
+        "nativeDomIndex": 48,
+        "label": "2"
+      },
+      "qualification": "Read new native publisher source only; pagination task is not service attribution; exact current binding and measurement qualification still required.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-3-p35",
+      "recordId": "A024",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/3/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-review-directory-p35/b5068d7d-5518-467a-96ee-f52cb57c0243.json",
+        "fileSha256": "90b2051b4956b54d459b7354782d02514282da88863665e091a2ea4740c3204c",
+        "linkIndex": 47,
+        "nativeDomIndex": 49,
+        "label": "3"
+      },
+      "qualification": "Read new native publisher source only; pagination task is not service attribution; exact current binding and measurement qualification still required.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-9-p35",
+      "recordId": "A023",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/9/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-review-directory-p35/b5068d7d-5518-467a-96ee-f52cb57c0243.json",
+        "fileSha256": "90b2051b4956b54d459b7354782d02514282da88863665e091a2ea4740c3204c",
+        "linkIndex": 48,
+        "nativeDomIndex": 51,
+        "label": "9"
+      },
+      "qualification": "Read new native publisher source only; pagination task is not service attribution; exact current binding and measurement qualification still required.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "laomao-shadowrocket-media-p35",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://shadowrocket.one/wp-content/uploads/2024/12/%E8%80%81%E7%8C%AB%E4%BA%91%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F%E5%8F%8A%E6%B5%81%E5%AA%92%E4%BD%93%E8%A7%A3%E9%94%81.webp",
+      "allowedHosts": [
+        "shadowrocket.one",
+        "33.33laomao.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/laomao-shadowrocket-p35/26d92118-b1aa-4cf3-91f1-38466f455979.json",
+        "fileSha256": "56c04b8e32419dfedaa2c62fc71e766d19920e911663258677aa25fea791a6e8",
+        "linkIndex": 10,
+        "nativeDomIndex": 12,
+        "label": ""
+      },
+      "qualification": "Actual observed native image/link only. Article CAPTCHA was a visible comment form, no interaction; official relationship still requires exact evidence.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New image prints55laomao.com, but23 selected registered current original files have no such publication. New native article route pointslaomao.biz, which remains unclosed to33.33laomao.com.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "laomao-shadowrocket-native-p35",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://shadowrocket.one/laomaocloud",
+      "allowedHosts": [
+        "shadowrocket.one",
+        "33.33laomao.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/laomao-shadowrocket-p35/26d92118-b1aa-4cf3-91f1-38466f455979.json",
+        "fileSha256": "56c04b8e32419dfedaa2c62fc71e766d19920e911663258677aa25fea791a6e8",
+        "linkIndex": 7,
+        "nativeDomIndex": 9,
+        "label": "老猫云官网"
+      },
+      "qualification": "Actual observed native image/link only. Article CAPTCHA was a visible comment form, no interaction; official relationship still requires exact evidence.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New image prints55laomao.com, but23 selected registered current original files have no such publication. New native article route pointslaomao.biz, which remains unclosed to33.33laomao.com.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-4-p35",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/4/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-3-p35/d0fc3cef-7fa5-4319-af66-23d18bfd76ee.json",
+        "fileSha256": "159199e0410aacbd8e0745122c12e480109e721b387a2ee647d432f5fbd3c4d4",
+        "linkIndex": 49,
+        "nativeDomIndex": 51,
+        "label": "4"
+      },
+      "qualification": "Single unread native directory page only; task record is not attribution.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-5-p35",
+      "recordId": "A069",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/5/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-3-p35/d0fc3cef-7fa5-4319-af66-23d18bfd76ee.json",
+        "fileSha256": "159199e0410aacbd8e0745122c12e480109e721b387a2ee647d432f5fbd3c4d4",
+        "linkIndex": 50,
+        "nativeDomIndex": 52,
+        "label": "5"
+      },
+      "qualification": "Single unread native directory page only; task record is not attribution.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-7-p35",
+      "recordId": "A024",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/7/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-9-p35/ec3d5922-8a54-4564-9f97-5660bf82399b.json",
+        "fileSha256": "80b26774b5d0d3246777570d62f2420945e5a942a63bbec6b09c966bebb675a0",
+        "linkIndex": 16,
+        "nativeDomIndex": 19,
+        "label": "7"
+      },
+      "qualification": "Single unread native directory page only; task record is not attribution.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "shadowrocket-directory-8-p35",
+      "recordId": "A034",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://shadowrocket.one/%e6%9c%ba%e5%9c%ba%e8%af%84%e6%b5%8b/page/8/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-9-p35/ec3d5922-8a54-4564-9f97-5660bf82399b.json",
+        "fileSha256": "80b26774b5d0d3246777570d62f2420945e5a942a63bbec6b09c966bebb675a0",
+        "linkIndex": 14,
+        "nativeDomIndex": 16,
+        "label": "«"
+      },
+      "qualification": "Single unread native directory page only; task record is not attribution.",
+      "reviewDisposition": {
+        "status": "discovery_directory_only",
+        "reason": "Native directory only; task record is not service attribution.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ninja-shadowrocket-p35",
+      "recordId": "A024",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://shadowrocket.one/renzhe-cloud-ssr-relay/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-7-p35/1d79c9c7-def2-42a4-8e16-2efc2d579922.json",
+        "fileSha256": "4a923e2df6b05c8871fc6008ac7e44cbbb53dd9b52a1948f1be77c15093e5fe0",
+        "linkIndex": 18,
+        "nativeDomIndex": 20,
+        "label": ""
+      },
+      "qualification": "Fresh new publisher article only; no same-name or old alias transfer.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New native source pointsrenzhe.cloud; saved app5.ninjiacloud.online originals have no corresponding published host and retain brand conflict.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "flyingbird-shadowrocket-p35",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://shadowrocket.one/flyingbird-ss-iplc/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-8-p35/f456d020-55b4-4934-81b2-7f165396eb53.json",
+        "fileSha256": "4f3935d41fdbb110f0258d909c27b748df469de6d391d06f117f796b6952d831",
+        "linkIndex": 22,
+        "nativeDomIndex": 24,
+        "label": ""
+      },
+      "qualification": "Fresh new publisher article only; no same-name or old alias transfer.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Clashx first native destination unknown and retained as unknown; new Shadowrocket separately observed fba01.fbva-hen.cc. Selected current official originals contain no exact published relationship.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "galaxy-shadowrocket-p35",
+      "recordId": "A070",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://shadowrocket.one/galaxy-cloud-trojan-iplc/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-directory-4-p35/272925ac-7b44-4323-944d-806b9eff5d86.json",
+        "fileSha256": "73d329bbb55baf72cf0bc2ac617691e20729ad09ef7d7c17c2e208eb25995e64",
+        "linkIndex": 22,
+        "nativeDomIndex": 24,
+        "label": ""
+      },
+      "qualification": "Fresh new publisher article only; no same-name or old alias transfer.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Galaxy new Shadowrocket observed inv01.galaxyaff.cc; selected current A070/A082 originals do not establish this entry relationship. Do not allocate it to either record by name.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "laomao-shadowrocket-comment-repair-p35",
+      "recordId": "A035",
+      "field": "speed",
+      "kind": "publisher_review",
+      "url": "https://shadowrocket.one/laomao-cloud-trojan-iepl/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/shadowrocket-laomao-tag-p35/be1f22f3-2aa8-4d07-afb3-0608ad9904f2.json",
+        "fileSha256": "bd96d7a75cfb6ae748df0152c16a16301dd9f5eafe1af03d56588d579572db2f",
+        "linkIndex": 5,
+        "nativeDomIndex": 7,
+        "label": ""
+      },
+      "qualification": "Read new native publisher source only; pagination task is not service attribution; exact current binding and measurement qualification still required.",
+      "recaptureReason": "One same-public-article runtime regression after distinguishing native commentform captcha from access gate; no captcha interaction; not a new independent source.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New image prints55laomao.com, but23 selected registered current original files have no such publication. New native article route pointslaomao.biz, which remains unclosed to33.33laomao.com.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "ninja-shadowrocket-p35-native",
+      "recordId": "A024",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://shadowrocket.one/renzhe",
+      "allowedHosts": [
+        "shadowrocket.one",
+        "app5.ninjiacloud.online"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/ninja-shadowrocket-p35/04e0443f-8ad4-4de7-824f-a9f883373f16.json",
+        "fileSha256": "bc448ad38b56f7f460b463fc66787e64f66835139e2e5ba26d892d4a3d334cae",
+        "linkIndex": 7,
+        "nativeDomIndex": 9,
+        "label": "忍者云机场"
+      },
+      "qualification": "One native destination observation after concrete commentform classification repair; not retrying earlier Clashx destinations.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New native source pointsrenzhe.cloud; saved app5.ninjiacloud.online originals have no corresponding published host and retain brand conflict.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "flyingbird-shadowrocket-p35-native",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://shadowrocket.one/flyingbird",
+      "allowedHosts": [
+        "shadowrocket.one",
+        "flyingbird.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flyingbird-shadowrocket-p35/e765fa35-d18e-47ea-852f-4f607a9aa427.json",
+        "fileSha256": "ecaa4a9d63f12466927ffc6533947d5d879d696ea6d118b90647141b2565f330",
+        "linkIndex": 7,
+        "nativeDomIndex": 9,
+        "label": ""
+      },
+      "qualification": "One native destination observation after concrete commentform classification repair; not retrying earlier Clashx destinations.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Clashx first native destination unknown and retained as unknown; new Shadowrocket separately observed fba01.fbva-hen.cc. Selected current official originals contain no exact published relationship.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "galaxy-shadowrocket-p35-native",
+      "recordId": "A070",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://shadowrocket.one/galaxycloud",
+      "allowedHosts": [
+        "shadowrocket.one",
+        "galaxycloud.cc",
+        "galaxycloud.homes"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/galaxy-shadowrocket-p35/a25e1b08-3f92-4a17-b271-309f74411d1d.json",
+        "fileSha256": "79cb9df2b01f0b156b2f4d423e79947f95083b9604aa5400cb6618b40a3e091d",
+        "linkIndex": 7,
+        "nativeDomIndex": 9,
+        "label": "银河云官网"
+      },
+      "qualification": "One native destination observation after concrete commentform classification repair; not retrying earlier Clashx destinations.",
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "Galaxy new Shadowrocket observed inv01.galaxyaff.cc; selected current A070/A082 originals do not establish this entry relationship. Do not allocate it to either record by name.",
+        "evidenceReport": "work/performance-20261113-thirtyfifth/candidate-review.json",
+        "businessFieldAdmitted": false
+      }
+    },
+    {
+      "id": "askahh-airport-overview-p36",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://www.askahh.com/archives/24/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/askahh-speed-directory-2.json",
+        "fileSha256": "627ed69cb19c4dae10b41622ff0e74baba6d86fae317cc0bc7a26d479ae8ffe0",
+        "linkIndex": 40,
+        "label": "机场概览"
+      },
+      "qualification": "Read new publisher overview only; task record is not content attribution; source must supply current relationship and true measurement."
+    },
+    {
+      "id": "official-performance-leads-a023-p36",
+      "recordId": "A023",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://justmysocks.net/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtysixth/before.json",
+        "fileSha256": "603d3bd2408264fd52fe55460a26ea9576a8dead490e603bbbf6481e23532a28",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One fresh public current-operator page to find native new performance/announcement links, no account state, not an old Cloudflare retry, no availability or measurement claim."
+    },
+    {
+      "id": "official-performance-leads-a034-p36",
+      "recordId": "A034",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://prpr.96110.cn.com/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtysixth/before.json",
+        "fileSha256": "603d3bd2408264fd52fe55460a26ea9576a8dead490e603bbbf6481e23532a28",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One fresh public current-operator page to find native new performance/announcement links, no account state, not an old Cloudflare retry, no availability or measurement claim."
+    },
+    {
+      "id": "official-performance-leads-a069-p36",
+      "recordId": "A069",
+      "field": "speed",
+      "kind": "official_public_entry",
+      "url": "https://guolicheng.cc/index.php",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtysixth/before.json",
+        "fileSha256": "603d3bd2408264fd52fe55460a26ea9576a8dead490e603bbbf6481e23532a28",
+        "selection": "frozen_website_url"
+      },
+      "qualification": "One fresh public current-operator page to find native new performance/announcement links, no account state, not an old Cloudflare retry, no availability or measurement claim."
+    },
+    {
+      "id": "askahh-cheap-directory-p36",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "publisher_directory_discovery_only",
+      "url": "https://www.askahh.com/archives/9/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentyfourth/live/askahh-speed-directory-4.json",
+        "fileSha256": "20f30b0e18edea47e7aad6de4c5a6a723f29529a65fca30a200af2baa50106b5",
+        "linkIndex": 24,
+        "label": "便宜机场汇总"
+      },
+      "qualification": "Discovery directory only, not a saved-service statement."
+    },
+    {
+      "id": "jms-native-network-status-p36",
+      "recordId": "A023",
+      "field": "stability",
+      "kind": "official_public_entry",
+      "url": "https://justmysocks.net/members/serverstatus.php",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/official-performance-leads-a023-p36/f7ee8474-1595-4fe9-89b2-8de64213b7b1.json",
+        "fileSha256": "68d641a41a5aeb661335eecbece786aa85aef329418ccb8e887df9972a024f33",
+        "linkIndex": 9,
+        "nativeDomIndex": 9,
+        "label": "Network Status"
+      },
+      "qualification": "Public status read only. Empty/current status is not historical uptime; require explicit window and denominator before any stability qualification."
+    },
+    {
+      "id": "jichangzhu-speed-directory-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-fourteenth/live/history-flashfox-source.json",
+        "fileSha256": "21bc7e316f206bdc254d0d60850e63ed2feac624df557474faf3f081601e45cb",
+        "linkIndex": 5,
+        "label": "机场测速"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.214Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-directory-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twelfth/live/shunyun-opening-identity.json",
+        "fileSha256": "d71b75eb8971a6d5b2e8a40eff190efcca408c060a00f6a28dba092a1b10e4ae",
+        "linkIndex": 3,
+        "label": "机场测评"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "jichangtuijian-cheap-directory-p37",
+      "recordId": "A190",
+      "field": "speed",
+      "url": "https://jichangtuijian1.com/pianyijichang",
+      "nativeDiscovery": {
+        "file": "work/performance-20261112-twentysecond/live/anyland-review.json",
+        "fileSha256": "e753885b0c8f1fb2cc018db2bebdd8af2293a06f8e002c5b658ac800a684e13b",
+        "linkIndex": 2,
+        "label": "便宜机场"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flyingbird-jichangzhu-speed-p37",
+      "recordId": "A065",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/flyingbird-speedtest-dgdx-20260113/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-speed-directory-p37/8cd47eae-2c8f-4d82-a75b-69b442e8b3fd.json",
+        "fileSha256": "6d9c4882b9e6ba77b570e4627cbf76492778fb4d559c8bbe5191c1c38cf08e89",
+        "linkIndex": 53,
+        "label": "飞鸟机场 东莞电信 2026-01-13"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flashfox-jichangzhu-speed-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/flashfox-speedtest-dgdx-20260113/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-speed-directory-p37/8cd47eae-2c8f-4d82-a75b-69b442e8b3fd.json",
+        "fileSha256": "6d9c4882b9e6ba77b570e4627cbf76492778fb4d559c8bbe5191c1c38cf08e89",
+        "linkIndex": 57,
+        "label": "闪狐云机场 东莞电信 2026-01-13"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "tnt-jichangzhu-speed-p37",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/tntcloud-speedtest-gxyd-20251004/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-speed-directory-p37/8cd47eae-2c8f-4d82-a75b-69b442e8b3fd.json",
+        "fileSha256": "6d9c4882b9e6ba77b570e4627cbf76492778fb4d559c8bbe5191c1c38cf08e89",
+        "linkIndex": 93,
+        "label": "TNTCloud机场 广西移动 2025-10-04"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flyingbird-jichangzhu-image-p37",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://static.jichangzhu.com/wp-content/uploads/2026/01/24145959/1769266786-FlyingBird-SpeedTest-DGDX-20260113-scaled.png",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flyingbird-jichangzhu-speed-p37/a4c55479-14c6-4ab4-a129-c0c14c5b4957.json",
+        "fileSha256": "140042d7b79ac5c3667946bf98ce55b272a094edb9e659843d9fc484148ca6f9",
+        "linkIndex": 14,
+        "label": ""
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flyingbird-jichangzhu-identity-p37",
+      "recordId": "A065",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/flyingbird/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flyingbird-jichangzhu-speed-p37/a4c55479-14c6-4ab4-a129-c0c14c5b4957.json",
+        "fileSha256": "140042d7b79ac5c3667946bf98ce55b272a094edb9e659843d9fc484148ca6f9",
+        "linkIndex": 16,
+        "label": "飞鸟机场"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flashfox-jichangzhu-image-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://static.jichangzhu.com/wp-content/uploads/2026/01/24144957/1769266186-flashfox-SpeedTest-DGDX-20260113-scaled.png",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flashfox-jichangzhu-speed-p37/1186d59b-6083-4ce0-b9f5-190ee2ce665b.json",
+        "fileSha256": "1276abbd3d696503ec0a45cf83d1b0f5ddef81e699dc7c9e0dba5f0278bb3ed1",
+        "linkIndex": 14,
+        "label": ""
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flashfox-jichangzhu-identity-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/flashfox/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flashfox-jichangzhu-speed-p37/1186d59b-6083-4ce0-b9f5-190ee2ce665b.json",
+        "fileSha256": "1276abbd3d696503ec0a45cf83d1b0f5ddef81e699dc7c9e0dba5f0278bb3ed1",
+        "linkIndex": 16,
+        "label": "闪狐云机场"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "tnt-jichangzhu-image-p37",
+      "recordId": "A051",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://static.jichangzhu.com/wp-content/uploads/2025/10/06120859/1759752482-TNTCloud-SpeedTest-GXYD-20251004-scaled.png",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-jichangzhu-speed-p37/7a5d707c-1c55-4e29-b3ce-c6dee7947d2a.json",
+        "fileSha256": "02c755cc25d52f31c9356e81d6438c5c1d638300af2a549d22de154506201e4c",
+        "linkIndex": 14,
+        "label": ""
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "tnt-jichangzhu-identity-p37",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/tntcloud/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-jichangzhu-speed-p37/7a5d707c-1c55-4e29-b3ce-c6dee7947d2a.json",
+        "fileSha256": "02c755cc25d52f31c9356e81d6438c5c1d638300af2a549d22de154506201e4c",
+        "linkIndex": 16,
+        "label": "TNTCloud机场"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flyingbird-jichangzhu-native-p37",
+      "recordId": "A065",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://c.jichangzhu.org/goto/flyingbird/",
+      "allowedHosts": [
+        "c.jichangzhu.org",
+        "flyingbird.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flyingbird-jichangzhu-identity-p37/ed55575c-fe59-464f-bafb-7fe7520e0e22.json",
+        "fileSha256": "c13d0be03967d86577e5898dcf1e050b4b51c03c779fbe5c81f7dd47422ec95e",
+        "linkIndex": 14,
+        "label": "访问 飞鸟机场 官网"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flashfox-jichangzhu-native-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://c.jichangzhu.org/goto/flashfox/",
+      "allowedHosts": [
+        "c.jichangzhu.org",
+        "flashfox.pro"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/flashfox-jichangzhu-identity-p37/8490fb71-b44e-47b0-89d2-d1ddfab5c3e6.json",
+        "fileSha256": "6a36a224cb7ecbc2e1620c61167ab13123c091b9e87f4ffbd197beb13d5a0714",
+        "linkIndex": 14,
+        "label": "访问 闪狐云机场 官网"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "tnt-jichangzhu-native-p37",
+      "recordId": "A051",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://c.jichangzhu.org/goto/tntcloud/",
+      "allowedHosts": [
+        "c.jichangzhu.org",
+        "tntvipaffb01.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/tnt-jichangzhu-identity-p37/2c2d70d5-0a4c-4ae7-854a-433db5fb7423.json",
+        "fileSha256": "527cb707c3c0f1f0f2cf4f301a67036204aa18c796c7ec89866c1ed9d0440a12",
+        "linkIndex": 14,
+        "label": "访问 TNTCloud机场 官网"
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New publisher report/image retained; actual native destination is not the saved current official hostname. Selected current originals and fresh public login pages provide no exact bridge; no historical/current identity upgrade.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "vcity-jichangzhu-speed-p37",
+      "recordId": "A031",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/vcity-speedtest-gxyd-20251004/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-speed-directory-p37/8cd47eae-2c8f-4d82-a75b-69b442e8b3fd.json",
+        "fileSha256": "6d9c4882b9e6ba77b570e4627cbf76492778fb4d559c8bbe5191c1c38cf08e89",
+        "linkIndex": 81,
+        "label": "万城网络 广西移动 2025-10-04"
+      },
+      "reviewDisposition": {
+        "status": "held_unreviewed_identity",
+        "reason": "Only new report caption captured; no current-service attribution or measurements admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-2-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/2/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-directory-p37/df6884e0-dc41-4e86-9118-0c56af2e500c.json",
+        "fileSha256": "3a0de5723a7d75a3eb902da41b3194f66292ff1130d344ada3593def148fa404",
+        "linkIndex": 30,
+        "label": "2"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-3-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/3/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-directory-p37/df6884e0-dc41-4e86-9118-0c56af2e500c.json",
+        "fileSha256": "3a0de5723a7d75a3eb902da41b3194f66292ff1130d344ada3593def148fa404",
+        "linkIndex": 31,
+        "label": "3"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-4-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/4/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-directory-p37/df6884e0-dc41-4e86-9118-0c56af2e500c.json",
+        "fileSha256": "3a0de5723a7d75a3eb902da41b3194f66292ff1130d344ada3593def148fa404",
+        "linkIndex": 32,
+        "label": "4"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "New native directory or metadata; no automatic business approval.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "pqjc-club-review-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/taohuayuan-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-4-p37/3ef3f710-895c-4597-901f-22f39ead4713.json",
+        "fileSha256": "4140f2870f40fe12c3cc6645985f381ff3da53bafb7d23ecad7d10f924d5e25e",
+        "linkIndex": 27,
+        "label": "桃花源机场怎么样？套餐价格与节点线路测评"
+      },
+      "reviewDisposition": {
+        "status": "mis_selected_native_index_as_array_index",
+        "businessFieldAdmitted": false,
+        "correctRequestedUrl": "https://jichangclub.com/peiqianjichang-review/",
+        "actualSelectedUrl": "https://jichangclub.com/taohuayuan-review/",
+        "reason": "Native index differs from filtered array offset; actual receipt preserved, no business attribution."
+      }
+    },
+    {
+      "id": "flybit-club-review-p37",
+      "recordId": "A145",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/3/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-2-p37/eca8d996-34ef-44ad-9b69-234128c102bd.json",
+        "fileSha256": "fd1c2c5eff6218816db6f0620a1ac9c96cf5fa9753d0db1b27b32dc8a7dc232d",
+        "linkIndex": 30,
+        "label": "3"
+      },
+      "reviewDisposition": {
+        "status": "mis_selected_native_index_as_array_index",
+        "businessFieldAdmitted": false,
+        "correctRequestedUrl": "https://jichangclub.com/flybit-review/",
+        "actualSelectedUrl": "https://jichangclub.com/airport-reviews/page/3/",
+        "reason": "Native index differs from filtered array offset; actual receipt preserved, no business attribution."
+      }
+    },
+    {
+      "id": "shadow-club-review-p37",
+      "recordId": "A169",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/6/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-3-p37/44206466-bebb-4617-8780-8e9dca1035ee.json",
+        "fileSha256": "bd129aa539dfdf2e00877f2a9139f75df8b6d33c2cc54f768f74b4a4449216e4",
+        "linkIndex": 33,
+        "label": "6"
+      },
+      "reviewDisposition": {
+        "status": "mis_selected_native_index_as_array_index",
+        "businessFieldAdmitted": false,
+        "correctRequestedUrl": "https://jichangclub.com/yingziwangluo-review/",
+        "actualSelectedUrl": "https://jichangclub.com/airport-reviews/page/6/",
+        "reason": "Native index differs from filtered array offset; actual receipt preserved, no business attribution."
+      }
+    },
+    {
+      "id": "pqjc-club-exact-article-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "url": "https://jichangclub.com/peiqianjichang-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-4-p37/3ef3f710-895c-4597-901f-22f39ead4713.json",
+        "fileSha256": "4140f2870f40fe12c3cc6645985f381ff3da53bafb7d23ecad7d10f924d5e25e",
+        "linkIndex": 21,
+        "label": "赔钱机场怎么样？套餐价格与节点线路测评",
+        "expectedLink": {
+          "url": "https://jichangclub.com/peiqianjichang-review/",
+          "label": "赔钱机场怎么样？套餐价格与节点线路测评"
+        }
+      },
+      "reviewDisposition": {
+        "status": "source_review_pending",
+        "reason": "Exact current punycode host/brand observed; date-unknown three-image single-source reference is awaiting semantic review of a separately managed fresh capture.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "flybit-club-exact-article-p37",
+      "recordId": "A145",
+      "field": "speed",
+      "url": "https://jichangclub.com/flybit-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-2-p37/eca8d996-34ef-44ad-9b69-234128c102bd.json",
+        "fileSha256": "fd1c2c5eff6218816db6f0620a1ac9c96cf5fa9753d0db1b27b32dc8a7dc232d",
+        "linkIndex": 23,
+        "label": "Flybit机场怎么样？套餐价格、优惠码与节点测评",
+        "expectedLink": {
+          "url": "https://jichangclub.com/flybit-review/",
+          "label": "Flybit机场怎么样？套餐价格、优惠码与节点测评"
+        }
+      },
+      "reviewDisposition": {
+        "status": "no_qualified_speed_image",
+        "reason": "Exact new article read but no speed graph retained; no generic marketing/S/H substitution.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "shadow-club-exact-article-p37",
+      "recordId": "A169",
+      "field": "speed",
+      "url": "https://jichangclub.com/yingziwangluo-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-3-p37/44206466-bebb-4617-8780-8e9dca1035ee.json",
+        "fileSha256": "bd129aa539dfdf2e00877f2a9139f75df8b6d33c2cc54f768f74b4a4449216e4",
+        "linkIndex": 25,
+        "label": "影子网络机场怎么样？套餐价格、优惠码与节点测评",
+        "expectedLink": {
+          "url": "https://jichangclub.com/yingziwangluo-review/",
+          "label": "影子网络机场怎么样？套餐价格、优惠码与节点测评"
+        }
+      },
+      "reviewDisposition": {
+        "status": "no_qualified_speed_image",
+        "reason": "Exact new article read but no speed graph retained; no generic marketing/S/H substitution.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "pqjc-club-native-p37",
+      "recordId": "A039",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://jichangclub.com/go/peiqianjichang",
+      "allowedHosts": [
+        "jichangclub.com",
+        "xn--mes358aby2apfg.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/pqjc-club-exact-article-p37/c8eef054-5cdb-4a4f-aa94-561d51a61585.json",
+        "fileSha256": "1a1b8a29ef88ae5cb85eb17b933e8229e0f24b5f97a09b14ef0b3c6842e52294",
+        "linkIndex": 12,
+        "label": "进入赔钱机场官网"
+      },
+      "reviewDisposition": {
+        "status": "source_review_pending",
+        "reason": "Exact current punycode host/brand observed; date-unknown three-image single-source reference is awaiting semantic review of a separately managed fresh capture.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "a065-current-public-p37",
+      "recordId": "A065",
+      "field": "speed",
+      "url": "https://flyingbird.cc/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyseventh/before.json",
+        "fileSha256": "37d1c0f3f681007fe94d12c5e313f52dc2dddc203fd09ec9e0edf493b7d7d2a1",
+        "selection": "frozen_website_url"
+      },
+      "reviewDisposition": {
+        "status": "blocked_login_required",
+        "reason": "Fresh public official entry reached login; no credentials or account actions.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "a064-current-public-p37",
+      "recordId": "A064",
+      "field": "speed",
+      "url": "https://flashfox.pro/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyseventh/before.json",
+        "fileSha256": "37d1c0f3f681007fe94d12c5e313f52dc2dddc203fd09ec9e0edf493b7d7d2a1",
+        "selection": "frozen_website_url"
+      },
+      "reviewDisposition": {
+        "status": "blocked_login_required",
+        "reason": "Fresh public official entry reached login; no credentials or account actions.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "a051-current-public-p37",
+      "recordId": "A051",
+      "field": "speed",
+      "url": "https://tntvipaffb01.cc/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyseventh/before.json",
+        "fileSha256": "37d1c0f3f681007fe94d12c5e313f52dc2dddc203fd09ec9e0edf493b7d7d2a1",
+        "selection": "frozen_website_url"
+      },
+      "reviewDisposition": {
+        "status": "blocked_login_required",
+        "reason": "Fresh public official entry reached login; no credentials or account actions.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T14:43:02.215Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-5-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/5/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-4-p37/3ef3f710-895c-4597-901f-22f39ead4713.json",
+        "fileSha256": "4140f2870f40fe12c3cc6645985f381ff3da53bafb7d23ecad7d10f924d5e25e",
+        "linkIndex": 32,
+        "label": "5",
+        "expectedLink": {
+          "url": "https://jichangclub.com/airport-reviews/page/5/",
+          "label": "5"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.531Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-7-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/7/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-4-p37/3ef3f710-895c-4597-901f-22f39ead4713.json",
+        "fileSha256": "4140f2870f40fe12c3cc6645985f381ff3da53bafb7d23ecad7d10f924d5e25e",
+        "linkIndex": 34,
+        "label": "7",
+        "expectedLink": {
+          "url": "https://jichangclub.com/airport-reviews/page/7/",
+          "label": "7"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "jichangclub-review-page-8-p38",
+      "recordId": "A083",
+      "field": "speed",
+      "url": "https://jichangclub.com/airport-reviews/page/8/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-7-p38/79b9e02b-507a-49b1-bd3e-b53d8b30caea.json",
+        "fileSha256": "f4898e571076f36326ecdc67092f1ddb1db8b0f83bdfefac8fa203df0ece5475",
+        "linkIndex": 33,
+        "label": "8",
+        "expectedLink": {
+          "url": "https://jichangclub.com/airport-reviews/page/8/",
+          "label": "8"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "cocoduck-club-article-p38",
+      "recordId": "A083",
+      "field": "speed",
+      "url": "https://jichangclub.com/cocoduck-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangclub-review-page-7-p38/79b9e02b-507a-49b1-bd3e-b53d8b30caea.json",
+        "fileSha256": "f4898e571076f36326ecdc67092f1ddb1db8b0f83bdfefac8fa203df0ece5475",
+        "linkIndex": 21,
+        "label": "cocoduck机场怎么样？套餐价格与节点线路测评",
+        "expectedLink": {
+          "url": "https://jichangclub.com/cocoduck-review/",
+          "label": "cocoduck机场怎么样？套餐价格与节点线路测评"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "jichangzhu-node-directory-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-speed-directory-p37/8cd47eae-2c8f-4d82-a75b-69b442e8b3fd.json",
+        "fileSha256": "6d9c4882b9e6ba77b570e4627cbf76492778fb4d559c8bbe5191c1c38cf08e89",
+        "linkIndex": 4,
+        "label": "机场推荐",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/node/",
+          "label": "机场推荐"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "jms-jichangzhu-node-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/just-my-socks/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-node-directory-p38/052db415-d901-4e6d-9f0b-35345fd9fc0c.json",
+        "fileSha256": "08a4d080162878bd86bc5ad9213cde457266540ad7f5bcecf1b0c5486de9552d",
+        "linkIndex": 421,
+        "label": "Just My Socks",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/node/just-my-socks/",
+          "label": "Just My Socks"
+        }
+      },
+      "reviewDisposition": {
+        "status": "no_published_speedtest",
+        "reason": "New publisher service page explicitly says暂无测速; founding/port/package claims excluded.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "anyland-jichangzhu-node-p38",
+      "recordId": "A190",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/anyland/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-node-directory-p38/052db415-d901-4e6d-9f0b-35345fd9fc0c.json",
+        "fileSha256": "08a4d080162878bd86bc5ad9213cde457266540ad7f5bcecf1b0c5486de9552d",
+        "linkIndex": 314,
+        "label": "ANYLAND机场",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/node/anyland/",
+          "label": "ANYLAND机场"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "chicken-jichangzhu-node-p38",
+      "recordId": "A062",
+      "field": "speed",
+      "url": "https://jichangzhu.org/node/xiaojikp/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/jichangzhu-node-directory-p38/052db415-d901-4e6d-9f0b-35345fd9fc0c.json",
+        "fileSha256": "08a4d080162878bd86bc5ad9213cde457266540ad7f5bcecf1b0c5486de9552d",
+        "linkIndex": 370,
+        "label": "小鸡快跑机场",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/node/xiaojikp/",
+          "label": "小鸡快跑机场"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "duyao-native-rss-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://www.duyaoss.com/feed/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261111-eighth/live/duyao-directory.json",
+        "fileSha256": "4d1b25a9bb746f53407f80572082bd028da9c26d4414fbe0bbff8eed5e5bea0b",
+        "linkIndex": 51,
+        "label": "",
+        "nativeTitle": "RSS",
+        "proofScope": "native_href_and_title_attribute_with_empty_visible_text"
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "vpsknow-recommendations-p38",
+      "recordId": "A023",
+      "field": "speed",
+      "url": "https://vpsknow.com/airport-recommendations",
+      "nativeDiscovery": {
+        "file": "work/performance-20261111-tenth/live/vpsknow-review-directory.json",
+        "fileSha256": "67eb57f9f79cc12942d656407516fb025fce5217e4334efd993cf7a52beba76b",
+        "linkIndex": 4,
+        "label": "✈️ 机场推荐",
+        "expectedLink": {
+          "url": "https://vpsknow.com/airport-recommendations",
+          "label": "✈️ 机场推荐"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "vpsknow-review-centre-p38",
+      "recordId": "A034",
+      "field": "speed",
+      "url": "https://vpsknow.com/reviews/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261111-tenth/live/vpsknow-review-directory.json",
+        "fileSha256": "67eb57f9f79cc12942d656407516fb025fce5217e4334efd993cf7a52beba76b",
+        "linkIndex": 9,
+        "label": "🧪 测评中心",
+        "expectedLink": {
+          "url": "https://vpsknow.com/reviews/",
+          "label": "🧪 测评中心"
+        }
+      },
+      "reviewDisposition": {
+        "status": "discovery_only_not_performance_admitted",
+        "reason": "Native directory/RSS discovery; no business field admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "cocoduck-club-native-p38",
+      "recordId": "A083",
+      "field": "speed",
+      "url": "https://jichangclub.com/go/cocoduck",
+      "kind": "native_entry",
+      "allowedHosts": [
+        "jichangclub.com",
+        "home.cocoduck.co"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/cocoduck-club-article-p38/3f2863da-65fd-4c5e-a01f-a3f07c4f099b.json",
+        "fileSha256": "2ad0d5f67a487055157cd5956c6a9eed208c632a022fb34a817e9d2ec2f33638",
+        "linkIndex": 12,
+        "label": "进入cocoduck官网",
+        "expectedLink": {
+          "url": "https://jichangclub.com/go/cocoduck",
+          "label": "进入cocoduck官网"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "anyland-jichangzhu-native-p38",
+      "recordId": "A190",
+      "field": "speed",
+      "url": "https://c.jichangzhu.org/goto/anyland/",
+      "kind": "native_entry",
+      "allowedHosts": [
+        "c.jichangzhu.org",
+        "anyland.club"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/anyland-jichangzhu-node-p38/20958049-94e2-4277-bf07-6e2b3db0b823.json",
+        "fileSha256": "6211e7cbbc78027f43e84510e630aec82a5806dc1bebe992c37577677fe8aa21",
+        "linkIndex": 14,
+        "label": "访问 ANYLAND机场 官网",
+        "expectedLink": {
+          "url": "https://c.jichangzhu.org/goto/anyland/",
+          "label": "访问 ANYLAND机场 官网"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "chicken-jichangzhu-native-p38",
+      "recordId": "A062",
+      "field": "speed",
+      "url": "https://c.jichangzhu.org/goto/xiaojikp/",
+      "kind": "native_entry",
+      "allowedHosts": [
+        "c.jichangzhu.org",
+        "w17.xiaojiweb01.cc"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/chicken-jichangzhu-node-p38/77710705-ba72-45d3-b55d-73be83e531d9.json",
+        "fileSha256": "e18b3395563007f7235b8e8e01cab24241e6e69dbc309143b672eb638b8cda57",
+        "linkIndex": 14,
+        "label": "访问 小鸡快跑机场 官网",
+        "expectedLink": {
+          "url": "https://c.jichangzhu.org/goto/xiaojikp/",
+          "label": "访问 小鸡快跑机场 官网"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "anyland-jichangzhu-speed-p38",
+      "recordId": "A190",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/anyland-speedtest-zsdx-20250521/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/anyland-jichangzhu-node-p38/20958049-94e2-4277-bf07-6e2b3db0b823.json",
+        "fileSha256": "6211e7cbbc78027f43e84510e630aec82a5806dc1bebe992c37577677fe8aa21",
+        "linkIndex": 29,
+        "label": "ANYLAND机场 中山电信 2025-05-21",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/speedtest/anyland-speedtest-zsdx-20250521/",
+          "label": "ANYLAND机场 中山电信 2025-05-21"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "chicken-jichangzhu-speed-p38",
+      "recordId": "A062",
+      "field": "speed",
+      "url": "https://jichangzhu.org/speedtest/xiaojikp-speedtest-yjdx-20250118/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/chicken-jichangzhu-node-p38/77710705-ba72-45d3-b55d-73be83e531d9.json",
+        "fileSha256": "e18b3395563007f7235b8e8e01cab24241e6e69dbc309143b672eb638b8cda57",
+        "linkIndex": 34,
+        "label": "小鸡快跑机场 阳江电信 2025-01-18",
+        "expectedLink": {
+          "url": "https://jichangzhu.org/speedtest/xiaojikp-speedtest-yjdx-20250118/",
+          "label": "小鸡快跑机场 阳江电信 2025-01-18"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "New source caption/image/native observations retained, but actual native hostname is not the saved current service and no new official bridge is verified; not admitted.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "forest-vpsknow-review-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "url": "https://vpsknow.com/reviews/airports/forest-airport-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/vpsknow-review-centre-p38/1fa68e3c-7ff0-4e88-81f9-abc2614be9ae.json",
+        "fileSha256": "2e623e2155a7f7a508d98623c7fd8b885c2e26ed22adbc44072f1bdafc1fedb4",
+        "linkIndex": 33,
+        "label": "机场\n2026-11-11\nForest 机场测评\n\n首轮晚间实测可连，先月付短周期验证；4K/测速偏弱与机房 IP 需复查",
+        "expectedLink": {
+          "url": "https://vpsknow.com/reviews/airports/forest-airport-review/",
+          "label": "机场\n2026-11-11\nForest 机场测评\n\n首轮晚间实测可连，先月付短周期验证；4K/测速偏弱与机房 IP 需复查"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "True Ookla image retained; native goescdn2.forest-gw.com, savedcurrentforest-01.com has no verified official bridge and current public page is an access-protection shell. Migration image did not yield usable bytes. No oldNutbit continuity inferred.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "guangsu-vpsknow-review-p38",
+      "recordId": "A149",
+      "field": "speed",
+      "url": "https://vpsknow.com/reviews/airports/guangsu-airport-review/",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/vpsknow-review-centre-p38/1fa68e3c-7ff0-4e88-81f9-abc2614be9ae.json",
+        "fileSha256": "2e623e2155a7f7a508d98623c7fd8b885c2e26ed22adbc44072f1bdafc1fedb4",
+        "linkIndex": 38,
+        "label": "机场\n2026-10-31\n光速云机场测评\n\n最新复测大面积 Timeout，当前可用性不足，不作为稳定主力",
+        "expectedLink": {
+          "url": "https://vpsknow.com/reviews/airports/guangsu-airport-review/",
+          "label": "机场\n2026-10-31\n光速云机场测评\n\n最新复测大面积 Timeout，当前可用性不足，不作为稳定主力"
+        }
+      },
+      "reviewDisposition": {
+        "status": "invalid_throughput_test_and_unbound_origin",
+        "reason": "Original explicitly labels the test failed;101.16Mbps is residual not a valid speed. New native ferhuire.gsyvipaff.com unbound to currentefbng; no S/H substitution.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "forest-vpsknow-native-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://go.uukk.de/forest",
+      "allowedHosts": [
+        "go.uukk.de",
+        "forest-01.com"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/forest-vpsknow-review-p38/2fac3d71-f9e5-480c-a4a1-8de8ceb02626.json",
+        "fileSha256": "449bcd21da45598ecffd4bfe6663cc79a72052619d10360cda9ca1785d6bc589",
+        "linkIndex": 24,
+        "label": "查看机场官网",
+        "expectedLink": {
+          "url": "https://go.uukk.de/forest",
+          "label": "查看机场官网"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "True Ookla image retained; native goescdn2.forest-gw.com, savedcurrentforest-01.com has no verified official bridge and current public page is an access-protection shell. Migration image did not yield usable bytes. No oldNutbit continuity inferred.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "forest-vpsknow-speedtest-image-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://vpsknow.com/images/reviews/forest-airport-review/speedtest.webp",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/forest-vpsknow-review-p38/2fac3d71-f9e5-480c-a4a1-8de8ceb02626.json",
+        "fileSha256": "449bcd21da45598ecffd4bfe6663cc79a72052619d10360cda9ca1785d6bc589",
+        "linkIndex": 58,
+        "label": "Ookla Speedtest\n\nSalt Lake City 服务器单次下载 1.84Mbps、上传 6.66Mbps、Ping 206ms；只代表当时会话，不能外推整网带宽。",
+        "expectedLink": {
+          "url": "https://vpsknow.com/images/reviews/forest-airport-review/speedtest.webp",
+          "label": "Ookla Speedtest\n\nSalt Lake City 服务器单次下载 1.84Mbps、上传 6.66Mbps、Ping 206ms；只代表当时会话，不能外推整网带宽。"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "True Ookla image retained; native goescdn2.forest-gw.com, savedcurrentforest-01.com has no verified official bridge and current public page is an access-protection shell. Migration image did not yield usable bytes. No oldNutbit continuity inferred.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "forest-vpsknow-migration-image-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "kind": "native_media",
+      "url": "https://vpsknow.com/images/reviews/forest-airport-review/migration.webp",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/forest-vpsknow-review-p38/2fac3d71-f9e5-480c-a4a1-8de8ceb02626.json",
+        "fileSha256": "449bcd21da45598ecffd4bfe6663cc79a72052619d10360cda9ca1785d6bc589",
+        "linkIndex": 40,
+        "label": "ViKing → Forest 迁移公告\n\n官方迁移公告写明网站已升级为 Forest；有有效套餐可用原账号登录，无有效套餐需重新注册；主入口 cdn2.forest-gw.com，另列多条备用线路。",
+        "expectedLink": {
+          "url": "https://vpsknow.com/images/reviews/forest-airport-review/migration.webp",
+          "label": "ViKing → Forest 迁移公告\n\n官方迁移公告写明网站已升级为 Forest；有有效套餐可用原账号登录，无有效套餐需重新注册；主入口 cdn2.forest-gw.com，另列多条备用线路。"
+        }
+      },
+      "reviewDisposition": {
+        "status": "hold_current_service_attribution",
+        "reason": "True Ookla image retained; native goescdn2.forest-gw.com, savedcurrentforest-01.com has no verified official bridge and current public page is an access-protection shell. Migration image did not yield usable bytes. No oldNutbit continuity inferred.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "guangsu-vpsknow-native-p38",
+      "recordId": "A149",
+      "field": "speed",
+      "kind": "native_entry",
+      "url": "https://go.uukk.de/lightspeed",
+      "allowedHosts": [
+        "go.uukk.de",
+        "efbng.guangzssytt.buzz"
+      ],
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/guangsu-vpsknow-review-p38/9aad2ede-f6b2-4574-9efa-2d24dfdb671e.json",
+        "fileSha256": "b5916339f597f062538024413d001b8bb312506e60255268fba94ce6b8b8667b",
+        "linkIndex": 24,
+        "label": "查看机场官网",
+        "expectedLink": {
+          "url": "https://go.uukk.de/lightspeed",
+          "label": "查看机场官网"
+        }
+      },
+      "reviewDisposition": {
+        "status": "invalid_throughput_test_and_unbound_origin",
+        "reason": "Original explicitly labels the test failed;101.16Mbps is residual not a valid speed. New native ferhuire.gsyvipaff.com unbound to currentefbng; no S/H substitution.",
+        "businessFieldAdmitted": false,
+        "reviewedAt": "2026-11-13T15:37:43.532Z"
+      }
+    },
+    {
+      "id": "forest-current-public-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "url": "https://forest-01.com/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyeighth/before.json",
+        "fileSha256": "83760a4cbb25f87ebb0c85cc25c7f29ed39ca946236ee6933cb3549cab3dc4fe",
+        "selection": "frozen_website_url"
+      },
+      "reviewDisposition": {
+        "status": "superseded_false_business_content_classification",
+        "businessFieldAdmitted": false,
+        "reason": "Original completed receipt retained; body is an Apple Cloud browser-verification shell, not Forest service content. Corrected classification has a separate explicit validation seed."
+      }
+    },
+    {
+      "id": "forest-current-passive-check-fixed-p38",
+      "recordId": "A063",
+      "field": "speed",
+      "url": "https://forest-01.com/",
+      "nativeDiscovery": {
+        "file": "work/performance-20261113-thirtyeighth/before.json",
+        "fileSha256": "83760a4cbb25f87ebb0c85cc25c7f29ed39ca946236ee6933cb3549cab3dc4fe",
+        "selection": "frozen_website_url"
+      },
+      "reviewDisposition": {
+        "status": "runtime_gate_repair_validation_only",
+        "businessFieldAdmitted": false,
+        "reason": "One bounded passive browser-check observation; no input/click/reload or policy exception."
+      }
+    },
+    {
+      "id": "sntp-official-push-publisher-p39",
+      "recordId": "A042",
+      "field": "speed",
+      "url": "https://push.shvip888.com/",
+      "nativeDiscovery": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch3/raw/core-auth-shou-b3-notice-553632e6f361.json",
+        "fileSha256": "553632e6f361acf75a9c65813e1a35b19bbeeb8bb204d8bcff91bb6380d6802a",
+        "linkIndex": 0,
+        "label": "push.shvip888.com",
+        "expectedLink": {
+          "url": "https://push.shvip888.com/",
+          "label": "push.shvip888.com"
+        }
+      }
+    },
+    {
+      "id": "oix-official-measured-claim-preview-p39",
+      "recordId": "A015",
+      "field": "speed",
+      "kind": "official_channel_preview",
+      "url": "https://t.me/s/oixcloud_news",
+      "nativeDiscovery": {
+        "file": "work/performance-discovery/dom/oix-official-news-native/24cf0e10-8195-4ba3-9264-d4f8294ff0b3.json",
+        "fileSha256": "5bc8f344b520a60fcc6bd475e02805f2c3b578304948d5e666375426e44fc850",
+        "linkIndex": 2,
+        "nativeDomIndex": 4,
+        "label": "Preview channel"
+      },
+      "reviewDisposition": {
+        "status": "official_measurement_self_report_pending_review",
+        "businessFieldAdmitted": false,
+        "reason": "Explicit post197 throughput self-report; fresh capture first. Published clock is not test clock; no sample/method/image/current-independent acceptance."
+      }
+    },
+    {
+      "id": "price-public-shunyun-ermao-v1",
+      "recordId": "A146",
+      "field": "pricing",
+      "kind": "public_price_reference",
+      "url": "https://www.ermao.net/blog/shunyun/",
+      "pricingReferenceProfileId": "price-public-shunyun-ermao-v1",
+      "reviewDisposition": {
+        "status": "public_price_reference_only_unverified",
+        "businessFieldAdmitted": false,
+        "reason": "Exact reviewed source; append unverified report only, never official plans, authentication or payment."
+      }
+    },
+    {
+      "id": "price-public-keli-candidate-v1",
+      "recordId": "A072",
+      "field": "pricing",
+      "kind": "public_price_reference",
+      "url": "https://www.keliyuncn.com/",
+      "pricingReferenceProfileId": "price-public-keli-candidate-v1",
+      "reviewDisposition": {
+        "status": "public_price_reference_only_unverified",
+        "businessFieldAdmitted": false,
+        "reason": "Exact reviewed source; append unverified report only, never official plans, authentication or payment."
+      }
+    },
+    {
+      "id": "official-price-galaxy-retained-origin-20261115",
+      "recordId": "A082",
+      "field": "pricing",
+      "kind": "official_price_entry_discovery",
+      "url": "https://www.galaxycloud.cc/register",
+      "pricingRecoveryOnly": true,
+      "reviewDisposition": {
+        "status": "identity_unverified_read_only_discovery",
+        "businessFieldAdmitted": false,
+        "reason": "New observed native source or destination; retain originals or point to already retained exact-host prices; no automatic identity merge or official price promotion."
+      }
+    },
+    {
+      "id": "official-price-galaxy-primary-post-20261115",
+      "recordId": "A082",
+      "field": "pricing",
+      "kind": "official_price_entry_discovery",
+      "url": "https://github.com/xxf098/shadowsocksr-v2ray-trojan-android/issues/415",
+      "pricingRecoveryOnly": true,
+      "reviewDisposition": {
+        "status": "identity_unverified_read_only_discovery",
+        "businessFieldAdmitted": false,
+        "reason": "New observed native source or destination; retain originals or point to already retained exact-host prices; no automatic identity merge or official price promotion."
+      }
+    },
+    {
+      "id": "official-price-cyber-native-announcements-20261115",
+      "recordId": "A047",
+      "field": "pricing",
+      "kind": "official_price_entry_discovery",
+      "url": "https://t.me/s/CyberGuard1",
+      "pricingRecoveryOnly": true,
+      "reviewDisposition": {
+        "status": "identity_unverified_read_only_discovery",
+        "businessFieldAdmitted": false,
+        "reason": "New observed native source or destination; retain originals or point to already retained exact-host prices; no automatic identity merge or official price promotion."
+      }
+    },
+    {
+      "id": "official-price-anyland-native-xyz-20261115",
+      "recordId": "A190",
+      "field": "pricing",
+      "kind": "official_price_entry_discovery",
+      "url": "https://anyland.xyz/",
+      "pricingRecoveryOnly": true,
+      "reviewDisposition": {
+        "status": "identity_unverified_read_only_discovery",
+        "businessFieldAdmitted": false,
+        "reason": "New observed native source or destination; retain originals or point to already retained exact-host prices; no automatic identity merge or official price promotion."
+      }
+    },
+    {
+      "id": "onefly-official-publisher-config-20261120",
+      "recordId": "A161",
+      "url": "https://1flyun.cc/",
+      "field": "pricing",
+      "publisherConfigDiscovery": true,
+      "basis": "Retained original publisher CORE-PUBLIC-1FLY-B19-LOGIN; bounded public publisher module and config discovery only"
+    },
+    {
+      "id": "invisible-candidate-publisher-config-20261120",
+      "recordId": "A164",
+      "url": "https://yinxingren1.invisibleaff.com/",
+      "field": "pricing",
+      "publisherConfigDiscovery": true,
+      "basis": "New self-described operator publication lead; candidates remain identity-unverified; no credentials"
+    },
+    {
+      "id": "yangfan-native-publisher-config-20261120",
+      "recordId": "A049",
+      "url": "https://a4.yfyfind.net/",
+      "field": "pricing",
+      "publisherConfigDiscovery": true,
+      "basis": "2026-11-20 authorized a02.yfy02.com public guest config app_url; current publisher client SHA256 6559a8d661398d4be9ab20b30fc8bb0f27000b88432de9d016c348f6cb7975d4 declares read-only jump-config; candidates do not propagate credentials"
+    },
+    {
+      "id": "kuajie-native-inline-publisher-20261120",
+      "recordId": "A162",
+      "url": "https://qu01.kuajiecloud.com/",
+      "field": "pricing",
+      "publisherConfigDiscovery": true,
+      "basis": "Prior original official guest config app_url; inline DOMAIN_LIST is actually consumed by getTargets, not CONFIG example fallbacks; only candidates, no credentials or price promotion"
+    },
+    {
+      "id": "hutao-same-name-candidate-public-20261120",
+      "recordId": "A011",
+      "url": "https://hutao.cloud/?lang=zh-cn",
+      "field": "pricing",
+      "basis": "Search-discovered same-name public candidate; no migration proof to hutaohome.com. Read-only original retention, no credential propagation or official pricing admission"
+    },
+    {
+      "id": "cylink-native-reversed-base64-publisher-20261120",
+      "recordId": "A046",
+      "url": "https://次元.vip/",
+      "field": "pricing",
+      "publisherConfigDiscovery": true,
+      "basis": "Original cylink_announcement channel names this jump domain and old official2cy.now; read declared obfuscatedDomains by documented reverse+base64 only. No WAF probe, credentials, identity upgrade or price admission. Source: https://t.me/s/cylink_announcement ; raw publisher observed2026-11-20, all same operator signals count as one source."
+    },
+    {
+      "id": "kuromis-original-channel-entry-recovery-20261120",
+      "recordId": "A022",
+      "url": "https://t.me/s/kuromis_xiaoxi",
+      "field": "pricing",
+      "basis": "Previously operator-linked public channel natively lists kuromis.com and kurqq9.com; preserve original anchors and time, no credential propagation, no legal identity or price admission."
+    },
+    {
+      "id": "nicecloud-original-channel-entry-recovery-20261120",
+      "recordId": "A005",
+      "url": "https://t.me/s/nicecloudgropwork",
+      "field": "pricing",
+      "basis": "Historical same-brand official notification channel lists nicecloud.co; preserve current native links separately from contradictory third-party migration claims, no account or price admission."
+    },
+    {
+      "id": "ninecloud-original-channel-entry-recovery-20261120",
+      "recordId": "A176",
+      "url": "https://t.me/s/ncelestialcloud",
+      "field": "pricing",
+      "basis": "Public notification channel historically pins shop.starpro.one; inspect native current publisher anchors only, do not merge differently named services or admit third-party prices."
+    },
+    {
+      "id": "v2tun-notification-channel-new-entry-20261120",
+      "recordId": "A008",
+      "url": "https://t.me/s/V2Tun",
+      "field": "pricing",
+      "basis": "New search lead: public V2Tun notification-channel profile lists to-v2tun.xyz. Read original channel anchors and timestamps only; no credentials, identity upgrade or price admission from search snippets."
+    },
+    {
+      "id": "nicecloud-ncink-publisher-candidate-20261120",
+      "recordId": "A005",
+      "url": "https://ncink.cc/",
+      "field": "pricing",
+      "basis": "New third-party lead spells ncink.cc, distinct from previously parked niceink.cc. Candidate only; read original public publisher links, keep NiceCloud/Naisii/Naiyun identity conflicts explicit. No credentials or business admission."
+    }
+  ]
+}

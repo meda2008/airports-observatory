@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-8b7e34b54b716518533b",
+  "origin": "https://galaxycloud.homes",
+  "recordIds": [
+    "A082"
+  ],
+  "entryUrls": [
+    "https://galaxycloud.homes/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://galaxycloud.homes",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "40a28469f84e51e7bbd33436d509431163a327ccacf2bc3f56bd23a29c2214ac",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

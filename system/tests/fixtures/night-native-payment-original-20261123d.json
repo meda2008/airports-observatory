@@ -1,0 +1,14 @@
+{
+  "captures": [
+    {
+      "url": "https://mm.goyesha.com/xkD93rN81qpL0m2c/common/user/order/getPaymentMethod",
+      "body": "{\"status\":\"success\",\"message\":\"\\u64cd\\u4f5c\\u6210\\u529f\",\"data\":[{\"id\":13,\"name\":\"\\u652f\\u4ed8\\u5b9d\",\"payment\":\"EPay\",\"icon\":\"https:\\/\\/s2.loli.net\\/2022\\/12\\/22\\/Lx9mr8ye1ZUd7OS.png\",\"handling_fee_fixed\":null,\"handling_fee_percent\":\"3.00\"},{\"id\":14,\"name\":\"\\u652f\\u4ed8\\u5b9d\",\"payment\":\"EPay\",\"icon\":\"https:\\/\\/s2.loli.net\\/2022\\/12\\/22\\/Lx9mr8ye1ZUd7OS.png\",\"handling_fee_fixed\":null,\"handling_fee_percent\":\"3.00\"},{\"id\":11,\"name\":\"\\u5fae\\u4fe1\",\"payment\":\"EPay\",\"icon\":\"https:\\/\\/s2.loli.net\\/2022\\/12\\/22\\/Lx9mr8ye1ZUd7OS.png\",\"handling_fee_fixed\":null,\"handling_fee_percent\":\"3.00\"},{\"id\":17,\"name\":\"USDT-Polygon\",\"payment\":\"PolygonUSDT\",\"icon\":null,\"handling_fee_fixed\":0,\"handling_fee_percent\":\"0.00\"},{\"id\":15,\"name\":\"USDT-TRC20\",\"payment\":\"EPay\",\"icon\":null,\"handling_fee_fixed\":null,\"handling_fee_percent\":null}],\"error\":null}",
+      "kind": "authorized_account_page",
+      "observedAt": "2026-11-23T12:13:29.291Z",
+      "metadata": {
+        "representation": "original_native_payment_methods_json",
+        "authenticationObserved": true
+      }
+    }
+  ]
+}

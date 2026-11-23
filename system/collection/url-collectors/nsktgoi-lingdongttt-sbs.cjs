@@ -1,0 +1,5 @@
+'use strict';
+const ORIGIN='https://nsktgoi.lingdongttt.sbs';
+function extract(snapshot){if(new URL(snapshot.url).origin!==ORIGIN)throw Error('lingdong_origin_mismatch');const text=snapshot.body||snapshot.text||'';const match=text.match(/(?:📱\s*)?(?:\*\*)?全端兼容(?:\*\*)?｜支持 SS 协议，不限设备数量，多端轻松连接。/);if(!match)return null;return{compatibility:{status:'operator_requirements_observed',summary:'灵动拂风套餐原文称支持SS协议、不限设备数量、多端连接；仅为站方使用条件，未独立测试。',requirements:['本条仅对应原文的拂风套餐，不自动扩大到全部产品或多人共享。'],quote:match[0],observedAt:snapshot.observedAt||snapshot.capturedAt,sourceIds:[snapshot.evidenceId].filter(Boolean),independentlyTested:false}};}
+async function collect(tab){if(new URL(await tab.url()).origin!==ORIGIN)throw Error('lingdong_origin_mismatch');await tab.playwright.getByRole('link',{name:'购买订阅',exact:true}).click();await tab.playwright.getByRole('heading',{name:'灵动 · 拂风',exact:true}).waitFor({state:'visible'});return{url:await tab.url(),capturedAt:new Date().toISOString(),text:await tab.playwright.getByRole('main').innerText()};}
+module.exports={origin:ORIGIN,recordId:'A177',fields:['compatibility'],collect,extract,scope:'named_plan_operator_claims'};

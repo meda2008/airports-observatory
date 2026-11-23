@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>LinkCube - 超快的国际网络加速服务</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport"
+    content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui" />
+
+  <link rel="icon" href="/favicon.ico" type="image/png" />
+  <link rel="stylesheet" href="assets/vendor/index/css/critical.min.css" type="text/css">
+  <link rel="stylesheet" href="assets/vendor/index/css/main.css" type="text/css">
+  <link rel="stylesheet" href="assets/vendor/index/css/style.min.css" type="text/css">
+  <link rel="stylesheet" href="assets/vendor/index/css/color-1.min.css" type="text/css">
+  <link rel="stylesheet" href="assets/vendor/lib/swiper/swiper-bundle.min.css" type="text/css" />
+</head>
+
+<body>
+  <div id="app">
+    <div class="topbar-area">
+      <div class="topbar" onclick="javascript:window.location.href='https://www.linkcube.org/cart.php'">
+        点我注册购买 LinkCube 加速服务，开启全球互联
+        <div class="topbar-area-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+              <path fill="currentColor"
+                d="M16.06 10.94a1.5 1.5 0 0 1 0 2.12l-5.656 5.658a1.5 1.5 0 1 1-2.121-2.122L12.879 12L8.283 7.404a1.5 1.5 0 0 1 2.12-2.122l5.658 5.657Z" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <header id="top-bar" class="top-bar top-bar--dark" data-nav-anchor="true">
+      <div class="top-bar__inner">
+        <div class="container">
+          <div class="row align-items-center no-gutters navbar-area">
+            <a aria-current="page" href="index.html">
+              <img class="navbar-logo" src="assets/vendor/img/logo.png" />
+            </a>
+            <div id="top-bar__action" class="top-bar__action">
+              <div class="d-xl-flex flex-xl-row flex-xl-wrap align-items-xl-center">
+                <div class="top-bar-btns">
+                  <a href="https://www.linkcube.org/cart.php" class="navbar-menu-btn">
+                    立即购买
+                  </a>
+                  <a href="https://www.linkcube.org/clientarea.php" class="navbar-menu-btn white-bg">
+                    用户中心
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="start-screen" class="start-screen start-screen--full-height start-screen--style-2">
+      <div class="start-screen__bg-container">
+        <div class="start-screen__bg"
+          style="background-image: url(assets/vendor/index/img/start-screen_img/start-screen_2/bg_1.png); background-position: center bottom;">
+        </div>
+      </div>
+      <div class="start-screen__shapes  d-none d-lg-block">
+        <img class="img-shape d-none d-xl-block"
+          src="assets/vendor/index/img/start-screen_img/start-screen_2/shape_1.png" alt="demo" />
+      </div>
+      <div class="start-screen__content-container">
+        <div class="start-screen__content__item align-items-center" id="firstbody">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 col-lg-7">
+                <div class="banner-left">
+                  <div class="d-none d-md-block">
+                    <div class="__site-name">LinkCube</div>
+                  </div>
+                  <h2 id="title_body">
+                    <span style="font-weight: 550;">
+                      超快的国际网络加速服务
+                    </span>
+                  </h2>
+                  <div class="banner-feature-list">
+                    <div class="banner-feature">
+                      <div class="banner-feature-text"><span>20</span> +</div>
+                      <div>接入地区</div>
+                    </div>
+                    <div class="banner-feature">
+                      <div class="banner-feature-text"><span>10</span>年 +</div>
+                      <div>运营经验</div>
+                    </div>
+                    <div class="banner-feature">
+                      <div class="banner-feature-text"><span>30</span>Gb +</div>
+                      <div>骨干网络</div>
+                    </div>
+                  </div>
+                  <div class="spacer py-2 py-sm-4"></div>
+                  <div class="banner-download-btn-group">
+                    <div class="banner-download-btn-item"
+                      onclick="eDownLoadSoft('https://store8.gofile.io/download/direct/d3f39195-e5ec-49f2-9d01-0b52f8829b8d/Clash.for.Windows-0.20.39-win%E4%B8%AD%E6%96%87.7z',true)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <g fill="none">
+                          <path
+                            d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                          <path fill="currentColor"
+                            d="M21 13v7.434a1.5 1.5 0 0 1-1.553 1.499l-.133-.011L12 21.008V13zm-11 0v7.758l-5.248-.656A2 2 0 0 1 3 18.117V13zm9.314-10.922a1.5 1.5 0 0 1 1.68 1.355l.006.133V11h-9V2.992zM10 3.242V11H3V5.883a2 2 0 0 1 1.752-1.985z" />
+                        </g>
+                      </svg>
+                      <span>Windows</span>
+                    </div>
+
+                    <div class="banner-download-btn-item" onclick="MacDownload()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <g fill="none">
+                          <path
+                            d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                          <path fill="currentColor"
+                            d="m13.064 6.685l.745-.306c.605-.24 1.387-.485 2.31-.33c1.891.318 3.195 1.339 3.972 2.693c.3.522.058 1.21-.502 1.429a2.501 2.501 0 0 0 .133 4.706c.518.17.81.745.64 1.263c-.442 1.342-1.078 2.581-1.831 3.581c-.744.988-1.652 1.808-2.663 2.209c-.66.26-1.368.163-2.045-.005l-.402-.107l-.597-.173c-.271-.079-.55-.147-.824-.147c-.275 0-.553.068-.824.147l-.597.173l-.402.107c-.677.168-1.386.266-2.045.005c-1.273-.504-2.396-1.68-3.245-3.067a13.5 13.5 0 0 1-1.784-4.986c-.227-1.554-.104-3.299.615-4.775c.74-1.521 2.096-2.705 4.163-3.053c.84-.141 1.562.048 2.14.265l.331.13l.584.241c.4.157.715.249 1.064.249c.348 0 .664-.092 1.064-.249m-1.296-3.917c.976-.977 2.475-1.061 2.828-.707c.354.353.27 1.852-.707 2.828c-.976.976-2.475 1.06-2.828.707c-.354-.353-.27-1.852.707-2.828" />
+                        </g>
+                      </svg>
+                      <span>macOS</span>
+                    </div>
+                    <div class="banner-download-btn-item"
+                      onclick="eDownLoadSoft('https://cold2.gofile.io/download/direct/63299933-7df7-46e4-8ee3-a9c31bd17892/cfa-2.5.12-premium-universal-release.apk',true)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <g fill="none" fill-rule="evenodd">
+                          <path
+                            d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                          <path fill="currentColor"
+                            d="M18.447 4.106a1 1 0 0 1 .447 1.341l-1.174 2.35A9.99 9.99 0 0 1 22 16v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1a9.99 9.99 0 0 1 4.28-8.204L5.106 5.447a1 1 0 1 1 1.788-.894L8.028 6.82A10 10 0 0 1 12 6c1.411 0 2.755.292 3.972.82l1.134-2.267a1 1 0 0 1 1.341-.447M7.5 12a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m9 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3" />
+                        </g>
+                      </svg>
+                      <span>
+                        Android
+                      </span>
+                    </div>
+                    <div class="banner-download-btn-item"
+                      onclick="eDownLoadSoft('https://apps.apple.com/hk/app/shadowrocket/id932747118',true)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <g fill="none">
+                          <path
+                            d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                          <path fill="currentColor"
+                            d="m13.064 6.685l.745-.306c.605-.24 1.387-.485 2.31-.33c1.891.318 3.195 1.339 3.972 2.693c.3.522.058 1.21-.502 1.429a2.501 2.501 0 0 0 .133 4.706c.518.17.81.745.64 1.263c-.442 1.342-1.078 2.581-1.831 3.581c-.744.988-1.652 1.808-2.663 2.209c-.66.26-1.368.163-2.045-.005l-.402-.107l-.597-.173c-.271-.079-.55-.147-.824-.147c-.275 0-.553.068-.824.147l-.597.173l-.402.107c-.677.168-1.386.266-2.045.005c-1.273-.504-2.396-1.68-3.245-3.067a13.5 13.5 0 0 1-1.784-4.986c-.227-1.554-.104-3.299.615-4.775c.74-1.521 2.096-2.705 4.163-3.053c.84-.141 1.562.048 2.14.265l.331.13l.584.241c.4.157.715.249 1.064.249c.348 0 .664-.092 1.064-.249m-1.296-3.917c.976-.977 2.475-1.061 2.828-.707c.354.353.27 1.852-.707 2.828c-.976.976-2.475 1.06-2.828.707c-.354-.353-.27-1.852.707-2.828" />
+                        </g>
+                      </svg>
+                      <span>
+                        iOS
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-5">
+                <div class="slide-area">
+                  <div class="slide-content">
+                    <div class="slide-bg">
+                      <img src="assets/vendor/img/iphone.png" alt="">
+                    </div>
+                    <div class="swiper">
+                      <!-- Additional required wrapper -->
+                      <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                          <img class="slide-img" src="assets/vendor/img/netflix_with_dynamic_land_thumbnail.jpg" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                          <img class="slide-img" src="assets/vendor/img/disneyplus_with_dynamic_land_thumbnail.jpg"
+                            alt="">
+                        </div>
+                        <div class="swiper-slide">
+                          <img class="slide-img" src="assets/vendor/img/hbomax_with_dynamic_land_thumbnail.jpg" alt="">
+                        </div>
+                      </div>
+                      <!-- If we need pagination -->
+                      <div class="swiper-pagination"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <main role="main">
+
+      <link rel="stylesheet" href="assets/vendor/index/css/style.min.css" type="text/css">
+
+      <link rel="stylesheet" href="assets/vendor/index/css/color-1.min.css" type="text/css">
+
+      <script>
+        (function (w, d) {
+          var m = d.getElementsByTagName('main')[0],
+            s = d.createElement("script"),
+            v = !("IntersectionObserver" in w) ? "8.17.0" : "11.0.6",
+            o = {
+              elements_selector: ".lazy",
+              threshold: 500,
+              callback_enter: function (element) {
+
+              },
+              callback_load: function (element) {
+
+              },
+              callback_set: function (element) {
+
+                oTimeout = setTimeout(function () {
+                  clearTimeout(oTimeout);
+
+                  AOS.refresh();
+                }, 1000);
+              },
+              callback_error: function (element) {
+                element.src =
+                  "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+              }
+            };
+          s.type = 'text/javascript';
+          s.async =
+            false; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+          //s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v + "/dist/lazyload.min.js";
+          s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v +
+            "/dist/lazyload.min.js"
+          m.appendChild(s);
+          // m.insertBefore(s, m.firstChild);
+          w.lazyLoadOptions = o;
+        }(window, document));
+      </script>
+
+      <section class="section section--no-pb" style="padding-top: 10px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="brands-list">
+                <div class="marquee">
+                  <div class="marquee__item">
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/google.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/twitter.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/whatsapp.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/gmail.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/openai.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/twitch.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/telegram.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/spotify.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/linkdin.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/instagram.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/facebook.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/tiktok.svg" alt="">
+                    </div>
+                  </div>
+                  <div class="marquee__item">
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/google.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/twitter.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/whatsapp.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/gmail.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/openai.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/twitch.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/telegram.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/spotify.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/linkdin.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/instagram.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/facebook.svg" alt="">
+                    </div>
+                    <div class="marquee_logo">
+                      <img src="./assets/vendor/img/media/tiktok.svg" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="about" class="section">
+        <div class="container">
+          <div class="row align-items-lg-center">
+            <div class="col-12 col-lg-6">
+              <div class="section-heading">
+                <h2 class="__title">可靠的基础设施<br><span>丰富的边缘接入点</span></h2>
+              </div>
+              <div class="spacer py-4"></div>
+              <div>
+                <p>
+                  访问位于 14+ 国家和地区的 100+ 边缘服务器。利用功能丰富的边缘服务器，访问您喜欢的任何资源。我们在 14 个互联网交换中心与谷歌、苹果、微软、亚马逊、Cloudflare
+                  等数百个内容提供商对等互联。
+                </p>
+                <p class="mt-9">
+                  <a class="custom-btn custom-btn--medium custom-btn--style-3"
+                    href="https://www.linkcube.org/register.php">免费注册</a>
+                </p>
+              </div>
+            </div>
+            <div class="spacer py-5 d-lg-none"></div>
+            <div class="col-12 col-lg-6">
+
+              <div class="video-box video-box--s2">
+                <figure class="__image __image--rounded">
+                  <img class="lazy" width="602" height="401" src="assets/vendor/index/img/blank.gif"
+                    data-src="assets/vendor/index/img/video_img/fast.png" alt="demo" />
+                </figure>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="services" class="section section--light-blue-bg">
+        <div class="container">
+          <div class="section-heading section-heading--center">
+            <h2 class="__title">
+              我们的承诺
+            </h2>
+          </div>
+          <div class="spacer py-6"></div>
+          <div class="row">
+            <div class="col-12">
+              <div class="services services--s2">
+                <div class="__inner">
+                  <div class="row justify-content-md-center no-gutters">
+                    <div class="col-12 col-md-11 col-xl-10">
+                      <div class="row justify-content-lg-center">
+                        <div class="col-12 col-lg-6">
+                          <div class="__item">
+                            <div class="d-sm-table">
+                              <div class="d-sm-table-cell align-middle">
+                                <i class="__ico icon-box icon-box--circled">
+                                  <svg fill="#fff" width="40" height="40" viewbox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m504.5 0h-497c-4.144531 0-7.5 3.355469-7.5 7.5v312.167969c0 4.140625 3.355469 7.5 7.5 7.5s7.5-3.359375 7.5-7.5v-224.667969h233.5v272.46875h-19.070312c-12.585938 0-24.15625 6.554688-30.699219 17.03125h-81.039063c-5.058594 0-9.914062.886719-14.425781 2.5h-88.265625v-35c0-4.144531-3.355469-7.5-7.5-7.5s-7.5 3.355469-7.5 7.5v42.5c0 4.144531 3.355469 7.5 7.5 7.5h75.5625c-5.375 7.242188-8.5625 16.21875-8.5625 25.929688 0 8.199218 6.648438 14.871093 14.820312 14.871093h123.910157c16.648437 0 33.136719 4.289063 47.6875 12.402344 8.382812 4.667969 17.328125 8.257813 26.597656 10.664063 9.269531 2.410156 18.824219 3.632812 28.394531 3.632812h.964844l21.007812 38.585938c1.3125 2.414062 3.839844 3.914062 6.585938 3.914062h71.863281c4.144531 0 7.5-3.355469 7.5-7.5s-3.355469-7.5-7.5-7.5h-67.40625l-16.078125-29.53125 99.527344-18.710938c.039062-.007812.082031-.015624.121094-.023437l7.414062-1.394531 29.613282 49.660156h-21.523438c-4.144531 0-7.5 3.355469-7.5 7.5s3.355469 7.5 7.5 7.5h34.730469c2.699219 0 5.1875-1.449219 6.519531-3.796875 1.335938-2.347656 1.304688-5.226563-.078125-7.546875l-39.0625-65.5c-1.609375-2.699219-4.738281-4.109375-7.828125-3.527344l-4.648438.875c-1.890624-11.417968-6-21.730468-12.148437-30.503906h79.015625c4.144531 0 7.5-3.355469 7.5-7.5v-266.75c0-4.144531-3.355469-7.5-7.5-7.5s-7.5 3.355469-7.5 7.5v259.25h-85.925781c-16.902344-12.964844-40.910157-19.53125-71.554688-19.53125h-76.019531v-272.46875h233.5v1c0 4.144531 3.355469 7.5 7.5 7.5s7.5-3.355469 7.5-7.5v-88.5c0-4.144531-3.355469-7.5-7.5-7.5zm-101.027344 400.082031c.132813.117188.265625.230469.40625.339844 11.785156 9.871094 17.09375 22.574219 19.035156 34.847656l-102.285156 19.230469h-4.71875c-8.296875 0-16.582031-1.058594-24.625-3.148438-8.035156-2.089843-15.796875-5.199218-23.0625-9.25-16.773437-9.355468-35.792968-14.300781-54.992187-14.300781h-123.730469c.070312-15.617187 12.6875-28.300781 28.191406-28.300781h75.773438c-.15625 1.378906-.246094 2.773438-.246094 4.179688 0 3.367187 1.289062 6.5625 3.65625 9.03125 2.363281 2.4375 5.546875 3.835937 8.949219 3.925781 41.371093 1.132812 73.640625 5.269531 82.222656 10.554687 3.929687 2.414063 8.769531 6.140625 12.988281 9.46875 3.25 2.5625 7.964844 2.011719 10.53125-1.246094 2.566406-3.25 2.011719-7.964843-1.242187-10.53125-4.789063-3.777343-9.851563-7.660156-14.421875-10.46875-14.878906-9.160156-60.355469-11.894531-87.59375-12.710937.214844-2.296875.800781-4.523437 1.753906-6.652344 3.402344-7.640625 11.003906-12.578125 19.367188-12.578125h110.089843c31.195313-.003906 51.257813 7.179688 63.953125 17.609375zm-388.472656-320.082031v-65h482v65zm0 0" />
+                                    <path
+                                      d="m53.5 24.5c-12.40625 0-22.5 10.09375-22.5 22.5s10.09375 22.5 22.5 22.5 22.5-10.09375 22.5-22.5-10.09375-22.5-22.5-22.5zm0 30c-4.136719 0-7.5-3.363281-7.5-7.5s3.363281-7.5 7.5-7.5 7.5 3.363281 7.5 7.5-3.363281 7.5-7.5 7.5zm0 0" />
+                                    <path
+                                      d="m113.5 24.5c-12.40625 0-22.5 10.09375-22.5 22.5s10.09375 22.5 22.5 22.5 22.5-10.09375 22.5-22.5-10.09375-22.5-22.5-22.5zm0 30c-4.136719 0-7.5-3.363281-7.5-7.5s3.363281-7.5 7.5-7.5 7.5 3.363281 7.5 7.5-3.363281 7.5-7.5 7.5zm0 0" />
+                                    <path
+                                      d="m173.5 24.5c-12.40625 0-22.5 10.09375-22.5 22.5s10.09375 22.5 22.5 22.5 22.5-10.09375 22.5-22.5-10.09375-22.5-22.5-22.5zm0 30c-4.136719 0-7.5-3.363281-7.5-7.5s3.363281-7.5 7.5-7.5 7.5 3.363281 7.5 7.5-3.363281 7.5-7.5 7.5zm0 0" />
+                                    <path
+                                      d="m465.914062 225.425781h-172c-4.144531 0-7.5 3.355469-7.5 7.5s3.355469 7.5 7.5 7.5h172c4.140626 0 7.5-3.355469 7.5-7.5s-3.359374-7.5-7.5-7.5zm0 0" />
+                                    <path
+                                      d="m293.914062 198.082031h86c4.140626 0 7.5-3.355469 7.5-7.5 0-4.140625-3.359374-7.5-7.5-7.5h-86c-4.144531 0-7.5 3.359375-7.5 7.5 0 4.144531 3.355469 7.5 7.5 7.5zm0 0" />
+                                    <path
+                                      d="m465.914062 261.253906h-172c-4.144531 0-7.5 3.359375-7.5 7.5 0 4.144532 3.355469 7.5 7.5 7.5h172c4.140626 0 7.5-3.355468 7.5-7.5 0-4.140625-3.359374-7.5-7.5-7.5zm0 0" />
+                                    <path
+                                      d="m465.914062 297.082031h-172c-4.144531 0-7.5 3.359375-7.5 7.5 0 4.144531 3.355469 7.5 7.5 7.5h172c4.140626 0 7.5-3.355469 7.5-7.5 0-4.140625-3.359374-7.5-7.5-7.5zm0 0" />
+                                    <path
+                                      d="m52.257812 303.585938v.101562c0 18.257812 14.851563 33.109375 33.109376 33.109375h92.78125c18.253906 0 33.109374-14.851563 33.109374-33.109375v-.101562c0-33.1875-20.449218-61.679688-49.40625-73.566407 14.777344-9.792969 24.546876-26.5625 24.546876-45.578125 0-30.128906-24.511719-54.640625-54.644532-54.640625-30.128906 0-54.640625 24.511719-54.640625 54.640625 0 19.015625 9.769531 35.785156 24.546875 45.578125-28.953125 11.886719-49.402344 40.375-49.402344 73.566407zm39.855469-119.144532c0-21.859375 17.785157-39.644531 39.644531-39.644531 21.859376 0 39.644532 17.785156 39.644532 39.644531s-17.785156 39.644532-39.644532 39.644532c-21.859374 0-39.644531-17.785157-39.644531-39.644532zm39.644531 54.644532c35.5625 0 64.5 28.933593 64.5 64.5v.101562c0 9.988281-8.125 18.109375-18.109374 18.109375h-92.78125c-9.984376 0-18.109376-8.121094-18.109376-18.109375v-.101562c0-35.566407 28.933594-64.5 64.5-64.5zm0 0" />
+                                    <path
+                                      d="m159.6875 195.023438c-1.996094-3.628907-6.558594-4.953126-10.1875-2.953126-.082031.042969-8.308594 4.425782-17.742188 4.425782-9.421874 0-17.648437-4.375-17.765624-4.4375-3.628907-1.980469-8.171876-.65625-10.164063 2.964844-1.996094 3.628906-.675781 8.1875 2.953125 10.1875.464844.257812 11.574219 6.285156 24.976562 6.285156 13.398438 0 24.507813-6.027344 24.976563-6.285156 3.625-1.996094 4.949219-6.558594 2.953125-10.1875zm0 0" />
+                                    <path
+                                      d="m125.914062 171.5625c0 3.546875-2.878906 6.425781-6.429687 6.425781-3.546875 0-6.425781-2.878906-6.425781-6.425781 0-3.550781 2.878906-6.429688 6.425781-6.429688 3.550781 0 6.429687 2.878907 6.429687 6.429688zm0 0" />
+                                    <path
+                                      d="m150.457031 171.5625c0 3.550781-2.878906 6.425781-6.429687 6.425781-3.550782 0-6.425782-2.875-6.425782-6.425781s2.875-6.429688 6.425782-6.429688c3.550781 0 6.429687 2.878907 6.429687 6.429688zm0 0" />
+                                  </svg>
+                                </i>
+                              </div>
+                              <div class="d-sm-table-cell align-middle">
+                                <h4 class="__title">
+                                  高速稳定
+                                </h4>
+                                <p>
+                                  与ISP深度合作，针对您的网络环境定向优化网速
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-6">
+                          <div class="__item">
+                            <div class="d-sm-table">
+                              <div class="d-sm-table-cell align-middle">
+                                <i class="__ico icon-box icon-box--circled">
+                                  <svg fill="#fff" width="45" height="45" viewbox="-60 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M31 47c0 12.406 10.094 22.5 22.5 22.5S76 59.406 76 47 65.906 24.5 53.5 24.5 31 34.594 31 47zm30 0c0 4.137-3.363 7.5-7.5 7.5S46 51.137 46 47s3.363-7.5 7.5-7.5S61 42.863 61 47zm30 0c0 12.406 10.094 22.5 22.5 22.5S136 59.406 136 47s-10.094-22.5-22.5-22.5S91 34.594 91 47zm30 0c0 4.137-3.363 7.5-7.5 7.5S106 51.137 106 47s3.363-7.5 7.5-7.5 7.5 3.363 7.5 7.5zm30 0c0 12.406 10.094 22.5 22.5 22.5S196 59.406 196 47s-10.094-22.5-22.5-22.5S151 34.594 151 47zm30 0c0 4.137-3.363 7.5-7.5 7.5S166 51.137 166 47s3.363-7.5 7.5-7.5 7.5 3.363 7.5 7.5zm0 0" />
+                                    <path
+                                      d="M371.5 0H7.5A7.5 7.5 0 0 0 0 7.5v440.168c0 4.14 3.36 7.5 7.5 7.5s7.5-3.36 7.5-7.5V95h302.25c4.14 0 7.5-3.355 7.5-7.5s-3.36-7.5-7.5-7.5H15V15h349v65h-14.5c-4.14 0-7.5 3.355-7.5 7.5s3.36 7.5 7.5 7.5H364v402H15v-16.5a7.5 7.5 0 1 0-15 0v24a7.5 7.5 0 0 0 7.5 7.5h364a7.5 7.5 0 0 0 7.5-7.5V7.5a7.5 7.5 0 0 0-7.5-7.5zm0 0" />
+                                    <path
+                                      d="M189.5 326c49.352 0 89.5-40.148 89.5-89.5S238.852 147 189.5 147 100 187.148 100 236.5s40.148 89.5 89.5 89.5zm0-164c41.078 0 74.5 33.422 74.5 74.5S230.578 311 189.5 311 115 277.578 115 236.5s33.422-74.5 74.5-74.5zm0 0" />
+                                    <path
+                                      d="M65.61 215.004C61.573 221.133 57 228.078 57 236.5s4.574 15.367 8.61 21.496c2.43 3.691 4.722 7.176 5.535 10.219.875 3.277.636 7.586.382 12.148-.402 7.207-.855 15.375 3.211 22.403 4.125 7.129 11.485 10.828 17.98 14.093 4.028 2.024 7.837 3.938 10.16 6.262 2.325 2.32 4.235 6.129 6.263 10.16 3.261 6.492 6.96 13.856 14.09 17.98a23.159 23.159 0 0 0 3.769 1.731V480.5a7.502 7.502 0 0 0 11.387 6.414L189.5 455.93l51.11 30.984A7.517 7.517 0 0 0 244.5 488a7.502 7.502 0 0 0 7.5-7.5v-88.375a7.5 7.5 0 1 0-15 0v75.059l-15-9.094V354.684c3.168-.657 7.152-.446 11.363-.211 1.192.066 2.407.132 3.637.18v5.097a7.5 7.5 0 1 0 15 0v-6.758a22.981 22.981 0 0 0 3.77-1.73c7.128-4.125 10.828-11.485 14.09-17.98 2.023-4.028 3.937-7.837 6.261-10.16 2.32-2.321 6.129-4.235 10.16-6.263 6.496-3.261 13.856-6.96 17.98-14.09 4.067-7.03 3.614-15.199 3.212-22.406-.254-4.562-.493-8.87.382-12.148.813-3.043 3.106-6.528 5.536-10.215 4.035-6.133 8.609-13.078 8.609-21.5s-4.574-15.367-8.61-21.496c-2.43-3.692-4.722-7.176-5.535-10.215-.875-3.277-.636-7.59-.382-12.152.402-7.203.855-15.371-3.211-22.403-4.125-7.129-11.485-10.828-17.98-14.09-4.028-2.027-7.837-3.94-10.16-6.265-2.325-2.32-4.235-6.129-6.263-10.16-3.261-6.492-6.96-13.856-14.09-17.98-7.03-4.067-15.199-3.61-22.406-3.212-4.562.254-8.87.496-12.148-.382-3.043-.813-6.528-3.106-10.219-5.536-6.129-4.035-13.074-8.609-21.496-8.609s-15.367 4.574-21.496 8.61c-3.692 2.43-7.176 4.722-10.219 5.535-3.277.875-7.59.636-12.148.382-7.207-.402-15.375-.855-22.407 3.211-7.128 4.125-10.828 11.485-14.09 17.98-2.023 4.028-3.937 7.837-6.261 10.16-2.32 2.321-6.129 4.235-10.16 6.263-6.496 3.261-13.856 6.96-17.98 14.09-4.067 7.03-3.614 15.199-3.212 22.406.254 4.562.493 8.87-.382 12.148-.813 3.043-3.106 6.527-5.536 10.219zM142 354.652c1.23-.047 2.445-.113 3.637-.18 4.21-.234 8.195-.445 11.363.212V458.09l-15 9.094zm43.613 86.094L172 448.996V362.97c5.133 3.183 10.855 6.031 17.5 6.031s12.367-2.848 17.5-6.031v86.027l-13.613-8.25a7.51 7.51 0 0 0-7.774 0zM78.137 223.25c2.98-4.523 6.058-9.2 7.5-14.59 1.496-5.594 1.175-11.32.867-16.855-.313-5.61-.606-10.907 1.219-14.063 1.882-3.25 6.668-5.652 11.73-8.199 4.918-2.469 10-5.023 14.031-9.059 4.036-4.03 6.59-9.117 9.059-14.03 2.547-5.067 4.95-9.852 8.2-11.731 3.155-1.825 8.452-1.528 14.058-1.22 5.539.31 11.265.63 16.86-.866 5.386-1.442 10.066-4.52 14.589-7.5 4.797-3.157 9.324-6.137 13.25-6.137s8.453 2.98 13.25 6.137c4.523 2.98 9.2 6.058 14.59 7.5 5.594 1.496 11.32 1.175 16.855.867 5.61-.309 10.907-.606 14.059 1.219 3.25 1.879 5.656 6.664 8.2 11.73 2.472 4.914 5.026 10 9.058 14.031 4.035 4.036 9.12 6.59 14.035 9.063 5.066 2.543 9.851 4.945 11.73 8.195 1.825 3.156 1.532 8.453 1.22 14.059-.31 5.539-.63 11.265.866 16.86 1.442 5.39 4.52 10.066 7.5 14.589 3.157 4.797 6.137 9.324 6.137 13.25s-2.98 8.453-6.137 13.25c-2.98 4.523-6.058 9.2-7.5 14.59-1.496 5.594-1.176 11.32-.867 16.855.313 5.61.606 10.907-1.219 14.063-1.882 3.25-6.668 5.652-11.73 8.199-4.918 2.469-10 5.023-14.031 9.059-4.036 4.03-6.59 9.117-9.059 14.03-2.547 5.067-4.95 9.852-8.2 11.731-3.155 1.828-8.452 1.532-14.058 1.22-5.539-.31-11.265-.63-16.86.866-2.222.594-4.316 1.477-6.331 2.504l-.117.059c-2.836 1.457-5.52 3.21-8.141 4.937-4.797 3.157-9.324 6.137-13.25 6.137s-8.453-2.98-13.25-6.137c-2.621-1.726-5.305-3.48-8.137-4.937l-.117-.059c-2.02-1.031-4.113-1.91-6.336-2.504-3.262-.87-6.566-1.125-9.855-1.125-2.352 0-4.692.13-7 .258-5.61.313-10.907.61-14.059-1.219-3.25-1.879-5.656-6.664-8.2-11.73-2.472-4.914-5.026-10-9.058-14.031-4.035-4.036-9.12-6.59-14.035-9.063-5.066-2.543-9.851-4.945-11.73-8.195-1.825-3.156-1.532-8.453-1.22-14.059.31-5.539.63-11.265-.866-16.86-1.442-5.39-4.52-10.066-7.5-14.589C74.98 244.953 72 240.426 72 236.5s2.98-8.453 6.137-13.25zm0 0" />
+                                    <path
+                                      d="M141.73 241.29l35.633 28.487a7.48 7.48 0 0 0 4.68 1.641c2.07 0 4.129-.852 5.605-2.512l48.82-54.84a7.497 7.497 0 0 0-.613-10.586 7.502 7.502 0 0 0-10.59.614l-44.09 49.523-30.081-24.047a7.499 7.499 0 0 0-10.54 1.176 7.5 7.5 0 0 0 1.176 10.543zm0 0" />
+                                  </svg>
+                                </i>
+                              </div>
+                              <div class="d-sm-table-cell align-middle">
+                                <h4 class="__title">
+                                  安全无忧
+                                </h4>
+                                <p>
+                                  专业的安全团队与私有通讯协议确保您的数据安全高枕无忧
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="features" class="section section--no-pb">
+        <div class="container">
+          <div class="spacer py-3 py-md-5 py-lg-6"></div>
+          <div class="row align-items-lg-center">
+            <div class="col-12 col-lg-4 push-lg-4 text-center">
+              <img class="img-fluid" width="289" height="585" src="assets/vendor/index/img/login.png" />
+            </div>
+            <div class="spacer py-5 d-lg-none"></div>
+            <div class="col-12 col-lg-8">
+
+              <div class="feature feature--s1">
+                <div class="__inner">
+                  <div class="row">
+
+                    <div class="col-12 col-md-6 pull-lg-6">
+                      <div class="__item  text-center text-md-right">
+                        <div class="row justify-content-sm-center flex-md-row-reverse">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/1.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              全平台系统支持
+                            </h4>
+                            <p>
+                              我们的服务适用于您的所有计算机，平板电脑，手机，服务器甚至所有的联网设备等。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+                      <div class="__item  text-center text-md-left">
+                        <div class="row justify-content-sm-center">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/2.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              速度大爆炸
+                            </h4>
+                            <p>
+                              LinkCube 拥有最快的连接速度。我们的测试获得了超过 1Gbps 的超快结果。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="spacer py-lg-3 py-xl-7 d-none d-lg-block"></div>
+                  <div class="row">
+
+                    <div class="col-12 col-md-6 pull-lg-6">
+                      <div class="__item  text-center text-md-right">
+                        <div class="row justify-content-sm-center flex-md-row-reverse">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/3.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              加密访问数据
+                            </h4>
+                            <p>
+                              LinkCube 将对您的所有访问数据进行加密，让您的数据在任何网络下都绝对安全。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+                      <div class="__item  text-center text-md-left">
+                        <div class="row justify-content-sm-center">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/4.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              流媒体全面支持
+                            </h4>
+                            <p>
+                              随时随地解锁自己喜欢的流媒体内容，畅享丝滑每一天。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="spacer py-lg-3 py-xl-7 d-none d-lg-block"></div>
+                  <div class="row">
+
+                    <div class="col-12 col-md-6 pull-lg-6">
+                      <div class="__item  text-center text-md-right">
+                        <div class="row justify-content-sm-center flex-md-row-reverse">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/5.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              全球服务器
+                            </h4>
+                            <p>
+                              从任何地方可连接世界各地。我的高速服务器网络遍布 60 个国家，一切尽在掌控之中。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+                      <div class="__item  text-center text-md-left">
+                        <div class="row justify-content-sm-center">
+                          <div class="col-12 col-sm-10 col-md-12 col-lg-auto">
+                            <div class="mb-3 mb-lg-0">
+                              <i class="__ico">
+                                <img src="assets/vendor/index/img/static/6.png" style="width: 50px;height:50px;">
+                              </i>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-10 col-md-12 col-lg">
+                            <h4 class="__title">
+                              无系统日志
+                            </h4>
+                            <p>
+                              除了登录邮箱或电话号码，我们不保存其他的信息。无日志系统设计让您更安全。
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="how-it-works" class="section">
+        <div class="container">
+          <div class="section-heading section-heading--center">
+            <h2 class="__title">特色服务<br><span>我们深入客户群体</span></h2>
+            <p>
+              24小时在线的客服比您更懂您的需求
+            </p>
+          </div>
+          <div class="spacer py-6"></div>
+          <div class="row">
+            <div class="col-12">
+
+              <div class="steps steps--s1">
+                <div class="__inner">
+                  <div class="row justify-content-center justify-content-xl-around">
+
+                    <div class="col-12 col-sm-9 col-md-4 col-xl-3">
+                      <div class="__item">
+                        <div class="mb-md-8">
+                          <span class="__num">
+                            <span class="__ico"><i class="fontello-ok"></i></span>
+                          </span>
+                        </div>
+                        <h4 class="__title">流媒体解锁</h4>
+                        <p>
+                          超过五年的运营经验积累使我们深知如何满足您探索未知流媒体世界的需要，流畅观看各种流媒体内容如NETFLIX、HULU、HBO、AbemaTV、Disney等。
+                        </p>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12 col-sm-9 col-md-4 col-xl-3">
+                      <div class="__item">
+                        <div class="mb-md-8">
+                          <span class="__num">
+                            <span class="__ico"><i class="fontello-ok"></i></span>
+                          </span>
+                        </div>
+                        <h4 class="__title">智能接入路由选择</h4>
+                        <p>
+                          运营商级别的网络专家时刻通过我们强大的调度技术确保您以最快速度进入我们的骨干网。
+                        </p>
+                      </div>
+                    </div>
+
+
+                    <div class="col-12 col-sm-9 col-md-4 col-xl-3">
+                      <div class="__item">
+                        <div class="mb-md-8">
+                          <span class="__num">
+                            <span class="__ico"><i class="fontello-ok"></i></span>
+                          </span>
+                        </div>
+                        <h4 class="__title">无限带宽，无限流量</h4>
+                        <p>
+                          LinkCube 的自有基建最高可支持10Gbps的单用户加速能力，助您任何时候快人一步。
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="infoblock" class="section section--bg-img jarallax" data-speed="0.3" data-img-position="40% 50%"
+        style="background-image: url(assets/vendor/index/img/base_bg_2.jpg); ">
+        <div class="container">
+          <div class="info-block">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+                <div class="section-heading section-heading--white">
+                  <h2 class="__title">
+                    现在下载 &nbsp;LinkCube APP<br><span style="font-size: 3rem;">
+                      立刻获得金融级别的网络加速能力
+                    </span>
+                  </h2>
+                </div>
+                <div class="spacer py-4"></div>
+                <div>
+                  <div class="store-btns store-btns--light">
+                    <ul class="d-flex flex-row flex-wrap align-items-center">
+
+
+                      <li>
+                        <a href="javascript:void(0)"
+                          onclick="eDownLoadSoft('https://store8.gofile.io/download/direct/d3f39195-e5ec-49f2-9d01-0b52f8829b8d/Clash.for.Windows-0.20.39-win%E4%B8%AD%E6%96%87.7z',true)">
+                          <svg t="1666684346945" class="icon" viewbox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2536" width="30" height="30">
+                            <path
+                              d="M180.532703 507.367493c158.678976-65.355497 235.486292-30.474059 304.269865 16.21838l-79.440283 273.0447c-69.018933-46.431495-144.083559-84.635609-303.396985-18.776645l77.643358-270.088368L180.532703 507.367493z"
+                              p-id="2537"></path>
+                            <path
+                              d="M526.399965 549.988196c68.989257 46.397726 139.539057 80.43903 301.656341 24.985044l-75.661214 263.243473c-159.14151 65.832358-235.541551 28.585035-304.439734-18.128893L526.399965 549.988196z"
+                              p-id="2538"></path>
+                            <path
+                              d="M498.022661 474.363821c-41.512463-27.970028-86.198198-54.113455-149.667741-54.582129-41.86448-0.322341-91.709725 11.587919-155.011446 37.731346l78.410837-271.752264c159.198815-65.822125 235.701187-28.520567 304.673048 18.128893L498.022661 474.363821z"
+                              p-id="2539"></path>
+                            <path
+                              d="M922.033677 249.996774c-158.988014 65.700351-235.394195 28.753881-304.214606-17.613146l-78.428234 271.986601c68.7672 46.62797 151.876036 84.896552 304.315914 16.685008L922.033677 249.996774z"
+                              p-id="2540"></path>
+                          </svg>
+                          <span> <strong>PC版下载</strong></span>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="javascript:void(0)" onclick="MacDownload()">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 305 305" width="25" height="30">
+                            <path
+                              d="M40.738 112.119c-25.785 44.745-9.393 112.648 19.121 153.82C74.092 286.523 88.502 305 108.239 305c.372 0 .745-.007 1.127-.022 9.273-.37 15.974-3.225 22.453-5.984 7.274-3.1 14.797-6.305 26.597-6.305 11.226 0 18.39 3.101 25.318 6.099 6.828 2.954 13.861 6.01 24.253 5.815 22.232-.414 35.882-20.352 47.925-37.941 12.567-18.365 18.871-36.196 20.998-43.01l.086-.271a2.5 2.5 0 0 0-1.328-3.066c-.032-.015-.15-.064-.183-.078-3.915-1.601-38.257-16.836-38.618-58.36-.335-33.736 25.763-51.601 30.997-54.839l.244-.152a2.498 2.498 0 0 0 .71-3.511c-18.014-26.362-45.624-30.335-56.74-30.813a50.043 50.043 0 0 0-4.95-.242c-13.056 0-25.563 4.931-35.611 8.893-6.936 2.735-12.927 5.097-17.059 5.097-4.643 0-10.668-2.391-17.645-5.159-9.33-3.703-19.905-7.899-31.1-7.899-.267 0-.53.003-.789.008-26.03.383-50.626 15.275-64.186 38.859z" />
+                            <path
+                              d="M212.101.002c-15.763.642-34.672 10.345-45.974 23.583-9.605 11.127-18.988 29.679-16.516 48.379a2.499 2.499 0 0 0 2.284 2.164c1.064.083 2.15.125 3.232.126 15.413 0 32.04-8.527 43.395-22.257 11.951-14.498 17.994-33.104 16.166-49.77a2.515 2.515 0 0 0-2.587-2.225z" />
+                          </svg>
+                          <span> <strong>Mac版下载</strong></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                          onclick="eDownLoadSoft('https://cold2.gofile.io/download/direct/63299933-7df7-46e4-8ee3-a9c31bd17892/cfa-2.5.12-premium-universal-release.apk',true)">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 511.995 511.995" width="25" height="30">
+                            <path
+                              d="M98.102 6.525c-13.19-7.94-28.91-8.65-42.62-2.04l229.87 230.36 75.16-75.51L98.102 6.525zm-63.74 19.28a46.845 46.845 0 0 0-4.46 20v421.38c0 7.06 1.57 13.79 4.5 19.8l229.78-230.87-229.82-230.31zm251.021 251.55l-229.5 230.59c6.09 2.82 12.57 4.05 19.04 4.05 7.99 0 15.96-1.91 23.18-6.25l262.46-153.04-75.18-75.35zm175.07-59.82c-.09-.06-.19-.12-.28-.17l-72.86-42.43-80.77 81.15 80.82 80.99s73-42.56 73.09-42.61c13.55-8.23 21.64-22.61 21.64-38.47s-8.09-30.24-21.64-38.46z" />
+                          </svg>
+                          <span> <strong>安卓版下载</strong></span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                          onclick="eDownLoadSoft('https://apps.apple.com/hk/app/shadowrocket/id932747118',true)">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 305 305" width="25" height="30">
+                            <path
+                              d="M40.738 112.119c-25.785 44.745-9.393 112.648 19.121 153.82C74.092 286.523 88.502 305 108.239 305c.372 0 .745-.007 1.127-.022 9.273-.37 15.974-3.225 22.453-5.984 7.274-3.1 14.797-6.305 26.597-6.305 11.226 0 18.39 3.101 25.318 6.099 6.828 2.954 13.861 6.01 24.253 5.815 22.232-.414 35.882-20.352 47.925-37.941 12.567-18.365 18.871-36.196 20.998-43.01l.086-.271a2.5 2.5 0 0 0-1.328-3.066c-.032-.015-.15-.064-.183-.078-3.915-1.601-38.257-16.836-38.618-58.36-.335-33.736 25.763-51.601 30.997-54.839l.244-.152a2.498 2.498 0 0 0 .71-3.511c-18.014-26.362-45.624-30.335-56.74-30.813a50.043 50.043 0 0 0-4.95-.242c-13.056 0-25.563 4.931-35.611 8.893-6.936 2.735-12.927 5.097-17.059 5.097-4.643 0-10.668-2.391-17.645-5.159-9.33-3.703-19.905-7.899-31.1-7.899-.267 0-.53.003-.789.008-26.03.383-50.626 15.275-64.186 38.859z" />
+                            <path
+                              d="M212.101.002c-15.763.642-34.672 10.345-45.974 23.583-9.605 11.127-18.988 29.679-16.516 48.379a2.499 2.499 0 0 0 2.284 2.164c1.064.083 2.15.125 3.232.126 15.413 0 32.04-8.527 43.395-22.257 11.951-14.498 17.994-33.104 16.166-49.77a2.515 2.515 0 0 0-2.587-2.225z" />
+                          </svg>
+                          <span> <strong> iOS版下载</strong></span>
+                        </a>
+                      </li>
+
+
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section section--light-blue-bg section--bg-img lazy"
+        data-bg="url('assets/vendor/index/img/base_bg_2_3.jpg')">
+        <div class="container">
+          <div class="pricing-title">
+            超值组合套餐
+          </div>
+          <div class="pricing-subtitle">
+            选择适合您的套餐，立即享受高速网络
+          </div>
+          <div class="pricing-area">
+            <div class="pricing-box">
+              <div class="pricing-box-title">
+                轻量套餐
+              </div>
+              <div class="pricing-box-summary">
+                轻量使用者的首选，适合个人使用
+              </div>
+              <div class="pricing-box-amount">
+                <div class="pricing-box-amount-left">
+                  ¥15
+                </div>
+                <div class="pricing-box-amount-right">
+                  <div class="pricing-box-amount-right-top">
+                    元
+                  </div>
+                  <div class="pricing-box-amount-right-bottom">
+                    每月
+                  </div>
+                </div>
+              </div>
+              <div class="pricing-box-order-now">
+                <a href="https://www.linkcube.org/cart.php?a=add&pid=1" class="pricing-box-order-now-btn">
+                  立即购买
+                </a>
+              </div>
+              <div class="pricing-box-label-title">
+                套餐配置
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="m9 19l9.18-9.006c.748-.734 1.122-1.1 1.444-.967c.323.134.329.659.34 1.708l.036 3.31M15 5l-9.18 9.006c-.748.734-1.122 1.1-1.444.967c-.323-.134-.329-.659-.34-1.708L4 9.955"
+                      color="currentColor" />
+                  </svg>
+                  100GB 流量/月
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M2.513 10.177a8.003 8.003 0 0 1 10.366-4.643l.57-.724q.04-.048.08-.092A9.003 9.003 0 0 0 1.577 9.824a.5.5 0 1 0 .936.353m13.503-3.871a9 9 0 0 1 2.408 3.517a.5.5 0 0 1-.936.354a8 8 0 0 0-1.87-2.873l.264-.662zm-6.015.194a6.5 6.5 0 0 1 1.897.281l-.671.856a5.503 5.503 0 0 0-6.553 3.987a.5.5 0 1 1-.969-.249A6.5 6.5 0 0 1 10.001 6.5m5 2.346l-.436 1.084c.344.51.604 1.082.762 1.695a.5.5 0 1 0 .969-.25A6.5 6.5 0 0 0 15 8.846M10 9l.16.003c-.288.368-.569.73-.833 1.073A3 3 0 0 0 7 13a.5.5 0 0 1-1 0a4 4 0 0 1 4-4m3.168 4.351l-.007.017A.5.5 0 0 0 14 13c0-.424-.065-.832-.187-1.215c-.23.563-.45 1.098-.644 1.566m.222-6.85l.612-.778l.232-.293l.037-.042a.5.5 0 0 1 .855.371l-.036.166l-.138.347a1207 1207 0 0 1-1.504 3.75a341 341 0 0 1-1.203 2.945c-.175.42-.33.786-.451 1.067a8 8 0 0 1-.277.593a1.751 1.751 0 0 1-3.033-1.75c.06-.106.202-.303.375-.538c.183-.246.422-.562.699-.923c.553-.723 1.257-1.629 1.949-2.515s1.374-1.754 1.883-2.4m-1.095 3.015c-.692.886-1.393 1.789-1.943 2.507c-.275.36-.511.672-.689.911a8 8 0 0 0-.313.442a.751.751 0 1 0 1.3.751c.027-.044.102-.205.227-.492c.119-.274.27-.634.444-1.052a343 343 0 0 0 1.549-3.801zm2.83-3.757a.5.5 0 0 1-.034.166Z" />
+                  </svg>
+                  1000Mbps
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                专线接入
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    深圳 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 香港
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCnHk0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCnHk0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#eee"
+                        d="M282.4 193.7c-5.8 24.2-16.1 19.6-21.2 40.7a55.7 55.7 0 0 1 26-108.3c-10.1 42.2.4 46-4.8 67.6M205 211.6c21.2 13 13.6 21.4 32.1 32.8a55.7 55.7 0 0 1-94.9-58.2c37 22.7 43.8 13.8 62.8 25.4m-7 79.3c19-16.2 24.7-6.4 41.2-20.4a55.7 55.7 0 0 1-84.7 72.2c33-28.2 26.6-37.4 43.6-51.8zm73.4 31c-9.6-23 1.5-25.3-6.8-45.3a55.7 55.7 0 0 1 42.6 102.8c-16.6-40-27.3-36.9-35.8-57.4zm52.2-60c-24.9 2-23.7-9.3-45.3-7.6a55.7 55.7 0 0 1 111-8.7c-43.3 3.4-43.6 14.5-65.7 16.3" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    上海 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 日本
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsJp0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsJp0)">
+                      <path fill="#eee" d="M0 0h512v512H0z" />
+                      <circle cx="256" cy="256" r="111.3" fill="#d80027" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    北京 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 德国
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsDe0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsDe0)">
+                      <path fill="#ffda44" d="m0 345l256.7-25.5L512 345v167H0z" />
+                      <path fill="#d80027" d="m0 167l255-23l257 23v178H0z" />
+                      <path fill="#333" d="M0 0h512v167H0z" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                套餐特性
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M4.93 3.93A9.97 9.97 0 0 0 2 11c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 11c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 11c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 11c0-2.76-1.12-5.26-2.93-7.07M7.76 6.76A5.98 5.98 0 0 0 6 11c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 11c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 11c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 11c0-1.65-.67-3.15-1.76-4.24M12 9a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m-1 6v4h-1a1 1 0 0 0-1 1H2v2h7a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1h7v-2h-7a1 1 0 0 0-1-1h-1v-4z" />
+                  </svg>
+                  BGP 接入点
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M4.707 6.156a.75.75 0 0 1 .137 1.051L2.696 10l2.148 2.793a.75.75 0 1 1-1.188.914l-2.5-3.25a.75.75 0 0 1 0-.914l2.5-3.25a.75.75 0 0 1 1.051-.137m10.449 6.637a.75.75 0 1 0 1.188.914l2.5-3.25a.75.75 0 0 0 0-.914l-2.5-3.25a.75.75 0 1 0-1.188.914L17.304 10zM6 11a1 1 0 1 0 0-2a1 1 0 0 0 0 2m5-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2" />
+                  </svg>
+                  国际专线传输
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5" />
+                  </svg>
+                  50+ 节点线路
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                      <path
+                        d="M9.99 10.91a1.49 1.49 0 0 1 1.615-.022l3.371 2.09c.538.334.774.91.774 1.432c0 .523-.236 1.099-.774 1.432l-3.371 2.09c-.54.334-1.157.28-1.615-.022a1.67 1.67 0 0 1-.74-1.41v-4.18c0-.593.289-1.114.74-1.41m.823 1.254c-.019.012-.063.056-.063.156v4.18c0 .1.044.144.063.156l.001.001l3.372-2.09c.021-.013.064-.059.064-.157s-.043-.143-.064-.157l-3.371-2.09z" />
+                      <path
+                        d="M8.7 1.25c-.22 0-.39 0-.536.016A2.75 2.75 0 0 0 5.71 3.87a2.89 2.89 0 0 0-2.055 2.721c-.6.18-1.119.465-1.543.923c-.652.705-.854 1.572-.862 2.586c-.007.975.167 2.207.382 3.736l.44 3.114c.168 1.196.305 2.168.518 2.929c.223.797.552 1.452 1.16 1.956c.604.5 1.32.715 2.166.817c.819.098 1.849.098 3.13.098h5.907c1.282 0 2.312 0 3.13-.098c.847-.102 1.563-.317 2.167-.817c.608-.504.937-1.16 1.16-1.956c.213-.761.35-1.733.519-2.93l.439-3.113c.216-1.53.39-2.761.382-3.736c-.008-1.014-.21-1.881-.862-2.586c-.424-.458-.943-.742-1.544-.923a2.89 2.89 0 0 0-2.054-2.72a2.75 2.75 0 0 0-2.454-2.605c-.147-.016-.316-.016-.536-.016zm10.11 5.078a1.38 1.38 0 0 0-1.348-1.078H6.538c-.669 0-1.212.47-1.349 1.078c.926-.078 2.06-.078 3.427-.078h6.768c1.366 0 2.5 0 3.427.078M16.769 3.75a1.25 1.25 0 0 0-1.092-.993a5 5 0 0 0-.417-.007H8.74c-.28 0-.361.001-.417.007a1.25 1.25 0 0 0-1.092.993zM3.213 8.533c.303-.327.758-.544 1.643-.662c.901-.12 2.108-.121 3.816-.121h6.656c1.708 0 2.915.002 3.816.121c.885.118 1.34.335 1.643.662c.296.32.457.755.463 1.579c.006.85-.15 1.97-.376 3.576l-.423 3c-.178 1.261-.302 2.133-.485 2.787c-.177.63-.384.965-.673 1.204c-.293.244-.687.4-1.388.484c-.719.086-1.658.087-3 .087h-5.81c-1.342 0-2.281-.001-3-.087c-.7-.085-1.095-.24-1.388-.483c-.289-.24-.496-.576-.673-1.205c-.183-.654-.307-1.526-.485-2.787l-.423-3c-.226-1.605-.382-2.726-.376-3.576c.006-.824.167-1.26.463-1.579" />
+                    </g>
+                  </svg>
+                  流媒体全面解锁
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2">
+                      <path d="M10 15H4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2M2 18h12" />
+                      <path
+                        d="M14 9.2c0-.663.597-1.2 1.333-1.2h5.334C21.403 8 22 8.537 22 9.2v9.6c0 .663-.597 1.2-1.333 1.2h-5.334C14.597 20 14 19.463 14 18.8zm4 7.8h.01" />
+                    </g>
+                  </svg>
+                  全平台设备支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="m10.155 14.773l-.009-.021a7 7 0 0 1-.402-.123l-.01-.004A7 7 0 0 1 5 8a7 7 0 0 1 13.96-.749c.044.412-.296.749-.71.749s-.745-.338-.8-.748a5.501 5.501 0 1 0-7.279 5.937a2 2 0 0 1 3.829.81c0 .598-.262 1.134-.677 1.5A2 2 0 0 1 12 16a1.99 1.99 0 0 1-1.845-1.227m-2.158.727a8.5 8.5 0 0 1-2.003-1.485a2.25 2.25 0 0 0-1.99 2.234v.578c0 .892.318 1.756.898 2.435c1.566 1.834 3.952 2.74 7.098 2.74s5.533-.906 7.102-2.74a3.75 3.75 0 0 0 .901-2.438v-.575a2.25 2.25 0 0 0-2.248-2.25H15.5c0 .538-.12 1.046-.337 1.5h2.592a.75.75 0 0 1 .748.75v.575a2.25 2.25 0 0 1-.54 1.463c-1.257 1.468-3.224 2.214-5.963 2.214s-4.704-.746-5.957-2.213a2.25 2.25 0 0 1-.54-1.462v-.577a.75.75 0 0 1 .75-.75zM8 8a4 4 0 1 1 6.243 3.313A3.5 3.5 0 0 0 12 10.5a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5c-.854 0-1.636.306-2.242.813A3.99 3.99 0 0 1 8 8" />
+                  </svg>
+                  标准技术支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M12 13q-1.65 0-2.825-1.175T8 9V5.5q0-.625.438-1.062T9.5 4q.375 0 .713.175t.537.5q.2-.325.538-.5T12 4t.713.175t.537.5q.2-.325.538-.5T14.5 4q.625 0 1.063.438T16 5.5V9q0 1.65-1.175 2.825T12 13m0-2q.825 0 1.413-.587T14 9V6.5h-4V9q0 .825.588 1.413T12 11M4 21v-2.8q0-.85.438-1.562T5.6 15.55q1.55-.775 3.15-1.162T12 14t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 18.2V21zm2-2h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 16t-2.775.338T6.5 17.35q-.225.125-.363.35T6 18.2zm6-12.5" />
+                  </svg>
+                  个人使用用途
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M15.75 14.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5zM2 8.25A3.25 3.25 0 0 1 5.25 5h13.5A3.25 3.25 0 0 1 22 8.25v7.5A3.25 3.25 0 0 1 18.75 19H5.25A3.25 3.25 0 0 1 2 15.75zM20.5 9.5V8.25a1.75 1.75 0 0 0-1.75-1.75H5.25A1.75 1.75 0 0 0 3.5 8.25V9.5zM3.5 11v4.75c0 .966.784 1.75 1.75 1.75h13.5a1.75 1.75 0 0 0 1.75-1.75V11z" />
+                  </svg>
+                  支付宝、微信、USDT
+                </div>
+              </div>
+            </div>
+            <div class="pricing-box popular">
+              <div class="popular-badge">
+                特别推荐
+              </div>
+              <div class="pricing-box-title">
+                标准套餐
+              </div>
+              <div class="pricing-box-summary">
+                适合多设备使用者，影音爱好者首选
+              </div>
+              <div class="pricing-box-amount">
+                <div class="pricing-box-amount-left">
+                  ¥160
+                </div>
+                <div class="pricing-box-amount-right">
+                  <div class="pricing-box-amount-right-top">
+                    元
+                  </div>
+                  <div class="pricing-box-amount-right-bottom">
+                    半年
+                  </div>
+                </div>
+              </div>
+              <div class="pricing-box-order-now">
+                <a href="https://www.linkcube.org/cart.php?a=add&pid=3" class="pricing-box-order-now-btn">
+                  立即购买
+                </a>
+              </div>
+              <div class="pricing-box-label-title">
+                套餐配置
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="m9 19l9.18-9.006c.748-.734 1.122-1.1 1.444-.967c.323.134.329.659.34 1.708l.036 3.31M15 5l-9.18 9.006c-.748.734-1.122 1.1-1.444.967c-.323-.134-.329-.659-.34-1.708L4 9.955"
+                      color="currentColor" />
+                  </svg>
+                  300GB 流量/月
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M2.513 10.177a8.003 8.003 0 0 1 10.366-4.643l.57-.724q.04-.048.08-.092A9.003 9.003 0 0 0 1.577 9.824a.5.5 0 1 0 .936.353m13.503-3.871a9 9 0 0 1 2.408 3.517a.5.5 0 0 1-.936.354a8 8 0 0 0-1.87-2.873l.264-.662zm-6.015.194a6.5 6.5 0 0 1 1.897.281l-.671.856a5.503 5.503 0 0 0-6.553 3.987a.5.5 0 1 1-.969-.249A6.5 6.5 0 0 1 10.001 6.5m5 2.346l-.436 1.084c.344.51.604 1.082.762 1.695a.5.5 0 1 0 .969-.25A6.5 6.5 0 0 0 15 8.846M10 9l.16.003c-.288.368-.569.73-.833 1.073A3 3 0 0 0 7 13a.5.5 0 0 1-1 0a4 4 0 0 1 4-4m3.168 4.351l-.007.017A.5.5 0 0 0 14 13c0-.424-.065-.832-.187-1.215c-.23.563-.45 1.098-.644 1.566m.222-6.85l.612-.778l.232-.293l.037-.042a.5.5 0 0 1 .855.371l-.036.166l-.138.347a1207 1207 0 0 1-1.504 3.75a341 341 0 0 1-1.203 2.945c-.175.42-.33.786-.451 1.067a8 8 0 0 1-.277.593a1.751 1.751 0 0 1-3.033-1.75c.06-.106.202-.303.375-.538c.183-.246.422-.562.699-.923c.553-.723 1.257-1.629 1.949-2.515s1.374-1.754 1.883-2.4m-1.095 3.015c-.692.886-1.393 1.789-1.943 2.507c-.275.36-.511.672-.689.911a8 8 0 0 0-.313.442a.751.751 0 1 0 1.3.751c.027-.044.102-.205.227-.492c.119-.274.27-.634.444-1.052a343 343 0 0 0 1.549-3.801zm2.83-3.757a.5.5 0 0 1-.034.166Z" />
+                  </svg>
+                  1000Mbps
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                专线接入
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    深圳 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 香港
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCnHk0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCnHk0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#eee"
+                        d="M282.4 193.7c-5.8 24.2-16.1 19.6-21.2 40.7a55.7 55.7 0 0 1 26-108.3c-10.1 42.2.4 46-4.8 67.6M205 211.6c21.2 13 13.6 21.4 32.1 32.8a55.7 55.7 0 0 1-94.9-58.2c37 22.7 43.8 13.8 62.8 25.4m-7 79.3c19-16.2 24.7-6.4 41.2-20.4a55.7 55.7 0 0 1-84.7 72.2c33-28.2 26.6-37.4 43.6-51.8zm73.4 31c-9.6-23 1.5-25.3-6.8-45.3a55.7 55.7 0 0 1 42.6 102.8c-16.6-40-27.3-36.9-35.8-57.4zm52.2-60c-24.9 2-23.7-9.3-45.3-7.6a55.7 55.7 0 0 1 111-8.7c-43.3 3.4-43.6 14.5-65.7 16.3" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    上海 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 日本
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsJp0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsJp0)">
+                      <path fill="#eee" d="M0 0h512v512H0z" />
+                      <circle cx="256" cy="256" r="111.3" fill="#d80027" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    北京 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 德国
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsDe0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsDe0)">
+                      <path fill="#ffda44" d="m0 345l256.7-25.5L512 345v167H0z" />
+                      <path fill="#d80027" d="m0 167l255-23l257 23v178H0z" />
+                      <path fill="#333" d="M0 0h512v167H0z" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                套餐特性
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M4.93 3.93A9.97 9.97 0 0 0 2 11c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 11c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 11c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 11c0-2.76-1.12-5.26-2.93-7.07M7.76 6.76A5.98 5.98 0 0 0 6 11c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 11c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 11c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 11c0-1.65-.67-3.15-1.76-4.24M12 9a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m-1 6v4h-1a1 1 0 0 0-1 1H2v2h7a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1h7v-2h-7a1 1 0 0 0-1-1h-1v-4z" />
+                  </svg>
+                  BGP 接入点
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M4.707 6.156a.75.75 0 0 1 .137 1.051L2.696 10l2.148 2.793a.75.75 0 1 1-1.188.914l-2.5-3.25a.75.75 0 0 1 0-.914l2.5-3.25a.75.75 0 0 1 1.051-.137m10.449 6.637a.75.75 0 1 0 1.188.914l2.5-3.25a.75.75 0 0 0 0-.914l-2.5-3.25a.75.75 0 1 0-1.188.914L17.304 10zM6 11a1 1 0 1 0 0-2a1 1 0 0 0 0 2m5-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2" />
+                  </svg>
+                  国际专线传输
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5" />
+                  </svg>
+                  50+ 节点线路
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                      <path
+                        d="M9.99 10.91a1.49 1.49 0 0 1 1.615-.022l3.371 2.09c.538.334.774.91.774 1.432c0 .523-.236 1.099-.774 1.432l-3.371 2.09c-.54.334-1.157.28-1.615-.022a1.67 1.67 0 0 1-.74-1.41v-4.18c0-.593.289-1.114.74-1.41m.823 1.254c-.019.012-.063.056-.063.156v4.18c0 .1.044.144.063.156l.001.001l3.372-2.09c.021-.013.064-.059.064-.157s-.043-.143-.064-.157l-3.371-2.09z" />
+                      <path
+                        d="M8.7 1.25c-.22 0-.39 0-.536.016A2.75 2.75 0 0 0 5.71 3.87a2.89 2.89 0 0 0-2.055 2.721c-.6.18-1.119.465-1.543.923c-.652.705-.854 1.572-.862 2.586c-.007.975.167 2.207.382 3.736l.44 3.114c.168 1.196.305 2.168.518 2.929c.223.797.552 1.452 1.16 1.956c.604.5 1.32.715 2.166.817c.819.098 1.849.098 3.13.098h5.907c1.282 0 2.312 0 3.13-.098c.847-.102 1.563-.317 2.167-.817c.608-.504.937-1.16 1.16-1.956c.213-.761.35-1.733.519-2.93l.439-3.113c.216-1.53.39-2.761.382-3.736c-.008-1.014-.21-1.881-.862-2.586c-.424-.458-.943-.742-1.544-.923a2.89 2.89 0 0 0-2.054-2.72a2.75 2.75 0 0 0-2.454-2.605c-.147-.016-.316-.016-.536-.016zm10.11 5.078a1.38 1.38 0 0 0-1.348-1.078H6.538c-.669 0-1.212.47-1.349 1.078c.926-.078 2.06-.078 3.427-.078h6.768c1.366 0 2.5 0 3.427.078M16.769 3.75a1.25 1.25 0 0 0-1.092-.993a5 5 0 0 0-.417-.007H8.74c-.28 0-.361.001-.417.007a1.25 1.25 0 0 0-1.092.993zM3.213 8.533c.303-.327.758-.544 1.643-.662c.901-.12 2.108-.121 3.816-.121h6.656c1.708 0 2.915.002 3.816.121c.885.118 1.34.335 1.643.662c.296.32.457.755.463 1.579c.006.85-.15 1.97-.376 3.576l-.423 3c-.178 1.261-.302 2.133-.485 2.787c-.177.63-.384.965-.673 1.204c-.293.244-.687.4-1.388.484c-.719.086-1.658.087-3 .087h-5.81c-1.342 0-2.281-.001-3-.087c-.7-.085-1.095-.24-1.388-.483c-.289-.24-.496-.576-.673-1.205c-.183-.654-.307-1.526-.485-2.787l-.423-3c-.226-1.605-.382-2.726-.376-3.576c.006-.824.167-1.26.463-1.579" />
+                    </g>
+                  </svg>
+                  流媒体全面解锁
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2">
+                      <path d="M10 15H4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2M2 18h12" />
+                      <path
+                        d="M14 9.2c0-.663.597-1.2 1.333-1.2h5.334C21.403 8 22 8.537 22 9.2v9.6c0 .663-.597 1.2-1.333 1.2h-5.334C14.597 20 14 19.463 14 18.8zm4 7.8h.01" />
+                    </g>
+                  </svg>
+                  全平台设备支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="m10.155 14.773l-.009-.021a7 7 0 0 1-.402-.123l-.01-.004A7 7 0 0 1 5 8a7 7 0 0 1 13.96-.749c.044.412-.296.749-.71.749s-.745-.338-.8-.748a5.501 5.501 0 1 0-7.279 5.937a2 2 0 0 1 3.829.81c0 .598-.262 1.134-.677 1.5A2 2 0 0 1 12 16a1.99 1.99 0 0 1-1.845-1.227m-2.158.727a8.5 8.5 0 0 1-2.003-1.485a2.25 2.25 0 0 0-1.99 2.234v.578c0 .892.318 1.756.898 2.435c1.566 1.834 3.952 2.74 7.098 2.74s5.533-.906 7.102-2.74a3.75 3.75 0 0 0 .901-2.438v-.575a2.25 2.25 0 0 0-2.248-2.25H15.5c0 .538-.12 1.046-.337 1.5h2.592a.75.75 0 0 1 .748.75v.575a2.25 2.25 0 0 1-.54 1.463c-1.257 1.468-3.224 2.214-5.963 2.214s-4.704-.746-5.957-2.213a2.25 2.25 0 0 1-.54-1.462v-.577a.75.75 0 0 1 .75-.75zM8 8a4 4 0 1 1 6.243 3.313A3.5 3.5 0 0 0 12 10.5a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5c-.854 0-1.636.306-2.242.813A3.99 3.99 0 0 1 8 8" />
+                  </svg>
+                  标准技术支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M12 13q-1.65 0-2.825-1.175T8 9V5.5q0-.625.438-1.062T9.5 4q.375 0 .713.175t.537.5q.2-.325.538-.5T12 4t.713.175t.537.5q.2-.325.538-.5T14.5 4q.625 0 1.063.438T16 5.5V9q0 1.65-1.175 2.825T12 13m0-2q.825 0 1.413-.587T14 9V6.5h-4V9q0 .825.588 1.413T12 11M4 21v-2.8q0-.85.438-1.562T5.6 15.55q1.55-.775 3.15-1.162T12 14t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 18.2V21zm2-2h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 16t-2.775.338T6.5 17.35q-.225.125-.363.35T6 18.2zm6-12.5" />
+                  </svg>
+                  个人使用用途
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M15.75 14.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5zM2 8.25A3.25 3.25 0 0 1 5.25 5h13.5A3.25 3.25 0 0 1 22 8.25v7.5A3.25 3.25 0 0 1 18.75 19H5.25A3.25 3.25 0 0 1 2 15.75zM20.5 9.5V8.25a1.75 1.75 0 0 0-1.75-1.75H5.25A1.75 1.75 0 0 0 3.5 8.25V9.5zM3.5 11v4.75c0 .966.784 1.75 1.75 1.75h13.5a1.75 1.75 0 0 0 1.75-1.75V11z" />
+                  </svg>
+                  支付宝、微信、USDT
+                </div>
+              </div>
+            </div>
+            <div class="pricing-box">
+              <div class="pricing-box-title">
+                大流量套餐
+              </div>
+              <div class="pricing-box-summary">
+                游戏更新、音视频下载首选，适合家庭使用
+              </div>
+              <div class="pricing-box-amount">
+                <div class="pricing-box-amount-left">
+                  ¥460
+                </div>
+                <div class="pricing-box-amount-right">
+                  <div class="pricing-box-amount-right-top">
+                    元
+                  </div>
+                  <div class="pricing-box-amount-right-bottom">
+                    半年
+                  </div>
+                </div>
+              </div>
+              <div class="pricing-box-order-now">
+                <a href="https://www.linkcube.org/cart.php?a=add&pid=2" class="pricing-box-order-now-btn">
+                  立即购买
+                </a>
+              </div>
+              <div class="pricing-box-label-title">
+                套餐配置
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="m9 19l9.18-9.006c.748-.734 1.122-1.1 1.444-.967c.323.134.329.659.34 1.708l.036 3.31M15 5l-9.18 9.006c-.748.734-1.122 1.1-1.444.967c-.323-.134-.329-.659-.34-1.708L4 9.955"
+                      color="currentColor" />
+                  </svg>
+                  900GB 流量/月
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M2.513 10.177a8.003 8.003 0 0 1 10.366-4.643l.57-.724q.04-.048.08-.092A9.003 9.003 0 0 0 1.577 9.824a.5.5 0 1 0 .936.353m13.503-3.871a9 9 0 0 1 2.408 3.517a.5.5 0 0 1-.936.354a8 8 0 0 0-1.87-2.873l.264-.662zm-6.015.194a6.5 6.5 0 0 1 1.897.281l-.671.856a5.503 5.503 0 0 0-6.553 3.987a.5.5 0 1 1-.969-.249A6.5 6.5 0 0 1 10.001 6.5m5 2.346l-.436 1.084c.344.51.604 1.082.762 1.695a.5.5 0 1 0 .969-.25A6.5 6.5 0 0 0 15 8.846M10 9l.16.003c-.288.368-.569.73-.833 1.073A3 3 0 0 0 7 13a.5.5 0 0 1-1 0a4 4 0 0 1 4-4m3.168 4.351l-.007.017A.5.5 0 0 0 14 13c0-.424-.065-.832-.187-1.215c-.23.563-.45 1.098-.644 1.566m.222-6.85l.612-.778l.232-.293l.037-.042a.5.5 0 0 1 .855.371l-.036.166l-.138.347a1207 1207 0 0 1-1.504 3.75a341 341 0 0 1-1.203 2.945c-.175.42-.33.786-.451 1.067a8 8 0 0 1-.277.593a1.751 1.751 0 0 1-3.033-1.75c.06-.106.202-.303.375-.538c.183-.246.422-.562.699-.923c.553-.723 1.257-1.629 1.949-2.515s1.374-1.754 1.883-2.4m-1.095 3.015c-.692.886-1.393 1.789-1.943 2.507c-.275.36-.511.672-.689.911a8 8 0 0 0-.313.442a.751.751 0 1 0 1.3.751c.027-.044.102-.205.227-.492c.119-.274.27-.634.444-1.052a343 343 0 0 0 1.549-3.801zm2.83-3.757a.5.5 0 0 1-.034.166Z" />
+                  </svg>
+                  1000Mbps
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                专线接入
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    深圳 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 香港
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCnHk0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCnHk0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#eee"
+                        d="M282.4 193.7c-5.8 24.2-16.1 19.6-21.2 40.7a55.7 55.7 0 0 1 26-108.3c-10.1 42.2.4 46-4.8 67.6M205 211.6c21.2 13 13.6 21.4 32.1 32.8a55.7 55.7 0 0 1-94.9-58.2c37 22.7 43.8 13.8 62.8 25.4m-7 79.3c19-16.2 24.7-6.4 41.2-20.4a55.7 55.7 0 0 1-84.7 72.2c33-28.2 26.6-37.4 43.6-51.8zm73.4 31c-9.6-23 1.5-25.3-6.8-45.3a55.7 55.7 0 0 1 42.6 102.8c-16.6-40-27.3-36.9-35.8-57.4zm52.2-60c-24.9 2-23.7-9.3-45.3-7.6a55.7 55.7 0 0 1 111-8.7c-43.3 3.4-43.6 14.5-65.7 16.3" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    上海 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 日本
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsJp0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsJp0)">
+                      <path fill="#eee" d="M0 0h512v512H0z" />
+                      <circle cx="256" cy="256" r="111.3" fill="#d80027" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsCn0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsCn0)">
+                      <path fill="#d80027" d="M0 0h512v512H0z" />
+                      <path fill="#ffda44"
+                        d="m140.1 155.8l22.1 68h71.5l-57.8 42.1l22.1 68l-57.9-42l-57.9 42l22.2-68l-57.9-42.1H118zm163.4 240.7l-16.9-20.8l-25 9.7l14.5-22.5l-16.9-20.9l25.9 6.9l14.6-22.5l1.4 26.8l26 6.9l-25.1 9.6zm33.6-61l8-25.6l-21.9-15.5l26.8-.4l7.9-25.6l8.7 25.4l26.8-.3l-21.5 16l8.6 25.4l-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7l-26.5-3.8l-11.8 24l-4.6-26.4l-26.6-3.8l23.8-12.5l-4.6-26.5l19.2 18.7zm-78.2-73l-2 26.7l24.9 10.1l-26.1 6.4l-1.9 26.8l-14.1-22.8l-26.1 6.4l17.3-20.5l-14.2-22.7l24.9 10.1z" />
+                    </g>
+                  </svg>
+                  <div class="pricing-box-label-item-text">
+                    北京 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                          d="m5.251 9.663l-1.587-1.41a1 1 0 1 0-1.328 1.494l1.405 1.25l.068-.062c.503-.446.982-.873 1.442-1.272m2.295 4.642q.544.436 1.04.777c1.117.763 2.185 1.228 3.414 1.228s2.297-.465 3.413-1.228c1.081-.739 2.306-1.828 3.843-3.194l.052-.046l2.356-2.095a1 1 0 0 0-1.328-1.494l-2.357 2.094c-1.6 1.423-2.731 2.426-3.694 3.084c-.94.642-1.613.88-2.285.88s-1.345-.238-2.285-.88q-.304-.21-.636-.465c-.446.378-.949.82-1.533 1.339" />
+                        <path
+                          d="M16.455 9.695q-.545-.436-1.042-.777C14.297 8.155 13.23 7.689 12 7.689s-2.297.466-3.413 1.229c-1.081.738-2.306 1.828-3.843 3.193l-.052.047l-2.356 2.094a1 1 0 1 0 1.328 1.495l2.357-2.094c1.6-1.423 2.731-2.426 3.694-3.084c.94-.642 1.613-.88 2.285-.88s1.345.238 2.285.88q.304.21.636.464c.446-.377.949-.82 1.534-1.338m3.804 3.308l-.068.061q-.753.672-1.442 1.273l1.587 1.41a1 1 0 0 0 1.328-1.495z" />
+                      </g>
+                    </svg> 德国
+                  </div>
+                  <svg class="pricing-box-label-item-icon-right" xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" viewBox="0 0 512 512">
+                    <mask id="circleFlagsDe0">
+                      <circle cx="256" cy="256" r="256" fill="#fff" />
+                    </mask>
+                    <g mask="url(#circleFlagsDe0)">
+                      <path fill="#ffda44" d="m0 345l256.7-25.5L512 345v167H0z" />
+                      <path fill="#d80027" d="m0 167l255-23l257 23v178H0z" />
+                      <path fill="#333" d="M0 0h512v167H0z" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="pricing-box-label-title bottom">
+                套餐特性
+              </div>
+              <div class="pricing-box-label-group">
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M4.93 3.93A9.97 9.97 0 0 0 2 11c0 2.76 1.12 5.26 2.93 7.07l1.41-1.41A7.94 7.94 0 0 1 4 11c0-2.21.89-4.22 2.34-5.66zm14.14 0l-1.41 1.41A7.96 7.96 0 0 1 20 11c0 2.22-.89 4.22-2.34 5.66l1.41 1.41A9.97 9.97 0 0 0 22 11c0-2.76-1.12-5.26-2.93-7.07M7.76 6.76A5.98 5.98 0 0 0 6 11c0 1.65.67 3.15 1.76 4.24l1.41-1.41A4 4 0 0 1 8 11c0-1.11.45-2.11 1.17-2.83zm8.48 0l-1.41 1.41A4 4 0 0 1 16 11c0 1.11-.45 2.11-1.17 2.83l1.41 1.41A5.98 5.98 0 0 0 18 11c0-1.65-.67-3.15-1.76-4.24M12 9a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m-1 6v4h-1a1 1 0 0 0-1 1H2v2h7a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1h7v-2h-7a1 1 0 0 0-1-1h-1v-4z" />
+                  </svg>
+                  BGP 接入点
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                    <path fill="currentColor"
+                      d="M4.707 6.156a.75.75 0 0 1 .137 1.051L2.696 10l2.148 2.793a.75.75 0 1 1-1.188.914l-2.5-3.25a.75.75 0 0 1 0-.914l2.5-3.25a.75.75 0 0 1 1.051-.137m10.449 6.637a.75.75 0 1 0 1.188.914l2.5-3.25a.75.75 0 0 0 0-.914l-2.5-3.25a.75.75 0 1 0-1.188.914L17.304 10zM6 11a1 1 0 1 0 0-2a1 1 0 0 0 0 2m5-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2" />
+                  </svg>
+                  国际专线传输
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5" />
+                  </svg>
+                  50+ 节点线路
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                      <path
+                        d="M9.99 10.91a1.49 1.49 0 0 1 1.615-.022l3.371 2.09c.538.334.774.91.774 1.432c0 .523-.236 1.099-.774 1.432l-3.371 2.09c-.54.334-1.157.28-1.615-.022a1.67 1.67 0 0 1-.74-1.41v-4.18c0-.593.289-1.114.74-1.41m.823 1.254c-.019.012-.063.056-.063.156v4.18c0 .1.044.144.063.156l.001.001l3.372-2.09c.021-.013.064-.059.064-.157s-.043-.143-.064-.157l-3.371-2.09z" />
+                      <path
+                        d="M8.7 1.25c-.22 0-.39 0-.536.016A2.75 2.75 0 0 0 5.71 3.87a2.89 2.89 0 0 0-2.055 2.721c-.6.18-1.119.465-1.543.923c-.652.705-.854 1.572-.862 2.586c-.007.975.167 2.207.382 3.736l.44 3.114c.168 1.196.305 2.168.518 2.929c.223.797.552 1.452 1.16 1.956c.604.5 1.32.715 2.166.817c.819.098 1.849.098 3.13.098h5.907c1.282 0 2.312 0 3.13-.098c.847-.102 1.563-.317 2.167-.817c.608-.504.937-1.16 1.16-1.956c.213-.761.35-1.733.519-2.93l.439-3.113c.216-1.53.39-2.761.382-3.736c-.008-1.014-.21-1.881-.862-2.586c-.424-.458-.943-.742-1.544-.923a2.89 2.89 0 0 0-2.054-2.72a2.75 2.75 0 0 0-2.454-2.605c-.147-.016-.316-.016-.536-.016zm10.11 5.078a1.38 1.38 0 0 0-1.348-1.078H6.538c-.669 0-1.212.47-1.349 1.078c.926-.078 2.06-.078 3.427-.078h6.768c1.366 0 2.5 0 3.427.078M16.769 3.75a1.25 1.25 0 0 0-1.092-.993a5 5 0 0 0-.417-.007H8.74c-.28 0-.361.001-.417.007a1.25 1.25 0 0 0-1.092.993zM3.213 8.533c.303-.327.758-.544 1.643-.662c.901-.12 2.108-.121 3.816-.121h6.656c1.708 0 2.915.002 3.816.121c.885.118 1.34.335 1.643.662c.296.32.457.755.463 1.579c.006.85-.15 1.97-.376 3.576l-.423 3c-.178 1.261-.302 2.133-.485 2.787c-.177.63-.384.965-.673 1.204c-.293.244-.687.4-1.388.484c-.719.086-1.658.087-3 .087h-5.81c-1.342 0-2.281-.001-3-.087c-.7-.085-1.095-.24-1.388-.483c-.289-.24-.496-.576-.673-1.205c-.183-.654-.307-1.526-.485-2.787l-.423-3c-.226-1.605-.382-2.726-.376-3.576c.006-.824.167-1.26.463-1.579" />
+                    </g>
+                  </svg>
+                  流媒体全面解锁
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2">
+                      <path d="M10 15H4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2M2 18h12" />
+                      <path
+                        d="M14 9.2c0-.663.597-1.2 1.333-1.2h5.334C21.403 8 22 8.537 22 9.2v9.6c0 .663-.597 1.2-1.333 1.2h-5.334C14.597 20 14 19.463 14 18.8zm4 7.8h.01" />
+                    </g>
+                  </svg>
+                  全平台设备支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="m10.155 14.773l-.009-.021a7 7 0 0 1-.402-.123l-.01-.004A7 7 0 0 1 5 8a7 7 0 0 1 13.96-.749c.044.412-.296.749-.71.749s-.745-.338-.8-.748a5.501 5.501 0 1 0-7.279 5.937a2 2 0 0 1 3.829.81c0 .598-.262 1.134-.677 1.5A2 2 0 0 1 12 16a1.99 1.99 0 0 1-1.845-1.227m-2.158.727a8.5 8.5 0 0 1-2.003-1.485a2.25 2.25 0 0 0-1.99 2.234v.578c0 .892.318 1.756.898 2.435c1.566 1.834 3.952 2.74 7.098 2.74s5.533-.906 7.102-2.74a3.75 3.75 0 0 0 .901-2.438v-.575a2.25 2.25 0 0 0-2.248-2.25H15.5c0 .538-.12 1.046-.337 1.5h2.592a.75.75 0 0 1 .748.75v.575a2.25 2.25 0 0 1-.54 1.463c-1.257 1.468-3.224 2.214-5.963 2.214s-4.704-.746-5.957-2.213a2.25 2.25 0 0 1-.54-1.462v-.577a.75.75 0 0 1 .75-.75zM8 8a4 4 0 1 1 6.243 3.313A3.5 3.5 0 0 0 12 10.5a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5c-.854 0-1.636.306-2.242.813A3.99 3.99 0 0 1 8 8" />
+                  </svg>
+                  标准技术支持
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M12 13q-1.65 0-2.825-1.175T8 9V5.5q0-.625.438-1.062T9.5 4q.375 0 .713.175t.537.5q.2-.325.538-.5T12 4t.713.175t.537.5q.2-.325.538-.5T14.5 4q.625 0 1.063.438T16 5.5V9q0 1.65-1.175 2.825T12 13m0-2q.825 0 1.413-.587T14 9V6.5h-4V9q0 .825.588 1.413T12 11M4 21v-2.8q0-.85.438-1.562T5.6 15.55q1.55-.775 3.15-1.162T12 14t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 18.2V21zm2-2h12v-.8q0-.275-.137-.5t-.363-.35q-1.35-.675-2.725-1.012T12 16t-2.775.338T6.5 17.35q-.225.125-.363.35T6 18.2zm6-12.5" />
+                  </svg>
+                  个人使用用途
+                </div>
+                <div class="pricing-box-label-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M15.75 14.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5zM2 8.25A3.25 3.25 0 0 1 5.25 5h13.5A3.25 3.25 0 0 1 22 8.25v7.5A3.25 3.25 0 0 1 18.75 19H5.25A3.25 3.25 0 0 1 2 15.75zM20.5 9.5V8.25a1.75 1.75 0 0 0-1.75-1.75H5.25A1.75 1.75 0 0 0 3.5 8.25V9.5zM3.5 11v4.75c0 .966.784 1.75 1.75 1.75h13.5a1.75 1.75 0 0 0 1.75-1.75V11z" />
+                  </svg>
+                  支付宝、微信、USDT
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pricing-payment">
+            <div class="payment-left">
+              <div class="payment-title">
+                我们接受多种支付方式
+              </div>
+              <div class="payment-summary">
+                支付宝、微信、USDT 等多种支付方式，让您购买更加便捷。
+              </div>
+            </div>
+            <div class="payment-right">
+              <img src="assets/vendor/img/alipay.svg" alt="">
+              <img src="assets/vendor/img/wechat-pay.svg" alt="">
+              <img src="assets/vendor/img/usdt.svg" alt="">
+            </div>
+          </div>
+      </section>
+
+      <section id="testimonials" class="section section--bg-img jarallax" data-speed="0.3" data-img-position="50% 50%"
+        style="background-image: url(assets/vendor/index/img/base_bg_2.jpg);">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="spacer d-none d-md-block py-4"></div>
+              <div class="section-heading section-heading--white section-heading--left">
+                <h2 class="__title">服务至上 好评不断 </h2>
+                <p style="font-size:22px;">
+                  99.98％ 服务可用率。 网速快如闪电。客户对我们的服务好评不断！
+                </p>
+              </div>
+            </div>
+            <div class="spacer d-md-none py-6"></div>
+            <div class="col-12 col-md-6">
+
+              <div class="review review--s3 review--slider">
+                <div class="js-slick" data-slick="{
+											&quot;autoplay&quot;: true,
+											&quot;arrows&quot;: false,
+											&quot;dots&quot;: true,
+											&quot;speed&quot;: 1200,
+											&quot;slidesToShow&quot;: 1,
+											&quot;dotsClass&quot;: &quot;slick-dots slick-dots--white&quot;,
+											&quot;responsive&quot;: [
+											{
+												&quot;breakpoint&quot;: 575,
+												&quot;settings&quot;:{
+													&quot;slidesToShow&quot;: 2
+												}
+											}]
+										}">
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/1.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">电商卖家</span>
+                      </div>
+                    </div>
+                    <p>
+                      我在ebay 和亚马逊上卖货。所以，去北美的互联网速度直接影响我的生意。用上LinkCube后，我的工作效率直接爆表。你们最棒了！
+                    </p>
+                  </div>
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/2.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">交换留学生</span>
+                      </div>
+                    </div>
+                    <p>
+                      刚从日本来中国的时候，完全无法适应中国的网路审核。 LinkCube 的高速 VPN 服务救了我。现在我可以像在日本一样使用互联网 -
+                      Google、Twitter、Instagram、AbemaTV、Netflix 等等 - 都能快速流畅开启！
+                    </p>
+                  </div>
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/3.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">芯片工程師</span>
+                      </div>
+                    </div>
+                    <p>
+                      从蓝灯（Lantern）转用 LinkCube 后，我访问 Google / Dropbox / StackExchange
+                      的速度翻了两倍，我的工作效率提高了一倍。 LinkCube 是我 2024 年最好生产力工具！
+                    </p>
+                  </div>
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/4.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">外国记者</span>
+                      </div>
+                    </div>
+                    <p>
+                      我的工作是为 “经济学人” 周刊做大量的研究和调查。多亏了 LinkCube 的极速 VPN，我现在的生活轻松了 10 倍。
+                    </p>
+                  </div>
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/5.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">媒体研究员</span>
+                      </div>
+                    </div>
+                    <p>
+                      我以前用 Astr**l 有三年。它还行，但真心不快。最近我体验了一下 LinkCube。速度之快让我大吃一惊。我再也不会回去了。
+                    </p>
+                  </div>
+                  <div class="review__item review__item--rounded review__item--shadow">
+                    <div class="d-table">
+                      <div class="d-table-cell align-middle">
+                        <figure class="review__item__author-image mr-4">
+                          <img width="50" height="50" src="assets/vendor/index/img/review_img/6.svg" alt="demo" />
+                        </figure>
+                      </div>
+                      <div class="d-table-cell align-middle">
+                        <span class="review__item__author-name h5">投资经理</span>
+                      </div>
+                    </div>
+                    <p>
+                      我尝试过很多 VPN 服务。但它们都不能与 LinkCube 的速度和可靠性相匹敌。此外，LinkCube
+                      客户客服代表竭尽所能帮助我解决使用中的问题。你们是我的网络救星！
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="subscribe" class="section">
+        <div class="container">
+          <div class="row justify-content-lg-between align-items-md-center">
+            <div class="col-12 col-md-7 col-lg-6 col-xl-5">
+              <div class="section-heading">
+                <h2 class="__title">马上注册您的账户</h2>
+                <p>
+                  开启一段无限畅游的旅途
+                </p>
+              </div>
+              <div class="spacer py-4"></div>
+              <form class="form--horizontal" action="#">
+                <div class="row no-gutters">
+
+                  <div class="col-12 col-sm-auto">
+                    <a href="https://www.linkcube.org/register.php"
+                      class="custom-btn custom-btn--medium custom-btn--style-1 wide" type="button"
+                      role="button">免费注册</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="spacer py-5 d-md-none"></div>
+            <div class="col-12 col-md-5 col-lg-6">
+              <figure class="image-container js-tilt" data-tilt-speed="600" data-tilt-max="15"
+                data-tilt-perspective="700">
+                <img class="img-fluid lazy" width="571" height="490" src="assets/vendor/index/img/blank.gif"
+                  data-src="assets/vendor/index/img/img_13.png"
+                  data-srcset="assets/vendor/index/img/img_13.png 1x, assets/vendor/index/img/img_13@2x.png 2x"
+                  alt="demo" />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer class="footer footer--s4 footer--color-light">
+    <div class="footer__line footer__line--first">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-8 col-lg-5">
+            <div class="footer__item">
+              <a class="footer__logo site-logo" href="/">
+                <img src="assets/vendor/img/logo-white.png" style="width:130px;" />
+              </a>
+            </div>
+
+            <div class="footer__item">
+
+              <address class="footer__address footer__address--s2">
+                <ul>
+                  <li style="padding-left:0px;">
+                    <!--<i class="__ico fontello-mail-1"></i>-->
+                    客服邮箱：
+                    <a href="javascript:void(0)" onclick="copy('support@linkcube.dev')"><span class="__cf_email__" data-cfemail="71020401011e0305311d181f1a120413145f151407">[email&#160;protected]</span></a>
+                  </li>
+
+                </ul>
+              </address>
+            </div>
+
+
+
+
+            <div class="footer__item">
+              <span class="__copy">
+                Copyright LinkCube © <span class="copy_year">2024</span>. All rights reserved
+              </span>
+            </div>
+
+          </div>
+
+          <div class="col-12 col-md-7 col-lg-7">
+            <div class="footer__item">
+              <h4 class="footer__item__title">软件下载</h4>
+              <div class="store-btns store-btns--light">
+                <ul class="d-flex flex-row flex-wrap align-items-center">
+
+                  <li>
+                    <a href="javascript:void(0)"
+                      onclick="eDownLoadSoft('https://store8.gofile.io/download/direct/d3f39195-e5ec-49f2-9d01-0b52f8829b8d/Clash.for.Windows-0.20.39-win%E4%B8%AD%E6%96%87.7z',true)">
+                      <svg t="1666684346945" class="icon" viewbox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2536" width="30" height="30">
+                        <path
+                          d="M180.532703 507.367493c158.678976-65.355497 235.486292-30.474059 304.269865 16.21838l-79.440283 273.0447c-69.018933-46.431495-144.083559-84.635609-303.396985-18.776645l77.643358-270.088368L180.532703 507.367493z"
+                          p-id="2537"></path>
+                        <path
+                          d="M526.399965 549.988196c68.989257 46.397726 139.539057 80.43903 301.656341 24.985044l-75.661214 263.243473c-159.14151 65.832358-235.541551 28.585035-304.439734-18.128893L526.399965 549.988196z"
+                          p-id="2538"></path>
+                        <path
+                          d="M498.022661 474.363821c-41.512463-27.970028-86.198198-54.113455-149.667741-54.582129-41.86448-0.322341-91.709725 11.587919-155.011446 37.731346l78.410837-271.752264c159.198815-65.822125 235.701187-28.520567 304.673048 18.128893L498.022661 474.363821z"
+                          p-id="2539"></path>
+                        <path
+                          d="M922.033677 249.996774c-158.988014 65.700351-235.394195 28.753881-304.214606-17.613146l-78.428234 271.986601c68.7672 46.62797 151.876036 84.896552 304.315914 16.685008L922.033677 249.996774z"
+                          p-id="2540"></path>
+                      </svg>
+                      PC版下载
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="javascript:void(0)" onclick="MacDownload()">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 305 305" width="25" height="30">
+                        <path
+                          d="M40.738 112.119c-25.785 44.745-9.393 112.648 19.121 153.82C74.092 286.523 88.502 305 108.239 305c.372 0 .745-.007 1.127-.022 9.273-.37 15.974-3.225 22.453-5.984 7.274-3.1 14.797-6.305 26.597-6.305 11.226 0 18.39 3.101 25.318 6.099 6.828 2.954 13.861 6.01 24.253 5.815 22.232-.414 35.882-20.352 47.925-37.941 12.567-18.365 18.871-36.196 20.998-43.01l.086-.271a2.5 2.5 0 0 0-1.328-3.066c-.032-.015-.15-.064-.183-.078-3.915-1.601-38.257-16.836-38.618-58.36-.335-33.736 25.763-51.601 30.997-54.839l.244-.152a2.498 2.498 0 0 0 .71-3.511c-18.014-26.362-45.624-30.335-56.74-30.813a50.043 50.043 0 0 0-4.95-.242c-13.056 0-25.563 4.931-35.611 8.893-6.936 2.735-12.927 5.097-17.059 5.097-4.643 0-10.668-2.391-17.645-5.159-9.33-3.703-19.905-7.899-31.1-7.899-.267 0-.53.003-.789.008-26.03.383-50.626 15.275-64.186 38.859z" />
+                        <path
+                          d="M212.101.002c-15.763.642-34.672 10.345-45.974 23.583-9.605 11.127-18.988 29.679-16.516 48.379a2.499 2.499 0 0 0 2.284 2.164c1.064.083 2.15.125 3.232.126 15.413 0 32.04-8.527 43.395-22.257 11.951-14.498 17.994-33.104 16.166-49.77a2.515 2.515 0 0 0-2.587-2.225z" />
+                      </svg>
+                      Mac版下载
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"
+                      onclick="eDownLoadSoft('https://cold2.gofile.io/download/direct/63299933-7df7-46e4-8ee3-a9c31bd17892/cfa-2.5.12-premium-universal-release.apk',true)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 511.995 511.995" width="25" height="30">
+                        <path
+                          d="M98.102 6.525c-13.19-7.94-28.91-8.65-42.62-2.04l229.87 230.36 75.16-75.51L98.102 6.525zm-63.74 19.28a46.845 46.845 0 0 0-4.46 20v421.38c0 7.06 1.57 13.79 4.5 19.8l229.78-230.87-229.82-230.31zm251.021 251.55l-229.5 230.59c6.09 2.82 12.57 4.05 19.04 4.05 7.99 0 15.96-1.91 23.18-6.25l262.46-153.04-75.18-75.35zm175.07-59.82c-.09-.06-.19-.12-.28-.17l-72.86-42.43-80.77 81.15 80.82 80.99s73-42.56 73.09-42.61c13.55-8.23 21.64-22.61 21.64-38.47s-8.09-30.24-21.64-38.46z" />
+                      </svg>
+                      <span>安卓版下载 </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"
+                      onclick="eDownLoadSoft('https://apps.apple.com/hk/app/shadowrocket/id932747118',true)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 305 305" width="25" height="30">
+                        <path
+                          d="M40.738 112.119c-25.785 44.745-9.393 112.648 19.121 153.82C74.092 286.523 88.502 305 108.239 305c.372 0 .745-.007 1.127-.022 9.273-.37 15.974-3.225 22.453-5.984 7.274-3.1 14.797-6.305 26.597-6.305 11.226 0 18.39 3.101 25.318 6.099 6.828 2.954 13.861 6.01 24.253 5.815 22.232-.414 35.882-20.352 47.925-37.941 12.567-18.365 18.871-36.196 20.998-43.01l.086-.271a2.5 2.5 0 0 0-1.328-3.066c-.032-.015-.15-.064-.183-.078-3.915-1.601-38.257-16.836-38.618-58.36-.335-33.736 25.763-51.601 30.997-54.839l.244-.152a2.498 2.498 0 0 0 .71-3.511c-18.014-26.362-45.624-30.335-56.74-30.813a50.043 50.043 0 0 0-4.95-.242c-13.056 0-25.563 4.931-35.611 8.893-6.936 2.735-12.927 5.097-17.059 5.097-4.643 0-10.668-2.391-17.645-5.159-9.33-3.703-19.905-7.899-31.1-7.899-.267 0-.53.003-.789.008-26.03.383-50.626 15.275-64.186 38.859z" />
+                        <path
+                          d="M212.101.002c-15.763.642-34.672 10.345-45.974 23.583-9.605 11.127-18.988 29.679-16.516 48.379a2.499 2.499 0 0 0 2.284 2.164c1.064.083 2.15.125 3.232.126 15.413 0 32.04-8.527 43.395-22.257 11.951-14.498 17.994-33.104 16.166-49.77a2.515 2.515 0 0 0-2.587-2.225z" />
+                      </svg>
+                      iOS版下载
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+
+            <div class="footer__item">
+              <span class="__copy">
+                <a style="text-decoration: none; color:white;font-size: 16px;" href="privacy_policy.html">隐私政策</a>
+                &nbsp;&nbsp;&nbsp;
+                <a style="text-decoration: none; color:white;font-size: 16px;" href="terms_of_service.html">客户条款</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__waves-container">
+      <svg class="footer__wave js-wave"
+        data-wave="{&quot;height&quot;: 40, &quot;bones&quot;: 5, &quot;amplitude&quot;: 70, &quot;color&quot;: &quot;rgba(78, 111, 136, 0.14)&quot;, &quot;speed&quot;: 0.3}"
+        width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <defs></defs>
+        <path class="wave-1" d />
+      </svg>
+      <svg class="footer__wave js-wave"
+        data-wave="{&quot;height&quot;: 60, &quot;bones&quot;: 6, &quot;amplitude&quot;: 90, &quot;color&quot;: &quot;rgba(78, 111, 136, 0.14)&quot;, &quot;speed&quot;: 0.35}"
+        width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <defs></defs>
+        <path class="wave-2" d />
+      </svg>
+    </div>
+    <div id="btn-to-top-wrap">
+      <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
+    </div>
+  </footer>
+
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="assets/vendor/js/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/js/main.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/js/device.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/js/altsvc.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/lib/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+      autoplay: {
+        delay: 3000,
+      },
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
+
+    function eMsg(title, callback) {
+      layer.msg(title, {
+        time: 1800
+      }, function () {
+        if (callback) callback();
+      });
+    }
+
+    const copy_year = document.querySelector('.copy_year');
+    const date = new Date();
+    copy_year.textContent = date.getFullYear();
+
+    function eAlert(obj, callback) {
+      var title = "Alert";
+      var content = "";
+      var btn = "Confirm";
+      if (obj) {
+        if (obj.title) title = obj.title;
+        if (obj.btn) btn = obj.btn;
+        if (obj.content) content = obj.content;
+        else content = obj;
+        layer.open({
+          title: title,
+          btn: [btn],
+          content: content,
+          yes: function (index) {
+            layer.close(index);
+          },
+          end: function () {
+            if (callback) {
+              callback();
+            }
+          }
+        });;
+      }
+    }
+
+    function ePost(url, formdata, successCallback, errorCallback, loading) {
+      var loadIndex = 0;
+      if (loading == true) {
+        loadIndex = layer.load(1, {
+          shade: [0.1, '#fff']
+        });
+      }
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: formdata,
+        dataType: 'json',
+        success: function (data) {
+          if (loading == true) {
+            layer.close(loadIndex);
+          }
+          if (data.status == "success") {
+            if (successCallback) {
+              if (data.msg && data.msg != '') {
+                eMsg(data.msg);
+              }
+              successCallback(data.data);
+            }
+          } else {
+            if (errorCallback) {
+              if (data.msg && data.msg != '') {
+                eMsg(data.msg);
+              }
+              errorCallback(data.data);
+            } else {
+              if (data.msg) {
+                eMsg(data.msg);
+              } else {
+                eMsg("Server is busy！");
+              }
+            }
+          }
+
+        },
+        error: function (error) {
+          if (loading == true) {
+            layer.close(loadIndex);
+          }
+          if (errorCallback) {
+            errorCallback();
+          }
+        }
+      });
+    }
+
+
+    function eGet(url, successCallback, errorCallback, loading) {
+      var loadIndex = 0;
+      if (loading == true) {
+        loadIndex = layer.load(1, {
+          shade: [0.1, '#fff']
+        });
+      }
+
+      $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+          if (loading == true) {
+            layer.close(loadIndex);
+          }
+
+          if (data.status == "success") {
+            if (successCallback) {
+              if (data.msg && data.msg != '') {
+                eMsg(data.msg);
+              }
+              successCallback(data.data);
+            }
+          } else {
+            if (errorCallback) {
+              if (data.msg && data.msg != '') {
+                eMsg(data.msg);
+              }
+              errorCallback(data.data);
+            } else {
+              if (data.msg) {
+                eMsg(data.msg);
+              } else {
+                eMsg("Server is busy！");
+              }
+            }
+          }
+
+        },
+        error: function (error) {
+          if (loading == true) {
+            layer.close(loadIndex);
+          }
+          if (errorCallback) {
+            errorCallback();
+          }
+        }
+      });
+    }
+
+
+    function eConfirm(title, successCallback, failCallback) {
+      layer.confirm(title, {
+        btn: ['Ok', 'Cancel']
+      }, function (index) {
+        if (successCallback) successCallback();
+        layer.close(index);
+      }, function () {
+        if (failCallback) failCallback();
+      });
+    }
+
+
+    function MacDownload() {
+
+      eDownLoadSoft(
+        'https://cold2.gofile.io/download/direct/9dfc1b85-daba-4d92-9c87-5fabca081254/1.117.1.1-ClashX%20Pro.dmg', true);
+      //eDownLoadSoft('/soft/Mac.dmg', true);
+      return;
+      var appleicon =
+        '<svg t="1690792203387" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1695" width="16" height="16"><path d="M755.472961 545.648638c-1.125612-166.078945 92.197861-170.376736 96.393325-173.037274-52.494454-76.746278-134.152493-88.821025-163.21375-89.946637-69.480963-7.060658-135.58509 40.112721-170.888378 40.112721-35.200959 0-89.639652-40.215049-147.250525-39.191766-75.722994 1.125612-145.613271 43.898871-184.702708 111.74258-78.690517 136.608374-20.158689 338.911562 56.587589 449.630858 37.452183 54.234036 82.169681 115.119416 140.906166 112.970521 56.48526-2.251224 77.87189-36.633557 146.227241-36.633557s87.490756 36.633557 147.352853 35.405616c60.783052-1.125612 99.360847-55.25732 136.506046-109.696013 43.080244-62.931948 60.783052-120.747477 61.806336-123.817328-1.330269-0.61397-118.598581-66.820426-119.826521-177.539722L755.472961 545.648638 755.472961 545.648638z" p-id="1696" fill="#888888"></path><path d="M511.829112 288.395115c0-123.203358 99.872489-223.178175 223.178175-223.178175C735.007287 188.522626 635.032469 288.395115 511.829112 288.395115z" p-id="1697" fill="#888888"></path></svg>';
+
+      var content = "如果您不清楚自己的设备的芯片类型，请进行以下操作：<br/>1. 点击屏幕左上角的Apple" + appleicon +
+        "图标<br/>2. 选择“关于本机”，出现对话框。<br/>3. 查看“芯片”或“处理器”栏是否有“Intel”或“Apple”字样";
+      layer.confirm(content, {
+        btn: ['Intel芯片版', 'Apple芯片版'],
+        title: "Mac版程序下载"
+      }, function (index) {
+        eDownLoadSoft('/soft/Mac.dmg', true);
+        layer.close(index);
+      }, function () {
+        eDownLoadSoft('/soft/MacM1.dmg', true);
+        layer.close(index);
+      });
+    }
+
+
+    function eDownLoadSoft(url, forceopen) {
+      if (url == '') {
+        eMsg('敬请期待');
+        return;
+      }
+      window.open(url);
+      return;
+      if (forceopen == true) {
+        window.open(url);
+        return;
+      }
+      if (isPc() == true || forceopen != true) {
+        eShowQrcode(url);
+        return;
+      }
+
+    }
+
+    function isPc() {
+      let userAgentInfo = navigator.userAgent
+      let agents = new Array('Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod');
+
+      for (var v = 0; v < agents.length; v++) {
+        if (userAgentInfo.indexOf(agents[v]) > 0) {
+          return false
+        }
+      }
+
+      return true
+    }
+
+    function eShowQrcode(info) {
+      layer.open({
+        type: 1,
+        shade: false,
+        title: false,
+        content: "<div id='qrcode' style='padding:10px;'></div>",
+        success: function () {
+          new QRCode(document.getElementById("qrcode"), info);
+        }
+      });
+    }
+
+    $(function () {
+      var msg = getUrlParam('msg');
+      if (msg && msg != null) {
+        setTimeout(function () {
+          eMsg(msg);
+        }, 500);
+      }
+      var alertinfo = getUrlParam('alert');
+      if (alertinfo && alertinfo != null) {
+        setTimeout(function () {
+          eAlert(alertinfo);
+        }, 500);
+      }
+    });
+
+    function getUrlParam(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = decodeURI(window.location.search).substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+
+    // 将 .banner-feature-text span 的内容重置为 1，然后再执行动画逐渐增加到原本的数字
+    $('.banner-feature-text span').each(function () {
+      var $this = $(this);
+      jQuery({
+        Counter: 1
+      }).animate({
+        Counter: $this.text()
+      }, {
+        duration: 2000,
+        easing: 'swing',
+        step: function () {
+          $this.text(Math.ceil(this.Counter));
+        }
+      });
+    });
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5de95bdc9d8e561',t:'MTc5NTI1MjQ3NA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5de95bdc9d8e561',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-ee972e401e6be328b1b0",
+  "origin": "https://nsktgoi.lingdongttt.sbs",
+  "recordIds": [
+    "A177"
+  ],
+  "entryUrls": [
+    "https://nsktgoi.lingdongttt.sbs/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "fields": [
+        "compatibility"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://nsktgoi.lingdongttt.sbs",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "c80b0e6ba2d4388b562884d5e4609fe260cc767f79c42a59966adec4770ccd87",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

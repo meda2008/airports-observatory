@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "qualification": "Approximate third-party 2023 opening claim, exact current hostname native navigation; no independent archive or continuous operation verification.",
+  "profiles": [
+    {
+      "recordId": "A039",
+      "url": "https://runtushare.net/11045/",
+      "currentOfficialHostname": "xn--mes358aby2apfg.com",
+      "nativeOfficialHref": "https://runtushare.net/go/pqjc/",
+      "identityMode": "reviewed_native_redirect_current_host",
+      "identityQualified": true,
+      "primaryProof": {
+        "file": "work/performance-20261112-fifteenth/history/A039-source.json",
+        "fileSha256": "ce37de9936b4d8a8400a5b9545ffd257ad7017951635415a8ff743aa12b7326a",
+        "bodySha256": "1de2c69fd298210be895d926a3061ac8d89c24c1f96eded2c7aff6c1fca4a7b5",
+        "url": "https://runtushare.net/11045/",
+        "observedAt": "2026-11-12T03:11:07.275Z"
+      },
+      "destinationProof": {
+        "file": "work/performance-20261112-fifteenth/history/A039-destination.json",
+        "fileSha256": "57b1b6218bfd94f4a5b72db8d2f1c735c2df6757096b106351512bf2816a57cf",
+        "observedAt": "2026-11-12T03:11:32.844Z",
+        "requestedNativeHref": "https://runtushare.net/go/pqjc/",
+        "resolvedUrl": "https://xn--mes358aby2apfg.com/dashboard"
+      }
+    }
+  ]
+}

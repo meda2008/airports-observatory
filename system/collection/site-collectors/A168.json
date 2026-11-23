@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A168",
+  "name": "边缘节点",
+  "entryUrl": "https://nvbnb.lonka.click/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "nvbnb.lonka.click"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "edgenova.cc保存导航当前为边缘节点，使用单独保存的同名边缘节点账号成功登录，实际读取套餐和配置页；法律主体及连续经营未独立核验。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "knowledgeAdapter": true,
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "new_candidate_register_visible_identity_unverified",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "Third-party affiliate chain reaches visible named registration; not a verified operator migration. Do not transfer old credentials or report prices as official.",
+    "credentialPropagationAllowed": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "new-entries-20261104-v2",
+    "status": "original_publisher_current_login_authenticated_client_guides_only",
+    "receipt": "work/collection-runs/new-entries-20261104-v2/current-checkpoints.json",
+    "next": "Original publisher selected erfdd.lonka.click; login succeeded under current permission. Do not duplicate known payment order. No refund clause in four-title guide index."
+  },
+  "collectPerformanceReferences": true
+}

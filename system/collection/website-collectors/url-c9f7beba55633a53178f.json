@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c9f7beba55633a53178f",
+  "origin": "https://user.skylinx.org.uk",
+  "recordIds": [
+    "A060"
+  ],
+  "entryUrls": [
+    "https://user.skylinx.org.uk/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A060"
+      ],
+      "fields": [
+        "website"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "36ac9be7aa7f9dc078226e6831a66906cf604d8bc80b14a370810b21f7382711",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

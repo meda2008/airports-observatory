@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "recordId": "A042",
+      "id": "round40-retained-A042-dns-connection",
+      "url": "https://ncdn1.sntp.uk/",
+      "currentCatalogHostname": "ncdn1.sntp.uk",
+      "kind": "operator_dns_connection_issue_statement",
+      "headline": "DNS 优化已上线｜校园网用户请更新订阅",
+      "nativeDateLiteral": "10-19 22:05",
+      "quote": "本次 DNS 优化已上线，针对校园网等环境中因 DNS 阻断、解析异常导致的节点连接问题，增加多组加密 DNS，并优化节点入口域名解析，改善连接稳定性。",
+      "counterquote": "本次优化主要改善 DNS 解析问题，实际效果受所在网络限制影响。",
+      "scopeQuote": "其他客户端继续使用原有 DNS 方案。正常使用的用户无需手动修改 DNS 地址或节点入口域名。",
+      "summary": "同域SNTP候选站方称针对校园网等DNS解析导致的连接问题进行了优化；公告未完整披露年份，实际恢复未独立核实。",
+      "originalAuthenticationObserved": true,
+      "currentCandidateOnly": true,
+      "retainedOnly": true,
+      "ref": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch3/raw/core-auth-shou-b3-notice-553632e6f361.json",
+        "sourceId": "CORE-AUTH-SHOU-B3-NOTICE",
+        "bodyDerivation": "raw.document?.text || raw.text || raw.body",
+        "fileSha256": "553632e6f361acf75a9c65813e1a35b19bbeeb8bb204d8bcff91bb6380d6802a",
+        "bodySha256": "55d966504e583727a22ac58922e4cfa96a4c93a882f5135a538cd823354ccf3a",
+        "observedAt": "2026-10-26T10:45:28.845Z",
+        "url": "https://ncdn1.sntp.uk/"
+      },
+      "acceptedUrls": [
+        "https://ncdn1.sntp.uk/",
+        "https://ncdn1.sntp.uk/dashboards/modern"
+      ]
+    },
+    {
+      "recordId": "A042",
+      "id": "round40-retained-A042-doh-configuration",
+      "url": "https://ncdn1.sntp.uk/dashboards/modern",
+      "currentCatalogHostname": "ncdn1.sntp.uk",
+      "kind": "operator_dns_configuration_mitigation_statement",
+      "headline": "私有 DoH 已全面启用｜请更新并启用完整配置",
+      "nativeDateLiteral": "10-27 23:33",
+      "quote": "各位用户，继此前 DNS 优化与客户端使用建议公告后，SNTP 现已全面启用私有 DoH（加密 DNS）节点解析。请按下方说明完成一次客户端与配置更新，避免旧配置影响连接。此前公告中的客户端适用范围，以本公告及官网当前说明为准。",
+      "counterquote": "请特别注意：更新节点列表不等于更新完整配置，导入成功也不代表 DoH 已生效。",
+      "scopeQuote": "更新并重新连接后仍有异常，请通过工单提供设备系统、客户端名称与版本、网络类型、发生时间及已遮挡敏感信息的报错截图，我们会继续协助排查。",
+      "summary": "同域SNTP候选后续公告要求更新完整配置并明确覆盖此前客户端适用范围；不证明所有线路已恢复，旧客户端范围不能当当前条件。",
+      "originalAuthenticationObserved": true,
+      "currentCandidateOnly": true,
+      "retainedOnly": true,
+      "ref": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch136/raw/core-auth-shou-b136-doh-notice-79e1a692b46e.json",
+        "sourceId": "CORE-AUTH-SHOU-B136-DOH-NOTICE",
+        "bodyDerivation": "raw.document?.text || raw.text || raw.body",
+        "fileSha256": "79e1a692b46eda863407fb2f4e9c1b4b27cd6f109755e4f68ea5a33d4ac296ed",
+        "bodySha256": "8233bfc7ec5f900f25bd4f4d516b455a42533f7fa3937c39a7dc69eda3b6b53a",
+        "url": "https://ncdn1.sntp.uk/dashboards/modern",
+        "observedAt": "2026-10-28T01:49:07.945Z"
+      },
+      "acceptedUrls": [
+        "https://ncdn1.sntp.uk/",
+        "https://ncdn1.sntp.uk/dashboards/modern"
+      ]
+    },
+    {
+      "recordId": "A001",
+      "id": "round40-retained-A001-node-connectivity",
+      "url": "https://jcnotes.com/airports/wget/20260902_235157/",
+      "currentCatalogHostname": "b8cfff2a4jquxdbmwbaj.wgetcloud.org",
+      "kind": "historical_node_connectivity_snapshot",
+      "headline": "完整节点表 · 29 个",
+      "nativeDateLiteral": "2026-09-02 23:51",
+      "quote": "29 可用 / 0 失败 · 住宅 0 + 机房 29",
+      "counterquote": "本快照为渲染后的可读记录,不提供原始数据文件;数据只代表本站这一条湖南联通 1000M 线路、这一时段。",
+      "scopeQuote": "主要地区可用节点",
+      "summary": "第三方历史单轮29个节点可连通、0失败的记录；分母为节点而非时间，不是连续探测或机场长期稳定率。",
+      "originalAuthenticationObserved": false,
+      "currentCandidateOnly": false,
+      "retainedOnly": true,
+      "ref": {
+        "file": "catalog/refresh/2026-10-26/core-auth-batch72/raw/core-public-wget-b72-external-snapshot-d407cf190df1.json",
+        "sourceId": "CORE-PUBLIC-WGET-B72-EXTERNAL-SNAPSHOT",
+        "bodyDerivation": "raw.document?.text || raw.text || raw.body",
+        "fileSha256": "d407cf190df1741d55b087b0e6f607cabf43564adf71f020ae2a02382a2aeb13",
+        "bodySha256": "9ff166507b75fb0afb1745ece7b15bcf3ecadf1052f407fb14c99875cf6b6bba",
+        "url": "https://jcnotes.com/airports/wget/20260902_235157/",
+        "observedAt": "2026-10-27T12:21:06.640Z"
+      },
+      "acceptedUrls": [
+        "https://jcnotes.com/airports/wget/20260902_235157/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A008",
+  "name": "V2Tun",
+  "entryUrl": "https://www.to-v2tun.xyz/",
+  "entrySource": "native_channel_and_retained_HTTP_redirect_ev-498619d5e69d5c67c5e79856a173980a1a222eb383dcef3d50648f111adaa0df",
+  "allowedHosts": [
+    "www.to-v2tun.xyz"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "native_publisher_visible_waf_public_validation_pending",
+  "reason": "原生通知频道和实际HTTP跳转已留证；当前同源可见Verify Yourself表单与已验收原生入口协议同结构。仅公开页面正常点击一次；没有账号提交或交易，取得报价/复核/展示前不启每周。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v27",
+    "status": "cloudflare_checkpoint",
+    "receipt": "work/collection-runs/financial-20261110-v27/result.json",
+    "sourceFiles": [
+      "work/collection-runs/financial-20261110-v27/A008-cf-checkpoint.json"
+    ],
+    "next": "verification_state_changes",
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "financialFollowupHistory": [
+    {
+      "runId": "financial-20261109-v18",
+      "status": "managed_verification_wait_expired",
+      "checkedAt": "2026-11-09T15:38:32.637Z",
+      "receipt": "work/collection-runs/financial-20261109-v18/run-result.json",
+      "resumeWhen": "current_verification_cleared_or_new_attributable_entry",
+      "credentialPropagationAllowed": false,
+      "completedAllFields": false,
+      "financialFieldsConfirmed": [],
+      "newOrdersCreated": 0,
+      "paymentExecuted": false
+    }
+  ],
+  "collectPerformanceReferences": false,
+  "validateWhileDisabled": true,
+  "readOnlyRecipe": "v2tun_native_waf_visible_entry",
+  "publicOnly": true
+}

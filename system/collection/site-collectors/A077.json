@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A077",
+  "name": "蛋挞云",
+  "entryUrl": "https://eggtart.pro/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "eggtart.pro"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "既有首页通知链接→官方频道原生帖子https://t.me/eggtartcloud/417（2026-06-17T16:41:15+00:00）明确官方域名；本次已授权登录并读取同名套餐目录。各环节同源，不构成独立主体审计；法律经营者、历史连续性、实际付费可用性未验证。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-gaps-20261104-v8",
+    "readOnlyRecipe": "eggtart_native_notification_channel",
+    "module": "collection/site-recipes/eggtart.mjs",
+    "status": "historical_refund_originals_retained_current_policy_unknown",
+    "channel": "https://t.me/s/eggtartcloud",
+    "noOrdersForRefundOnly": true,
+    "receipt": "work/collection-runs/financial-gaps-20261104-v8/source-manifest.json",
+    "checkedAt": "2026-11-04T11:23:34.691Z"
+  },
+  "collectPerformanceReferences": true
+}

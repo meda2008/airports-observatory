@@ -1,0 +1,117 @@
+{
+  "recordedAt": "2026-11-14T02:14:28.768Z",
+  "scope": "stage candidate; not final freeze",
+  "containers": [
+    {
+      "id": "4584bd910020934656fb1ffc11bc075bf7880e4a72b10a9164a5a36c5b520bb0",
+      "name": "/airports-a010-route-qualification-20261114-stage-measurement-proxy-1",
+      "image": "sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0",
+      "configuredImage": "airports-observatory:real-line-qualification-20261114",
+      "state": "running",
+      "exitCode": 0,
+      "health": "healthy",
+      "networkMode": "airports-a010-route-qualification-20261114-stage_qualification-egress",
+      "readOnlyRoot": true,
+      "capDrop": [
+        "ALL"
+      ],
+      "securityOpt": [
+        "no-new-privileges:true"
+      ],
+      "portBindings": {},
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/qualification/input-pins.json",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/qualification/qualify.cjs",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/measurement-bin/mihomo",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/secrets/qualification/config.json",
+          "readWrite": false
+        }
+      ],
+      "composeProject": "airports-a010-route-qualification-20261114-stage"
+    },
+    {
+      "id": "491d07424cc25a34407db3c4eb032aeb696f57d072d26e1c7cf7e4c2d396a581",
+      "name": "/airports-a010-route-qualification-20261114-stage-qualification-1",
+      "image": "sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0",
+      "configuredImage": "airports-observatory:real-line-qualification-20261114",
+      "state": "exited",
+      "exitCode": 0,
+      "health": null,
+      "networkMode": "container:4584bd910020934656fb1ffc11bc075bf7880e4a72b10a9164a5a36c5b520bb0",
+      "readOnlyRoot": true,
+      "capDrop": [
+        "ALL"
+      ],
+      "securityOpt": [
+        "no-new-privileges:true"
+      ],
+      "portBindings": {},
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/qualification-data",
+          "readWrite": true
+        },
+        {
+          "type": "bind",
+          "destination": "/qualification/input-pins.json",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/qualification/qualify.cjs",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/measurement-bin/mihomo",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/secrets/measurement-auth/A010-proxy.json",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/secrets/qualification/config.json",
+          "readWrite": false
+        },
+        {
+          "type": "bind",
+          "destination": "/run/secrets/qualification/verified-egress.json",
+          "readWrite": false
+        }
+      ],
+      "composeProject": "airports-a010-route-qualification-20261114-stage"
+    }
+  ],
+  "image": {
+    "id": "sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0",
+    "repoDigests": [
+      "airports-observatory@sha256:0dfee13312906550bbfbe8b19649efd157f5b3503982f7ef1ec30793d5ee9bd0"
+    ],
+    "sizeBytes": 2065660760
+  },
+  "stdoutSchemaVerified": true,
+  "privateEchoAndAuthorizationAbsent": true,
+  "independentDb": {
+    "file": "deploy-service/data/measurement-runtime/docker-qualification-stage-20261114/measurements.sqlite",
+    "sha256": "678ad3cce818580d99826e53d5b4b74113ec5b5a9c1e38460f0221853ce32407"
+  },
+  "resultFileSha256": "19bfd10c416a6ba043a0ebf4278801b37a99b7341e3ca51eec30880ef1de9fcf"
+}

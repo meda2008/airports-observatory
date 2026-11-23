@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-3383ae548c6f82d07b65",
+  "origin": "https://access.shandiancn.com",
+  "recordIds": [
+    "A037"
+  ],
+  "entryUrls": [
+    "https://access.shandiancn.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://access.shandiancn.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "1e1df5d248018d8a62080ced85817a86e88d5cccfd2fb6ecbe22f1144bffdaeb",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

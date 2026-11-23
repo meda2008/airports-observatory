@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A079",
+  "name": "MilkCat (奶猫)",
+  "entryUrl": "https://cn.forest2026.com/plan",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "cn.forest2026.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "milkcat.net迁移声明链接forest788.com，实际打开178.107.178.65发布页，所列cn.forest2026.com可读Forest公开目录。仅证明所观察链接链与页面，不证明账号/余额已迁移、法律主体一致或持续经营；未向新域名提交旧凭证。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  }
+}

@@ -1,0 +1,4 @@
+'use strict';
+function diagnosticFailure(checks=[]){for(const c of [...checks].reverse()){if(c.serverFailure)return{type:c.serverFailure,reason:'官网原生认证响应明确拒绝登录；未重试密码。'};if(c.event==='request_failed'&&c.networkFailure)return{type:'native_login_transport_failed',reason:'官网原生登录请求未取得HTTP响应；网络传输失败，不据此判定密码错误，未重试。'};if([404,405].includes(c.httpStatus))return{type:'native_login_endpoint_unavailable',reason:'官网原生登录请求返回HTTP '+c.httpStatus+'；账号密码有效性未确认，不据此认定密码错误。'};}return null;}
+function finalLoginStatus(observed,checkpoint){return ['email_login_required','login_required','server_rejected_credentials','credential_not_configured','native_login_endpoint_unavailable','native_login_transport_failed'].includes(checkpoint?.type)?'login_required':observed;}
+module.exports={diagnosticFailure,finalLoginStatus};

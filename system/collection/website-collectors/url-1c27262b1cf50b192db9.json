@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-1c27262b1cf50b192db9",
+  "origin": "https://daskfljasdf918.ssrdog12.com",
+  "recordIds": [
+    "A019"
+  ],
+  "entryUrls": [
+    "https://daskfljasdf918.ssrdog12.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://daskfljasdf918.ssrdog12.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "37b90907eef5016450b0e6fd4816347a8ffd6888807f58e7e90118327a3219aa",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

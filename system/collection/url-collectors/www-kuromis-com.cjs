@@ -1,0 +1,5 @@
+'use strict';
+const origin='https://www.kuromis.com',quote='最终解释权归 库洛米 所有，若订单出现争议，请及时发送邮件咨询处理';
+function extract(s){const u=new URL(s.url);if(u.origin!==origin)throw Error('kuromis_origin_mismatch');const text=s.text||s.body||'';if(u.pathname!=='/place-order'||u.searchParams.get('plan_id')!=='2'||!text.includes(quote)||!text.includes('选择付款方式')||!text.includes('有限的技术或服务支持')||/退款|退费|refund/i.test(text))return null;return{refund:{status:'not_confirmed',summary:'退款条件仍未确认。本次只读查看的50G套餐配置说明订单争议可邮件咨询，但没有取得明确可退／不可退规则、申请时限或处理比例。',quote,conditions:['争议联系说明不等于承诺退款，也不等于拒绝退款。','此结论仅覆盖本次读取的配置正文，不能推断官网其他位置或客服没有退款政策。'],sourceUrl:s.url,observedAt:s.capturedAt||s.observedAt,sourceIds:[s.evidenceId].filter(Boolean),executionVerified:false}};}
+async function collectMany(tab){return(await import('../site-recipes/kuromis.mjs')).collectKuromisReadOnly(tab);}
+module.exports={origin,recordIds:['A022','A191'],fields:['refund'],extract,collectMany,readOnlyRecipe:'kuromis_financial_policy_readonly',acceptance:'scoped_unknown_with_original_not_refund_policy_confirmation'};

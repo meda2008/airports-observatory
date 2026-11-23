@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-e0c4c957f8a68f1bacc3",
+  "origin": "https://eiyjhb.invisiblettt.homes",
+  "recordIds": [
+    "A164"
+  ],
+  "entryUrls": [
+    "https://eiyjhb.invisiblettt.homes/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": true,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://eiyjhb.invisiblettt.homes",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "065be85c8dd6df5c582daa93b6a759d9f0bcbfaf9fb02f5f8c8bc6dd205a7f7e",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#031226">
+    <meta name="description" content="Hutao Cloud 智能入口会自动检测可用域名，并选择响应更快的用户中心。">
+    <title>Hutao Cloud</title>
+    <link rel="icon" href="static/icon.png">
+    <style>
+        :root {
+            color-scheme: light;
+            --canvas: #ffffff;
+            --surface: #ffffff;
+            --surface-soft: #f5f8fc;
+            --surface-blue: #eef5ff;
+            --ink: #07111f;
+            --ink-soft: #26364a;
+            --muted: #58677b;
+            --muted-light: #7d8998;
+            --line: #dce4ee;
+            --line-strong: #cbd7e5;
+            --primary: #0868ed;
+            --primary-deep: #0756cf;
+            --primary-soft: #eaf3ff;
+            --success: #0ba849;
+            --success-deep: #07873a;
+            --success-soft: #effbf3;
+            --danger: #c54141;
+            --danger-soft: #fff3f3;
+            --shadow-panel: 0 18px 48px rgba(31, 54, 83, 0.08);
+            --shadow-button: 0 10px 24px rgba(8, 104, 237, 0.22);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --radius-xl: 28px;
+            --page-max: 1408px;
+            --font-sans: Inter, "SF Pro Display", "SF Pro Text", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-width: 320px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            background: var(--canvas);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        a {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shell {
+            width: min(var(--page-max), calc(100% - 64px));
+            margin-inline: auto;
+        }
+
+        .site-header {
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .header-inner {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand span {
+            font-size: 18px;
+            line-height: 1.25;
+            font-weight: 750;
+            letter-spacing: -0.02em;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .route-hero {
+            display: grid;
+            grid-template-columns: minmax(360px, 0.9fr) minmax(650px, 1.56fr);
+            align-items: center;
+            gap: 36px;
+            padding-block: 28px 48px;
+        }
+
+        .hero-copy {
+            align-self: center;
+        }
+
+        .hero-copy h1 {
+            max-width: 560px;
+            margin: 0;
+            color: var(--ink);
+            font-size: clamp(42px, 3.2vw, 48px);
+            line-height: 1.18;
+            font-weight: 760;
+            letter-spacing: -0.045em;
+            white-space: nowrap;
+        }
+
+        .hero-title-line {
+            display: inline;
+        }
+
+        .hero-lead {
+            max-width: 560px;
+            margin: 28px 0 0;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.8;
+            font-weight: 430;
+            letter-spacing: -0.01em;
+        }
+
+        .route-stack {
+            min-width: 0;
+        }
+
+        .route-panel {
+            min-height: 520px;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: var(--shadow-panel);
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 24px;
+            line-height: 1.3;
+            font-weight: 740;
+            letter-spacing: -0.025em;
+        }
+
+        .icon-button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--ink-soft);
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 650;
+            transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+        }
+
+        .icon-button:hover {
+            border-color: #aebfd3;
+            background: var(--surface-soft);
+            color: var(--ink);
+        }
+
+        .icon-button:disabled {
+            cursor: wait;
+            opacity: 0.58;
+        }
+
+        .icon-button svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        .scan-line {
+            height: 3px;
+            margin: 22px 4px 24px;
+            border-radius: 999px;
+            background: #e9eef5;
+            overflow: hidden;
+        }
+
+        .scan-line span {
+            width: 32%;
+            height: 100%;
+            display: block;
+            border-radius: inherit;
+            background: var(--primary);
+            animation: scan 1.25s ease-in-out infinite;
+        }
+
+        .route-panel[data-state="complete"] .scan-line span {
+            width: 100%;
+            background: var(--success);
+            animation: none;
+            transform: none;
+        }
+
+        .route-panel[data-state="failed"] .scan-line span {
+            width: 100%;
+            background: var(--line-strong);
+            animation: none;
+            transform: none;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateX(-110%);
+            }
+
+            55% {
+                transform: translateX(215%);
+            }
+
+            100% {
+                transform: translateX(215%);
+            }
+        }
+
+        .route-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .route-row {
+            min-height: 78px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 18px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            color: var(--ink);
+            text-decoration: none;
+            transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+
+        .route-row:hover {
+            border-color: #b8c7d8;
+            background: #fbfdff;
+            transform: translateY(-1px);
+        }
+
+        .route-row.is-fastest {
+            border-color: #7ad29a;
+            background: var(--success-soft);
+            box-shadow: 0 9px 22px rgba(11, 168, 73, 0.08);
+        }
+
+        .route-row.is-unreachable {
+            background: #fafbfc;
+            color: var(--muted);
+        }
+
+        .route-identity {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .route-dot {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            flex: 0 0 auto;
+            border: 2px solid #8db9fa;
+            border-radius: 50%;
+            background: var(--surface);
+        }
+
+        .is-testing .route-dot::after {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border: 2px solid rgba(8, 104, 237, 0.18);
+            border-radius: inherit;
+            animation: pulse 1.2s ease-out infinite;
+        }
+
+        .is-reachable .route-dot {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .is-fastest .route-dot {
+            width: 24px;
+            height: 24px;
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .is-fastest .route-dot::after {
+            content: "✓";
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .is-unreachable .route-dot {
+            border-color: #adb8c5;
+            background: #adb8c5;
+        }
+
+        @keyframes pulse {
+            from {
+                opacity: 1;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(1.25);
+            }
+        }
+
+        .route-name-wrap {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .route-name {
+            min-width: 0;
+            overflow: hidden;
+            color: inherit;
+            font-size: 19px;
+            line-height: 1.35;
+            font-weight: 740;
+            letter-spacing: -0.025em;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .route-label,
+        .fastest-label {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 3px 8px;
+            border: 1px solid #bdd6fa;
+            border-radius: 8px;
+            background: var(--primary-soft);
+            color: var(--primary-deep);
+            font-size: 12px;
+            line-height: 1.3;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+
+        .fastest-label {
+            border-color: #9fdbb4;
+            background: #f7fff9;
+            color: var(--success-deep);
+        }
+
+        .route-metric {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .route-latency {
+            min-width: 72px;
+            color: var(--ink-soft);
+            font-size: 17px;
+            line-height: 1.35;
+            font-weight: 730;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .is-reachable .route-latency {
+            color: var(--success);
+        }
+
+        .is-unreachable .route-latency {
+            color: var(--danger);
+            font-size: 14px;
+        }
+
+        .signal {
+            height: 22px;
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            color: var(--success);
+        }
+
+        .signal i {
+            width: 3px;
+            border-radius: 2px;
+            background: currentColor;
+            opacity: 0.18;
+        }
+
+        .signal i:nth-child(1) {
+            height: 6px;
+        }
+
+        .signal i:nth-child(2) {
+            height: 10px;
+        }
+
+        .signal i:nth-child(3) {
+            height: 15px;
+        }
+
+        .signal i:nth-child(4) {
+            height: 20px;
+        }
+
+        [data-quality="slow"] .signal i:nth-child(-n+2),
+        [data-quality="good"] .signal i:nth-child(-n+3),
+        [data-quality="fast"] .signal i {
+            opacity: 1;
+        }
+
+        [data-quality="none"] .signal {
+            color: #aeb8c5;
+        }
+
+        .route-availability {
+            min-width: 62px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .is-reachable .route-availability {
+            color: var(--ink-soft);
+        }
+
+        .result-area {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        .result-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .result-copy {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .result-icon {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            border: 2px solid #91b9ef;
+            border-radius: 50%;
+            color: var(--primary);
+        }
+
+        .result-icon::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: resultPulse 1s ease-in-out infinite alternate;
+        }
+
+        .result-icon svg {
+            display: none;
+            width: 21px;
+            height: 21px;
+            stroke-width: 2.4;
+        }
+
+        .route-panel[data-state="complete"] .result-icon {
+            border-color: var(--success);
+            background: var(--success);
+            color: #ffffff;
+        }
+
+        .route-panel[data-state="complete"] .result-icon::before,
+        .route-panel[data-state="failed"] .result-icon::before {
+            display: none;
+        }
+
+        .route-panel[data-state="complete"] .result-icon svg {
+            display: block;
+        }
+
+        .route-panel[data-state="failed"] .result-icon {
+            border-color: #e3b2b2;
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
+        .route-panel[data-state="failed"] .result-icon::after {
+            content: "!";
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        @keyframes resultPulse {
+            from {
+                opacity: 0.35;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-copy h3 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 20px;
+            line-height: 1.35;
+            font-weight: 740;
+            letter-spacing: -0.02em;
+        }
+
+        .result-copy p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .countdown {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ink-soft);
+            font-size: 15px;
+            line-height: 1.45;
+            white-space: nowrap;
+        }
+
+        .countdown-ring {
+            --countdown-progress: 100%;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) var(--countdown-progress), #eaf0f7 0);
+        }
+
+        .countdown-ring::before {
+            content: "";
+            grid-area: 1 / 1;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--surface);
+        }
+
+        .countdown-ring strong {
+            position: relative;
+            grid-area: 1 / 1;
+            color: var(--primary-deep);
+            font-size: 22px;
+            line-height: 1;
+            font-weight: 780;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .panel-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .button {
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+            line-height: 1.4;
+            font-weight: 720;
+            transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+        }
+
+        .button-primary {
+            min-width: 164px;
+            border: 1px solid var(--primary);
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: var(--shadow-button);
+        }
+
+        .button-primary:hover {
+            border-color: var(--primary-deep);
+            background: var(--primary-deep);
+            transform: translateY(-1px);
+        }
+
+        .button-primary.is-disabled {
+            border-color: #a9c7ee;
+            background: #a9c7ee;
+            box-shadow: none;
+            cursor: wait;
+            pointer-events: none;
+        }
+
+        .button-secondary {
+            min-width: 164px;
+            border: 1px solid var(--primary);
+            background: var(--surface);
+            color: var(--primary-deep);
+        }
+
+        .button-secondary:hover {
+            background: var(--primary-soft);
+        }
+
+        .button-secondary:disabled {
+            border-color: var(--line-strong);
+            color: var(--muted-light);
+            background: var(--surface-soft);
+            cursor: default;
+        }
+
+        .support-links {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .support-link {
+            min-height: 92px;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            color: var(--ink);
+            text-decoration: none;
+            transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+        }
+
+        .support-link:hover {
+            border-color: #b6c7db;
+            background: #fbfdff;
+            transform: translateY(-1px);
+        }
+
+        .support-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--primary-soft);
+            color: var(--primary);
+        }
+
+        .support-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.9;
+        }
+
+        .support-copy {
+            min-width: 0;
+        }
+
+        .support-copy strong {
+            display: block;
+            color: var(--ink);
+            font-size: 17px;
+            line-height: 1.4;
+            font-weight: 730;
+        }
+
+        .support-copy span {
+            display: block;
+            margin-top: 3px;
+            overflow: hidden;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .support-arrow {
+            width: 20px;
+            height: 20px;
+            color: #75849a;
+            stroke-width: 2;
+        }
+
+        .site-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--line);
+            background: var(--surface);
+        }
+
+        .footer-inner {
+            min-height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .footer-inner p {
+            margin: 0;
+        }
+
+        .footer-inner a {
+            color: var(--muted);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-divider {
+            color: var(--line-strong);
+            line-height: 1;
+        }
+
+        .footer-inner a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid rgba(8, 104, 237, 0.28);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 1350px) {
+            .hero-copy h1 {
+                white-space: normal;
+            }
+
+            .hero-title-line {
+                display: block;
+            }
+        }
+
+        @media (max-width: 1120px) {
+            .route-hero {
+                grid-template-columns: 1fr;
+                gap: 42px;
+                padding-top: 58px;
+            }
+
+            .hero-copy {
+                max-width: 760px;
+            }
+
+            .hero-copy h1,
+            .hero-lead {
+                max-width: 720px;
+            }
+
+        }
+
+        @media (max-width: 720px) {
+            .shell {
+                width: min(var(--page-max), calc(100% - 32px));
+            }
+
+            .header-inner {
+                min-height: 66px;
+            }
+
+            .brand {
+                gap: 9px;
+            }
+
+            .brand img {
+                width: 31px;
+                height: 31px;
+            }
+
+            .brand span {
+                font-size: 17px;
+            }
+
+            .route-hero {
+                gap: 34px;
+                padding-block: 44px 36px;
+            }
+
+            .hero-copy {
+                text-align: center;
+            }
+
+            .hero-copy h1 {
+                margin-inline: auto;
+                font-size: clamp(34px, 10vw, 46px);
+                line-height: 1.18;
+                letter-spacing: -0.04em;
+            }
+
+            .hero-lead {
+                margin: 22px auto 0;
+                font-size: 16px;
+                line-height: 1.75;
+            }
+
+            .route-panel {
+                min-height: 0;
+                padding: 20px;
+                border-radius: var(--radius-md);
+            }
+
+            .panel-head h2 {
+                font-size: 20px;
+            }
+
+            .icon-button {
+                padding-inline: 11px;
+            }
+
+            .route-row {
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 10px 12px;
+                padding: 15px 14px;
+            }
+
+            .route-identity {
+                gap: 9px;
+            }
+
+            .route-name-wrap {
+                gap: 7px;
+            }
+
+            .route-name {
+                font-size: 17px;
+            }
+
+            .route-label,
+            .fastest-label {
+                min-height: 23px;
+                padding: 2px 6px;
+                font-size: 11px;
+            }
+
+            .route-metric {
+                gap: 7px;
+            }
+
+            .route-latency {
+                min-width: 58px;
+                font-size: 15px;
+            }
+
+            .route-availability {
+                grid-column: 1 / -1;
+                min-width: 0;
+                padding-left: 25px;
+                text-align: left;
+                font-size: 12px;
+            }
+
+            .result-summary {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .countdown {
+                align-self: stretch;
+            }
+
+            .panel-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .support-link {
+                padding: 14px 16px;
+            }
+
+            .support-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .footer-inner {
+                min-height: 112px;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 8px;
+                padding-block: 22px;
+                text-align: center;
+            }
+
+            .footer-divider {
+                display: none;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .brand span {
+                font-size: 16px;
+            }
+
+            .route-panel {
+                padding: 18px 14px;
+            }
+
+            .panel-head {
+                align-items: flex-start;
+            }
+
+            .panel-head h2 {
+                max-width: 190px;
+            }
+
+            .icon-button span {
+                display: none;
+            }
+
+            .icon-button {
+                width: 44px;
+                padding: 0;
+            }
+
+            .route-row {
+                padding-inline: 12px;
+            }
+
+            .route-name {
+                max-width: none;
+                grid-column: 1 / -1;
+                overflow: visible;
+            }
+
+            .route-name-wrap {
+                display: grid;
+                grid-template-columns: auto auto;
+                justify-content: start;
+                gap: 4px 6px;
+            }
+
+            .signal {
+                display: none;
+            }
+
+            .support-copy span {
+                font-size: 12px;
+                white-space: normal;
+            }
+
+            .result-copy {
+                align-items: flex-start;
+            }
+
+            .result-copy h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="static/navigation-v2.css">
+</head>
+
+<body>
+    <div class="page">
+        <header class="site-header">
+            <div class="shell header-inner">
+                <a class="brand" href="./" aria-label="Hutao Cloud 导航首页">
+                    <img src="static/brand-mark.svg" alt="">
+                    <span>Hutao Cloud</span>
+                </a>
+
+            </div>
+        </header>
+
+        <main>
+            <section class="shell route-hero" aria-labelledby="page-title">
+                <div class="hero-copy">
+                    <h1 id="page-title"><span class="hero-title-line">正在为你选择</span><span class="hero-title-line">更快的入口</span></h1>
+                    <p class="hero-lead">
+                        我们会同时检测可用线路，选择响应最快的用户中心。无需手动判断，检测完成后将自动跳转。
+                    </p>
+
+                </div>
+
+                <div class="route-stack">
+                    <section class="route-panel" id="route-panel" data-state="testing" aria-labelledby="panel-title" aria-busy="true">
+                        <div class="panel-head">
+                            <h2 id="panel-title">正在检测 2 个可用入口</h2>
+                            <button class="icon-button" id="retest-button" type="button" aria-label="重新检测可用入口">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M20 6v5h-5"></path>
+                                    <path d="M4 18v-5h5"></path>
+                                    <path d="M6.1 9a7 7 0 0 1 11.7-2.6L20 11"></path>
+                                    <path d="M4 13l2.2 4.6A7 7 0 0 0 17.9 15"></path>
+                                </svg>
+                                <span>重新检测</span>
+                            </button>
+                        </div>
+
+                        <div class="scan-line" role="progressbar" aria-label="入口检测进度" aria-valuetext="正在检测">
+                            <span></span>
+                        </div>
+
+                        <nav class="route-list" aria-label="自动检测域名">
+                            <a class="route-row is-testing" href="https://hutaohome.com/" data-route="mainland" data-quality="none">
+                                <span class="route-number" aria-hidden="true">01</span>
+                                <span class="route-identity">
+                                    <span class="route-dot" aria-hidden="true"></span>
+                                    <span class="route-name-wrap">
+                                        <span class="route-name">hutaohome.com</span>
+                                        <span class="route-label">大陆域名</span>
+                                        <span class="fastest-label" data-fastest-label hidden>最快</span>
+                                    </span>
+                                </span>
+                                <span class="route-metric">
+                                    <span class="route-latency" data-latency>检测中</span>
+                                    <span class="signal" aria-hidden="true">
+                                        <i></i><i></i><i></i><i></i>
+                                    </span>
+                                </span>
+                                <span class="route-availability" data-availability>正在连接</span>
+                            </a>
+
+                            <a class="route-row is-testing" href="https://northernbridgeplatform.com/" data-route="mainland-alt" data-quality="none">
+                                <span class="route-number" aria-hidden="true">02</span>
+                                <span class="route-identity">
+                                    <span class="route-dot" aria-hidden="true"></span>
+                                    <span class="route-name-wrap">
+                                        <span class="route-name">northernbridgeplatform.com</span>
+                                        <span class="route-label">大陆域名</span>
+                                        <span class="fastest-label" data-fastest-label hidden>最快</span>
+                                    </span>
+                                </span>
+                                <span class="route-metric">
+                                    <span class="route-latency" data-latency>检测中</span>
+                                    <span class="signal" aria-hidden="true">
+                                        <i></i><i></i><i></i><i></i>
+                                    </span>
+                                </span>
+                                <span class="route-availability" data-availability>正在连接</span>
+                            </a>
+                        </nav>
+
+                        <div class="result-area" aria-live="polite">
+                            <div class="countdown" id="countdown" hidden>
+                                <span class="countdown-ring" id="countdown-ring">
+                                    <strong id="countdown-value">5</strong>
+                                </span>
+                            </div>
+
+                            <div class="result-body">
+                                <div class="result-copy">
+                                    <span class="result-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="m7 12 3 3 7-7"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="result-text">
+                                        <h3 id="result-title">正在比较线路</h3>
+                                        <p id="result-detail">检测通常只需要几秒钟</p>
+                                        <p class="countdown-copyline"><strong id="countdown-copy">5</strong> 秒后自动进入</p>
+                                    </span>
+                                </div>
+
+                                <div class="panel-actions">
+                                    <a class="button button-primary is-disabled" id="enter-fastest" href="https://hutaohome.com/" aria-disabled="true" tabindex="-1">检测中</a>
+                                    <button class="button button-secondary" id="toggle-auto" type="button" aria-pressed="true">取消自动跳转</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <nav class="support-links" aria-label="其他入口与支持">
+                        <a class="support-link" href="https://hutao.cloud/">
+                            <span class="support-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="9"></circle>
+                                    <path d="M3 12h18"></path>
+                                    <path d="M12 3c2.6 2.5 4 5.5 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.5-4-9s1.4-6.5 4-9Z"></path>
+                                </svg>
+                            </span>
+                            <span class="support-copy">
+                                <strong>永久域名</strong>
+                                <span>hutao.cloud · 不支持中国大陆网络直接访问</span>
+                            </span>
+                            <svg class="support-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="m9 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+
+                        <a class="support-link" href="/cdn-cgi/l/email-protection#bfcccacfcfd0cdcbffd7cacbded091dcd3d0cadb">
+                            <span class="support-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M3 6h18v12H3z"></path>
+                                    <path d="m3 7 9 7 9-7"></path>
+                                </svg>
+                            </span>
+                            <span class="support-copy">
+                                <strong>邮箱客服</strong>
+                                <span><span class="__cf_email__" data-cfemail="10636560607f626450786564717f3e737c7f6574">[email&#160;protected]</span></span>
+                            </span>
+                            <svg class="support-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="m9 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="shell footer-inner">
+                <p>&copy; 2026 Hutao Cloud. All rights reserved.</p>
+                <span class="footer-divider" aria-hidden="true">·</span>
+                <p><a href="/cdn-cgi/l/email-protection#ccbfb9bcbca3beb88ca4b9b8ada3e2afa0a3b9a8"><span class="__cf_email__" data-cfemail="cebdbbbebea1bcba8ea6bbbaafa1e0ada2a1bbaa">[email&#160;protected]</span></a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="b8ef57b4898f80daaa87b7ed-text/javascript">
+        (() => {
+            "use strict";
+
+            const routes = [
+                {
+                    id: "mainland",
+                    label: "大陆域名",
+                    host: "hutaohome.com",
+                    url: "https://hutaohome.com/",
+                    probeUrl: "https://hutaohome.com/__edge-probe"
+                },
+                {
+                    id: "mainland-alt",
+                    label: "大陆域名",
+                    host: "northernbridgeplatform.com",
+                    url: "https://northernbridgeplatform.com/",
+                    probeUrl: "https://northernbridgeplatform.com/__edge-probe"
+                }
+            ];
+
+            const probeTimeoutMs = 1600;
+            const probeSampleCount = 3;
+            const minimumSuccessfulSamples = 2;
+            const countdownSeconds = 5;
+            const routePanel = document.getElementById("route-panel");
+            const panelTitle = document.getElementById("panel-title");
+            const progress = document.querySelector(".scan-line");
+            const retestButton = document.getElementById("retest-button");
+            const resultTitle = document.getElementById("result-title");
+            const resultDetail = document.getElementById("result-detail");
+            const enterFastest = document.getElementById("enter-fastest");
+            const toggleAuto = document.getElementById("toggle-auto");
+            const countdown = document.getElementById("countdown");
+            const countdownRing = document.getElementById("countdown-ring");
+            const countdownValue = document.getElementById("countdown-value");
+            const countdownCopy = document.getElementById("countdown-copy");
+            const activeControllers = new Set();
+
+            let scanVersion = 0;
+            let selectedRoute = null;
+            let countdownTimer = null;
+            let autoRedirectEnabled = true;
+
+            const abortActiveProbes = () => {
+                activeControllers.forEach((controller) => controller.abort());
+                activeControllers.clear();
+            };
+
+            const stopCountdown = () => {
+                if (countdownTimer !== null) {
+                    window.clearInterval(countdownTimer);
+                    countdownTimer = null;
+                }
+                countdown.hidden = true;
+            };
+
+            const setCountdown = (seconds) => {
+                const progressValue = Math.max(0, Math.min(100, (seconds / countdownSeconds) * 100));
+                countdownValue.textContent = String(seconds);
+                countdownCopy.textContent = String(seconds);
+                countdownRing.style.setProperty("--countdown-progress", progressValue + "%");
+            };
+
+            const startCountdown = () => {
+                stopCountdown();
+                if (!autoRedirectEnabled || !selectedRoute) {
+                    return;
+                }
+
+                let remaining = countdownSeconds;
+                setCountdown(remaining);
+                countdown.hidden = false;
+
+                countdownTimer = window.setInterval(() => {
+                    remaining -= 1;
+                    setCountdown(remaining);
+
+                    if (remaining <= 0) {
+                        window.clearInterval(countdownTimer);
+                        countdownTimer = null;
+                        window.location.assign(selectedRoute.url);
+                    }
+                }, 1000);
+            };
+
+            const updateToggle = () => {
+                toggleAuto.textContent = autoRedirectEnabled ? "取消自动跳转" : "恢复自动跳转";
+                toggleAuto.setAttribute("aria-pressed", String(autoRedirectEnabled));
+            };
+
+            const qualityForLatency = (latency) => {
+                if (latency <= 120) {
+                    return "fast";
+                }
+                if (latency <= 320) {
+                    return "good";
+                }
+                return "slow";
+            };
+
+            const median = (values) => {
+                const sorted = values.slice().sort((left, right) => left - right);
+                const middle = Math.floor(sorted.length / 2);
+
+                if (sorted.length % 2 === 1) {
+                    return sorted[middle];
+                }
+
+                return Math.round((sorted[middle - 1] + sorted[middle]) / 2);
+            };
+
+            const measureOnce = async (route) => {
+                const controller = new AbortController();
+                activeControllers.add(controller);
+                const timeout = window.setTimeout(() => controller.abort(), probeTimeoutMs);
+                const startedAt = window.performance.now();
+                const probeUrl = new URL(route.probeUrl);
+                probeUrl.searchParams.set("_navigation_probe", Date.now().toString(36) + Math.random().toString(36).slice(2));
+
+                try {
+                    const response = await fetch(probeUrl.toString(), {
+                        method: "GET",
+                        mode: "cors",
+                        cache: "no-store",
+                        credentials: "omit",
+                        referrerPolicy: "no-referrer",
+                        signal: controller.signal
+                    });
+
+                    if (!response.ok) {
+                        return null;
+                    }
+
+                    const payload = await response.json();
+                    if (!payload || payload.ok !== true || payload.host !== route.host) {
+                        return null;
+                    }
+
+                    return {
+                        latency: Math.max(1, Math.round(window.performance.now() - startedAt)),
+                        colo: typeof payload.colo === "string" ? payload.colo : null,
+                        edgeRtt: Number.isFinite(payload.rtt) ? payload.rtt : null,
+                        transport: typeof payload.transport === "string" ? payload.transport : null,
+                        protocol: typeof payload.protocol === "string" ? payload.protocol : null
+                    };
+                } catch (error) {
+                    return null;
+                } finally {
+                    window.clearTimeout(timeout);
+                    activeControllers.delete(controller);
+                }
+            };
+
+            const measureRoute = async (route, currentScan) => {
+                const samples = [];
+
+                for (let index = 0; index < probeSampleCount; index += 1) {
+                    if (currentScan !== scanVersion) {
+                        break;
+                    }
+
+                    const sample = await measureOnce(route);
+                    if (sample !== null) {
+                        samples.push(sample);
+                    }
+                }
+
+                if (samples.length < minimumSuccessfulSamples) {
+                    return Object.assign({}, route, {
+                        reachable: false,
+                        latency: null,
+                        successfulSamples: samples.length
+                    });
+                }
+
+                const latestSample = samples[samples.length - 1];
+                return Object.assign({}, route, {
+                    reachable: true,
+                    latency: median(samples.map((sample) => sample.latency)),
+                    successfulSamples: samples.length,
+                    colo: latestSample.colo,
+                    edgeRtt: latestSample.edgeRtt,
+                    transport: latestSample.transport,
+                    protocol: latestSample.protocol
+                });
+            };
+
+            const resetRouteRow = (route) => {
+                const row = document.querySelector('[data-route="' + route.id + '"]');
+                row.classList.remove("is-reachable", "is-unreachable", "is-fastest");
+                row.classList.add("is-testing");
+                row.dataset.quality = "none";
+                row.querySelector("[data-latency]").textContent = "检测中";
+                row.querySelector("[data-availability]").textContent = "正在连接";
+                row.querySelector("[data-fastest-label]").hidden = true;
+                row.removeAttribute("aria-current");
+            };
+
+            const renderRouteResult = (result, isFastest) => {
+                const row = document.querySelector('[data-route="' + result.id + '"]');
+                row.classList.remove("is-testing", "is-reachable", "is-unreachable", "is-fastest");
+
+                if (!result.reachable) {
+                    row.classList.add("is-unreachable");
+                    row.dataset.quality = "none";
+                    row.querySelector("[data-latency]").textContent = "连接超时";
+                    row.querySelector("[data-availability]").textContent = "可手动尝试";
+                    return;
+                }
+
+                row.classList.add("is-reachable");
+                row.dataset.quality = qualityForLatency(result.latency);
+                row.querySelector("[data-latency]").textContent = result.latency + " ms";
+                row.querySelector("[data-availability]").textContent = "可用";
+
+                if (isFastest) {
+                    row.classList.add("is-fastest");
+                    row.querySelector("[data-fastest-label]").hidden = false;
+                    row.setAttribute("aria-current", "true");
+                }
+            };
+
+            const enablePrimaryAction = (route, label) => {
+                enterFastest.href = route.url;
+                enterFastest.textContent = label;
+                enterFastest.classList.remove("is-disabled");
+                enterFastest.setAttribute("aria-disabled", "false");
+                enterFastest.removeAttribute("tabindex");
+            };
+
+            const scanRoutes = async () => {
+                scanVersion += 1;
+                const currentScan = scanVersion;
+                abortActiveProbes();
+                stopCountdown();
+                selectedRoute = null;
+
+                routePanel.dataset.state = "testing";
+                routePanel.setAttribute("aria-busy", "true");
+                progress.setAttribute("aria-valuetext", "正在检测");
+                panelTitle.textContent = "正在检测 " + routes.length + " 个可用入口";
+                resultTitle.textContent = "正在比较线路";
+                resultDetail.textContent = autoRedirectEnabled ? "检测通常只需要几秒钟" : "自动跳转已取消，检测仍会继续";
+                enterFastest.href = routes[0].url;
+                enterFastest.textContent = "检测中";
+                enterFastest.classList.add("is-disabled");
+                enterFastest.setAttribute("aria-disabled", "true");
+                enterFastest.setAttribute("tabindex", "-1");
+                toggleAuto.disabled = false;
+                retestButton.disabled = true;
+                routes.forEach(resetRouteRow);
+
+                const results = await Promise.all(routes.map((route) => measureRoute(route, currentScan)));
+                if (currentScan !== scanVersion) {
+                    return;
+                }
+
+                const reachable = results
+                    .filter((result) => result.reachable)
+                    .sort((left, right) => left.latency - right.latency);
+
+                selectedRoute = reachable.length > 0 ? reachable[0] : null;
+                results.forEach((result) => renderRouteResult(result, selectedRoute !== null && result.id === selectedRoute.id));
+                retestButton.disabled = false;
+                routePanel.setAttribute("aria-busy", "false");
+
+                if (!selectedRoute) {
+                    routePanel.dataset.state = "failed";
+                    progress.setAttribute("aria-valuetext", "检测未完成");
+                    panelTitle.textContent = "自动检测暂时未完成";
+                    resultTitle.textContent = "你仍可手动选择入口";
+                    resultDetail.textContent = "网络限制可能阻止浏览器测速，请直接选择上方任一大陆域名";
+                    enablePrimaryAction(routes[0], "手动打开大陆入口");
+                    toggleAuto.disabled = true;
+                    toggleAuto.textContent = "无需自动跳转";
+                    return;
+                }
+
+                routePanel.dataset.state = "complete";
+                progress.setAttribute("aria-valuetext", "检测完成");
+                panelTitle.textContent = "已检测 " + reachable.length + " 个可用入口";
+                resultTitle.textContent = "已为你选择最快入口";
+                resultDetail.textContent = selectedRoute.label + " " + selectedRoute.host + " · " + selectedRoute.latency + " ms";
+                enablePrimaryAction(selectedRoute, "立即进入");
+                updateToggle();
+
+                if (autoRedirectEnabled) {
+                    startCountdown();
+                } else {
+                    resultDetail.textContent = "自动跳转已取消，你可以手动进入";
+                }
+            };
+
+            toggleAuto.addEventListener("click", () => {
+                autoRedirectEnabled = !autoRedirectEnabled;
+                updateToggle();
+
+                if (!autoRedirectEnabled) {
+                    stopCountdown();
+                    resultDetail.textContent = selectedRoute
+                        ? "自动跳转已取消，你可以手动进入"
+                        : "自动跳转已取消，检测仍会继续";
+                    return;
+                }
+
+                if (selectedRoute) {
+                    resultDetail.textContent = selectedRoute.label + " " + selectedRoute.host + " · " + selectedRoute.latency + " ms";
+                    startCountdown();
+                }
+            });
+
+            retestButton.addEventListener("click", scanRoutes);
+            enterFastest.addEventListener("click", (event) => {
+                if (enterFastest.getAttribute("aria-disabled") === "true") {
+                    event.preventDefault();
+                }
+            });
+            window.addEventListener("beforeunload", () => {
+                abortActiveProbes();
+                stopCountdown();
+            });
+
+            updateToggle();
+            scanRoutes();
+        })();
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="b8ef57b4898f80daaa87b7ed-|49" defer></script></body>
+
+</html>

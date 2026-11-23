@@ -1,0 +1,258 @@
+{
+  "version": 1,
+  "qualification": "Pinned operator outage and degradation posts with native full datetimes, official document channel binding and scoped recovery counterevidence. No achieved uptime, current status or independent measurement.",
+  "profiles": [
+    {
+      "currentOfficialUrlAtReview": "https://ednovas.org/",
+      "rootBindingRef": null,
+      "recordId": "A020",
+      "name": "EdNovas",
+      "url": "https://t.me/s/ednovasyun1",
+      "channel": "ednovasyun1",
+      "officialUrl": "https://ednovas.me/",
+      "ref": {
+        "sourceId": "REVIEWED-A020-20261112-OPERATOR-CHANNEL",
+        "file": "work/performance-20261112-fourteenth/status-originals/A020-operator-channel-3495e7cc11e5.json",
+        "fileSha256": "3495e7cc11e538912c2a85a20a23790280a0608e4f575a9d6d1b1f0d917996f3",
+        "bodySha256": "2cb29038287cc3135350d2d4fe7f52c1eb0ce593ab9cec3e0e94c7112d057dd4",
+        "url": "https://t.me/s/ednovasyun1",
+        "observedAt": "2026-11-12T01:08:08.153Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "COLLECT-4e14645767d56959dc126e9c",
+        "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/4e14645767d56959dc126e9c0eebbf57530763f35855826c79a3548211f4b309.json",
+        "fileSha256": "4e14645767d56959dc126e9c0eebbf57530763f35855826c79a3548211f4b309",
+        "bodySha256": "de5518f9a0482a1e3c89b4206cb9db82fbb93a6e99dab397593aeb3556b0f797",
+        "url": "https://ednovas.org/#/stage/dashboard",
+        "observedAt": "2026-10-30T04:01:24.822Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityLink": {
+        "index": 3,
+        "url": "https://t.me/ednovasyun1",
+        "label": "https://t.me/ednovasyun1"
+      },
+      "channelOfficialLink": {
+        "label": "https://ednovas.me",
+        "url": "https://ednovas.me/"
+      },
+      "events": [
+        {
+          "post": 1633,
+          "kind": "operator_degradation_statement",
+          "related": [
+            1634,
+            1635
+          ],
+          "scope": "部分节点不可用与网络波动；不同协议及老旧客户端影响不一，未披露受影响节点数或样本。",
+          "summary": "2026-08-31站方称部分节点不可用并有网络波动，最初未确定根因；9月3日后续称已基本查明为协议问题而非内鬼，9月4日称协议升级完成并要求更新客户端、刷新订阅。这些是站方历史声明，升级完成不等于独立验证全面恢复。",
+          "permalink": "https://t.me/ednovasyun1/1633",
+          "dateTime": "2026-08-31T23:08:04+00:00",
+          "timeMetadataIndex": 4,
+          "quote": "【重要通知】关于近期服务波动说明及补偿方案\n\n近期部分节点出现不可用与网络波动情况，给大家的使用带来不便，我们深表歉意。\n\n目前技术团队仍在紧急排查与密切观察阶段。由于受影响特征较为复杂，目前尚未最终确认是特定协议遭受干扰还是存在内部配置泄漏（内鬼）等问题。正全力排查根因，争取尽快彻底恢复网络稳定。\n\n在排查过渡期间，服务可能会出现偶发波动，敬请配合以下操作：\n\n尽量请使用官方客户端：包含全平台比较新的设备支持了（如win7等老旧设备不会支持），会有中转负载和一定的容灾能力（也会遇到特殊情况，比如按着域名墙，将会把这个域名下的所有IP都墙，自动切换也会立刻秒墙），这种情况就需要等待技术修复，并进行如下更新订阅操作了。\n\n频繁更新订阅：由于我们会随时调整路由与节点策略，遇到连接异常时，请优先在客户端 更新订阅或刷新节点列表。一般情况下更新下订阅即可，如果不通可以等待技术上线后修复，预计修复时间<12小时。\n\n---\n\n# 用户补偿与应急保障\n\n为弥补近期波动带来的不良体验，我们已制定以下补偿与应急措施：\n\n1. 时长补偿：所有有效订阅用户延长3 天服务时长（系统已自动发放）。\n2. 专属折扣：提供全场 8 折优惠码： 20OFF（续费或新购可用，仅限这段时间不稳定时期）。 已过期\n3. 免费备用套餐：为确保大家在波动期间不影响日常使用，可前往官网 提交工单申请免费 Translink 备用套餐。\n\n感谢大家的理解、包容与持续支持，需要退款的用户可以提供usdt或者paypal地址按比例退款。",
+          "relatedStatements": [
+            {
+              "post": 1634,
+              "permalink": "https://t.me/ednovasyun1/1634",
+              "dateTime": "2026-09-03T05:25:01+00:00",
+              "timeMetadataIndex": 5,
+              "quote": "目前基本已经查明并非内鬼问题了，是协议问题，准备升级vless+reality协议了，将会于1周内升级完成，届时需要各位升级客户端，刷新订阅。"
+            },
+            {
+              "post": 1635,
+              "permalink": "https://t.me/ednovasyun1/1635",
+              "dateTime": "2026-09-04T06:40:25+00:00",
+              "timeMetadataIndex": 6,
+              "quote": "目前协议升级已完成，请升级到最新版官方客户端，并刷新下订阅。第三方客户端需要重新导入下配置文件。感谢支持和理解"
+            }
+          ]
+        },
+        {
+          "post": 1639,
+          "kind": "operator_degradation_statement",
+          "related": [
+            1640
+          ],
+          "scope": "近期节点配置变更与连接受阻，具体节点、地区、用户比例及起止时刻未知；免费备用服务为替代建议。",
+          "summary": "2026-10-16站方称近期再次出现连接受阻，原因仍在观察；10月19日回复原帖称已恢复并补偿5天。原帖与恢复回复一并保留；补偿天数不等于实际中断时长。",
+          "permalink": "https://t.me/ednovasyun1/1639",
+          "dateTime": "2026-10-16T17:33:27+00:00",
+          "timeMetadataIndex": 10,
+          "quote": "时隔两个月换了协议没被墙后，最近两天又来墙了，目前任然不知是什么原因，还在观察中。\n\n此段时间会比较频繁的更换节点配置和可能被墙，如果联不通了，可以尝试的步骤：\n\n1. 更新下订阅，重新导入下配置文件\n2. 如果您是官方客户端，更换到clash verge小火箭等第三方客户端再试下\n3. 可以切换到translink机场（免费赠送的，任何有效套餐用户均可免费申请），有直连节点可用\n\n抱歉造成不便，会于防墙完成后有双倍不可用时间补偿的。目前8折优惠码仍然生效： 20OFF",
+          "relatedStatements": [
+            {
+              "post": 1640,
+              "permalink": "https://t.me/ednovasyun1/1640",
+              "dateTime": "2026-10-19T23:31:47+00:00",
+              "timeMetadataIndex": 11,
+              "quote": "请更新订阅，已恢复。所有用户已补偿5天。如果您因为时间延长导致本月流量用尽，可以发工单联系客服手动重置下流量。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "currentOfficialUrlAtReview": "https://ofosg.com/",
+      "rootBindingRef": null,
+      "recordId": "A040",
+      "name": "ofoNET",
+      "url": "https://t.me/s/ofonet_offcial",
+      "channel": "ofonet_offcial",
+      "officialUrl": "https://ofonet.com/",
+      "ref": {
+        "sourceId": "REVIEWED-A040-20261112-OPERATOR-CHANNEL",
+        "file": "work/performance-20261112-fourteenth/status-originals/A040-operator-channel-f708eab8bde0.json",
+        "fileSha256": "f708eab8bde0fa55147c254f0e63193d9e240ac016231225b8448ea0d758c934",
+        "bodySha256": "798636627cea6b2fd0d315267e3d176064431e751b96194e7badea239fafdfb5",
+        "url": "https://t.me/s/ofonet_offcial",
+        "observedAt": "2026-11-12T01:08:08.229Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "COLLECT-b5123531b523c695d385f206",
+        "file": "work/collection-runs/url-collectors-20261103/evidence/b5123531b523c695d385f20651b56535c545bd1335f6b7a0adebfeabcd023468.json",
+        "fileSha256": "b5123531b523c695d385f20651b56535c545bd1335f6b7a0adebfeabcd023468",
+        "bodySha256": "ffccc57a1cbae7cdc69c17f78a6f7b316750d575f76bd27e94b0c38a71d1eb4f",
+        "url": "https://ofosg.com/docs?id=8",
+        "observedAt": "2026-11-03T04:03:24.481Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityLink": {
+        "index": 11,
+        "url": "https://t.me/ofonet_offcial",
+        "label": "打开官方频道"
+      },
+      "channelOfficialLink": {
+        "label": "https://ofonet.com",
+        "url": "https://ofonet.com/"
+      },
+      "events": [
+        {
+          "post": 301,
+          "kind": "operator_outage_statement",
+          "related": [],
+          "scope": "韩国节点掉线问题；同帖还提及大部分节点的Google Scholar搜索问题，不能扩为全站掉线。",
+          "summary": "2026-03-03站方称已修复韩国节点掉线，以及大部分节点的Google Scholar无法搜索问题。这是一则历史修复声明，未披露故障开始、持续时间、节点数或独立复测。",
+          "permalink": "https://t.me/ofonet_offcial/301",
+          "dateTime": "2026-03-03T13:10:50+00:00",
+          "timeMetadataIndex": 2,
+          "quote": "#问题修复\n\n修复韩国节点掉线问题\n\n修复大部分节点出现的 Google Schola(谷歌学术) 无法搜索问题\n\n👉 进入ofoNET官网",
+          "relatedStatements": []
+        },
+        {
+          "post": 331,
+          "kind": "operator_outage_statement",
+          "related": [
+            332
+          ],
+          "scope": "站方称现有机器被运营商拔线，未给出受影响节点数、用户或地区；后续提到渠道机器与部分用户体验变差。",
+          "summary": "2026-04-03站方称现有机器被运营商拔线、正在部署新线路；4月4日后续称改用渠道机器，部分用户体验会较差，新增直连仍是计划。未取得实际恢复时间或全站中断证据。",
+          "permalink": "https://t.me/ofonet_offcial/331",
+          "dateTime": "2026-04-03T13:51:33+00:00",
+          "timeMetadataIndex": 11,
+          "quote": "现有机器被运营商拔线了，正在部署新线路 请稍安勿躁\n\n现有机器被运营商拔线了，正在部署新线路 请稍安勿躁\n\n现有机器被运营商拔线了，正在部署新线路 请稍安勿躁",
+          "relatedStatements": [
+            {
+              "post": 332,
+              "permalink": "https://t.me/ofonet_offcial/332",
+              "dateTime": "2026-04-04T02:45:45+00:00",
+              "timeMetadataIndex": 12,
+              "quote": "由于三大运营商对于机场业务的服务器全部清退，中转时代已经成为过去。\n\n现在的中转是渠道机器，虽然成本是之前的三倍左右，但部分用户使用体验会差一些，但是全行业现在都是这样，已经是无奈之举了。\n\n后续会新增直连节点来应对，也请大家做好最终回归直连的准备，感谢各位的理解。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "currentOfficialUrlAtReview": "https://cloud.ykkk.tech/",
+      "rootBindingRef": {
+        "sourceId": "CORE-PUBLIC-YKK-B246-PLANS-FAQ",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch246/raw/core-public-ykk-b246-plans-faq-8b783a114a2b.json",
+        "fileSha256": "8b783a114a2b8ce9a442f96fdccc9d8f6dff33b025e1bdc206c45e008b286b65",
+        "bodySha256": "0e4115dd7646e1251ca2f2712e9315b3b1fdf2f6c45c0ad938d456fef6d4c984",
+        "url": "https://cloud.ykkk.tech/",
+        "observedAt": "2026-10-28T23:33:12.331Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "recordId": "A074",
+      "name": "YkkCloud",
+      "url": "https://t.me/s/YkkCloud_Channel",
+      "channel": "YkkCloud_Channel",
+      "officialUrl": "https://cloud.ykkk.tech/",
+      "ref": {
+        "sourceId": "REVIEWED-A074-20261112-OPERATOR-CHANNEL",
+        "file": "work/performance-20261112-fourteenth/status-originals/A074-operator-channel-c1c595b41980.json",
+        "fileSha256": "c1c595b419805e8bd47b4f3253353881f375bca855e38a147dd95a4821c536cb",
+        "bodySha256": "0349af4f04adf9685cbdb1347204e73194f2154f10d62d3baf4d223531f1b226",
+        "url": "https://t.me/s/YkkCloud_Channel",
+        "observedAt": "2026-11-12T01:08:08.309Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityRef": {
+        "sourceId": "CORE-PUBLIC-YKK-B246-DOCS-BINDING",
+        "file": "catalog/refresh/2026-10-26/core-auth-batch246/raw/core-public-ykk-b246-docs-binding-6e2cf9cfc8ea.json",
+        "fileSha256": "6e2cf9cfc8ea0b7b364da25b80042dcb6cb96f13e15d4f9921bf90d8dcfa7c16",
+        "bodySha256": "742510ffe921bcebe7b860709e3a1f3fd4ecff92c8061bc55d88c30d92b31541",
+        "url": "https://doc.ykkk.best/",
+        "observedAt": "2026-10-28T23:33:22.537Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "identityLink": {
+        "index": 0,
+        "url": "https://t.me/YkkCloud_Channel",
+        "label": "YkkCloud - 通知频道\nTelegram"
+      },
+      "channelOfficialLink": {
+        "label": "https://cloud.ykkk.tech",
+        "url": "https://cloud.ykkk.tech/"
+      },
+      "events": [
+        {
+          "post": 220,
+          "kind": "operator_outage_statement",
+          "related": [
+            221
+          ],
+          "scope": "官网及Emby服务；不证明代理转发节点同步中断。后续系统基本恢复和Emby待恢复、已恢复编辑文字均保留，编辑时间未知。",
+          "summary": "2025-06-26站方称官网及Emby宕机；6月27日后续称迁移后系统基本恢复，Emby仍待上游恢复，同帖现有编辑文字又写已恢复。未取得编辑时刻和实际恢复时刻，不能计算停服时长或推定代理节点中断。",
+          "permalink": "https://t.me/YkkCloud_Channel/220",
+          "dateTime": "2025-06-26T11:24:54+00:00",
+          "timeMetadataIndex": 11,
+          "quote": "由于我们的失误，导致官网及 Emby 服务出现宕机。目前我们已第一时间启动抢修流程，正在全力恢复服务。\n\n由此给大家带来的不便，我们深表歉意，感谢大家的理解与支持。",
+          "relatedStatements": [
+            {
+              "post": 221,
+              "permalink": "https://t.me/YkkCloud_Channel/221",
+              "dateTime": "2025-06-27T03:55:47+00:00",
+              "timeMetadataIndex": 12,
+              "quote": "由于 Hetzner 未能及时处理相关问题，我们已将服务迁移至其他服务商。目前系统已基本恢复正常。\n\n1. 2025/06/26 18:05 - 19:00 期间进行充值的用户，如发现未到账，请通过频道联系补单。\n2. Emby 服务需等待 Hetzner 恢复后上线，敬请关注后续通知。\n\n已恢复\n\nP.S. 特殊时期烦请各位大佬尽量不要在公开群组中提到我们，不胜感激。"
+            }
+          ]
+        },
+        {
+          "post": 222,
+          "kind": "operator_degradation_statement",
+          "related": [
+            223
+          ],
+          "scope": "Trojan协议仅以最低支持限度运行；VLESS被建议替代，不代表两种协议或全站均中断。",
+          "summary": "2025-07-03站方称Trojan协议将以最低支持限度运行并建议VLESS；同日后续称已更换和处理相关IP，并给出不支持VLESS客户端的Trojan连接方式。这里只记录历史协议降级与后续处置，未独立验证恢复。",
+          "permalink": "https://t.me/YkkCloud_Channel/222",
+          "dateTime": "2025-07-03T05:23:21+00:00",
+          "timeMetadataIndex": 13,
+          "quote": "近期业务通报频繁，我们不得不需要时间来协调解决方案，目前 Trojan 协议将以最低支持限度运行，请您尽快更新至Vless协议使用。\n\n当前系统将默认下发Vless协议，无需添加额外参数，若您的客户端出现报错、无法更新或是更新后无节点，请更换以下支持的客户端进行重试。\n\n- Android: ClashMetaForAndroid、FlClash\n- IOS: Shadowrocket、Loon、Stash\n- Windows\\MacOS： ClashVergeRev、MihomoParty、FlClash\n- Other：MihomoCore、SingboxCore、XrayCore",
+          "relatedStatements": [
+            {
+              "post": 223,
+              "permalink": "https://t.me/YkkCloud_Channel/223",
+              "dateTime": "2025-07-03T07:47:51+00:00",
+              "timeMetadataIndex": 14,
+              "quote": "我们已对通报相关IP完成更换与处理。\n若您当前使用的客户端暂不支持 VLESS 协议，可在订阅链接末尾添加 ?types=trojan 以继续连接。\n\n对于本次事件给您带来的不便，我们深表歉意。此系不可抗力所致，感谢您的理解与支持。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

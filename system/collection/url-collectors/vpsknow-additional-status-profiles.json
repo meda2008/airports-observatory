@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "qualification": "Exact historical publisher node observations, no current measurement or full-site availability claim.",
+  "profiles": [
+    {
+      "recordId": "A189",
+      "url": "https://vpsknow.com/reviews/airports/bitz-net-airport-review/",
+      "reviewedBodySha256": "00c5efb838017baeaf9d3bff161f48b8042bd06f293235d2f7f19a938bd73594",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://bas.webitz.net",
+        "https://www.webitz.net",
+        "https://enf.webitz.net"
+      ],
+      "identityProofs": [
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-official-destination.json",
+          "fileSha256": "8c054a66f0e6790b51f702d3c06062b5ccd749ba717a737f3d2f2551b8cada83",
+          "bodySha256": "86ae388ee7125751650b2dc11680c6cf58a410fe4b216777f8aec2349fa9ff3a",
+          "observedAt": "2026-11-11T15:45:37.146Z",
+          "url": "https://bas.webitz.net/#/register?code=sirxUs5C",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-current-official-home.json",
+          "fileSha256": "5859c69584bddd8387ca3f6bdafbf3b4c7b9215ac3a9a34e0dcc146e7ac15d3b",
+          "bodySha256": "2de883b32ab46a0dcf38f6305b0782977720867bc43102b83f9dc041f744a4ce",
+          "observedAt": "2026-11-11T15:46:05.312Z",
+          "url": "https://www.webitz.net/",
+          "representation": "builtin_browser_visible_DOM_text"
+        },
+        {
+          "file": "work/performance-20261111-tenth/live/bitz-official-panel-destination.json",
+          "fileSha256": "5dca83e3eb1f679209911c47c7d81b84efe6d2b73834fbf17aa0f1fa941b8a48",
+          "bodySha256": "ea2725cf34468238a16748d791b05c4af93ba0187bc56fde5bd7a5be24a20641",
+          "observedAt": "2026-11-11T15:46:25.207Z",
+          "url": "https://enf.webitz.net/#/login",
+          "representation": "builtin_browser_visible_DOM_text"
+        }
+      ],
+      "reviewedCaptureRepresentations": [
+        {
+          "representation": "builtin_browser_visible_DOM_text",
+          "bodySha256": "00c5efb838017baeaf9d3bff161f48b8042bd06f293235d2f7f19a938bd73594",
+          "ref": {
+            "file": "work/performance-20261111-tenth/live/bitz-video-review.json",
+            "fileSha256": "eff421268c8e6849eb583a2ad94ded36657a94fb619547e10086e7357b4ef042",
+            "bodySha256": "00c5efb838017baeaf9d3bff161f48b8042bd06f293235d2f7f19a938bd73594",
+            "url": "https://vpsknow.com/reviews/airports/bitz-net-airport-review/",
+            "observedAt": "2026-11-11T15:40:42.849Z",
+            "representation": "builtin_browser_visible_DOM_text"
+          }
+        },
+        {
+          "representation": "redacted_visible_DOM_text_not_original_HTML",
+          "bodySha256": "50865cb3eb23b7d73b9bc98e490a725c7ef1cd8a595cfec445be293b7f89d819",
+          "ref": {
+            "file": "work/performance-20261111-tenth/live/bitz-shared-reader-verification-v2.json",
+            "fileSha256": "7899b4b4209c4f68ed47a3862c9a09e3176fa49b247e97e103f27116aad8523a",
+            "bodySha256": "50865cb3eb23b7d73b9bc98e490a725c7ef1cd8a595cfec445be293b7f89d819",
+            "url": "https://vpsknow.com/reviews/airports/bitz-net-airport-review/",
+            "observedAt": "2026-11-11T16:04:02.182Z",
+            "representation": "redacted_visible_DOM_text_not_original_HTML",
+            "bodyDerivation": "standalone.toCapture(shared_reader_snapshot).body"
+          }
+        }
+      ]
+    },
+    {
+      "recordId": "A017",
+      "url": "https://vpsknow.com/reviews/airports/mesl-airport-review/",
+      "reviewedBodySha256": "2489f245602c529f630af12f08b2832ec7c9bd350daffb3345b5ec989368ca6d",
+      "identityQualified": true,
+      "reviewedOfficialOrigins": [
+        "https://in.mesl.cloud"
+      ],
+      "identityProofs": [
+        {
+          "file": "work/performance-20261112-twelfth/live/mesl-native-link-proof.json",
+          "fileSha256": "95735c31ef581733c66fab767df2137086da28b6fa415976430514b3d1a8bb99",
+          "bodySha256": "95735c31ef581733c66fab767df2137086da28b6fa415976430514b3d1a8bb99",
+          "url": "https://vpsknow.com/reviews/airports/mesl-airport-review/",
+          "observedAt": "2026-11-11T17:43:41.916Z",
+          "captureClock": "2026-11-11T17:43:41.916Z",
+          "representation": "builtin_browser_metadata_json",
+          "proofRole": "native_review_official_link"
+        },
+        {
+          "file": "work/performance-20261112-twelfth/live/mesl-official-destination.json",
+          "fileSha256": "856c760bec99ff01e1266ec5fcdc68c651f152e2049119bd914b547e519fbee7",
+          "bodySha256": "856c760bec99ff01e1266ec5fcdc68c651f152e2049119bd914b547e519fbee7",
+          "url": "https://in.mesl.cloud/#/register?code=xg5hqMFI",
+          "observedAt": "2026-11-11T17:46:43.476Z",
+          "captureClock": "2026-11-11T17:46:43.476Z",
+          "representation": "builtin_browser_metadata_json",
+          "proofRole": "reviewed_official_destination"
+        }
+      ],
+      "reviewedCaptureRepresentations": [
+        {
+          "representation": "explicit_retained_rendered_main_text",
+          "bodySha256": "2489f245602c529f630af12f08b2832ec7c9bd350daffb3345b5ec989368ca6d",
+          "ref": {
+            "sourceId": "CORE-PUBLIC-MESL-B360-HISTORICAL-VIDEO-REPORT",
+            "file": "catalog/refresh/2026-10-26/core-auth-batch360/raw/core-public-mesl-b360-historical-video-report-a79035dd9cb6.json",
+            "fileSha256": "a79035dd9cb6ec79023e0b79f84d56530c94235bf944f6fc1887acf1fa72a242",
+            "bodySha256": "2489f245602c529f630af12f08b2832ec7c9bd350daffb3345b5ec989368ca6d",
+            "observedAt": "2026-10-29T14:13:54.214Z",
+            "url": "https://vpsknow.com/reviews/airports/mesl-airport-review/",
+            "representation": "retained_document",
+            "bodyDerivation": "JSON.parse(normalizedText).renderedMainText"
+          }
+        }
+      ]
+    }
+  ]
+}

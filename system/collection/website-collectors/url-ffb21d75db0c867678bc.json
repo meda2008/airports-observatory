@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-ffb21d75db0c867678bc",
+  "origin": "https://access.naiunet.com",
+  "recordIds": [
+    "A054"
+  ],
+  "entryUrls": [
+    "https://access.naiunet.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://access.naiunet.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "79aff0fcc7775e07c4d649755ca0f16ecfaf65ecab15e1b3ea089e92a59b65d4",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

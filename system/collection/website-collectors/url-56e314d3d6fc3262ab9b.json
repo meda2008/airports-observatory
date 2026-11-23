@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-56e314d3d6fc3262ab9b",
+  "origin": "https://ofosg.com",
+  "recordIds": [
+    "A040"
+  ],
+  "entryUrls": [
+    "https://ofosg.com/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A040"
+      ],
+      "fields": [
+        "pricing",
+        "promotions"
+      ]
+    },
+    "readOnlyRecipe": "ofo_configuration_cycles",
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://ofosg.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "dd9512c08d8b4ccb134a2b93982aa0890627d2893973729e45f7e02a8de78a6b",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

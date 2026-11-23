@@ -1,0 +1,77 @@
+[
+  {
+    "siteId": "A016",
+    "ref": {
+      "sourceId": "CORE-PUBLIC-AMY-B97-TOS-20200612",
+      "file": "catalog/refresh/2026-10-26/core-auth-batch97/raw/core-public-amy-b97-tos-20200612-78af9f904c5e.json",
+      "fileSha256": "78af9f904c5e91bb7a05a8765320eb76b160f41a0f8896f3cff4b58e48d5afe7",
+      "url": "https://www.amytele.co/index.php?rp=/announcements/2/AUPTOS.html",
+      "observedAt": "2026-10-27T17:11:50.067Z",
+      "bodySha256": "d47fec9a2f74fec32d09212e0754dd0ce206f29d04b2ed47155275a8500d9308"
+    },
+    "date": "2020-06-12",
+    "policyDateType": "revision",
+    "dateQuote": "修订时间：2020/6/12",
+    "policyContextQuote": "我们订立可接受使用政策(AUP)与服务条款(TOS)用以约束用户的服务，也用来保障我们的服务质量。"
+  },
+  {
+    "siteId": "A025",
+    "ref": {
+      "sourceId": "CORE-PUBLIC-PAOFU-B85-TOS",
+      "file": "catalog/refresh/2026-10-26/core-auth-batch85/raw/core-public-paofu-b85-tos-093f087dbe06.json",
+      "fileSha256": "093f087dbe06bb28768fca2c4e3aa7e7ef836bd7a808d408fbddfed86f1ffda4",
+      "url": "https://www.paofu.cloud/tos",
+      "observedAt": "2026-10-27T15:32:06.173Z",
+      "bodySha256": "a2bd836811f34034a70a7ab94a712b3f84afca2c4e130c9b9dd0fb6d213bf42a"
+    },
+    "date": "2019-08-01",
+    "policyDateType": "effective",
+    "dateQuote": "本协议从即日起2019年8月01日起适用。",
+    "policyContextQuote": "泡芙云\n服务协议"
+  },
+  {
+    "siteId": "A018",
+    "ref": {
+      "sourceId": "CORE-AUTH-BYWAVE-B199-TERMS",
+      "file": "catalog/refresh/2026-10-26/core-auth-batch199/raw/core-auth-bywave-b199-terms-e64e05bd9406.json",
+      "fileSha256": "e64e05bd9406f1f358b76498d17fb3804f5387ba4493ae7b17231a72da227ca4",
+      "url": "https://u.bws.lol/terms",
+      "observedAt": "2026-10-28T10:40:54.889Z",
+      "bodySha256": "ecfa8e931e4c49e2739f61ae3390af4d1b97e5cced185b61f477ae465265acb4"
+    },
+    "date": "2026-08-14",
+    "policyDateType": "revision",
+    "dateQuote": "更新于 2026/8/14 00:17:16",
+    "policyContextQuote": "ByWave 使用条款\n\nTerms of Service"
+  },
+  {
+    "siteId": "A019",
+    "ref": {
+      "sourceId": "CORE-PUBLIC-SSRDOG-B101-TOS",
+      "file": "catalog/refresh/2026-10-26/core-auth-batch101/raw/core-public-ssrdog-b101-tos-fbe4e7e8e99e.json",
+      "fileSha256": "fbe4e7e8e99e36b8e558f9e5a1f46b2797d81dd21ea56eec7fb6cb36c9c3e2d2",
+      "url": "https://daskfljasdf918.ssrdog12.com/terms-of-service",
+      "observedAt": "2026-10-27T17:45:11.632Z",
+      "bodySha256": "272baeecca4054f0e434772f35578188e06264dfdd439264f7e5a8787149a30a"
+    },
+    "date": "2026-06-01",
+    "policyDateType": "revision",
+    "dateQuote": "最后修订日期：2026年6月1日",
+    "policyContextQuote": "服务条款\n\n欢迎您访问我们的产品 SSRDOG（包括网站等产品提供的服务，以下简称「产品和服务」），其由 SSRDOG Team（以下简称「我们」）开发并运营。"
+  },
+  {
+    "siteId": "A083",
+    "ref": {
+      "sourceId": "CORE-PUBLIC-COCODUCK-B298-TERMS",
+      "file": "catalog/refresh/2026-10-26/core-auth-batch298/raw/core-public-cocoduck-b298-terms-75bb07956fd5.json",
+      "fileSha256": "75bb07956fd553df94c4aa97a2203d7cc2a38a641f64d267b18838d2e6f37c57",
+      "url": "https://cocoduck.cc/docs/tos/",
+      "observedAt": "2026-10-29T06:32:58.536Z",
+      "bodySha256": "390547bb9c73d9134f43bcc8b3ba470eaba0957007ba5994afb2db982562135e"
+    },
+    "date": "2025-07-12",
+    "policyDateType": "document",
+    "dateQuote": "COCODUCK团队\n2025年7月12日",
+    "policyContextQuote": "服务条款\n\nCOCODUCK VPN 有权在任何时间无需事先通知的情况下修改、终止、增补或替代本协议中的任何条款。"
+  }
+]

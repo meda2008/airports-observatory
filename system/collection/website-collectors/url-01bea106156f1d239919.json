@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-01bea106156f1d239919",
+  "origin": "https://forest-01.com",
+  "recordIds": [
+    "A063"
+  ],
+  "entryUrls": [
+    "https://forest-01.com/"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A063"
+      ],
+      "fields": [
+        "website",
+        "pricing",
+        "compatibility",
+        "refund",
+        "privacy",
+        "payment"
+      ]
+    },
+    "readOnlyRecipe": "forest_public_tabs_and_policy",
+    "auth": {
+      "mode": "login",
+      "emailSelector": "input[name=email]",
+      "passwordSelector": "input[name=password]",
+      "submitSelector": "button:has-text(\"登录\")",
+      "successSelector": "button:has-text(\"退出登录\")"
+    },
+    "authStatus": "site_specific_recipe",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": {
+      "emailMode": "split_local_and_domain",
+      "mailServiceName": "Forest",
+      "senderDomains": []
+    }
+  },
+  "policy": {
+    "credentialOrigin": "https://forest-01.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": true
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e0d029cda43dbf0af1beaae6b351d1fee5fbc4acc25db0c7822fc092816be5b0",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

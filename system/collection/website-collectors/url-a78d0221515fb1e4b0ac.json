@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-a78d0221515fb1e4b0ac",
+  "origin": "https://aff01.zygbx.com",
+  "recordIds": [
+    "A073"
+  ],
+  "entryUrls": [
+    "https://aff01.zygbx.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://aff01.zygbx.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "7324ad435f9b632a3da60b84bfeaef8a7e5538100a0a6bf8a4fc7b45fadec5be",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-94921146a2c6e2ff9959",
+  "origin": "https://33.33laomao.com",
+  "recordIds": [
+    "A035"
+  ],
+  "entryUrls": [
+    "https://33.33laomao.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://33.33laomao.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "8b02b9d64b626cb084f63af700c25eac872ae7fd97ce8b0937ab8d8afc4c3d62",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

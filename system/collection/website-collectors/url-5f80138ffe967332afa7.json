@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-5f80138ffe967332afa7",
+  "origin": "https://www.cyberguard.best",
+  "recordIds": [
+    "A047"
+  ],
+  "entryUrls": [
+    "https://www.cyberguard.best/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": {
+      "readyPlaceholder": "请输入邮箱前缀",
+      "emailMode": "fixed_visible_domain",
+      "emailFixedDomain": "gmail.com",
+      "credentialsMustMatchCurrentOrigin": true
+    }
+  },
+  "policy": {
+    "credentialOrigin": "https://www.cyberguard.best",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "c1f496251382406a742929835f2ed7d17ce9dfbaf58398a2e338bd633da3be24",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

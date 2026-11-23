@@ -1,0 +1,54 @@
+# Actual production image, isolated empty DB, no route/proxy/subscription.
+services:
+  namespace-holder:
+    image: ${MEASUREMENT_READINESS_IMAGE:-airports-observatory:real-line-readiness-20261114}
+    pull_policy: never
+    entrypoint: [node]
+    command: [-e, "setInterval(()=>{},60000)"]
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, node, -e, "process.exit(0)"]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+  measurements:
+    image: ${MEASUREMENT_READINESS_IMAGE:-airports-observatory:real-line-readiness-20261114}
+    pull_policy: never
+    entrypoint: [node]
+    command: [deploy-service/measurement-worker.cjs, --max-ticks=3]
+    network_mode: service:namespace-holder
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      MEASUREMENT_STORE_FILE: /measurement-data/measurements.sqlite
+      MEASUREMENT_SECRET_DIR: /run/secrets/measurement-auth
+    tmpfs:
+      - /run/secrets/measurement-auth:ro,noexec,nosuid,size=1m
+    volumes:
+      - isolated-measurement-data:/measurement-data
+    depends_on:
+      namespace-holder:
+        condition: service_healthy
+  readiness-check:
+    image: ${MEASUREMENT_READINESS_IMAGE:-airports-observatory:real-line-readiness-20261114}
+    pull_policy: never
+    entrypoint: [node]
+    command: [/readiness/readiness.cjs]
+    network_mode: service:namespace-holder
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=8m
+    volumes:
+      - isolated-measurement-data:/measurement-data:ro
+      - ./readiness.cjs:/readiness/readiness.cjs:ro
+    depends_on:
+      measurements:
+        condition: service_completed_successfully
+volumes:
+  isolated-measurement-data:

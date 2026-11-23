@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A033",
+  "name": "Boslife",
+  "entryUrl": "https://www.blnew.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "www.blnew.com"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": false,
+  "eligibility": "archived_user_request",
+  "reason": "用户要求移除长期无法确认可用入口的记录；不认定停服或跑路。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlCollector": {
+    "id": "url-85466bb19fcb05bd10a8",
+    "entryUrl": "https://www.blnew.com/",
+    "recipeModule": null,
+    "recipe": null,
+    "status": "registration_invitation_and_expired_recaptcha_checkpoint",
+    "evidenceDirectory": "work/collection-runs/boslife-20261103-v5",
+    "lastAttemptAt": "2026-11-03T12:19:34.596Z",
+    "completedAllFields": false
+  },
+  "registrationProfile": {
+    "readyPlaceholder": "邮箱验证码",
+    "emailMode": "split_local_and_domain",
+    "emailDomainLabelPrefix": "@",
+    "mailServiceName": "BosLife",
+    "emailSendConfirmation": "button_countdown",
+    "responseObserver": "boslife"
+  },
+  "allowRegistration": false,
+  "registrationCheckpoint": {
+    "status": "user_requested_skip",
+    "invitationRequiredObserved": true,
+    "invitationPresentInCurrentUserPage": true,
+    "userTermsConfirmationReceived": true,
+    "registrationSucceeded": false,
+    "automaticRetryAllowed": false,
+    "evidenceDirectory": "work/collection-runs/boslife-20261103-v5",
+    "resumeRequiresExplicitUserInstruction": true
+  },
+  "entryRecovery": {
+    "runId": "breakpoints-20261104-v1",
+    "status": "candidate_rejected_other_brand_destination",
+    "receipt": "work/collection-runs/breakpoints-20261104-v1/entry-discovery-decisions.json",
+    "next": "boslife.org sends to Lvshu-branded registration. Do not import as BosLife or submit credentials.",
+    "credentialPropagationAllowed": false
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "help_blocked_registration_deferred",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A033-discovery.json",
+      "work/collection-runs/pricing-9-20261109-v16/A033-ranking-visible-search.json"
+    ],
+    "resumeWhen": "已有有效会话，或无需注册且能正常读取的当前商户目录。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "BosLife",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "已有有效会话，或无需注册且能正常读取的当前商户目录。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.869Z",
+    "status": "new_candidate_redirects_other_brand_original_channel_no_posts",
+    "result": "boslifecn.com报价15/28/0与设备声明有冲突；购买入口显示目标web1.guodongcloud.com并跳转，排除为BosLife官网价。原站关联公告频道的Preview实际只返回资料卡，没有帖子。未重复注册原站。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A033-search.json",
+      "work/collection-runs/pricing-11-20261110-v28/A033-candidate-features.json",
+      "work/collection-runs/pricing-11-20261110-v28/A033-candidate-pricing.json",
+      "work/collection-runs/pricing-11-20261110-v28/A033-candidate-destination.json",
+      "work/collection-runs/pricing-11-20261110-v28/A033-official-channel-preview.json"
+    ],
+    "resumeWhen": "原blnew商店有效会话或原站明确发布的报价",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "latestAuthFollowup": {
+    "runId": "pricing-auth-20261110-v24",
+    "at": "2026-11-10T05:20:40.756Z",
+    "id": "A033",
+    "status": "ERR_CONNECTION_CLOSED_before_account_form",
+    "receipt": "work/collection-runs/pricing-auth-20261110-v24/result.json",
+    "passwordSaved": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.559Z",
+      "result": "公开检索仍有相互冲突的年付旧表与月付营销表；复用此前注册断点，未重试注册",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A033-search.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "collectPerformanceReferences": true,
+  "latestOfficialEntryDiscovery": {
+    "runId": "entry-discovery-eight-20261115",
+    "checkedAt": "2026-11-15T15:20:20.150Z",
+    "status": "affiliate_redirect_points_to_existing_entry",
+    "source": {
+      "file": "work/entry-discovery-eight-20261115/A033-search.json",
+      "url": "https://www.google.com.hk/search?q=BosLife+%E5%AE%98%E7%BD%91+%E5%A4%87%E7%94%A8+-site%3At.me",
+      "observedAt": "2026-11-15T15:02:21.541Z",
+      "bodySha256": "967f31358fa3c05e312979bc7b23109d85582f33545c82c95811b43e06a3a4f6"
+    },
+    "officialPriceVerified": false,
+    "credentialPropagationAllowed": false,
+    "weeklyActivationAllowed": false
+  },
+  "publicReferenceEnabled": false
+}

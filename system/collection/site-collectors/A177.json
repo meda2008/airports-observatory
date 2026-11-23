@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A177",
+  "name": "灵动云",
+  "entryUrl": "https://nbqmhk.lingdongttt.sbs/#/plans",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "nbqmhk.lingdongttt.sbs"
+  ],
+  "adapter": "generic",
+  "maxPages": 1,
+  "enabled": true,
+  "eligibility": "registered_native_cold_warm_catalog_review_public_frontend_verified",
+  "reason": "2026-11-20 依此前统一账号免费注册与默认协议长期授权，正常免费开户成功，原生账户匹配；正常冷登录及跨v237→v238暖恢复均实跑通过。9条当前STARTING FROM明确起价已逐条核对原文并自动发布catalog-73188b11afdd672388f71343，另20条未重核周期保留历史，旧版本29条证据保留。实际匿名前台9行/9起价/新入口验收通过，周采集pricing+website启用。不把其他可选周期推算为当前价，不验证结账/ISO币种/线路实测。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "website"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "urlCollector": {
+    "id": "url-1188f477d1ee588a0da2",
+    "entryUrl": "https://nsktgoi.lingdongttt.sbs/",
+    "evidenceDirectory": "work/site-collector-service/fill-all-20261102",
+    "lastVerifiedAt": "2026-11-02T14:54:00.746Z",
+    "status": "live_payment_and_cancellation_verified",
+    "receiptValidator": "collection/url-collectors/verified-payment-receipt.cjs",
+    "paymentObserved": [
+      "支付宝"
+    ],
+    "rawMethodLabels": [
+      "支付宝",
+      "支付宝4"
+    ],
+    "readiness": {
+      "zeroWalletRequired": true,
+      "noExistingPendingOrderRequired": true,
+      "checkoutClickForbidden": true,
+      "createButton": "下单",
+      "cancelButton": "关闭订单",
+      "cancelTerminal": "已取消"
+    },
+    "remainingFields": [
+      "refund",
+      "privacy"
+    ],
+    "completeAllFields": false
+  },
+  "urlSpecificExtractor": {
+    "module": "collection/url-collectors/nsktgoi-lingdongttt-sbs.cjs",
+    "fields": [
+      "compatibility"
+    ],
+    "status": "verified_against_retained_live_source",
+    "automaticPublication": false
+  },
+  "knowledgeAdapter": true,
+  "validateWhileDisabled": true,
+  "publicOnly": false,
+  "collectPerformanceReferences": false,
+  "accountReadOnly": true,
+  "readOnlyRecipe": "lingdong_authenticated_catalog_readonly",
+  "auth": {
+    "mode": "login",
+    "discoverFromVisibleForm": false,
+    "emailSelector": "form input[name=\"email\"]:visible",
+    "passwordSelector": "form input[name=\"password\"]:visible",
+    "submitSelector": "form button[type=\"submit\"]"
+  },
+  "reconcileVerifiedCheckpoints": true
+}

@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "airports-collection-overrides.v1",
+  "sites": {
+    "A061": {
+      "entryUrl": "https://a01.xxfaffa01.cc/#/login",
+      "reason": "Known xxfeng.org native /web leads to original panel registration; native return-to-login is reachable. Dashboard route blank is not evidence of domain migration. Reuse already confirmed payment data; no duplicate orders.",
+      "maxPages": 4,
+      "knowledgeAdapter": true
+    },
+    "A194": {
+      "registrationProfile": {
+        "mailServiceName": "99吧",
+        "senderDomains": [
+          "99bar.email"
+        ],
+        "codeLength": 6
+      },
+      "knowledgeAdapter": true
+    },
+    "A021": {
+      "adapter": "whmcs",
+      "maxPages": 5
+    },
+    "A054": {
+      "adapter": "v2board"
+    },
+    "A145": {
+      "adapter": "flybit",
+      "maxPages": 4
+    },
+    "A182": {
+      "adapter": "whmcs",
+      "maxPages": 5
+    },
+    "A056": {
+      "adapter": "v2board"
+    },
+    "A034": {
+      "skip": true,
+      "reason": "用户明确要求跳过：无法登录或注册"
+    },
+    "A047": {
+      "skip": true,
+      "reason": "用户明确要求跳过：保存密码被拒"
+    },
+    "A083": {
+      "entryUrl": "https://home.cocoduck.co/user/product",
+      "allowedHosts": [
+        "home.cocoduck.co",
+        "cocoduck.cc"
+      ],
+      "allowIdentityReview": true,
+      "reason": "Use retained authenticated COCODUCK business origin CORE-AUTH-COCODUCK-B298-MONTH-CARDS (2026-10-29), reverified 2026-11-02; historical official homepage is not the account billing origin. Current cleanup hold must block new orders.",
+      "maxPages": 4
+    },
+    "A005": {
+      "entryUrl": "https://nicecloud.cyou/#/docs",
+      "reason": "2026-11-02 current NiceCloud channel /123 links nicecloud.cyou; authenticated announcement points ncink.cc, matching retained native channel chain. New UI docs accessible. Reuse reviewed batch440 named payment evidence; never create another order for a completed payment field. Original/refund 2023 channel notices are historical only; no current refund claim. Scope current NiceCloud panel only, not equivalence with 奈云. Raw/review: collection-20261102-live-gaps-v112.",
+      "maxPages": 4
+    },
+    "A169": {
+      "entryUrl": "https://www.yingzi01.com/#/plans",
+      "reason": "2026-11-02 user approved this exact candidate; same-domain default account login succeeds. Authenticated announcement and yingziyyds channel cross-link current domain. Legacy shadow-airport.top migration unverified. Batch441 admits 5 plans/13 cycle quotes, card no-refund statement, named unpaid options and cancellation after reload. Completed price/payment/refund must be reused; never repeat orders for these fields. Sidebar buttons can leave old view; observed hash routes plans/settings/orders worked. Retained v114 evidence and separate data review.",
+      "maxPages": 4
+    },
+    "A007": {
+      "auth": {
+        "mode": "login",
+        "emailSelector": "input[name=\"username\"]",
+        "passwordSelector": "input[name=\"password\"]",
+        "submitSelector": "button[type=\"submit\"]",
+        "captcha": {
+          "imageSelector": "img[alt=\"验证码\"]",
+          "inputSelector": "input[name=\"captcha\"]",
+          "pattern": "^[A-Za-z0-9]{4,6}$",
+          "verificationStatus": "ocr_fill_exercised_not_server_validated",
+          "evidence": "work/site-collector-service/github-integration-20261103/xair-ocr-attempt-fixed.json"
+        }
+      }
+    },
+    "A155": {
+      "auth": {
+        "mode": "login",
+        "emailSelector": "#email",
+        "passwordSelector": "#password",
+        "submitSelector": "button[type=\"submit\"]",
+        "selectorEvidence": "work/site-collector-service/unified-run-20261103/A155-login-profile.json"
+      },
+      "knowledgeAdapter": true
+    },
+    "A162": {
+      "knowledgeAdapter": true
+    },
+    "A052": {
+      "knowledgeAdapter": true
+    },
+    "A070": {
+      "knowledgeAdapter": true
+    },
+    "A149": {
+      "knowledgeAdapter": true,
+      "includeClientGuides": true,
+      "auth": {
+        "mode": "login",
+        "emailSelector": "input[type=\"email\"]",
+        "passwordSelector": "input[type=\"password\"]",
+        "submitSelector": "button[type=\"submit\"]",
+        "successSelector": "button:has-text(\"退出登录\")"
+      }
+    },
+    "A151": {
+      "knowledgeAdapter": true,
+      "includeClientGuides": true,
+      "auth": {
+        "mode": "login",
+        "emailSelector": "input[type=\"email\"]",
+        "passwordSelector": "input[type=\"password\"]",
+        "submitSelector": "button[type=\"submit\"]",
+        "successSelector": "button:has-text(\"退出登录\")"
+      }
+    },
+    "A153": {
+      "knowledgeAdapter": true
+    },
+    "A156": {
+      "knowledgeAdapter": true
+    },
+    "A163": {
+      "knowledgeAdapter": true
+    },
+    "A164": {
+      "knowledgeAdapter": true
+    },
+    "A165": {
+      "knowledgeAdapter": true
+    },
+    "A168": {
+      "knowledgeAdapter": true
+    },
+    "A173": {
+      "knowledgeAdapter": true
+    },
+    "A174": {
+      "knowledgeAdapter": true
+    },
+    "A175": {
+      "knowledgeAdapter": true
+    },
+    "A177": {
+      "knowledgeAdapter": true
+    },
+    "A028": {
+      "knowledgeAdapter": true
+    },
+    "A204": {
+      "knowledgeAdapter": true
+    },
+    "A196": {
+      "knowledgeAdapter": true
+    },
+    "A040": {
+      "readOnlyRecipe": "ofo_configuration_cycles"
+    },
+    "A197": {
+      "entryUrl": "https://renzhe.cloud/user/shop",
+      "allowedHosts": [
+        "renzhe.cloud"
+      ],
+      "allowIdentityReview": true,
+      "readOnlyRecipe": "renzhe_shop_wallet_and_policies"
+    },
+    "A063": {
+      "entryUrl": "https://forest-01.com/profile",
+      "allowedHosts": [
+        "forest-01.com"
+      ],
+      "allowIdentityReview": true,
+      "publicOnly": false,
+      "allowRegistration": false,
+      "readOnlyRecipe": "forest_public_tabs_and_policy",
+      "reason": "User approved current Forest candidate free registration2026-11-03. Matching IAB Gmail code and authenticated account observed. Read-only account wallet/catalog/policies; no amount entry or orders, no Nutbit identity continuity claim.",
+      "accountReadOnly": true,
+      "registrationProfile": {
+        "emailMode": "split_local_and_domain",
+        "mailServiceName": "Forest",
+        "senderDomains": []
+      },
+      "auth": {
+        "mode": "login",
+        "emailSelector": "input[name=email]",
+        "passwordSelector": "input[name=password]",
+        "submitSelector": "button:has-text(\"登录\")",
+        "successSelector": "button:has-text(\"退出登录\")"
+      }
+    },
+    "A057": {
+      "entryUrl": "https://web.vtpro.xyz/privacy-policy",
+      "publicOnly": true,
+      "allowRegistration": false,
+      "readOnlyRecipe": "viewturbo_public_policy_pair",
+      "reason": "Native public footer policies read2026-11-03; privacy and ToS have separate title readiness. Existing price/payment evidence reused; no login, registration, order or payment."
+    },
+    "A033": {
+      "registrationProfile": {
+        "readyPlaceholder": "邮箱验证码",
+        "emailMode": "split_local_and_domain",
+        "emailDomainLabelPrefix": "@",
+        "mailServiceName": "BosLife",
+        "emailSendConfirmation": "button_countdown",
+        "responseObserver": "boslife"
+      },
+      "allowRegistration": false,
+      "registrationCheckpoint": {
+        "status": "user_requested_skip",
+        "invitationRequiredObserved": true,
+        "invitationPresentInCurrentUserPage": true,
+        "userTermsConfirmationReceived": true,
+        "registrationSucceeded": false,
+        "automaticRetryAllowed": false,
+        "evidenceDirectory": "work/collection-runs/boslife-20261103-v5",
+        "resumeRequiresExplicitUserInstruction": true
+      },
+      "enabled": false,
+      "eligibility": "user_deferred"
+    },
+    "A176": {
+      "knowledgeAdapter": true,
+      "reason": "2026-11-03 current same-origin UI says 九霄云; original 九云 identity continuity remains unverified. Native 使用文档 -> 新用户必看 -> 常见问题解答 requires the actual delayed Ant dialog body, not URL/networkidle alone. Retained FAQ covers connectivity/quota/renewal, no refund clause. Do not infer a refund policy or repeat already-read FAQ absent content change."
+    },
+    "A060": {
+      "entryUrl": "https://user.skylinx.org.uk/",
+      "reason": "Retained old-site explicit new-entry notice plus current named login observed; public-only until credentials separately authorized for this new origin.",
+      "publicOnly": true
+    },
+    "A180": {
+      "entryUrl": "https://x.yinyun365.com/docs",
+      "accountReadOnly": true,
+      "reason": "User approved this specific new login destination for read-only collection. Native docs links support.yinyun.ltd. Collection target does not verify old IP identity or historical continuity."
+    }
+  }
+}

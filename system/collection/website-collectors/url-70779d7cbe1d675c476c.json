@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-70779d7cbe1d675c476c",
+  "origin": "https://lanfan.cloud",
+  "recordIds": [
+    "A050"
+  ],
+  "entryUrls": [
+    "https://lanfan.cloud/user/shop"
+  ],
+  "capabilities": {
+    "literalParser": {
+      "recordIds": [
+        "A050"
+      ],
+      "fields": [
+        "privacy"
+      ]
+    },
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://lanfan.cloud",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "362be3ec41e12a100e0295b00db94a6058d22d68418a95d88495408402c34608",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

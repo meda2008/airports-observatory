@@ -1,0 +1,44 @@
+{
+  "siteId": "A077",
+  "revision": 6,
+  "config": {
+    "recordId": "A077",
+    "name": "蛋挞云",
+    "entryUrl": "https://eggtartcloud.dev/#/plan",
+    "allowedHosts": [
+      "eggtart.pro",
+      "eggtartcloud.dev"
+    ],
+    "adapter": "generic",
+    "maxPages": 4,
+    "enabled": true,
+    "fields": [
+      "pricing",
+      "payment",
+      "refund",
+      "privacy",
+      "compatibility",
+      "promotions",
+      "operatingHistory",
+      "stability"
+    ],
+    "refreshIntervalMs": 604800000,
+    "challengePolicy": "checkpoint",
+    "websiteCollectorId": "url-414b02267708a03c4a6d",
+    "collectPerformanceReferences": true,
+    "publicReferenceEnabled": true,
+    "publicReferenceFields": [
+      "speed"
+    ],
+    "auth": {
+      "mode": "login",
+      "discoverFromVisibleForm": true,
+      "successSelector": "text=/^仪表盘$/"
+    },
+    "readiness": {
+      "text": "酥皮蛋挞",
+      "timeoutMs": 15000
+    },
+    "reconcileVerifiedCheckpoints": true
+  }
+}

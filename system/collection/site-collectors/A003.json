@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A003",
+  "name": "ImmTelecom",
+  "entryUrl": "https://immtele.com/cart.php",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "immtele.com"
+  ],
+  "adapter": "whmcs",
+  "maxPages": 1,
+  "enabled": false,
+  "eligibility": "native_channel_current_domain_access_denied",
+  "reason": "原生频道列出的immtele.com及immtel.com->immtele.com原始Location已留存；原正常购物车CF拒绝仍held，不重复访问。旧边界云14价已单独留存为候选，不能作为ImmTelecom官网价。等待真实原站目录可读后再验证解析、发布和周采集。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "challengePolicy": "checkpoint",
+  "websiteCollectorId": "url-a66fd099dc93f582721c",
+  "validateWhileDisabled": true,
+  "publicOnly": true,
+  "collectPerformanceReferences": false,
+  "readOnlyRecipe": "immtele_native_channel_catalog_readonly"
+}

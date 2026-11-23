@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A217",
+  "name": "黑豹加速器",
+  "entryUrl": "https://user.heibaojiasu.com/",
+  "allowedHosts": [
+    "user.heibaojiasu.com",
+    "h.ahahub.net"
+  ],
+  "adapter": "generic",
+  "enabled": true,
+  "fields": [
+    "pricing"
+  ],
+  "maxPages": 1,
+  "refreshIntervalMs": 604800000,
+  "readOnlyRecipe": "heibao_native_api_readonly",
+  "challengePolicy": "checkpoint",
+  "webEgress": "authenticated_local_proxy",
+  "auth": {
+    "mode": "login",
+    "emailSelector": "input[type=\"text\"]",
+    "passwordSelector": "input[type=\"password\"]",
+    "submitSelector": "button[type=\"submit\"]",
+    "successSelector": "a[href^=\"/my-account\"]"
+  },
+  "eligibility": "existing_oracle_native_gateway_validation_retained",
+  "reason": "从Oracle已验收的现有配置补齐源码配置文件；私有账号仍由独立私有配置提供，不包含密码、订阅或令牌。"
+}

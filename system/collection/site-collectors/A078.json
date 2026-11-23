@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A078",
+  "name": "Coffee Cloud",
+  "entryUrl": "https://aicoffee.app/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "aicoffee.app"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "Coffee Cloud保存域名实际到aicoffee.app同名CoffeeCloud登录页，需邮箱密码；项目无对应保存账号，未注册、发码或使用他站凭证，法律主体未独立核验。 本批用户确认现有会话已登录后，实际读到套餐正文。登录和同名页面不证明法律主体、旧域迁移或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "collectPerformanceReferences": true
+}

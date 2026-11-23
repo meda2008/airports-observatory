@@ -1,0 +1,111 @@
+{
+  "recordedAt": "2026-11-14T03:14:52.986Z",
+  "status": "FINAL_CUSTOMER_SUMMARY_IMAGE_13_FROZEN_RUNTIME_PINS_PASSED",
+  "scope": "Local actual cached production image build and actual container file hashes; no new source samples, route requests or remote deployment",
+  "primarySourceInput": {
+    "file": "work/real-line-20261114/source-review-input.json",
+    "fileSha256": "c2aca4697abe4117cf9798468e9c7d085fbe7248f073be4e02278aa1161930c7"
+  },
+  "projectionCompatibilityCandidate": {
+    "file": "work/real-line-20261114/projection-compat-candidate.json",
+    "fileSha256": "25a5237c701cc1a19886a2b30bbc98b9af47de4a2dd6dfebc5808e697ddb20f9"
+  },
+  "finalCandidate": {
+    "file": "work/real-line-20261114/final-candidate.json",
+    "fileSha256": "a5ebb702deaa5cb6898022b7a65c20736a759f68207a7a70654880b6e58123db"
+  },
+  "image": {
+    "tag": "airports-observatory:real-line-final-customer-20261114",
+    "id": "sha256:09ba1fcfb4c5c103241c4c238c4c149e25e9c1f7e7d89ecd239050375a5f331b",
+    "repoDigests": [
+      "airports-observatory@sha256:09ba1fcfb4c5c103241c4c238c4c149e25e9c1f7e7d89ecd239050375a5f331b"
+    ],
+    "sizeBytes": 2065763741,
+    "nodeVersion": "v24.22.3"
+  },
+  "actualSourceCheck": {
+    "checked": 13,
+    "failed": 0,
+    "sourceInputSha256": "c2aca4697abe4117cf9798468e9c7d085fbe7248f073be4e02278aa1161930c7",
+    "sourceCheckExitCode": 0,
+    "networkMode": "none",
+    "rootReadOnly": true,
+    "capDrop": [
+      "ALL"
+    ],
+    "noNewPrivileges": true,
+    "privateSecretsMounted": false,
+    "mainDatabaseMounted": false,
+    "autoRemoveConfigured": true,
+    "result": {
+      "file": "deploy-service/measurement-sidecar/final-customer-image-check-20261114.json",
+      "fileSha256": "7191ad0241c5698fbf472e942b4b320e2929204dfde2fd79258d3aa07236ad57"
+    },
+    "pins": {
+      "file": "deploy-service/measurement-sidecar/final-customer-runtime-source-pins-20261114.json",
+      "fileSha256": "6d25e9ffee2c91f543a08d3c749199638d7130c2c88cb72508bcc40fa9345d88"
+    }
+  },
+  "build": {
+    "exitCode": 0,
+    "onlyLastRequiredRuntimeDelta": "lib/performance-summary.cjs canonical DTO fallback",
+    "log": {
+      "file": "deploy-service/measurement-sidecar/final-customer-summary-increment-build-20261114.log",
+      "fileSha256": "294588a967798e47f3c30baf64f0cad382f5c74701e31138cb52f5c33c2a1cd3"
+    }
+  },
+  "retainedPreIncrementChecks": [
+    {
+      "file": "deploy-service/measurement-sidecar/final-c2-v2-image-check-20261114.json",
+      "fileSha256": "2703d307657ab9c97aa85feda13670c874917cd55d9763b35a72238a40109d5e"
+    },
+    {
+      "file": "deploy-service/measurement-sidecar/final-customer-increment-precheck-20261114.json",
+      "fileSha256": "49e7e290bc18a5ed991ce33fd030c413697819651d6dfa2e646c0a32be1c64c5"
+    }
+  ],
+  "currentIndependentSourceAudit": {
+    "file": "work/real-line-20261114/cross-audit-real-measurement-source.delta-c2aca469.json",
+    "fileSha256": "915998d85c2fb407e408f2bf7563fe185e1e1b4b32a35f619a3e2a51b54915a0"
+  },
+  "reusedRealDockerRouteQualification": {
+    "stageReceipt": {
+      "file": "deploy-service/measurement-sidecar/qualification-stage-validation-20261114.json",
+      "fileSha256": "5a2a27bc4cd7f540faa3a89025d39e78d90d477992373da926ab3f205ecba18b"
+    },
+    "runtimeFilesVerifiedUnchanged": [
+      {
+        "file": "lib/proxy-route-observer.cjs",
+        "sha256": "7919cc5af07d2a4ed6ba0d9fbf6c8cda16f5fdd885a94ab51b9a77eef1af3254",
+        "unchangedInFinalImage": true
+      },
+      {
+        "file": "deploy-service/measurement-store.cjs",
+        "sha256": "8dde825b7548e10eed445148802155900d53ad589e6aa153d919c6fbb38d93b0",
+        "unchangedInFinalImage": true
+      }
+    ],
+    "repeatedRouteRequests": 0,
+    "formalSamplesAdded": 0
+  },
+  "dockerPackaging": [
+    {
+      "file": "deploy-service/Dockerfile",
+      "fileSha256": "705e31865f282fe941d17496196f9f4d4b46c61a64cd5c9274f7049fb147395b"
+    },
+    {
+      "file": "deploy-service/Dockerfile.dockerignore",
+      "fileSha256": "20ffc463030b68b1a796e0351a53b4dafb2d6398eb35098ec074c6c5f9098859"
+    }
+  ],
+  "oldImageAndAuditAcceptanceSuperseded": true,
+  "mainNativeWorkerTouched": false,
+  "mainDatabaseWrites": 0,
+  "subscriptionOrTokenRead": false,
+  "limitations": [
+    "Earlier e13 raw audit and image byte PASS were superseded as full-candidate acceptance; initial canonical DTO and public numeric consumer failures were preserved.",
+    "Primary c2 source data and public numeric audit remain unchanged; this final image additionally matches refreshed customer-summary compatibility aux pins.",
+    "13 formal raw observations are still3bandwidth plus10probe/180seconds on one source group. Route HTTP qualification was separate and does not add formal data.",
+    "This receipt is not evidence of remote server deployment, new Docker formal sampling, or code-quality review."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A058",
+  "name": "小鲤鱼",
+  "entryUrl": "https://www.xiaoliyu.me/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "www.xiaoliyu.me"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "本轮在名录候选域名读取登录后套餐卡片；未独立验证经营法律主体。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "financial-20261110-v20",
+    "status": "authenticated_document_index_client_guides_only",
+    "receipt": "work/collection-runs/financial-20261110-v20/A058-doc-index.json",
+    "next": "Reuse document index; client tutorials are not financial facts; no repeat order"
+  },
+  "collectPerformanceReferences": true
+}

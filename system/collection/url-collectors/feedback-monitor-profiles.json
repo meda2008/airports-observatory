@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "recordId": "A045",
+      "enabled": true,
+      "mode": "github_issue_dom",
+      "endpoint": "https://github.com/limbopro/Paolujichang/issues/343",
+      "issueNumber": 343,
+      "issueId": 5691067478,
+      "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/343",
+      "createdAt": "2026-10-03T15:40:42.000Z",
+      "baseline": {
+        "bodySha256": "74bb8cadd8ad5d63876ce3a7f581adc1e590044921b2ce792ea65cd50d62a253",
+        "observedAt": "2026-11-11T12:22:41.551Z",
+        "updatedAt": null,
+        "sourceId": null,
+        "sourceRef": {
+          "file": "work/performance-20261111-seventh/live/github-issue343-dom-monitor.json",
+          "fileSha256": "12ae5e36944c99a826137ddf17a9405f7f15b63da64d8dd078efff2edf0f72d3",
+          "bodySelection": "metadata.reviewedFeedbackIssue.body"
+        }
+      }
+    },
+    {
+      "recordId": "A205",
+      "enabled": true,
+      "mode": "github_issue_dom",
+      "endpoint": "https://github.com/limbopro/Paolujichang/issues/343",
+      "issueNumber": 343,
+      "issueId": 5691067478,
+      "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/343",
+      "createdAt": "2026-10-03T15:40:42.000Z",
+      "baseline": {
+        "bodySha256": "74bb8cadd8ad5d63876ce3a7f581adc1e590044921b2ce792ea65cd50d62a253",
+        "observedAt": "2026-11-11T12:22:41.551Z",
+        "updatedAt": null,
+        "sourceId": null,
+        "sourceRef": {
+          "file": "work/performance-20261111-seventh/live/github-issue343-dom-monitor.json",
+          "fileSha256": "12ae5e36944c99a826137ddf17a9405f7f15b63da64d8dd078efff2edf0f72d3",
+          "bodySelection": "metadata.reviewedFeedbackIssue.body"
+        }
+      }
+    },
+    {
+      "recordId": "A068",
+      "enabled": true,
+      "mode": "github_issue_dom",
+      "endpoint": "https://github.com/limbopro/Paolujichang/issues/344",
+      "issueNumber": 344,
+      "issueId": 5710343024,
+      "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/344",
+      "createdAt": "2026-10-05T10:25:11.000Z",
+      "baseline": {
+        "bodySha256": "200fb8cb9cbd6272ddd14bd0142092ab7f7cc50351862fc3bf2b1d0e56958bb5",
+        "observedAt": "2026-11-11T12:22:47.659Z",
+        "updatedAt": null,
+        "sourceId": null,
+        "sourceRef": {
+          "file": "work/performance-20261111-seventh/live/github-issue344-dom-monitor.json",
+          "fileSha256": "7d26411b3ca02f0a429aa01f758ebb9577bf280d60592eac9a0ecd9578828328",
+          "bodySelection": "metadata.reviewedFeedbackIssue.body"
+        }
+      }
+    },
+    {
+      "recordId": "A019",
+      "enabled": true,
+      "mode": "github_issue_dom",
+      "endpoint": "https://github.com/limbopro/Paolujichang/issues/237",
+      "issueNumber": 237,
+      "issueId": 4450459546,
+      "htmlUrl": "https://github.com/limbopro/Paolujichang/issues/237",
+      "createdAt": "2026-05-15T01:12:51.000Z",
+      "baseline": {
+        "bodySha256": "633ccc2a21e1e3f1095053ce71df627c83eca1c1b84ff5a8b7a0489529506223",
+        "observedAt": "2026-11-11T12:22:52.058Z",
+        "updatedAt": null,
+        "sourceId": null,
+        "sourceRef": {
+          "file": "work/performance-20261111-seventh/live/github-issue237-dom-monitor.json",
+          "fileSha256": "e8fea8525781cbce58c93acb9f1295ea615ff26589bd5f323bd4db366e48601c",
+          "bodySelection": "metadata.reviewedFeedbackIssue.body"
+        }
+      }
+    }
+  ]
+}

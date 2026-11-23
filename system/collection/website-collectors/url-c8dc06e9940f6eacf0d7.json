@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-c8dc06e9940f6eacf0d7",
+  "origin": "https://syjccloud.com",
+  "recordIds": [
+    "A146"
+  ],
+  "entryUrls": [
+    "https://syjccloud.com/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://syjccloud.com",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "d2ea7a08cbd75197bb5b5d52e1673e1d6c79c207503bfb7883b9d172143f57c7",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

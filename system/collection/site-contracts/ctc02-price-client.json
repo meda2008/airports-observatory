@@ -1,0 +1,46 @@
+{
+  "representation": "ctc02_original_client_price_contract",
+  "url": "https://www.ctc.run/theme/default/assets/umi.js?v=1.7.5.2685.2222",
+  "sourceBodySha256": "480d8f747a6384505d88c87f0d1d57b2207e9aa547b5c4cd0c3d50755f5ee716",
+  "sourceLength": 2340525,
+  "divisor": 100,
+  "periodOrder": [
+    "month_price",
+    "quarter_price",
+    "half_year_price",
+    "year_price",
+    "two_year_price",
+    "three_year_price",
+    "onetime_price"
+  ],
+  "excludedPriceFields": [
+    "reset_price"
+  ],
+  "excerpts": [
+    {
+      "start": 654677,
+      "end": 655127,
+      "text": "getUnitPriceTag(e) {\n                var t = {};\n                return Object.keys(f[\"a\"].periodText).reverse().forEach(n=>{\n                    \"reset_price\" !== n && (null === e[n] || (t = {\n                        tag: f[\"a\"].periodText[n] && f[\"a\"].periodText[n](),\n                        price: e[n]\n                    }))\n                }\n                ),\n                t\n            }\n            render() {\n                var e = thi"
+    },
+    {
+      "start": 654749,
+      "end": 655199,
+      "text": "Object.keys(f[\"a\"].periodText).reverse().forEach(n=>{\n                    \"reset_price\" !== n && (null === e[n] || (t = {\n                        tag: f[\"a\"].periodText[n] && f[\"a\"].periodText[n](),\n                        price: e[n]\n                    }))\n                }\n                ),\n                t\n            }\n            render() {\n                var e = this.props.plan.plans\n                  , t = this.props.comm.config;\n     "
+    },
+    {
+      "start": 654823,
+      "end": 655273,
+      "text": "\"reset_price\" !== n && (null === e[n] || (t = {\n                        tag: f[\"a\"].periodText[n] && f[\"a\"].periodText[n](),\n                        price: e[n]\n                    }))\n                }\n                ),\n                t\n            }\n            render() {\n                var e = this.props.plan.plans\n                  , t = this.props.comm.config;\n                return a.a.createElement(s[\"a\"], o()({}, this.props, {\n        "
+    },
+    {
+      "start": 659392,
+      "end": 659842,
+      "text": "(n.price / 100).toFixed(2)), a.a.createElement(\"p\", {\n                            className: \"h6 text-muted\"\n                        }, n.tag))), a.a.createElement(\"div\", {\n                            className: \"block-content py-3\"\n                        }, a.a.createElement(a.a.Fragment, null, e.content ? \"object\" === typeof r ? a.a.createElement(\"div\", {\n                            className: \"mb-3\"\n                        }, r.map(e=>{\n     "
+    },
+    {
+      "start": 1986901,
+      "end": 1989301,
+      "text": "periodText: {\n                month_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u6708\\u4ed8\"\n                }),\n                quarter_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5b63\\u4ed8\"\n                }),\n                half_year_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u534a\\u5e74\\u4ed8\"\n                }),\n                year_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5e74\\u4ed8\"\n                }),\n                two_year_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u4e24\\u5e74\\u4ed8\"\n                }),\n                three_year_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u4e09\\u5e74\\u4ed8\"\n                }),\n                onetime_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u4e00\\u6b21\\u6027\"\n                }),\n                reset_price: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u6d41\\u91cf\\u91cd\\u7f6e\\u5305\"\n                })\n            },\n            tutorialCategoryText: {\n                1: \"Windows\",\n                2: \"macOS\",\n                3: \"iOS\",\n                4: \"Android\",\n                5: \"Linux\",\n                6: \"\\u8def\\u7531\\u5668\"\n            },\n            tutorialCategoryIcon: {\n                1: \"fab fa-2x fa-windows\",\n                2: \"fab fa-2x fa-apple\",\n                3: \"fab fa-2x fa-apple\",\n                4: \"fab fa-2x fa-android\",\n                5: \"fab fa-2x fa-linux\",\n                6: \"fa fa-2x fa-wifi\"\n            },\n            orderStatusText: {\n                0: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5f85\\u652f\\u4ed8\"\n                }),\n                1: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5f00\\u901a\\u4e2d\"\n                }),\n                2: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5df2\\u53d6\\u6d88\"\n                }),\n                3: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5df2\\u5b8c\\u6210\"\n                }),\n                4: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5df2\\u6298\\u62b5\"\n                })\n            },\n            commissionStatusText: {\n                0: ()=>Object(r[\"formatMessage\"])({\n                    id: \"\\u5f85\\u786e\\u8ba4\"\n                }),\n                1: ()=>Object(r[\""
+    }
+  ]
+}

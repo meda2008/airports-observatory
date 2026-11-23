@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-f4efa763ab9ac7ba8f00",
+  "origin": "https://yangfanyun.net",
+  "recordIds": [
+    "A049"
+  ],
+  "entryUrls": [
+    "https://yangfanyun.net/"
+  ],
+  "capabilities": {
+    "literalParser": null,
+    "readOnlyRecipe": null,
+    "auth": null,
+    "authStatus": "generic_visible_form_only",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": "https://yangfanyun.net",
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": false,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "e07fb9621f3b2df1e37da3c8a23cb1671f5c9caffd3e3e5a0e1cb42931347741",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}

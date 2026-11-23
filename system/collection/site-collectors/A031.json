@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A031",
+  "name": "万城网络",
+  "entryUrl": "https://user.dowancheng.com/",
+  "entrySource": "public-catalog.coreInfo.website",
+  "allowedHosts": [
+    "dowancheng.com",
+    "user.dowancheng.com",
+    "h.ahahub.net"
+  ],
+  "adapter": "generic",
+  "maxPages": 4,
+  "enabled": true,
+  "eligibility": "queued",
+  "reason": "从项目getwanchengjiasuqi.com入口实际打开同名万城页面，最终dowancheng.com；原始HTTP跳转状态未观察，品牌同名不证明法律主体、客户端安全或连续经营。",
+  "workflow": [
+    "homepage",
+    "auth",
+    "register",
+    "email",
+    "plans",
+    "payment",
+    "refund",
+    "review",
+    "block"
+  ],
+  "refreshIntervalMs": 604800000,
+  "fields": [
+    "pricing",
+    "payment",
+    "refund",
+    "privacy",
+    "compatibility",
+    "operatingHistory",
+    "speed",
+    "stability",
+    "promotions"
+  ],
+  "policy": {
+    "browser": "codex_builtin",
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "unpaidOrder": "explicit_existing_workflow_authorization_and_cleanup_required",
+    "registration": "existing_authorization_required",
+    "publication": "independent_review_required"
+  },
+  "latestFinancialFollowup": {
+    "runId": "pricing-9-20261109-v16",
+    "status": "coupon_target_other_brand",
+    "checkedAt": "2026-11-09T13:42:37.829Z",
+    "receipt": "work/collection-runs/pricing-9-20261109-v16/run-result.json",
+    "evidence": [
+      "work/collection-runs/pricing-9-20261109-v16/A031-sale-reference.json",
+      "work/collection-runs/pricing-9-20261109-v16/A031-coupon-target.json"
+    ],
+    "resumeWhen": "原服务对新经营方的迁移/权益承接说明，加可读的当前商店。",
+    "credentialPropagationAllowed": false,
+    "completedAllFields": false,
+    "financialFieldsConfirmed": [],
+    "newOrdersCreated": 0,
+    "paymentExecuted": false
+  },
+  "directoryDiscovery": {
+    "recipeModule": "collection/site-recipes/jichangbang-entry-search.mjs",
+    "recipe": "searchJichangbangEntry",
+    "query": "万城",
+    "sourceOrigin": "https://www.jichangbang.cc",
+    "evidenceGrade": "E0",
+    "priceAdmissionAllowed": false,
+    "credentialPropagationAllowed": false
+  },
+  "recoveryRules": {
+    "observedLinksOnly": true,
+    "checkpointBeforeNavigation": true,
+    "directoryPricesAreDiscoveryOnly": true,
+    "noDuplicateBlockedAuth": true,
+    "resumeWhen": "原服务对新经营方的迁移/权益承接说明，加可读的当前商店。"
+  },
+  "latestPricingDiscovery": {
+    "runId": "pricing-11-20261110-v28",
+    "checkedAt": "2026-11-10T08:48:20.850Z",
+    "status": "new_reference_panel_connection_closed",
+    "result": "新仓库显示文字wc-yz.com，实际链接user.vcsite04.com；无推广参数访问返回ERR_CONNECTION_CLOSED。仓库是第三方引用，不是迁移证明。",
+    "receipt": "work/collection-runs/pricing-11-20261110-v28/result.json",
+    "files": [
+      "work/collection-runs/pricing-11-20261110-v28/A031-search.json",
+      "work/collection-runs/pricing-11-20261110-v28/A031-repository.json",
+      "work/collection-runs/pricing-11-20261110-v28/A031-new-panel-error.json"
+    ],
+    "resumeWhen": "原发布链的新可读商店或迁移/权益承接证明",
+    "priceAdmissionAllowed": false,
+    "paymentExecuted": false
+  },
+  "pricingDiscoveryHistory": [
+    {
+      "runId": "pricing-20261110-v23",
+      "checkedAt": "2026-11-10T03:40:16.522Z",
+      "result": "vcity2019.github.io原生指向vc-gate1.com；后者ERR_CONNECTION_CLOSED，无套餐正文",
+      "receipt": "work/collection-runs/pricing-20261110-v23/A031-release-checkpoint.json",
+      "priceAdmissionAllowed": false,
+      "resumeWhen": "新的原始商户报价及可复核归属链；不复跑本轮被否定的候选",
+      "paymentExecuted": false
+    }
+  ],
+  "collectPerformanceReferences": true,
+  "readOnlyRecipe": "heibao_native_api_readonly",
+  "webEgress": "authenticated_local_proxy",
+  "nativeApiContract": {
+    "mode": "normal_auth_and_readonly",
+    "noRegistration": true,
+    "noOrders": true,
+    "noPayment": true,
+    "sessionIsolation": "record_and_origin",
+    "receipt": "work/autonomous-pricing-followup-20261115/final-acceptance.json"
+  }
+}

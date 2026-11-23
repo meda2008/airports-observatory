@@ -1,0 +1,19 @@
+{
+  "origin": "https://ftzcc02.fliggycloud.pro",
+  "recordIds": [
+    "A041"
+  ],
+  "rules": [
+    {
+      "bodySha256": "bf6f636d0ad4e344b271b18181cde4a08466dad47fef89f4afaea6dcf1a2f463",
+      "quote": "不限制设备使用",
+      "summary": "站方套餐页对Fliggy轻量套餐、VIP1至VIP4均称不限制设备使用及不限制客户端。",
+      "conditions": [
+        "仅保留原采集时站方页面说明；未独立测试设备数、客户端或协议。",
+        "原文未列操作系统或具体客户端名称；“不限制客户端”不扩大解释为所有客户端实测兼容。"
+      ],
+      "originalSourceId": "CORE-AUTO-CORE-AUTH-BATCH421-493e8238f36f6bfefabd7c54",
+      "originalCapturedAt": "2026-11-01T08:34:29.248Z"
+    }
+  ]
+}

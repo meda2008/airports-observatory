@@ -1,0 +1,423 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "A071-image",
+      "recordId": "A071",
+      "mode": "image",
+      "url": "https://runtushare.net/8125/",
+      "ref": {
+        "sourceId": "ROUND20-A071-ARTICLE",
+        "file": "work/performance-20261112-twentieth/live/nier-review.json",
+        "fileSha256": "eb753ee79d21bb242acac4f822342dc633b752971d46ae2d72ccf2d43effca77",
+        "url": "https://runtushare.net/8125/",
+        "observedAt": "2026-11-12T07:47:50.165Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "e4eb1210caf7e64ba23ce97bd919c23e0816657686ca6f7b219cbb95055d407f"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND20-A071-ARTICLE",
+          "file": "work/performance-20261112-twentieth/live/nier-review.json",
+          "fileSha256": "eb753ee79d21bb242acac4f822342dc633b752971d46ae2d72ccf2d43effca77",
+          "url": "https://runtushare.net/8125/",
+          "observedAt": "2026-11-12T07:47:50.165Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "e4eb1210caf7e64ba23ce97bd919c23e0816657686ca6f7b219cbb95055d407f"
+        },
+        {
+          "sourceId": "ROUND20-A071-DESTINATION",
+          "file": "work/performance-20261112-twentieth/live/nier-native-destination.json",
+          "fileSha256": "3369ebed928deac8397ee453a261a4be63d9df8f6137ec6189d27cc879d7d3ea",
+          "url": "https://board.cloudnier.com/#/register?code=MMbKAdtb",
+          "observedAt": "2026-11-12T07:48:10.375Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "f6e8363405e090fbefe83e75ced05b563bd877680a0b0397c6ce9e5a65ff90f5"
+        },
+        {
+          "sourceId": "ROUND20-A071-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentieth/nier-image-review.json",
+          "fileSha256": "b7220192b44e419aefbcbd747e83f529801c223636c273f12cdf0dcc917108d5",
+          "url": "https://runtushare.net/8125/",
+          "observedAt": "2026-11-12T07:47:51.000Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "b7220192b44e419aefbcbd747e83f529801c223636c273f12cdf0dcc917108d5"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://board.cloudnier.com/",
+      "nativeHref": "https://runtushare.net/go/niercloud/",
+      "quote": "NieRCloud 尼尔云速度测试",
+      "review": {
+        "pageUrl": "https://runtushare.net/8125/",
+        "url": "https://runtushare.net/8125/",
+        "observedAt": "2026-11-12T07:47:51.000Z",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentieth/images/A071-nier.webp",
+        "imageSha256": "27bd449a02c0dfb19f3ea9454ee1553f2ff94142014f99f07f70cda54766f22a",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2024/05/nierCloud-%E5%B0%BC%E5%B0%94%E4%BA%91%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2025-01.webp",
+        "testedAt": "2025-01-20",
+        "imageTestDateLiteral": "测试时间：2025-01-20 14:37:12 (CST)",
+        "reportedLocalTime": "2025-01-20 14:37:12 (CST)",
+        "displayedRows": 72,
+        "publisherSummaryAsPrinted": "72/72",
+        "threadCount": 4,
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "HKG 01 A",
+            "protocol": "Shadowsocks",
+            "tls": "102ms",
+            "https": "203ms",
+            "mean": "172.02MB",
+            "max": "205.27MB"
+          },
+          {
+            "displayRow": 47,
+            "label": "SGP 01 C",
+            "protocol": "Shadowsocks",
+            "tls": "850ms",
+            "https": "3280ms",
+            "mean": "0.00B",
+            "max": "0.00B"
+          },
+          {
+            "displayRow": 72,
+            "label": "TWN Home D",
+            "protocol": "Shadowsocks",
+            "tls": "131ms",
+            "https": "629ms",
+            "mean": "55.04MB",
+            "max": "60.94MB"
+          }
+        ],
+        "scope": "A/B/C/D入口组为不同入口；A海南移动、B广东移动、C海南电信、D江苏移动；不是分组长期稳定性比较。",
+        "unitsAsPrinted": [
+          "ms",
+          "MB",
+          "B"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false
+      },
+      "fields": [
+        "speed"
+      ]
+    },
+    {
+      "key": "A060-image",
+      "recordId": "A060",
+      "mode": "image",
+      "url": "https://runtushare.net/11324/",
+      "ref": {
+        "sourceId": "ROUND20-A060-ARTICLE",
+        "file": "work/performance-20261112-twentieth/live/skylinx-review.json",
+        "fileSha256": "9abed015f27fb6f3ac5cda9c732ffefffcf7905976de12e072f858045b906cbd",
+        "url": "https://runtushare.net/11324/",
+        "observedAt": "2026-11-12T07:48:24.196Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "2da9b55afe42f02f1b0808116addba6d3011768bfc4983e055fa2ea34efa7a63"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND20-A060-ARTICLE",
+          "file": "work/performance-20261112-twentieth/live/skylinx-review.json",
+          "fileSha256": "9abed015f27fb6f3ac5cda9c732ffefffcf7905976de12e072f858045b906cbd",
+          "url": "https://runtushare.net/11324/",
+          "observedAt": "2026-11-12T07:48:24.196Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "2da9b55afe42f02f1b0808116addba6d3011768bfc4983e055fa2ea34efa7a63"
+        },
+        {
+          "sourceId": "ROUND20-A060-DESTINATION",
+          "file": "work/performance-20261112-twentieth/live/skylinx-native-destination.json",
+          "fileSha256": "f41324600dd2959141e0d60b62ae899b9fb244b82fe10eeb85e4c6765aa7016b",
+          "url": "https://portal.skylinx.org/#/register?code=vtuStecl",
+          "observedAt": "2026-11-12T07:48:56.708Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "5744fd14b71b8de3fdfe837d57b318cd664476ceddcd4e55984ae03b047f1787"
+        },
+        {
+          "sourceId": "ROUND20-A060-IMAGE-REVIEW",
+          "file": "work/performance-20261112-twentieth/skylinx-image-review.json",
+          "fileSha256": "a2db5b3ef8fcc10730c00f61229e35c5fe8b647d89476ab9e903843f60cc0e06",
+          "url": "https://runtushare.net/11324/",
+          "observedAt": "2026-11-12T07:48:25.065Z",
+          "representation": "builtin_browser_metadata_json",
+          "bodySha256": "a2db5b3ef8fcc10730c00f61229e35c5fe8b647d89476ab9e903843f60cc0e06"
+        },
+        {
+          "sourceId": "CORE-AUTH-SKYLINX-B348-NOTICE-REVISION",
+          "file": "catalog/refresh/2026-10-26/core-auth-batch348/raw/core-auth-skylinx-b348-notice-revision-7bc114a1064e.json",
+          "fileSha256": "7bc114a1064ecf4d647b3739132fcbc39c99ca5fc1a62ea4e7860c644148f2c0",
+          "url": "https://portal.skylinx.org/#/dashboard",
+          "observedAt": "2026-10-29T13:02:51.086Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "b005dccff8d7e8e09d674399a0beeb2fc30d203efce9d39d053639c0ed3f4c57"
+        },
+        {
+          "sourceId": "RETAINED-A060-CURRENT-LOGIN",
+          "file": "work/collection-runs/breakpoints-20261104-v1/originals/A060-official-announced-user-org-uk-current-65d2a45db77c.json",
+          "fileSha256": "65d2a45db77cc7894a2202ef63cd60e9b05f055e2770162c8519f368f714a3f5",
+          "url": "https://user.skylinx.org.uk/#/login",
+          "observedAt": "2026-11-03T23:20:40.108Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "1bf937c7585e26accc74ee2566f76c3b17718573d1a8b20db388464c599a251a"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://user.skylinx.org.uk/",
+      "nativeHref": "https://runtushare.net/go/skylinx",
+      "quote": "SkyLinX 节点测速",
+      "review": {
+        "pageUrl": "https://runtushare.net/11324/",
+        "url": "https://runtushare.net/11324/",
+        "observedAt": "2026-11-12T07:48:25.065Z",
+        "representation": "builtin_browser_metadata_json",
+        "imageFile": "work/performance-20261112-twentieth/images/A060-skylinx.webp",
+        "imageSha256": "221785c2d0d3660d44fd6aec8ce25c6da5675a2cc29c6a3761349ede8b10a211",
+        "imageUrl": "https://runtushare.net/wp-content/uploads/2025/11/SkylinX-%E6%9C%BA%E5%9C%BA%E6%B5%8B%E9%80%9F-2025-12-1.webp",
+        "testedAt": "2025-12-27",
+        "imageTestDateLiteral": "测试时间：2025-12-27 12:21:32 (CST)",
+        "reportedLocalTime": "2025-12-27 12:21:32 (CST)",
+        "displayedRows": 11,
+        "publisherSummaryAsPrinted": "11/11",
+        "threadCount": 1,
+        "selectedRows": [
+          {
+            "displayRow": 1,
+            "label": "香港 01",
+            "protocol": "AnyTLS",
+            "tls": "39ms",
+            "https": "197ms",
+            "mean": "68.70MB",
+            "max": "91.26MB"
+          },
+          {
+            "displayRow": 6,
+            "label": "台湾 01",
+            "protocol": "AnyTLS",
+            "tls": "373ms",
+            "https": "2179ms",
+            "mean": "4.78MB",
+            "max": "10.71MB"
+          },
+          {
+            "displayRow": 11,
+            "label": "美国 02",
+            "protocol": "AnyTLS",
+            "tls": "192ms",
+            "https": "1810ms",
+            "mean": "9.73MB",
+            "max": "14.89MB"
+          }
+        ],
+        "scope": "第三方称换AnyTLS协议后的首次测速；保留2025-12-27转售、换线路协议反证。",
+        "unitsAsPrinted": [
+          "ms",
+          "MB"
+        ],
+        "rateUnitPerSecondExplicit": false,
+        "measurementVerified": false
+      },
+      "fields": [
+        "speed"
+      ]
+    },
+    {
+      "key": "A054-notice",
+      "recordId": "A054",
+      "mode": "notice",
+      "url": "https://access.naiunet.com/#/dashboard",
+      "ref": {
+        "sourceId": "COLLECT-e0d44e4a5bab89a25d6aa056",
+        "file": "work/collection-runs/collection-20261030-gaps-v5/evidence/e0d44e4a5bab89a25d6aa056d2b46048fb7fb503a8daaa4ee424f4dd6462d90e.json",
+        "fileSha256": "e0d44e4a5bab89a25d6aa056d2b46048fb7fb503a8daaa4ee424f4dd6462d90e",
+        "bodySha256": "684217a2b7041330904910231a8185493545339cc4637c90704e5d8fe81df2b9",
+        "url": "https://access.naiunet.com/#/dashboard",
+        "observedAt": "2026-10-30T06:03:10.818Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "sourceId": "COLLECT-e0d44e4a5bab89a25d6aa056",
+          "file": "work/collection-runs/collection-20261030-gaps-v5/evidence/e0d44e4a5bab89a25d6aa056d2b46048fb7fb503a8daaa4ee424f4dd6462d90e.json",
+          "fileSha256": "e0d44e4a5bab89a25d6aa056d2b46048fb7fb503a8daaa4ee424f4dd6462d90e",
+          "bodySha256": "684217a2b7041330904910231a8185493545339cc4637c90704e5d8fe81df2b9",
+          "url": "https://access.naiunet.com/#/dashboard",
+          "observedAt": "2026-10-30T06:03:10.818Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://access.naiunet.com/",
+      "quote": "公告\n\n续费公告！\n\n2026-09-23 01:50:39",
+      "date": "2026-09-23",
+      "dateLabel": "2026-09-23 01:50:39",
+      "copyCount": 1,
+      "title": "仪表盘 | NaiU_Net",
+      "openedBody": "续费公告！\n\n年付优惠码old9\n\n购买前一定要截图剩馀时间与流量并且阅读购买与使用须知\n\n邀请朋友购买还可获取返利，折抵付款金额 购买页面输入即可获取优惠\n\n注意：持有流量包套餐绝对覆盖，也不会补偿，请勿购买。 购买同等级套餐会自动叠加时间(流量不叠加)， 不同等级会被覆盖，有此情况要提供截图给客服补时间。\n\n具体情况以结账画面为准，如有疑虑请至官网右下角联系线上客服",
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A085-notice",
+      "recordId": "A085",
+      "mode": "notice",
+      "url": "https://www.paopao.dog/#/dashboard",
+      "ref": {
+        "sourceId": "COLLECT-290ff99d30f1978e431852d8",
+        "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/290ff99d30f1978e431852d8df196ec6c8174920851e673fa2a8f3aa1794fd45.json",
+        "fileSha256": "290ff99d30f1978e431852d8df196ec6c8174920851e673fa2a8f3aa1794fd45",
+        "bodySha256": "d732628590a587aac97c7e0849c5598c35732f07a90a10d05924699d62fdf4aa",
+        "url": "https://www.paopao.dog/#/dashboard",
+        "observedAt": "2026-10-30T04:06:27.738Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "sourceId": "COLLECT-290ff99d30f1978e431852d8",
+          "file": "work/collection-runs/collection-20261030-gaps-v2/evidence/290ff99d30f1978e431852d8df196ec6c8174920851e673fa2a8f3aa1794fd45.json",
+          "fileSha256": "290ff99d30f1978e431852d8df196ec6c8174920851e673fa2a8f3aa1794fd45",
+          "bodySha256": "d732628590a587aac97c7e0849c5598c35732f07a90a10d05924699d62fdf4aa",
+          "url": "https://www.paopao.dog/#/dashboard",
+          "observedAt": "2026-10-30T04:06:27.738Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://www.paopao.dog/",
+      "quote": "公告\n\n泡泡DOG提醒您请收藏好以下域名防止失联\n\n2023-12-30",
+      "date": "2023-12-30",
+      "dateLabel": "2023-12-30",
+      "copyCount": 3,
+      "title": "泡泡Dog",
+      "openedBody": null,
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A143-notice",
+      "recordId": "A143",
+      "mode": "notice",
+      "url": "https://home.99ba2026.best/#/dashboard",
+      "ref": {
+        "sourceId": "COLLECT-ea959fe90e27110e04acf42f",
+        "file": "work/collection-runs/collection-20261030-breakpoints-v6/evidence/ea959fe90e27110e04acf42f92f51d3b93a9b955bd986a2f9244d838cecf580b.json",
+        "fileSha256": "ea959fe90e27110e04acf42f92f51d3b93a9b955bd986a2f9244d838cecf580b",
+        "bodySha256": "a749203a86e1068f07c8358baed9a794b8ff0745a1e173482b98f5bbe4593da6",
+        "url": "https://home.99ba2026.best/#/dashboard",
+        "observedAt": "2026-10-30T08:23:37.133Z",
+        "representation": "normalized_retained_visible_DOM_text"
+      },
+      "refs": [
+        {
+          "sourceId": "COLLECT-ea959fe90e27110e04acf42f",
+          "file": "work/collection-runs/collection-20261030-breakpoints-v6/evidence/ea959fe90e27110e04acf42f92f51d3b93a9b955bd986a2f9244d838cecf580b.json",
+          "fileSha256": "ea959fe90e27110e04acf42f92f51d3b93a9b955bd986a2f9244d838cecf580b",
+          "bodySha256": "a749203a86e1068f07c8358baed9a794b8ff0745a1e173482b98f5bbe4593da6",
+          "url": "https://home.99ba2026.best/#/dashboard",
+          "observedAt": "2026-10-30T08:23:37.133Z",
+          "representation": "normalized_retained_visible_DOM_text"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://home.99ba2026.best/",
+      "quote": "公告\n\n最近有人假冒我们官方发送邮件给客户，请不要点击任何连接，以免上当\n\n2026-04-23 14:25:22",
+      "date": "2026-04-23",
+      "dateLabel": "2026-04-23 14:25:22",
+      "copyCount": 1,
+      "title": "仪表盘 | 99吧",
+      "openedBody": null,
+      "fields": [
+        "operatingHistory"
+      ]
+    },
+    {
+      "key": "A085-channel",
+      "recordId": "A085",
+      "mode": "channel",
+      "url": "https://t.me/s/paopaodog",
+      "ref": {
+        "sourceId": "ROUND20-PAOPAO-CHANNEL",
+        "file": "work/performance-20261112-twentieth/live/paopao-channel.json",
+        "fileSha256": "9899e0ed6c42acef97cf50b2f9c169b7b2ef71e94dad78cfbc130efd679ba902",
+        "url": "https://t.me/s/paopaodog",
+        "observedAt": "2026-11-12T07:46:47.571Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "27c26e90ac3bb4fe93097b2eaff2d06b74b4b91764cacd8e02eab78150696a9e"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND20-PAOPAO-CHANNEL",
+          "file": "work/performance-20261112-twentieth/live/paopao-channel.json",
+          "fileSha256": "9899e0ed6c42acef97cf50b2f9c169b7b2ef71e94dad78cfbc130efd679ba902",
+          "url": "https://t.me/s/paopaodog",
+          "observedAt": "2026-11-12T07:46:47.571Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "27c26e90ac3bb4fe93097b2eaff2d06b74b4b91764cacd8e02eab78150696a9e"
+        },
+        {
+          "sourceId": "ROUND20-PAOPAO-REPAIR",
+          "file": "work/performance-20261112-twentieth/live/paopao-repair-1349.json",
+          "fileSha256": "e49b7a92485f0435ea9a1ec7622102c81587018ea995858a7f21d55bcc3ece0a",
+          "url": "https://t.me/s/paopaodog/1349",
+          "observedAt": "2026-11-12T07:50:54.413Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "9c82cf78f401e32f5d813d633c6ee18a16310395a23588427c8724a59f5d5dfc"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://www.paopao.dog/",
+      "events": [
+        {
+          "post": 1337,
+          "index": 0,
+          "dateTime": "2023-09-04T13:50:29+00:00",
+          "permalink": "https://t.me/paopaodog/1337",
+          "text": "操作失误将美国节点的重启命令，推向了全部节点，目前全部节点正在重启，10分钟内恢复"
+        },
+        {
+          "post": 1345,
+          "index": 2,
+          "dateTime": "2023-09-09T06:37:38+00:00",
+          "permalink": "https://t.me/paopaodog/1345",
+          "text": "上游服务商快车道被打了 先避开使用香港01-04 与 日本节点"
+        }
+      ],
+      "fields": [
+        "stability"
+      ]
+    },
+    {
+      "key": "A071-feedback",
+      "recordId": "A071",
+      "mode": "issue",
+      "url": "https://github.com/limbopro/Paolujichang/issues/340",
+      "ref": {
+        "sourceId": "ROUND20-NIER-GITHUB-340",
+        "file": "work/performance-20261112-twentieth/live/nier-github-340.json",
+        "fileSha256": "9ac9f53d21a2c16e8b2e1ff1feaeee5971790378edcf010ac3f0f6b366e520d2",
+        "url": "https://github.com/limbopro/Paolujichang/issues/340",
+        "observedAt": "2026-11-12T07:47:20.271Z",
+        "representation": "normalized_retained_visible_DOM_text",
+        "bodySha256": "f76d1e77d75176710c95831571821b29b59543914b193f41c99a554b10622b35"
+      },
+      "refs": [
+        {
+          "sourceId": "ROUND20-NIER-GITHUB-340",
+          "file": "work/performance-20261112-twentieth/live/nier-github-340.json",
+          "fileSha256": "9ac9f53d21a2c16e8b2e1ff1feaeee5971790378edcf010ac3f0f6b366e520d2",
+          "url": "https://github.com/limbopro/Paolujichang/issues/340",
+          "observedAt": "2026-11-12T07:47:20.271Z",
+          "representation": "normalized_retained_visible_DOM_text",
+          "bodySha256": "f76d1e77d75176710c95831571821b29b59543914b193f41c99a554b10622b35"
+        }
+      ],
+      "currentOfficialUrlAtReview": "https://board.cloudnier.com/",
+      "retainedOnly": true,
+      "quote": "🏷️ 机场名称： 尼尔云\n🔗 机场网址： https://board.cloudnier.com/\n🔄 机场状态：（已跑路/服务暂不可用/或在其他细节补充处补充） 已跑路/服务不可用\n⏳ 已使用时长：（如：1年） 1年多\n💰 近期续费套餐时长：（如：1年） 1年\n📖 机场此前使用体验： 尚可\n📊 机场当前使用体验： 无法连接无法使用\n🕐 异常开始时间：（如：2026-08-15 20:00左右） 2026年6月就开始不怎么可用了\n⏱️ 近期不可用情况起止时间： 2026年6月至今\n📅 1周内的不可用天数： 7\n📞 是否能够与机场方取得联系：（能/否/不确定） 否\n💬 机场方是否有回应：（有/无/部分回应/不确定） 否\n📝 机场方给出的原因或说明：（如有） 无\n📡 所使用的运营商：（移动/联通/电信/其他） 不知道\n💻 所使用的客户端： Clash\n📌 其他细节补充：无",
+      "createdAt": "2026-09-29T09:10:53.000Z",
+      "postUrl": "https://github.com/limbopro/Paolujichang/issues/340#issue-5628109502",
+      "fields": [
+        "stability"
+      ]
+    }
+  ]
+}

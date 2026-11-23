@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "airports-site-collector.v1",
+  "recordId": "A218",
+  "name": "XXYUN",
+  "entryUrl": "https://cloud.xxvip.shop/plan",
+  "entrySource": "review_link_and_observed_same_brand_candidate",
+  "allowedHosts": [
+    "cloud.xxvip.shop",
+    "xxyun-api.xxvip.de"
+  ],
+  "adapter": "generic",
+  "maxPages": 3,
+  "enabled": false,
+  "publicReferenceEnabled": false,
+  "eligibility": "queued",
+  "reason": "已获本次官方API后台正常登录与只读采集授权；实际官网5档8组可见报价已核对，Oracle独立登录及会话恢复实跑验收前保持禁用周任务。 2026-11-23已补固定版本官网客户端的原生支付渠道读取，保留编码响应与解码结果；支付采用站方说明等级，不标为收银台或成交已验证。运行配置在采集、复核发布、匿名前台和联合暖运行后启用。",
+  "fields": [
+    "pricing",
+    "payment"
+  ],
+  "refreshIntervalMs": 604800000,
+  "policy": {
+    "allowPayment": false,
+    "allowPaidTrial": false,
+    "allowProtectionBypass": false,
+    "cloudflare": "checkpoint_and_backoff",
+    "publication": "review_required"
+  },
+  "discovery": {
+    "reviewUrl": "https://www.ermao.net/blog/xxyun/",
+    "observedAt": "2026-11-15T23:20:55.140Z",
+    "originalReferralOwnedByUser": false,
+    "priceStatus": "unverified_third_party_price"
+  },
+  "publicOnly": false,
+  "readOnlyRecipe": "xxyun_visible_plan_catalog",
+  "urlCollector": {
+    "collectorId": "xxyun-public-client-config",
+    "recipe": "xxyun_public_client_config",
+    "recipeModule": "deploy-service/xxyun-public-client-config.cjs",
+    "status": "live_verified_operator_plan_change_condition_only",
+    "completedAllFields": false
+  },
+  "acceptance": {
+    "runId": "133238a5-96c2-423a-81af-baa6265a569c",
+    "scope": "plan_change_only_not_general_refund_policy",
+    "receipt": "work/official-completion-20261116/A218-refund-published.json",
+    "pricingVerified": false
+  },
+  "validateWhileDisabled": true,
+  "accountReadOnly": true,
+  "auth": {
+    "mode": "login"
+  },
+  "businessApiConsent": {
+    "frontendOrigin": "https://cloud.xxvip.shop",
+    "backendOrigin": "https://xxyun-api.xxvip.de",
+    "confirmation": "explicit_xxyun_api_login_readonly_20261123",
+    "login": true,
+    "readOnly": true,
+    "confirmedAt": "2026-11-23T06:20:57.544538+00:00"
+  }
+}

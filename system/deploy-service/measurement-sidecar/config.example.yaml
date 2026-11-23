@@ -1,0 +1,15 @@
+# Inert Mihomo-compatible example. This is not a subscription or a working route.
+# Keep the real configuration OUTSIDE the repository/build context.
+mixed-port: 7890
+bind-address: 127.0.0.1
+allow-lan: false
+mode: rule
+log-level: error
+ipv6: false
+proxies: []
+proxy-groups:
+  - name: MEASUREMENT_ROUTE
+    type: select
+    proxies: [REJECT]
+rules:
+  - MATCH,MEASUREMENT_ROUTE

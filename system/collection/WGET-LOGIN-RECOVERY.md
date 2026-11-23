@@ -1,0 +1,40 @@
+# Login persistence and WgetCloud recovery
+
+## Current verified service state — 2026-11-18, v79
+
+- The standalone Docker path now has actual cold-login evidence. Native shape clicks, email-code submission, bound account witness and personal-catalogue collection passed in daemon run `60d0c91b-1d4b-4cff-860b-019add2edc4a`. No orders or payment. Earlier failed attempts are retained separately.
+- `deploy-service/wget-shape-challenge.cjs` handles only this approved Wget origin's visible three-shape widget. It reads the displayed icon order, detects white square/triangle/star pixels locally, checks unique targets, clicks the native cover, and observes widget clearance. Up to two native refreshes are allowed before any clicks when detection is ambiguous. Unknown puzzles remain explicit checkpoints; this is not a universal solver or a Cloudflare bypass.
+- `service-verification.cjs` connects the site adapter to entry/post-submit processing. Normal authentication write permission stays active until the observed native email-send response returns; a hidden flag alone is insufficient. No JS authentication handler or token is fabricated.
+- `wget-email-login.cjs` checks the actual same-origin `/totp_email` POST response, sends once, then polls the bound Inbox/Spam provider up to 12 times within the job deadline. OTPs are never exported. An explicitly bounded 5-second delivery timestamp skew is used for Wget only; the real daemon's successful mail timestamp was 603ms before its local request timestamp.
+- `collectWithReferences` applies Wget's 90-second recovery budget to both HTTP and in-process workers. Other sites keep their existing budget. The former in-process-only budget was insufficient coverage for the deployed HTTP worker and was corrected.
+- The Wget-only visibility rule excludes hidden Bootstrap modal/offcanvas settings controls in challenge observation, readiness and final capture. Login success returns to the configured `/user/shop`; the private account menu witness remains mandatory.
+- The Gmail configuration is now present on Oracle in a read-only collector-only mount from `/opt/airports/private/mailbox`. The exact mailbox, sender, recipient, subject and freshness checks remain. It does not rely on a ChatGPT Gmail connector or desktop browser session.
+- Google project `airports-observatory-mail` now shows production status. This is NOT Google application verification. A fresh production-mode grant authorized at 2026-11-18T09:33:34.611Z was installed on Oracle after container-side identity, refresh and bound sender metadata validation; the earlier grant remains a private rollback file. No message bodies were read during that replacement test.
+- Public Gmail privacy explanation: `https://airports-api.vigorai.top/api/mailbox-privacy`. Adding this single read-only route did not expose management or internal RPC routes.
+- A001 weekly configuration is enabled, revision10, interval604800000ms, after actual cold login and independent-context restoration. Preserve the scheduled due time from the current control store; do not infer it from this document.
+- Reviewed publication `catalog-742e4aee488ed19ab8d57d4d` contains six refreshed personal quotes and two unmodified historical team quotes. The daemon's subsequent same-price capture completed as `extracted_no_change`, not a fabricated price change.
+- Checking Remember Me and immediate next-context restoration are proven. Increased server cookie lifetime is not proven because the native checkbox lacks a name attribute; do not promise a session duration.
+
+## Earlier implementation notes — historical, superseded where contradicted above
+
+- All browser login flows call `lib/remember-login.cjs` before normal login submission. Only a unique, visible, enabled checkbox with an exact login-persistence label is checked. Terms, privacy, marketing and combined agreement controls are excluded. Prefer the actual form; form-less login requires unique email and password controls. Registration is excluded.
+- Session state remains private. A checked checkbox is not proof of successful login, durable restoration or a paid plan. Continue to require the site's account witness and a second actual restored-session run before enabling a previously held schedule.
+- WgetCloud approved receiver: b8cfff2a4jquxdbmwbaj.wgetcloud.org. Reuse the changed credential bound from invite.wgetcloud.ltd, never substitute the default. Current login selectors observed: #email, #passwd, #remember_me. The latter was checked in the actual Docker browser without filling credentials/submitting.
+- WgetCloud current personal shop: /user/shop. Ordinary period controls are labels for month_3/month_12; the native radio itself failed hit testing in IAB. Click the observed label and verify checked state. Do not click purchase controls.
+- Parser preserves the literal 90/360-day duration and the `实付` total. The `/月` amount is an equivalent, not a monthly offer. Retain team quotes with their original dates unless actually re-read. Marketing bandwidth, stars and SLA are not measurements.
+- Current WgetCloud IAB session was already logged in. Six personal quote card excerpts were captured, reviewed and published; this does not repair or transfer the Docker browser's separate authentication session.
+- If two-factor login is shown, use the site's native email-code option only in the authorized flow. The code provider must access collector@example.invalid and bind sender/service, recipient, request time and expiry. Search normal mail first, then Spam. Do not read another mailbox as a substitute, log OTPs, reuse expired codes, reset credentials or bypass a challenge.
+- On 2026-11-18 the connected Gmail MCP account was different from the authorized registration mailbox. Thus unattended WgetCloud email-code retrieval remains unconfigured. Current IAB session did not need a new code; no mail was read unnecessarily and no external Chrome was used.
+- Current interactive verification remains a checkpoint; no blanket authorization is interpreted as permission to bypass protection or silently solve a new CAPTCHA.
+
+## Docker email-code integration (2026-11-18)
+
+`deploy-service/gmail-readonly-code.cjs` uses only Gmail read-only message/profile GETs plus standard Google refresh-token exchange. Exact mailbox/service/sender/recipient/subject/time/expiry checks apply; normal inbox first, then Spam. No browser-cookie export or Codex connector dependency.
+
+Private template: `vpn-finder-app/_private/gmail-readonly.json.template`; actual file must be separately provided, never committed. `compose.mailbox.yaml` is an optional read-only directory mount after the real file exists; it is not enabled by an empty template. Run `node deploy-service/mailbox-preflight.cjs <actual-private-file>` to verify identity without reading messages. Actual OAuth configuration and native sender address were not provided as of this integration.
+
+Wget native public auth.js?v=2.6 declares POST relative totp_email with email/passwd, then sets hidden totp_email property to1; normal login submits login_form FormData. The adapter only clicks the visible native email option in the already-entered two-factor step. Captcha and enrollment pages remain checkpoints. It does not invoke JS handlers directly, set authentication flags, bind TOTP, collect backup codes or reset credentials.
+
+The source checkbox #remember_me currently has no name attribute and the native login script uses FormData. Checking it is verified, but transmission to the backend and increased cookie lifetime are NOT proven. Do not inject a name or claim extended expiry without a normal successful login and cookie-lifetime observation.
+
+The collector preflights mailbox configuration before submitting Wget credentials. Wrong or missing mailbox configuration leaves a checkpoint without sending an OTP. A bound private visible account-menu email plus native logout control is required to save/restablish Wget session proof. Weekly A001 is disabled until actual login + next-run restoration + pricing extraction pass.

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "airports-website-collector.v1",
+  "collectorId": "url-b8d17d53ef78a2021691",
+  "origin": "https://tagss.pro",
+  "recordIds": [
+    "A004"
+  ],
+  "entryUrls": [
+    "https://tagss.pro/"
+  ],
+  "capabilities": {
+    "literalParser": "tag-public-plans",
+    "readOnlyRecipe": "tag_public_catalog_readonly",
+    "auth": null,
+    "authStatus": "not_required_public_catalog",
+    "knowledgeAdapter": false,
+    "includeClientGuides": false,
+    "registrationProfile": null
+  },
+  "policy": {
+    "credentialOrigin": null,
+    "allowPayment": false,
+    "automaticAgreementAcceptance": false,
+    "automaticCaptchaCompletion": false,
+    "reviewRequired": true,
+    "publicOnly": true,
+    "accountReadOnly": false
+  },
+  "refreshIntervalMs": 604800000,
+  "aliasPolicy": "Shared origin deduplicates navigation; each record retains its own identity and fact binding. No alias fact propagation.",
+  "recipeHash": "9fe065cb92fbe806f08c3c647fc4e9980c924d731676da7f602731a221485841",
+  "acceptance": "partial_capabilities_only_not_all_fields_complete"
+}
