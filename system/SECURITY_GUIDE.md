@@ -25,7 +25,7 @@
 
 运行脱敏脚本:
 ```bash
-cd D:\AI_Projects\Airports\vpn-finder-app
+cd <LEGACY_APP_DIR>
 python sanitize_sensitive_data.py
 ```
 
@@ -40,11 +40,11 @@ python sanitize_sensitive_data.py
 
 ```powershell
 # 方案 A: 彻底删除（推荐）
-Remove-Item -Recurse -Force "D:\AI_Projects\Airports\vpn-finder-app\_chrome_r10"
-Remove-Item -Recurse -Force "D:\AI_Projects\Airports\vpn-finder-app\_r9_gmail_profile"
+Remove-Item -Recurse -Force "./<legacy-chrome-profile>"
+Remove-Item -Recurse -Force "./<legacy-mail-profile>"
 
 # 方案 B: 迁移到外部存储（如果需要保留数据）
-Move-Item "D:\AI_Projects\Airports\vpn-finder-app\_chrome_r10" "Z:\离线备份\chrome_cache"
+Move-Item "./<legacy-chrome-profile>" "<OFFLINE_BACKUP_DIR>/chrome_cache"
 ```
 
 ### 步骤 3: 创建 .gitignore

@@ -28,7 +28,7 @@
       },
       "env_file": [
         {
-          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+          "path": "<REPO_ROOT>/deploy-service/.env"
         }
       ],
       "image": "airports-observatory:local",
@@ -79,7 +79,7 @@
       "volumes": [
         {
           "type": "bind",
-          "source": "D:\\AI_Projects\\Airports\\deploy-service\\measurement-sidecar\\config.example.yaml",
+          "source": "<REPO_ROOT>/deploy-service/measurement-sidecar/config.example.yaml",
           "target": "/run/secrets/measurement-proxy/config.yaml",
           "read_only": true,
           "bind": {
@@ -88,7 +88,7 @@
         },
         {
           "type": "bind",
-          "source": "D:/AI_Projects/Airports/deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/mihomo",
+          "source": "<REPO_ROOT>/deploy-service/data/measurement-runtime/linux-runtime/v1.19.34/mihomo",
           "target": "/run/measurement-bin/mihomo",
           "read_only": true,
           "bind": {
@@ -136,7 +136,7 @@
         },
         {
           "type": "bind",
-          "source": "D:\\AI_Projects\\Airports\\deploy-service\\data\\measurement-secrets",
+          "source": "<REPO_ROOT>/deploy-service/data/measurement-secrets",
           "target": "/run/secrets/measurement-auth",
           "read_only": true,
           "bind": {
@@ -182,7 +182,7 @@
       "volumes": [
         {
           "type": "bind",
-          "source": "D:\\AI_Projects\\Airports\\deploy-service\\Caddyfile",
+          "source": "<REPO_ROOT>/deploy-service/Caddyfile",
           "target": "/etc/caddy/Caddyfile",
           "read_only": true,
           "bind": {}
@@ -218,7 +218,7 @@
       },
       "env_file": [
         {
-          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+          "path": "<REPO_ROOT>/deploy-service/.env"
         }
       ],
       "image": "airports-observatory:local",
@@ -253,7 +253,7 @@
       },
       "env_file": [
         {
-          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+          "path": "<REPO_ROOT>/deploy-service/.env"
         }
       ],
       "image": "airports-observatory:local",
@@ -274,7 +274,7 @@
     },
     "web": {
       "build": {
-        "context": "D:\\AI_Projects\\Airports",
+        "context": "<REPO_ROOT>",
         "dockerfile": "deploy-service/Dockerfile"
       },
       "command": [
@@ -289,7 +289,7 @@
       },
       "env_file": [
         {
-          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+          "path": "<REPO_ROOT>/deploy-service/.env"
         }
       ],
       "image": "airports-observatory:local",
@@ -339,7 +339,7 @@
       },
       "env_file": [
         {
-          "path": "D:\\AI_Projects\\Airports\\deploy-service\\.env"
+          "path": "<REPO_ROOT>/deploy-service/.env"
         }
       ],
       "image": "airports-observatory:local",

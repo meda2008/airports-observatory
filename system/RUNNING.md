@@ -3,11 +3,10 @@
 本轮统一使用根目录 Node 应用，默认地址 http://127.0.0.1:4000。只绑定本机回环地址，不启动注册、登录、付款、消息通知或持续采集。
 
 ```powershell
-cd D:\AI_Projects\Airports
-.\start.ps1
+cd <REPO_ROOT>
 ```
 
-`start.ps1` 后台启动并保存日志与进程身份；重复运行时验证数据哈希并复用已有实例。停止使用 `.\stop.ps1`。也可前台运行 `npm start`，按 Ctrl+C 停止。需要 Node.js 22+；本轮使用已安装的 Node 22.22.0 与现有 Express/CORS，没有替换系统运行时或安装付费服务。
+需在项目根目录使用 Node.js 22+（当前推荐 Node 24）运行三服务与离线校验。下面保留旧版单进程只读核查接口的历史说明作参考。
 
 ## 数据与功能
 
@@ -33,7 +32,7 @@ cd D:\AI_Projects\Airports
 
 旧读取接口保留适配：`/api/airports`、`/api/categories/:category` 等统一使用新名录。`verified-prices` 和 `verified-only` 不再把旧采集标签当当前验证，返回0条并说明原因；价格筛选因缺统一周期与当前结算证据返回409。`/data.js`、源文件、Cookie、历史采集目录不再作为公共资产提供。
 
-`vpn-finder-app/server.js` 兼容启动器也使用同一服务和新页面，默认3001。原3001已有进程未获归属确认，本轮没有停止它。`airport-manager` 是另一份未完成的FastAPI/React骨架，本轮没有虚构补齐其业务或将其作为运行入口。
+兼容启动器与早期前端/静态站构建目录已合并或清理；当前统一通过 `deploy-service/three-services/web.cjs` 与 `deploy-service/three-service-api.cjs` 提供服务。
 
 ## 验证与回退
 
@@ -42,18 +41,9 @@ npm test
 npm run check
 ```
 
-测试覆盖全量分页、查询边界、字段未知状态、来源/台账、TTL、URL去敏、旧接口兼容、私有文件不可访问与篡改链拒绝启动。页面另做真实浏览器联调。代码review未调用收费替代；当前没有确认免费codex-auto-review可用及其免费条件，因此这些是实现测试与运行证据，不冒充第三方代码审查。
+测试覆盖全量分页、查询边界、字段未知状态、来源/台账、TTL、URL去敏、旧接口兼容、私有文件不可访问与篡改链拒绝启动。
 
-改动前的root server/package和vpn-finder-app server/package保存在 `_backups/runtime-20261025-211207/`。本轮没有编辑两份原始 `data.js`；根旧文件在作业期间另有4个verified标签变化，已保留，不当作新取得的原始验证证据，运行名录仍使用catalog冻结快照。需要回退时先停止本项目记录的PID，再从该目录恢复对应文件；不要删除已有数据或停止3001的未确认进程。
-# 公开站维护补充（2026-10-26）
+# 公开站维护说明
 
-公开地址：https://meda2008.github.io/airports-observatory/ 。`#/verify`提供按需版本核对与离线工具下载；`#/ledger`显示有明确时点的结算检查。当前没有数值预测，Brier保持空值。
-
-```powershell
-npm run test:public
-npm run check:public
-npm run verify:online
-```
-
-在线核查只读访问已绑定的GitHub Pages目标并追加保存报告，不是持续监控。发布先在`public-site/`构建与检查，运行`node scripts/publish-github.cjs`，等待Pages构建同一提交后再核查。详细契约见`public-site/README.md`。工具不需要也不应读取机场账户或原始完整档案。
+公开更正提交模板保留于 `.github/ISSUE_TEMPLATE/evidence-correction.yml`。当前前端与三服务统一由仓库根目录构建并同源发布，不再保留独立的旧静态站产物。
 

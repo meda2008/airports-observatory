@@ -7,7 +7,7 @@
 统一编排入口为 `collection/workflow.mjs`。真实端到端试跑记录位于 `work/collection-runs/trial-20261030-e2e/pipeline.json`，示例范围为 A074（YkkCloud），不是全站资料完整性验收。
 
 ```js
-var workflow = await import('D:/AI_Projects/Airports/collection/workflow.mjs');
+var workflow = await import('./collection/workflow.mjs');
 await workflow.runWorkflow({browser, runId:'NEW_RUN_ID', recordIds:['A074'], limit:2});
 // 读取留存原文，复核并填写该运行的 review.json 后：
 await workflow.runWorkflow({browser, runId:'NEW_RUN_ID', batch:'core-auth-batchNEW_NUMBER', finalize:true});
@@ -56,7 +56,7 @@ CLI也可分阶段执行：`node scripts/collection-pipeline.cjs init RUN A074` 
 已在 CUA 中选择浏览器后，使用该 Browser 绑定执行（不要在普通 Node CLI 中启动另一个浏览器）：
 
 ```js
-var collector = await import('D:/AI_Projects/Airports/collection/browser-driver.mjs');
+var collector = await import('./collection/browser-driver.mjs');
 await collector.runChunk({browser, runId:'YOUR_RUN_ID', limit:2, credentialsForOrigin});
 // 单站选取仍复用同一流程与断点：recordIds:['A054']
 await collector.resumeClearedGates({browser, runId:'YOUR_RUN_ID'});

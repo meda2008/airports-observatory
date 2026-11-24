@@ -61,7 +61,7 @@
 - 当前镜像API/collector v311，web v165未更改。v311受影响测试68项通过，旧范围兼容检查25项通过；镜像非root模块、OCR、浏览器适配门禁通过。
 - 无Token请求的管理读取、复核、配置写入接口均实测401。
 - 最终Oracle收据：`/data/recovery-receipts/blocked22-final-verified-v311.json`。
-- 本机最终JSON：`D:/AI_Projects/Airports/work/blocked22-final-verified-v311.json`。
+- 本机最终JSON：`work/blocked22-final-verified-v311.json`。
 - v308磁盘门禁失败退出63，未切换服务；归档旧源码副本并校验后，v309/v310/v311实际部署成功。数据库、旧数据和私有配置未丢失。
 - 当前没有可用且可确认免费的codex-auto-review工具，未调用收费替代；本次没有独立代码审查通过结论。
 

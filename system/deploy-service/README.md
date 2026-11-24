@@ -6,7 +6,7 @@
 
 ## 启动
 
-从 D:/AI_Projects/Airports 执行：
+从仓库根目录执行：
 
 ```powershell
 Copy-Item deploy-service/.env.example deploy-service/.env
@@ -88,10 +88,10 @@ GitHub 仓库核验和后续接入见下节。CF/访问验证的 `clickConfirmed
 
 本次两页条款确认后的续采：A149光速云、A151星岛梦已实际登录并解除原条款断点。分别读取5篇、4篇未读客户端教程（已读Windows文章复用），iOS说明逐字自查后补入compatibility，明确`literal_source_self_review_not_independent`，不称独立人工复核。两站退款/隐私原文仍缺；既有报价和支付不重扫、不建单。新增显式`includeClientGuides`开关，默认不读客户端教程，仅逐站启用时采集可见教程卡片，付款/订阅动作仍拒绝。原文、页面日期、采集时间、审核及恢复回执在`work/site-collector-service/terms-resume-20261103/`；本次相关最终门禁68/68，本地HTTP及浏览器已确认新条件展示。旧版IAB保留页的关闭接口返回不可用，本次新建的两张采集页已经关闭。
 
-Linux + vigorai.top，模型待定。DNS的A/AAAA记录应指向实际Linux服务器；服务器开放80/443。若该域名已有网站，先确认切换计划，不能覆盖既有业务。
+Linux + `<YOUR_DOMAIN>`，模型待定。DNS的A/AAAA记录应指向实际Linux服务器；服务器开放80/443。若该域名已有网站，先确认切换计划，不能覆盖既有业务。
 
 ```sh
 docker compose -f deploy-service/compose.yaml -f deploy-service/compose.production.yaml up -d --build
 ```
 
-Caddy在DNS正确且端口可达时申请HTTPS证书。无需把8080直接暴露公网。尚未提供SSH地址/登录用户或已有服务器连接，因此本地准备不等于已部署vigorai.top。
+Caddy在DNS正确且端口可达时申请HTTPS证书。无需把8080直接暴露公网。尚未提供SSH地址/登录用户或已有服务器连接，因此本地准备不等于已部署公网域名。

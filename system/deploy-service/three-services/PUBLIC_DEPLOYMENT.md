@@ -1,6 +1,6 @@
 # Independent public deployment — awaiting target server
 
-Current public frontend remains https://airports.vigorai.top on GitHub Pages.
+Current public frontend remains https://public.example.invalid (configurable via `FRONTEND_ORIGIN` / `PUBLIC_WEB_HOSTS`).
 The live candidate has NOT been enabled against an unverified public API.
 
 ## Target and isolation
@@ -8,13 +8,14 @@ The live candidate has NOT been enabled against an unverified public API.
 Obtain the intended Linux SSH host/alias and username before any migration.
 Inspect current Docker networks/volumes, disk capacity, 80/443 listeners and
 existing reverse proxy. Do not replace its global configuration or existing
-api.vigorai.top service. Use a dedicated Compose project and unused localhost
+services. Use a dedicated Compose project and unused localhost
 port, e.g. 18081, with explicit dedicated data/state volumes.
 
-Candidate new hostnames (not added to public DNS yet):
+Candidate hostnames (configure via environment variables):
 
-- airports-api.vigorai.top: public read-only routes; CORS only for the frontend.
-- airports-admin.vigorai.top: authenticated console and management API.
+- `PUBLIC_WEB_HOSTS` (e.g. `public.example.invalid`): same-origin public frontend and read-only `/api/*` routes; denies `/console*`, `/api/admin/*`, and `/internal/*`.
+- `PUBLIC_API_HOST` (e.g. `api.example.invalid`): public read-only routes; CORS only for `FRONTEND_ORIGIN`.
+- `ADMIN_HOST` (e.g. `admin.example.invalid`): authenticated console and management API.
 
 Use compose.three-services.yaml plus compose.public-gateway.yaml. Do not combine
 the legacy compose.production.yaml, which creates another global 80/443 proxy.
@@ -54,9 +55,7 @@ No new semantic auto-approval policy is introduced.
 
 Build the frontend once after the public API has been verified:
 
-```
-node hosting/pages/build.mjs --source SOURCE_SITE --output NEW_OUTPUT --hostname airports.vigorai.top --api-origin https://airports-api.vigorai.top
-```
+Set `PUBLIC_WEB_HOSTS`, `PUBLIC_API_HOST`, `ADMIN_HOST`, and `FRONTEND_ORIGIN` in the runtime environment when deploying publicly.
 
 Live mode calls public GET endpoints directly with credentials omitted; it
 does not load static catalog archives or silently substitute old data on API

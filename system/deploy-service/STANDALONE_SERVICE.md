@@ -35,11 +35,11 @@ node scripts/performance-maintenance.cjs run --sites=A001 --fields=speed --refre
 
 2026-11-11 更新。本文件对应 `standalone` 执行模式。Web、调度、采集和发布由本机 Node 进程运行，不使用 Codex 定时任务，也不要求聊天或 Codex 内置浏览器持续在线。独立采集器使用服务专属的 Playwright 无头浏览器与会话目录，不接管用户日常 Chrome 配置。
 
-本轮仅本机验证，不部署 `vigorai.top` 或其他公网地址，不调用收费 LLM，绝不付款。当前独立采集路径只读：不创建订单、不打开付款动作、不注册账号、不接受新协议、不自动解交互验证码。
+本轮仅本机验证，不部署 `public.example.invalid` 或其他公网地址，不调用收费 LLM，绝不付款。当前独立采集路径只读：不创建订单、不打开付款动作、不注册账号、不接受新协议、不自动解交互验证码。
 
 ## 1. 启动、状态与进程
 
-以下命令在项目根运行；本轮实际项目为 `D:/AI_Projects/Airports`，聊天工作目录不一定是该项目。
+以下命令请在仓库根目录运行。
 
 ```powershell
 ./scripts/start-local-product.ps1 -Port 8081

@@ -6,7 +6,7 @@ API和collector已部署v329，web仍为v165，保持三个Docker服务、同一
 
 ## 已部署流程
 
-1. 管理员打开 https://airports-admin.vigorai.top/api/admin/assistance-page 。沿用后台认证；公开API域名无此接口。
+1. 管理员打开 https://admin.example.invalid/api/admin/assistance-page 。沿用后台认证；公开API域名无此接口。
 2. 打开A016专属Oracle浏览器，使用固定Amy cart.php、有效TLS和受限正常请求。正常验证框唯一可见时可进行一次普通操作；不自动回答图片题、不注入令牌、不绕过保护。
 3. 画面和点击经API队列传入同一服务浏览器；每条命令编号、截图指纹及事件留存。过期画面、并发命令、离开验证页、没有真实可操作控件均不能点击。
 4. 每10秒观察已有页面，不重载官网；验证就绪并读到真实套餐后，保存私有有效状态并自动排入普通验证采集任务。新的业务数据仍需既有差异复核，发布器只发布批准材料。

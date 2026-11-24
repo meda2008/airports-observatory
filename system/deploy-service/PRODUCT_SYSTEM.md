@@ -2,7 +2,7 @@
 
 # 航向：现存资料数据库与本地产品
 
-2026-11-10。依据本聊天 2026-11-02 的原始产品要求：通用流程加逐站采集器、按周更新、数据库比较、按需求找入口、本人账号推荐链接盈利。继续采用 Linux 可部署服务；当前仅在本机集成与验证，已接通独立standalone后台采集服务，IAB仅保留维护入口；本轮不部署 vigorai.top，不调用付费模型。本轮终态见 outputs/collector-validation-current/summary.json。
+2026-11-10。依据本聊天 2026-11-02 的原始产品要求：通用流程加逐站采集器、按周更新、数据库比较、按需求找入口、本人账号推荐链接盈利。继续采用 Linux 可部署服务；当前仅在本机集成与验证，已接通独立standalone后台采集服务，IAB仅保留维护入口；本轮不部署 `<YOUR_DOMAIN>`，不调用付费模型。本轮终态见 outputs/collector-validation-current/summary.json。
 
 ## 当前可用入口
 
@@ -76,7 +76,7 @@ controller 每 30 秒检查周任务到期，只在 `engineEnabled` 和 `weeklyE
 
 ## Linux 部署包与边界
 
-`compose.yaml` 包含 web、publisher、collector、controller；生产配置保留 Caddy HTTPS 与 vigorai.top 目标。本轮未修改公网。首次空数据库通过 `seed/catalog-bundle.json.gz` 导入整理后的公开资料，原正文和私有浏览器状态不打进镜像；该种子的内容指纹在 `seed/manifest.json`。需要完整运维/采集历史时另迁移一致性 SQLite 备份与私有归档，不能只拷运行中的主文件丢 WAL。
+`compose.yaml` 包含 web、publisher、collector、controller；生产配置保留 Caddy HTTPS 模板与可配置的域名目标。本轮未修改公网。首次空数据库通过 `seed/catalog-bundle.json.gz` 导入整理后的公开资料，原正文和私有浏览器状态不打进镜像；该种子的内容指纹在 `seed/manifest.json`。需要完整运维/采集历史时另迁移一致性 SQLite 备份与私有归档，不能只拷运行中的主文件丢 WAL。
 
 ```powershell
 node scripts/import-product-catalog.cjs # 一致性备份后，从已有资料整理入库
