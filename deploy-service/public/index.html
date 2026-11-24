@@ -1,8 +1,207 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="查看机场套餐价格、支付方式与退款条件，快速找到适合自己的套餐。"><title>航向 · 机场套餐比较</title><link rel="stylesheet" href="/index.css"><script defer src="/index.js"></script></head>
-<body><header class="header"><a class="brand" href="#"><span class="brand-mark">航</span><span>航向<small>机场套餐比较</small></span></a><nav aria-label="主导航"><a href="#catalog">机场列表</a><a href="#compare">按预算找套餐</a></nav></header>
-<main id="home"><section class="hero"><p class="eyebrow">找到适合你的机场</p><h1>先看价格，<br>再看是否适合。</h1><p class="hero-copy">价格、流量、支付和退款条件，一眼看清。</p><a class="button" href="#catalog">浏览机场 <span aria-hidden="true">↘</span></a><div class="hero-tags"><span>套餐价格</span><span>支付方式</span><span>速度与稳定性</span><span>运营年限</span></div></section>
-<section id="catalog" class="section"><div class="section-heading"><h2>机场列表</h2><p id="catalog-meta" class="muted" role="status"></p></div><form id="catalog-form" class="filter-bar"><input name="scope" type="hidden" value="primary"><label class="grow">搜索机场<input name="q" type="search" placeholder="名称或关键词" maxlength="200"></label><label>支付方式<input name="payment" placeholder="例如：支付宝" maxlength="80"></label><label>价格<select name="price"><option value="">全部</option><option value="available">有报价</option><option value="missing">暂无报价</option></select></label><button type="submit">查找</button><button id="catalog-reset" class="button-secondary" type="button">重置</button></form><div id="catalog-error" class="error" role="alert" hidden></div><div id="catalog-results" class="card-grid" aria-live="polite"></div><div class="pagination"><button id="previous" class="button-secondary" type="button">上一页</button><span id="page-label"></span><button id="next" class="button-secondary" type="button">下一页</button></div></section>
-<section id="compare" class="section comparison"><div class="section-heading"><div><p class="eyebrow">按你的需求选</p><h2>预算内，有哪些选择？</h2></div></div><form id="search" class="filter-bar"><label class="grow">你的需求<input name="needs" placeholder="例如：每月20元以内" maxlength="300"></label><label>优先考虑<select name="criterion"><option value="cheap">价格便宜</option><option value="value">流量性价比</option><option value="speed">速度</option><option value="stability">稳定性</option></select></label><label>币种<select name="currency"><option value="CNY">人民币 CNY</option><option value="USD">美元 USD</option><option value="EUR">欧元 EUR</option><option value="HKD">港币 HKD</option><option value="JPY">日元 JPY</option><option value="GBP">英镑 GBP</option><option value="TWD">新台币 TWD</option></select></label><label>每月预算<input name="maxMonthly" type="number" min="0.01" step="0.01" placeholder="不限"></label><button type="submit">找套餐</button></form><p id="status" role="status" class="muted">设置预算，比较套餐。</p><div id="results" class="card-grid"></div></section></main>
-<main id="detail" class="detail-shell" hidden><a class="back-link" href="#catalog">← 返回机场列表</a><div id="detail-content" aria-live="polite"></div></main>
-<footer><span class="brand">航向</span><p>价格以网站结算为准。暂无实测时，不提供速度或稳定性排名。部分入口为推广链接。</p><a href="/console.html">管理后台</a></footer></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="查看已复核的机场套餐标价、流量额度、支付方式与退款条件，按预算快速筛选对比。">
+  <title>航向 · 机场套餐目录与比价</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315232c'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-family='sans-serif' font-weight='bold'%3E%E8%88%AA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/index.css">
+  <script defer src="/index.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#catalog">
+        <span class="brand-mark">航</span>
+        <span class="brand-text">
+          <span class="brand-title">航向</span>
+          <small>机场套餐公开目录</small>
+        </span>
+      </a>
+      <nav aria-label="主导航" class="main-nav">
+        <a href="#catalog">机场列表</a>
+        <a href="#compare">按预算找套餐</a>
+        <span id="snapshot-badge" class="snapshot-badge" hidden></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">公开资料目录 · 同源核验</p>
+        <h1>先看标价与条款，<br>再决定是否适合。</h1>
+        <p class="hero-copy">汇总已复核的套餐标价、月均流量、支付渠道与退款声明。材料更新不等于付费可用，所有未知字段均明确保留，不做未经统一实测的速度或稳定性排名。</p>
+        <div class="hero-actions">
+          <a class="button" href="#catalog">浏览机场列表</a>
+          <a class="button button-secondary" href="#compare">按月均预算筛选</a>
+        </div>
+      </div>
+      <div class="hero-tags" aria-label="目录收录概况">
+        <div class="stat-card">
+          <span class="stat-label">主目录收录</span>
+          <strong id="stat-primary">加载中…</strong>
+          <small>默认展示已复核主目录</small>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">比较维度</span>
+          <strong>套餐价格 · 流量</strong>
+          <small>自然月折算与每 GB 成本</small>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">交易与售后条款</span>
+          <strong>支付方式 · 退款</strong>
+          <small>区分官网声明与实测边界</small>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">评价原则</span>
+          <strong>速度与稳定性留白</strong>
+          <small>无统一实测样本时不排名</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">目录检索</p>
+          <h2>机场列表</h2>
+        </div>
+        <p id="catalog-meta" class="muted" role="status"></p>
+      </div>
+
+      <form id="catalog-form" class="filter-bar">
+        <label class="grow">
+          <span>搜索机场</span>
+          <input name="q" type="search" placeholder="输入名称、编号（如 A042）或域名关键词" maxlength="200">
+        </label>
+        <label>
+          <span>目录范围</span>
+          <select name="scope">
+            <option value="primary" selected>主目录</option>
+            <option value="all">全部记录</option>
+            <option value="other">补充记录</option>
+          </select>
+        </label>
+        <label>
+          <span>支付方式</span>
+          <input name="payment" placeholder="例如：支付宝" maxlength="80">
+        </label>
+        <label>
+          <span>报价资料</span>
+          <select name="price">
+            <option value="">全部</option>
+            <option value="available">有报价</option>
+            <option value="missing">暂无报价</option>
+          </select>
+        </label>
+        <label>
+          <span>退款说明</span>
+          <select name="refund">
+            <option value="">全部</option>
+            <option value="available">有说明</option>
+            <option value="missing">暂无说明</option>
+          </select>
+        </label>
+        <div class="filter-actions">
+          <button type="submit">查找</button>
+          <button id="catalog-reset" class="button-secondary" type="button">重置</button>
+        </div>
+      </form>
+
+      <div class="quick-bar" aria-label="常用支付方式快捷筛选">
+        <span class="quick-label">常见支付：</span>
+        <button type="button" class="chip" data-payment="">全部</button>
+        <button type="button" class="chip" data-payment="支付宝">支付宝</button>
+        <button type="button" class="chip" data-payment="微信支付">微信支付</button>
+        <button type="button" class="chip" data-payment="USDT">USDT</button>
+      </div>
+
+      <div id="catalog-error" class="error" role="alert" hidden></div>
+      <div id="catalog-results" class="card-grid" aria-live="polite"></div>
+
+      <div class="pagination">
+        <button id="previous" class="button-secondary" type="button">上一页</button>
+        <span id="page-label" class="page-indicator"></span>
+        <button id="next" class="button-secondary" type="button">下一页</button>
+      </div>
+    </section>
+
+    <section id="compare" class="section comparison">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">按你的需求选</p>
+          <h2>预算内，有哪些选择？</h2>
+        </div>
+        <p class="muted">仅比较同币种、明确自然月周期的在售页面标价</p>
+      </div>
+
+      <form id="search" class="filter-bar">
+        <label class="grow">
+          <span>你的需求</span>
+          <input name="needs" placeholder="例如：每月20元以内 性价比" maxlength="300">
+        </label>
+        <label>
+          <span>优先考虑</span>
+          <select name="criterion">
+            <option value="cheap">价格便宜</option>
+            <option value="value">流量性价比</option>
+            <option value="speed">速度</option>
+            <option value="stability">稳定性</option>
+          </select>
+        </label>
+        <label>
+          <span>币种</span>
+          <select name="currency">
+            <option value="CNY">人民币 CNY</option>
+            <option value="USD">美元 USD</option>
+            <option value="EUR">欧元 EUR</option>
+            <option value="HKD">港币 HKD</option>
+            <option value="JPY">日元 JPY</option>
+            <option value="GBP">英镑 GBP</option>
+            <option value="TWD">新台币 TWD</option>
+          </select>
+        </label>
+        <label>
+          <span>每月预算</span>
+          <input name="maxMonthly" type="number" min="0.01" step="0.01" placeholder="不限">
+        </label>
+        <div class="filter-actions">
+          <button type="submit">找套餐</button>
+          <button id="search-reset" class="button-secondary" type="button">清空</button>
+        </div>
+      </form>
+
+      <div class="quick-bar" aria-label="快捷预算示例">
+        <span class="quick-label">快捷试算：</span>
+        <button type="button" class="chip" data-preset-needs="每月15元以内 便宜">15 元内低价</button>
+        <button type="button" class="chip" data-preset-needs="每月20元以内 性价比">20 元内性价比</button>
+        <button type="button" class="chip" data-preset-needs="每月35元以内 性价比">35 元内性价比</button>
+      </div>
+
+      <div class="search-feedback">
+        <p id="status" role="status" class="status-text">设置预算或输入需求，比较合格套餐。</p>
+      </div>
+      <div id="results" class="card-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <main id="detail" class="detail-shell" hidden>
+    <div class="detail-nav">
+      <a class="back-link" href="#catalog">← 返回机场列表</a>
+    </div>
+    <div id="detail-content" aria-live="polite"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-title">航向</span>
+        <p>价格与条款以各站点实际结算页为准；材料更新不等于付费可用，未知明确保留。暂无统一可比实测时，不提供速度或稳定性排名。部分入口含已披露的用户推荐链接。</p>
+      </div>
+      <span class="footer-admin-link" title="管理接口需独立域名与服务端鉴权">管理接口受服务端鉴权保护</span>
+    </div>
+  </footer>
+</body>
+</html>

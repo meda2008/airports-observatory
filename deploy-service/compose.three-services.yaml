@@ -39,6 +39,7 @@ services:
     networks: [backend]
   collector:
     image: ${AIRPORTS_IMAGE:-airports-observatory:local}
+    user: "1000:1000"
     pull_policy: never
     command: [node, deploy-service/collector-runtime.cjs]
     healthcheck:
@@ -97,6 +98,7 @@ services:
     networks: [backend, egress]
   web:
     image: ${AIRPORTS_IMAGE:-airports-observatory:local}
+    user: "1000:1000"
     pull_policy: never
     command: [node, deploy-service/three-services/web.cjs]
     healthcheck:

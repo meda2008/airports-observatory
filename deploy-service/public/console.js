@@ -9,15 +9,40 @@ const endpointErrors = new Map(), proposalDetails = new Map();
 function record(message, failed = false) { const li = el('li', `${new Date().toLocaleString('zh-CN')} · ${message}`, failed ? 'failed' : ''); $('#events').prepend(li); }
 function fail(message) { $('#admin-status').textContent = message; record(message, true); }
 function displayErrors() { const box = $('#request-errors'); box.hidden = endpointErrors.size === 0; box.replaceChildren(...Array.from(endpointErrors, ([path, error]) => el('p', `${path}：${error}`))); }
+async function parseJsonResponse(response) {
+  if (typeof response.text === 'function') {
+    const text = await response.text();
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error(`服务未返回有效 JSON（HTTP ${response.status}）`);
+    }
+  }
+  if (typeof response.json === 'function') {
+    try {
+      return await response.json();
+    } catch {
+      throw new Error(`服务未返回有效 JSON（HTTP ${response.status}）`);
+    }
+  }
+  throw new Error(`服务未返回有效 JSON（HTTP ${response.status}）`);
+}
 async function api(url, body) {
   if (!adminToken) throw new Error('请先连接控制台');
   const epoch = session, token = adminToken, headers = { Accept: 'application/json', Authorization: 'Bearer ' + token };
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   const response = await fetch(url, { cache: 'no-store', method: body === undefined ? 'GET' : 'POST', headers, body: body === undefined ? undefined : JSON.stringify(body) });
   if (epoch !== session || token !== adminToken) throw new Error('会话已变更，请重新操作');
-  let d; try { d = await response.json(); } catch { throw new Error(`服务未返回有效 JSON（${response.status}）`); }
+  const d = await parseJsonResponse(response);
   if (epoch !== session || token !== adminToken) throw new Error('会话已变更，请重新操作');
-  if (!response.ok) throw new Error(typeof d.error === 'string' ? d.error : `请求失败（${response.status}）`);
+  if (!response.ok) {
+    const rawError = typeof d?.error === 'string' ? d.error : '';
+    if (response.status === 401 || response.status === 403) {
+      throw new Error(`需要有效管理员令牌或权限不足（HTTP ${response.status}${rawError ? ' · ' + rawError : ''}）`);
+    }
+    throw new Error(rawError || `请求失败（${response.status}）`);
+  }
   return d;
 }
 function raw(value, label = '完整记录') { const d = el('details'); d.append(el('summary', label), el('pre', JSON.stringify(value, null, 2))); return d; }

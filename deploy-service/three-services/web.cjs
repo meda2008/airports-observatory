@@ -3,57 +3,275 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
-const assets = {'/':'index.html','/index.html':'index.html','/index.js':'index.js','/plan-conditions.js':'plan-conditions.js','/index.css':'index.css','/pricing-13.html':'pricing-13.html','/console':'console.html','/console.html':'console.html','/console.js':'console.js','/console.css':'console.css'};
-const types = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};
-function createWebServer({upstream = process.env.API_ORIGIN || 'http://api:8080', publicDir = path.resolve(__dirname, '../public'), gatewayOptions = {apiHost:process.env.PUBLIC_API_HOST,adminHost:process.env.ADMIN_HOST,frontendOrigin:process.env.FRONTEND_ORIGIN}} = {}) {
+
+const DEFAULT_MAX_BODY_BYTES = 8 * 1024 * 1024;
+const assets = {
+  '/': 'index.html',
+  '/index.html': 'index.html',
+  '/index.js': 'index.js',
+  '/plan-conditions.js': 'plan-conditions.js',
+  '/index.css': 'index.css',
+  '/pricing-13.html': 'pricing-13.html',
+  '/console': 'console.html',
+  '/console.html': 'console.html',
+  '/console.js': 'console.js',
+  '/console.css': 'console.css'
+};
+const types = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8'
+};
+const SECURITY_HEADERS = {
+  'content-security-policy':
+    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+  'x-frame-options': 'DENY',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'x-content-type-options': 'nosniff'
+};
+
+function sendJsonError(res, status, message, extraHeaders = {}) {
+  if (!res.headersSent) {
+    res.writeHead(status, {
+      ...SECURITY_HEADERS,
+      'content-type': 'application/json; charset=utf-8',
+      'cache-control': 'no-store',
+      ...extraHeaders
+    });
+  }
+  if (!res.writableEnded) {
+    res.end(JSON.stringify({error: message}));
+  }
+}
+
+function drainAndCapSocket(req, hardCapBytes = 2 * 1024 * 1024) {
+  let drained = 0;
+  req.on('data', (chunk) => {
+    drained += chunk.length;
+    if (drained > hardCapBytes) req.destroy();
+  });
+}
+
+function createStaticAssetLoader(publicDir) {
+  let realPublicDir;
+  try {
+    realPublicDir = fs.realpathSync(publicDir);
+  } catch {
+    realPublicDir = path.resolve(publicDir);
+  }
+  const cache = new Map();
+
+  return function loadAsset(assetName) {
+    const candidatePath = path.resolve(realPublicDir, assetName);
+    if (!candidatePath.startsWith(realPublicDir + path.sep) || !fs.existsSync(candidatePath)) {
+      return null;
+    }
+    let realFilePath;
+    let stat;
+    try {
+      realFilePath = fs.realpathSync(candidatePath);
+      stat = fs.statSync(realFilePath);
+    } catch {
+      return null;
+    }
+    if (!realFilePath.startsWith(realPublicDir + path.sep) || !stat.isFile()) {
+      return null;
+    }
+    const cached = cache.get(realFilePath);
+    if (cached && cached.mtimeMs === stat.mtimeMs && cached.size === stat.size) {
+      return cached.asset;
+    }
+    const body = fs.readFileSync(realFilePath);
+    const asset = {
+      body,
+      type: types[path.extname(assetName)] || 'application/octet-stream'
+    };
+    cache.set(realFilePath, {mtimeMs: stat.mtimeMs, size: stat.size, asset});
+    return asset;
+  };
+}
+
+function createWebServer({
+  upstream = process.env.API_ORIGIN || 'http://api:8080',
+  publicDir = path.resolve(__dirname, '../public'),
+  maxBodyBytes = Number(process.env.MAX_BODY_BYTES || DEFAULT_MAX_BODY_BYTES),
+  gatewayOptions = {
+    apiHost: process.env.PUBLIC_API_HOST,
+    adminHost: process.env.ADMIN_HOST,
+    frontendOrigin: process.env.FRONTEND_ORIGIN,
+    publicWebHosts: process.env.PUBLIC_WEB_HOSTS,
+    maxBodyBytes: Number(process.env.MAX_BODY_BYTES || DEFAULT_MAX_BODY_BYTES)
+  }
+} = {}) {
   const target = new URL(upstream);
-  const gate = require('./public-gateway.cjs').createPublicGateway(gatewayOptions);
-  if (target.protocol !== 'http:' || target.username || target.password || target.pathname !== '/' || target.search || target.hash) throw new Error('API_ORIGIN must be an HTTP origin without credentials');
+  const bodyLimit = Number.isFinite(maxBodyBytes) && maxBodyBytes > 0 ? maxBodyBytes : DEFAULT_MAX_BODY_BYTES;
+  const normalizedGatewayOptions = gatewayOptions
+    ? {maxBodyBytes: bodyLimit, ...gatewayOptions}
+    : undefined;
+  const gate = require('./public-gateway.cjs').createPublicGateway(normalizedGatewayOptions);
+  if (
+    target.protocol !== 'http:' ||
+    target.username ||
+    target.password ||
+    target.pathname !== '/' ||
+    target.search ||
+    target.hash
+  ) {
+    throw new Error('API_ORIGIN must be an HTTP origin without credentials');
+  }
+  const loadAsset = createStaticAssetLoader(publicDir);
+
   return http.createServer((req, res) => {
     let route;
-    try { route = new URL(req.url, 'http://web.local').pathname; } catch { res.writeHead(400).end(); return; }
-    const access = gate?.(req,res,route);
-    if(access?.handled)return;
+    try {
+      route = new URL(req.url, 'http://web.local').pathname;
+    } catch {
+      res.writeHead(400, SECURITY_HEADERS).end();
+      return;
+    }
+    const access = gate?.(req, res, route);
+    if (access?.handled) return;
+
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
+      const contentLengthHeader = req.headers['content-length'];
+      if (contentLengthHeader !== undefined) {
+        const declaredLength = Number(contentLengthHeader);
+        if (!Number.isFinite(declaredLength) || declaredLength < 0 || !Number.isInteger(declaredLength)) {
+          req.resume();
+          sendJsonError(res, 400, 'invalid_content_length');
+          return;
+        }
+        if (declaredLength > bodyLimit) {
+          drainAndCapSocket(req);
+          sendJsonError(res, 413, 'payload_too_large');
+          return;
+        }
+      }
+    }
+
     if (route === '/api' || route.startsWith('/api/') || route === '/health') {
       const headers = {...req.headers, host: target.host};
-      if(access&&Object.hasOwn(access,'authorization')){delete headers.authorization;if(access.authorization)headers.authorization=access.authorization;}
-      for (const name of ['connection','proxy-connection','keep-alive','transfer-encoding','upgrade','proxy-authorization','proxy-authenticate']) delete headers[name];
+      if (access && Object.hasOwn(access, 'authorization')) {
+        delete headers.authorization;
+        if (access.authorization) headers.authorization = access.authorization;
+      }
+      for (const name of [
+        'connection',
+        'proxy-connection',
+        'keep-alive',
+        'transfer-encoding',
+        'upgrade',
+        'proxy-authorization',
+        'proxy-authenticate'
+      ]) {
+        delete headers[name];
+      }
       let attempts = 0;
+      let rejectedTooLarge = false;
       const send = () => {
-      attempts++;
-      const request = http.request({hostname:target.hostname, port:target.port || 80, path:req.url, method:req.method, headers, agent:false}, response => {
-        const responseHeaders = {...response.headers};
-        delete responseHeaders.connection;
-        delete responseHeaders['transfer-encoding'];
-        res.writeHead(response.statusCode, responseHeaders);
-        response.pipe(res);
-      });
-      request.setTimeout(120000, () => request.destroy(new Error('API timeout')));
-      request.on('error', error => {
-        const bodyless = !req.headers['transfer-encoding'] && (!req.headers['content-length'] || req.headers['content-length'] === '0');
-        if (attempts === 1 && ['GET','HEAD'].includes(req.method) && bodyless && !req.aborted && !res.destroyed && !res.headersSent && ['ECONNRESET','ECONNREFUSED','EPIPE'].includes(error.code)) return send();
-        if (!res.headersSent) res.writeHead(502, {'content-type':'application/json'});
-        res.end('{"error":"API unavailable"}');
-      });
-      req.once('aborted', () => request.destroy());
-      if (attempts === 1) req.pipe(request); else request.end();
+        attempts++;
+        const request = http.request(
+          {hostname: target.hostname, port: target.port || 80, path: req.url, method: req.method, headers, agent: false},
+          (response) => {
+            if (rejectedTooLarge) return;
+            const responseHeaders = {...response.headers};
+            delete responseHeaders.connection;
+            delete responseHeaders['transfer-encoding'];
+            for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
+              if (!Object.hasOwn(responseHeaders, k)) responseHeaders[k] = v;
+            }
+            res.writeHead(response.statusCode, responseHeaders);
+            response.pipe(res);
+          }
+        );
+        request.setTimeout(120000, () => request.destroy(new Error('API timeout')));
+        request.on('error', (error) => {
+          if (rejectedTooLarge) return;
+          const bodyless =
+            !req.headers['transfer-encoding'] && (!req.headers['content-length'] || req.headers['content-length'] === '0');
+          if (
+            attempts === 1 &&
+            ['GET', 'HEAD'].includes(req.method) &&
+            bodyless &&
+            !req.aborted &&
+            !res.destroyed &&
+            !res.headersSent &&
+            ['ECONNRESET', 'ECONNREFUSED', 'EPIPE'].includes(error.code)
+          ) {
+            return send();
+          }
+          sendJsonError(res, 502, 'API unavailable');
+        });
+        req.once('aborted', () => request.destroy());
+        if (attempts === 1) {
+          let streamedBytes = 0;
+          const cleanupListeners = () => {
+            req.removeListener('data', onData);
+            req.removeListener('end', onEnd);
+            req.removeListener('error', onReqError);
+          };
+          const onData = (chunk) => {
+            streamedBytes += chunk.length;
+            if (streamedBytes > bodyLimit) {
+              rejectedTooLarge = true;
+              cleanupListeners();
+              request.destroy();
+              drainAndCapSocket(req);
+              sendJsonError(res, 413, 'payload_too_large');
+              return;
+            }
+            if (!request.write(chunk)) {
+              req.pause();
+              request.once('drain', () => req.resume());
+            }
+          };
+          const onEnd = () => {
+            cleanupListeners();
+            if (!rejectedTooLarge) request.end();
+          };
+          const onReqError = () => {
+            cleanupListeners();
+            if (!rejectedTooLarge) request.destroy();
+          };
+          req.on('data', onData);
+          req.once('end', onEnd);
+          req.once('error', onReqError);
+        } else {
+          request.end();
+        }
       };
       send();
       return;
     }
-    if (!['GET','HEAD'].includes(req.method)) { res.writeHead(405, {allow:'GET, HEAD'}).end(); return; }
-    const asset = access?.admin&&route==='/'?'console.html':assets[route];
-    if (!asset) { res.writeHead(404).end(); return; }
-    fs.readFile(path.join(publicDir, asset), (error, body) => {
-      if (error) { res.writeHead(404).end(); return; }
-      res.writeHead(200, {'content-type':types[path.extname(asset)], 'content-length':body.length, 'x-content-type-options':'nosniff','cache-control':'no-cache'});
-      res.end(req.method === 'HEAD' ? undefined : body);
+
+    if (!['GET', 'HEAD'].includes(req.method)) {
+      res.writeHead(405, {...SECURITY_HEADERS, allow: 'GET, HEAD'}).end();
+      return;
+    }
+    const asset = access?.admin && route === '/' ? 'console.html' : assets[route];
+    if (!asset) {
+      res.writeHead(404, SECURITY_HEADERS).end();
+      return;
+    }
+    const loaded = loadAsset(asset);
+    if (!loaded) {
+      res.writeHead(404, SECURITY_HEADERS).end();
+      return;
+    }
+    res.writeHead(200, {
+      ...SECURITY_HEADERS,
+      'content-type': loaded.type,
+      'content-length': loaded.body.length,
+      'cache-control': 'no-cache'
     });
+    res.end(req.method === 'HEAD' ? undefined : loaded.body);
   });
 }
+
 if (require.main === module) {
   const server = createWebServer();
   server.listen(Number(process.env.PORT || 8080), process.env.HOST || '0.0.0.0');
-  for (const signal of ['SIGINT','SIGTERM']) process.on(signal, () => server.close(() => process.exit(0)));
+  for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => server.close(() => process.exit(0)));
 }
-module.exports = {createWebServer};
+
+module.exports = {createWebServer, SECURITY_HEADERS, createStaticAssetLoader};

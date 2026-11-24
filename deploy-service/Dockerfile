@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim
+FROM node:24.22.3-bookworm-slim
 WORKDIR /app
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/playwright
 COPY deploy-service/package*.json /app/deploy-service/
@@ -31,7 +31,11 @@ COPY deploy-service/three-services /app/deploy-service/three-services
 COPY deploy-service/measurement-sidecar/local-healthcheck.cjs /app/deploy-service/measurement-sidecar/local-healthcheck.cjs
 COPY deploy-service/public /app/deploy-service/public
 COPY deploy-service/ocr-runner.py deploy-service/requirements-ocr.txt /app/deploy-service/
-RUN mkdir -p /data && chown -R node:node /data /app/deploy-service
+RUN mkdir -p /data /collector-state \
+    && chown -R root:root /app \
+    && chmod -R a+rX,a-w /app \
+    && chown -R node:node /data /collector-state
+USER node
 ENV STORE_FILE=/data/collector.sqlite PORT=8080 HOST=0.0.0.0 COLLECTION_ENABLED=false
 EXPOSE 8080
 CMD ["node","deploy-service/server.cjs"]

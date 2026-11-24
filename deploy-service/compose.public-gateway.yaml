@@ -20,7 +20,9 @@ services:
     environment:
       PUBLIC_API_HOST: ${PUBLIC_API_HOST:?Set a dedicated unused API hostname}
       ADMIN_HOST: ${ADMIN_HOST:?Set a separate dedicated management hostname}
+      PUBLIC_WEB_HOSTS: ${PUBLIC_WEB_HOSTS:-airports.vigorai.top}
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-https://airports.vigorai.top}
+      MAX_BODY_BYTES: ${MAX_BODY_BYTES:-8388608}
       ADMIN_TOKEN_FILE: /run/secrets/admin-token
     volumes:
       - type: bind
