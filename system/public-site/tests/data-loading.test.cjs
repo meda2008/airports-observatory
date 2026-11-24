@@ -1,8 +1,0 @@
-'use strict';
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
-const source=fs.readFileSync(path.join(__dirname,'../src/app.js'),'utf8');
-const loader=source.slice(source.indexOf('const DATA_REVISION'),source.indexOf('function correctionChannel'));
-function harness(fetch,signal){const context=vm.createContext({URL,document:{baseURI:'https://example.invalid/site/'},fetch,AbortSignal:{timeout(ms){assert.equal(ms,20000);return signal;}}});vm.runInContext(loader+'\nthis.load=getJson;',context);return context.load;}
-test('data loading binds same-origin URLs to a snapshot and sends no credentials',async()=>{let request;const signal={};const load=harness(async(url,options)=>{request={url:url.href,options};return {ok:true,json:async()=>({items:[{id:'A045'}]})}},signal);assert.deepEqual(await load('./data/public-catalog.json'),{items:[{id:'A045'}]});assert.equal(new URL(request.url).pathname,'/site/data/public-catalog.json');assert(new URL(request.url).searchParams.has('snapshot'));assert.equal(request.options.credentials,'omit');assert.equal(request.options.signal,signal);});
-test('timeouts during body reading become actionable errors, never empty data',async()=>{const load=harness(async()=>({ok:true,json:async()=>{const e=new Error('timeout');e.name='TimeoutError';throw e}}),{});await assert.rejects(load('./data/public-catalog.json'),/超过20秒.*重新读取/);});
-test('HTTP failures do not masquerade as a successful empty snapshot',async()=>{const load=harness(async()=>({ok:false,status:503}),{});await assert.rejects(load('./data/public-catalog.json'),/HTTP 503/);});

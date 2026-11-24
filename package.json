@@ -1,0 +1,32 @@
+{
+  "name": "airports-observatory",
+  "version": "4.0.0",
+  "description": "Airports Observatory 三服务系统：采集器、复核发布 API 与同源公开目录/后台",
+  "main": "deploy-service/three-service-api.cjs",
+  "scripts": {
+    "start": "node deploy-service/three-services/web.cjs",
+    "start:api": "node deploy-service/three-service-api.cjs",
+    "start:collector": "node deploy-service/collector-runtime.cjs",
+    "start:standalone": "node deploy-service/server.cjs",
+    "collect:plan": "node scripts/collection.cjs plan",
+    "collect:pipeline": "node scripts/collection-pipeline.cjs",
+    "collect:report": "node scripts/collection.cjs report",
+    "collect:validate": "node scripts/validate-collection.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "check": "node --check deploy-service/three-services/web.cjs && node --check deploy-service/three-services/public-gateway.cjs && node --check deploy-service/three-service-api.cjs && node --check deploy-service/server.cjs && node --check deploy-service/public/index.js && node --check deploy-service/public/console.js && node --check lib/catalog-service.cjs"
+  },
+  "keywords": [
+    "airports",
+    "observatory",
+    "catalog",
+    "api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
