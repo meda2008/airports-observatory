@@ -114,7 +114,7 @@ function appendLink(container, item) {
   const link = item?.link || {};
   const box = el('div', null, 'card-actions');
   const preferred = preferredPricing(item);
-  const detail = el('a', preferred ? '查看 ' + preferred.preferredRecordId + ' 套餐' : '查看套餐', 'button button-secondary');
+  const detail = el('a', preferred ? '查看 ' + preferred.preferredRecordId + ' 已有套餐' : '查看套餐', 'button button-secondary');
   detail.href = '#/airport/' + encodeURIComponent(preferred?.preferredRecordId || item?.id || '');
   box.append(detail);
   const entry = outLink(link.url, '访问网站', link.type === 'verified_user_referral');
