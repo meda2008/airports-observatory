@@ -1,4 +1,4 @@
-# This allowlist applies only to builds using deploy-service/Dockerfile.
+# Allowlist for builds using deploy-service/Dockerfile from repository root.
 # Private deploy state, auth, measurement configs and validation logs never enter
 # its build context. Runtime code must not contain embedded credentials.
 **
@@ -7,6 +7,7 @@
 !scripts/export-current-inventory.cjs
 !scripts/measurements.cjs
 !scripts/local-product.cjs
+!scripts/collector-completeness-audit.cjs
 !lib/
 !lib/**
 !catalog/
@@ -45,7 +46,10 @@
 !deploy-service/measurement-sidecar/local-healthcheck.cjs
 !deploy-service/public/
 !deploy-service/public/**
+!deploy-service/seed/
+!deploy-service/seed/**
 !deploy-service/ocr-runner.py
+!deploy-service/biubiu-checkbox-geometry.py
 !deploy-service/requirements-ocr.txt
 deploy-service/*credentials*
 collection/*credentials*

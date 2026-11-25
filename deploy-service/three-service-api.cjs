@@ -3,9 +3,13 @@ const fs=require('node:fs'),path=require('node:path');
 const {createStore}=require('./store.cjs'),{openCatalogDb}=require('./catalog-db.cjs'),{initializeControl}=require('./control-daemon.cjs'),{createControlPlane}=require('./control-plane.cjs');
 const {openMeasurementStore}=require('./measurement-store.cjs'),{createServer,publicFacts}=require('./server.cjs');
 const {authorizedMeasurementWorker,dispatchMeasurementWorker}=require('./measurement-worker-http.cjs');
-const tokenFile=(name,fallback)=>{const v=fs.readFileSync(process.env[name]||fallback,'utf8').trim();if(v.length<32)throw Error('private_api_token_required');return v;};
+const {validateAdminToken}=require('./token-validation.cjs');
+const tokenFile=(name,fallback)=>validateAdminToken(fs.readFileSync(process.env[name]||fallback,'utf8'));
 async function readJson(req){return require('../lib/read-utf8-json.cjs').readJsonObject(req,{tooLarge:'internal_payload_too_large',invalid:'internal_payload_invalid'});}
 function createThreeServiceApi({filename,adminToken,internalToken,root=path.resolve(__dirname,'..')}={}){
+ adminToken=validateAdminToken(adminToken);
+ internalToken=validateAdminToken(internalToken);
+ if(adminToken===internalToken)throw Error('distinct_service_credentials_required');
  const store=createStore({filename}),catalogDb=openCatalogDb({filename,store,root}),{control,profiles}=initializeControl({store,root}),measurements=openMeasurementStore({filename,executorId:'collector'});
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
  // Review remains mandatory. This in-process publisher only reconciles already

@@ -33,7 +33,7 @@ function csv(rows, columns) { return '\ufeff' + [columns.map(csvCell).join(','),
 const htmlEscape = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function readStore(filename) {
-  if (!fs.existsSync(filename)) return { available:false, reason:'SQLite 文件不存在', sites:[], changes:[], proposals:[], referrals:[], evidence:[], observations:[] };
+  if (!filename || filename === ':memory:' || !fs.existsSync(filename)) return { available:false, reason:'SQLite 文件不存在', sites:[], changes:[], proposals:[], referrals:[], evidence:[], observations:[] };
   const db = new DatabaseSync(filename, {readOnly:true});
   try {
     // A newly started WAL writer may briefly hold a recovery/schema lock.
@@ -129,10 +129,11 @@ function buildHtml(records, summary) {
 }
 
 function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'deploy-service/data/collector.sqlite'),clock=()=>Date.now(),writeFiles=true}={}) {
-  assert.equal(path.resolve(root),ROOT,'This export is scoped to this repository');
+  if (writeFiles) assert.equal(path.resolve(root),ROOT,'This export is scoped to this repository');
   const generatedAt = new Date(clock()).toISOString();
   const service = makeCatalogService({baseDir:root,clock:()=>Date.parse(generatedAt)}), raw = service.rawExport();
-  const publicPath=path.join(root,'public-site/data/public-catalog.json'), publicBytes=fs.readFileSync(publicPath), publicCatalog=JSON.parse(publicBytes);
+  const projection = require('../lib/catalog-listing.cjs').loadCatalogProjection(root, { clock: () => Date.parse(generatedAt), service });
+  const publicCatalog = projection.doc;
   const listings = new Map(publicCatalog.items.map(r=>[r.id,r.listing]));
   assert.equal(listings.size,raw.catalog.length,'Public listing coverage differs from raw catalog');
   const store=readStore(storeFile);
@@ -154,7 +155,7 @@ function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'depl
     return {id:catalogRecord.id,name:catalogRecord.name,category:catalogRecord.category,primary:listings.get(catalogRecord.id)?.primary!==false,listing:listings.get(catalogRecord.id),coreInfo,fields,missingFields:Object.keys(fields).filter(f=>fields[f].missing),sourceIds:relatedIds,unresolvedSourceIds:relatedIds.filter(id=>!resolvedIds.has(id)),catalogRecord,sourceEvidence,reviewedOverlay,storeSnapshot:site?{site,changes:store.changes.filter(c=>c.site_id===site.id),proposals:store.proposals.filter(p=>p.site_id===site.id),referral,evidence:storeEvidence}:null};
   });
   const primary=records.filter(r=>r.primary);
-  const summary={schemaVersion:'airports-current-inventory.v1',generatedAt,input:{...service.stats(),publicListingSha256:sha(publicBytes),sqlite:{available:store.available,filename:store.filename||null,reason:store.reason||null,readOnly:true,sites:store.sites.length,changes:store.changes.length,approvedProposals:store.proposals.filter(p=>p.status==='approved').length,referrals:store.referrals.length,snapshotSha256:sha(JSON.stringify(store))}},scopes:{all:summarize(records),primary:summarize(primary)},unresolvedSourceReferences:records.filter(r=>r.unresolvedSourceIds.length).map(r=>({id:r.id,sourceIds:r.unresolvedSourceIds})),definitions:{missing:'该字段未取得可用材料或状态未确认；不是服务不存在/不支持的结论。',materialAvailable:'字段所列门槛下有保留材料，不等于独立验证或执行成功。',pricing:'至少一条有来源、有限非负数值金额和计费周期的报价；ISO币种/实际结算及售罄限制另列。',payment:'非未知状态、有来源的具名支付方式；不验证交易。',refund:'状态非 not_confirmed、有来源的具体退款摘要；状态未确认的摘要不计完整条款。',privacy:'状态非 not_confirmed、有来源的隐私摘要；独立审计另列。',compatibility:'状态非 not_confirmed、有来源的设备或使用条件摘要；不是客户端实测。',trial:'状态非 not_confirmed、有来源的具体试用摘要；不是已开通。',speedAndStability:'coreInfo 保留的、带来源/样本数/方法/网络或地区的实测；宣传、转述、历史称谓均不计。',operatingHistory:'有来源的历史材料（自述、历史片段或起点）；运营起点和连续经营的缺口另行统计。',referral:'SQLite 具 evidence_id 的本人账号推荐链接及利益披露；旧字段存在不算验证。',overlay:'仅已批准 proposal 与 changes 对应且当前 document 字段相符的复核字段叠加；revision=0 初始种子不覆盖最新 catalog。',csv:'UTF-8 BOM、CRLF、所有值双引号；公式危险前缀加单引号；大 JSON 按30000字符分列，可顺序拼接。'},limitations:raw.limitations};
+  const summary={schemaVersion:'airports-current-inventory.v1',generatedAt,input:{...service.stats(),publicListingSha256:projection.sha256,sqlite:{available:store.available,filename:store.filename||null,reason:store.reason||null,readOnly:true,sites:store.sites.length,changes:store.changes.length,approvedProposals:store.proposals.filter(p=>p.status==='approved').length,referrals:store.referrals.length,snapshotSha256:sha(JSON.stringify(store))}},scopes:{all:summarize(records),primary:summarize(primary)},unresolvedSourceReferences:records.filter(r=>r.unresolvedSourceIds.length).map(r=>({id:r.id,sourceIds:r.unresolvedSourceIds})),definitions:{missing:'该字段未取得可用材料或状态未确认；不是服务不存在/不支持的结论。',materialAvailable:'字段所列门槛下有保留材料，不等于独立验证或执行成功。',pricing:'至少一条有来源、有限非负数值金额和计费周期的报价；ISO币种/实际结算及售罄限制另列。',payment:'非未知状态、有来源的具名支付方式；不验证交易。',refund:'状态非 not_confirmed、有来源的具体退款摘要；状态未确认的摘要不计完整条款。',privacy:'状态非 not_confirmed、有来源的隐私摘要；独立审计另列。',compatibility:'状态非 not_confirmed、有来源的设备或使用条件摘要；不是客户端实测。',trial:'状态非 not_confirmed、有来源的具体试用摘要；不是已开通。',speedAndStability:'coreInfo 保留的、带来源/样本数/方法/网络或地区的实测；宣传、转述、历史称谓均不计。',operatingHistory:'有来源的历史材料（自述、历史片段或起点）；运营起点和连续经营的缺口另行统计。',referral:'SQLite 具 evidence_id 的本人账号推荐链接及利益披露；旧字段存在不算验证。',overlay:'仅已批准 proposal 与 changes 对应且当前 document 字段相符的复核字段叠加；revision=0 初始种子不覆盖最新 catalog。',csv:'UTF-8 BOM、CRLF、所有值双引号；公式危险前缀加单引号；大 JSON 按30000字符分列，可顺序拼接。'},limitations:raw.limitations};
   const writeJson=(file,value)=>fs.writeFileSync(file,JSON.stringify(value,null,2)+'\n');
   function writeScope(dir,subset) {
     fs.mkdirSync(dir,{recursive:true});

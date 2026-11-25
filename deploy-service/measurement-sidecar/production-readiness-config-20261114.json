@@ -109,7 +109,7 @@
         },
         {
           "type": "bind",
-          "source": "D:\\AI_Projects\\Airports\\deploy-service\\measurement-sidecar\\readiness.cjs",
+          "source": "<REPO_ROOT>/deploy-service/measurement-sidecar/readiness.cjs",
           "target": "/readiness/readiness.cjs",
           "read_only": true,
           "bind": {}

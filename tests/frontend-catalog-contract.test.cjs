@@ -63,6 +63,7 @@ function createFrontendSandbox({fetchHandler} = {}) {
   const elements = new Map();
   const chips = [
     Object.assign(new FakeElement('button'), {attributes: {'data-preset-needs': '每月15元以内 便宜'}}),
+    Object.assign(new FakeElement('button'), {attributes: {'data-preset-needs': '每月20元以内 性价比'}}),
     Object.assign(new FakeElement('button'), {attributes: {'data-payment': '支付宝'}})
   ];
   const getEl = (sel) => {
@@ -91,8 +92,8 @@ function createFrontendSandbox({fetchHandler} = {}) {
       createElement: (tag) => new FakeElement(tag),
       querySelector: getEl,
       querySelectorAll: (sel) => {
-        if (sel === '[data-preset-needs]') return [chips[0]];
-        if (sel === '[data-payment]') return [chips[1]];
+        if (sel === '[data-preset-needs]') return [chips[0], chips[1]];
+        if (sel === '[data-payment]') return [chips[2]];
         return [];
       },
       getElementById: (id) => getEl('#' + id)
@@ -112,7 +113,7 @@ function createFrontendSandbox({fetchHandler} = {}) {
   };
   vm.createContext(sandbox);
   vm.runInContext(
-    indexJsSource + '\n;globalThis.__testExports = {catalogCard, renderDetail, performanceNotes, route, pollSnapshotChange};',
+    indexJsSource + '\n;globalThis.__testExports = {catalogCard, renderDetail, performanceNotes, route, pollSnapshotChange, search};',
     sandbox
   );
   return {sandbox, elements, chips, intervals};
@@ -199,17 +200,23 @@ test('frontend handles malformed hash encoding, resets currency/budget on preset
   const detailText = JSON.stringify(elements.get('#detail-content'));
   assert.match(detailText, /无效的编码字符/);
 
-  // 2. Preset budget chip resets currency to CNY and maxMonthly to '' before search()
+  // 2. Preset budget chip syncs criterion and resets currency/maxMonthly before search()
+  const criterionEl = sandbox.document.querySelector('#search [name="criterion"]');
   const currencyEl = sandbox.document.querySelector('#search [name="currency"]');
   const maxMonthlyEl = sandbox.document.querySelector('#search [name="maxMonthly"]');
   currencyEl.value = 'USD';
   maxMonthlyEl.value = '99';
-  await chips[0].dispatch('click');
+  criterionEl.value = 'cheap';
+  await chips[1].dispatch('click');
+  assert.equal(criterionEl.value, 'value');
   assert.equal(currencyEl.value, 'CNY');
   assert.equal(maxMonthlyEl.value, '');
+  assert.equal(sandbox.document.querySelector('#search [name="needs"]').value, '每月20元以内 性价比');
+  await chips[0].dispatch('click');
+  assert.equal(criterionEl.value, 'cheap');
   assert.equal(sandbox.document.querySelector('#search [name="needs"]').value, '每月15元以内 便宜');
 
-  // 3. 60-second polling checks /api/stats when visible and reloads catalog when snapshotId changes
+  // 3. 60-second polling checks /api/stats when visible, clears failure suffix on recovery, and reloads catalog when snapshotId changes
   assert.ok(intervals.some((i) => i.ms === 60000));
   sandbox.location.hash = '';
   const beforeCatalogCalls = calls.filter((u) => u.startsWith('/api/catalog')).length;
@@ -217,6 +224,69 @@ test('frontend handles malformed hash encoding, resets currency/budget on preset
   await sandbox.__testExports.pollSnapshotChange();
   const afterCatalogCalls = calls.filter((u) => u.startsWith('/api/catalog')).length;
   assert.equal(afterCatalogCalls, beforeCatalogCalls + 1);
+});
+
+test('pollSnapshotChange clears stale offline suffix on recovery and search guards non-finite comparison metrics', async () => {
+  let failStats = true;
+  const {sandbox, elements} = createFrontendSandbox({
+    fetchHandler: async (url) => {
+      if (url.startsWith('/api/stats')) {
+        if (failStats) throw new Error('network');
+        return {
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({snapshotId: 'snap-1', sourceAsOf: '2026-11-23T12:00:00Z', counts: {primary: 138}})
+        };
+      }
+      if (url.startsWith('/api/search')) {
+        return {
+          ok: true,
+          status: 200,
+          text: async () =>
+            JSON.stringify({
+              criterion: 'value',
+              currency: 'CNY',
+              items: [
+                {
+                  id: 'A001',
+                  name: 'NonFinite',
+                  plan: {name: 'P1', amount: 10, currency: 'CNY', billingPeriod: '月付', quota: '100G'},
+                  comparison: {monthlyAmount: 'bad', costPerGB: null},
+                  link: {}
+                },
+                {
+                  id: 'A002',
+                  name: 'Finite',
+                  plan: {name: 'P2', amount: 20, currency: 'CNY', billingPeriod: '月付', quota: '200G'},
+                  comparison: {monthlyAmount: 20, costPerGB: 0.1},
+                  link: {}
+                }
+              ]
+            })
+        };
+      }
+      return {
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({items: [], total: 0, totalRecords: 138, pages: 1, page: 1, sourceAsOf: '2026-11-23T12:00:00Z'})
+      };
+    }
+  });
+
+  await new Promise((r) => setTimeout(r, 10));
+  const meta = elements.get('#catalog-meta');
+  meta.textContent = '138 个机场 · 数据基准 2026-11-23';
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.match(meta.textContent, / · 自动更新暂不可用$/);
+
+  failStats = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.equal(meta.textContent, '138 个机场 · 数据基准 2026-11-23');
+
+  await sandbox.__testExports.search();
+  const renderedText = JSON.stringify(elements.get('#results'));
+  assert.match(renderedText, /折合每月 20/);
+  assert.match(renderedText, /每 GB 0\.1/);
 });
 
 test('public index.html hides /console.html and includes hero stat cards, snapshot badge, scope/refund filters and quick chips', () => {

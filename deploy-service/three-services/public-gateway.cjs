@@ -1,20 +1,9 @@
 'use strict';
 const fs = require('node:fs');
 const crypto = require('node:crypto');
+const { validateAdminToken } = require('../token-validation.cjs');
 
 const DEFAULT_MAX_BODY_BYTES = 8 * 1024 * 1024;
-const WEAK_TOKEN_PATTERNS = [
-  /^replace[-_]?with/i,
-  /^change[-_]?me/i,
-  /^placeholder/i,
-  /^example/i,
-  /^default/i,
-  /^your[-_]?token/i,
-  /^test[-_]?token/i,
-  /^(?:password|secret|token|admin)$/i,
-  /^([a-z0-9])\1+$/i,
-  /^(?:1234567890)+/i
-];
 
 const PUBLIC_READ_API_ROUTES = new Set([
   '/health',
@@ -31,25 +20,13 @@ const PUBLIC_WEB_ASSET_ROUTES = new Set([
   '/index.html',
   '/index.js',
   '/index.css',
-  '/plan-conditions.js',
-  '/pricing-13.html'
+  '/plan-conditions.js'
 ]);
 
 function equal(a, b) {
   const x = Buffer.from(a || '');
   const y = Buffer.from(b || '');
   return x.length === y.length && crypto.timingSafeEqual(x, y);
-}
-
-function validateAdminToken(rawToken) {
-  const secret = String(rawToken || '').trim();
-  if (secret.length < 32) {
-    throw Error('private_admin_credential_required');
-  }
-  if (WEAK_TOKEN_PATTERNS.some((pattern) => pattern.test(secret))) {
-    throw Error('weak_admin_credential_rejected');
-  }
-  return secret;
 }
 
 function parsePublicWebHosts(rawHosts) {
@@ -66,17 +43,19 @@ function isPublicApiRoute(route) {
 }
 
 function isBlockedPublicWebPath(route) {
+  const lower = String(route || '').toLowerCase();
   return (
-    route === '/console' ||
-    route.startsWith('/console/') ||
-    route.startsWith('/console.') ||
-    route === '/assistance' ||
-    route.startsWith('/assistance/') ||
-    route.startsWith('/assistance.') ||
-    route === '/api/admin' ||
-    route.startsWith('/api/admin/') ||
-    route === '/internal' ||
-    route.startsWith('/internal/')
+    lower === '/console' ||
+    lower.startsWith('/console/') ||
+    lower.startsWith('/console.') ||
+    lower === '/assistance' ||
+    lower.startsWith('/assistance/') ||
+    lower.startsWith('/assistance.') ||
+    lower === '/api/admin' ||
+    lower.startsWith('/api/admin/') ||
+    lower === '/internal' ||
+    lower.startsWith('/internal/') ||
+    lower.startsWith('/internal.')
   );
 }
 
@@ -235,7 +214,14 @@ function createPublicGateway({
     ) {
       return respond(res, 403, {error: 'cross_site_write_rejected'});
     }
-    if (route.startsWith('/internal/')) {
+    const lowerRoute = String(route || '').toLowerCase();
+    if (
+      route === '/internal' ||
+      route.startsWith('/internal/') ||
+      lowerRoute === '/internal' ||
+      lowerRoute.startsWith('/internal/') ||
+      lowerRoute.startsWith('/internal.')
+    ) {
       return respond(res, 404, {error: 'not_found'});
     }
     return {authorization: 'Bearer ' + secret, admin: true};

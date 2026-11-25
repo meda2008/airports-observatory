@@ -6,8 +6,8 @@
         max_size 9MB
     }
 
-    # 公开站严格拦截管理后台与内部 RPC 路径
-    @blocked path /console /console/* /console.* /assistance /assistance/* /assistance.* /api/admin /api/admin/* /internal /internal/*
+    # 公开站严格拦截管理后台与内部 RPC 路径（大小写无关）
+    @blocked path_regexp blocked (?i)^/(console|assistance|api/admin|internal)([/.].*)?$
     respond @blocked 404
 
     reverse_proxy {$WEB_UPSTREAM:web:8080} {
@@ -35,7 +35,7 @@
 #     request_body {
 #         max_size 9MB
 #     }
-#     @blocked path /console /console/* /console.* /assistance /assistance/* /assistance.* /api/admin /api/admin/* /internal /internal/*
+#     @blocked path_regexp blocked (?i)^/(console|assistance|api/admin|internal)([/.].*)?$
 #     respond @blocked 404
 #     reverse_proxy web:8080 {
 #         header_up -oai-authenticated-user-id
@@ -58,6 +58,8 @@
 #     request_body {
 #         max_size 9MB
 #     }
+#     @blocked_internal path_regexp blocked_internal (?i)^/internal([/.].*)?$
+#     respond @blocked_internal 404
 #     reverse_proxy web:8080 {
 #         header_up -oai-authenticated-user-id
 #         header_up -oai-authenticated-user-email
@@ -79,6 +81,8 @@
 #     request_body {
 #         max_size 9MB
 #     }
+#     @blocked_internal path_regexp blocked_internal (?i)^/internal([/.].*)?$
+#     respond @blocked_internal 404
 #     reverse_proxy web:8080 {
 #         header_up -oai-authenticated-user-id
 #         header_up -oai-authenticated-user-email

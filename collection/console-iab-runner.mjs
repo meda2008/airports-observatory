@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import {inspectVisibleChallenge,classifyVisibleChallenge,observeVerification} from './challenge.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const redact=text=>String(text).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').replace(/((?:password|token|session|secret|密码)\s*[=:：]\s*)[^\s<>"']+/gi,'$1[hidden]').split('\n').filter(l=>!/(?:vmess|vless|trojan|ss):\/\//i.test(l)).join('\n');
-export async function loginStoredOrigin(tab,{origin,emailSelector,passwordSelector,submitSelector,credentialsFile=path.join(root,'vpn-finder-app/_private/credentials.json')}={}){
+export async function loginStoredOrigin(tab,{origin,emailSelector,passwordSelector,submitSelector,credentialsFile=process.env.CREDENTIALS_FILE||'/run/secrets/website-credentials.json'}={}){
  const approved=new URL(origin).origin;
  const check=async()=>{if(new URL(await tab.url()).origin!==approved)throw Error('credential_destination_changed');};await check();
  const gate=await inspectVisibleChallenge(tab);if(classifyVisibleChallenge(gate))return{status:'verification_checkpoint_no_login_attempt'};

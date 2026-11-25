@@ -19,7 +19,7 @@ COPY lib /app/lib
 COPY package.json /app/package.json
 COPY catalog /app/catalog
 COPY scripts/export-current-inventory.cjs /app/scripts/export-current-inventory.cjs
-COPY scripts/measurements.cjs scripts/local-product.cjs /app/scripts/
+COPY scripts/measurements.cjs scripts/local-product.cjs scripts/collector-completeness-audit.cjs /app/scripts/
 COPY collection/site-collectors /app/collection/site-collectors
 COPY collection/site-contracts /app/collection/site-contracts
 COPY collection/website-collectors /app/collection/website-collectors
@@ -30,8 +30,9 @@ COPY deploy-service/*.cjs /app/deploy-service/
 COPY deploy-service/three-services /app/deploy-service/three-services
 COPY deploy-service/measurement-sidecar/local-healthcheck.cjs /app/deploy-service/measurement-sidecar/local-healthcheck.cjs
 COPY deploy-service/public /app/deploy-service/public
-COPY deploy-service/ocr-runner.py deploy-service/requirements-ocr.txt /app/deploy-service/
-RUN mkdir -p /data /collector-state \
+COPY deploy-service/seed /app/deploy-service/seed
+COPY deploy-service/ocr-runner.py deploy-service/biubiu-checkbox-geometry.py deploy-service/requirements-ocr.txt /app/deploy-service/
+RUN mkdir -p /data /collector-state/home \
     && chown -R root:root /app \
     && chmod -R a+rX,a-w /app \
     && chown -R node:node /data /collector-state

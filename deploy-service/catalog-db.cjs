@@ -88,7 +88,7 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  function publication(){const m=meta();return m?{snapshotId:m.id,importedAt:m.imported_at,sourceAsOf:m.source_as_of,contentSha256:m.content_sha256}:null;}
  function sync(){
   const fs=require('node:fs'),inventory=require('../scripts/export-current-inventory.cjs');
-  if(!publication()&&fs.existsSync(path.join(root,'public-site/data/public-catalog.json')))return importRecords(inventory.exportInventory({root,storeFile:filename,writeFiles:false}));
+  if(!publication()&&fs.existsSync(path.join(root,'catalog/catalog.v1.json')))return importRecords(inventory.exportInventory({root,storeFile:filename,writeFiles:false}));
   // Retained versions are the base once initialized. Preserve their source
   // projection so re-exporting relational joins does not invent document drift.
   const bundle=publication()?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));

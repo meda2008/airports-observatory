@@ -11,7 +11,6 @@ const assets = {
   '/index.js': 'index.js',
   '/plan-conditions.js': 'plan-conditions.js',
   '/index.css': 'index.css',
-  '/pricing-13.html': 'pricing-13.html',
   '/console': 'console.html',
   '/console.html': 'console.html',
   '/console.js': 'console.js',
@@ -31,14 +30,16 @@ const SECURITY_HEADERS = {
 };
 
 function sendJsonError(res, status, message, extraHeaders = {}) {
-  if (!res.headersSent) {
-    res.writeHead(status, {
-      ...SECURITY_HEADERS,
-      'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
-      ...extraHeaders
-    });
+  if (res.headersSent) {
+    res.destroy();
+    return;
   }
+  res.writeHead(status, {
+    ...SECURITY_HEADERS,
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+    ...extraHeaders
+  });
   if (!res.writableEnded) {
     res.end(JSON.stringify({error: message}));
   }
@@ -122,9 +123,40 @@ function createWebServer({
   const loadAsset = createStaticAssetLoader(publicDir);
 
   return http.createServer((req, res) => {
+    if (
+      typeof req.url !== 'string' ||
+      !req.url.startsWith('/') ||
+      req.url.startsWith('//') ||
+      req.url.includes('\\')
+    ) {
+      res.writeHead(400, SECURITY_HEADERS).end();
+      return;
+    }
     let route;
+    let upstreamPath;
     try {
-      route = new URL(req.url, 'http://web.local').pathname;
+      const parsed = new URL(req.url, 'http://web.local');
+      if (parsed.origin !== 'http://web.local' || /%(?:2f|5c|00)/i.test(parsed.pathname)) {
+        res.writeHead(400, SECURITY_HEADERS).end();
+        return;
+      }
+      const decodedPathname = decodeURIComponent(parsed.pathname);
+      if (
+        !decodedPathname.startsWith('/') ||
+        decodedPathname.startsWith('//') ||
+        decodedPathname.includes('\\') ||
+        decodedPathname.includes('\0')
+      ) {
+        res.writeHead(400, SECURITY_HEADERS).end();
+        return;
+      }
+      const canonical = new URL(decodedPathname + parsed.search, 'http://web.local');
+      if (canonical.origin !== 'http://web.local' || canonical.pathname.startsWith('//')) {
+        res.writeHead(400, SECURITY_HEADERS).end();
+        return;
+      }
+      route = canonical.pathname;
+      upstreamPath = canonical.pathname + canonical.search;
     } catch {
       res.writeHead(400, SECURITY_HEADERS).end();
       return;
@@ -171,7 +203,7 @@ function createWebServer({
       const send = () => {
         attempts++;
         const request = http.request(
-          {hostname: target.hostname, port: target.port || 80, path: req.url, method: req.method, headers, agent: false},
+          {hostname: target.hostname, port: target.port || 80, path: upstreamPath, method: req.method, headers, agent: false},
           (response) => {
             if (rejectedTooLarge) return;
             const responseHeaders = {...response.headers};
@@ -274,4 +306,4 @@ if (require.main === module) {
   for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => server.close(() => process.exit(0)));
 }
 
-module.exports = {createWebServer, SECURITY_HEADERS, createStaticAssetLoader};
+module.exports = {createWebServer, SECURITY_HEADERS, createStaticAssetLoader, sendJsonError};

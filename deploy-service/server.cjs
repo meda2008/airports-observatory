@@ -73,7 +73,7 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
     return send(res,200,publicSearch(makeNeedsSearch(service,{verifiedReferralLinks}).search(query)));
    }
    if(route==='/api/changes')return send(res,200,{items:(store?.listChanges()||[]).map(v=>({...pick(v,['id','siteId','revision','createdAt','reviewedAt']),before:publicFacts(pick(v.before,deltaKeys(v))),after:publicFacts(pick(v.after,deltaKeys(v)))})),limitation:'仅展示已复核事实；原始页面及私有采集信息不公开。'});
-   const files={'/':'index.html','/index.html':'index.html','/index.js':'index.js','/plan-conditions.js':'plan-conditions.js','/index.css':'index.css','/pricing-13.html':'pricing-13.html','/console':'console.html','/console.html':'console.html','/console.js':'console.js','/console.css':'console.css'};
+   const files={'/':'index.html','/index.html':'index.html','/index.js':'index.js','/plan-conditions.js':'plan-conditions.js','/index.css':'index.css','/console':'console.html','/console.html':'console.html','/console.js':'console.js','/console.css':'console.css'};
    if(files[route]){res.writeHead(200,{'Content-Type':route.endsWith('.js')?'text/javascript; charset=utf-8':route.endsWith('.css')?'text/css; charset=utf-8':'text/html; charset=utf-8'});res.end(fs.readFileSync(path.join(__dirname,'public',files[route])));return;}
    send(res,404,{error:'路径不存在'});
   }catch(error){send(res,error.status===400?400:409,{error:error.status===400?error.message:'操作无法完成，请检查版本或任务状态'});}

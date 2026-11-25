@@ -319,6 +319,166 @@ function catalogCard(item) {
   return card;
 }
 
+function changeCard(i, showCurrentReports) {
+  const card = el('article', '');
+  card.append(el('h3', `${i.siteId} · 复核版本 ${i.revision}`), el('p', `写入时间：${i.reviewedAt || i.createdAt || '未知'}`));
+  if (i.after?.website) {
+    const w = i.after.website;
+    card.append(
+      el('h4', '入口核实'),
+      el('p', `此前入口：${i.before?.website?.url || w.previousUrl || '未记录'}`),
+      el('p', `当前入口：${w.url}`),
+      el('p', w.basis || w.status),
+      el('p', `页面采集：${w.observedAt || '未知'} · 来源：${(w.sourceIds || []).join('、')}`)
+    );
+    try {
+      const u = new URL(w.url);
+      if (u.protocol === 'https:' && !u.username && !u.password) {
+        const a = el('a', '打开已核实可达的入口');
+        a.href = u.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        card.append(a);
+      }
+    } catch {}
+  }
+  if (i.after?.payment?.orderCleanup) {
+    const p = i.after.payment;
+    const c = p.orderCleanup;
+    card.append(
+      el('h4', '临时订单清理状态'),
+      el('p', `支付方式：${(p.methods || []).join('、') || '未知'} · 渠道采集：${p.observedAt || '未知'}`),
+      el('p', `${c.cancellationVerified ? '已观察到取消状态' : '清理待确认'} · 清理核对：${c.checkedAt || '未知'}`),
+      el('p', c.reason || c.status)
+    );
+  }
+  if (i.after?.refund) {
+    const r = i.after.refund;
+    card.append(
+      el('h4', r.status === 'not_confirmed' ? '退款条件 · 待确认' : '退款条件 · 站方声明'),
+      el('p', r.summary || r.status),
+      el('p', `采集：${r.observedAt || '未知'} · 实际执行${r.executionVerified === true ? '已验证' : '未验证'}`)
+    );
+    for (const q of r.policyStatements || []) {
+      card.append(el('p', `原文：${q.quote}`));
+      if (q.publishedAt) {
+        card.append(
+          el(
+            'p',
+            `帖文发布：${q.publishedAt} · 采集：${q.observedAt || '未知'} · 来源：${q.sourceUrl || '未知'} · ${q.scope || '适用范围待核'}`
+          )
+        );
+      }
+    }
+    for (const condition of r.conditions || []) card.append(el('p', condition));
+  }
+  if (i.after?.privacy) {
+    const v = i.after.privacy;
+    card.append(
+      el('h4', v.status === 'not_confirmed' ? '隐私资料 · 待确认' : '隐私资料 · 站方声明'),
+      el('p', v.summary || v.status),
+      el(
+        'p',
+        `页面更新：${v.pageUpdatedAt || '未标明'} · 采集：${v.observedAt || '未知'} · ${v.independentlyAudited === true ? '已有独立审计记录' : '未独立审计'}`
+      ),
+      el('p', `保留期限：${v.retentionPeriod || '未知'}`)
+    );
+    for (const line of v.conditions || []) card.append(el('p', line));
+    if (v.sourceUrl) card.append(el('p', `来源：${v.sourceUrl}`));
+  }
+  if (i.after?.payment && !i.after.payment.statementObservations && !i.after.payment.orderCleanup) {
+    const p = i.after.payment;
+    card.append(
+      el('h4', '支付方式 · 页面观察，未验证交易'),
+      el('p', `具名渠道：${(p.methods || []).join('、') || '未知'}`),
+      el('p', p.summary || p.status),
+      el('p', `采集：${p.observedAt || '未知'} · 来源：${p.sourceUrl || (p.sourceIds || []).join('、') || '未绑定'}`)
+    );
+    for (const line of p.conditions || []) card.append(el('p', line));
+  }
+  if (showCurrentReports && i.after?.pricing?.plans?.length) {
+    const pricing = i.after.pricing;
+    const section = el('details', '');
+    section.append(
+      el('summary', `当前套餐报价：${pricing.plans.length} 组（展开查看）`),
+      el('p', pricing.limitation || '页面标价；未验证实际付款。')
+    );
+    for (const p of pricing.plans) {
+      section.append(
+        el(
+          'p',
+          `${p.name} · ${p.currency || p.currencySymbol || '币种未知'} ${p.amount} / ${p.billingPeriod} · ${p.quota || '流量未确认'}`
+        )
+      );
+      if (!p.currency) section.append(el('p', p.currencyReason || '币种未确认，不参与跨币种价格排名。'));
+      for (const line of p.restrictions || []) section.append(el('p', line));
+      section.append(el('p', `采集：${p.observedAt || '未知'} · 来源：${(p.sourceIds || []).join('、')}`));
+    }
+    card.append(section);
+  }
+  for (const [key, label] of [
+    ['trial', '试用声明'],
+    ['compatibility', '设备与客户端条件']
+  ]) {
+    if (i.after?.[key]) {
+      const v = i.after[key];
+      card.append(
+        el('h4', label),
+        el('p', v.summary || v.status),
+        el('p', `页面更新：${v.pageUpdatedAt || '未标明'} · 采集：${v.observedAt || '未知'}`)
+      );
+      for (const line of v.conditions || v.requirements || []) card.append(el('p', line));
+      if (key === 'trial') card.append(el('p', '试用资格、实际连接和执行效果未验证。'));
+    }
+  }
+  if (i.after?.payment?.statementObservations) {
+    const p = i.after.payment;
+    const checkout = p.statementObservations.some((o) => o.checkoutObserved === true);
+    card.append(el('h4', checkout ? '支付方式 · 订单页已观察' : '支付资料差异 · 未核实收银台'), el('p', p.summary));
+    if (p.reason) card.append(el('p', p.reason));
+    if (checkout) card.append(el('p', '已观察订单页渠道，未验证实际付款成功。'));
+    for (const o of p.statementObservations) {
+      card.append(
+        el('p', `原文：${o.quote}`),
+        el('p', `页面更新：${o.pageUpdatedAt || '未标明'} · 采集：${o.observedAt || '未知'} · 来源：${o.sourceUrl || (o.sourceIds || []).join('、')}`)
+      );
+    }
+  }
+  if (showCurrentReports) {
+    for (const r of [...(i.after?.pricing?.externalReports || [])].sort((a, b) =>
+      String(b.observedAt || '').localeCompare(String(a.observedAt || ''))
+    )) {
+      const section = el('section', '');
+      section.append(
+        el('h4', `${r.publisher} · 第三方报价，当前官网未核实`),
+        el('p', r.summary),
+        el('p', `页面发布：${r.publishedAt || '未知'} · 页面更新：${r.updatedAt || '未知'} · 采集：${r.observedAt || '未知'}`)
+      );
+      if (r.sourceUrl) {
+        try {
+          const u = new URL(r.sourceUrl);
+          if (['http:', 'https:'].includes(u.protocol)) {
+            const a = el('a', '第三方原文');
+            a.href = u.href;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            section.append(a);
+          }
+        } catch {}
+      }
+      section.append(el('p', r.identityLimitation || '归属未核实'), el('p', r.freshnessLimitation || '当前报价未核实'));
+      const quote = el('details', '');
+      quote.append(el('summary', '查看留存报价原文'), el('pre', r.quote));
+      section.append(quote);
+      card.append(section);
+    }
+  }
+  const raw = el('details', '');
+  raw.append(el('summary', '查看完整变更记录（包含此前版本）'), el('pre', JSON.stringify(i, null, 2)));
+  card.append(raw);
+  return card;
+}
+
 let catalogPage = 1;
 let catalogPages = 1;
 let catalogSequence = 0;
@@ -448,12 +608,12 @@ async function search(e) {
       n.append(el('p', planText(item?.plan), 'price-preview'), el('p', item?.plan?.quota || '流量暂无数据', 'quota'));
 
       const compareMeta = el('div', null, 'comparison-meta');
-      if (item?.comparison?.monthlyAmount != null) {
+      if (Number.isFinite(item?.comparison?.monthlyAmount)) {
         compareMeta.append(
           el('p', '折合每月 ' + Number(item.comparison.monthlyAmount.toFixed(2)) + ' ' + currencyText({currency: d.currency}), 'comparison-price')
         );
       }
-      if (d.criterion === 'value' && item?.comparison?.costPerGB != null) {
+      if (d.criterion === 'value' && Number.isFinite(item?.comparison?.costPerGB)) {
         compareMeta.append(
           el('p', '每 GB ' + Number(item.comparison.costPerGB.toFixed(3)) + ' ' + currencyText({currency: d.currency}), 'comparison-price')
         );
@@ -672,6 +832,10 @@ async function pollSnapshotChange() {
   if (document.hidden) return;
   try {
     const next = await api('/api/stats');
+    const meta = $('#catalog-meta');
+    if (meta && meta.textContent.includes(' · 自动更新暂不可用')) {
+      meta.textContent = meta.textContent.replaceAll(' · 自动更新暂不可用', '');
+    }
     const changed = Boolean(observedSnapshot && next?.snapshotId && next.snapshotId !== observedSnapshot);
     if (next?.snapshotId) observedSnapshot = next.snapshotId;
     if (changed) {
@@ -732,12 +896,20 @@ for (const chip of $$('[data-payment]')) {
 for (const chip of $$('[data-preset-needs]')) {
   chip.addEventListener('click', () => {
     const needsInput = $('#search [name="needs"]');
+    const criterionSelect = $('#search [name="criterion"]');
     const currencySelect = $('#search [name="currency"]');
     const maxMonthlyInput = $('#search [name="maxMonthly"]');
+    const preset = chip.getAttribute('data-preset-needs') || '';
+    if (criterionSelect) {
+      if (/性价比/.test(preset)) criterionSelect.value = 'value';
+      else if (/便宜|低价/.test(preset)) criterionSelect.value = 'cheap';
+      else if (/稳定/.test(preset)) criterionSelect.value = 'stability';
+      else if (/速度/.test(preset)) criterionSelect.value = 'speed';
+    }
     if (currencySelect) currencySelect.value = 'CNY';
     if (maxMonthlyInput) maxMonthlyInput.value = '';
     if (needsInput) {
-      needsInput.value = chip.getAttribute('data-preset-needs') || '';
+      needsInput.value = preset;
       search();
     }
   });

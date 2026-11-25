@@ -63,6 +63,7 @@ services:
       STANDALONE_OUTPUT_DIR: /collector-state/web-evidence
       STANDALONE_SESSION_DIR: /collector-state/browser-sessions
       COLLECTOR_OUTBOX_DIR: /collector-state/outbox
+      HOME: /collector-state/home
       COLLECTOR_SITE_ID: ${COLLECTOR_SITE_ID:-}
       COLLECTOR_SITE_IDS: ${COLLECTOR_SITE_IDS:-}
     volumes:
