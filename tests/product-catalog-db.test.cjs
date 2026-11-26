@@ -54,6 +54,21 @@ test('inventory export verifies evidence bodies by default and supports metadata
 });
 
 test('catalog and detail share the same concise summary without changing retained records',t=>{const{catalog}=fixture(t),r=record();r.coreInfo.pricing.plans[0].amountBasis='original_billing_period_total';r.coreInfo.operatingHistory={yearsSinceStart:6,continuousOperationVerified:false};catalog.importRecords({records:[r]});const before=catalog.publication().snapshotId,a=catalog.list({}, {facts:publicFacts}).items[0],b=catalog.detail('A001',{facts:publicFacts}).item;assert.deepEqual(a.summary,b.summary);assert.equal(a.summary.price.amount,120);assert.equal(a.summary.price.billingPeriod,'年付');assert.equal(a.summary.price.currency,null);assert.deepEqual(a.summary.paymentMethods,['支付宝']);assert.equal(a.summary.operatingAge,'暂无数据');assert.equal(a.summary.refund,null);assert(!JSON.stringify(a.summary).includes('DO_NOT_PUBLISH'));assert.equal(b.sources[0].observedAt,'2026-10-01T00:00:00Z');assert.equal(catalog.publication().snapshotId,before);});
+test('unit prices reach the catalog card, airport detail and search with the same units',async t=>{
+ const{store,catalog}=fixture(t),r=record();
+ Object.assign(r.coreInfo.pricing.plans[0],{currency:'CNY',amountBasis:'original_billing_period_total',quota:'每月100GB'});
+ catalog.importRecords({records:[r]});
+ const server=createServer({store,catalogDb:catalog});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ t.after(()=>new Promise(resolve=>server.close(resolve)));
+ const get=route=>fetch('http://127.0.0.1:'+server.address().port+route).then(r=>r.json());
+ const [cards,detail,search]=await Promise.all([get('/api/catalog?view=card'),get('/api/airports/A001'),get('/api/search?criterion=value')]);
+ const units=cards.items[0].summary.price.unitPrices;
+ assert.equal(units.dailyAmount,120/365);
+ assert.equal(units.costPerGB,.1);
+ assert.deepEqual(detail.item.pricing.plans[0].unitPrices,units);
+ assert.deepEqual(search.items[0].unitPrices,units);
+});
 test('card view preserves filtering, identity and summary while omitting retained detail',t=>{
  const {catalog}=fixture(t),r=record();r.name='Ｆixture';catalog.importRecords({records:[r,record('A002',false)]});
  const query={scope:'all',q:'fixture',payment:'支付宝',limit:'1'};
