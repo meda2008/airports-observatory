@@ -27,12 +27,42 @@ test('curation is reconciled from retained inputs even without a base file',t=>{
  assert.equal(catalog.sync().status,'unchanged');
 });
 
+test('inventory export verifies evidence bodies by default and supports metadata-only snapshots',t=>{
+ const {filename,store}=fixture(t),siteId='A001',body='Retained evidence 条款';
+ store.seedSites([{recordId:siteId,entryUrl:'https://example.com/'}]);
+ const saved=store.saveEvidence({siteId,url:'https://example.com/terms',body,observedAt:'2026-11-24T00:00:00Z'});
+ const files=new Map([
+  ['catalog/catalog.v1.json',Buffer.from(JSON.stringify({schemaVersion:'airports-catalog.v1',catalog:[{id:siteId,name:'Synthetic',category:'airport',provenanceIds:[]}]}))],
+  ['catalog/source-provenance.json',Buffer.from('{"sources":[]}')],
+  ['catalog/forecast-ledger.v1.ndjson',Buffer.alloc(0)]
+ ]);
+ const options={root:path.dirname(filename),storeFile:filename,writeFiles:false,readInput:(file,optional)=>{
+  if(!optional)assert(files.has(file),file);
+  return files.get(file)||null;
+ }};
+ const {exportInventory}=require('../scripts/export-current-inventory.cjs');
+ const evidence=result=>result.records[0].storeSnapshot.evidence;
+ const [verified]=evidence(exportInventory(options));
+ const [metadata]=evidence(exportInventory({...options,verifyEvidenceBodies:false}));
+ assert.equal(verified.retainedBodySha256,saved.sha256);
+ assert.equal(verified.retainedBodyBytes,Buffer.byteLength(body));
+ assert.equal(metadata.sha256,saved.sha256);
+ assert.equal(metadata.retainedBodySha256,undefined);
+ assert.equal(metadata.retainedBodyBytes,undefined);
+ assert.equal(metadata.observations.length,1);
+ assert.deepEqual(evidence(exportInventory({...options,publicationOnly:true})),[]);
+});
+
 test('catalog and detail share the same concise summary without changing retained records',t=>{const{catalog}=fixture(t),r=record();r.coreInfo.pricing.plans[0].amountBasis='original_billing_period_total';r.coreInfo.operatingHistory={yearsSinceStart:6,continuousOperationVerified:false};catalog.importRecords({records:[r]});const before=catalog.publication().snapshotId,a=catalog.list({}, {facts:publicFacts}).items[0],b=catalog.detail('A001',{facts:publicFacts}).item;assert.deepEqual(a.summary,b.summary);assert.equal(a.summary.price.amount,120);assert.equal(a.summary.price.billingPeriod,'年付');assert.equal(a.summary.price.currency,null);assert.deepEqual(a.summary.paymentMethods,['支付宝']);assert.equal(a.summary.operatingAge,'暂无数据');assert.equal(a.summary.refund,null);assert(!JSON.stringify(a.summary).includes('DO_NOT_PUBLISH'));assert.equal(b.sources[0].observedAt,'2026-10-01T00:00:00Z');assert.equal(catalog.publication().snapshotId,before);});
 test('card view preserves filtering, identity and summary while omitting retained detail',t=>{
  const {catalog}=fixture(t),r=record();r.name='Ｆixture';catalog.importRecords({records:[r,record('A002',false)]});
  const query={scope:'all',q:'fixture',payment:'支付宝',limit:'1'};
  const full=catalog.list(query,{facts:publicFacts}),card=catalog.list({...query,view:'card'},{facts:publicFacts});
  assert.equal(full.items[0].id,'A001');
+ assert.equal(full.filteredCount,1);
+ assert.deepEqual(catalog.coreInfo('A002'),record('A002',false).coreInfo);
+ assert.equal(catalog.coreInfo('A003'),undefined);
+ assert.equal(catalog.rawRecord('A002'),null);
  const {items,...page}=full;assert.deepEqual({...card,items:[]},{...page,items:[]});
  const [item]=items,[compact]=card.items;
  assert.deepEqual({...compact,summary:null},Object.fromEntries(['id','name','category','primary','summary','link'].map(key=>[key,key==='summary'?null:item[key]])));
@@ -96,14 +126,14 @@ test('publisher applies a new retained base to an initialized database and prese
  try{assert.throws(()=>catalog.sync(),/inputs changed during preparation/);}finally{fs.readFileSync=readFile;}
  assert.equal(catalog.publication().snapshotId,prior.snapshotId);
  const other=openCatalogDb({filename,store,root});
- const originalList=store.listEvidence;
+ const originalList=store.listEvidenceMetadata;
  let newer;
- store.listEvidence=(...args)=>{
-  store.listEvidence=originalList;
+ store.listEvidenceMetadata=(...args)=>{
+  store.listEvidenceMetadata=originalList;
   newer=other.importRecords({records:[record('A001')]}).snapshotId;
   return originalList(...args);
  };
- try{assert.throws(()=>catalog.sync(),/publication changed during preparation/);}finally{store.listEvidence=originalList;other.close();}
+ try{assert.throws(()=>catalog.sync(),/publication changed during preparation/);}finally{store.listEvidenceMetadata=originalList;other.close();}
  assert.equal(catalog.publication().snapshotId,newer);
  const siteId='A042',refund={status:'observed',summary:'Reviewed policy',sourceIds:[]};
  store.seedSites([{recordId:siteId,entryUrl:'https://example.com/'}]);

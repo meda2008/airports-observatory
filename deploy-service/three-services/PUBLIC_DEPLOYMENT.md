@@ -24,8 +24,10 @@ proxy to the dedicated localhost web port, preserving Host. Do not disable TLS,
 expose /internal, publish the SQLite volume or place credentials in the image.
 The public API host strips client Authorization and blocks management routes.
 The management host requires the existing admin token as Bearer or Basic
-username admin; cross-origin writes are rejected. Internal collector token is
-distinct and stays private to API/collector.
+username admin. Write requests also require `Origin` to match the management
+host exactly, including `https://`. Browser requests send this header and
+command-line clients must include it explicitly. The internal collector token
+is distinct and stays private to API/collector.
 
 ## Preservation and cutover
 

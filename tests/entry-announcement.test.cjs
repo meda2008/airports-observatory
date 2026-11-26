@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto');
 const {explicitEntryOrigins}=require('../lib/explicit-entry-announcement.cjs'),{assertSourceOrigin}=require('../lib/source-origin-binding.cjs');
 test('announced plain URL binding requires a bounded labelled notice, exact origin, record and intact source',t=>{
@@ -11,7 +13,7 @@ test('announced plain URL binding requires a bounded labelled notice, exact orig
  assert.throws(()=>assertSourceOrigin({...args,sourceUrl:'https://ad.invalid/',bindings:[{...args.bindings[0],origin:'https://ad.invalid'}]}),/absent/);
  fs.appendFileSync(path.join(root,'notice.json'),' ');assert.throws(()=>assertSourceOrigin(args),/hash mismatch/);
 });
-test('SkyLinX entry update requires original announcement and currently visible named login; financial evidence remains unchanged',()=>{
+test('SkyLinX entry update requires original announcement and currently visible named login; financial evidence remains unchanged', historicalCaptureOptions('work/collection-runs/breakpoints-20261104-v1/followup-sources.json'),()=>{
  const {extractKnown}=require('../collection/url-collectors/index.cjs'),d='work/collection-runs/breakpoints-20261104-v1/',m=JSON.parse(fs.readFileSync(d+'followup-sources.json')),now=JSON.parse(fs.readFileSync(d+m.find(x=>x.label==='A060-official-announced-user-org-uk-current').file));
  const old=JSON.parse(fs.readFileSync('catalog/refresh/2026-10-26/core-auth-batch348/raw/core-auth-skylinx-b348-notice-revision-7bc114a1064e.json'));
  const prior={website:{url:'https://portal.skylinx.org/',sourceIds:['PRIOR']},pricing:{observedAt:'old-time'},payment:{observedAt:'old-time'}};

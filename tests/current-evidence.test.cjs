@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -46,7 +48,8 @@ test('real refresh explicitly covers all 215 candidates and decorates both list 
 });
 
 test('real original 245-entry forecast chain retains its frozen hash and every forecast remains an unscored abstention', () => {
-  const ledgerBytes = fs.readFileSync(path.join(root, 'catalog/forecast-ledger.v1.ndjson'), 'utf8').replace(/\r\n/g, '\n');
+  // Frozen digest of the tracked, post-sanitization ledger (LF bytes).
+  const ledgerBytes = fs.readFileSync(path.join(root, 'catalog/forecast-ledger.v1.ndjson'));
   assert.equal(crypto.createHash('sha256').update(ledgerBytes).digest('hex'), '73a6c3f3d2ea6eab1b86e512d090ae5f9ada6f118a1c8753b5d6d411ad859f18');
   const service = makeCatalogService({ baseDir: root });
   const ledger = service.ledger();
@@ -178,7 +181,7 @@ test('real recent community collection distinguishes unmatched discussion activi
   assert.ok(withClaims.community.events.some(event => event.kind === 'complaint_claim'));
 });
 
-test('real community generation preserves both dimensions of a single eggtart statement without duplicating events or groups', () => {
+test('real community generation preserves both dimensions of a single eggtart statement without duplicating events or groups', historicalCaptureOptions('catalog/refresh/2026-10-26/community/community.json'), () => {
   const { projectCommunityEvent } = require('../scripts/build-current-evidence.cjs');
   const discussion = read('catalog/refresh/2026-10-26/community/community.json').items.find(item => item.recordId === 'A077');
   const events = discussion.events.map(projectCommunityEvent);

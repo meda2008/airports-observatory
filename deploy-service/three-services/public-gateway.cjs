@@ -210,7 +210,7 @@ function createPublicGateway({
     }
     if (
       !['GET', 'HEAD', 'OPTIONS'].includes(req.method) &&
-      ((req.headers.origin && req.headers.origin !== 'https://' + adminHost) || req.headers['sec-fetch-site'] === 'cross-site')
+      (req.headers.origin !== 'https://' + adminHost || req.headers['sec-fetch-site'] === 'cross-site')
     ) {
       return respond(res, 403, {error: 'cross_site_write_rejected'});
     }

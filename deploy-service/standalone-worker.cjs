@@ -7,7 +7,15 @@ function partialChildGuard(output,job,control){try{const marker=JSON.parse(fs.re
 function batchNeedsBackoff(results){return !Array.isArray(results)||!results.some(result=>result?.jobId);}
 function isBusyError(error){return /SQLITE_BUSY|SQLITE_LOCKED|database (?:table )?is locked|database is busy/i.test(String(error?.message||error));}
 async function retryDatabase(action,{attempts=4,maxElapsedMs=30000,delayMs=200,sleep=ms=>new Promise(r=>setTimeout(r,ms)),clock=Date.now}={}){
- const started=clock();for(let n=0;;n++){try{return await action();}catch(error){if(!isBusyError(error)||n>=attempts-1||clock()-started>=maxElapsedMs)throw error;await sleep(Math.min(1000,delayMs*2**n));}}
+ const started=clock();
+ for(let n=0;;n++){
+  try{return await action();}catch(error){
+   const remaining=maxElapsedMs-(clock()-started),backoff=Math.min(1000,delayMs*2**n);
+   if(!isBusyError(error)||n>=attempts-1||remaining<=backoff)throw error;
+   await sleep(backoff);
+   if(clock()-started>=maxElapsedMs)throw error;
+  }
+ }
 }
 function runDirectory(output,job){for(const value of [job.siteId,job.jobId,job.runId])if(typeof value!=='string'||!/^[a-zA-Z0-9_-]+$/.test(value))throw Error('unsafe_run_identity');return path.join(output,[job.siteId,job.jobId,job.runId].join('-'));}
 function verifiedRetainedMaterial(dir,job){try{const receipt=JSON.parse(fs.readFileSync(path.join(dir,'receipt.json'),'utf8'));if(receipt.siteId!==job.siteId||receipt.jobId!==job.jobId||!Array.isArray(receipt.captures)||receipt.captures.length===0)return false;return receipt.captures.every(item=>{if(typeof item.file!=='string'||!/^capture-\d+\.json$/.test(item.file))return false;const capture=JSON.parse(fs.readFileSync(path.join(dir,item.file),'utf8'));return typeof capture.body==='string'&&capture.body.trim().length>0&&typeof capture.sha256==='string'&&/^[a-f0-9]{64}$/.test(capture.sha256)&&crypto.createHash('sha256').update(capture.body).digest('hex')===capture.sha256;});}catch{return false;}}
@@ -28,11 +36,21 @@ function createStandaloneWorker({store,control,plane,browserFactory,collect=coll
    job=await retry(()=>control.claimBridge({worker:workerName,executionMode:'standalone',siteId,leaseMs:180000}));if(!job){beat('connected');return{status:'idle'};}
   }catch(error){beat('error',isBusyError(error)?'sqlite_busy':'claim_failed');safeLog({service:'standalone_collector',status:'claim_deferred',reason:isBusyError(error)?'sqlite_busy':'claim_failed'});return{status:'error',reason:isBusyError(error)?'sqlite_busy':'claim_failed'};}
   active++;beat('connected');let renewalError=null,renewalPromise=null;
-  const renew=()=>retry(()=>control.renewBridge(job.jobId,job.token,{leaseMs:180000}),{maxElapsedMs:12000,attempts:2});
-  const heartbeat=setInterval(()=>{if(renewalPromise)return;renewalPromise=renew().then(()=>{beat('connected');}).catch(error=>{if(!isBusyError(error))renewalError=error;else safeLog({service:'standalone_collector',siteId:job.siteId,status:'renewal_deferred',reason:'sqlite_busy'});}).finally(()=>{renewalPromise=null;});},20000);
-  const beforePage=async()=>{if(stopping)throw Error('standalone_execution_paused');if(renewalPromise)await renewalPromise;if(renewalError)throw renewalError;const c=await retry(()=>control.getControl(),{maxElapsedMs:12000,attempts:2});if(c.executionMode!=='standalone'||!c.engineEnabled)throw Error('standalone_execution_paused');await renew();};
-  const dir=runDirectory(output,job);fs.mkdirSync(dir,{recursive:true});let result;
-  const pendingFile=path.join(dir,'pending-submission.json'),removePending=()=>{try{fs.unlinkSync(pendingFile);}catch{}};
+  async function renew(){
+   if(renewalError)throw renewalError;
+   renewalPromise??=retry(()=>control.renewBridge(job.jobId,job.token,{leaseMs:180000}),{maxElapsedMs:12000,attempts:2})
+    .catch(error=>{if(!isBusyError(error))renewalError=error;throw error;})
+    .finally(()=>{renewalPromise=null;});
+   return renewalPromise;
+  }
+  const heartbeat=setInterval(()=>{
+   if(renewalError||renewalPromise)return;
+   void renew().then(()=>beat('connected'),error=>{if(isBusyError(error))safeLog({service:'standalone_collector',siteId:job.siteId,status:'renewal_deferred',reason:'sqlite_busy'});});
+  },20000);
+  const stopRenewals=async()=>{clearInterval(heartbeat);await renewalPromise?.catch(()=>{});};
+  const beforePage=async()=>{if(stopping)throw Error('standalone_execution_paused');if(renewalError)throw renewalError;const c=await retry(()=>control.getControl(),{maxElapsedMs:12000,attempts:2});if(stopping||c.executionMode!=='standalone'||!c.engineEnabled)throw Error('standalone_execution_paused');await renew();};
+  let dir,pendingFile,result;
+  const removePending=()=>{if(pendingFile)try{fs.unlinkSync(pendingFile);}catch{}};
   const summarize=(accepted,material,extra={})=>({siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:accepted.status,proposalId:accepted.proposalId||null,pages:(material?.captures||[]).filter(c=>!c.kind.endsWith('checkpoint')).length,checkpoint:material?.checkpoint?.type||null,...extra});
   async function recoverAcceptedPartial(accepted,material){
    const sources=partialReparseEligibility(material,accepted);if(!sources||typeof plane.reparseRetained!=='function')return null;
@@ -60,18 +78,24 @@ function createStandaloneWorker({store,control,plane,browserFactory,collect=coll
   }
   let material;
   try{
+   dir=runDirectory(output,job);
+   fs.mkdirSync(dir,{recursive:true});
+   pendingFile=path.join(dir,'pending-submission.json');
    const prior=earlierPending(output,job,dir),partialChild=partialChildGuard(output,job,control);
    material=partialChild?{captures:[],checkpoint:{type:'retained_partial_reparse_requires_recovery',url:job.site.config.entryUrl,stage:'retained_reparse_recovery',reason:'原文重解析子任务遗留待恢复；禁止将其转为普通网络采集',requestedAction:'按partial-reparse.json复核原文与子任务后显式恢复；不重复采集'},capabilities:{},retainedSubmissionGuard:true,partialChildGuard:partialChild,ordersCreated:0,paymentExecuted:false}:prior?{captures:[],checkpoint:{type:'retained_submission_requires_recovery',url:job.site.config.entryUrl,stage:'storage_recovery',reason:'前一租约已有采集原文待提交；保留旧run目录，未重复浏览或自动跨版本采纳',requestedAction:'复核原run的receipt与capture后显式恢复原文；不得重新采集冒充新观察'},capabilities:{},retainedSubmissionGuard:true,priorRunDirectory:path.basename(prior),ordersCreated:0,paymentExecuted:false}:await collectWithReferences(job.site,{browser,credentialsFile,sessionDir,jobBudgetMs,beforePage,collect,prior:store.getSite?.(job.siteId)?.document||{}});
    const captures=material.captures||[];
    for(const [i,c]of captures.entries())fs.writeFileSync(path.join(dir,'capture-'+i+'.json'),JSON.stringify({...c,sha256:crypto.createHash('sha256').update(c.body).digest('hex')},null,2),{flag:'wx'});
    fs.writeFileSync(path.join(dir,'receipt.json'),JSON.stringify({siteId:job.siteId,jobId:job.jobId,runId:job.runId,profileRevision:job.profileRevision,siteRevision:job.siteRevision,executionMode:'standalone',...material,captures:captures.map((c,i)=>({url:c.url,observedAt:c.observedAt,kind:c.kind,file:'capture-'+i+'.json'}))},null,2),{flag:'wx'});
    fs.writeFileSync(pendingFile,JSON.stringify({siteId:job.siteId,jobId:job.jobId,runId:job.runId,profileRevision:job.profileRevision,siteRevision:job.siteRevision,createdAt:new Date().toISOString(),receipt:'receipt.json',state:'pending_database_submission'},null,2),{flag:'wx'});
-   await retry(()=>control.renewBridge(job.jobId,job.token,{leaseMs:180000}),{maxElapsedMs:12000,attempts:2});
+   await stopRenewals();
+   await renew();
    const packet={jobId:job.jobId,token:job.token,captures,checkpoint:material.checkpoint,capabilities:material.capabilities,observationBasis:material.retainedSubmissionGuard?'retained_reparse':material.browser==='service_native_api'?'standalone_native_api':'standalone_browser',worker:workerName};
    const accepted=await retry(()=>plane.receive(packet),{maxElapsedMs:45000,attempts:4});result=summarize(accepted,material);removePending();
    fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx'});
-   clearInterval(heartbeat);const partial=await recoverAcceptedPartial(accepted,material);if(partial)result.partialReparse=partial;
+   const partial=await recoverAcceptedPartial(accepted,material);if(partial)result.partialReparse=partial;
   }catch(error){
+   await stopRenewals();
+   if(renewalError?.message==='Job cancellation requested')error=renewalError;
    if(isBusyError(error)){result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:'submission_deferred',reason:'sqlite_busy_original_material_retained',receiptDirectory:path.basename(dir)};}
    else if(error.message==='Job cancellation requested'){
     try{const ack=await retry(()=>control.acknowledgeCancellation(job.jobId,job.token,{actor:workerName}),{maxElapsedMs:12000,attempts:2});result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:ack.status,reason:'operator_cancelled'};removePending();}
@@ -82,9 +106,9 @@ function createStandaloneWorker({store,control,plane,browserFactory,collect=coll
     if(terminal&&terminal.jobId===job.jobId&&terminal.siteId===job.siteId&&['completed','blocked','awaiting_semantic_review','review_approved','review_rejected','cancelled'].includes(terminal.status)){result=summarize(terminal,material,{acceptanceRecoveredFromDatabase:true});removePending();}
     else try{await retry(()=>control.completeBridge(job.jobId,job.token,{status:'blocked',blocker:'standalone_execution_error',checkpoint:{type:'standalone_execution_error',url:job.site.config.entryUrl,stage:'runtime',reason:result.reason,requestedAction:'修复本站执行错误后恢复，其他站点继续'},actor:workerName}),{maxElapsedMs:12000,attempts:2});result.status='blocked';removePending();}catch{}
    }
-   try{fs.writeFileSync(path.join(dir,'runtime-error.json'),JSON.stringify(result,null,2),{flag:'wx'});}catch{}
+   if(dir)try{fs.writeFileSync(path.join(dir,'runtime-error.json'),JSON.stringify(result,null,2),{flag:'wx'});}catch{}
   }finally{
-   clearInterval(heartbeat);active--;beat(stopping?'paused':'connected');
+   await stopRenewals();active--;beat(stopping?'paused':'connected');
    if(result){outcomes.push(result);safeLog({service:'standalone_collector',...result});}
    try{fs.writeFileSync(path.join(output,'progress.json'),JSON.stringify({updatedAt:new Date().toISOString(),active,results:outcomes},null,2));}catch{safeLog({service:'standalone_collector',status:'progress_write_failed'});}
   }

@@ -1,6 +1,6 @@
 'use strict';
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const {makeCatalogService}=require('../lib/catalog-service.cjs');
+const {makeCatalogServiceProvider}=require('../lib/catalog-service.cjs');
 const {readJsonObject}=require('../lib/read-utf8-json.cjs');
 const {makeNeedsSearch}=require('../lib/needs-search.cjs');
 const deltaKeys=v=>{const k=Object.keys(v.patch||{}).filter(k=>['website','pricing','payment','refund','privacy','compatibility','promotions','trial','speed','stability','operatingHistory'].includes(k));return k.length?k:Object.keys(v.after||{});};
@@ -26,15 +26,25 @@ function publicFacts(document={}){
  return safeFactUrls(out);
 }
 function publicSearch(data){return {...pick(data,['criterion','currency','maxMonthly','status','excludedCount','evidenceAsOf','limitations','reason']),items:data.items.map(i=>({...pick(i,['id','name','comparison','matchingPlanCount']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
-function createServer({store,catalogDb,controlStore,measurementStore,registry=[],syncPublication=()=>catalogDb?.sync(),publicationReady=()=>true,serviceProvider=()=>makeCatalogService(),adminToken=process.env.ADMIN_TOKEN}={}){
+function createServer({store,catalogDb,controlStore,measurementStore,registry=[],baseDir,serviceProvider=makeCatalogServiceProvider({baseDir}),syncPublication=()=>catalogDb?.sync(),publicationReady=()=>true,adminToken=process.env.ADMIN_TOKEN}={}){
  const controlPlane=controlStore?require('./control-plane.cjs').createControlPlane({store,control:controlStore,catalogDb,profiles:registry,facts:publicFacts}):null;
- const updateService=()=>{
-  const heartbeats=store?.getServiceHeartbeats?.()||[],collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher'),fresh=collector&&Date.now()-Date.parse(collector.updatedAt)<180000;
-  const brief=controlPlane?.brief(),control=brief?.control,runtime=brief?.runtime;
-  let counts=store?.activityCounts?.();
-  if(!counts){const jobs=store?.listJobs?.()||[];counts={queued:jobs.filter(j=>j.status==='queued').length,blocked:jobs.filter(j=>['blocked','failed'].includes(j.status)).length,pendingReview:store?.listProposals?.().filter(p=>p.status==='pending').length||0};}
-  return{...(brief?{collectionControl:control,runtime}:{}),collectionEnabled:brief?control.engineEnabled&&runtime.connected:!!(fresh&&collector.status==='running'),status:brief?(!control.engineEnabled?'paused':runtime.connected?'running':'waiting_runtime'):(fresh?collector.status:'not_running'),lastHeartbeat:brief?runtime.lastHeartbeat:collector?.updatedAt||null,publisher:{status:publisher&&Date.now()-Date.parse(publisher.updatedAt)<180000?publisher.status:'not_running',lastHeartbeat:publisher?.updatedAt||null},...counts,reviewRequired:true,paymentAllowed:false,schedule:'weekly_per_site',publicationMode:'reviewed_database_snapshot'};
- };
+ function updateService(){
+  const heartbeats=store?.getServiceHeartbeats?.()||[],snapshot=controlPlane?.brief(heartbeats),now=Date.now();
+  const collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher');
+  const fresh=h=>h&&now-Date.parse(h.updatedAt)<180000;
+  const counts=store?.activityCounts?.()||(()=>{
+   const jobs=store?.listJobs?.()||[];
+   return{queued:jobs.filter(j=>j.status==='queued').length,blocked:jobs.filter(j=>['blocked','failed'].includes(j.status)).length,pendingReview:store?.listProposals?.().filter(p=>p.status==='pending').length||0};
+  })();
+  return{
+   ...(snapshot?{collectionControl:snapshot.control,runtime:snapshot.runtime}:{}),
+   collectionEnabled:snapshot?snapshot.control.engineEnabled&&snapshot.runtime.connected:!!(fresh(collector)&&collector.status==='running'),
+   status:snapshot?(!snapshot.control.engineEnabled?'paused':snapshot.runtime.connected?'running':'waiting_runtime'):(fresh(collector)?collector.status:'not_running'),
+   lastHeartbeat:(snapshot?snapshot.runtime.lastHeartbeat:collector?.updatedAt)||null,
+   publisher:{status:fresh(publisher)?publisher.status:'not_running',lastHeartbeat:publisher?.updatedAt||null},
+   ...counts,reviewRequired:true,paymentAllowed:false,schedule:'weekly_per_site',publicationMode:'reviewed_database_snapshot',
+  };
+ }
  const send=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(value));};
  const server=http.createServer(async(req,res)=>{
   res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");

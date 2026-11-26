@@ -24,7 +24,13 @@ test('production gateway separates public reads, protected management and intern
   const credentials={Authorization:'Basic '+Buffer.from('admin:'+key).toString('base64')};
   assert.equal((await get('/',{...admin,headers:credentials})).status,200);
   assert.equal((await get('/api/admin/status',{...admin,headers:credentials})).status,200);assert.equal(seen.at(-1).authorization,'Bearer '+key);
-  assert.equal((await get('/api/admin/review',{...admin,method:'POST',body:'{}',headers:{...credentials,Origin:'https://evil.example','Sec-Fetch-Site':'cross-site'}})).status,403);
+  const write={...admin,method:'POST',body:'{}'};
+  const before=seen.length;
+  for(const headers of [{},{Origin:'null'},{Origin:'https://evil.example'},{Origin:'https://airports-admin.example.com','Sec-Fetch-Site':'cross-site'}]){
+   assert.equal((await get('/api/admin/review',{...write,headers:{...credentials,...headers}})).status,403);
+  }
+  assert.equal(seen.length,before);
+  assert.equal((await get('/api/admin/review',{...write,headers:{...credentials,Origin:'https://airports-admin.example.com'}})).status,200);
   assert.equal((await get('/internal/web-collector/claim',{...admin,headers:credentials})).status,404);
  }finally{await close(web);await close(upstream);}
 });

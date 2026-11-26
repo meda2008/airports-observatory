@@ -47,6 +47,12 @@ node scripts/verify-deploy-catalog.cjs
 
 Compose 示例值用于配置解析。启动前按三服务文档提供实际配置与私有挂载路径。离线目录检查使用临时 SQLite，比对原始目录与归档规则。
 
+## 回归测试与历史原件
+
+执行 `npm test` 前安装根目录和 `deploy-service` 的锁定依赖。需要真实 Chromium 的用例还需要本地浏览器：`npm --prefix deploy-service exec -- playwright install chromium`。
+
+合成用例和仓库中的种子目录校验直接运行。历史重放用例需要测试指明的原件，通常位于 `work/`、`catalog/refresh/<日期>/`，或指定的 `deploy-service/data/` 历史数据库。缺件会显式标为跳过并列出具体路径，不能算作原件验证通过。使用获准的同版本归档恢复原件，不要提交正文、凭据或 SQLite 文件；输入存在时，原有内容和哈希断言仍然执行。
+
 ## 网关与安全隔离模式
 
 - **公开前端域名（`PUBLIC_WEB_HOSTS`）**：仅同源提供公开只读页面与只读 `/api/*`（`/api/stats`、`/api/catalog`、`/api/search`、`/api/airports/Axxx` 等），强制剥离请求 `Authorization` 头，并拦截 `/console*`、`/assistance*`、`/api/admin/*`、`/internal/*`。

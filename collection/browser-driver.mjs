@@ -2,6 +2,7 @@ import {inspectDocument,readRenderedDocument} from './visible-document.mjs';
 export {inspectDocument,readRenderedDocument} from './visible-document.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {adapterFor} from './adapters.mjs';
 import {expandObservedDocumentDetails} from './route-readiness.mjs';
@@ -14,16 +15,17 @@ import {collectKnowledge} from './knowledge-browser.mjs';
 import {collectOwnedReferral} from './owned-referral.mjs';
 import {passiveAccessWaitLabel,waitForPassiveAccessPage} from './passive-access-wait.mjs';
 const require=createRequire(import.meta.url),E=require('../lib/collection-engine.cjs');
-const ROOT=path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1')),'..');
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
 const write=(p,o)=>{fs.writeFileSync(p+'.tmp',JSON.stringify(o,null,2)+'\n');fs.renameSync(p+'.tmp',p);};
 // DOM-only observation: no fetch, cookies, storage, hidden app state or input values.
 export function isAccessBlockStatus(status){return ['needs_human_verification','security_warning','access_protection_wait'].includes(status);}
 function folders(runId){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(runId))throw Error('Invalid run ID');const dir=path.join(ROOT,'work/collection-runs',runId);fs.mkdirSync(path.join(dir,'evidence'),{recursive:true});return dir;}
-function persist(dir,task,snapshot){
+function catalogWebsiteUrls(){return require('../lib/catalog-listing.cjs').loadCatalogProjection(ROOT).doc.items.map(r=>r.coreInfo?.website?.url).filter(Boolean);}
+function persist(dir,task,snapshot,knownUrls=catalogWebsiteUrls()){
  snapshot={...snapshot,url:E.safeUrl(snapshot.url),text:E.redact(snapshot.text),blocks:(snapshot.blocks||[]).map(b=>({text:E.redact(b.text)})),capturedAt:snapshot.capturedAt||new Date().toISOString()};
  const raw=JSON.stringify(snapshot,null,2)+'\n',hash=E.sha(raw),sourceId='COLLECT-'+hash.slice(0,24),file='evidence/'+hash+'.json';if(!fs.existsSync(path.join(dir,file)))fs.writeFileSync(path.join(dir,file),raw);
- return {bindingStatus:task.bindingStatus,sourceId,file,sha256:hash,url:snapshot.url,capturedAt:snapshot.capturedAt,recordIds:task.recordIds,grade:'E1',independenceScore:'I0',representation:snapshot.representation,hints:E.extract(snapshot,sourceId),discovery:E.discover(snapshot,{knownUrls:read(path.join(ROOT,'public-site/data/public-catalog.json')).items.map(r=>r.coreInfo?.website?.url).filter(Boolean),sourceId})};
+ return {bindingStatus:task.bindingStatus,sourceId,file,sha256:hash,url:snapshot.url,capturedAt:snapshot.capturedAt,recordIds:task.recordIds,grade:'E1',independenceScore:'I0',representation:snapshot.representation,hints:E.extract(snapshot,sourceId),discovery:E.discover(snapshot,{knownUrls,sourceId})};
 }
 
 const inspect=readRenderedDocument;
@@ -61,7 +63,8 @@ export async function acquireCollectionTab(browser,task){
  return tab;
 }
 export async function runChunk({browser,runId,limit=3,recordIds=null,onProgress=()=>{},preserveChallenges=3,credentialsForOrigin=null,credentialsForRegistration=null,registrationHandler=registerFree,emailCodeProvider=null,verificationOptions={},knowledgeCollector=collectKnowledge,referralOptions={},referralCollector=collectOwnedReferral}){
- const dir=folders(runId),plan=read(path.join(dir,'plan.json')),state=read(path.join(dir,'state.json'));let count=0;
+ const dir=folders(runId),plan=read(path.join(dir,'plan.json')),state=read(path.join(dir,'state.json'));let count=0,knownUrls;
+ const persistCapture=(task,snapshot)=>persist(dir,task,snapshot,knownUrls??=catalogWebsiteUrls());
  for(const task of plan.tasks.filter(t=>!state.results[t.taskId]&&(!recordIds||t.recordIds.some(id=>recordIds.includes(id)))).slice(0,limit)){
   if((task.recordIds||[]).length&&(task.recordIds||[]).every(require('../lib/collection-user-skips.cjs').isUserSkipped)){state.results[task.taskId]={taskId:task.taskId,recordIds:task.recordIds,status:'standing_user_skip',sources:task.seedSources||[],errors:[],finishedAt:new Date().toISOString()};write(path.join(dir,'state.json'),state);count++;continue;}
   // Landing aliases redirect to the same already captured dashboard. Preserve
@@ -105,12 +108,12 @@ export async function runChunk({browser,runId,limit=3,recordIds=null,onProgress=
      }
      if(isAccessBlockStatus(status)){
       result.status=status;result.challengeUrl=E.safeUrl(s.url);
-      if(status==='access_protection_wait'){const blocked=persist(dir,task,s);blocked.grade='E0';blocked.hints=[];blocked.discovery=[];result.sources.push(blocked);result.verificationEvidenceSourceId=blocked.sourceId;result.disposition='automatic_wait_incomplete_checkpoint_and_continue';}
+      if(status==='access_protection_wait'){const blocked=persistCapture(task,s);blocked.grade='E0';blocked.hints=[];blocked.discovery=[];result.sources.push(blocked);result.verificationEvidenceSourceId=blocked.sourceId;result.disposition='automatic_wait_incomplete_checkpoint_and_continue';}
       // A spinner with no observed control is not an actionable human handoff.
       if(status==='needs_human_verification'&&Object.values(state.results).filter(x=>x.handoffTabId).length<preserveChallenges){keep=true;result.handoffTabId=tab.id;await tab.markHandoff();}break;
      }
      if(status==='requires_terms_confirmation'){result.status=status;result.termsUrl=E.safeUrl(s.url);break;}
-     if(status==='error_page_observed'){result.status=status;const errorSource=persist(dir,task,s);errorSource.grade='E0';errorSource.hints=[];result.sources.push(errorSource);result.errorPageObservation={url:E.safeUrl(s.url),title:E.redact(s.title),httpStatusObserved:false};break;}
+     if(status==='error_page_observed'){result.status=status;const errorSource=persistCapture(task,s);errorSource.grade='E0';errorSource.hints=[];result.sources.push(errorSource);result.errorPageObservation={url:E.safeUrl(s.url),title:E.redact(s.title),httpStatusObserved:false};break;}
      if(['login_required','registration_required'].includes(status)){
       result.status=status;result.loginUrl=E.safeUrl(s.url);
       const knownAccount=!task.publicOnly&&credentialsForOrigin?await credentialsForOrigin(new URL(s.url).origin):null;
@@ -137,23 +140,23 @@ export async function runChunk({browser,runId,limit=3,recordIds=null,onProgress=
  if(task.referralOnly===true){
   const referral=await referralCollector(tab,{...referralOptions,allowGenerate:task.allowGenerateReferral===true});
   result.referralObservation={status:referral.status,generated:referral.generated,url:referral.url||null,copyControlCount:referral.copyControlCount,copiedOrigin:referral.copiedOrigin};
-  if(referral.source){const source=persist(dir,task,{...referral.source,title:'本人账号推荐链接',blocks:[],links:[]});source.hints=[];source.kind='authorized_account_page';result.sources.push(source);}
+  if(referral.source){const source=persistCapture(task,{...referral.source,title:'本人账号推荐链接',blocks:[],links:[]});source.hints=[];source.kind='authorized_account_page';result.sources.push(source);}
   result.status=referral.source?'observed_needs_review':referral.status;break;
  }
  if(task.readOnlyRecipe){
   const recipe=require('./url-collectors/index.cjs').forOrigin(s.url);
-  if(recipe?.readOnlyRecipe===task.readOnlyRecipe&&recipe.collectMany){const recovered=await recipe.collectMany(tab);if(recovered){for(const capture of recovered.captures)result.sources.push(persist(dir,task,capture));result.readOnlyRecipeObservation={recipe:task.readOnlyRecipe,captures:recovered.captures.length,newOrdersCreated:0,paymentExecuted:false};result.status='observed_needs_review';break;}}
+  if(recipe?.readOnlyRecipe===task.readOnlyRecipe&&recipe.collectMany){const recovered=await recipe.collectMany(tab);if(recovered){for(const capture of recovered.captures)result.sources.push(persistCapture(task,capture));result.readOnlyRecipeObservation={recipe:task.readOnlyRecipe,captures:recovered.captures.length,newOrdersCreated:0,paymentExecuted:false};result.status='observed_needs_review';break;}}
  }
  if(task.knowledgeAdapter===true&&/(?:#\/|\/)(?:knowledge|docs|help)(?:[/?#]|$)/i.test(s.url)){
   const knowledge=await knowledgeCollector(tab,{previousArticles:task.previousArticleTitles||[],maxArticles:task.maxArticles||3,includeClientGuides:task.includeClientGuides===true});
   result.knowledgeObservation={status:knowledge.status,actions:knowledge.actions,articleTitles:knowledge.articleTitles||[]};
-  for(const capture of knowledge.captures){const source=persist(dir,task,{...capture,title:capture.semanticLocation.title||s.title,blocks:[],links:[],representation:'redacted_visible_DOM_text_not_original_HTML'});source.semanticLocation=capture.semanticLocation;result.sources.push(source);}
+  for(const capture of knowledge.captures){const source=persistCapture(task,{...capture,title:capture.semanticLocation.title||s.title,blocks:[],links:[],representation:'redacted_visible_DOM_text_not_original_HTML'});source.semanticLocation=capture.semanticLocation;result.sources.push(source);}
   result.status=knowledge.status==='login_required'?'login_required':knowledge.status==='knowledge_loading_checkpoint'?'empty_or_loading':'observed_needs_review';break;
  }
      if(status==='empty_or_loading'){result.status='empty_or_loading';result.emptyObservation={title:E.redact(s.title),text:E.redact(s.text),url:E.safeUrl(s.url),textLength:s.text.length,links:s.links.length,at:new Date().toISOString()};break;}
  if(task.expandNativeDocumentDetails===true&&/(?:#\/|\/)(?:knowledge|docs|help)(?:[/?#]|$)/i.test(s.url)&&await tab.playwright.locator('.ant-drawer-open .ant-drawer-content').count()===1){result.documentDisclosure=await expandObservedDocumentDetails({tab,expectedUrl:s.url});s=await inspect(tab);}
  const alreadyRetained=result.sources.some(x=>readRouteKey(x.url)===readRouteKey(s.url));
- if(!alreadyRetained){const source=persist(dir,task,s);result.sources.push(source);for(const c of source.discovery){const existing=state.discovery[c.candidateId];if(existing){existing.sourceIds=[...new Set([...existing.sourceIds,...c.sourceIds])];}else state.discovery[c.candidateId]=c;}}
+ if(!alreadyRetained){const source=persistCapture(task,s);result.sources.push(source);for(const c of source.discovery){const existing=state.discovery[c.candidateId];if(existing){existing.sourceIds=[...new Set([...existing.sourceIds,...c.sourceIds])];}else state.discovery[c.candidateId]=c;}}
      for(const l of chooseLinks(s,task,visited))if(!queue.some(x=>x.url&&readRouteKey(x.url)===readRouteKey(l.url)))queue.push({url:l.url});
      // Some V2Board themes render read-only navigation as menu text, not anchors.
      // Exact observed labels only. No purchase-card, order, reset or save buttons.
@@ -162,7 +165,7 @@ export async function runChunk({browser,runId,limit=3,recordIds=null,onProgress=
     }
    }
   }catch(error){result.status=/browser\.user is unavailable|browser.*disconnected|CDP operation exceeded.*dispatch/i.test(String(error.message))?'browser_infrastructure_error':'access_error';result.errors.push(E.redact(String(error.message||error)).slice(0,500));
-   if(tab&&/timeout|timed\s*out|deadline exceeded/i.test(String(error.message))&&!/security|policy|rejected|disconnected/i.test(String(error.message)))try{const diagnostic=await inspect(tab);if(!navigationIssue(diagnostic.url,task.allowedHosts)){const source=persist(dir,task,diagnostic);source.grade='E0';source.hints=[];source.discovery=[];source.kind='readiness_failure_diagnostic_not_business_facts';result.sources.push(source);}}catch{}
+   if(tab&&/timeout|timed\s*out|deadline exceeded/i.test(String(error.message))&&!/security|policy|rejected|disconnected/i.test(String(error.message)))try{const diagnostic=await inspect(tab);if(!navigationIssue(diagnostic.url,task.allowedHosts)){const source=persistCapture(task,diagnostic);source.grade='E0';source.hints=[];source.discovery=[];source.kind='readiness_failure_diagnostic_not_business_facts';result.sources.push(source);}}catch{}
   }
   finally{if(tab&&!keep){try{await tab.close();}catch{result.cleanup='close_failed';}}result.finishedAt=new Date().toISOString();if(result.status==='browser_infrastructure_error'){state.runtimeEvents??=[];state.runtimeEvents.push({taskId:task.taskId,at:result.finishedAt,errors:result.errors,tabId:tab?.id});}else{state.results[task.taskId]=result;count++;}write(path.join(dir,'state.json'),state);write(path.join(dir,'discovery-candidates.json'),{items:Object.values(state.discovery),admission:'candidates_only_not_catalog_facts'});onProgress({taskId:task.taskId,recordIds:task.recordIds,status:result.status,pages:result.sources.length});}
   if(result.status==='browser_infrastructure_error')break;

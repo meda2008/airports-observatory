@@ -2,7 +2,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),{EventEmitter}=require('node:events');
 const {dispatchMeasurementWorker,authorizedMeasurementWorker,openHttpMeasurementStore}=require('./measurement-worker-http.cjs');
 const {createMeasurementWorker}=require('./measurement-worker.cjs');
-const {runCollectorRuntime}=require('./collector-runtime.cjs');
+const {runCollectorRuntime,runMeasurementProxy}=require('./collector-runtime.cjs');
 test('worker HTTP interface limits methods, arguments and authorization',async()=>{
  const token='x'.repeat(32);assert.equal(authorizedMeasurementWorker('Bearer '+token,token),true);assert.equal(authorizedMeasurementWorker('Bearer bad',token),false);assert.equal(authorizedMeasurementWorker('Bearer short','short'),false);
  assert.throws(()=>dispatchMeasurementWorker({}, {method:'setEnabled',args:[true]}));assert.throws(()=>dispatchMeasurementWorker({}, {method:'enabled',args:[true]}));
@@ -23,6 +23,9 @@ test('combined runtime owns proxy child and aborts both loops on stop',async()=>
 });
 test('unexpected web loop exit fails runtime and terminates proxy',async()=>{
  const child=fakeChild();await assert.rejects(runCollectorRuntime({token:'x'.repeat(32),spawnImpl:()=>child,probeImpl:async()=>true,webLoop:async()=>{},measurementLoop:untilAbort,storeFactory:()=>({close(){}}),killTimeoutMs:50}),/collector_web_loop_exited/);assert.deepEqual(child.kills,['SIGTERM']);
+});
+test('unexpected measurement loop exit terminates the owned proxy before it can retry',async()=>{
+ const child=fakeChild();await assert.rejects(runMeasurementProxy({token:'x'.repeat(32),spawnImpl:()=>child,probeImpl:async()=>true,measurementLoop:async()=>{},storeFactory:()=>({close(){}}),killTimeoutMs:50}),/collector_loop_exited/);assert.deepEqual(child.kills,['SIGTERM']);
 });
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path');
 const {openMeasurementStore}=require('./measurement-store.cjs');

@@ -119,13 +119,16 @@
         <button type="button" class="chip" data-payment="USDT">USDT</button>
       </div>
 
-      <div id="catalog-error" class="error" role="alert" hidden></div>
+      <div id="catalog-error" class="error load-error" hidden>
+        <p id="catalog-error-message" role="alert"></p>
+        <button id="catalog-retry" class="button-secondary" type="button">重试</button>
+      </div>
       <div id="catalog-results" class="card-grid" aria-live="polite"></div>
 
       <div class="pagination">
-        <button id="previous" class="button-secondary" type="button">上一页</button>
+        <button id="previous" class="button-secondary" type="button" disabled>上一页</button>
         <span id="page-label" class="page-indicator"></span>
-        <button id="next" class="button-secondary" type="button">下一页</button>
+        <button id="next" class="button-secondary" type="button" disabled>下一页</button>
       </div>
     </section>
 
@@ -193,6 +196,10 @@
       <a class="back-link" href="#catalog">← 返回机场列表</a>
     </div>
     <div id="detail-content" aria-live="polite"></div>
+    <div id="detail-error" class="error load-error" hidden>
+      <p id="detail-error-message" role="alert"></p>
+      <button id="detail-retry" class="button-secondary" type="button">重试</button>
+    </div>
   </main>
 
   <footer class="site-footer">

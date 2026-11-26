@@ -1,17 +1,19 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),dir='work/collection-runs/payment-priority-20261104-v12-root/';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function binding(){return{kind:'user_recognized_pqjc_candidate_alias_claim',recordId:'A039',origin:'https://xn--mes358aby2apfg.com',file:dir+'pqjc-native-alias-announcement.json',sha256:sha(fs.readFileSync(path.join(root,dir+'pqjc-native-alias-announcement.json'))),approvalFile:dir+'pqjc-current-authorization.json',approvalSha256:sha(fs.readFileSync(path.join(root,dir+'pqjc-current-authorization.json')))}}
 const call=(b,options={})=>require('../lib/source-origin-binding.cjs').assertSourceOrigin({root,entryUrl:'https://pqjc.site/',sourceUrl:b.origin+'/order',recordId:'A039',bindings:[b],...options});
-test('actual user-recognized PQJC candidate and native alias list bind observation scope without proving old ownership',()=>{
+test('actual user-recognized PQJC candidate and native alias list bind observation scope without proving old ownership', historicalCaptureOptions('work/collection-runs/payment-priority-20261104-v12-root/pqjc-native-alias-announcement.json'),()=>{
  const result=call(binding());assert.equal(result.operatorIdentityVerified,false);assert.equal(result.legacyContinuityVerified,false);assert.equal(result.credentialPropagationAllowed,false);assert.match(result.basis,/not_legacy_identity_verification/);
  assert.throws(()=>call({...binding(),approvalSha256:'0'.repeat(64)}),/approval hash mismatch/);
  assert.throws(()=>call({...binding(),approvalFile:null}),/approval proof required/);
  assert.throws(()=>call(binding(),{recordId:'A008'}),/record scope mismatch/);
  assert.throws(()=>call(binding(),{entryUrl:'https://other.example/'}),/registered-entry mismatch/);
 });
-test('a lookalike link, missing native declaration or blanket consent cannot bind the candidate',()=>{
+test('a lookalike link, missing native declaration or blanket consent cannot bind the candidate', historicalCaptureOptions('work/collection-runs/payment-priority-20261104-v12-root/pqjc-native-alias-announcement.json'),()=>{
  const work=path.resolve(root,'work'),temp=fs.mkdtempSync(path.join(work,'pqjc-binding-test-'));
  try{
   const original=binding(),proof=JSON.parse(fs.readFileSync(path.join(root,original.file))),approval=JSON.parse(fs.readFileSync(path.join(root,original.approvalFile)));

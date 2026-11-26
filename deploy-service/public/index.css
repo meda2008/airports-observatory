@@ -653,6 +653,17 @@ input::placeholder {
   font-size: 13px;
 }
 
+.load-error {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+#detail-error {
+  margin-top: 16px;
+}
+
 /* Comparison Section */
 .comparison {
   border-top: 1px solid var(--line);
@@ -849,10 +860,32 @@ input::placeholder {
 }
 
 .table-wrap {
-  max-inline-size: 100%;
   overflow-x: auto;
+  max-inline-size: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
+}
+
+.table-wrap:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.plan-conditions {
+  margin-block-start: 6px;
+  color: var(--ink-secondary);
+  font-size: 12px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.plan-conditions summary {
+  cursor: pointer;
+}
+
+.plan-conditions ul {
+  margin: 4px 0 0;
+  padding-inline-start: 1.25em;
 }
 
 .plan-table {

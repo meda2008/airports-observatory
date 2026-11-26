@@ -23,6 +23,13 @@ test('web serves fixed assets and forwards API method, query, auth, and payload'
   for (const url of ['/server.cjs','/.env','/api-other','/three-services/web.cjs']) assert.equal((await fetch(web+url)).status,404);
   assert.equal((await fetch(web, {method:'POST'})).status,405);
   assert.equal((await fetch(web, {method:'HEAD'})).headers.get('content-length'),home.headers.get('content-length'));
+  const etag = home.headers.get('etag');
+  assert.ok(etag);
+  const unchanged = await fetch(web, {headers: {'if-none-match': `W/${etag}`}});
+  assert.equal(unchanged.status, 304);
+  assert.equal(unchanged.headers.get('etag'), etag);
+  assert.equal(await unchanged.text(), '');
+  assert.equal((await fetch(web, {method:'HEAD', headers: {'if-none-match': etag}})).status, 304);
 });
 test('web closes an interrupted upstream response', async t => {
   const upstream = http.createServer((req, res) => {

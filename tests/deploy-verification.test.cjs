@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 const test=require('node:test'),assert=require('node:assert/strict');
 const shared=()=>import('../collection/challenge.mjs');
 test('visible controls distinguish image CAPTCHA from help mentioning captcha',async()=>{
@@ -28,7 +30,7 @@ test('CF timeout and interactive checkbox remain blocked with bounded wait',asyn
  }
 });
 
-test('real CF 1005 ASN denial is an access error, never a solvable CAPTCHA or permission request',async()=>{
+test('real CF 1005 ASN denial is an access error, never a solvable CAPTCHA or permission request', historicalCaptureOptions('work/collection-runs/pricing-9-20261109-v16/A032-new-nozomi-asn-denied.json'),async()=>{
  const raw=require('../work/collection-runs/pricing-9-20261109-v16/A032-new-nozomi-asn-denied.json').document;
  const shared=await import('../collection/challenge.mjs');
  assert.equal(shared.classifyVisibleChallenge(raw),'network_policy_block');

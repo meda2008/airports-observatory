@@ -32,7 +32,7 @@ function csvCell(value) {
 function csv(rows, columns) { return '\ufeff' + [columns.map(csvCell).join(','), ...rows.map(row => columns.map(k => csvCell(row[k])).join(','))].join('\r\n') + '\r\n'; }
 const htmlEscape = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-function readStore(filename, {publicationOnly = false} = {}) {
+function readStore(filename, {publicationOnly = false, verifyEvidenceBodies = !publicationOnly} = {}) {
   if (!filename || filename === ':memory:' || !fs.existsSync(filename)) return { available:false, reason:'SQLite 文件不存在', sites:[], changes:[], proposals:[], referrals:[], evidence:[], observations:[] };
   const db = new DatabaseSync(filename, {readOnly:true});
   try {
@@ -42,15 +42,18 @@ function readStore(filename, {publicationOnly = false} = {}) {
     db.exec('BEGIN');
     const table = name => db.prepare('SELECT * FROM ' + name + ' ORDER BY rowid').all();
     const json = s => s === null ? null : JSON.parse(s);
+    const evidenceFrom = publicationOnly
+      ? 'FROM evidence e WHERE e.id IN (SELECT evidence_id FROM referrals) ORDER BY e.rowid'
+      : 'FROM evidence e ORDER BY e.rowid';
     const value = {
       available:true, filename:path.relative(ROOT,filename).replaceAll('\\','/'),
       sites:table('sites').map(r => ({...r,config:json(r.config),document:json(r.document)})),
       changes:table('changes').map(r => ({...r,before:json(r.before_json),after:json(r.after_json),patch:json(r.patch),before_json:undefined,after_json:undefined})),
       proposals:table('proposals').map(r => ({...r,patch:json(r.patch),evidenceIds:json(r.evidence_ids),evidence_ids:undefined})),
       referrals:table('referrals'),
-      evidence:publicationOnly
-        ? db.prepare('SELECT e.id,e.site_id,e.url,e.sha256,e.kind FROM evidence e JOIN referrals r ON r.evidence_id=e.id').all()
-        : table('evidence').map(({body,...r}) => ({...r,retainedBodyBytes:Buffer.byteLength(body),retainedBodySha256:sha(body)})),
+      evidence: verifyEvidenceBodies
+        ? Array.from(db.prepare(`SELECT e.* ${evidenceFrom}`).iterate(), ({body,...r}) => ({...r,retainedBodyBytes:Buffer.byteLength(body),retainedBodySha256:sha(body)}))
+        : db.prepare(`SELECT e.id,e.site_id,e.url,e.sha256,e.kind ${evidenceFrom}`).all(),
       observations:publicationOnly ? [] : table('observations')
     };
     db.exec('COMMIT');
@@ -130,31 +133,39 @@ function buildHtml(records, summary) {
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>当前机场数据与缺项盘点</title><style>body{font:15px/1.55 system-ui;margin:24px;color:#172536}aside{background:#fff0c9;padding:14px;border-radius:8px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:9px;border:1px solid #ced6df;vertical-align:top}th{background:#edf3f8;position:sticky;top:0}input,select{padding:10px;margin:12px 8px 12px 0}pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;min-width:260px;max-width:700px}.missing{background:#fff0ed}.material{background:#f1f8f3}.scroll{overflow:auto}a{color:#1468a0}</style><h1>当前数据与缺项盘点</h1><p>导出 ${e(summary.generatedAt)} · 全部 ${summary.scopes.all.records} 条 · primary ${summary.scopes.primary.records} 条</p><aside>“有材料”仅表示满足该字段所列材料门槛，绝不等于事实独立核实、当前服务可用或购买推荐。退款/试用状态 not_confirmed 即使带摘要也按缺项。经营自述、历史片段、运营起点与连续经营分别记录。SQLite 只叠加有 approved proposal / changes 对应的字段。完整记录和来源均保留；页面离线可用，不发送网络请求。</aside><p><a href="records.csv" download>全部 CSV（Excel）</a> · <a href="records.json" download>全部 JSON</a> · <a href="missing.csv" download>缺项 CSV</a> · <a href="summary.json" download>统计与口径</a> · <a href="primary/records.csv" download>primary CSV</a> · <a href="primary/records.json" download>primary JSON</a></p><div><input id="query" aria-label="搜索" placeholder="名称、编号、状态、原因、来源"><select id="scope" aria-label="目录范围"><option value="all">全部记录</option><option value="primary">仅 primary</option><option value="other">仅非主目录</option></select><select id="field" aria-label="缺项字段"><option value="">所有字段状态</option>${Object.entries(LABELS).map(([f,l])=>`<option value="${f}">缺少：${e(l)}</option>`).join('')}</select><span id="count"></span></div><div class="scroll"><table><thead><tr><th>记录</th><th>范围</th>${Object.values(LABELS).map(l=>`<th>${e(l)}</th>`).join('')}<th>完整记录</th></tr></thead><tbody>${rows}</tbody></table></div><script>const rows=[...document.querySelectorAll('tbody tr')];function filter(){const q=document.getElementById('query').value.toLowerCase(),scope=document.getElementById('scope').value,field=document.getElementById('field').value;let n=0;for(const row of rows){row.hidden=!(scope==='all'||(scope==='primary')===(row.dataset.primary==='true'))||!!field&&!row.dataset.missing.split(' ').includes(field)||!row.textContent.toLowerCase().includes(q);if(!row.hidden)n++;}document.getElementById('count').textContent=n+' 条记录';}for(const id of ['query','scope','field'])document.getElementById(id).addEventListener('input',filter);filter();</script></html>`;
 }
 
-function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'deploy-service/data/collector.sqlite'),clock=()=>Date.now(),writeFiles=true,publicationOnly=false,readInput}={}) {
+function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'deploy-service/data/collector.sqlite'),clock=()=>Date.now(),writeFiles=true,publicationOnly=false,verifyEvidenceBodies=!publicationOnly,readInput}={}) {
   if (writeFiles) assert.equal(path.resolve(root),ROOT,'This export is scoped to this repository');
   const generatedAt = new Date(clock()).toISOString();
   const service = makeCatalogService({baseDir:root,clock:()=>Date.parse(generatedAt),readInput}), raw = service.rawExport();
-  const projection = require('../lib/catalog-listing.cjs').loadCatalogProjection(root, { clock: () => Date.parse(generatedAt), service, readInput });
+  const projection = require('../lib/catalog-listing.cjs').loadCatalogProjection(root, { snapshot: raw, readInput });
   const publicCatalog = projection.doc;
   const listings = new Map(publicCatalog.items.map(r=>[r.id,r.listing]));
   assert.equal(listings.size,raw.catalog.length,'Public listing coverage differs from raw catalog');
-  const store=readStore(storeFile,{publicationOnly});
+  const store=readStore(storeFile,{publicationOnly,verifyEvidenceBodies});
+  const sites=Map.groupBy(store.sites,s=>s.config.catalogId||s.id);
+  const changes=Map.groupBy(store.changes,c=>c.site_id);
+  const proposals=Map.groupBy(store.proposals,p=>p.site_id);
+  const referrals=Map.groupBy(store.referrals,r=>r.site_id);
+  const evidenceBySite=Map.groupBy(store.evidence,e=>e.site_id);
+  const observations=Map.groupBy(store.observations,o=>o.evidence_id);
   const records = raw.catalog.map(catalogRecord => {
     assert(listings.has(catalogRecord.id),'Missing listing: '+catalogRecord.id);
-    const site=store.sites.find(s=>(s.config.catalogId||s.id)===catalogRecord.id), reviewedOverlay=overlay(catalogRecord,site,store);
+    const site=sites.get(catalogRecord.id)?.[0], siteChanges=changes.get(site?.id)||[], siteProposals=proposals.get(site?.id)||[];
+    const reviewedOverlay=overlay(catalogRecord,site,{changes:siteChanges,proposals:siteProposals});
     const coreInfo=reviewedOverlay.coreInfo; delete reviewedOverlay.coreInfo;
-    const savedReferral=store.referrals.find(r=>r.site_id===site?.id)||null;
+    const savedReferral=referrals.get(site?.id)?.[0];
     const referral=savedReferral?{...savedReferral,bindingVerified:false}:null;
+    const siteEvidence=evidenceBySite.get(site?.id)||[];
     if(referral) {
-      const evidence=store.evidence.find(e=>e.id===referral.evidence_id&&e.site_id===site.id);
+      const evidence=siteEvidence.find(e=>e.id===referral.evidence_id);
       try { referral.bindingVerified=!!(evidence&&evidence.kind==='authorized_account_page'&&new URL(evidence.url).origin===new URL(referral.url).origin&&new URL(site.config.entryUrl).origin===new URL(referral.url).origin&&new URL(referral.url).protocol==='https:'&&text(referral.disclosure)); } catch { referral.bindingVerified=false; }
     }
     const fields=assess(coreInfo,referral,catalogRecord);
     const sourceEvidence=[...service.evidence(catalogRecord.id).sources,...array(catalogRecord.sourceMembership).map(s=>({...s,source_type:'legacy_roster_membership_not_verified_evidence'}))];
     const relatedIds=unique([...allSourceIds(catalogRecord),...allSourceIds(coreInfo),...reviewedOverlay.applied.flatMap(v=>v.evidenceIds),...allSourceIds(referral)]);
-    const storeEvidence=store.evidence.filter(e=>e.site_id===site?.id).map(e=>({...e,observations:store.observations.filter(o=>o.evidence_id===e.id)}));
+    const storeEvidence=siteEvidence.map(e=>({...e,observations:observations.get(e.id)||[]}));
     const resolvedIds=new Set([...sourceEvidence.map(s=>s.source_id),...storeEvidence.map(s=>s.id)]);
-    return {id:catalogRecord.id,name:catalogRecord.name,category:catalogRecord.category,primary:listings.get(catalogRecord.id)?.primary!==false,listing:listings.get(catalogRecord.id),coreInfo,fields,missingFields:Object.keys(fields).filter(f=>fields[f].missing),sourceIds:relatedIds,unresolvedSourceIds:relatedIds.filter(id=>!resolvedIds.has(id)),catalogRecord,sourceEvidence,reviewedOverlay,storeSnapshot:site?{site,changes:store.changes.filter(c=>c.site_id===site.id),proposals:store.proposals.filter(p=>p.site_id===site.id),referral,evidence:storeEvidence}:null};
+    return {id:catalogRecord.id,name:catalogRecord.name,category:catalogRecord.category,primary:listings.get(catalogRecord.id)?.primary!==false,listing:listings.get(catalogRecord.id),coreInfo,fields,missingFields:Object.keys(fields).filter(f=>fields[f].missing),sourceIds:relatedIds,unresolvedSourceIds:relatedIds.filter(id=>!resolvedIds.has(id)),catalogRecord,sourceEvidence,reviewedOverlay,storeSnapshot:site?{site,changes:siteChanges,proposals:siteProposals,referral,evidence:storeEvidence}:null};
   });
   const primary=records.filter(r=>r.primary);
   const summary={schemaVersion:'airports-current-inventory.v1',generatedAt,input:{...service.stats(),publicListingSha256:projection.sha256,sqlite:{available:store.available,filename:store.filename||null,reason:store.reason||null,readOnly:true,sites:store.sites.length,changes:store.changes.length,approvedProposals:store.proposals.filter(p=>p.status==='approved').length,referrals:store.referrals.length,snapshotSha256:sha(JSON.stringify(store))}},scopes:{all:summarize(records),primary:summarize(primary)},unresolvedSourceReferences:records.filter(r=>r.unresolvedSourceIds.length).map(r=>({id:r.id,sourceIds:r.unresolvedSourceIds})),definitions:{missing:'该字段未取得可用材料或状态未确认；不是服务不存在/不支持的结论。',materialAvailable:'字段所列门槛下有保留材料，不等于独立验证或执行成功。',pricing:'至少一条有来源、有限非负数值金额和计费周期的报价；ISO币种/实际结算及售罄限制另列。',payment:'非未知状态、有来源的具名支付方式；不验证交易。',refund:'状态非 not_confirmed、有来源的具体退款摘要；状态未确认的摘要不计完整条款。',privacy:'状态非 not_confirmed、有来源的隐私摘要；独立审计另列。',compatibility:'状态非 not_confirmed、有来源的设备或使用条件摘要；不是客户端实测。',trial:'状态非 not_confirmed、有来源的具体试用摘要；不是已开通。',speedAndStability:'coreInfo 保留的、带来源/样本数/方法/网络或地区的实测；宣传、转述、历史称谓均不计。',operatingHistory:'有来源的历史材料（自述、历史片段或起点）；运营起点和连续经营的缺口另行统计。',referral:'SQLite 具 evidence_id 的本人账号推荐链接及利益披露；旧字段存在不算验证。',overlay:'仅已批准 proposal 与 changes 对应且当前 document 字段相符的复核字段叠加；revision=0 初始种子不覆盖最新 catalog。',csv:'UTF-8 BOM、CRLF、所有值双引号；公式危险前缀加单引号；大 JSON 按30000字符分列，可顺序拼接。'},limitations:raw.limitations};

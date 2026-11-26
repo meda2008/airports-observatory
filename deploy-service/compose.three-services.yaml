@@ -1,7 +1,14 @@
 # Standalone replacement topology; do not merge with the legacy compose.yaml.
 # Run from deploy-service; pre-load/build the approved local app image explicitly.
+x-local-logging: &local-logging
+  driver: local
+  options:
+    max-size: '20m'
+    max-file: '5'
+
 services:
   api:
+    logging: *local-logging
     image: ${AIRPORTS_IMAGE:-airports-observatory:local}
     user: "1000:1000"
     pull_policy: never
@@ -38,6 +45,7 @@ services:
         bind: {create_host_path: false}
     networks: [backend]
   collector:
+    logging: *local-logging
     image: ${AIRPORTS_IMAGE:-airports-observatory:local}
     user: "1000:1000"
     pull_policy: never
@@ -98,6 +106,7 @@ services:
         condition: service_healthy
     networks: [backend, egress]
   web:
+    logging: *local-logging
     image: ${AIRPORTS_IMAGE:-airports-observatory:local}
     user: "1000:1000"
     pull_policy: never

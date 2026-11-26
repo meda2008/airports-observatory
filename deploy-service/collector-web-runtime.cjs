@@ -185,11 +185,22 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
   }
   const dir=fs.existsSync(primaryDir)?fs.mkdtempSync(primaryDir+'-attempt-'):primaryDir;
   const attemptPending=path.join(dir,pendingName);
-  fs.mkdirSync(dir,{recursive:true,mode:0o700});active++;await beat('connected');let renewal=null,leaseError=null,result,material,retained=false,activeBrowser=null,browserFailed=false;
-  const renew=()=>request('renew',{jobId:job.jobId,token:job.token,leaseMs:180000});
-  const timer=setInterval(()=>{if(renewal)return;renewal=renew().then(()=>beat('connected')).catch(error=>{leaseError=error;}).finally(()=>{renewal=null;});},renewMs);
-  const beforePage=async()=>{if(stopping)throw Error('standalone_execution_paused');if(renewal)await renewal;if(leaseError)throw leaseError;const current=await request('control');if(!current.engineEnabled||current.executionMode!=='standalone')throw Error('standalone_execution_paused');await renew();};
+  fs.mkdirSync(dir,{recursive:true,mode:0o700});active++;
+  let renewal=null,leaseError=null,result,material,retained=false,heartbeat=null,activeBrowser=null,browserFailed=false;
+  function renew(){
+   if(leaseError)return Promise.reject(leaseError);
+   return renewal??=Promise.resolve().then(()=>request('renew',{jobId:job.jobId,token:job.token,leaseMs:180000})).catch(error=>{
+    if(!require('../lib/service-api-recovery.cjs').transient(error))leaseError=error;
+    throw error;
+   }).finally(()=>{renewal=null;});
+  }
+  const timer=setInterval(()=>{
+   if(stopping||renewal||leaseError)return;
+   void renew().then(()=>{heartbeat??=beat('connected').finally(()=>{heartbeat=null;});},()=>{});
+  },renewMs);
+  const beforePage=async()=>{if(stopping)throw Error('standalone_execution_paused');if(leaseError)throw leaseError;const current=await request('control');if(stopping||!current.engineEnabled||current.executionMode!=='standalone')throw Error('standalone_execution_paused');await renew();};
   try{
+   await beat('connected');
    const prior=earlierPending(output,job,dir),guard=claimed.partialReparseGuard;
    if(prior||guard)material={captures:[],checkpoint:{type:guard?'retained_partial_reparse_requires_recovery':'retained_submission_requires_recovery',url:job.site.config.entryUrl,stage:'storage_recovery',reason:'已有原文或重解析任务待恢复；保留原件，不重复网络采集',requestedAction:'复核原任务与原文后显式恢复'},capabilities:{},retainedSubmissionGuard:true};
    else if(job.retainedCaptures){await beforePage();material={captures:job.retainedCaptures,checkpoint:null,retainedReplay:true,ordersCreated:0,paymentExecuted:false};}
@@ -211,6 +222,7 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
     if(blocked?.status!=='blocked')throw Error('invalid_oversized_submission_checkpoint_response');
     return result={...identity,status:'blocked',checkpoint:type};
    }
+   clearInterval(timer);
    await beforePage();const accepted=await request(transport.op,packet,transport.body);
    if(!terminalRuns.has(accepted?.status))throw Error('invalid_pending_submission_response');
    result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:accepted.status,proposalId:accepted.proposalId||null,checkpoint:material.checkpoint?.type||null};
@@ -222,7 +234,7 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    else if(!retained&&browserFailed)try{await request('complete',{jobId:job.jobId,token:job.token,status:'failed',blocker:'collector_browser_unavailable',actor:workerName});}catch{}
    else if(!retained)try{await request('complete',{jobId:job.jobId,token:job.token,status:'blocked',blocker:'standalone_execution_error',checkpoint:{type:'standalone_execution_error',url:job.site.config.entryUrl,stage:'runtime',reason:result.reason,requestedAction:'修复本站执行错误后恢复'},actor:workerName});}catch{}
    fs.writeFileSync(path.join(dir,'runtime-error.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});
-  }finally{clearInterval(timer);if(renewal)await renewal;active--;await beat(stopping?'paused':'connected');safeLog({service:'standalone_collector',...result});}
+  }finally{clearInterval(timer);await renewal?.catch(()=>{});await heartbeat;active--;await beat(stopping?'paused':'connected');safeLog({service:'standalone_collector',...result});}
   return result;
  }
  async function stop(){stopping=true;if(browser){await browser.close();browser=null;}await beat('paused','service_stopped');}

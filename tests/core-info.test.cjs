@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -119,7 +121,7 @@ test('real: Bitz advertised Mbps and refund terms do not become measured speed o
   assert.equal(result.trial.status, 'not_confirmed');
 });
 
-test('real: retained authenticated shop observations preserve ByWave starting prices and SpeedCAT payment limits', () => {
+test('real: retained authenticated shop observations preserve ByWave starting prices and SpeedCAT payment limits', historicalCaptureOptions('catalog/refresh/2026-10-26/core-auth/claims.json', 'catalog/refresh/2026-10-26/core-auth/sources.json'), () => {
   const authRoot = 'catalog/refresh/2026-10-26/core-auth/';
   const claims = read(authRoot + 'claims.json').records;
   const authSources = new Map(read(authRoot + 'sources.json').sources.map(source => [source.source_id, source]));
@@ -161,7 +163,7 @@ test('real: retained authenticated shop observations preserve ByWave starting pr
   }
 });
 
-test('real: Mesl retained terms expose access-metadata logging as a separate unaudited privacy policy', () => {
+test('real: Mesl retained terms expose access-metadata logging as a separate unaudited privacy policy', historicalCaptureOptions('catalog/refresh/2026-10-26/core-auth-batch2/sources.json', 'catalog/refresh/2026-10-26/core-auth-batch2/claims.json'), () => {
   const base = 'catalog/refresh/2026-10-26/core-auth-batch2/';
   const source = read(base + 'sources.json').sources.find(item => item.source_id === 'CORE-AUTH-MESL-B2-TERMS');
   assert.ok(source);
@@ -188,7 +190,7 @@ test('real: Mesl retained terms expose access-metadata logging as a separate una
   assert.deepEqual(result.stability.measured.observations, []);
 });
 
-test('real: SNTP notice client/configuration requirements stay sourced and untested without inventing a year or operating start', () => {
+test('real: SNTP notice client/configuration requirements stay sourced and untested without inventing a year or operating start', historicalCaptureOptions('catalog/refresh/2026-10-26/core-auth-batch3/sources.json'), () => {
   const base = 'catalog/refresh/2026-10-26/core-auth-batch3/';
   const source = read(base + 'sources.json').sources.find(item => item.source_id === 'CORE-AUTH-SHOU-B3-NOTICE');
   assert.ok(source);
@@ -212,7 +214,7 @@ test('real: SNTP notice client/configuration requirements stay sourced and untes
   assert.equal(result.operatingHistory.yearsSinceStart, null);
 });
 
-test('real: original-author speed reports retain node counts, dates and raw metric strings in an unverified DTO without domain admission', () => {
+test('real: original-author speed reports retain node counts, dates and raw metric strings in an unverified DTO without domain admission', historicalCaptureOptions('catalog/refresh/2026-10-26/core-speed-batch3/reports.json', 'catalog/refresh/2026-10-26/core-speed-batch3/sources.json'), () => {
   const base = 'catalog/refresh/2026-10-26/core-speed-batch3/';
   const reports = read(base + 'reports.json').reports;
   const sources = new Map(read(base + 'sources.json').sources.map(source => [source.sourceId, source]));
@@ -260,7 +262,7 @@ test('real: recent issue/recovery statements cannot become uptime, complaint rat
   assert.equal(result.operatingHistory.continuousOperationVerified, false);
 });
 
-test('real: one eggtart statement with both clue labels appears once in each view without becoming independent complaints', () => {
+test('real: one eggtart statement with both clue labels appears once in each view without becoming independent complaints', historicalCaptureOptions('catalog/refresh/2026-10-26/community/community.json'), () => {
   const { projectCommunityEvent } = require('../scripts/build-current-evidence.cjs');
   const discussion = read('catalog/refresh/2026-10-26/community/community.json').items.find(item => item.recordId === 'A077');
   const raw = actual('A077');
@@ -280,7 +282,7 @@ test('real: one eggtart statement with both clue labels appears once in each vie
   assert.deepEqual(result.stability.measured.observations, []);
 });
 
-test('real: retained Nexitally/JMS historical material and Bitz duration claim retain their original meanings', () => {
+test('real: retained Nexitally/JMS historical material and Bitz duration claim retain their original meanings', historicalCaptureOptions('catalog/refresh/2026-10-26/core-history/claims.json'), () => {
   const history = read('catalog/refresh/2026-10-26/core-history/claims.json');
   const lookup = id => makeCoreInfo({ ...actual(id), coreSupplement: { operatingHistory: history.claims.find(claim => claim.recordIds.includes(id)) } }, { asOf: AS_OF }).operatingHistory;
   const nx = lookup('A002'), jms = lookup('A023'), bitz = lookup('A189'), wget = lookup('A001');
@@ -475,6 +477,22 @@ test('synthetic: operating-age calculation needs sourced business start and neve
   assert.equal(makeCoreInfo(synthetic({ domainObservations: record.domainObservations }), { asOf: AS_OF }).operatingHistory.startDate, null);
 });
 
+test('synthetic: date-only offers and history use Shanghai calendar boundaries', () => {
+  const record = synthetic({ coreSupplement: {
+    operatingHistory: { startedAt: '2017-11-25', basis: 'SYNTHETIC opening', sourceIds: ['SYNTHETIC-HISTORY'] },
+    promotions: [
+      { code: 'DAY', expiresAt: '2026-11-25', sourceIds: ['SYNTHETIC-OFFER'] },
+      { code: 'INSTANT', expiresAt: '2026-11-25T15:00:00Z', sourceIds: ['SYNTHETIC-OFFER'] },
+    ],
+  } });
+  assert.equal(makeCoreInfo(record, { asOf: '2026-11-24T16:00:00Z' }).operatingHistory.yearsSinceStart, 9);
+  const onDate = makeCoreInfo(record, { asOf: '2026-11-25T15:59:59Z' }).promotions;
+  assert.equal(onDate.find(p => p.code === 'DAY').status, 'stated_offer_not_checkout_verified');
+  assert.equal(onDate.find(p => p.code === 'INSTANT').status, 'expired_stated_offer');
+  const nextDay = makeCoreInfo(record, { asOf: '2026-11-25T16:00:00Z' }).promotions;
+  assert.equal(nextDay.find(p => p.code === 'DAY').status, 'expired_stated_offer');
+});
+
 test('synthetic: year-only history keeps date precision; established assessment requires independent continuity fields and a criterion', () => {
   const history = { startYear: 2017, basis: 'SYNTHETIC opening-year statement', sourceIds: ['SYNTHETIC-HISTORY'], continuousOperationVerified: true, establishedAssessment: { value: true, criterion: 'SYNTHETIC explicit criterion', sourceIds: ['SYNTHETIC-ASSESSMENT'] } };
   const result = makeCoreInfo(synthetic({ coreSupplement: { operatingHistory: history } }), { asOf: AS_OF }).operatingHistory;
@@ -613,7 +631,7 @@ test('synthetic: issue and recovery recency uses original publication after dedu
   assert.equal(JSON.stringify(record), before);
 });
 
-test('real batch90: newly retained October27 replies precede older thread statements without inflating counts', () => {
+test('real batch90: newly retained October27 replies precede older thread statements without inflating counts', historicalCaptureOptions('catalog/refresh/2026-10-26/core-auth-batch90/claims.json'), () => {
   const claims = read('catalog/refresh/2026-10-26/core-auth-batch90/claims.json').records;
   for (const [id, native, size] of [['A036', 'GH-COMMENT-6445264260', 2], ['A073', 'GH-COMMENT-6444591485', 5]]) {
     const out = makeCoreInfo({ ...actual(id), coreSupplement: claims.find(x => x.recordId === id) }, { asOf: '2026-10-27T16:16:00Z' });
