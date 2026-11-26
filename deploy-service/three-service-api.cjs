@@ -92,7 +92,15 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    if(url.pathname==='/internal/measurement-worker'){const value=await dispatchMeasurementWorker(measurements,input);send(200,{ok:true,value:value===undefined?null:value});return;}
    const match=url.pathname.match(/^\/internal\/web-collector\/([a-z]+)$/);if(match&&Object.hasOwn(webOps,match[1])){send(200,await webOps[match[1]](input));return;}
    send(404,{error:'internal_operation_not_found'});
-  }catch{send(409,{ok:false,error:'internal_request_rejected'});}
+  }catch(error){
+   const sqliteCode=Number.isInteger(error?.errcode)?error.errcode&0xff:null;
+   if(sqliteCode===5||sqliteCode===6||['SQLITE_BUSY','SQLITE_LOCKED'].includes(error?.code)){
+    send(503,{ok:false,error:'internal_storage_temporarily_unavailable'});
+   }else{
+    const status=[400,413].includes(error?.status)?error.status:409;
+    send(status,{ok:false,error:'internal_request_rejected'});
+   }
+  }
  });
  server.on('close',()=>{clearInterval(publicationTimer);assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
  return {server,store,control,measurements,catalogDb,publisher};

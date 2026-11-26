@@ -15,9 +15,55 @@ test('Forest repeated tab extraction updates identical plan names without duplic
  let prior={};for(let k=0;k<2;k++)for(const [i,s]of sources.entries())prior={...prior,...parser.extract({...s,evidenceId:'SYNTHETIC_'+i},{prior})};assert.equal(prior.pricing.plans.length,4);assert.equal(prior.compatibility.conditionObservations.length,4);
 });
 test('Forest wallet preview retains raw gateway labels without inventing fees or creating orders',()=>{const s=require('./fixtures/forest-wallet-rendered.json'),p=parser.extract({...s,evidenceId:'SYNTHETIC_WALLET'});assert.deepEqual(Object.keys(p),['payment']);assert.deepEqual(p.payment.methods,['支付宝','微信','USDT-Trc20']);assert.equal(p.payment.methodOptions.length,5);assert.equal(p.payment.checkoutObserved,false);assert.equal(p.payment.transactionVerified,false);assert.match(p.payment.conditions.join(' '),/数字2.*不是|数字2.*不能/);assert.equal(parser.extract({...s,paymentOptions:[...s.paymentOptions,{label:'Unknown'}]}),null);assert.equal(parser.extract({...s,paymentActionClicked:true}),null);});
-test('Forest closes the wallet preview even when changed options stop extraction; no payment control is used',async()=>{const {collectForestWalletPreview}=await import('../collection/site-recipes/forest.mjs');const s=require('./fixtures/forest-wallet-rendered.json');let open=false,closed=0;const dialog={count:async()=>open?1:0,isVisible:async()=>open,waitFor:async()=>{},getByRole:(role,{name}={})=>role==='radio'?{evaluateAll:async()=>[...s.paymentOptions,{label:'SYNTHETIC_NEW_GATEWAY'}]}:{click:async()=>{assert.equal(name,'取消');open=false;closed++;}}};const tab={url:async()=>s.url,playwright:{evaluate:async()=>s,getByRole:(role,{name})=>role==='dialog'?name==='网络波动公告'?{count:async()=>0}:dialog:{click:async()=>{assert.equal(name,'余额充值');open=true;}}}};await assert.rejects(collectForestWalletPreview(tab),/options_changed/);assert.equal(closed,1);assert.equal(open,false);});
+test('Forest closes the wallet preview even when changed options stop extraction; no payment control is used',async()=>{
+ const {collectForestWalletPreview}=await import('../collection/site-recipes/forest.mjs');
+ const source=require('./fixtures/forest-wallet-rendered.json');let open=false,closed=0;
+ const dialog={
+  count:async()=>open?1:0,isVisible:async()=>open,
+  waitFor:async({state})=>assert.equal(state,open?'visible':'hidden'),
+  getByRole(role,{name}={}){
+   if(role==='radio')return{
+    nth:index=>({waitFor:async({state})=>{assert.equal(index,4);assert.equal(state,'visible');assert(open);}}),
+    evaluateAll:async()=>[...source.paymentOptions,{label:'SYNTHETIC_NEW_GATEWAY'}]
+   };
+   assert.equal(role,'button');assert.equal(name,'取消');return{click:async()=>{open=false;closed++;}};
+  }
+ };
+ const tab={url:async()=>source.url,playwright:{evaluate:async()=>source,getByRole:(role,{name})=>{
+  if(role==='dialog')return name==='网络波动公告'?{count:async()=>0}:dialog;
+  assert.equal(role,'button');assert.equal(name,'余额充值');return{click:async()=>{open=true;}};
+ }}};
+ await assert.rejects(collectForestWalletPreview(tab),/options_changed/);assert.equal(closed,1);assert.equal(open,false);
+});
 test('Forest read-only recipe reads both tabs and discovers policy from homepage; no purchase or login',async()=>{
- const {collectForestReadOnly}=await import('../collection/site-recipes/forest.mjs');let current='https://forest-01.com/plan',selected='按周期购买';const visited=[],clicks=[];
- const home={url:'https://forest-01.com/download',text:'Forest',links:[{url:'https://forest-01.com/policy',label:'网站政策'}]},tab={url:async()=>current,goto:async url=>{visited.push(url);current=url==='https://forest-01.com/'?home.url:url;},playwright:{getByRole:(role,{name})=>({waitFor:async()=>{},getByRole:()=>({waitFor:async()=>{}}),getAttribute:async()=>selected===name?'true':'false',click:async()=>{clicks.push(name);if(role==='tab')selected=name;else if(name==='网站政策')current='https://forest-01.com/policy';else throw Error('unexpected_action');}}),evaluate:async fn=>fn.name==='inspectForestPlans'?sources[selected==='按周期购买'?0:1]:current.endsWith('/policy')?sources[2]:current.endsWith('/download')?home:sources[selected==='按周期购买'?0:1]}};
- const r=await collectForestReadOnly(tab);assert.equal(r.captures.length,4);assert.deepEqual(clicks,['按流量购买','网站政策']);assert.deepEqual(visited,['https://forest-01.com/']);assert.equal(r.paymentExecuted,false);assert.equal(r.newOrdersCreated,0);
+ const {collectForestReadOnly}=await import('../collection/site-recipes/forest.mjs');
+ const plan='https://forest-01.com/plan',policy='https://forest-01.com/policy';
+ const home={url:'https://forest-01.com/download',text:'Forest',links:[{url:policy,label:'网站政策'}]};
+ let current=plan,selected='按周期购买',product,period;
+ const visited=[],clicks=[],checks=[],wait=async()=>{};
+ const tab={url:async()=>current,goto:async url=>{visited.push(url);assert.equal(url,'https://forest-01.com/');current=home.url;},playwright:{
+  getByRole(role,{name}){
+   if(role==='radio'){
+    const products=sources[selected==='按周期购买'?0:1].planCards;
+    const label=name==='月付'?name:products.find(card=>name.test(card.name))?.name;
+    return{count:async()=>label?1:0,check:async()=>{assert(label);checks.push(label);if(label==='月付')period=label;else product=label;}};
+   }
+   if(role==='tab')return{waitFor:wait,getAttribute:async()=>String(name===selected),click:async()=>{clicks.push(name);selected=name;period='一次性';}};
+   if(role==='tabpanel')return{getByRole:(heading,options)=>{assert.equal(heading,'heading');assert.equal(options.name,selected==='按周期购买'?'轻量':'不限时200G');return{waitFor:wait};}};
+   if(role==='link'&&name==='网站政策')return{waitFor:wait,click:async()=>{assert.equal(current,home.url);clicks.push(name);current=policy;}};
+   if(role==='heading'&&name==='ForestNetwork 服务条款')return{waitFor:wait};
+   throw Error('unexpected_action '+role+' '+name);
+  },
+  evaluate:async fn=>{
+   const rendered=current===policy?sources[2]:current===home.url?home:sources[selected==='按周期购买'?0:1];
+   if(fn.name==='inspectForestSelection')return{productName:product,period,purchaseClicked:false};
+   assert(['inspectDocument','inspectForestPlans'].includes(fn.name));return rendered;
+  }
+ }};
+ const result=await collectForestReadOnly(tab);
+ assert.equal(result.captures.length,6);
+ assert.deepEqual(result.captures.slice(0,4).map(s=>[s.selectedTab,s.forestSelection.productName,s.forestSelection.period]),[['按周期购买','轻量','月付'],['按周期购买','高级','月付'],['按周期购买','旗舰','月付'],['按流量购买','不限时200G','一次性']]);
+ assert.deepEqual(checks,['轻量','月付','高级','月付','旗舰','月付','不限时200G']);
+ assert.deepEqual(clicks,['按流量购买','网站政策']);assert.deepEqual(visited,['https://forest-01.com/']);
+ assert.equal(result.paymentExecuted,false);assert.equal(result.newOrdersCreated,0);
 });

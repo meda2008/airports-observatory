@@ -1,6 +1,6 @@
 'use strict';
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const {makeCatalogService}=require('../lib/catalog-service.cjs');
+const {makeCatalogServiceProvider}=require('../lib/catalog-service.cjs');
 const {makeNeedsSearch}=require('../lib/needs-search.cjs');
 const deltaKeys=v=>{const k=Object.keys(v.patch||{}).filter(k=>['website','pricing','payment','refund','privacy','compatibility','promotions','trial','speed','stability','operatingHistory'].includes(k));return k.length?k:Object.keys(v.after||{});};
 const pick=(v,keys)=>Object.fromEntries(keys.filter(k=>v?.[k]!==undefined).map(k=>[k,v[k]]));
@@ -24,9 +24,25 @@ function publicFacts(document={}){
  return safeFactUrls(out);
 }
 function publicSearch(data){return {...pick(data,['criterion','currency','status','excludedCount','evidenceAsOf','limitations','reason']),items:data.items.map(i=>({...pick(i,['id','name','comparison','matchingPlanCount']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
-function createServer({store,catalogDb,controlStore,measurementStore,registry=[],serviceProvider=()=>makeCatalogService(),adminToken=process.env.ADMIN_TOKEN}={}){
+function createServer({store,catalogDb,controlStore,measurementStore,registry=[],baseDir,serviceProvider=makeCatalogServiceProvider({baseDir}),adminToken=process.env.ADMIN_TOKEN}={}){
  const controlPlane=controlStore?require('./control-plane.cjs').createControlPlane({store,control:controlStore,catalogDb,profiles:registry,facts:publicFacts}):null;
- const updateService=()=>{const jobs=store?.listJobs?.()||[],heartbeats=store?.getServiceHeartbeats?.()||[],collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher'),fresh=collector&&Date.now()-Date.parse(collector.updatedAt)<180000;return{...(controlPlane?{collectionControl:controlPlane.brief().control,runtime:controlPlane.brief().runtime}:{}),collectionEnabled:controlPlane?controlPlane.brief().control.engineEnabled&&controlPlane.brief().runtime.connected:!!(fresh&&collector.status==='running'),status:controlPlane?(!controlPlane.brief().control.engineEnabled?'paused':controlPlane.brief().runtime.connected?'running':'waiting_runtime'):(fresh?collector.status:'not_running'),lastHeartbeat:controlPlane?controlPlane.brief().runtime.lastHeartbeat:collector?.updatedAt||null,publisher:{status:publisher&&Date.now()-Date.parse(publisher.updatedAt)<180000?publisher.status:'not_running',lastHeartbeat:publisher?.updatedAt||null},queued:jobs.filter(j=>j.status==='queued').length,pendingReview:store?.listProposals?.().filter(p=>p.status==='pending').length||0,blocked:jobs.filter(j=>['blocked','failed'].includes(j.status)).length,reviewRequired:true,paymentAllowed:false,schedule:'weekly_per_site',publicationMode:'reviewed_database_snapshot'};};
+ function updateService(){
+  const heartbeats=store?.getServiceHeartbeats?.()||[],snapshot=controlPlane?.brief(heartbeats),now=Date.now();
+  const collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher');
+  const fresh=h=>h&&now-Date.parse(h.updatedAt)<180000;
+  const counts=store?.countUpdateWork?.()||(()=>{
+   const jobs=store?.listJobs?.()||[];
+   return{queued:jobs.filter(j=>j.status==='queued').length,blocked:jobs.filter(j=>['blocked','failed'].includes(j.status)).length,pendingReview:store?.listProposals?.().filter(p=>p.status==='pending').length||0};
+  })();
+  return{
+   ...(snapshot?{collectionControl:snapshot.control,runtime:snapshot.runtime}:{}),
+   collectionEnabled:snapshot?snapshot.control.engineEnabled&&snapshot.runtime.connected:!!(fresh(collector)&&collector.status==='running'),
+   status:snapshot?(!snapshot.control.engineEnabled?'paused':snapshot.runtime.connected?'running':'waiting_runtime'):(fresh(collector)?collector.status:'not_running'),
+   lastHeartbeat:(snapshot?snapshot.runtime.lastHeartbeat:collector?.updatedAt)||null,
+   publisher:{status:fresh(publisher)?publisher.status:'not_running',lastHeartbeat:publisher?.updatedAt||null},
+   ...counts,reviewRequired:true,paymentAllowed:false,schedule:'weekly_per_site',publicationMode:'reviewed_database_snapshot',
+  };
+ }
  const send=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(value));};
  const server=http.createServer(async(req,res)=>{
   res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
@@ -41,9 +57,13 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
     if(!store)return send(res,503,{error:'持久存储不可用'});
     if(route.startsWith('/api/admin/measurements')){try{if(await require('./measurement-api.cjs').handleMeasurementApi({req,res,url,send,measurements:measurementStore,catalogStore:store}))return;}catch(e){return send(res,e instanceof SyntaxError?400:409,{error:'measurement_request_rejected'});}}
     if(controlPlane){try{if(await controlPlane.handle(req,res,url,send))return;}catch(e){return send(res,e instanceof SyntaxError?400:409,{error:safeText(e.message).slice(0,250)});}}
-    if(req.method==='GET'&&route==='/api/admin/status')return send(res,200,{updateService:updateService(),database:{tables:catalogDb?.tables()||[],...catalogDb?.publication()},jobs:(store.listJobs?.()||[]).map(j=>pick(j,['jobId','siteId','status','dueAt','finishedAt','leaseExpiresAt','error'])),proposals:(store.listProposals?.()||[]).map(p=>({...pick(p,['id','siteId','status','expectedRevision','createdAt','evidenceIds','reviewer']),patch:publicFacts(p.patch)})),checkpoints:(store.listEvidence?.()||[]).filter(e=>['verification_checkpoint','unverified_entry_candidate'].includes(e.kind)).map(e=>pick(e,['id','siteId','url','kind','observations']))});
+    if(req.method==='GET'&&route==='/api/admin/status'){
+     const summary={updateService:updateService(),database:{tables:catalogDb?.tables()||[],...catalogDb?.publication()}};
+     if(url.searchParams.get('view')==='summary')return send(res,200,summary);
+     return send(res,200,{...summary,jobs:(store.listJobs?.()||[]).map(j=>pick(j,['jobId','siteId','status','dueAt','finishedAt','leaseExpiresAt','error'])),proposals:(store.listProposals?.()||[]).map(p=>({...pick(p,['id','siteId','status','expectedRevision','createdAt','evidenceIds','reviewer']),patch:publicFacts(p.patch)})),checkpoints:(store.listEvidence?.()||[]).filter(e=>['verification_checkpoint','unverified_entry_candidate'].includes(e.kind)).map(e=>pick(e,['id','siteId','url','kind','observations']))});
+    }
     if(req.method==='GET'&&route==='/api/admin/referrals')return send(res,200,{items:store.listReferrals().map(v=>pick(v,['siteId','recordId','url','disclosure','evidenceId','status','owner','verifiedAt','sourceIds']))});
-    if(req.method==='GET'&&route==='/api/admin/evidence'){const id=url.searchParams.get('id');if(!id||id.length>200)return send(res,400,{error:'需要证据ID'});const evidence=store.listEvidence().find(v=>v.id===id);return evidence?send(res,200,{item:{...pick(evidence,['id','siteId','url','sha256','kind','observations']),body:safeText(evidence.body),bodyRedacted:safeText(evidence.body)!==evidence.body,sha256Basis:'original_retained_body',captureMetadata:controlStore?.listCaptureMetadata?.(id)||[]}}):send(res,404,{error:'证据不存在'});}
+    if(req.method==='GET'&&route==='/api/admin/evidence'){const id=url.searchParams.get('id');if(!id||id.length>200)return send(res,400,{error:'需要证据ID'});const evidence=store.getEvidence?store.getEvidence(id):store.listEvidence().find(v=>v.id===id);const body=evidence&&safeText(evidence.body);return evidence?send(res,200,{item:{...pick(evidence,['id','siteId','url','sha256','kind','observations']),body,bodyRedacted:body!==evidence.body,sha256Basis:'original_retained_body',captureMetadata:controlStore?.listCaptureMetadata?.(id)||[]}}):send(res,404,{error:'证据不存在'});}
     if(req.method==='GET'&&route==='/api/admin/jobs')return send(res,200,{items:store.listJobs().map(v=>({...pick(v,['id','jobId','siteId','status','createdAt','dueAt','finishedAt','leaseExpiresAt','purpose','profileRevision','cancelRequested']),blockedReason:v.error?'collector_blocked_or_failed':null}))});
     if(req.method==='GET'&&route==='/api/admin/proposals')return send(res,200,{items:store.listProposals().map(v=>({...pick(v,['id','proposalId','siteId','status','expectedRevision','createdAt','evidenceIds']),patch:publicFacts(v.patch)}))});
     if(req.method==='POST'&&['/api/admin/run','/api/admin/review','/api/admin/referrals','/api/admin/sync'].includes(route)){
@@ -59,7 +79,10 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
     return send(res,404,{error:'接口不存在'});
    }
    if(req.method!=='GET')return send(res,405,{error:'仅支持 GET'});
-   if(route==='/health')return send(res,200,{status:'ok',service:'airports-deploy'});
+   if(route==='/health'){
+    const ready=!!catalogDb?.publication();
+    return send(res,ready?200:503,{status:ready?'ok':'awaiting_publication',service:'airports-deploy'});
+   }
    if(['/api/stats','/api/catalog'].includes(route)||route.startsWith('/api/airports/')){
     if(!catalogDb?.publication())return send(res,503,{error:'现有资料尚未导入规范数据库'});
     if(route==='/api/stats')return send(res,200,{...catalogDb.stats(),updateService:updateService()});

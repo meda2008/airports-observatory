@@ -20,6 +20,30 @@ test('single API isolates UI and internal auth and shares canonical measurement 
  const {DatabaseSync}=require('node:sqlite'),db=new DatabaseSync(file,{readOnly:true});assert(db.prepare("SELECT name FROM sqlite_master WHERE name='sites'").get());assert(db.prepare("SELECT name FROM sqlite_master WHERE name='measurement_observations'").get());db.close();
  }finally{await new Promise(r=>app.server.close(r));fs.rmSync(dir,{recursive:true});}
 });
+test('transient SQLite errors in internal RPC surface as 503 and recover on retry',async t=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airports-rpc-retry-')),filename=path.join(dir,'one.sqlite');
+ const internalToken='unit-worker-rpc-1a2b3c4d5e6f7890-strong-key';
+ const app=createThreeServiceApi({filename,adminToken:'unit-admin-auth-9f8e7d6c5b4a3210-strong-key',internalToken});
+ await new Promise(resolve=>app.server.listen(0,'127.0.0.1',resolve));
+ t.after(async()=>{await new Promise(resolve=>app.server.close(resolve));fs.rmSync(dir,{recursive:true});});
+ const request=(route,payload)=>fetch('http://127.0.0.1:'+app.server.address().port+route,{method:'POST',headers:{Authorization:'Bearer '+internalToken},body:JSON.stringify(payload)});
+ const profiles=app.measurements.profiles;
+ let calls=0;
+ t.mock.method(app.measurements,'profiles',()=>{
+  if(++calls===1)throw Object.assign(Error('local database busy'),{code:'ERR_SQLITE_ERROR',errcode:261});
+  return profiles();
+ });
+ const input={method:'profiles',args:[]};
+ const first=await request('/internal/measurement-worker',input);
+ assert.equal(first.status,503);
+ assert.deepEqual(await first.json(),{ok:false,error:'internal_storage_temporarily_unavailable'});
+ assert.equal((await request('/internal/web-collector/control',{})).status,200);
+ const second=await request('/internal/measurement-worker',input);
+ assert.equal(second.status,200);
+ assert.equal((await second.json()).ok,true);
+ assert.equal((await request('/internal/measurement-worker',{method:'unsupported',args:[]})).status,409);
+});
+
 test('admin snapshot has explicit minimal site scope and never exports retained evidence bodies',async()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airports-three-snapshot-')),file=path.join(dir,'one.sqlite');
  const app=createThreeServiceApi({filename:file,adminToken:'unit-admin-auth-9f8e7d6c5b4a3210-strong-key',internalToken:'unit-worker-rpc-1a2b3c4d5e6f7890-strong-key'});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+app.server.address().port;

@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions, isHistoricalCapture } = require('./helpers/historical-capture.cjs');
+
 const test = require('node:test'), assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const parser = require('../collection/url-collectors/reviewed-operator-status-parsers.cjs');
@@ -9,8 +11,12 @@ function observation(p) {
   const raw = JSON.parse(bytes);
   return { url: p.url, body: require('../lib/collection-engine.cjs').redact(raw.text), evidenceId: p.ref.sourceId, observedAt: p.ref.observedAt, representation: p.ref.representation, originalFileSha256: p.ref.fileSha256, _verifiedMetadata: raw };
 }
+function captureFiles(profile) {
+  return [profile.ref, profile.rootBindingRef || profile.identityRef]
+    .map(ref => ref.file?.replaceAll('\\', '/')).filter(isHistoricalCapture);
+}
 for (const p of parser.profiles) {
-  test(p.recordId + ' pins native event dates, exact quotes and recovery context with no achieved uptime', () => {
+  test(p.recordId + ' pins native event dates, exact quotes and recovery context with no achieved uptime', historicalCaptureOptions(...captureFiles(p)), () => {
     const o = observation(p), result = parser.diagnose(o, { recordId: p.recordId });
     assert.equal(result.accepted, true, result.reasons.join(','));
     assert.equal(result.facts.length, p.recordId === 'A074' ? 1 : 2);
@@ -25,7 +31,7 @@ for (const p of parser.profiles) {
       for (const proof of f.identityProofs) { assert.equal(proof.sourceId, undefined); assert.ok(proof.originalSourceId); }
     }
   });
-  test(p.recordId + ' rejects changed wrapper, time, post body, duplicate or borrowed metadata', () => {
+  test(p.recordId + ' rejects changed wrapper, time, post body, duplicate or borrowed metadata', historicalCaptureOptions(...captureFiles(p)), () => {
     const first = p.events[0];
     for (const mutate of [
       o => o.body += '\n', o => o.originalFileSha256 = '0'.repeat(64), o => o.observedAt = '2026-11-12T00:00:00Z',
@@ -38,7 +44,7 @@ for (const p of parser.profiles) {
       o => o._verifiedMetadata.links = []
     ]) { const o = observation(p); mutate(o); assert.equal(parser.diagnose(o, { recordId: p.recordId }).accepted, false); }
   });
-  test(p.recordId + ' exact routes, retained unrelated fields and idempotent replay', () => {
+  test(p.recordId + ' exact routes, retained unrelated fields and idempotent replay', historicalCaptureOptions(...captureFiles(p)), () => {
     for (const url of [p.url + '?before=1', p.url + '#x', p.url.replace('https:', 'http:')]) assert.equal(parser.forOrigin(url, { recordId: p.recordId }), null);
     assert.equal(parser.forOrigin(p.url, { recordId: 'A002' }), null);
     const prior = { stability: { status: 'not_measured', sentinel: 'keep', sourceIds: ['old'], reviewedIssueSignals: [{ id: 'old' }] } };
@@ -53,14 +59,14 @@ for (const p of parser.profiles) {
     assert.match(summary.stabilityContext.description, p.recordId === 'A020' ? /尚未独立核实/ : /不代表当前/);
   });
 }
-test('EdNovas recovery uses own message rather than quoted previous outage reply', () => {
+test('EdNovas recovery uses own message rather than quoted previous outage reply', historicalCaptureOptions(...captureFiles(parser.profiles.find(profile => profile.recordId === 'A020'))), () => {
   const p = parser.profiles.find(p => p.recordId === 'A020');
   const event = parser.diagnose(observation(p), { recordId: p.recordId }).facts[1].fact;
   assert.match(event.relatedStatements[0].quote, /^请更新订阅，已恢复/);
   assert.equal(event.relatedStatements[0].createdAt, '2026-10-19T23:31:47+00:00');
   assert.match(event.summary, /补偿天数不等于实际中断时长/);
 });
-test('YkkCloud website and Emby scope preserves edited recovery ambiguity and excludes protocol notice', () => {
+test('YkkCloud website and Emby scope preserves edited recovery ambiguity and excludes protocol notice', historicalCaptureOptions(...captureFiles(parser.profiles.find(profile => profile.recordId === 'A074'))), () => {
   const p = parser.profiles.find(p => p.recordId === 'A074');
   const facts = parser.diagnose(observation(p), { recordId: p.recordId }).facts.map(f => f.fact);
   assert.match(facts[0].scope, /不证明代理转发节点/);
@@ -70,7 +76,7 @@ test('YkkCloud website and Emby scope preserves edited recovery ambiguity and ex
   assert.equal(facts.some(f => f.postUrl.endsWith('/222')), false);
   assert.ok(p.rootBindingRef);
 });
-test('official attribution is native saved-domain binding rather than channel brand alone', () => {
+test('official attribution is native saved-domain binding rather than channel brand alone', historicalCaptureOptions(...parser.profiles.map(profile => (profile.rootBindingRef || profile.identityRef).file).filter(isHistoricalCapture)), () => {
   for (const p of parser.profiles) {
     const ref = p.rootBindingRef || p.identityRef;
     assert.equal(new URL(ref.url).origin, new URL(p.currentOfficialUrlAtReview).origin);

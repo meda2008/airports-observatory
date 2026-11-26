@@ -7,11 +7,36 @@ function requestAllowed(url,{allowed,isMainNavigation=false}={}){
  const u=new URL(url);
  return allowed.has(u.hostname)||(!isMainNavigation&&u.protocol==='https:'&&u.hostname==='challenges.cloudflare.com'&&(!u.port||u.port==='443'));
 }
-async function collectSite(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4}={}){
- const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=await assertPublicUrl(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
- const context=await browser.newContext({acceptDownloads:false});const observations=[],discovery=[],checkpoints=[];let blocker=null;
- await context.route('**/*',async route=>{try{const request=route.request(),u=await assertPublicUrl(request.url());const isMainNavigation=request.isNavigationRequest()&&!request.frame().parentFrame();if(!requestAllowed(u.href,{allowed,isMainNavigation}))return route.abort();return route.continue();}catch{return route.abort();}});
- try{const page=await context.newPage(),queue=[entry],seen=new Set();while(queue.length&&observations.length<maxPages){const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
+async function collectSite(site, options = {}) {
+ const budget = options.jobBudgetMs ?? 90000;
+ if (!Number.isInteger(budget) || budget < 1 || budget > 180000) throw Error('invalid_collection_job_budget');
+ const controller = new AbortController();
+ const result = { observations: [], discovery: [], checkpoints: [], blocker: null };
+ let timer;
+ const expired = new Promise(resolve => {
+  timer = setTimeout(() => {
+   resolve({ ...result, observations: [...result.observations], discovery: [...result.discovery],
+     checkpoints: [...result.checkpoints], blocker: 'collection_job_deadline_exceeded' });
+   controller.abort();
+  }, budget);
+ });
+ try {
+  return await Promise.race([collectSiteWithinBudget(site, options, controller.signal, result), expired]);
+ } finally {
+  clearTimeout(timer);
+ }
+}
+async function collectSiteWithinBudget(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4,lookup},signal,result){
+ const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=await assertPublicUrl(entry,lookup),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
+ signal.throwIfAborted();
+ const context=await browser.newContext({acceptDownloads:false});const {observations,discovery,checkpoints}=result;let blocker=null,closing;
+ const close=()=>closing??=Promise.resolve().then(()=>context.close()).catch(()=>{});
+ signal.addEventListener('abort',close,{once:true});
+ try{
+ signal.throwIfAborted();
+ await context.route('**/*',async route=>{try{signal.throwIfAborted();const request=route.request(),u=await assertPublicUrl(request.url());signal.throwIfAborted();const isMainNavigation=request.isNavigationRequest()&&!request.frame().parentFrame();if(!requestAllowed(u.href,{allowed,isMainNavigation}))return route.abort();return route.continue();}catch{return route.abort();}});
+ const page=await context.newPage(),queue=[entry],seen=new Set();while(queue.length&&observations.length<maxPages){signal.throwIfAborted();const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
+ signal.throwIfAborted();
  const verification=require('./verification.cjs');
  let gate=await verification.observeVerification(page);const passive=await import('../collection/passive-access-wait.mjs');if(passive.passiveAccessWaitLabel(gate.snapshot)){const waited=await passive.waitForPassiveAccessPage({tab:{playwright:page},snapshot:gate.snapshot,inspect:async()=> (await verification.observeVerification(page)).snapshot,runtime:'server'});if(passive.passiveAccessWaitLabel(waited.snapshot)){blocker='passive_access_wait_incomplete';break;}gate=await verification.observeVerification(page);}let text=gate.snapshot.text;
  if(gate.type&&!(gate.type==='image_captcha'&&gate.snapshot.passwordForm)){
@@ -44,6 +69,6 @@ async function collectSite(site,{browser,credentials={},emailCodeProvider=null,v
  for(const l of links){let u;try{u=new URL(l.url);}catch{continue;}if(!/^https?:$/.test(u.protocol))continue;if(!allowed.has(u.hostname)){if(/官网|官方|发布|备用|official/i.test(l.label))discovery.push({url:l.url,quote:l.label,parentUrl:page.url(),identityStatus:'pending_review'});continue;}
  if(/套餐|定价|价格|退款|隐私|条款|帮助|知识库|文档|支持|公告|pricing|plans|terms|privacy|refund|knowledge|support|docs|help/i.test(l.label)&&!/(checkout|logout|cancel|delete|reset|order|payment|register|subscribe)/i.test(u.pathname+u.search+u.hash))queue.push(l.url);
  }
- }return{observations,discovery,checkpoints,blocker};}finally{await context.close();}
+ }return{observations,discovery,checkpoints,blocker};}finally{signal.removeEventListener('abort',close);await close();}
 }
 module.exports={assertPublicUrl,publicIP,redact,collectSite,requestAllowed};

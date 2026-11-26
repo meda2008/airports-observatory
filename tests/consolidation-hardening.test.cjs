@@ -318,6 +318,7 @@ test('public-gateway.cjs and three-service-api.cjs reject weak tokens, block cas
     method: 'POST',
     headers: {
       Authorization: 'Bearer ' + strongToken,
+      Origin: 'https://admin.example.invalid',
       'Content-Type': 'application/json',
       'Content-Length': '128'
     },
@@ -329,6 +330,7 @@ test('public-gateway.cjs and three-service-api.cjs reject weak tokens, block cas
     host: 'admin.example.invalid',
     headers: {
       Authorization: 'Bearer ' + strongToken,
+      Origin: 'https://admin.example.invalid',
       'Content-Type': 'application/json'
     },
     chunks: ['x'.repeat(40), 'y'.repeat(40)]

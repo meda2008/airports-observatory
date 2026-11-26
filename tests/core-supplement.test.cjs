@@ -1,4 +1,6 @@
 'use strict';
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
@@ -277,7 +279,7 @@ test('synthetic: search logs alone cannot establish founding/history dates, cont
  }
 });
 
-test('real: this-round EdNovas and Mesl bound primary/help/channel/DOM captures share one unaudited claimed-service group',t=>{
+test('real: this-round EdNovas and Mesl bound primary/help/channel/DOM captures share one unaudited claimed-service group', historicalCaptureOptions('catalog/refresh/2026-10-26/core-history-next/sources.json', 'catalog/refresh/2026-10-26/core-history-next/claims.json', 'catalog/refresh/2026-10-26/core-auth-batch2/sources.json', 'catalog/refresh/2026-10-26/core-auth-batch2/claims.json'),t=>{
  const f=fixture(t),repository=path.resolve(__dirname,'..');f.history('core-history');
  const originalCatalog=JSON.parse(fs.readFileSync(path.join(repository,'catalog/catalog.v1.json'),'utf8'));
  write(path.join(f.root,'catalog/catalog.v1.json'),originalCatalog);

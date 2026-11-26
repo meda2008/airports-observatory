@@ -1,6 +1,53 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os');
 const {cleanMetadata,toCapture}=require('../deploy-service/standalone-collector.cjs');
+
+test('article media bound to a captured heading survives managed storage and replay', t => {
+ const {createStore}=require('../deploy-service/store.cjs');
+ const {openControlStore}=require('../deploy-service/control-store.cjs');
+ const {createControlPlane}=require('../deploy-service/control-plane.cjs');
+ const registry=require('../collection/url-collectors/index.cjs');
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'duyao-article-meta-'));
+ const filename=path.join(dir,'isolated.sqlite');
+ const store=createStore({filename});
+ const control=openControlStore({filename,store});
+ t.after(()=>{control.close();store.close();fs.rmSync(dir,{recursive:true,force:true});});
+
+ const article='https://www.duyaoss.com/archives/4710/';
+ const image='https://www.duyaoss.com/uploaded/6ac654130236b.jpg';
+ const literal='（联通 2026.10.15 晚测速）';
+ const source={url:article,body:`评测\n${literal}\n原图`,observedAt:'2026-11-11T12:34:56.789Z'};
+ const link={url:image,label:'原图',sourceAttribute:'data-src'};
+ const section={heading:literal,headingLevel:2,links:[link],association:'visible_heading_siblings_until_next_same_or_higher_heading'};
+ const untrusted={...section,privateToken:'PRIVATE',links:[{...link,cookie:'PRIVATE'},{...link,url:image+'?token=PRIVATE'}]};
+ const missingHeading={...section,heading:'（移动 2026.10.16 晚测速）'};
+ const capture=toCapture({...source,headingMedia:[untrusted,missingHeading]});
+ assert.deepEqual(capture.metadata.headingMedia,[section]);
+ assert.deepEqual(cleanMetadata({...source,url:article+'?x=1',headingMedia:[section]}).headingMedia,[]);
+ assert.deepEqual(cleanMetadata({...source,url:article.replace('.com','.invalid'),headingMedia:[section]}).headingMedia,[]);
+
+ const config={recordId:'A027',entryUrl:article,allowedHosts:['www.duyaoss.com'],enabled:true,fields:['speed'],maxPages:1};
+ store.seedSites([config]);
+ control.initializeProfiles([config]);
+ control.setControl({engineEnabled:true});
+ const seen=[];
+ t.mock.method(registry,'extractKnown',observations=>{seen.push(structuredClone(observations));return{patch:{}};});
+ const plane=createControlPlane({store,control});
+ control.enqueue({siteId:'A027'});
+ const job=control.claimBridge({siteId:'A027',worker:'synthetic'});
+ const result=plane.receive({jobId:job.jobId,token:job.token,captures:[{...capture,metadata:{headingMedia:[untrusted,missingHeading]}}]});
+ const evidence=store.listEvidence()[0];
+ assert.deepEqual(control.listCaptureMetadata(evidence.id,{jobId:job.jobId})[0].metadata.headingMedia,[section]);
+ const schedule=control.getProfile('A027').profile;
+ plane.reparseRetained('A027',result.run.id,{reviewer:'synthetic offline regression'});
+ assert.equal(seen.length,2);
+ for(const [observation] of seen){
+  assert.deepEqual(observation.metadata.headingMedia,[section]);
+  assert.equal(observation.observedAt,source.observedAt);
+ }
+ assert.deepEqual(control.getProfile('A027').profile,schedule);
+ assert.equal(store.listProposals().length,0);
+});
 const url='https://www.duyaoss.com/archives/3/',heading='36.Foo&Friends（台湾中转/直连）',mesl='46.MESL（国内中转）',asset='https://www.duyaoss.com/uploaded/20261007_6ac654130236b.jpg#vwid=4404&vhei=4584',association='visible_heading_siblings_until_next_same_or_higher_heading';
 function node(tag,innerText='',attrs={},shown=true){return{tagName:tag,innerText,children:[],getClientRects:()=>shown?[{}]:[],getAttribute:k=>attrs[k]??null,contains(e){return this.children.includes(e);},querySelectorAll(q){if(q==='h1,h2')return this.children.filter(e=>['H1','H2'].includes(e.tagName));if(q==='a[href]')return this.children.filter(e=>e.tagName==='A');if(q==='h2,h3'||q==='h1,h2,h3,h4,h5,h6')return this.children.filter(e=>/^H[1-6]$/.test(e.tagName));return[];}};}
 function fixture({page=url,duplicate=false,missingBoundary=false,hidden=false}={}){const prose='已经测试过一两年的一家机场，台湾HiNet中转；尚无连续实测日志。',date='（2026.10.04 晚测速）',sectionText=heading+'\n\n'+prose+'\n\n'+date,nextHeading='37.Xlinkworld（海外中转）';const first=node('H2',heading,{},!hidden),p=node('P',prose),d=node('P',date),link=node('A','',{href:asset}),img=node('IMG','',{'data-src':asset});Object.defineProperty(img,'src',{get(){throw Error('Lazy image property was read');}});img.getAttribute=()=>{throw Error('Lazy image attributes were read');};p.children=[link,img];const next=node('H2',nextHeading),children=[first,p,d,...(missingBoundary?[]:[next])];if(duplicate)children.push(node('H2',heading));for(let i=0;i<children.length;i++)children[i].nextElementSibling=children[i+1]||null;const main=node('MAIN','Intro visible source text to keep article selection stable.\n'+sectionText+'\n\n'+nextHeading+'\nDifferent service data.\nTOC\n'+heading+'\n'+nextHeading);main.children=children;const doc={URL:page,title:'DuyaoSS main',body:main,querySelectorAll:q=>q==='#betterdocs-single-content,.betterdocs-single-content'?[main]:[]};return{doc,sectionText,nextHeading,prose};}

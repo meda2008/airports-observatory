@@ -1,3 +1,25 @@
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),codec=require('../collection/lumo-wire-codec.cjs'),p=codec.parametersFromClient(require('../work/payment-pricing-next-20261116/A220-readable-contract.json').body);
-test('decodes actual retained Lumo binary bootstrap, not only synthetic roundtrip',()=>{const bytes=fs.readFileSync('work/payment-pricing-next-20261116/A220-public-bootstrap.bin'),v=JSON.parse(codec.decode(bytes,p.crypto));assert.equal(v.boardType,'Xboard');assert.equal(v.env.NEXT_PUBLIC_BRAND_NAME,'Lumo');});
-test('wire encoding preserves exact UTF8 and multiple blocks',()=>{for(const text of ['', '中文字段', 'x'.repeat(255),'x'.repeat(2048)])assert.equal(codec.decode(codec.encode(text,p.crypto),p.crypto).toString('utf8'),text);assert.throws(()=>codec.decode(Buffer.from([1]),p.crypto));assert.throws(()=>codec.encode('x',{seed:1,rounds:0,blockSize:256}));});
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const codec = require('../collection/lumo-wire-codec.cjs');
+const { historicalCaptureOptions } = require('./helpers/historical-capture.cjs');
+
+const clientCapture = 'work/payment-pricing-next-20261116/A220-readable-contract.json';
+const bootstrapCapture = 'work/payment-pricing-next-20261116/A220-public-bootstrap.bin';
+
+test('decodes actual retained Lumo binary bootstrap, not only synthetic roundtrip', historicalCaptureOptions(clientCapture, bootstrapCapture), () => {
+  const { crypto } = codec.parametersFromClient(require(`../${clientCapture}`).body);
+  const bytes = fs.readFileSync(bootstrapCapture);
+  const value = JSON.parse(codec.decode(bytes, crypto));
+  assert.equal(value.boardType, 'Xboard');
+  assert.equal(value.env.NEXT_PUBLIC_BRAND_NAME, 'Lumo');
+});
+
+test('wire encoding preserves exact UTF8 and multiple blocks', () => {
+  const crypto = { seed: 42, rounds: 5, blockSize: 64 };
+  for (const text of ['', '中文字段', 'x'.repeat(255), 'x'.repeat(2048)]) {
+    assert.equal(codec.decode(codec.encode(text, crypto), crypto).toString('utf8'), text);
+  }
+  assert.throws(() => codec.decode(Buffer.from([1]), crypto));
+  assert.throws(() => codec.encode('x', { seed: 1, rounds: 0, blockSize: 256 }));
+});
