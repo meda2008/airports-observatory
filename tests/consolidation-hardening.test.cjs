@@ -344,8 +344,13 @@ test('fresh empty SQLite cold-starts createThreeServiceApi with 200 stats/catalo
   const internalToken = 'coldstart-internal-token-1a2b3c4d5e6f78';
   const app = createThreeServiceApi({filename: dbFile, adminToken, internalToken});
   const apiUrl = await listen(app.server);
+  let warm;
 
   t.after(async () => {
+    if (warm) {
+      warm.server.closeAllConnections();
+      await new Promise(resolve => warm.server.close(resolve));
+    }
     app.server.closeAllConnections();
     await new Promise((resolve) => app.server.close(resolve));
     fs.rmSync(dir, {recursive: true, force: true});
@@ -398,6 +403,29 @@ test('fresh empty SQLite cold-starts createThreeServiceApi with 200 stats/catalo
   assert.equal(completeRes.status, 200);
   const complete = await completeRes.json();
   assert.equal(complete.counts.primary, 138);
+
+  const siteId = 'A042';
+  const revision = app.store.getSite(siteId).revision;
+  const evidence = app.store.saveEvidence({siteId, url: 'https://example.com/refund', body: 'Synthetic refund policy under review', observedAt: '2026-11-24T00:00:00Z'});
+  const proposal = app.store.createProposal({siteId, expectedRevision: revision, evidenceIds: [evidence.id], patch: {
+    refund: {status: 'observed', summary: 'Synthetic reviewed refund policy', sourceIds: [evidence.id], observedAt: '2026-11-24T00:00:00Z'}
+  }});
+  app.store.reviewProposal(proposal.id, {approved: true, expectedRevision: revision, reviewer: 'synthetic-reviewer'});
+
+  warm = createThreeServiceApi({filename: dbFile, adminToken, internalToken});
+  let release;
+  const gate = new Promise(resolve => {release = resolve;});
+  const tick = warm.publisher.tick;
+  const startup = warm.publisher.tick = async () => {await gate; return tick();};
+  const warmUrl = await listen(warm.server);
+  try{
+    assert.equal((await fetch(`${warmUrl}/health`)).status, 200);
+    assert.equal((await fetch(`${warmUrl}/ready`)).status, 503);
+  }finally{release();}
+  await startup();
+  assert.equal((await fetch(`${warmUrl}/ready`)).status, 200);
+  const refreshed = await (await fetch(`${warmUrl}/api/airports/${siteId}`)).json();
+  assert.equal(refreshed.item.refund.summary, 'Synthetic reviewed refund policy');
 });
 
 test('console.js handles non-JSON payloads and surfaces friendly 401/403 Chinese error messages', async () => {

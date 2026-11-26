@@ -24,7 +24,7 @@ function publicFacts(document={}){
  return safeFactUrls(out);
 }
 function publicSearch(data){return {...pick(data,['criterion','currency','maxMonthly','status','excludedCount','evidenceAsOf','limitations','reason']),items:data.items.map(i=>({...pick(i,['id','name','comparison','matchingPlanCount']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
-function createServer({store,catalogDb,controlStore,measurementStore,registry=[],syncPublication=()=>catalogDb.sync(),serviceProvider=()=>makeCatalogService(),adminToken=process.env.ADMIN_TOKEN}={}){
+function createServer({store,catalogDb,controlStore,measurementStore,registry=[],syncPublication=()=>catalogDb.sync(),publicationReady=()=>true,serviceProvider=()=>makeCatalogService(),adminToken=process.env.ADMIN_TOKEN}={}){
  const controlPlane=controlStore?require('./control-plane.cjs').createControlPlane({store,control:controlStore,catalogDb,profiles:registry,facts:publicFacts}):null;
  const updateService=()=>{
   const heartbeats=store?.getServiceHeartbeats?.()||[],collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher');
@@ -71,16 +71,21 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
    }
    if(req.method!=='GET'&&req.method!=='HEAD')return send(res,405,{error:'仅支持 GET 和 HEAD'});
    if(route==='/health')return send(res,200,{status:'ok',service:'airports-deploy'});
-   if(route==='/ready'){const snapshot=catalogDb?.publication();return send(res,snapshot?200:503,{status:snapshot?'ready':'waiting_for_publication'});}
+   if(route==='/ready'){const ready=publicationReady()&&catalogDb?.publication();return send(res,ready?200:503,{status:ready?'ready':'waiting_for_publication'});}
    if(['/api/stats','/api/catalog'].includes(route)||route.startsWith('/api/airports/')){
     if(!catalogDb?.publication())return send(res,503,{error:'现有资料尚未导入规范数据库'});
     if(route==='/api/stats')return send(res,200,{...catalogDb.stats(),updateService:updateService()});
-    if(route==='/api/catalog'){const query={};for(const[k,v]of url.searchParams){if(Object.hasOwn(query,k))return send(res,400,{error:'参数不能重复'});query[k]=v;}return send(res,200,catalogDb.list(query,{facts:publicFacts,card:true}));}
+    if(route==='/api/catalog'){
+     const params={};for(const[k,v]of url.searchParams){if(Object.hasOwn(params,k))return send(res,400,{error:'参数不能重复'});params[k]=v;}
+     const {view,...query}=params;
+     if(view!==undefined&&view!=='card')return send(res,400,{error:'无效目录视图'});
+     return send(res,200,catalogDb.list(query,{facts:publicFacts,card:view==='card'}));
+    }
     const id=route.slice('/api/airports/'.length);if(!/^A\d{3}$/.test(id))return send(res,400,{error:'无效记录编号'});const detail=catalogDb.detail(id,{facts:publicFacts});return detail?send(res,200,detail):send(res,404,{error:'记录不存在'});
    }
    if(route==='/api/search'){
     const query={};for(const[k,v]of url.searchParams){if(Object.hasOwn(query,k))return send(res,400,{error:'参数不能重复'});query[k]=v;}
-    const base=catalogDb?{evidenceAsOf:catalogDb.publication()?.sourceAsOf,rawExport:catalogDb.rawExport}:serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();if(catalogDb)return data;const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
+    const base=catalogDb?{rawExport:catalogDb.rawExport}:serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();if(catalogDb)return data;const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
     const verifiedReferralLinks=(store?.listReferrals?.()||[]).filter(r=>r.status==='verified_user_referral'&&r.owner==='user').map(r=>({...r,recordId:r.recordId||r.siteId}));
     return send(res,200,publicSearch(makeNeedsSearch(service,{verifiedReferralLinks}).search(query)));
    }

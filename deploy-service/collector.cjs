@@ -1,17 +1,21 @@
 'use strict';
-const net=require('node:net'),dns=require('node:dns').promises;
-function publicIP(ip){if(net.isIPv4(ip)){const p=ip.split('.').map(Number);return p[0]>0&&p[0]<224&&![10,127].includes(p[0])&&!(p[0]===169&&p[1]===254)&&!(p[0]===172&&p[1]>=16&&p[1]<=31)&&!(p[0]===192&&[0,168].includes(p[1]))&&!(p[0]===100&&p[1]>=64&&p[1]<=127);}return false;}
-async function assertPublicUrl(raw,lookup=dns.lookup){const u=new URL(raw);if(!['https:','http:'].includes(u.protocol)||u.username||u.password||(u.port&&!['80','443'].includes(u.port)))throw Error('unsafe_url');const addresses=await lookup(u.hostname,{all:true,family:4});if(!addresses.length||addresses.some(x=>!publicIP(x.address)))throw Error('nonpublic_destination');return u;}
+const {assertPublicUrl,blockWebSockets,boundedLookup,collectorContextOptions,createPublicRoute,parsePublicUrl,publicIP}=require('./collector-public-egress.cjs');
 const redact=s=>String(s).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').split('\n').filter(x=>!/(?:vmess|vless|trojan|ss):\/\/|[?&](token|password|access_token)=/i.test(x)).join('\n');
 function requestAllowed(url,{allowed,isMainNavigation=false}={}){
  const u=new URL(url);
  return allowed.has(u.hostname)||(!isMainNavigation&&u.protocol==='https:'&&u.hostname==='challenges.cloudflare.com'&&(!u.port||u.port==='443'));
 }
-async function collectSite(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4}={}){
- const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=await assertPublicUrl(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
- const context=await browser.newContext({acceptDownloads:false});const observations=[],discovery=[],checkpoints=[];let blocker=null;
- await context.route('**/*',async route=>{try{const request=route.request(),u=await assertPublicUrl(request.url());const isMainNavigation=request.isNavigationRequest()&&!request.frame().parentFrame();if(!requestAllowed(u.href,{allowed,isMainNavigation}))return route.abort();return route.continue();}catch{return route.abort();}});
- try{const page=await context.newPage(),queue=[entry],seen=new Set();while(queue.length&&observations.length<maxPages){const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
+async function collectSite(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4,lookup,webTransport}={}){
+ const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=parsePublicUrl(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
+ const resolve=boundedLookup(lookup);await assertPublicUrl(entry,resolve);
+ const context=await browser.newContext({acceptDownloads:false,...collectorContextOptions});const observations=[],discovery=[],checkpoints=[];let blocker=null;
+ try{
+ const {attach,send}=createPublicRoute(context,{lookup:resolve,transport:webTransport,
+  authorizeRequest:(_request,main,url)=>requestAllowed(url.href,{allowed,isMainNavigation:main}),
+  authorizeRedirect:url=>allowed.has(url.hostname)});
+ await blockWebSockets(context);
+ await context.route('**/*',async route=>{try{const request=route.request(),frame=request.isNavigationRequest()?request.frame():null;await send(route,frame&&!frame.parentFrame()?frame:null);}catch{return route.abort();}});
+ const page=await context.newPage(),queue=[entry],seen=new Set();await attach(page);while(queue.length&&observations.length<maxPages){const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
  const verification=require('./verification.cjs');
  let gate=await verification.observeVerification(page);const passive=await import('../collection/passive-access-wait.mjs');if(passive.passiveAccessWaitLabel(gate.snapshot)){const waited=await passive.waitForPassiveAccessPage({tab:{playwright:page},snapshot:gate.snapshot,inspect:async()=> (await verification.observeVerification(page)).snapshot,runtime:'server'});if(passive.passiveAccessWaitLabel(waited.snapshot)){blocker='passive_access_wait_incomplete';break;}gate=await verification.observeVerification(page);}let text=gate.snapshot.text;
  if(gate.type&&!(gate.type==='image_captcha'&&gate.snapshot.passwordForm)){

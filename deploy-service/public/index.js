@@ -556,6 +556,7 @@ async function loadCatalog({background = false} = {}) {
   }
   params.set('page', catalogPage);
   params.set('limit', '12');
+  params.set('view', 'card');
   updatePaymentChips();
 
   const isUnfilteredPrimary =

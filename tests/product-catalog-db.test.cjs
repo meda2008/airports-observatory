@@ -15,11 +15,32 @@ test('initialized database sync overlays reviewed changes without seed or public
   assert.equal(first.status,'published');assert.equal(second.status,'unchanged');assert.equal(second.snapshotId,first.snapshotId);assert.equal(runtime.detail(a.id).item.pricing.plans[0].amount,135);assert.equal(store.getSite(a.id).revision,1);const after=runtime.exportBundle({versionedSources:true}),changed=after.records.find(r=>r.id===a.id);assert.deepEqual(after.records.find(r=>r.id===b.id),original.records.find(r=>r.id===b.id));assert.deepEqual(changed.listing,a.listing);assert.deepEqual(changed.catalogRecord,a.catalogRecord);assert.deepEqual(changed.importedReferral,a.importedReferral);assert.deepEqual(changed.fields.referral,a.fields.referral);assert.equal(changed.coreInfo.refund.summary,'Unknown refund');assert.equal(changed.reviewedOverlay.applied[0].revision,1);assert.deepEqual(after.summary.definitions,original.summary.definitions);assert.deepEqual(db.prepare("SELECT * FROM catalog_sources WHERE id IN ('S1','S2') ORDER BY id").all(),sourcesBefore);assert.ok(db.prepare('SELECT id FROM catalog_sources WHERE id=?').get(ev.id));
  }finally{db.close();runtime.close();}
 });
+test('curation is reconciled from retained inputs even without a base file',t=>{
+ const {catalog,filename}=fixture(t);
+ catalog.importRecords({records:[record(),record('A002')]});
+ catalog.sync();
+ const curation=path.join(path.dirname(filename),'collection','catalog-curation.json');
+ fs.mkdirSync(path.dirname(curation));
+ fs.writeFileSync(curation,JSON.stringify({schemaVersion:'airports-catalog-curation.v1',archived:[{id:'A002',name:'Synthetic archive',reason:'Fixture',archivedAt:'2026-11-24T00:00:00Z'}]}));
+ assert.equal(catalog.sync().status,'published');
+ assert.deepEqual(catalog.list({scope:'all'}).items.map(item=>item.id),['A001']);
+ assert.equal(catalog.sync().status,'unchanged');
+});
+
 test('catalog and detail share the same concise summary without changing retained records',t=>{const{catalog}=fixture(t),r=record();r.coreInfo.pricing.plans[0].amountBasis='original_billing_period_total';r.coreInfo.operatingHistory={yearsSinceStart:6,continuousOperationVerified:false};catalog.importRecords({records:[r]});const before=catalog.publication().snapshotId,a=catalog.list({}, {facts:publicFacts}).items[0],b=catalog.detail('A001',{facts:publicFacts}).item;assert.deepEqual(a.summary,b.summary);assert.equal(a.summary.price.amount,120);assert.equal(a.summary.price.billingPeriod,'年付');assert.equal(a.summary.price.currency,null);assert.deepEqual(a.summary.paymentMethods,['支付宝']);assert.equal(a.summary.operatingAge,'暂无数据');assert.equal(a.summary.refund,null);assert(!JSON.stringify(a.summary).includes('DO_NOT_PUBLISH'));assert.equal(b.sources[0].observedAt,'2026-10-01T00:00:00Z');assert.equal(catalog.publication().snapshotId,before);});
 test('relational import is idempotent, preserves unknown currency and source date, filters scopes and gaps',t=>{const{catalog,filename}=fixture(t);const input={records:[record(),record('A002',false)]};const a=catalog.importRecords(input),b=catalog.importRecords(input);assert.equal(b.status,'unchanged');assert.equal(a.snapshotId,b.snapshotId);assert.equal(catalog.stats().counts.all,2);assert.equal(catalog.stats().coverage.refund.missing,1);assert.equal(catalog.list().total,1);assert.equal(catalog.list({scope:'all'}).total,2);assert.equal(catalog.list({price:'missing'}).total,0);assert.equal(catalog.list({refund:'missing',payment:'支付宝'}).total,1);const detail=catalog.detail('A001',{facts:publicFacts}).item;assert.equal(detail.pricing.plans[0].currency,null);assert.equal(detail.sources[0].observedAt,'2026-10-01T00:00:00Z');assert.equal(detail.sources.find(s=>s.id==='S2').status,'unresolved_reference');assert(!detail.link.url.includes('OTHERS'));assert(!JSON.stringify(detail).includes('DO_NOT_PUBLISH'));const {DatabaseSync}=require('node:sqlite'),db=new DatabaseSync(filename);assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);assert.equal(db.prepare('SELECT count(*) n FROM catalog_plans').get().n,2);db.close();});
 test('failed import rolls back all normalized tables and publication',t=>{const{catalog}=fixture(t);catalog.importRecords({records:[record()]});const before=catalog.publication();const invalid=record('A003');invalid.coreInfo.payment.methods=[undefined];assert.throws(()=>catalog.importRecords({records:[invalid]}));assert.equal(catalog.publication().snapshotId,before.snapshotId);assert.equal(catalog.list().items[0].id,'A001');assert.throws(()=>catalog.list({limit:'0'}));});
 test('database-backed HTTP uses one publication, keeps unknowns, requires admin and refuses speed ranking',async t=>{const{store,catalog}=fixture(t);catalog.importRecords({records:[record()]});store.setServiceHeartbeat('collector',{status:'paused',details:{collectionEnabled:false}});const server=createServer({store,catalogDb:catalog,adminToken:'synthetic-secret'});await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>server.close(r)));const base='http://127.0.0.1:'+server.address().port,get=async p=>(await fetch(base+p)).json();const stats=await get('/api/stats'),list=await get('/api/catalog');assert.equal(stats.snapshotId,list.snapshotId);assert.equal(stats.updateService.collectionEnabled,false);assert.equal(stats.updateService.status,'paused');assert.equal((await get('/api/search?criterion=speed')).status,'abstain');assert.equal((await get('/api/search')).items.length,0);assert.equal((await fetch(base+'/api/admin/status')).status,401);const admin=await(await fetch(base+'/api/admin/status',{headers:{Authorization:'Bearer synthetic-secret'}})).json();assert(admin.database.tables.some(t=>t.name==='catalog_plans'));const text=await(await fetch(base+'/api/airports/A001')).text();assert(!text.includes('DO_NOT_PUBLISH'));assert(!text.includes('synthetic-secret'));assert.equal((await fetch(base+'/api/catalog?page=0')).status,400);assert.equal((await fetch(base+'/data/collector.sqlite')).status,404);});
 test('publisher reconciles once per fingerprint and records failure without promoting data',t=>{const{store}=fixture(t);let calls=0;const catalog={sync(){calls++;return{status:'unchanged'};},publication(){return{snapshotId:'synthetic'};}};const p=require('../deploy-service/publisher.cjs').createPublisher({store,catalog,root:'missing-synthetic-root',clock:()=>0});p.tick();p.tick();assert.equal(calls,1);assert.equal(store.getServiceHeartbeats()[0].status,'running');const broken=require('../deploy-service/publisher.cjs').createPublisher({store,catalog:{sync(){throw Error('private-secret');}},root:'missing-synthetic-root'});assert.equal(broken.tick().status,'failed');assert(!JSON.stringify(store.getServiceHeartbeats()).includes('private-secret'));});
+test('search derives evidence time from the snapshot used for results',async t=>{
+ const server=createServer({catalogDb:{publication(){throw Error('search should not read publication separately');},rawExport(){return{catalog:[],evidenceAsOf:'2026-11-25T00:00:00Z'};}}});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ t.after(()=>new Promise(resolve=>server.close(resolve)));
+ const response=await fetch(`http://127.0.0.1:${server.address().port}/api/search`);
+ assert.equal(response.status,200);
+ assert.equal((await response.json()).evidenceAsOf,'2026-11-25T00:00:00Z');
+});
+
 test('public URLs remove private checkout paths and tokens',()=>{const{publicUrl}=require('../deploy-service/public-url.cjs');assert.equal(publicUrl('https://example.com/order/private?token=secret'),'https://example.com/');assert.equal(publicUrl('https://example.com/help?token=secret&id=2'),'https://example.com/help?id=2');assert.equal(publicUrl('javascript:alert(1)'),null);});
 test('presentation clock drift does not create a publication revision, but a price change does',t=>{const{catalog}=fixture(t),r=record();r.coreInfo.asOf='2026-11-10T01:00:00Z';r.coreInfo.stability={recentWindow:{start:'2026-10-11',end:'2026-11-10'},status:'not_measured'};r.catalogRecord={freshness:{ageHours:2}};catalog.importRecords({records:[r]});r.coreInfo.asOf='2026-11-10T02:00:00Z';r.coreInfo.stability.recentWindow.end='2026-11-10T02:00:00Z';r.catalogRecord.freshness.ageHours=3;assert.equal(catalog.importRecords({records:[r]}).status,'unchanged');r.coreInfo.pricing.plans[0].amount=121;assert.equal(catalog.importRecords({records:[r]}).status,'published');});
 
@@ -50,7 +71,27 @@ test('publisher applies a new retained base to an initialized database and prese
  const input=path.join(root,'catalog/catalog.v1.json');
  const retained=JSON.parse(fs.readFileSync(input,'utf8'));
  retained.catalog.find(record=>record.id==='A042').name='Refreshed retained record';
- fs.writeFileSync(input,JSON.stringify(retained));
+ const updated=JSON.stringify(retained);
+ fs.writeFileSync(input,updated);
+ const transient=Buffer.from(updated.replace('Refreshed retained record','Transient retained record'));
+ const readFile=fs.readFileSync;
+ let inputReads=0;
+ fs.readFileSync=function(file,...args){
+  if(file===input&&++inputReads===2)return transient;
+  return readFile.call(this,file,...args);
+ };
+ try{assert.throws(()=>catalog.sync(),/inputs changed during preparation/);}finally{fs.readFileSync=readFile;}
+ assert.equal(catalog.publication().snapshotId,prior.snapshotId);
+ const other=openCatalogDb({filename,store,root});
+ const originalList=store.listEvidence;
+ let newer;
+ store.listEvidence=(...args)=>{
+  store.listEvidence=originalList;
+  newer=other.importRecords({records:[record('A001')]}).snapshotId;
+  return originalList(...args);
+ };
+ try{assert.throws(()=>catalog.sync(),/publication changed during preparation/);}finally{store.listEvidence=originalList;other.close();}
+ assert.equal(catalog.publication().snapshotId,newer);
  const siteId='A042',refund={status:'observed',summary:'Reviewed policy',sourceIds:[]};
  store.seedSites([{recordId:siteId,entryUrl:'https://example.com/'}]);
  const evidence=store.saveEvidence({siteId,url:'https://example.com/policy',body:'reviewed fixture policy',observedAt:'2026-11-24T00:00:00Z'});
@@ -58,8 +99,12 @@ test('publisher applies a new retained base to an initialized database and prese
  const proposal=store.createProposal({siteId,patch:{refund},evidenceIds:[evidence.id],expectedRevision:0});
  store.reviewProposal(proposal.id,{approved:true,reviewer:'test',expectedRevision:0});
  const publisher=require('../deploy-service/publisher.cjs').createPublicationWorker({store,root});
+ const control=new(require('node:sqlite').DatabaseSync)(filename);
  try{
+ control.exec("CREATE TRIGGER reject_heartbeat BEFORE INSERT ON service_heartbeats WHEN NEW.name='publisher' BEGIN SELECT RAISE(ABORT,'fixture heartbeat failure'); END");
  const publication=await publisher.sync();
+ control.exec('DROP TRIGGER reject_heartbeat');
+ assert.equal(publication.status,'published');
  assert.notEqual(publication.snapshotId,prior.snapshotId);
  const detail=catalog.detail(siteId).item;
  assert.equal(detail.name,'Refreshed retained record');
@@ -71,7 +116,7 @@ test('publisher applies a new retained base to an initialized database and prese
  assert.equal(catalog.publication().snapshotId,publication.snapshotId);
  fs.writeFileSync(input,JSON.stringify(retained));
  assert.equal((await publisher.sync()).status,'unchanged');
- }finally{await publisher.close();}
+ }finally{control.close();await publisher.close();}
  }finally{catalog.close();}
 });
 
@@ -89,7 +134,11 @@ test('card response omits detail fields and admin evidence detail reads only the
  const head=await fetch(base+'/api/catalog',{method:'HEAD'});
  assert.equal(head.status,200);
  assert.equal(await head.text(),'');
- const page=await (await fetch(base+'/api/catalog')).json();
+ const full=await (await fetch(base+'/api/catalog')).json();
+ assert.equal(full.items[0].pricing.plans.length,1);
+ assert.ok(full.items[0].fields);
+ assert.equal((await fetch(base+'/api/catalog?view=unknown')).status,400);
+ const page=await (await fetch(base+'/api/catalog?view=card')).json();
  assert.equal(page.items[0].name,'Synthetic A001');
  assert.equal(page.items[0].pricing,undefined);
  assert.equal(page.items[0].fields,undefined);

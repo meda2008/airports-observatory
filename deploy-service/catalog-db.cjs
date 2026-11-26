@@ -44,15 +44,16 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  CREATE INDEX IF NOT EXISTS catalog_method ON catalog_payment_methods(method);
  CREATE INDEX IF NOT EXISTS catalog_missing ON catalog_field_states(field,material_available);`);
  }catch(error){try{db.close();}catch{}throw error;}
- function meta(){return db.prepare('SELECT i.* FROM catalog_publication p JOIN catalog_imports i ON i.id=p.snapshot_id WHERE p.singleton=1').get();}
+ function meta(){return db.prepare('SELECT i.*,s.snapshot_id AS applied_snapshot_id,s.source_hash,s.state_key FROM catalog_publication p JOIN catalog_imports i ON i.id=p.snapshot_id LEFT JOIN catalog_sync_state s ON s.singleton=p.singleton WHERE p.singleton=1').get();}
  function importRecords({records,summary={},syncState}){
-  if(Array.isArray(records))records=require('./catalog-curation.cjs').activeRecords(records,root);
+  const existing=syncState?syncState.prior:meta();
+  if(Array.isArray(records))records=require('./catalog-curation.cjs').activeRecords(records,root,syncState?.curation);
   if(!Array.isArray(records)||!records.length||new Set(records.map(r=>r.id)).size!==records.length)throw Error('Nonempty unique catalog required');
   for(const r of records)if(!r.id||!r.name||!r.coreInfo||typeof r.primary!=='boolean'||!r.fields)throw Error('Invalid reviewed record');
   const docs=records.map(r=>({id:r.id,name:r.name,category:r.category,primary:r.primary,listing:r.listing||{},coreInfo:r.coreInfo,fields:r.fields,catalogRecord:r.catalogRecord||{},sourceIds:r.sourceIds||[],unresolvedSourceIds:r.unresolvedSourceIds||[],sourceEvidence:r.sourceEvidence||[],reviewedOverlay:r.reviewedOverlay||{},importedReferral:r.importedReferral||null}));
   const admittedEvidence=new Map(records.map(r=>[r.id,referencedStoreEvidence(r)])),storeEvidence=[...admittedEvidence.values()].flat();
-  const digest=hash(json(canonical(contentIdentity({projectionVersion:4,docs,storeEvidence})))),id='catalog-'+digest.slice(0,24),existing=meta();
-  if(!syncState&&existing?.content_sha256===digest)return{status:'unchanged',...publication()};
+  const digest=hash(json(canonical(contentIdentity({projectionVersion:4,docs,storeEvidence})))),id='catalog-'+digest.slice(0,24);
+  if(!syncState&&existing?.content_sha256===digest)return{status:'unchanged',...publicationFrom(existing)};
   const importedAt=new Date(clock()).toISOString(),sourceAsOf=latest(records.map(r=>r.coreInfo));
   // JSON, source traversal and SQL preparation happen before the writer lock.
   const writes=[],statements=new Map(),insert=(sql,...values)=>writes.push([sql,values]);
@@ -82,37 +83,50 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   db.exec('BEGIN IMMEDIATE');
   try{
    const current=meta();
-   if(current?.content_sha256===digest&&!syncState){db.exec('COMMIT');return{status:'unchanged',...publication()};}
-   if((current?.id||null)!==(existing?.id||null))throw Error('Catalog publication changed during preparation; retry');
+   if(current?.content_sha256===digest&&!syncState){db.exec('COMMIT');return{status:'unchanged',...publicationFrom(current)};}
+   if(current?.id!==existing?.id||(syncState&&current?.state_key!==existing?.state_key))throw Error('Catalog publication changed during preparation; retry');
    if(db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='sites'").get()){const revisions=new Map(db.prepare('SELECT id,revision FROM sites').all().map(s=>[s.id,s.revision]));for(const r of records)if(r.storeSnapshot?.site&&revisions.has(r.id)&&revisions.get(r.id)!==r.storeSnapshot.site.revision)throw Error('Catalog reviewed input revision changed; retry');}
    if(syncState&&syncState.validate()!==syncState.key)throw Error('Catalog sync inputs changed during preparation; retry');
    if(current?.content_sha256!==digest)for(const[sql,values]of writes)statements.get(sql).run(...values);
    if(syncState)db.prepare('INSERT INTO catalog_sync_state VALUES(1,?,?,?) ON CONFLICT(singleton) DO UPDATE SET snapshot_id=excluded.snapshot_id,source_hash=excluded.source_hash,state_key=excluded.state_key').run(id,syncState.sourceHash,syncState.key);
-   db.exec('COMMIT');return{status:current?.content_sha256===digest?'unchanged':'published',...publication()};
+   const published=publication();
+   db.exec('COMMIT');return{status:current?.content_sha256===digest?'unchanged':'published',...published};
   }catch(e){db.exec('ROLLBACK');throw e;}
  }
- function publication(){const m=meta();return m?{snapshotId:m.id,importedAt:m.imported_at,sourceAsOf:m.source_as_of,contentSha256:m.content_sha256}:null;}
+ function publicationFrom(m){return m?{snapshotId:m.id,importedAt:m.imported_at,sourceAsOf:m.source_as_of,contentSha256:m.content_sha256}:null;}
+ function publication(){return publicationFrom(meta());}
  const fileHashes=new Map();
- function sourceHash(){
+ function retainedInputs(capture=false){
+  const bytes=new Map();
   const inputs=RETAINED_INPUTS.map(file=>{
-   const filename=path.join(root,file);let stat;
-   try{stat=fs.statSync(filename,{bigint:true});}catch(error){if(error.code==='ENOENT'){fileHashes.delete(file);return null;}throw error;}
-   const identity=[stat.size,stat.mtimeNs,stat.ctimeNs,stat.ino].join(':');
-   let cached=fileHashes.get(file);
-   if(cached?.identity!==identity){cached={identity,digest:hash(fs.readFileSync(filename))};fileHashes.set(file,cached);}
-   return [file,cached.digest];
+   const filename=path.join(root,file);
+   try{
+    if(capture){const body=fs.readFileSync(filename);bytes.set(file,body);return [file,hash(body)];}
+    const stat=fs.statSync(filename,{bigint:true});
+    const identity=[stat.size,stat.mtimeNs,stat.ctimeNs,stat.ino].join(':');
+    let cached=fileHashes.get(file);
+    if(cached?.identity!==identity){cached={identity,digest:hash(fs.readFileSync(filename))};fileHashes.set(file,cached);}
+    return [file,cached.digest];
+   }catch(error){if(error.code!=='ENOENT')throw error;fileHashes.delete(file);return null;}
   });
-  return inputs[0]?hash(json(inputs)):null;
+  return {digest:hash(json(inputs)),hasBase:!!inputs[0],bytes};
  }
  function sync(){
-  const inventory=require('../scripts/export-current-inventory.cjs'),baseHash=sourceHash(),current=publication();
-  const applied=db.prepare('SELECT * FROM catalog_sync_state WHERE singleton=1').get();
+  const prior=meta(),current=publicationFrom(prior),initial=retainedInputs();
+  const inventory=require('../scripts/export-current-inventory.cjs');
   const reviewedState=()=>store?.publicationWatermark?.()||null;
   const keyFor=(base,review)=>hash(json({base,review,day:new Date(clock()).toISOString().slice(0,10)}));
-  const key=keyFor(baseHash,reviewedState());
-  if(applied&&current?.snapshotId===applied.snapshot_id&&applied.state_key===key)return{status:'unchanged',...current};
-  const useFiles=baseHash&&(!current||applied?.source_hash!==baseHash);
-  const bundle=useFiles?inventory.exportInventory({root,storeFile:filename,clock,writeFiles:false,publicationOnly:true})
+  const key=keyFor(initial.digest,reviewedState());
+  if(prior?.id===prior?.applied_snapshot_id&&prior?.state_key===key)return{status:'unchanged',...current};
+  const captured=retainedInputs(true);
+  if(captured.digest!==initial.digest)throw Error('Catalog sync inputs changed during preparation; retry');
+  function readInput(file,optional=false){
+   const bytes=captured.bytes.get(file);
+   if(!bytes&&!optional)throw Error('Missing retained catalog input: '+file);
+   return bytes||null;
+  }
+  const useFiles=captured.hasBase&&(!current||prior.source_hash!==captured.digest);
+  const bundle=useFiles?inventory.exportInventory({root,storeFile:filename,clock,writeFiles:false,publicationOnly:true,readInput})
    :current?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
   if(!useFiles){
    const changes=(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId}));
@@ -135,7 +149,7 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
    const resolved=new Set(evidence.map(e=>e.id));
    r.unresolvedSourceIds=(r.unresolvedSourceIds||[]).filter(id=>!resolved.has(id));
   }
-  return importRecords({...bundle,syncState:{sourceHash:baseHash,key,validate:()=>keyFor(sourceHash(),reviewedState())}});
+  return importRecords({...bundle,syncState:{prior,curation:readInput('collection/catalog-curation.json',true),sourceHash:captured.digest,key,validate:()=>keyFor(retainedInputs().digest,reviewedState())}});
  }
  const recordRow=r=>r&&({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json),metadata:parse(r.metadata_json)});
  const record=id=>recordRow(db.prepare('SELECT * FROM catalog_records WHERE id=?').get(id));
@@ -181,7 +195,8 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  function detail(id,options={}){return readSnapshot(()=>{const row=record(id);return row?{item:present(row,{...options,detail:true,related:id==='A082'?[record('A070')].filter(Boolean):[]}),...publication()}:null;});}
  function stats(){return readSnapshot(()=>{const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};});}
  function tables(){const names=['catalog_records','catalog_plans','catalog_payment_methods','catalog_policies','catalog_field_states','catalog_sources','catalog_record_sources','catalog_field_sources','catalog_order_cleanup','catalog_referral_links','catalog_imports','catalog_record_versions','catalog_publication','sites','evidence','observations','proposals','changes','referrals','jobs','service_heartbeats','collector_profiles','collector_control','collector_runs','collector_checkpoints','collector_events','collector_capture_metadata','collector_cancellation_acks'];return names.filter(name=>db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(name)).map(name=>({name,count:db.prepare('SELECT count(*) n FROM '+name).get().n,columns:db.prepare('PRAGMA table_info('+name+')').all().map(c=>({name:c.name,type:c.type,required:!!c.notnull,primaryKey:!!c.pk}))}));}
- function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));const referrals=refs();for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=referrals.find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
- return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport:()=>({catalog:records().filter(r=>r.primary).map(r=>({id:r.id,name:r.name,coreInfo:r.coreInfo,officialUrl:r.coreInfo.website?.url})),evidenceAsOf:publication()?.sourceAsOf}),close:()=>db.close()};
+ function exportBundle({versionedSources=false}={}){return readSnapshot(()=>{const published=meta();const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(published.id).map(r=>parse(r.document_json));const referrals=refs();for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=referrals.find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(published.manifest_json).definitions},originalPublication:publicationFrom(published)};});}
+ function rawExport(){return readSnapshot(()=>({catalog:records().filter(r=>r.primary).map(r=>({id:r.id,name:r.name,coreInfo:r.coreInfo,officialUrl:r.coreInfo.website?.url})),evidenceAsOf:publication()?.sourceAsOf}));}
+ return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport,close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest,RETAINED_INPUTS};
