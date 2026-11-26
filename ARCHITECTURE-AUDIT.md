@@ -17,7 +17,7 @@
 | P1 | Replay could claim unrelated work or update live scheduling state. Captured article-image metadata could be lost at intake. | **Implemented.** Enqueue and claim the exact replay in one transaction, preserve the original observation time and live schedule, and retain bounded source-bound heading/media associations. |
 | P1 | Static-site removal left the collection pipeline pointing to generated inputs that no longer exist in the checkout. | **Implemented in the active planning and review paths.** Reuse the canonical projection and source indexes. Historic release and specialist tools still need a separate audit for removed paths. |
 | P1 | Legacy browser collection lacked an overall deadline. The HTTP collector could overlap interval and explicit lease renewal. | **Implemented.** Bound the legacy job, close its browser context on timeout (including late allocation), share one HTTP renewal, and clear timers on exit. Newer site-specific native adapters retain their existing budgets. |
-| P1 | Browser egress validation and socket establishment must agree. | **Separate follow-up.** Connection binding is not delivered by this branch. Keep the existing allowlists; require browser compatibility checks before merging broader egress transport changes. |
+| P1 | Browser egress validation and socket establishment must agree. | **Implemented for service Chromium.** After a route admits the request, the job-local proxy uses the validated public IPv4 addresses for that host and port. Direct connections also verify the socket peer. Browser TLS still verifies the original hostname. |
 | P2 | Visitor requests raced with reset, pagination, or a newly published snapshot. Admin polling replaced unchanged DOM; assistance reassigned unchanged screenshots. | **Implemented.** Fence stale responses, preserve last successful views and user selections, and skip unchanged regions and frames. |
 | P2 | Plan restrictions and mobile latency tables were difficult to inspect. Date-only promotions used an implicit timezone. | **Implemented.** Show existing plan condition notes, allow keyboard scrolling for the latency table, and compare date-only values in Asia/Shanghai. |
 | P2 | Collector parsers and lifecycle mishandled VM DOM globals, dispatch overlap, fast polling, and ambiguous unpaid-order cleanup. | **Implemented.** Use document URL, disjoint exact parser dispatch, bounded polling, and preserve cleanup holds unless the matching order is confirmed cancelled. |
@@ -31,6 +31,12 @@ On the Windows development machine with Node 22.22.0, the catalog-loading code p
 ## Before merging
 
 - [x] Reconcile this branch with the collector recovery and publication changes already merged to `main`.
-- [ ] Verify the separately tracked browser transport hardening against supported site navigation before deploying it.
-- [x] Run syntax checks and the full regression suite on the integrated branch: 1,834 passed in the root suites, plus 8 in the HTTP measurement suite; zero failed. The root suites reported 742 skips, including 718 explicitly missing historical inputs. Chromium-backed local tests ran; both Compose service models parsed. No live site or production deployment was exercised.
-- [x] Inspect the diff for private source files, credentials, and local databases before publishing the PR. Production deployment is outside this audit.
+- [x] Verify browser transport with local Chromium navigation, redirects, request bodies, and HEAD reads. Local HTTPS fixtures verified the original TLS server name and rejection of an untrusted certificate. A native Chromium process connected over CDP also passed proxy authentication and navigation.
+- [x] Run syntax checks and the full regression suite with the egress changes. `npm test` reported 1,845 passed, zero failed, and 742 skipped. Both Compose service models parsed during the initial audit.
+- [x] Inspect the diff for private source files, credentials, and local databases before publishing the PR.
+
+## Browser transport scope
+
+The service Chromium paths, including persistent profiles, use an authenticated proxy bound to the collector's loopback interface. Approved host and port pairs are scoped to a job or persistent assistance session. TLS remains end to end. For `authenticated_local_proxy`, the mounted upstream receives a CONNECT request with the approved numeric address. The upstream operator controls the final dial and exit route. Target-specific routing and production proxy compatibility still require validation with the deployed configuration.
+
+The proxy enforces destination addresses. HTTPS request paths and methods are handled by the existing browser route policies. The separately scoped native HTTP clients and operator tooling have their own transports. Production deployment, real-site navigation, and replay of unavailable private originals remain unverified.

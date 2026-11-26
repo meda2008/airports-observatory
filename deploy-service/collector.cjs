@@ -1,9 +1,7 @@
 'use strict';
-const {assertPublicUrl:assertBrowserUrl,blockWebSockets,boundedLookup,collectorContextOptions,createPublicRoute,parsePublicUrl,publicIP}=require('./collector-public-egress.cjs');
-// Native HTTP adapters rely on the IPv4 lookup contract of this export.
-function assertPublicUrl(raw, lookup) {
- return assertBrowserUrl(raw, boundedLookup(lookup), {family:4});
-}
+const { assertPublicUrl, publicIP } = require('./public-destination.cjs');
+const { createBrowserEgress } = require('./browser-egress.cjs');
+const { guardBrowserRedirects } = require('./collector-browser-redirect.cjs');
 const redact=s=>String(s).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').split('\n').filter(x=>!/(?:vmess|vless|trojan|ss):\/\/|[?&](token|password|access_token)=/i.test(x)).join('\n');
 function requestAllowed(url,{allowed,isMainNavigation=false}={}){
  const u=new URL(url);
@@ -28,22 +26,23 @@ async function collectSite(site, options = {}) {
   clearTimeout(timer);
  }
 }
-async function collectSiteWithinBudget(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4,lookup,webTransport},signal,result){
- const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=parsePublicUrl(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
- const resolve=boundedLookup(lookup);await assertBrowserUrl(entry,resolve);
- signal.throwIfAborted();
- const context=await browser.newContext({acceptDownloads:false,...collectorContextOptions});const {observations,discovery,checkpoints}=result;let blocker=null,closing;
- const close=()=>closing??=Promise.resolve().then(()=>context.close()).catch(()=>{});
- signal.addEventListener('abort',close,{once:true});
+async function collectSiteWithinBudget(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4,lookup},signal,result){
+ const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');
+ const egress=createBrowserEgress({config,lookup});
+ const first=await egress.check(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
+ const {observations,discovery,checkpoints}=result;let blocker=null,context,closing;
+ const closeContext=()=>context&&(closing??=Promise.resolve().then(()=>context.close()).catch(()=>{}));
+ const abort=()=>{void egress.close();void closeContext();};
+ signal.addEventListener('abort',abort,{once:true});
  try{
  signal.throwIfAborted();
- const {attach,send}=createPublicRoute(context,{lookup:resolve,transport:webTransport,signal,
-  authorizeRequest:(_request,main,url)=>requestAllowed(url.href,{allowed,isMainNavigation:main}),
-  authorizeRedirect:url=>allowed.has(url.hostname)});
- await blockWebSockets(context);
- await context.route('**/*',async route=>{try{const request=route.request(),frame=request.isNavigationRequest()?request.frame():null;await send(route,frame&&!frame.parentFrame()?frame:null);}catch{return route.abort();}});
+ context=await egress.open(browser,{acceptDownloads:false});
  signal.throwIfAborted();
- const page=await context.newPage(),queue=[entry],seen=new Set();await attach(page);while(queue.length&&observations.length<maxPages){signal.throwIfAborted();const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
+ await context.routeWebSocket?.('**/*',route=>route.close());
+ await context.route('**/*',async route=>{try{signal.throwIfAborted();const request=route.request();const isMainNavigation=request.isNavigationRequest()&&!request.frame().parentFrame();if(!requestAllowed(request.url(),{allowed,isMainNavigation}))return route.abort();await egress.admit(request.url());return route.continue();}catch{return route.abort();}});
+ const page=await context.newPage(),queue=[entry],seen=new Set();
+ await guardBrowserRedirects(context,page,url=>allowed.has(url.hostname));
+ while(queue.length&&observations.length<maxPages){signal.throwIfAborted();const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
  signal.throwIfAborted();
  const verification=require('./verification.cjs');
  let gate=await verification.observeVerification(page);const passive=await import('../collection/passive-access-wait.mjs');if(passive.passiveAccessWaitLabel(gate.snapshot)){const waited=await passive.waitForPassiveAccessPage({tab:{playwright:page},snapshot:gate.snapshot,inspect:async()=> (await verification.observeVerification(page)).snapshot,runtime:'server'});if(passive.passiveAccessWaitLabel(waited.snapshot)){blocker='passive_access_wait_incomplete';break;}gate=await verification.observeVerification(page);}let text=gate.snapshot.text;
@@ -77,6 +76,6 @@ async function collectSiteWithinBudget(site,{browser,credentials={},emailCodePro
  for(const l of links){let u;try{u=new URL(l.url);}catch{continue;}if(!/^https?:$/.test(u.protocol))continue;if(!allowed.has(u.hostname)){if(/官网|官方|发布|备用|official/i.test(l.label))discovery.push({url:l.url,quote:l.label,parentUrl:page.url(),identityStatus:'pending_review'});continue;}
  if(/套餐|定价|价格|退款|隐私|条款|帮助|知识库|文档|支持|公告|pricing|plans|terms|privacy|refund|knowledge|support|docs|help/i.test(l.label)&&!/(checkout|logout|cancel|delete|reset|order|payment|register|subscribe)/i.test(u.pathname+u.search+u.hash))queue.push(l.url);
  }
- }return{observations,discovery,checkpoints,blocker};}finally{signal.removeEventListener('abort',close);await close();}
+ }return{observations,discovery,checkpoints,blocker};}finally{signal.removeEventListener('abort',abort);await egress.close();await closeContext();}
 }
 module.exports={assertPublicUrl,publicIP,redact,collectSite,requestAllowed};
