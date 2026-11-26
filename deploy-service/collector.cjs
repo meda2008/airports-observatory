@@ -1,5 +1,9 @@
 'use strict';
-const {assertPublicUrl,blockWebSockets,boundedLookup,collectorContextOptions,createPublicRoute,parsePublicUrl,publicIP}=require('./collector-public-egress.cjs');
+const {assertPublicUrl:assertBrowserUrl,blockWebSockets,boundedLookup,collectorContextOptions,createPublicRoute,parsePublicUrl,publicIP}=require('./collector-public-egress.cjs');
+// Native HTTP adapters rely on the IPv4 lookup contract of this export.
+function assertPublicUrl(raw, lookup) {
+ return assertBrowserUrl(raw, boundedLookup(lookup), {family:4});
+}
 const redact=s=>String(s).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').split('\n').filter(x=>!/(?:vmess|vless|trojan|ss):\/\/|[?&](token|password|access_token)=/i.test(x)).join('\n');
 function requestAllowed(url,{allowed,isMainNavigation=false}={}){
  const u=new URL(url);
@@ -26,7 +30,7 @@ async function collectSite(site, options = {}) {
 }
 async function collectSiteWithinBudget(site,{browser,credentials={},emailCodeProvider=null,verificationOptions={},maxPages=4,lookup,webTransport},signal,result){
  const config=site.config||site,entry=config.entryUrl||site.entryUrl;if(!entry)throw Error('entry_missing');const first=parsePublicUrl(entry),allowed=new Set(config.allowedHosts||[first.hostname]);if(!allowed.has(first.hostname))throw Error('entry_identity_unapproved');
- const resolve=boundedLookup(lookup);await assertPublicUrl(entry,resolve);
+ const resolve=boundedLookup(lookup);await assertBrowserUrl(entry,resolve);
  signal.throwIfAborted();
  const context=await browser.newContext({acceptDownloads:false,...collectorContextOptions});const {observations,discovery,checkpoints}=result;let blocker=null,closing;
  const close=()=>closing??=Promise.resolve().then(()=>context.close()).catch(()=>{});

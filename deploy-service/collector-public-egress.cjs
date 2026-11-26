@@ -57,22 +57,25 @@ function boundedLookup(lookup = dns.lookup, { timeoutMs = 5000 } = {}) {
   };
 }
 
-async function resolvePublicUrl(raw, lookup = boundedLookup()) {
+async function resolvePublicUrl(raw, lookup = boundedLookup(), requiredFamily) {
   const url = parsePublicUrl(raw);
   const hostname = url.hostname.replace(/^\[(.*)\]$/, '$1');
   const family = net.isIP(hostname);
-  const addresses = family ? [{ address: hostname, family }] : await lookup(hostname, { all: true });
+  const options = requiredFamily ? { all: true, family: requiredFamily } : { all: true };
+  const addresses = family ? [{ address: hostname, family }] : await lookup(hostname, options);
   if (!Array.isArray(addresses) || !addresses.length || addresses.some(result => {
     const address = result?.address;
-    return !publicIP(address) || (result.family !== undefined && result.family !== net.isIP(address));
+    const actualFamily = net.isIP(address);
+    return !publicIP(address) || (requiredFamily && actualFamily !== requiredFamily) ||
+      (result.family !== undefined && result.family !== actualFamily);
   })) throw Error('nonpublic_destination');
   // Prefer IPv4 when available, while requiring every DNS answer to pass.
   const { address } = addresses.find(result => net.isIPv4(result.address)) || addresses[0];
   return { url, hostname, address, family: net.isIP(address) };
 }
 
-async function assertPublicUrl(raw, lookup) {
-  return (await resolvePublicUrl(raw, lookup)).url;
+async function assertPublicUrl(raw, lookup, {family} = {}) {
+  return (await resolvePublicUrl(raw, lookup, family)).url;
 }
 
 const hopByHopHeaders = [
