@@ -32,5 +32,5 @@ On the Windows development machine with Node 22.22.0, the catalog-loading code p
 
 - [x] Reconcile this branch with the collector recovery and publication changes already merged to `main`.
 - [ ] Verify the separately tracked browser transport hardening against supported site navigation before deploying it.
-- [ ] Run syntax checks, the full suite, and applicable local browser/Compose validation. Record missing private inputs separately from active regressions.
-- [ ] Inspect the final diff for private source bodies and credentials, verify the PR checks, then merge to `main`. Production deployment is outside this audit.
+- [x] Run syntax checks and the full regression suite on the integrated branch: 1,834 passed in the root suites, plus 8 in the HTTP measurement suite; zero failed. The root suites reported 742 skips, including 718 explicitly missing historical inputs. Chromium-backed local tests ran; both Compose service models parsed. No live site or production deployment was exercised.
+- [x] Inspect the diff for private source files, credentials, and local databases before publishing the PR. Production deployment is outside this audit.

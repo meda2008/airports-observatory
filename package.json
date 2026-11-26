@@ -12,7 +12,7 @@
     "collect:pipeline": "node scripts/collection-pipeline.cjs",
     "collect:report": "node scripts/collection.cjs report",
     "collect:validate": "node scripts/validate-collection.cjs",
-    "test": "node --test tests/*.test.cjs",
+    "test": "node --test tests/*.test.cjs deploy-service/*.test.cjs",
     "check": "node --check deploy-service/three-services/web.cjs && node --check deploy-service/three-services/public-gateway.cjs && node --check deploy-service/three-service-api.cjs && node --check deploy-service/server.cjs && node --check deploy-service/public/index.js && node --check deploy-service/public/console.js && node --check lib/catalog-service.cjs"
   },
   "keywords": [
