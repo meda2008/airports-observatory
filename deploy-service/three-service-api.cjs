@@ -12,15 +12,15 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  if(adminToken===internalToken)throw Error('distinct_service_credentials_required');
  const store=createStore({filename}),catalogDb=openCatalogDb({filename,store,root}),{control,profiles}=initializeControl({store,root}),measurements=openMeasurementStore({filename,executorId:'collector'});
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
- // Review remains mandatory. This in-process publisher only reconciles already
- // approved material and retries a previously failed publication without Codex.
- const publisher=require('./publisher.cjs').createPublisher({store,catalog:catalogDb,root});
+ const {createPublisher,createPublicationWorker}=require('./publisher.cjs');
+ const bootstrap=createPublisher({store,catalog:catalogDb,root});
+ if(!catalogDb.publication())bootstrap.tick();
+ const publisher=filename===':memory:'?bootstrap:createPublicationWorker({store,root});
  const publicationTimer=setInterval(()=>publisher.tick(),30000);publicationTimer.unref?.();
- publisher.tick();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
  const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb});
- const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication:publisher.sync||(()=>catalogDb.sync())}),base=server.listeners('request')[0];server.removeAllListeners('request');
  let lastSchedule=0;
  const webOps={
   assistpoll:()=>assistance.poll(),
@@ -85,16 +85,16 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    if(!authorizedMeasurementWorker(req.headers.authorization,adminToken)){res.writeHead(401);res.end('{}');return;}
    try{const x=await readJson(req);const result=discovery.enqueue({seedId:x.seedId,actor:x.actor||'admin_entry_discovery'});res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(result));}catch{res.writeHead(409);res.end('{"error":"discovery_request_rejected"}');}return;
   }
-  if(!url.pathname.startsWith('/internal/')){if(url.pathname==='/health'||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
+  if(!url.pathname.startsWith('/internal/')){if(['/health','/ready'].includes(url.pathname)||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
   const send=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
   if(req.method!=='POST'||!authorizedMeasurementWorker(req.headers.authorization,internalToken)){send(401,{error:'internal_auth_required'});return;}
   try{const input=await readJson(req);
    if(url.pathname==='/internal/measurement-worker'){const value=await dispatchMeasurementWorker(measurements,input);send(200,{ok:true,value:value===undefined?null:value});return;}
    const match=url.pathname.match(/^\/internal\/web-collector\/([a-z]+)$/);if(match&&Object.hasOwn(webOps,match[1])){send(200,await webOps[match[1]](input));return;}
    send(404,{error:'internal_operation_not_found'});
-  }catch{send(409,{ok:false,error:'internal_request_rejected'});}
+  }catch(error){const retryable=[5,6].includes(error?.errcode&255);send(retryable?503:409,{ok:false,error:retryable?'internal_service_busy':'internal_request_rejected'});}
  });
- server.on('close',()=>{clearInterval(publicationTimer);assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ server.on('close',()=>{clearInterval(publicationTimer);publisher.close?.();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
  return {server,store,control,measurements,catalogDb,publisher};
 }
 if(require.main===module){try{

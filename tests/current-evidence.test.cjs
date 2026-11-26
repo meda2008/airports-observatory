@@ -46,8 +46,8 @@ test('real refresh explicitly covers all 215 candidates and decorates both list 
 });
 
 test('real original 245-entry forecast chain retains its frozen hash and every forecast remains an unscored abstention', () => {
-  const ledgerBytes = fs.readFileSync(path.join(root, 'catalog/forecast-ledger.v1.ndjson'));
-  assert.equal(crypto.createHash('sha256').update(ledgerBytes).digest('hex'), 'c30d6eafea00ff3be7b3d1c8a582355a2f0f4313f676a86a1d2e921ff71558ec');
+  const ledgerBytes = fs.readFileSync(path.join(root, 'catalog/forecast-ledger.v1.ndjson'), 'utf8').replace(/\r\n/g, '\n');
+  assert.equal(crypto.createHash('sha256').update(ledgerBytes).digest('hex'), '73a6c3f3d2ea6eab1b86e512d090ae5f9ada6f118a1c8753b5d6d411ad859f18');
   const service = makeCatalogService({ baseDir: root });
   const ledger = service.ledger();
   assert.equal(ledger.chainVerified, true);

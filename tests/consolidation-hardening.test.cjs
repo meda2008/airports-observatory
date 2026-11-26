@@ -8,7 +8,7 @@ const http = require('node:http');
 const net = require('node:net');
 const vm = require('node:vm');
 const {once} = require('node:events');
-const {execFileSync} = require('node:child_process');
+const {execFileSync, spawn} = require('node:child_process');
 
 const {createWebServer, createStaticAssetLoader, sendJsonError} = require('../deploy-service/three-services/web.cjs');
 const {createPublicGateway, validateAdminToken} = require('../deploy-service/three-services/public-gateway.cjs');
@@ -351,6 +351,30 @@ test('fresh empty SQLite cold-starts createThreeServiceApi with 200 stats/catalo
     fs.rmSync(dir, {recursive: true, force: true});
   });
 
+  const web = createWebServer({upstream: apiUrl, gatewayOptions: null});
+  const webUrl = await listen(web);
+  t.after(() => {
+    web.closeAllConnections();
+    return new Promise(resolve => web.close(resolve));
+  });
+
+  const head = await fetch(`${webUrl}/api/stats`, {method: 'HEAD'});
+  assert.equal(head.status, 200);
+  assert.match(head.headers.get('content-type'), /application\/json/);
+  assert.equal(await head.text(), '');
+
+  const script = path.join(ROOT, 'deploy-service/three-services/healthcheck.cjs');
+  async function checkHealth(server, ...args) {
+    const child = spawn(process.execPath, [script, ...args], {
+      env: {...process.env, PORT: String(server.address().port)},
+      stdio: 'ignore'
+    });
+    const [exitCode] = await once(child, 'exit');
+    assert.equal(exitCode, 0);
+  }
+  await checkHealth(app.server, '/ready');
+  await checkHealth(web);
+
   const statsRes = await fetch(`${apiUrl}/api/stats`);
   assert.equal(statsRes.status, 200);
   const stats = await statsRes.json();
@@ -474,6 +498,8 @@ test('Dockerfile, .dockerignore files, compose.three-services.yaml, and Caddyfil
   const compose = fs.readFileSync(path.join(ROOT, 'deploy-service/compose.three-services.yaml'), 'utf8');
   assert.equal((compose.match(/user: "1000:1000"/g) || []).length, 3);
   assert.match(compose, /HOME:\s*\/collector-state\/home/);
+  assert.match(compose, /command: \[node, deploy-service\/three-service-api\.cjs\]\s+healthcheck:\s+test: \[CMD, node, deploy-service\/three-services\/healthcheck\.cjs, \/ready\]/);
+  assert.match(compose, /command: \[node, deploy-service\/three-services\/web\.cjs\]\s+healthcheck:\s+test: \[CMD, node, deploy-service\/three-services\/healthcheck\.cjs\]/);
 
   const caddy = fs.readFileSync(path.join(ROOT, 'deploy-service/Caddyfile'), 'utf8');
   assert.match(caddy, /request_body\s*\{[\s\S]*max_size 9MB/);
@@ -484,7 +510,12 @@ test('Dockerfile, .dockerignore files, compose.three-services.yaml, and Caddyfil
   assert.doesNotMatch(caddy, /airports-admin\.vigorai\.top/);
 
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'deploy-service/seed/manifest.json'), 'utf8'));
-  assert.equal(manifest.file, 'deploy-service/seed/catalog-bundle.json.gz');
+  assert.equal(manifest.source, 'repository_catalog');
+  const rawRecords = JSON.parse(fs.readFileSync(path.join(ROOT, manifest.catalog), 'utf8')).catalog;
+  const activeRecords = require('../deploy-service/catalog-curation.cjs').activeRecords(rawRecords, ROOT);
+  assert.equal(manifest.sourceRecords, rawRecords.length);
+  assert.equal(manifest.archivedRecords, rawRecords.length - activeRecords.length);
+  assert.equal(manifest.publishedRecords, activeRecords.length);
 });
 
 test('repository guard blocks Windows drive absolute paths and vpn-finder-app/_private references across tracked files', () => {

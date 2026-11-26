@@ -39,8 +39,13 @@ node --test tests/three-services-web.test.cjs tests/public-gateway.test.cjs test
 
 ```powershell
 docker build -f deploy-service/Dockerfile -t airports-observatory:local .
+$env:MEASUREMENT_PROXY_PORT = '7890'
+$env:WEBSITE_CREDENTIALS_FILE = './data/three-services/website-credentials.json'
 docker compose -f deploy-service/compose.three-services.yaml config --services
+node scripts/verify-deploy-catalog.cjs
 ```
+
+Compose 示例值用于配置解析。启动前按三服务文档提供实际配置与私有挂载路径。离线目录检查使用临时 SQLite，比对原始目录与归档规则。
 
 ## 网关与安全隔离模式
 

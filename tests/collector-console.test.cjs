@@ -37,12 +37,12 @@ function setup() {
     if (fixture.unauthorized) return { ok: false, status: 401, json: async () => ({ error: 'UNAUTHORIZED' }) };
     if (fixture.fetch) { const result = await fixture.fetch(url, options); if (result) return result; }
     let data = {};
-    if (url === '/api/admin/status') data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
-    else if (url === '/api/admin/jobs') data = { items: [] };
+    if (url.startsWith('/api/admin/status?')) data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
+    else if (url.startsWith('/api/admin/jobs?')) data = { items: [] };
     else if (url === '/api/admin/proposals') data = { items: fixture.proposals };
     else if (url.startsWith('/api/admin/proposals/')) data = { ...fixture.proposals[0], currentRevision: 2, before: { price: '原值' }, patch: { price: '<script>不执行</script>' }, after: { price: '<script>不执行</script>' }, evidenceIds: ['ev-1'] };
     else if (url.startsWith('/api/admin/collectors?')) data = { items: [fixture.collector], control: fixture.control, runtime: { connected: false } };
-    else if (url === '/api/admin/collection/status') data = { ...fixture.collection, control: fixture.control, runtime: { connected: false } };
+    else if (url.startsWith('/api/admin/collection/status?')) data = { ...fixture.collection, control: fixture.control, runtime: { connected: false } };
     else if (url.endsWith('/config')) { if (fixture.conflict) return { ok: false, status: 409, json: async () => ({ error: 'REVISION_CONFLICT' }) }; fixture.collector = { ...fixture.collector, revision: fixture.collector.revision + 1, config: JSON.parse(options.body).config }; data = fixture.collector; }
     else if (url === '/api/admin/review') data = { publication: { status: fixture.publication } };
     return { ok: true, status: 200, json: async () => structuredClone(data) };
@@ -140,7 +140,7 @@ test('checkpoint URLs reject script and credential URLs; actions use encoded IDs
 
 test('disconnect clears data and in-flight responses cannot restore management content', async () => {
   const h = setup(); await h.connect(); let release;
-  h.fixture.fetch = async url => url === '/api/admin/status' ? new Promise(resolve => { release = resolve; }) : null;
+  h.fixture.fetch = async url => url.startsWith('/api/admin/status?') ? new Promise(resolve => { release = resolve; }) : null;
   const pending = h.run('load(false)'); await new Promise(resolve => setImmediate(resolve));
   await h.nodes.disconnect.dispatch('click'); release({ ok: true, status: 200, json: async () => ({ database: { snapshotId: 'must-not-return' } }) }); await pending;
   assert.equal(h.nodes.workspace.hidden, true); assert.equal(h.nodes.database.textContent, '');

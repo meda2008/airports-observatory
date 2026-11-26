@@ -2,12 +2,14 @@
 // A transactional relational publication of retained, reviewed material.
 // Collection state remains in store.cjs; no browser or network is used here.
 const {DatabaseSync}=require('node:sqlite');
-const crypto=require('node:crypto'),path=require('node:path');
+const crypto=require('node:crypto'),path=require('node:path'),fs=require('node:fs');
 const {safeUrl,QueryError}=require('../lib/catalog-service.cjs');
 const {outbound}=require('../lib/needs-search.cjs');
 const {publicUrl}=require('./public-url.cjs');
 const {allSourceIds}=require('../scripts/export-current-inventory.cjs');
 const json=JSON.stringify,parse=JSON.parse,hash=s=>crypto.createHash('sha256').update(s).digest('hex');
+const RETAINED_INPUTS=['catalog/catalog.v1.json','catalog/source-provenance.json','catalog/core-supplement.v1.json','catalog/current-evidence.v1.json','catalog/forecast-ledger.v1.ndjson','collection/catalog-curation.json','public-site/data/public-catalog.json'];
+const evidenceIdsFor=r=>new Set([...(r.sourceIds||[]),...allSourceIds(r.coreInfo),...Object.values(r.fields||{}).flatMap(f=>f.sourceIds||[])]);
 const FIELDS=['pricing','payment','refund','privacy','compatibility','trial','promotions','speed','stability','operatingHistory','referral'];
 function canonical(v){return Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;}
 // Rendering clocks and rolling window boundaries are not new observations.
@@ -16,7 +18,7 @@ function contentIdentity(v,parent=''){if(Array.isArray(v))return v.map(x=>conten
 function latest(value){const times=[];function walk(v){if(!v||typeof v!=='object')return;for(const[k,c]of Object.entries(v)){if(['observedAt','capturedAt','observed_at'].includes(k)&&typeof c==='string'&&Number.isFinite(Date.parse(c)))times.push(c);else if(c&&typeof c==='object')walk(c);}}walk(value);return times.sort((a,b)=>Date.parse(b)-Date.parse(a))[0]||null;}
 function sourceMeta(s){return{id:s.source_id||s.id,url:s.url||s.source_url||s.sourceUrl||null,title:s.title||s.source_name||null,observedAt:s.last_capture_at||s.captured_at||s.capturedAt||s.observedAt||s.observed_at||latest(s.observations)||null,publishedAt:s.published_at||s.publishedAt||s.pageUpdatedAt||null,kind:s.source_type||s.kind||null,sha256:s.sha256||s.retainedBodySha256||null,resolved:!s.unresolved};}
 function referencedStoreEvidence(record){
- const ids=new Set([...(record.sourceIds||[]),...allSourceIds(record.coreInfo),...Object.values(record.fields||{}).flatMap(f=>f.sourceIds||[])]),dates=new Set(),approvedJobs=new Map();
+ const ids=evidenceIdsFor(record),dates=new Set(),approvedJobs=new Map();
  function times(v){if(!v||typeof v!=='object')return;for(const[k,c]of Object.entries(v)){if(['observedAt','capturedAt','observed_at','captured_at'].includes(k)&&typeof c==='string'&&Number.isFinite(Date.parse(c)))dates.add(c);else if(c&&typeof c==='object')times(c);}}times(record.coreInfo);times(record.fields);
  for(const p of record.storeSnapshot?.proposals||[]){if(p.status!=='approved')continue;let evidenceIds=p.evidenceIds||p.evidence_ids||[];if(typeof evidenceIds==='string')try{evidenceIds=parse(evidenceIds);}catch{evidenceIds=[];}const job=p.jobId||p.job_id;if(job)for(const id of evidenceIds){if(!approvedJobs.has(id))approvedJobs.set(id,new Set());approvedJobs.get(id).add(job);}}
  return(record.storeSnapshot?.evidence||[]).filter(s=>ids.has(s.id)).map(s=>{const observations=[...new Set((s.observations||[]).filter(o=>dates.has(o.observedAt||o.observed_at)||approvedJobs.get(s.id)?.has(o.jobId||o.job_id)).map(o=>o.observedAt||o.observed_at))].sort().map(observedAt=>({observedAt}));const value={id:s.id,site_id:s.site_id||s.siteId||record.id,url:s.url,sha256:s.sha256,kind:s.kind,observations};for(const key of ['observedAt','observed_at','capturedAt','captured_at','last_capture_at'])if(dates.has(s[key]))value[key]=s[key];return value;});
@@ -36,20 +38,21 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  CREATE TABLE IF NOT EXISTS catalog_order_cleanup(record_id TEXT PRIMARY KEY REFERENCES catalog_records(id) ON DELETE CASCADE,status TEXT,cancellation_verified INTEGER,checked_at TEXT,raw_json TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS catalog_referral_links(record_id TEXT PRIMARY KEY REFERENCES catalog_records(id) ON DELETE CASCADE,link_json TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS catalog_publication(singleton INTEGER PRIMARY KEY CHECK(singleton=1),snapshot_id TEXT NOT NULL REFERENCES catalog_imports(id));
+ CREATE TABLE IF NOT EXISTS catalog_sync_state(singleton INTEGER PRIMARY KEY CHECK(singleton=1),snapshot_id TEXT NOT NULL,source_hash TEXT,state_key TEXT NOT NULL);
  CREATE INDEX IF NOT EXISTS catalog_scope ON catalog_records(is_primary,name);
  CREATE INDEX IF NOT EXISTS catalog_plan_currency ON catalog_plans(currency,amount);
  CREATE INDEX IF NOT EXISTS catalog_method ON catalog_payment_methods(method);
  CREATE INDEX IF NOT EXISTS catalog_missing ON catalog_field_states(field,material_available);`);
  }catch(error){try{db.close();}catch{}throw error;}
  function meta(){return db.prepare('SELECT i.* FROM catalog_publication p JOIN catalog_imports i ON i.id=p.snapshot_id WHERE p.singleton=1').get();}
- function importRecords({records,summary={}}){
+ function importRecords({records,summary={},syncState}){
   if(Array.isArray(records))records=require('./catalog-curation.cjs').activeRecords(records,root);
   if(!Array.isArray(records)||!records.length||new Set(records.map(r=>r.id)).size!==records.length)throw Error('Nonempty unique catalog required');
   for(const r of records)if(!r.id||!r.name||!r.coreInfo||typeof r.primary!=='boolean'||!r.fields)throw Error('Invalid reviewed record');
   const docs=records.map(r=>({id:r.id,name:r.name,category:r.category,primary:r.primary,listing:r.listing||{},coreInfo:r.coreInfo,fields:r.fields,catalogRecord:r.catalogRecord||{},sourceIds:r.sourceIds||[],unresolvedSourceIds:r.unresolvedSourceIds||[],sourceEvidence:r.sourceEvidence||[],reviewedOverlay:r.reviewedOverlay||{},importedReferral:r.importedReferral||null}));
   const admittedEvidence=new Map(records.map(r=>[r.id,referencedStoreEvidence(r)])),storeEvidence=[...admittedEvidence.values()].flat();
   const digest=hash(json(canonical(contentIdentity({projectionVersion:4,docs,storeEvidence})))),id='catalog-'+digest.slice(0,24),existing=meta();
-  if(existing?.content_sha256===digest)return{status:'unchanged',...publication()};
+  if(!syncState&&existing?.content_sha256===digest)return{status:'unchanged',...publication()};
   const importedAt=new Date(clock()).toISOString(),sourceAsOf=latest(records.map(r=>r.coreInfo));
   // JSON, source traversal and SQL preparation happen before the writer lock.
   const writes=[],statements=new Map(),insert=(sql,...values)=>writes.push([sql,values]);
@@ -78,46 +81,107 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   for(const[sql]of writes)if(!statements.has(sql))statements.set(sql,db.prepare(sql));
   db.exec('BEGIN IMMEDIATE');
   try{
-   if(meta()?.content_sha256===digest){db.exec('COMMIT');return{status:'unchanged',...publication()};}
-   if((meta()?.id||null)!==(existing?.id||null))throw Error('Catalog publication changed during preparation; retry');
+   const current=meta();
+   if(current?.content_sha256===digest&&!syncState){db.exec('COMMIT');return{status:'unchanged',...publication()};}
+   if((current?.id||null)!==(existing?.id||null))throw Error('Catalog publication changed during preparation; retry');
    if(db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='sites'").get()){const revisions=new Map(db.prepare('SELECT id,revision FROM sites').all().map(s=>[s.id,s.revision]));for(const r of records)if(r.storeSnapshot?.site&&revisions.has(r.id)&&revisions.get(r.id)!==r.storeSnapshot.site.revision)throw Error('Catalog reviewed input revision changed; retry');}
-   for(const[sql,values]of writes)statements.get(sql).run(...values);
-   db.exec('COMMIT');return{status:'published',...publication()};
+   if(syncState&&syncState.validate()!==syncState.key)throw Error('Catalog sync inputs changed during preparation; retry');
+   if(current?.content_sha256!==digest)for(const[sql,values]of writes)statements.get(sql).run(...values);
+   if(syncState)db.prepare('INSERT INTO catalog_sync_state VALUES(1,?,?,?) ON CONFLICT(singleton) DO UPDATE SET snapshot_id=excluded.snapshot_id,source_hash=excluded.source_hash,state_key=excluded.state_key').run(id,syncState.sourceHash,syncState.key);
+   db.exec('COMMIT');return{status:current?.content_sha256===digest?'unchanged':'published',...publication()};
   }catch(e){db.exec('ROLLBACK');throw e;}
  }
  function publication(){const m=meta();return m?{snapshotId:m.id,importedAt:m.imported_at,sourceAsOf:m.source_as_of,contentSha256:m.content_sha256}:null;}
- function sync(){
-  const fs=require('node:fs'),inventory=require('../scripts/export-current-inventory.cjs');
-  if(!publication()&&fs.existsSync(path.join(root,'catalog/catalog.v1.json')))return importRecords(inventory.exportInventory({root,storeFile:filename,writeFiles:false}));
-  // Retained versions are the base once initialized. Preserve their source
-  // projection so re-exporting relational joins does not invent document drift.
-  const bundle=publication()?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
-  const snapshot={changes:(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:(store?.listProposals?.()||[]).map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))},sites=store?.listSites?.()||[],evidence=store?.listEvidence?.()||[];
-  for(const r of bundle.records){
-   const site=sites.find(s=>s.id===r.id);
-   if(site?.revision){const applied=inventory.overlay({coreInfo:r.coreInfo},site,snapshot);r.coreInfo=applied.coreInfo;delete applied.coreInfo;r.reviewedOverlay=applied;const referralState=r.fields.referral;r.fields=inventory.assess(r.coreInfo,null,r.catalogRecord||{});r.fields.referral=referralState;}
-   r.storeSnapshot={site,proposals:snapshot.proposals.filter(p=>p.site_id===r.id),evidence:evidence.filter(e=>e.siteId===r.id).map(({body,...e})=>e)};
-  }
-  return importRecords(bundle);
+ const fileHashes=new Map();
+ function sourceHash(){
+  const inputs=RETAINED_INPUTS.map(file=>{
+   const filename=path.join(root,file);let stat;
+   try{stat=fs.statSync(filename,{bigint:true});}catch(error){if(error.code==='ENOENT'){fileHashes.delete(file);return null;}throw error;}
+   const identity=[stat.size,stat.mtimeNs,stat.ctimeNs,stat.ino].join(':');
+   let cached=fileHashes.get(file);
+   if(cached?.identity!==identity){cached={identity,digest:hash(fs.readFileSync(filename))};fileHashes.set(file,cached);}
+   return [file,cached.digest];
+  });
+  return inputs[0]?hash(json(inputs)):null;
  }
- function records(){return db.prepare('SELECT * FROM catalog_records ORDER BY id').all().map(r=>({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json),metadata:parse(r.metadata_json)}));}
+ function sync(){
+  const inventory=require('../scripts/export-current-inventory.cjs'),baseHash=sourceHash(),current=publication();
+  const applied=db.prepare('SELECT * FROM catalog_sync_state WHERE singleton=1').get();
+  const reviewedState=()=>store?.publicationWatermark?.()||null;
+  const keyFor=(base,review)=>hash(json({base,review,day:new Date(clock()).toISOString().slice(0,10)}));
+  const key=keyFor(baseHash,reviewedState());
+  if(applied&&current?.snapshotId===applied.snapshot_id&&applied.state_key===key)return{status:'unchanged',...current};
+  const useFiles=baseHash&&(!current||applied?.source_hash!==baseHash);
+  const bundle=useFiles?inventory.exportInventory({root,storeFile:filename,clock,writeFiles:false,publicationOnly:true})
+   :current?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
+  if(!useFiles){
+   const changes=(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId}));
+   const proposals=(store?.listProposals?.()||[]).filter(p=>p.status==='approved').map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}));
+   const sites=new Map((store?.listSites?.()||[]).map(s=>[s.id,s]));
+   for(const r of bundle.records){
+    const site=sites.get(r.id);
+    if(site?.revision){const applied=inventory.overlay(r,site,{changes,proposals});r.coreInfo=applied.coreInfo;delete applied.coreInfo;r.reviewedOverlay=applied;const referralState=r.fields.referral;r.fields=inventory.assess(r.coreInfo,null,r.catalogRecord||{});r.fields.referral=referralState;}
+    r.storeSnapshot={site,proposals:proposals.filter(p=>p.site_id===r.id)};
+   }
+  }
+  const referenced=new Set(bundle.records.flatMap(r=>[...evidenceIdsFor(r)]));
+  const evidenceBySite=new Map();
+  for(const evidence of store?.listEvidence?.({ids:[...referenced],includeBody:false})||[]){
+   const entries=evidenceBySite.get(evidence.siteId)||[];entries.push(evidence);evidenceBySite.set(evidence.siteId,entries);
+  }
+  for(const r of bundle.records){
+   const evidence=evidenceBySite.get(r.id)||[];
+   r.storeSnapshot={...r.storeSnapshot,evidence};
+   const resolved=new Set(evidence.map(e=>e.id));
+   r.unresolvedSourceIds=(r.unresolvedSourceIds||[]).filter(id=>!resolved.has(id));
+  }
+  return importRecords({...bundle,syncState:{sourceHash:baseHash,key,validate:()=>keyFor(sourceHash(),reviewedState())}});
+ }
+ const recordRow=r=>r&&({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json),metadata:parse(r.metadata_json)});
+ const record=id=>recordRow(db.prepare('SELECT * FROM catalog_records WHERE id=?').get(id));
+ const records=()=>db.prepare('SELECT * FROM catalog_records ORDER BY id').all().map(recordRow);
+ function readSnapshot(run){db.exec('BEGIN');try{return run();}finally{db.exec('ROLLBACK');}}
  function fields(id){return Object.fromEntries(db.prepare('SELECT field,state_json,observed_at FROM catalog_field_states WHERE record_id=?').all(id).map(r=>[r.field,{...parse(r.state_json),observedAt:r.observed_at}]));}
  function refs(){const current=store?.listReferrals?.()||[],imported=db.prepare('SELECT link_json FROM catalog_referral_links').all().map(r=>parse(r.link_json));return[...current,...imported.filter(r=>!current.some(c=>c.recordId===r.recordId))];}
- function present(row,{facts=x=>x,detail=false}={}){const f=facts(row.coreInfo),result={id:row.id,name:require('../lib/catalog-presentation.cjs').displayNameFor(row),category:row.category,primary:row.primary,...f,summary:require('../lib/customer-summary.cjs').customerSummary(row.coreInfo,f),fields:fields(row.id),link:outbound({id:row.id,coreInfo:row.coreInfo},refs()),sourceCount:Number(db.prepare('SELECT count(*) n FROM catalog_record_sources WHERE record_id=?').get(row.id).n)};const presentation=row.id==='A082'?require('../lib/catalog-presentation.cjs').presentationFor(row,records()):null;if(presentation)result.presentation=presentation;if(detail)result.sources=db.prepare('SELECT s.* FROM catalog_record_sources r JOIN catalog_sources s ON s.id=r.source_id WHERE r.record_id=? ORDER BY s.observed_at DESC,s.id').all(row.id).map(s=>({id:s.id,url:publicUrl(s.url),title:s.title,observedAt:s.observed_at,publishedAt:s.published_at,kind:s.kind,sha256:s.sha256,status:s.resolved?'retained_source_metadata':'unresolved_reference'}));return result;}
+ const {displayNameFor,presentationFor,preferredRows}=require('../lib/catalog-presentation.cjs');
+ const {customerSummary,representativePlan}=require('../lib/customer-summary.cjs');
+ function present(row,{facts=x=>x,detail=false,card=false,referrals=refs(),related=[]}={}){
+  const link=outbound({id:row.id,coreInfo:row.coreInfo},referrals);
+  const identity={id:row.id,name:displayNameFor(row),category:row.category,primary:row.primary,link};
+  const presentation=row.id==='A082'?presentationFor(row,related):null;
+  if(presentation)identity.presentation=presentation;
+  if(card){
+   const {pricing,payment,refund,speed,stability,operatingHistory}=row.coreInfo;
+   const plan=representativePlan(pricing?.plans||[]);
+   const core={pricing:{plans:plan?[plan]:[]},payment,refund,speed,stability,operatingHistory};
+   const {price,paymentMethods,refund:refundText,speed:rate,stability:reliability,operatingAge,operatingAgeLabel,speedContext}=customerSummary(core,facts(core));
+   return {...identity,summary:{price,paymentMethods,refund:refundText,speed:rate,stability:reliability,operatingAge,operatingAgeLabel,...(speedContext?{speedContext:{dateLabel:speedContext.dateLabel,testedAt:speedContext.testedAt,network:speedContext.network}}:{})}};
+  }
+  const f=facts(row.coreInfo),result={...f,...identity,summary:customerSummary(row.coreInfo,f),fields:fields(row.id),sourceCount:Number(db.prepare('SELECT count(*) n FROM catalog_record_sources WHERE record_id=?').get(row.id).n)};
+  if(detail)result.sources=db.prepare('SELECT s.id,s.url,s.title,s.observed_at,s.published_at,s.kind,s.sha256,s.resolved FROM catalog_record_sources r JOIN catalog_sources s ON s.id=r.source_id WHERE r.record_id=? ORDER BY s.observed_at DESC,s.id').all(row.id).map(s=>({id:s.id,url:publicUrl(s.url),title:s.title,observedAt:s.observed_at,publishedAt:s.published_at,kind:s.kind,sha256:s.sha256,status:s.resolved?'retained_source_metadata':'unresolved_reference'}));
+  return result;
+ }
  function list(query={},options={}){
   const allowed=['scope','q','payment','refund','price','page','limit'];for(const[k,v]of Object.entries(query))if(!allowed.includes(k)||typeof v!=='string')throw new QueryError('无效目录参数');
   const scope=query.scope||'primary';if(!['all','primary','other'].includes(scope))throw new QueryError('无效目录范围');
   for(const k of ['price','refund'])if(query[k]&&!['available','missing'].includes(query[k]))throw new QueryError('无效缺项筛选');
   const q=(query.q||'').normalize('NFKC').trim().toLowerCase(),method=query.payment||'';if(q.length>200||method.length>100)throw new QueryError('筛选文本过长');
   const int=(x,def,max)=>{if(x===undefined)return def;if(!/^\d+$/.test(x)||Number(x)<1||Number(x)>max)throw new QueryError('分页参数无效');return Number(x);};const page=int(query.page,1,100000),limit=int(query.limit,12,100);
-  const allRecords=records();let rows=allRecords.filter(r=>(scope==='all'||(scope==='primary'&&r.primary)||(scope==='other'&&!r.primary))&&(!q||[r.id,r.name,r.coreInfo.website?.url].join(' ').normalize('NFKC').toLowerCase().includes(q))&&(!method||(r.coreInfo.payment?.methods||[]).some(m=>String(m).includes(method))));
-  for(const[field,param]of [['pricing','price'],['refund','refund']])if(query[param]){const known=new Set(db.prepare('SELECT record_id FROM catalog_field_states WHERE field=? AND material_available=?').all(field,query[param]==='available'?1:0).map(r=>r.record_id));rows=rows.filter(r=>known.has(r.id));}
-  const totalRecords=rows.length,preferred=require('../lib/catalog-presentation.cjs').preferredRows(rows,allRecords);rows=preferred.rows;return{...publication(),items:rows.slice((page-1)*limit,page*limit).map(r=>present(r,options)),total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
+  return readSnapshot(()=>{
+   const related=['A070','A082'].map(record).filter(Boolean);
+   const byId=new Map(related.map(r=>[r.id,r]));
+   const payments=new Set(method?db.prepare('SELECT record_id FROM catalog_payment_methods WHERE instr(method,?)>0').all(method).map(r=>r.record_id):[]);
+   let rows=db.prepare('SELECT id,name,is_primary,website_url FROM catalog_records ORDER BY id').all().filter(r=>(scope==='all'||(scope==='primary'&&r.is_primary)||(scope==='other'&&!r.is_primary))&&(!q||[r.id,r.name,r.website_url].join(' ').normalize('NFKC').toLowerCase().includes(q))&&(!method||payments.has(r.id))).map(r=>byId.get(r.id)||r);
+   for(const[field,param]of [['pricing','price'],['refund','refund']])if(query[param]){const known=new Set(db.prepare('SELECT record_id FROM catalog_field_states WHERE field=? AND material_available=?').all(field,query[param]==='available'?1:0).map(r=>r.record_id));rows=rows.filter(r=>known.has(r.id));}
+   const totalRecords=rows.length,preferred=preferredRows(rows,related);rows=preferred.rows;
+   const referrals=refs(),items=rows.slice((page-1)*limit,page*limit).map(r=>present(r.coreInfo?r:record(r.id),{...options,referrals,related}));
+   return{...publication(),items,total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
+  });
  }
- function detail(id,options={}){const row=records().find(r=>r.id===id);return row?{item:present(row,{...options,detail:true}),...publication()}:null;}
- function stats(){const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};}
+ function detail(id,options={}){return readSnapshot(()=>{const row=record(id);return row?{item:present(row,{...options,detail:true,related:id==='A082'?[record('A070')].filter(Boolean):[]}),...publication()}:null;});}
+ function stats(){return readSnapshot(()=>{const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};});}
  function tables(){const names=['catalog_records','catalog_plans','catalog_payment_methods','catalog_policies','catalog_field_states','catalog_sources','catalog_record_sources','catalog_field_sources','catalog_order_cleanup','catalog_referral_links','catalog_imports','catalog_record_versions','catalog_publication','sites','evidence','observations','proposals','changes','referrals','jobs','service_heartbeats','collector_profiles','collector_control','collector_runs','collector_checkpoints','collector_events','collector_capture_metadata','collector_cancellation_acks'];return names.filter(name=>db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(name)).map(name=>({name,count:db.prepare('SELECT count(*) n FROM '+name).get().n,columns:db.prepare('PRAGMA table_info('+name+')').all().map(c=>({name:c.name,type:c.type,required:!!c.notnull,primaryKey:!!c.pk}))}));}
- function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=refs().find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
+ function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));const referrals=refs();for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=referrals.find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
  return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport:()=>({catalog:records().filter(r=>r.primary).map(r=>({id:r.id,name:r.name,coreInfo:r.coreInfo,officialUrl:r.coreInfo.website?.url})),evidenceAsOf:publication()?.sourceAsOf}),close:()=>db.close()};
 }
-module.exports={openCatalogDb,sourceMeta,latest};
+module.exports={openCatalogDb,sourceMeta,latest,RETAINED_INPUTS};

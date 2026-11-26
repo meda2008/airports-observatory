@@ -32,7 +32,7 @@ function csvCell(value) {
 function csv(rows, columns) { return '\ufeff' + [columns.map(csvCell).join(','), ...rows.map(row => columns.map(k => csvCell(row[k])).join(','))].join('\r\n') + '\r\n'; }
 const htmlEscape = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-function readStore(filename) {
+function readStore(filename, {publicationOnly = false} = {}) {
   if (!filename || filename === ':memory:' || !fs.existsSync(filename)) return { available:false, reason:'SQLite 文件不存在', sites:[], changes:[], proposals:[], referrals:[], evidence:[], observations:[] };
   const db = new DatabaseSync(filename, {readOnly:true});
   try {
@@ -48,8 +48,10 @@ function readStore(filename) {
       changes:table('changes').map(r => ({...r,before:json(r.before_json),after:json(r.after_json),patch:json(r.patch),before_json:undefined,after_json:undefined})),
       proposals:table('proposals').map(r => ({...r,patch:json(r.patch),evidenceIds:json(r.evidence_ids),evidence_ids:undefined})),
       referrals:table('referrals'),
-      evidence:table('evidence').map(({body,...r}) => ({...r,retainedBodyBytes:Buffer.byteLength(body),retainedBodySha256:sha(body)})),
-      observations:table('observations')
+      evidence:publicationOnly
+        ? db.prepare('SELECT e.id,e.site_id,e.url,e.sha256,e.kind FROM evidence e JOIN referrals r ON r.evidence_id=e.id').all()
+        : table('evidence').map(({body,...r}) => ({...r,retainedBodyBytes:Buffer.byteLength(body),retainedBodySha256:sha(body)})),
+      observations:publicationOnly ? [] : table('observations')
     };
     db.exec('COMMIT');
     return value;
@@ -128,7 +130,7 @@ function buildHtml(records, summary) {
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>当前机场数据与缺项盘点</title><style>body{font:15px/1.55 system-ui;margin:24px;color:#172536}aside{background:#fff0c9;padding:14px;border-radius:8px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:9px;border:1px solid #ced6df;vertical-align:top}th{background:#edf3f8;position:sticky;top:0}input,select{padding:10px;margin:12px 8px 12px 0}pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;min-width:260px;max-width:700px}.missing{background:#fff0ed}.material{background:#f1f8f3}.scroll{overflow:auto}a{color:#1468a0}</style><h1>当前数据与缺项盘点</h1><p>导出 ${e(summary.generatedAt)} · 全部 ${summary.scopes.all.records} 条 · primary ${summary.scopes.primary.records} 条</p><aside>“有材料”仅表示满足该字段所列材料门槛，绝不等于事实独立核实、当前服务可用或购买推荐。退款/试用状态 not_confirmed 即使带摘要也按缺项。经营自述、历史片段、运营起点与连续经营分别记录。SQLite 只叠加有 approved proposal / changes 对应的字段。完整记录和来源均保留；页面离线可用，不发送网络请求。</aside><p><a href="records.csv" download>全部 CSV（Excel）</a> · <a href="records.json" download>全部 JSON</a> · <a href="missing.csv" download>缺项 CSV</a> · <a href="summary.json" download>统计与口径</a> · <a href="primary/records.csv" download>primary CSV</a> · <a href="primary/records.json" download>primary JSON</a></p><div><input id="query" aria-label="搜索" placeholder="名称、编号、状态、原因、来源"><select id="scope" aria-label="目录范围"><option value="all">全部记录</option><option value="primary">仅 primary</option><option value="other">仅非主目录</option></select><select id="field" aria-label="缺项字段"><option value="">所有字段状态</option>${Object.entries(LABELS).map(([f,l])=>`<option value="${f}">缺少：${e(l)}</option>`).join('')}</select><span id="count"></span></div><div class="scroll"><table><thead><tr><th>记录</th><th>范围</th>${Object.values(LABELS).map(l=>`<th>${e(l)}</th>`).join('')}<th>完整记录</th></tr></thead><tbody>${rows}</tbody></table></div><script>const rows=[...document.querySelectorAll('tbody tr')];function filter(){const q=document.getElementById('query').value.toLowerCase(),scope=document.getElementById('scope').value,field=document.getElementById('field').value;let n=0;for(const row of rows){row.hidden=!(scope==='all'||(scope==='primary')===(row.dataset.primary==='true'))||!!field&&!row.dataset.missing.split(' ').includes(field)||!row.textContent.toLowerCase().includes(q);if(!row.hidden)n++;}document.getElementById('count').textContent=n+' 条记录';}for(const id of ['query','scope','field'])document.getElementById(id).addEventListener('input',filter);filter();</script></html>`;
 }
 
-function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'deploy-service/data/collector.sqlite'),clock=()=>Date.now(),writeFiles=true}={}) {
+function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'deploy-service/data/collector.sqlite'),clock=()=>Date.now(),writeFiles=true,publicationOnly=false}={}) {
   if (writeFiles) assert.equal(path.resolve(root),ROOT,'This export is scoped to this repository');
   const generatedAt = new Date(clock()).toISOString();
   const service = makeCatalogService({baseDir:root,clock:()=>Date.parse(generatedAt)}), raw = service.rawExport();
@@ -136,7 +138,7 @@ function exportInventory({root=ROOT,output=OUTPUT,storeFile=path.join(root,'depl
   const publicCatalog = projection.doc;
   const listings = new Map(publicCatalog.items.map(r=>[r.id,r.listing]));
   assert.equal(listings.size,raw.catalog.length,'Public listing coverage differs from raw catalog');
-  const store=readStore(storeFile);
+  const store=readStore(storeFile,{publicationOnly});
   const records = raw.catalog.map(catalogRecord => {
     assert(listings.has(catalogRecord.id),'Missing listing: '+catalogRecord.id);
     const site=store.sites.find(s=>(s.config.catalogId||s.id)===catalogRecord.id), reviewedOverlay=overlay(catalogRecord,site,store);

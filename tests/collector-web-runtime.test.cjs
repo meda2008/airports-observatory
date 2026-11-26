@@ -21,3 +21,50 @@ test('failed API receive retains raw material and retries original packet before
  const worker=createWebCollector({request,output,browserFactory:async()=>({close:async()=>{}}),collect:async()=>{collectCount++;return{captures:[{url:'https://example.com',body:'retained body',kind:'operator_visible_page',observedAt}],capabilities:{},ordersCreated:0,paymentExecuted:false};},log:()=>{}});
  try{assert.equal((await worker.runOne()).status,'submission_deferred');const dir=path.join(output,'A001-job1-run1');assert.equal(JSON.parse(fs.readFileSync(path.join(dir,'capture-0.json'))).body,'retained body');assert.equal((await worker.runOne()).status,'completed');assert.equal(claims,1);assert.equal(collectCount,1);assert.deepEqual(packets[1],JSON.parse(JSON.stringify(packets[0])));assert.equal(packets[1].captures[0].observedAt,observedAt);assert.ok(!fs.existsSync(path.join(dir,'pending-submission.json')));}finally{await worker.stop();fs.rmSync(output,{recursive:true,force:true});}
 });
+
+test('invalid and expired outbox packets are held while unrelated jobs can claim', async t => {
+ const output=fs.mkdtempSync(path.join(os.tmpdir(),'collector-web-'));
+ t.after(()=>fs.rmSync(output,{recursive:true,force:true}));
+ const stale={siteId:'A001',jobId:'job1',runId:'run1',packet:{token:'old-lease',captures:[{body:'preserved material'}]}};
+ for(const [name,text] of [['a-invalid','{'],['b-expired',JSON.stringify(stale)]]){
+  const dir=path.join(output,name);fs.mkdirSync(dir);fs.writeFileSync(path.join(dir,'pending-submission.json'),text);
+ }
+ let claims=0;
+ const worker=createWebCollector({output,log:()=>{},request:async op=>{
+  if(op==='control')return {engineEnabled:true,executionMode:'standalone'};
+  if(op==='run')return {status:'lease_expired'};
+  if(op==='renew')throw Object.assign(Error('lease lost'),{status:409});
+  if(op==='claim'){claims++;return {job:null};}
+ }});
+ assert.equal((await worker.runOne()).status,'idle');
+ assert.equal(claims,1);
+ const held=path.join(output,'b-expired','review-required-submission.json');
+ assert.deepEqual(JSON.parse(fs.readFileSync(held,'utf8')),stale);
+ assert.equal(fs.readFileSync(path.join(output,'a-invalid','review-required-submission.json'),'utf8'),'{');
+ await worker.stop();
+});
+
+test('a disconnected browser is replaced before collecting the next job', async t => {
+ const output=fs.mkdtempSync(path.join(os.tmpdir(),'collector-web-'));
+ t.after(()=>fs.rmSync(output,{recursive:true,force:true}));
+ let claims=0,launches=0;const used=[], completions=[];
+ const worker=createWebCollector({output,log:()=>{},browserFactory:async()=>{
+  const browser={number:++launches,connected:true,isConnected(){return this.connected;},async close(){}};
+  return browser;
+ },collect:async(_site,{browser})=>{
+  used.push(browser.number);
+  if(browser.number===1)browser.connected=false;
+  return {captures:[]};
+ },request:async(op,input)=>{
+  if(op==='control')return {engineEnabled:true,executionMode:'standalone'};
+  if(op==='claim'){const n=++claims;return {job:{siteId:'A001',jobId:'job'+n,runId:'run'+n,token:'lease',site:{id:'A001',config:{entryUrl:'https://example.com'}}}};}
+  if(op==='receive')return {status:'completed'};
+  if(op==='complete')completions.push(input);
+  return {};
+ }});
+ assert.equal((await worker.runOne()).status,'failed');
+ assert.equal(completions[0].blocker,'collector_browser_unavailable');
+ assert.equal((await worker.runOne()).status,'completed');
+ assert.deepEqual(used,[1,2]);
+ await worker.stop();
+});

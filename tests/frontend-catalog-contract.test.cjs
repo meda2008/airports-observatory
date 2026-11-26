@@ -74,6 +74,7 @@ function createFrontendSandbox({fetchHandler} = {}) {
   const sandbox = {
     URL,
     URLSearchParams,
+    PlanConditions: require('../deploy-service/public/plan-conditions.js'),
     FormData: class {
       *[Symbol.iterator]() {}
     },
@@ -153,6 +154,10 @@ test('frontend rendering contract: all 215 records from catalog.v1.json + core-s
     assert.equal(cardNode.tagName, 'ARTICLE', `catalogCard failed for ${record.id}`);
     const detailNode = renderDetail(item);
     assert.equal(detailNode.tagName, 'DIV', `renderDetail failed for ${record.id}`);
+    if (record.id === 'A037') {
+      assert.match(JSON.stringify(detailNode), /16\.39/);
+      assert.match(JSON.stringify(detailNode), /站内原文冲突/);
+    }
     if (record.id === 'A042') {
       assert.ok((item.pricing?.plans || []).length > 0, 'A042 should include plans from core-supplement');
       a042Verified = true;
@@ -268,7 +273,7 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
       return {
         ok: true,
         status: 200,
-        text: async () => JSON.stringify({items: [], total: 0, totalRecords: 138, pages: 1, page: 1, sourceAsOf: '2026-11-23T12:00:00Z'})
+        text: async () => JSON.stringify({snapshotId: 'snap-1', items: [], total: 138, totalRecords: 138, pages: 1, page: 1, sourceAsOf: '2026-11-23T12:00:00Z'})
       };
     }
   });
@@ -287,6 +292,51 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
   const renderedText = JSON.stringify(elements.get('#results'));
   assert.match(renderedText, /折合每月 20/);
   assert.match(renderedText, /每 GB 0\.1/);
+});
+
+test('catalog polling recovers initial and subsequent failures and keeps the latest successful view', async () => {
+  let snapshotId = 's1';
+  let failCatalog = true;
+  let requests = 0;
+  const {sandbox, elements} = createFrontendSandbox({fetchHandler: async (url) => {
+    if (url === '/api/stats') return {ok: true, json: async () => ({snapshotId})};
+    requests++;
+    if (failCatalog) throw Error('offline');
+    return {ok: true, json: async () => ({snapshotId, items: [{id: 'A042', name: snapshotId}], total: 1})};
+  }});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(elements.get('#catalog-meta').textContent, '加载失败');
+  failCatalog = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  const results = elements.get('#catalog-results');
+  assert.match(JSON.stringify(results), /s1/);
+  snapshotId = 's2';
+  failCatalog = true;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.match(JSON.stringify(results), /s1/);
+  failCatalog = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.match(JSON.stringify(results), /s2/);
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.equal(requests, 4);
+});
+
+test('resetting the budget search discards a delayed response and shows the applied policy on the next search', async () => {
+  let finishSearch;
+  const {sandbox, elements} = createFrontendSandbox({fetchHandler: async (url) => {
+    if (url.startsWith('/api/search?')) return new Promise(resolve => { finishSearch = resolve; });
+    return {ok: true, json: async () => ({items: [], total: 0})};
+  }});
+  const response = {ok: true, json: async () => ({criterion: 'value', maxMonthly: 20, currency: 'CNY', items: [{name: 'result'}]})};
+  const stale = sandbox.__testExports.search();
+  await elements.get('#search-reset').dispatch('click');
+  finishSearch(response);
+  await stale;
+  assert.equal(elements.get('#results').children.length, 0);
+  const search = sandbox.__testExports.search();
+  finishSearch(response);
+  await search;
+  assert.match(elements.get('#status').textContent, /流量性价比.*20 CNY/);
 });
 
 test('public index.html hides /console.html and includes hero stat cards, snapshot badge, scope/refund filters and quick chips', () => {

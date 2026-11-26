@@ -16,36 +16,73 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
  let browser=null,stopping=false,active=0;
  const safeLog=value=>{try{log(value);}catch{}};
  const beat=async(status,reason)=>{try{await request('heartbeat',{status,details:{runnerName:workerName,executionMode:'standalone',browser:'service_headless',active,paymentAllowed:false,reason:reason||null}});}catch{safeLog({service:'standalone_collector',status:'heartbeat_deferred'});}};
+ const permanentRejected=error=>[400,409,413,422].includes(error?.status);
+ function holdSubmission(pending,reason){
+  const dir=path.dirname(pending),base=path.join(dir,'review-required-submission.json');
+  const held=fs.existsSync(base)?path.join(dir,'review-required-submission-'+crypto.randomUUID()+'.json'):base;
+  fs.renameSync(pending,held);
+  fs.writeFileSync(held+'.receipt',JSON.stringify({reason,at:new Date().toISOString()}),{mode:0o600,flag:'wx'});
+  safeLog({service:'standalone_collector',status:'submission_review_required',reason});
+ }
  async function recoverPending({siteId}={}){
   if(!fs.existsSync(output))return null;
   for(const entry of fs.readdirSync(output,{withFileTypes:true})){
-   if(!entry.isDirectory())continue;const dir=path.join(output,entry.name),pending=path.join(dir,'pending-submission.json');if(!fs.existsSync(pending))continue;
-   const item=JSON.parse(fs.readFileSync(pending,'utf8'));
+   if(!entry.isDirectory())continue;
+   const dir=path.join(output,entry.name),pending=path.join(dir,'pending-submission.json');
+   let item;
+   try{item=JSON.parse(fs.readFileSync(pending,'utf8'));}
+   catch(error){if(error.code==='ENOENT')continue;if(!(error instanceof SyntaxError))throw error;holdSubmission(pending,'invalid_pending_packet');continue;}
+   if(!item?.packet?.token||!item.jobId||!item.runId||!item.siteId){holdSubmission(pending,'invalid_pending_packet');continue;}
    if(siteId&&item.siteId!==siteId)continue;
-   if(!item.packet)continue;
-   let accepted;try{const run=await request('run',{runId:item.runId});if(run?.status==='cancel_requested'){const archived=path.join(dir,'cancelled-pending-submission.json');if(!fs.existsSync(archived))fs.copyFileSync(pending,archived,fs.constants.COPYFILE_EXCL);accepted=await request('cancel',{jobId:item.jobId,token:item.packet.token,actor:workerName});}else if(run&&['completed','blocked','awaiting_semantic_review','review_approved','review_rejected','cancelled'].includes(run.status))accepted=run;else{await request('renew',{jobId:item.jobId,token:item.packet.token,leaseMs:180000});accepted=await request('receive',item.packet);}}
-   catch{
-    try{
-     if(!item.packet.captures?.length||item.packet.captures.some(c=>c.metadata?.retainedReplayVerified!==true))throw Error('retained_only_recovery');
-     const replacement=await request('recoverretained',{jobId:item.jobId,token:item.packet.token,worker:workerName});
-     if(!replacement?.job||replacement.job.jobId!==item.jobId)throw Error('invalid_retained_recovery');
-     const original=path.join(dir,'original-pending-submission.json');if(!fs.existsSync(original))fs.copyFileSync(pending,original,fs.constants.COPYFILE_EXCL);
-     const oldRunId=item.runId;item.runId=replacement.job.runId;item.packet.token=replacement.job.token;
-     fs.writeFileSync(pending,JSON.stringify(item,null,2),{mode:0o600});
-     fs.writeFileSync(path.join(dir,'lease-recovery.json'),JSON.stringify({jobId:item.jobId,oldRunId,newRunId:item.runId,at:new Date().toISOString(),networkRecaptured:false},null,2));
+   let accepted;
+   try{
+    const run=await request('run',{runId:item.runId});
+    if(run?.status==='cancel_requested'){
+     const archived=path.join(dir,'cancelled-pending-submission.json');
+     if(!fs.existsSync(archived))fs.copyFileSync(pending,archived,fs.constants.COPYFILE_EXCL);
+     accepted=await request('cancel',{jobId:item.jobId,token:item.packet.token,actor:workerName});
+    }else if(run&&['completed','blocked','awaiting_semantic_review','review_approved','review_rejected','cancelled'].includes(run.status))accepted=run;
+    else{
+     try{await request('renew',{jobId:item.jobId,token:item.packet.token,leaseMs:180000});}
+     catch(error){
+      if(!permanentRejected(error)||!item.packet.captures?.length||item.packet.captures.some(c=>c.metadata?.retainedReplayVerified!==true))throw error;
+      const replacement=await request('recoverretained',{jobId:item.jobId,token:item.packet.token,worker:workerName});
+      if(!replacement?.job||replacement.job.jobId!==item.jobId)throw Error('invalid_retained_recovery');
+      const original=path.join(dir,'original-pending-submission.json');
+      if(!fs.existsSync(original))fs.copyFileSync(pending,original,fs.constants.COPYFILE_EXCL);
+      const oldRunId=item.runId;item.runId=replacement.job.runId;item.packet.token=replacement.job.token;
+      const temp=pending+'.tmp-'+crypto.randomUUID();
+      fs.writeFileSync(temp,JSON.stringify(item,null,2),{mode:0o600,flag:'wx'});fs.renameSync(temp,pending);
+      fs.writeFileSync(path.join(dir,'lease-recovery.json'),JSON.stringify({jobId:item.jobId,oldRunId,newRunId:item.runId,at:new Date().toISOString(),networkRecaptured:false},null,2));
+     }
      accepted=await request('receive',item.packet);
-    }catch{return{status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery'};}
+    }
+   }catch(error){
+    if(permanentRejected(error)){holdSubmission(pending,'api_rejected_pending_packet');continue;}
+    return{status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery'};
    }
    const result={siteId:item.siteId,jobId:item.jobId,runId:item.runId,status:accepted.status,acceptanceRecoveredFromApi:true};
-   if(!fs.existsSync(path.join(dir,'accepted.json')))fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});fs.unlinkSync(pending);return result;
-  }return null;
+   if(!fs.existsSync(path.join(dir,'accepted.json')))fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});
+   fs.unlinkSync(pending);return result;
+  }
+  return null;
+ }
+ async function ensureBrowser(){
+  if(browser?.isConnected?.()===false)browser=null;
+  if(browser)return browser;
+  const instance=await browserFactory();
+  browser=instance;
+  instance.once?.('disconnected',()=>{if(browser===instance)browser=null;});
+  return instance;
  }
  async function runOne({siteId}={}){
   const settings=await request('control');if(stopping||!settings.engineEnabled||settings.executionMode!=='standalone'){await beat('paused','execution_disabled_or_other_mode');return{status:'paused'};}
   const recovered=await recoverPending({siteId});if(recovered)return recovered;
   const claimed=await request('claim',{worker:workerName,siteId,leaseMs:180000}),job=claimed?.job;
   if(!job){await beat('connected');return{status:'idle'};}
-  const dir=runDirectory(output,job);fs.mkdirSync(dir,{recursive:true});active++;await beat('connected');let renewal=null,leaseError=null,result,material,retained=false;
+  const primaryDir=runDirectory(output,job);
+  const dir=fs.existsSync(primaryDir)?fs.mkdtempSync(primaryDir+'-attempt-'):primaryDir;
+  fs.mkdirSync(dir,{recursive:true,mode:0o700});active++;await beat('connected');let renewal=null,leaseError=null,result,material,retained=false,activeBrowser=null,browserFailed=false;
   const renew=()=>request('renew',{jobId:job.jobId,token:job.token,leaseMs:180000});
   const timer=setInterval(()=>{if(renewal)return;renewal=renew().then(()=>beat('connected')).catch(error=>{leaseError=error;}).finally(()=>{renewal=null;});},renewMs);
   const beforePage=async()=>{if(stopping)throw Error('standalone_execution_paused');if(renewal)await renewal;if(leaseError)throw leaseError;const current=await request('control');if(!current.engineEnabled||current.executionMode!=='standalone')throw Error('standalone_execution_paused');await renew();};
@@ -54,7 +91,8 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    const prior=earlierPending(output,job,dir),guard=claimed.partialReparseGuard;
    if(prior||guard)material={captures:[],checkpoint:{type:guard?'retained_partial_reparse_requires_recovery':'retained_submission_requires_recovery',url:job.site.config.entryUrl,stage:'storage_recovery',reason:'已有原文或重解析任务待恢复；保留原件，不重复网络采集',requestedAction:'复核原任务与原文后显式恢复'},capabilities:{},retainedSubmissionGuard:true};
    else if(job.retainedCaptures){await beforePage();material={captures:job.retainedCaptures,checkpoint:null,retainedReplay:true,ordersCreated:0,paymentExecuted:false};}
-   else{await beforePage();browser||=await browserFactory();material=job.discoveryOnly||job.entryDiscovery?await require('./entry-discovery.cjs').collectEntryDiscovery(job,{browser,jobBudgetMs,beforePage}):await collectWithReferences(job.site,{browser,collect,credentialsFile,sessionDir,jobBudgetMs,beforePage,webEgressProfile:job.webEgressProfile,prior:claimed.prior||{}});}
+   else{await beforePage();try{activeBrowser=await ensureBrowser();}catch(error){browserFailed=true;throw error;}material=job.discoveryOnly||job.entryDiscovery?await require('./entry-discovery.cjs').collectEntryDiscovery(job,{browser:activeBrowser,jobBudgetMs,beforePage}):await collectWithReferences(job.site,{browser:activeBrowser,collect,credentialsFile,sessionDir,jobBudgetMs,beforePage,webEgressProfile:job.webEgressProfile,prior:claimed.prior||{}});}
+   if(activeBrowser?.isConnected?.()===false){browserFailed=true;throw Error('collector_browser_unavailable');}
    const captures=material.captures||[];
    if(material.ordersCreated||material.paymentExecuted)throw Error('read_only_collection_contract_violated');
    for(const [i,c]of captures.entries())fs.writeFileSync(path.join(dir,'capture-'+i+'.json'),JSON.stringify({...c,sha256:crypto.createHash('sha256').update(c.body).digest('hex')},null,2),{flag:'wx',mode:0o600});
@@ -65,8 +103,10 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:accepted.status,proposalId:accepted.proposalId||null,checkpoint:material.checkpoint?.type||null};
    fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});fs.unlinkSync(pendingFile);
   }catch(error){
-   result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:retained?'submission_deferred':'blocked',reason:redact(error.message).slice(0,300)};
+   browserFailed||=activeBrowser?.isConnected?.()===false;
+   result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:retained?'submission_deferred':browserFailed?'failed':'blocked',reason:browserFailed?'collector_browser_unavailable':redact(error.message).slice(0,300)};
    if(error.message==='Job cancellation requested')try{const ack=await request('cancel',{jobId:job.jobId,token:job.token,actor:workerName});result.status=ack.status;}catch{}
+   else if(!retained&&browserFailed)try{await request('complete',{jobId:job.jobId,token:job.token,status:'failed',blocker:'collector_browser_unavailable',actor:workerName});}catch{}
    else if(!retained)try{await request('complete',{jobId:job.jobId,token:job.token,status:'blocked',blocker:'standalone_execution_error',checkpoint:{type:'standalone_execution_error',url:job.site.config.entryUrl,stage:'runtime',reason:result.reason,requestedAction:'修复本站执行错误后恢复'},actor:workerName});}catch{}
    fs.writeFileSync(path.join(dir,'runtime-error.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});
   }finally{clearInterval(timer);if(renewal)await renewal;active--;await beat(stopping?'paused':'connected');safeLog({service:'standalone_collector',...result});}

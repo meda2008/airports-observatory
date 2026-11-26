@@ -76,7 +76,7 @@ controller 每 30 秒检查周任务到期，只在 `engineEnabled` 和 `weeklyE
 
 ## Linux 部署包与边界
 
-`compose.yaml` 包含 web、publisher、collector、controller；生产配置保留 Caddy HTTPS 模板与可配置的域名目标。本轮未修改公网。首次空数据库通过 `seed/catalog-bundle.json.gz` 导入整理后的公开资料，原正文和私有浏览器状态不打进镜像；该种子的内容指纹在 `seed/manifest.json`。需要完整运维/采集历史时另迁移一致性 SQLite 备份与私有归档，不能只拷运行中的主文件丢 WAL。
+推荐部署采用 `compose.three-services.yaml`，由 `api`、`collector`、`web` 组成。API 对空数据库使用仓库 `catalog/` 下的 JSON 和台账初始化，并应用 `collection/catalog-curation.json` 的归档规则。当前基线含 215 条原始记录，归档 8 条，发布 207 条。执行 `node scripts/verify-deploy-catalog.cjs` 可在临时 SQLite 验证。迁移运维与采集历史时，应迁移一致性 SQLite 备份和私有归档。
 
 ```powershell
 node scripts/import-product-catalog.cjs # 一致性备份后，从已有资料整理入库

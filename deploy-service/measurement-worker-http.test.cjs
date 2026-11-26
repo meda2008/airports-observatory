@@ -42,8 +42,8 @@ test('durable finish outbox survives lost response and flushes before next claim
  lost=false;const restarted=openHttpMeasurementStore(options);await restarted.claim({});assert.equal(finishCalls,2);assert.equal(claimCalls,1);assert.equal(fs.readdirSync(dir).length,0);
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
-test('outbox preserves lease-lost checkpoint and prevents new claims',async()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'measurement-outbox-'));try{let claimCalls=0;const store=openHttpMeasurementStore({baseUrl:'http://api:8080',token:'x'.repeat(32),outboxDirectory:dir,fetchImpl:async(_u,o)=>{if(JSON.parse(o.body).method==='claim')claimCalls++;return{ok:false};}});await assert.rejects(store.finish({runId:'expired',token:'lease'},{status:'ok'}));await assert.rejects(store.claim({}));assert.equal(claimCalls,0);assert.equal(fs.readdirSync(dir).filter(x=>x.endsWith('.json')).length,1);
+test('outbox preserves packets and pauses claims when the API is temporarily unavailable',async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'measurement-outbox-'));try{let claimCalls=0;const store=openHttpMeasurementStore({baseUrl:'http://api:8080',token:'x'.repeat(32),outboxDirectory:dir,fetchImpl:async(_u,o)=>{if(JSON.parse(o.body).method==='claim')claimCalls++;return{ok:false,status:503};}});await assert.rejects(store.finish({runId:'expired',token:'lease'},{status:'ok'}));await assert.rejects(store.claim({}));assert.equal(claimCalls,0);assert.equal(fs.readdirSync(dir).filter(x=>x.endsWith('.json')).length,1);
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
 test('expired finish records immutable missing plus separate original late body and allows future schedules',()=>{
@@ -52,4 +52,39 @@ test('expired finish records immutable missing plus separate original late body 
  const result=dispatchMeasurementWorker(store,{method:'finish',args:[claim,body]});assert.equal(result.checkpoint,true);assert.equal(store.observations()[0].reason,'worker_lease_expired');assert.equal(store.observations()[0].bytesRead,null);assert.equal(JSON.parse(store.db.prepare('SELECT body FROM measurement_late_submissions').get().body).bytesRead,77);
  assert.equal(dispatchMeasurementWorker(store,{method:'finish',args:[claim,body]}).id,result.id);assert.equal(store.observations().length,1);store.requestRun('fixture');assert.ok(dispatchMeasurementWorker(store,{method:'claim',args:[{}]}));
  }finally{store.close();}
+});
+
+test('reconfiguration settles an expired lease and retains an exact late replay alongside the new claim',()=>{
+ let now=Date.UTC(2026,10,25);
+ const store=openMeasurementStore({filename:':memory:',now:()=>now});
+ try{
+  const profile={id:'fixture',siteId:'TEST',kind:'bandwidth',enabled:true,synthetic:true,endpoint:'http://127.0.0.1/',intervalMs:60000,timeoutMs:1000,maxBytes:1024,dailyBudgetBytes:100000};
+  const claim=()=>dispatchMeasurementWorker(store,{method:'claim',args:[{}]});
+  store.configure(profile);store.setEnabled(true);
+  const original=claim();now=original.leaseUntil+1;
+  store.configure({...profile,network:'replacement'});
+  const replacement=claim();
+  assert.equal(replacement.profileRevision,2);
+  const body={status:'ok',observedAt:new Date(now).toISOString(),bytesRead:77};
+  const finish=()=>dispatchMeasurementWorker(store,{method:'finish',args:[original,body]});
+  assert.equal(finish().id,finish().id);
+  assert.equal(store.observations()[0].reason,'worker_lease_expired');
+  assert.equal(store.observations()[0].profileRevision,1);
+  assert.equal(store.db.prepare('SELECT lease_token FROM measurement_profiles').get().lease_token,replacement.token);
+  assert.equal(store.db.prepare('SELECT count(*) n FROM measurement_late_submissions').get().n,1);
+ }finally{store.close();}
+});
+
+test('a permanently rejected result is retained for review and the next measurement can claim',async t=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'measurement-outbox-'));
+ t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+ const outbox=openHttpMeasurementStore({baseUrl:'http://api:8080',token:'x'.repeat(32),outboxDirectory:dir,fetchImpl:async(_url,options)=>{
+  if(JSON.parse(options.body).method==='finish')return {ok:false,status:409};
+  return {ok:true,json:async()=>({ok:true,value:{runId:'next'}})};
+ }});
+ const old={runId:'expired',token:'lease'};
+ assert.equal((await outbox.finish(old,{status:'ok'})).status,'submission_review_required');
+ assert.equal((await outbox.claim({})).runId,'next');
+ const [held]=fs.readdirSync(dir);assert.match(held,/review-required\.json$/);
+ assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dir,held),'utf8')).args[0],old);
 });

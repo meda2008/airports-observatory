@@ -36,3 +36,65 @@ test('another publisher completing the identical candidate during preparation is
 test('store startup waits for an existing writer before switching journal mode instead of failing immediately',async t=>{const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airport-store-lock-')),filename=path.join(dir,'locked.sqlite'),{spawn}=require('node:child_process');let child;try{child=spawn(process.execPath,['-e',"const{DatabaseSync}=require('node:sqlite');const db=new DatabaseSync(process.argv[1]);db.exec('PRAGMA journal_mode=WAL;CREATE TABLE writer_fixture(x);BEGIN IMMEDIATE;INSERT INTO writer_fixture VALUES(1)');process.stdout.write('LOCKED\\n');setTimeout(()=>{db.exec('COMMIT');db.close();},5700);",filename],{windowsHide:true,stdio:['ignore','pipe','pipe']});let errors='';child.stderr.on('data',d=>errors+=d);await new Promise((resolve,reject)=>{child.stdout.once('data',resolve);child.once('error',reject);child.once('exit',code=>{if(code)reject(Error('fixture writer failed '+errors));});});const started=Date.now(),store=createStore({filename});try{assert(Date.now()-started>=5000);store.setServiceHeartbeat('fixture',{status:'running'});assert.equal(store.getServiceHeartbeats()[0].status,'running');}finally{store.close();}await new Promise(resolve=>child.exitCode!==null?resolve():child.once('exit',resolve));}finally{if(child&&child.exitCode===null){child.kill();await new Promise(resolve=>child.once('exit',resolve));}assert.equal(path.dirname(fs.realpathSync(dir)),fs.realpathSync(os.tmpdir()));fs.rmSync(dir,{recursive:true,force:true,maxRetries:5,retryDelay:50});}});
 
 test('priced Galaxy is preferred before pagination while both record details and raw coverage remain separate',t=>{const{catalog}=fixture(t),priced=record('A070'),legacy=record('A082');priced.name='Galaxy';legacy.name='Galaxy';legacy.coreInfo.pricing.plans=[];legacy.coreInfo.pricing.relatedCandidates=[{recordId:'A070',identityVerified:false,officialCurrentPriceVerified:false}];legacy.fields=require('../scripts/export-current-inventory.cjs').assess(legacy.coreInfo,null,{});catalog.importRecords({records:[priced,legacy]});const before=catalog.publication().snapshotId,list=catalog.list({q:'Galaxy',limit:'1'});assert.equal(list.items[0].id,'A070');assert.equal(list.total,1);assert.equal(list.totalRecords,2);assert.equal(list.hiddenRelatedRecords,1);const old=catalog.detail('A082').item;assert.equal(old.summary.price,null);assert.equal(old.pricing.plans.length,0);assert.equal(old.presentation.preferredRecordId,'A070');assert.equal(catalog.list({q:'A082'}).items[0].id,'A082');assert.equal(catalog.rawExport().catalog.length,2);assert.equal(catalog.publication().snapshotId,before);});
+
+test('publisher applies a new retained base to an initialized database and preserves reviewed fields',async t=>{
+ const {filename,store}=fixture(t),root=path.join(path.dirname(filename),'catalog-input');
+ const repository=path.resolve(__dirname,'..');
+ for(const file of require('../deploy-service/catalog-db.cjs').RETAINED_INPUTS){
+  if(!fs.existsSync(path.join(repository,file)))continue;
+  const target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(repository,file),target);
+ }
+ const catalog=openCatalogDb({filename,store,root});
+ try{
+ const prior=catalog.sync();
+ const input=path.join(root,'catalog/catalog.v1.json');
+ const retained=JSON.parse(fs.readFileSync(input,'utf8'));
+ retained.catalog.find(record=>record.id==='A042').name='Refreshed retained record';
+ fs.writeFileSync(input,JSON.stringify(retained));
+ const siteId='A042',refund={status:'observed',summary:'Reviewed policy',sourceIds:[]};
+ store.seedSites([{recordId:siteId,entryUrl:'https://example.com/'}]);
+ const evidence=store.saveEvidence({siteId,url:'https://example.com/policy',body:'reviewed fixture policy',observedAt:'2026-11-24T00:00:00Z'});
+ refund.sourceIds=[evidence.id];refund.observedAt=evidence.observedAt;
+ const proposal=store.createProposal({siteId,patch:{refund},evidenceIds:[evidence.id],expectedRevision:0});
+ store.reviewProposal(proposal.id,{approved:true,reviewer:'test',expectedRevision:0});
+ const publisher=require('../deploy-service/publisher.cjs').createPublicationWorker({store,root});
+ try{
+ const publication=await publisher.sync();
+ assert.notEqual(publication.snapshotId,prior.snapshotId);
+ const detail=catalog.detail(siteId).item;
+ assert.equal(detail.name,'Refreshed retained record');
+ assert.equal(detail.refund.summary,'Reviewed policy');
+ assert.ok(detail.sources.some(source=>source.id===evidence.id&&source.observedAt===evidence.observedAt));
+ assert.equal(catalog.sync().status,'unchanged');
+ fs.writeFileSync(input,'{');
+ await assert.rejects(publisher.sync(),/publication_sync_failed/);
+ assert.equal(catalog.publication().snapshotId,publication.snapshotId);
+ fs.writeFileSync(input,JSON.stringify(retained));
+ assert.equal((await publisher.sync()).status,'unchanged');
+ }finally{await publisher.close();}
+ }finally{catalog.close();}
+});
+
+test('card response omits detail fields and admin evidence detail reads only the requested body',async t=>{
+ const {catalog,store}=fixture(t);
+ catalog.importRecords({records:[record()]});
+ store.seedSites([{recordId:'A001',entryUrl:'https://example.com/'}]);
+ const selected=store.saveEvidence({siteId:'A001',url:'https://example.com/a',body:'fixture one',observedAt:'2026-11-24T00:00:00Z'});
+ store.saveEvidence({siteId:'A001',url:'https://example.com/b',body:'fixture two',observedAt:'2026-11-25T00:00:00Z'});
+ store.listEvidence=()=>{throw Error('full evidence list should not run');};
+ const server=createServer({store,catalogDb:catalog,adminToken:'fixture-admin'});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ t.after(()=>new Promise(resolve=>server.close(resolve)));
+ const base='http://127.0.0.1:'+server.address().port;
+ const head=await fetch(base+'/api/catalog',{method:'HEAD'});
+ assert.equal(head.status,200);
+ assert.equal(await head.text(),'');
+ const page=await (await fetch(base+'/api/catalog')).json();
+ assert.equal(page.items[0].name,'Synthetic A001');
+ assert.equal(page.items[0].pricing,undefined);
+ assert.equal(page.items[0].fields,undefined);
+ assert.equal(page.items[0].sourceCount,undefined);
+ const result=await (await fetch(base+'/api/admin/evidence?id='+selected.id,{headers:{Authorization:'Bearer fixture-admin'}})).json();
+ assert.equal(result.item.body,'fixture one');
+ assert.equal(result.item.observations.length,1);
+});

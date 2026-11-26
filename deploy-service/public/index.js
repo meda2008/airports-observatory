@@ -18,8 +18,8 @@ function shortDate(v) {
   return typeof v === 'string' && v.length >= 10 ? v.slice(0, 10) : '';
 }
 
-async function api(url) {
-  const r = await fetch(url, {cache: 'no-store', headers: {Accept: 'application/json'}});
+async function api(url, options = {}) {
+  const r = await fetch(url, {cache: 'no-store', headers: {Accept: 'application/json'}, ...options});
   let d = null;
   if (typeof r.text === 'function') {
     const text = await r.text();
@@ -166,6 +166,15 @@ function overview(item) {
   return n;
 }
 
+function scrollableTable(table, label) {
+  const wrap = el('div', null, 'table-wrap');
+  wrap.setAttribute('tabindex', '0');
+  wrap.setAttribute('role', 'region');
+  wrap.setAttribute('aria-label', label);
+  wrap.append(table);
+  return wrap;
+}
+
 function performanceNotes(s = {}) {
   const n = el('div', null, 'performance-notes');
   const safeS = s && typeof s === 'object' ? s : {};
@@ -218,9 +227,16 @@ function performanceNotes(s = {}) {
     const detail = el('details', null, 'historical-latency');
     detail.append(el('summary', '历史HTTPS延迟（地区典型p50）'));
     const table = el('table', null, 'plan-table');
+    const thead = el('thead');
     const head = el('tr');
-    for (const label of ['网络', '地区', 'Cloudflare', 'Google', '合格/候选节点']) head.append(el('th', label));
-    table.append(head);
+    for (const label of ['网络', '地区', 'Cloudflare', 'Google', '合格/候选节点']) {
+      const th = el('th', label);
+      th.setAttribute('scope', 'col');
+      head.append(th);
+    }
+    thead.append(head);
+    const tbody = el('tbody');
+    table.append(thead, tbody);
     for (const v of c.rows) {
       const row = el('tr');
       for (const text of [
@@ -232,9 +248,9 @@ function performanceNotes(s = {}) {
       ]) {
         row.append(el('td', text));
       }
-      table.append(row);
+      tbody.append(row);
     }
-    detail.append(table);
+    detail.append(scrollableTable(table, '历史 HTTPS 延迟'));
     n.append(detail);
   }
   if (safeS.supplementaryImageContext) {
@@ -484,7 +500,11 @@ let catalogPages = 1;
 let catalogSequence = 0;
 let searchSequence = 0;
 let detailSequence = 0;
-let observedSnapshot = null;
+let catalogLoading = false;
+let detailLoading = false;
+let pollingSnapshot = false;
+let renderedCatalog = null;
+let renderedDetail = null;
 
 function updatePaymentChips() {
   const current = ($('#catalog-form [name="payment"]')?.value || '').trim();
@@ -505,9 +525,6 @@ function statsPrimaryTotal(s) {
 }
 
 function applySnapshotMeta(data) {
-  if (data?.snapshotId && !observedSnapshot) {
-    observedSnapshot = data.snapshotId;
-  }
   const asOf = shortDate(data?.sourceAsOf);
   if (asOf && $('#snapshot-badge')) {
     $('#snapshot-badge').textContent = `快照 ${asOf}`;
@@ -529,8 +546,9 @@ async function loadStats() {
   }
 }
 
-async function loadCatalog() {
+async function loadCatalog({background = false} = {}) {
   const seq = ++catalogSequence;
+  catalogLoading = true;
   const formData = new FormData($('#catalog-form'));
   const params = new URLSearchParams();
   for (const [k, v] of formData) {
@@ -548,9 +566,9 @@ async function loadCatalog() {
     !params.get('refund');
 
   $('#catalog-error').hidden = true;
-  $('#catalog-meta').textContent = '正在加载…';
+  if (!background || !renderedCatalog) $('#catalog-meta').textContent = '正在加载…';
   try {
-    const d = await api('/api/catalog?' + params);
+    const d = await api('/api/catalog?' + params, background ? {priority: 'low'} : {});
     if (seq !== catalogSequence) return;
     catalogPages = Number(d.pages) || 1;
     catalogPage = Number(d.page) || 1;
@@ -567,12 +585,15 @@ async function loadCatalog() {
     $('#page-label').textContent = `第 ${catalogPage} / ${catalogPages} 页`;
     $('#previous').disabled = catalogPage <= 1;
     $('#next').disabled = catalogPage >= catalogPages;
+    renderedCatalog = {snapshotId: d.snapshotId};
   } catch (e) {
     if (seq !== catalogSequence) return;
     $('#catalog-error').hidden = false;
     $('#catalog-error').textContent = e.message;
-    $('#catalog-meta').textContent = '加载失败';
-    $('#catalog-results').replaceChildren();
+    $('#catalog-meta').textContent = renderedCatalog ? '更新失败 · 显示上次加载结果' : '加载失败';
+    renderedCatalog = renderedCatalog && {...renderedCatalog, failed: true};
+  } finally {
+    if (seq === catalogSequence) catalogLoading = false;
   }
 }
 
@@ -588,12 +609,12 @@ async function search(e) {
   try {
     const d = await api('/api/search?' + params);
     if (seq !== searchSequence) return;
-    const label = {speed: '速度', stability: '稳定性'}[d.criterion];
-    $('#status').textContent = label
-      ? '暂无可比较的' + label + '实测数据（' + (d.reason || '不提供未经统一实测验证的排名') + '）'
-      : list(d.items).length
-        ? `找到 ${d.items.length} 个符合条件的机场代表套餐`
-        : d.reason || '暂无符合条件的套餐。';
+    const labels = {cheap: '月均价格', value: '流量性价比', speed: '速度', stability: '稳定性'};
+    const budget = Number.isFinite(d.maxMonthly) ? `月均上限 ${d.maxMonthly} ${d.currency}` : '月均预算不限';
+    const criteria = labels[d.criterion] ? ` · 比较口径：${labels[d.criterion]} · ${budget}` : '';
+    $('#status').textContent = d.status === 'unparsed_needs'
+      ? d.reason
+      : (list(d.items).length ? `找到 ${d.items.length} 个符合条件的机场代表套餐` : d.reason || '暂无符合条件的套餐。') + criteria;
     for (const item of list(d.items)) {
       const n = el('article', null, 'service-card');
       const topRow = el('div', null, 'card-header');
@@ -747,6 +768,15 @@ function renderDetail(item) {
       const row = el('tr');
       const name = el('td', p.name || '套餐');
       if (p.soldOut === true) name.append(el('small', '售罄', 'sold-out'));
+      const conditions = globalThis.PlanConditions?.conditionLines(p) || [];
+      if (conditions.length) {
+        const details = el('details', null, 'plan-conditions');
+        details.append(el('summary', '费用与使用条件'));
+        const items = el('ul');
+        items.append(...conditions.map((line) => el('li', line)));
+        details.append(items);
+        name.append(details);
+      }
       const price = el('td', priceText(p), 'table-price');
       price.append(el('small', ' / ' + (p.billingPeriod || '周期待确认')));
       if (p.currency) price.append(el('small', currencyText(p), 'currency-label'));
@@ -769,9 +799,7 @@ function renderDetail(item) {
   select.addEventListener('change', draw);
   draw();
 
-  const wrap = el('div', null, 'table-wrap');
-  wrap.append(table);
-  section.append(wrap);
+  section.append(scrollableTable(table, '套餐价格'));
   if (!preferred || plans.length) root.append(section);
 
   const references = referencePrices(safeItem.pricing);
@@ -790,22 +818,26 @@ function renderDetail(item) {
   return root;
 }
 
-async function route() {
-  const match = location.hash.match(/^#\/airport\/([^/]+)$/);
+async function route({background = false} = {}) {
+  const hash = globalThis.location?.hash || '';
+  const match = hash.match(/^#\/airport\/([^/]+)$/);
   const seq = ++detailSequence;
+  detailLoading = false;
+  if (!background) renderedDetail = null;
   $('#home').hidden = !!match;
   $('#detail').hidden = !match;
   if (!match) {
     document.title = '航向 · 机场套餐目录与比价';
-    if (location.hash) {
+    if (hash) {
       try {
-        document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior: 'auto'});
+        document.getElementById(hash.slice(1))?.scrollIntoView({behavior: 'auto'});
       } catch {}
     }
     return;
   }
-  $('#detail-content').replaceChildren(el('p', '正在加载…', 'empty-state'));
-  window.scrollTo({top: 0, behavior: 'auto'});
+  const preserveDetail = background && renderedDetail?.hash === hash;
+  if (!preserveDetail) $('#detail-content').replaceChildren(el('p', '正在加载…', 'empty-state'));
+  if (!background) window.scrollTo({top: 0, behavior: 'auto'});
   let decodedId;
   try {
     decodedId = decodeURIComponent(match[1]);
@@ -815,48 +847,57 @@ async function route() {
     }
     return;
   }
+  detailLoading = true;
   try {
-    const d = await api('/api/airports/' + encodeURIComponent(decodedId));
+    const d = await api('/api/airports/' + encodeURIComponent(decodedId), background ? {priority: 'low'} : {});
     if (seq !== detailSequence) return;
     if (!d.item) throw Error('未找到这个机场');
     $('#detail-content').replaceChildren(renderDetail(d.item));
     document.title = (d.item.name || decodedId) + ' · 航向';
+    renderedDetail = {hash, snapshotId: d.snapshotId};
   } catch (e) {
-    if (seq === detailSequence) {
+    if (seq === detailSequence && !preserveDetail) {
       $('#detail-content').replaceChildren(el('p', e.message, 'error'));
     }
+  } finally {
+    if (seq === detailSequence) detailLoading = false;
   }
 }
 
 async function pollSnapshotChange() {
-  if (document.hidden) return;
+  if (document.hidden || pollingSnapshot) return;
+  pollingSnapshot = true;
   try {
-    const next = await api('/api/stats');
+    const next = await api('/api/stats', {priority: 'low'});
     const meta = $('#catalog-meta');
-    if (meta && meta.textContent.includes(' · 自动更新暂不可用')) {
-      meta.textContent = meta.textContent.replaceAll(' · 自动更新暂不可用', '');
+    meta.textContent = meta.textContent.replace(' · 自动更新暂不可用', '');
+    const primaryTotal = statsPrimaryTotal(next);
+    if (Number.isFinite(primaryTotal) && $('#stat-primary')) {
+      $('#stat-primary').textContent = `${primaryTotal} 家`;
     }
-    const changed = Boolean(observedSnapshot && next?.snapshotId && next.snapshotId !== observedSnapshot);
-    if (next?.snapshotId) observedSnapshot = next.snapshotId;
-    if (changed) {
-      const primaryTotal = statsPrimaryTotal(next);
-      if (Number.isFinite(primaryTotal) && $('#stat-primary')) {
-        $('#stat-primary').textContent = `${primaryTotal} 家`;
-      }
-      applySnapshotMeta(next);
-      await loadCatalog();
-      if (/^#\/airport\//.test(location.hash)) await route();
+    const hash = globalThis.location?.hash || '';
+    const refreshes = [];
+    if (next.snapshotId && !catalogLoading && (renderedCatalog?.failed || renderedCatalog?.snapshotId !== next.snapshotId)) {
+      refreshes.push(loadCatalog({background: true}));
     }
+    if (next.snapshotId && !detailLoading && /^#\/airport\/[^/]+$/.test(hash) &&
+        (renderedDetail?.hash !== hash || renderedDetail?.snapshotId !== next.snapshotId)) {
+      refreshes.push(route({background: true}));
+    }
+    await Promise.all(refreshes);
   } catch {
     const meta = $('#catalog-meta');
     if (meta && !meta.textContent.includes('自动更新暂不可用')) {
       meta.textContent += ' · 自动更新暂不可用';
     }
+  } finally {
+    pollingSnapshot = false;
   }
 }
 
 $('#search').addEventListener('submit', search);
 $('#search-reset')?.addEventListener('click', () => {
+  searchSequence++;
   $('#search').reset();
   $('#status').textContent = '设置预算或输入需求，比较合格套餐。';
   $('#results').replaceChildren();

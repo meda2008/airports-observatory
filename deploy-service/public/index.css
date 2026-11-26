@@ -849,6 +849,7 @@ input::placeholder {
 }
 
 .table-wrap {
+  max-inline-size: 100%;
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);

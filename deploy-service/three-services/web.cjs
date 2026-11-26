@@ -213,6 +213,9 @@ function createWebServer({
               if (!Object.hasOwn(responseHeaders, k)) responseHeaders[k] = v;
             }
             res.writeHead(response.statusCode, responseHeaders);
+            response.on('error', error => res.destroy(error));
+            response.on('close', () => { if (!response.complete && !res.destroyed) res.destroy(); });
+            res.once('close', () => { if (!response.complete) response.destroy(); });
             response.pipe(res);
           }
         );
@@ -232,7 +235,8 @@ function createWebServer({
           ) {
             return send();
           }
-          sendJsonError(res, 502, 'API unavailable');
+          if (res.headersSent) res.destroy(error);
+          else sendJsonError(res, 502, 'API unavailable');
         });
         req.once('aborted', () => request.destroy());
         if (attempts === 1) {
