@@ -22,29 +22,28 @@ function finishAuthoritatively(store,claimed,body){
   db.prepare('INSERT INTO measurement_worker_finish_receipts VALUES(?,?,?,NULL)').run(run.id,tokenHash,encoded);
  }
  let existing=db.prepare('SELECT * FROM measurement_observations WHERE run_id=?').get(run.id);
- const current=db.prepare('SELECT * FROM measurement_profiles WHERE id=?').get(run.profile_id);
- if((existing&&JSON.parse(existing.body).reason==='worker_lease_expired')||(!existing&&current?.lease_token===claimed.token&&current.lease_until<=Date.now())){
+ if(!existing||JSON.parse(existing.body).reason==='worker_lease_expired'){
   db.exec('BEGIN IMMEDIATE');try{
-   if(!existing){const at=Date.now(),missing={status:'missing',reason:'worker_lease_expired',observedAt:new Date(at).toISOString(),bytesRead:null,elapsedMs:null,latencyMs:null,synthetic:profile.synthetic,measurementVerified:false,profileRevision:run.profile_revision},raw=JSON.stringify(missing),sha=digest(raw),id='measurement-'+digest(JSON.stringify([run.id,sha]));
-    db.prepare('INSERT INTO measurement_observations VALUES(?,?,?,?,?,?,?,?,?)').run(id,run.id,profile.id,profile.siteId,profile.kind,missing.observedAt,raw,sha,profile.synthetic?1:0);
-    db.prepare("UPDATE measurement_runs SET status='lease_expired_missing',finished_at=? WHERE id=?").run(at,run.id);
-    db.prepare('UPDATE measurement_profiles SET due_at=?,lease_token=NULL,lease_until=NULL WHERE id=? AND lease_token=?').run(at+profile.intervalMs,profile.id,claimed.token);
-    existing={id};
+   existing||=store.settleLateRun(run,profile,claimed.token);
+   if(existing){
+    db.prepare('INSERT OR IGNORE INTO measurement_late_submissions VALUES(?,?,?,?)').run(run.id,encoded,digest(encoded),new Date().toISOString());
+    db.prepare('UPDATE measurement_worker_finish_receipts SET observation_id=? WHERE run_id=?').run(existing.id,run.id);
+    db.exec('COMMIT');return{id:existing.id,checkpoint:true,status:'missing',reason:'worker_lease_expired'};
    }
-   db.prepare('INSERT OR IGNORE INTO measurement_late_submissions VALUES(?,?,?,?)').run(run.id,canonical(body),digest(canonical(body)),new Date().toISOString());
-   db.prepare('UPDATE measurement_worker_finish_receipts SET observation_id=? WHERE run_id=?').run(existing.id,run.id);db.exec('COMMIT');return{id:existing.id,checkpoint:true,status:'missing',reason:'worker_lease_expired'};
+   db.exec('COMMIT');
   }catch(error){db.exec('ROLLBACK');throw error;}
  }
  if(existing){if(canonical(JSON.parse(existing.body))!==canonical(normalized))throw Error('measurement_finish_conflict');db.prepare('UPDATE measurement_worker_finish_receipts SET observation_id=? WHERE run_id=?').run(existing.id,run.id);return{id:existing.id,sha256:existing.sha256,...JSON.parse(existing.body)};}
  const result=store.finish({...claimed,profile},normalized);
  db.prepare('UPDATE measurement_worker_finish_receipts SET observation_id=? WHERE run_id=?').run(result.id,run.id);return result;
 }
-const METHODS = new Map([['claim',1],['finish',2],['observations',1],['enabled',0],['canExecute',0],['profiles',0],['heartbeat',1]]);
+const METHODS = new Map([['claim',1],['finish',2],['observations',1],['trafficUsed',1],['enabled',0],['canExecute',0],['profiles',0],['heartbeat',1]]);
 function dispatchMeasurementWorker(store, request) {
   if (!request || !METHODS.has(request.method) || !Array.isArray(request.args) || request.args.length !== METHODS.get(request.method)) throw Error('measurement_worker_request_rejected');
   if (request.method === 'claim' && (!request.args[0] || typeof request.args[0] !== 'object' || Array.isArray(request.args[0]))) throw Error('measurement_worker_request_rejected');
   if (request.method === 'finish' && (!request.args[0]?.token || !request.args[0]?.runId || !request.args[1] || typeof request.args[1] !== 'object')) throw Error('measurement_worker_request_rejected');
   if (request.method === 'observations' && request.args[0] != null && typeof request.args[0] !== 'string') throw Error('measurement_worker_request_rejected');
+  if (request.method === 'trafficUsed' && (typeof request.args[0] !== 'string' || !/^[A-Za-z0-9_-]{1,80}$/.test(request.args[0]))) throw Error('measurement_worker_request_rejected');
   if (request.method === 'heartbeat' && (!request.args[0] || typeof request.args[0] !== 'object' || Array.isArray(request.args[0]))) throw Error('measurement_worker_request_rejected');
   if(request.method==='finish'&&store.db)return finishAuthoritatively(store,...request.args);
   if(request.method==='claim'&&store.db){workerSchema(store.db);const claim=store.claim(...request.args);if(claim)store.db.prepare('INSERT OR IGNORE INTO measurement_worker_claims VALUES(?,?)').run(claim.runId,digest(claim.token));return claim;}
@@ -66,11 +65,26 @@ function openHttpMeasurementStore({baseUrl,token,fetchImpl=fetch,timeoutMs=10000
     return result.value;
   };
   if(outboxDirectory)fs.mkdirSync(outboxDirectory,{recursive:true,mode:0o700});
+  const hold=filename=>{
+    const target=filename.replace(/\.json$/,'.review-required.json');
+    fs.renameSync(filename,fs.existsSync(target)?filename.replace(/\.json$/,'.review-required-'+crypto.randomUUID()+'.json'):target);
+  };
+  async function deliver(filename,args){
+    try{const result=await call('finish',args);fs.unlinkSync(filename);return result;}
+    catch(error){
+      if(![400,409,413,422].includes(error.status))throw error;
+      hold(filename);
+      return {status:'submission_review_required'};
+    }
+  }
   let flushing=null;
   const flush=()=>flushing??=(async()=>{if(!outboxDirectory)return;for(const filename of fs.readdirSync(outboxDirectory).filter(x=>/^[a-f0-9]{64}\.json$/.test(x)).sort()){
-    const full=path.join(outboxDirectory,filename),request=JSON.parse(fs.readFileSync(full,'utf8'));
-    if(request.method!=='finish'||!Array.isArray(request.args)||request.args.length!==2)throw Error('measurement_outbox_invalid');
-    await call('finish',request.args);fs.unlinkSync(full);
+    const full=path.join(outboxDirectory,filename);
+    let request;
+    try{request=JSON.parse(fs.readFileSync(full,'utf8'));}
+    catch(error){if(error.code==='ENOENT')continue;if(!(error instanceof SyntaxError))throw error;hold(full);continue;}
+    if(request?.method!=='finish'||!Array.isArray(request.args)||request.args.length!==2){hold(full);continue;}
+    await deliver(full,request.args);
   }})().finally(()=>{flushing=null;});
   const store={close(){},flush};
   for (const [method] of METHODS) store[method]=async(...args)=>{
@@ -79,7 +93,7 @@ function openHttpMeasurementStore({baseUrl,token,fetchImpl=fetch,timeoutMs=10000
     const filename=path.join(outboxDirectory,digest(args[0].runId)+'.json'),encoded=JSON.stringify({method,args});
     if(fs.existsSync(filename)){if(fs.readFileSync(filename,'utf8')!==encoded)throw Error('measurement_outbox_conflict');}
     else{const temp=filename+'.tmp-'+crypto.randomUUID(),fd=fs.openSync(temp,'wx',0o600);try{fs.writeFileSync(fd,encoded);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}fs.renameSync(temp,filename);}
-    const result=await call(method,args);fs.unlinkSync(filename);return result;
+    return deliver(filename,args);
   };
   return store;
 }

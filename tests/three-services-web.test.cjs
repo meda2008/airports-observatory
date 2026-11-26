@@ -31,6 +31,21 @@ test('web serves fixed assets and forwards API method, query, auth, and payload'
   assert.equal(await unchanged.text(), '');
   assert.equal((await fetch(web, {method:'HEAD', headers: {'if-none-match': etag}})).status, 304);
 });
+test('web closes an interrupted upstream response', async t => {
+  const upstream = http.createServer((req, res) => {
+    res.writeHead(200, {'content-length': '20'});
+    res.write('partial', () => res.destroy());
+  });
+  const origin = await listen(upstream);
+  const server = createWebServer({upstream: origin});
+  const web = await listen(server);
+  t.after(() => { server.closeAllConnections(); server.close(); upstream.closeAllConnections(); upstream.close(); });
+
+  const response = await fetch(`${web}/api/example`, {signal: AbortSignal.timeout(3000)});
+  assert.equal(response.status, 200);
+  await assert.rejects(response.text(), {name: 'TypeError'});
+});
+
 test('web reports unavailable API and rejects credential-bearing upstream URLs', async t => {
   assert.throws(() => createWebServer({upstream:'http://user:secret@api:8080'}), /without credentials/);
   const server = createWebServer({upstream:'http://127.0.0.1:1'});

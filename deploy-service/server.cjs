@@ -25,8 +25,8 @@ function publicFacts(document={}){
  if(core.payment?.statementObservations){out.payment.summary=safeText(core.payment.summary);out.payment.reason=safeText(core.payment.reason);out.payment.statementObservations=core.payment.statementObservations.map(o=>Object.fromEntries(Object.entries(pick(o,['methods','quote','observedAt','pageUpdatedAt','sourceUrl','sourceIds','evidenceLevel','checkoutObserved'])).map(([k,v])=>[k,safeText(v)])));}
  return safeFactUrls(out);
 }
-function publicSearch(data){return {...pick(data,['criterion','currency','status','excludedCount','evidenceAsOf','limitations','reason']),items:data.items.map(i=>({...pick(i,['id','name','comparison','matchingPlanCount']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
-function createServer({store,catalogDb,controlStore,measurementStore,registry=[],baseDir,serviceProvider=makeCatalogServiceProvider({baseDir}),syncPublication=()=>catalogDb?.sync(),adminToken=process.env.ADMIN_TOKEN}={}){
+function publicSearch(data){return {...pick(data,['criterion','currency','maxMonthly','status','excludedCount','evidenceAsOf','limitations','reason']),items:data.items.map(i=>({...pick(i,['id','name','comparison','matchingPlanCount']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
+function createServer({store,catalogDb,controlStore,measurementStore,registry=[],baseDir,serviceProvider=makeCatalogServiceProvider({baseDir}),syncPublication=()=>catalogDb?.sync(),publicationReady=()=>true,adminToken=process.env.ADMIN_TOKEN}={}){
  const controlPlane=controlStore?require('./control-plane.cjs').createControlPlane({store,control:controlStore,catalogDb,profiles:registry,facts:publicFacts}):null;
  function updateService(){
   const heartbeats=store?.getServiceHeartbeats?.()||[],snapshot=controlPlane?.brief(heartbeats),now=Date.now();
@@ -67,8 +67,13 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
      return send(res,200,{updateService:update,database,jobs:(store.listJobs?.()||[]).map(j=>pick(j,['jobId','siteId','status','dueAt','finishedAt','leaseExpiresAt','error'])),proposals:(store.listProposals?.()||[]).map(p=>({...pick(p,['id','siteId','status','expectedRevision','createdAt','evidenceIds','reviewer']),patch:publicFacts(p.patch)})),checkpoints:(store.listEvidenceMetadata?.({checkpointsOnly:true})||(store.listEvidence?.()||[]).filter(e=>['verification_checkpoint','unverified_entry_candidate'].includes(e.kind))).map(e=>pick(e,['id','siteId','url','kind','observations']))});
     }
     if(req.method==='GET'&&route==='/api/admin/referrals')return send(res,200,{items:store.listReferrals().map(v=>pick(v,['siteId','recordId','url','disclosure','evidenceId','status','owner','verifiedAt','sourceIds']))});
-    if(req.method==='GET'&&route==='/api/admin/evidence'){const id=url.searchParams.get('id');if(!id||id.length>200)return send(res,400,{error:'需要证据ID'});const evidence=store.getEvidence?store.getEvidence(id):store.listEvidence().find(v=>v.id===id);return evidence?send(res,200,{item:{...pick(evidence,['id','siteId','url','sha256','kind','observations']),body:safeText(evidence.body),bodyRedacted:safeText(evidence.body)!==evidence.body,sha256Basis:'original_retained_body',captureMetadata:controlStore?.listCaptureMetadata?.(id)||[]}}):send(res,404,{error:'证据不存在'});}
-    if(req.method==='GET'&&route==='/api/admin/jobs')return send(res,200,{items:store.listJobs().map(v=>({...pick(v,['id','jobId','siteId','status','createdAt','dueAt','finishedAt','leaseExpiresAt','purpose','profileRevision','cancelRequested']),blockedReason:v.error?'collector_blocked_or_failed':null}))});
+    if(req.method==='GET'&&route==='/api/admin/evidence'){const id=url.searchParams.get('id');if(!id||id.length>200)return send(res,400,{error:'需要证据ID'});const evidence=store.getEvidence?store.getEvidence(id):store.listEvidence().find(item=>item.id===id),body=safeText(evidence?.body);return evidence?send(res,200,{item:{...pick(evidence,['id','siteId','url','sha256','kind','observations']),body,bodyRedacted:body!==evidence.body,sha256Basis:'original_retained_body',captureMetadata:controlStore?.listCaptureMetadata?.(id)||[]}}):send(res,404,{error:'证据不存在'});}
+    if(req.method==='GET'&&route==='/api/admin/jobs'){
+     const value=url.searchParams.get('page');
+     if(value!==null&&(!/^\d{1,5}$/.test(value)||Number(value)<1))return send(res,400,{error:'无效分页'});
+     const page=Number(value),limit=50,rows=store.listJobs(page?{limit:limit+1,offset:(page-1)*limit}:undefined);
+     return send(res,200,{...(page?{page,hasMore:rows.length>limit}:{}),items:(page?rows.slice(0,limit):rows).map(v=>({...pick(v,['id','jobId','siteId','status','createdAt','dueAt','finishedAt','leaseExpiresAt','purpose','profileRevision','cancelRequested']),blockedReason:v.error?'collector_blocked_or_failed':null}))});
+    }
     if(req.method==='GET'&&route==='/api/admin/proposals')return send(res,200,{items:store.listProposals().map(v=>({...pick(v,['id','proposalId','siteId','status','expectedRevision','createdAt','evidenceIds']),patch:publicFacts(v.patch)}))});
     if(req.method==='POST'&&['/api/admin/run','/api/admin/review','/api/admin/referrals','/api/admin/sync'].includes(route)){
      let input;
@@ -82,20 +87,23 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
     }
     return send(res,404,{error:'接口不存在'});
    }
-   if(req.method!=='GET')return send(res,405,{error:'仅支持 GET'});
-   if(route==='/health'){
-    const ready=!!catalogDb?.publication();
-    return send(res,ready?200:503,{status:ready?'ok':'awaiting_publication',service:'airports-deploy'});
-   }
+   if(req.method!=='GET'&&req.method!=='HEAD')return send(res,405,{error:'仅支持 GET 和 HEAD'});
+   if(route==='/health')return send(res,200,{status:'ok',service:'airports-deploy'});
+   if(route==='/ready'){const ready=publicationReady()&&catalogDb?.publication();return send(res,ready?200:503,{status:ready?'ready':'waiting_for_publication'});}
    if(['/api/stats','/api/catalog'].includes(route)||route.startsWith('/api/airports/')){
     if(!catalogDb?.publication())return send(res,503,{error:'现有资料尚未导入规范数据库'});
     if(route==='/api/stats')return send(res,200,{...catalogDb.stats(),updateService:updateService()});
-    if(route==='/api/catalog'){const query={};for(const[k,v]of url.searchParams){if(Object.hasOwn(query,k))return send(res,400,{error:'参数不能重复'});query[k]=v;}return send(res,200,catalogDb.list(query,{facts:publicFacts}));}
+    if(route==='/api/catalog'){
+     const params={};for(const[k,v]of url.searchParams){if(Object.hasOwn(params,k))return send(res,400,{error:'参数不能重复'});params[k]=v;}
+     const {view,...query}=params;
+     if(view!==undefined&&view!=='card')return send(res,400,{error:'无效目录视图'});
+     return send(res,200,catalogDb.list(query,{facts:publicFacts,card:view==='card'}));
+    }
     const id=route.slice('/api/airports/'.length);if(!/^A\d{3}$/.test(id))return send(res,400,{error:'无效记录编号'});const detail=catalogDb.detail(id,{facts:publicFacts});return detail?send(res,200,detail):send(res,404,{error:'记录不存在'});
    }
    if(route==='/api/search'){
     const query={};for(const[k,v]of url.searchParams){if(Object.hasOwn(query,k))return send(res,400,{error:'参数不能重复'});query[k]=v;}
-    const base=catalogDb?{evidenceAsOf:catalogDb.publication()?.sourceAsOf,rawExport:catalogDb.rawExport}:serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();if(catalogDb)return data;const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
+    const base=catalogDb?{rawExport:catalogDb.rawExport}:serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();if(catalogDb)return data;const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
     const verifiedReferralLinks=(store?.listReferrals?.()||[]).filter(r=>r.status==='verified_user_referral'&&r.owner==='user').map(r=>({...r,recordId:r.recordId||r.siteId}));
     return send(res,200,publicSearch(makeNeedsSearch(service,{verifiedReferralLinks}).search(query)));
    }

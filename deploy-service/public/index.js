@@ -172,6 +172,15 @@ function overview(item) {
   return n;
 }
 
+function scrollableTable(table, label) {
+  const wrap = el('div', null, 'table-wrap');
+  wrap.tabIndex = 0;
+  wrap.setAttribute('role', 'region');
+  wrap.setAttribute('aria-label', label);
+  wrap.append(table);
+  return wrap;
+}
+
 function performanceNotes(s = {}) {
   const n = el('div', null, 'performance-notes');
   const safeS = s && typeof s === 'object' ? s : {};
@@ -248,12 +257,7 @@ function performanceNotes(s = {}) {
       }
       tbody.append(row);
     }
-    const wrap = el('div', null, 'table-wrap');
-    wrap.tabIndex = 0;
-    wrap.setAttribute('role', 'region');
-    wrap.setAttribute('aria-label', title);
-    wrap.append(table);
-    detail.append(wrap);
+    detail.append(scrollableTable(table, title));
     n.append(detail);
   }
   if (safeS.supplementaryImageContext) {
@@ -527,7 +531,7 @@ function statsPrimaryTotal(s) {
 }
 
 function applySnapshotMeta(data) {
-  const asOf = shortDate(data.sourceAsOf);
+  const asOf = shortDate(data?.sourceAsOf);
   if (asOf) {
     $('#snapshot-badge').textContent = `快照 ${asOf}`;
     $('#snapshot-badge').hidden = false;
@@ -559,23 +563,24 @@ function catalogFormQuery() {
   return params;
 }
 
-async function loadCatalog(query = catalogQuery) {
+async function loadCatalog(query = catalogQuery, {background = false} = {}) {
   if (!query || DETAIL_HASH.test(location.hash) || catalogRequest?.toString() === query.toString()) return;
   catalogQuery = catalogRequest = query;
   const isCurrent = () => catalogRequest === query && !DETAIL_HASH.test(location.hash);
   const snapshot = observedSnapshot;
+  const options = background ? {priority: 'low'} : {};
   if (!catalogView) updateCatalogMeta('正在加载…');
 
   try {
     let params = query;
-    let d = await api('/api/catalog?' + params);
+    let d = await api('/api/catalog?' + params, options);
     if (!isCurrent()) return;
     const lastPage = (data) => Math.max(1, Number(data.pages) || 1);
     // A new publication can shrink the total while a visitor is on a later page.
     if (Number(d.page) > lastPage(d) && d.total > 0) {
       params = new URLSearchParams(query);
       params.set('page', lastPage(d));
-      d = await api('/api/catalog?' + params);
+      d = await api('/api/catalog?' + params, options);
       if (!isCurrent()) return;
       if (Number(d.page) > lastPage(d) && d.total > 0) throw Error('目录页数已变动，请重试');
     }
@@ -632,13 +637,18 @@ async function search(e) {
   try {
     const d = await api('/api/search?' + params);
     if (seq !== searchSequence) return;
-    const label = {speed: '速度', stability: '稳定性'}[d.criterion];
-    $('#status').textContent = label
-      ? '暂无可比较的' + label + '实测数据（' + (d.reason || '不提供未经统一实测验证的排名') + '）'
-      : list(d.items).length
-        ? `找到 ${d.items.length} 个符合条件的机场代表套餐`
-        : d.reason || '暂无符合条件的套餐。';
-    const cards = list(d.items).map((item) => {
+    const items = list(d.items);
+    const label = {cheap: '月均价格', value: '流量性价比', speed: '速度', stability: '稳定性'}[d.criterion];
+    const budget = Number.isFinite(d.maxMonthly) ? `月均上限 ${d.maxMonthly} ${d.currency}` : '月均预算不限';
+    const criteria = label ? ` · 比较口径：${label} · ${budget}` : '';
+    let status = items.length
+      ? `找到 ${items.length} 个符合条件的机场代表套餐`
+      : d.reason || '暂无符合条件的套餐。';
+    if (d.status === 'abstain' && (d.criterion === 'speed' || d.criterion === 'stability')) {
+      status = `暂无可比较的${label}实测数据（${d.reason || '不提供未经统一实测验证的排名'}）`;
+    }
+    $('#status').textContent = status + (d.status === 'unparsed_needs' ? '' : criteria);
+    const cards = items.map((item) => {
       const n = el('article', null, 'service-card');
       const topRow = el('div', null, 'card-header');
       const a = el('a', item?.name || '未命名机场', 'card-title');
@@ -712,7 +722,9 @@ function planConditions(plan, pricing) {
   const hasSourcedPrice = Number.isFinite(plan.amount) && plan.amount >= 0 && plan.billingPeriod && list(plan.sourceIds).length;
   if (!hasSourcedPrice || pricing.status === 'not_confirmed' || plan.priceStatus === 'not_confirmed' ||
       plan.soldOut === true || plan.purchasable === false) return null;
-  const lines = globalThis.PlanConditions?.conditionLines(plan);
+  // The shared helper can include internal source IDs alongside the condition text.
+  const publicPlan = JSON.parse(JSON.stringify(plan, (key, value) => key === 'sourceIds' ? undefined : value));
+  const lines = globalThis.PlanConditions?.conditionLines(publicPlan);
   if (!lines?.length) return null;
   const details = el('details', null, 'plan-conditions');
   const notes = el('ul');
@@ -795,7 +807,11 @@ function renderDetail(item, billingPeriod) {
   const table = el('table', null, 'plan-table');
   const thead = el('thead');
   const tr = el('tr');
-  for (const h of ['套餐', '价格', '流量', '设备']) tr.append(el('th', h));
+  for (const label of ['套餐', '价格', '流量', '设备']) {
+    const th = el('th', label);
+    th.scope = 'col';
+    tr.append(th);
+  }
   thead.append(tr);
   const tbody = el('tbody');
   table.append(thead, tbody);
@@ -831,9 +847,7 @@ function renderDetail(item, billingPeriod) {
   select.addEventListener('change', draw);
   draw();
 
-  const wrap = el('div', null, 'table-wrap');
-  wrap.append(table);
-  section.append(wrap);
+  section.append(scrollableTable(table, '套餐价格'));
   if (!preferred || plans.length) root.append(section);
 
   const references = referencePrices(safeItem.pricing);
@@ -852,7 +866,7 @@ function renderDetail(item, billingPeriod) {
   return root;
 }
 
-async function loadDetail(view) {
+async function loadDetail(view, {background = false} = {}) {
   const isCurrent = () => view === detailView && view.hash === location.hash;
   if (!view || !isCurrent() || view.loading) return;
   view.loading = true;
@@ -861,7 +875,7 @@ async function loadDetail(view) {
   if (!view.rendered) content.replaceChildren(el('p', '正在加载…', 'empty-state'));
 
   try {
-    const d = await api('/api/airports/' + encodeURIComponent(view.id));
+    const d = await api('/api/airports/' + encodeURIComponent(view.id), background ? {priority: 'low'} : {});
     if (!isCurrent()) return;
     if (d.item?.id !== view.id) throw Error('未找到这个机场');
     const selector = '.plans-heading select';
@@ -890,16 +904,16 @@ async function loadDetail(view) {
   }
 }
 
-function refreshVisibleView() {
+function refreshVisibleView(options) {
   if (DETAIL_HASH.test(location.hash)) {
     if (detailView && (!detailView.rendered || detailView.failed || (observedSnapshot && detailView.snapshotId !== observedSnapshot))) {
-      return loadDetail(detailView);
+      return loadDetail(detailView, options);
     }
     return;
   }
-  if (!catalogQuery) return loadCatalog(catalogFormQuery());
+  if (!catalogQuery) return loadCatalog(catalogFormQuery(), options);
   if (!catalogView || catalogQuery !== catalogView.query || (observedSnapshot && catalogView.snapshotId !== observedSnapshot)) {
-    return loadCatalog();
+    return loadCatalog(catalogQuery, options);
   }
 }
 
@@ -949,7 +963,7 @@ async function pollSnapshotChange(refresh = true) {
     updateCatalogMeta();
     pollingSnapshot = false;
   }
-  if (refresh && !document.hidden) await refreshVisibleView();
+  if (refresh && !document.hidden) await refreshVisibleView({background: true});
 }
 
 $('#search').addEventListener('submit', search);

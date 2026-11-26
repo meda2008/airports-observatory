@@ -38,11 +38,11 @@ function setup() {
     if (fixture.fetch) { const result = await fixture.fetch(url, options); if (result) return result; }
     let data = {};
     if (url.startsWith('/api/admin/status?view=')) data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
-    else if (url === '/api/admin/jobs') data = { items: [] };
+    else if (url.startsWith('/api/admin/jobs?')) data = { items: [] };
     else if (url === '/api/admin/proposals') data = { items: fixture.proposals };
     else if (url.startsWith('/api/admin/proposals/')) data = { ...fixture.proposals[0], currentRevision: 2, before: { price: '原值' }, patch: { price: '<script>不执行</script>' }, after: { price: '<script>不执行</script>' }, evidenceIds: ['ev-1'] };
     else if (url.startsWith('/api/admin/collectors?')) data = { items: [fixture.collector], control: fixture.control, runtime: { connected: false } };
-    else if (url === '/api/admin/collection/status') data = { ...fixture.collection, control: fixture.control, runtime: { connected: false } };
+    else if (url.startsWith('/api/admin/collection/status?')) data = { ...fixture.collection, control: fixture.control, runtime: { connected: false } };
     else if (url.endsWith('/config')) { if (fixture.conflict) return { ok: false, status: 409, json: async () => ({ error: 'REVISION_CONFLICT' }) }; fixture.collector = { ...fixture.collector, revision: fixture.collector.revision + 1, config: JSON.parse(options.body).config }; data = fixture.collector; }
     else if (url === '/api/admin/review') data = { publication: { status: fixture.publication } };
     return { ok: true, status: 200, json: async () => structuredClone(data) };

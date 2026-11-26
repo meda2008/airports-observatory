@@ -179,6 +179,10 @@ test('frontend rendering contract: all 215 records from catalog.v1.json + core-s
     assert.equal(cardNode.tagName, 'ARTICLE', `catalogCard failed for ${record.id}`);
     const detailNode = renderDetail(item);
     assert.equal(detailNode.tagName, 'DIV', `renderDetail failed for ${record.id}`);
+    if (record.id === 'A037') {
+      assert.match(JSON.stringify(detailNode), /16\.39/);
+      assert.match(JSON.stringify(detailNode), /站内原文冲突/);
+    }
     if (record.id === 'A042') {
       assert.ok((item.pricing?.plans || []).length > 0, 'A042 should include plans from core-supplement');
       a042Verified = true;
@@ -312,6 +316,63 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
   assert.match(renderedText, /每 GB 0\.1/);
 });
 
+test('catalog polling recovers initial and subsequent failures and keeps the latest successful view', async () => {
+  let snapshotId = 's1';
+  let failCatalog = true;
+  let requests = 0;
+  const {sandbox, elements} = createFrontendSandbox({fetchHandler: async (url) => {
+    if (url === '/api/stats') return {ok: true, json: async () => ({snapshotId})};
+    requests++;
+    if (failCatalog) throw Error('offline');
+    return {ok: true, json: async () => ({snapshotId, items: [{id: 'A042', name: snapshotId}], total: 1})};
+  }});
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(elements.get('#catalog-meta').textContent, '加载失败');
+  failCatalog = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  const results = elements.get('#catalog-results');
+  assert.match(JSON.stringify(results), /s1/);
+  snapshotId = 's2';
+  failCatalog = true;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.match(JSON.stringify(results), /s1/);
+  failCatalog = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.match(JSON.stringify(results), /s2/);
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.equal(requests, 4);
+});
+
+test('resetting the budget search discards a delayed response and shows the applied policy on the next search', async () => {
+  let finishSearch;
+  const {sandbox, elements} = createFrontendSandbox({fetchHandler: async (url) => {
+    if (url.startsWith('/api/search?')) return new Promise(resolve => { finishSearch = resolve; });
+    return {ok: true, json: async () => ({items: [], total: 0})};
+  }});
+  const response = {ok: true, json: async () => ({criterion: 'value', maxMonthly: 20, currency: 'CNY', items: [{name: 'result'}]})};
+  const stale = sandbox.__testExports.search();
+  await elements.get('#search-reset').dispatch('click');
+  finishSearch(response);
+  await stale;
+  assert.equal(elements.get('#results').children.length, 0);
+  sandbox.document.querySelector('#search [name="criterion"]').value = 'cheap';
+  sandbox.document.querySelector('#search [name="maxMonthly"]').value = '40';
+  const search = sandbox.__testExports.search();
+  finishSearch(response);
+  await search;
+  assert.match(elements.get('#status').textContent, /流量性价比.*20 CNY/);
+
+  const abstained = sandbox.__testExports.search();
+  finishSearch(jsonResponse({status: 'abstain', criterion: 'speed', maxMonthly: 15, currency: 'CNY', items: []}));
+  await abstained;
+  assert.match(elements.get('#status').textContent, /暂无可比较的速度实测数据.*比较口径：速度.*15 CNY/);
+
+  const unparsed = sandbox.__testExports.search();
+  finishSearch(jsonResponse({status: 'unparsed_needs', criterion: 'speed', reason: '需求未完整解析', items: []}));
+  await unparsed;
+  assert.equal(elements.get('#status').textContent, '需求未完整解析');
+});
+
 test('clearing search ignores both successful and failed responses already in flight', async () => {
   const requests = [];
   const {getEl} = createFrontendSandbox({
@@ -434,15 +495,17 @@ test('catalog retries the submitted filters and page while preserving successful
 
 test('direct detail loads lazily and a failed publication refresh retries without resetting the billing filter or scroll', async () => {
   const calls = [];
+  const detailPriorities = [];
   let snapshotId = 'one';
   let fail = false;
   const {sandbox, getEl, scrolls} = createFrontendSandbox({
     hash: '#/airport/A042',
-    fetchHandler: (url) => {
+    fetchHandler: (url, options) => {
       calls.push(url);
       if (url === '/api/stats') return jsonResponse({snapshotId});
       if (url.startsWith('/api/catalog?')) return jsonResponse({items: [], page: 1, pages: 0, total: 0, snapshotId});
       assert.equal(url, '/api/airports/A042');
+      detailPriorities.push(options.priority);
       if (fail) return jsonResponse({error: 'Temporary failure'}, 503);
       return jsonResponse({
         snapshotId,
@@ -472,7 +535,7 @@ test('direct detail loads lazily and a failed publication refresh retries withou
 
   fail = false;
   await sandbox.__testExports.pollSnapshotChange();
-  assert.equal(calls.filter((url) => url === '/api/airports/A042').length, 3);
+  assert.deepEqual(detailPriorities, [undefined, 'low', 'low']);
   assert.equal(calls.some((url) => url.startsWith('/api/catalog?')), false);
   assert.match(JSON.stringify(content), /"textContent":"two"/);
   assert.equal(content.querySelector('.plans-heading select').value, '年付');
@@ -495,8 +558,8 @@ test('public details put latency in a focusable scroll region and show only sour
   const root = sandbox.__testExports.renderDetail({
     summary: {latencyContext: {rows: [{region: '香港', cloudflareTypicalMs: 80}]}},
     pricing: {status: 'advertised_not_checkout_verified', plans: [
-      {...plan, name: 'Available', quotaReset: '每月重置', terms: {summary: '<b>限本人使用</b>'},
-        additionalCharges: 0, retainedContractFields: {additionalCharges: {historical: true, observedAt: '2026-10-26'}}},
+      {...plan, name: 'Available', quotaReset: '每月重置', terms: {summary: '<b>限本人使用</b>', sourceIds: ['private-terms-id']},
+        additionalCharges: 0, retainedContractFields: {additionalCharges: {historical: true, observedAt: '2026-10-26', sourceIds: ['private-charge-id']}}},
       {...plan, name: 'Sold out', soldOut: true, terms: 'sold-out note'},
       {...plan, name: 'Unavailable', purchasable: false, terms: 'unavailable note'},
       {...plan, name: 'Unconfirmed', priceStatus: 'not_confirmed', terms: 'unconfirmed note'},
@@ -510,6 +573,12 @@ test('public details put latency in a focusable scroll region and show only sour
   assert.equal(wrap.getAttribute('role'), 'region');
   assert.equal(wrap.getAttribute('aria-label'), latency.children[0].textContent);
   assert.deepEqual(wrap.children[0].children.map((n) => n.tagName), ['THEAD', 'TBODY']);
+  const plans = findElement(root, (node) => node.className === 'plans-section');
+  const planWrap = findElement(plans, (node) => node.className === 'table-wrap');
+  assert.equal(planWrap.tabIndex, 0);
+  assert.equal(planWrap.getAttribute('role'), 'region');
+  assert.equal(planWrap.getAttribute('aria-label'), '套餐价格');
+  assert.ok(planWrap.children[0].children[0].children[0].children.every((header) => header.scope === 'col'));
   const conditions = findElement(root, (node) => node.className === 'plan-conditions');
   const notes = conditions.children[1].children.map((n) => n.textContent).join('\n');
   assert.match(notes, /每月重置/);
@@ -518,7 +587,7 @@ test('public details put latency in a focusable scroll region and show only sour
   assert.match(notes, /2026-10-26.*本轮未重验/);
   const rendered = JSON.stringify(root);
   assert.equal(rendered.match(/"className":"plan-conditions"/g).length, 1);
-  assert.doesNotMatch(rendered, /private-source-id|sold-out note|unavailable note|unconfirmed note|unsourced note/);
+  assert.doesNotMatch(rendered, /private-(source|terms|charge)-id|sold-out note|unavailable note|unconfirmed note|unsourced note/);
 });
 
 test('snapshot shrink reloads the last valid page and retains the card projection', async () => {
@@ -534,6 +603,7 @@ test('snapshot shrink reloads the last valid page and retains the card projectio
       const page = Number(params.get('page'));
       const pages = Math.ceil(total / 12);
       assert.equal(params.get('view'), 'card');
+      assert.equal(options.priority, total === 24 ? 'low' : undefined);
       requested.push(page);
       data = {items: page <= pages ? [{id: 'A001', name: 'Fixture'}] : [], total, pages, page, snapshotId: 'snap-' + total};
     }

@@ -1,6 +1,7 @@
 'use strict';
 const { assertPublicUrl, publicIP } = require('./public-destination.cjs');
 const { createBrowserEgress } = require('./browser-egress.cjs');
+const { guardBrowserRedirects } = require('./collector-browser-redirect.cjs');
 const redact=s=>String(s).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[email]').split('\n').filter(x=>!/(?:vmess|vless|trojan|ss):\/\/|[?&](token|password|access_token)=/i.test(x)).join('\n');
 function requestAllowed(url,{allowed,isMainNavigation=false}={}){
  const u=new URL(url);
@@ -39,7 +40,9 @@ async function collectSiteWithinBudget(site,{browser,credentials={},emailCodePro
  signal.throwIfAborted();
  await context.routeWebSocket?.('**/*',route=>route.close());
  await context.route('**/*',async route=>{try{signal.throwIfAborted();const request=route.request();const isMainNavigation=request.isNavigationRequest()&&!request.frame().parentFrame();if(!requestAllowed(request.url(),{allowed,isMainNavigation}))return route.abort();await egress.admit(request.url());return route.continue();}catch{return route.abort();}});
- const page=await context.newPage(),queue=[entry],seen=new Set();while(queue.length&&observations.length<maxPages){signal.throwIfAborted();const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
+ const page=await context.newPage(),queue=[entry],seen=new Set();
+ await guardBrowserRedirects(context,page,url=>allowed.has(url.hostname));
+ while(queue.length&&observations.length<maxPages){signal.throwIfAborted();const url=queue.shift();if(seen.has(url))continue;seen.add(url);await page.goto(url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForLoadState('networkidle',{timeout:5000}).catch(()=>{});
  signal.throwIfAborted();
  const verification=require('./verification.cjs');
  let gate=await verification.observeVerification(page);const passive=await import('../collection/passive-access-wait.mjs');if(passive.passiveAccessWaitLabel(gate.snapshot)){const waited=await passive.waitForPassiveAccessPage({tab:{playwright:page},snapshot:gate.snapshot,inspect:async()=> (await verification.observeVerification(page)).snapshot,runtime:'server'});if(passive.passiveAccessWaitLabel(waited.snapshot)){blocker='passive_access_wait_incomplete';break;}gate=await verification.observeVerification(page);}let text=gate.snapshot.text;

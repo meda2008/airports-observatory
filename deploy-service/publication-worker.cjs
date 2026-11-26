@@ -18,6 +18,7 @@ function openPublicationWorker({filename,root}){
    const request=pending.get(id);
    if(worker!==current||!request)return;
    pending.delete(id);
+   if(!pending.size&&!closed)current.unref();
    if(ok)request.resolve(result);else request.reject(Error('publication_sync_failed'));
   });
   current.unref();
@@ -29,12 +30,20 @@ function openPublicationWorker({filename,root}){
   return new Promise((resolve,reject)=>{
    const id=++sequence;
    pending.set(id,{resolve,reject});
-   try{worker.postMessage({id,op});}catch(error){pending.delete(id);reject(error);}
+   worker.ref();
+   try{worker.postMessage({id,op});}catch(error){pending.delete(id);if(!pending.size)worker.unref();reject(error);}
   });
  }
  function close(){
   closed=true;
-  closing||=worker?.terminate()||Promise.resolve();
+  if(!closing){
+   const current=worker;
+   if(current){
+    current.ref();
+    closing=new Promise(resolve=>{current.once('exit',resolve);});
+    try{current.postMessage({op:'close'});}catch{void current.terminate();}
+   }else closing=Promise.resolve();
+  }
   return closing;
  }
  return {tick:()=>request('tick'),sync:()=>request('sync'),close};
@@ -46,7 +55,15 @@ if(parentPort&&workerData){
  const catalog=require('./catalog-db.cjs').openCatalogDb({filename,store,root});
  const publisher=require('./publisher.cjs').createPublisher({store,catalog,root});
  parentPort.on('message',({id,op})=>{
-  try{parentPort.postMessage({id,ok:true,result:op==='sync'?catalog.sync():publisher.tick()});}
+  if(op==='close'){
+   try{catalog.close();}finally{try{store.close();}finally{parentPort.close();}}
+   return;
+  }
+  try{
+   const attempt=publisher.tick({force:op==='sync'});
+   const result=attempt.publicationResult||attempt;
+   parentPort.postMessage({id,ok:op!=='sync'||result.status!=='failed',result});
+  }
   catch{parentPort.postMessage({id,ok:false});}
  });
 }

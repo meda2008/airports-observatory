@@ -240,7 +240,8 @@ function createWebServer({
           ) {
             return send();
           }
-          sendJsonError(res, 502, 'API unavailable');
+          if (res.headersSent) res.destroy(error);
+          else sendJsonError(res, 502, 'API unavailable');
         });
         if (attempts === 1) {
           let streamedBytes = 0;

@@ -12,24 +12,33 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  if(adminToken===internalToken)throw Error('distinct_service_credentials_required');
  const store=createStore({filename}),catalogDb=openCatalogDb({filename,store,root}),{control,profiles}=initializeControl({store,root}),measurements=openMeasurementStore({filename,executorId:'collector'});
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
- // Seed before serving requests. Reconciliation of approved changes runs off the request thread.
- const startupPublisher=require('./publisher.cjs').createPublisher({store,catalog:catalogDb,root});
- if(!catalogDb.publication())startupPublisher.tick();
- const publisher=require('./publication-worker.cjs').openPublicationWorker({filename,root});
+ const {createPublisher}=require('./publisher.cjs');
+ const bootstrap=createPublisher({store,catalog:catalogDb,root});
+ const bootstrapResult=catalogDb.publication()?null:bootstrap.tick();
+ let publicationReconciled=!!bootstrapResult&&(bootstrapResult.status!=='failed'||!!bootstrapResult.publicationResult);
+ const publisher=filename===':memory:'?{tick:bootstrap.tick,close:async()=>{}}:require('./publication-worker.cjs').openPublicationWorker({filename,root});
  let publicationInFlight=false;
- function tickPublication(){
+ async function reconcilePublication(){
   if(publicationInFlight)return;
   publicationInFlight=true;
-  Promise.resolve().then(()=>publisher.tick()).catch(()=>{
+  try{
+   const result=await publisher.tick();
+   if(result.status!=='failed'||result.publicationResult)publicationReconciled=true;
+  }catch{
    try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:'publication_worker_unavailable',networkAccess:false}});}catch{}
-  }).finally(()=>{publicationInFlight=false;});
+  }finally{publicationInFlight=false;}
  }
- const publicationTimer=setInterval(tickPublication,30000);publicationTimer.unref?.();
+ const publicationTimer=setInterval(reconcilePublication,30000);publicationTimer.unref?.();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
  const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb});
- const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication:publisher.sync}),base=server.listeners('request')[0];server.removeAllListeners('request');
- server.once('listening',tickPublication);
+ async function syncPublication(){
+  const result=publisher.sync?await publisher.sync():catalogDb.sync();
+  publicationReconciled=true;
+  return result;
+ }
+ const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication,publicationReady:()=>publicationReconciled}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ server.once('listening',()=>{if(!publicationReconciled)void reconcilePublication();});
  let lastSchedule=0;
  const webOps={
   assistpoll:()=>assistance.poll(),
@@ -94,7 +103,7 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    if(!authorizedMeasurementWorker(req.headers.authorization,adminToken)){res.writeHead(401);res.end('{}');return;}
    try{const x=await readJson(req);const result=discovery.enqueue({seedId:x.seedId,actor:x.actor||'admin_entry_discovery'});res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(result));}catch{res.writeHead(409);res.end('{"error":"discovery_request_rejected"}');}return;
   }
-  if(!url.pathname.startsWith('/internal/')){if(url.pathname==='/health'||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
+  if(!url.pathname.startsWith('/internal/')){if(['/health','/ready'].includes(url.pathname)||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
   const send=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
   if(req.method!=='POST'||!authorizedMeasurementWorker(req.headers.authorization,internalToken)){send(401,{error:'internal_auth_required'});return;}
   try{

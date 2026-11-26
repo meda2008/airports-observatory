@@ -8,7 +8,7 @@ const http = require('node:http');
 const net = require('node:net');
 const vm = require('node:vm');
 const {once} = require('node:events');
-const {execFileSync} = require('node:child_process');
+const {execFileSync, spawn} = require('node:child_process');
 
 const {createWebServer, createStaticAssetLoader, sendJsonError} = require('../deploy-service/three-services/web.cjs');
 const {createPublicGateway, validateAdminToken} = require('../deploy-service/three-services/public-gateway.cjs');
@@ -346,12 +346,41 @@ test('fresh empty SQLite cold-starts createThreeServiceApi with 200 stats/catalo
   const internalToken = 'coldstart-internal-token-1a2b3c4d5e6f78';
   const app = createThreeServiceApi({filename: dbFile, adminToken, internalToken});
   const apiUrl = await listen(app.server);
+  let warm;
 
   t.after(async () => {
+    if (warm) {
+      warm.server.closeAllConnections();
+      await new Promise(resolve => warm.server.close(resolve));
+    }
     app.server.closeAllConnections();
     await new Promise((resolve) => app.server.close(resolve));
     fs.rmSync(dir, {recursive: true, force: true});
   });
+
+  const web = createWebServer({upstream: apiUrl, gatewayOptions: null});
+  const webUrl = await listen(web);
+  t.after(() => {
+    web.closeAllConnections();
+    return new Promise(resolve => web.close(resolve));
+  });
+
+  const head = await fetch(`${webUrl}/api/stats`, {method: 'HEAD'});
+  assert.equal(head.status, 200);
+  assert.match(head.headers.get('content-type'), /application\/json/);
+  assert.equal(await head.text(), '');
+
+  const script = path.join(ROOT, 'deploy-service/three-services/healthcheck.cjs');
+  async function checkHealth(server, ...args) {
+    const child = spawn(process.execPath, [script, ...args], {
+      env: {...process.env, PORT: String(server.address().port)},
+      stdio: 'ignore'
+    });
+    const [exitCode] = await once(child, 'exit');
+    assert.equal(exitCode, 0);
+  }
+  await checkHealth(app.server, '/ready');
+  await checkHealth(web);
 
   const statsRes = await fetch(`${apiUrl}/api/stats`);
   assert.equal(statsRes.status, 200);
@@ -376,6 +405,29 @@ test('fresh empty SQLite cold-starts createThreeServiceApi with 200 stats/catalo
   assert.equal(completeRes.status, 200);
   const complete = await completeRes.json();
   assert.equal(complete.counts.primary, 138);
+
+  const siteId = 'A042';
+  const revision = app.store.getSite(siteId).revision;
+  const evidence = app.store.saveEvidence({siteId, url: 'https://example.com/refund', body: 'Synthetic refund policy under review', observedAt: '2026-11-24T00:00:00Z'});
+  const proposal = app.store.createProposal({siteId, expectedRevision: revision, evidenceIds: [evidence.id], patch: {
+    refund: {status: 'observed', summary: 'Synthetic reviewed refund policy', sourceIds: [evidence.id], observedAt: '2026-11-24T00:00:00Z'}
+  }});
+  app.store.reviewProposal(proposal.id, {approved: true, expectedRevision: revision, reviewer: 'synthetic-reviewer'});
+
+  warm = createThreeServiceApi({filename: dbFile, adminToken, internalToken});
+  let release;
+  const gate = new Promise(resolve => {release = resolve;});
+  const tick = warm.publisher.tick;
+  const startup = warm.publisher.tick = async () => {await gate; return tick();};
+  const warmUrl = await listen(warm.server);
+  try{
+    assert.equal((await fetch(`${warmUrl}/health`)).status, 200);
+    assert.equal((await fetch(`${warmUrl}/ready`)).status, 503);
+  }finally{release();}
+  await startup();
+  assert.equal((await fetch(`${warmUrl}/ready`)).status, 200);
+  const refreshed = await (await fetch(`${warmUrl}/api/airports/${siteId}`)).json();
+  assert.equal(refreshed.item.refund.summary, 'Synthetic reviewed refund policy');
 });
 
 test('console.js handles non-JSON payloads and surfaces friendly 401/403 Chinese error messages', async () => {
@@ -476,6 +528,8 @@ test('Dockerfile, .dockerignore files, compose.three-services.yaml, and Caddyfil
   const compose = fs.readFileSync(path.join(ROOT, 'deploy-service/compose.three-services.yaml'), 'utf8');
   assert.equal((compose.match(/user: "1000:1000"/g) || []).length, 3);
   assert.match(compose, /HOME:\s*\/collector-state\/home/);
+  assert.match(compose, /command: \[node, deploy-service\/three-service-api\.cjs\]\s+healthcheck:\s+test: \[CMD, node, deploy-service\/three-services\/healthcheck\.cjs, \/ready\]/);
+  assert.match(compose, /command: \[node, deploy-service\/three-services\/web\.cjs\]\s+healthcheck:\s+test: \[CMD, node, deploy-service\/three-services\/healthcheck\.cjs\]/);
 
   const caddy = fs.readFileSync(path.join(ROOT, 'deploy-service/Caddyfile'), 'utf8');
   assert.match(caddy, /request_body\s*\{[\s\S]*max_size 9MB/);
@@ -486,7 +540,12 @@ test('Dockerfile, .dockerignore files, compose.three-services.yaml, and Caddyfil
   assert.doesNotMatch(caddy, /airports-admin\.vigorai\.top/);
 
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'deploy-service/seed/manifest.json'), 'utf8'));
-  assert.equal(manifest.file, 'deploy-service/seed/catalog-bundle.json.gz');
+  assert.equal(manifest.source, 'repository_catalog');
+  const rawRecords = JSON.parse(fs.readFileSync(path.join(ROOT, manifest.catalog), 'utf8')).catalog;
+  const activeRecords = require('../deploy-service/catalog-curation.cjs').activeRecords(rawRecords, ROOT);
+  assert.equal(manifest.sourceRecords, rawRecords.length);
+  assert.equal(manifest.archivedRecords, rawRecords.length - activeRecords.length);
+  assert.equal(manifest.publishedRecords, activeRecords.length);
 });
 
 test('repository guard blocks Windows drive absolute paths and vpn-finder-app/_private references across tracked files', () => {

@@ -5,7 +5,9 @@ const list = v => Array.isArray(v) ? v : [];
 const show = v => v == null || v === '' ? '未知' : typeof v === 'object' ? JSON.stringify(v) : String(v);
 const copy = v => JSON.parse(JSON.stringify(v));
 let adminToken = '', session = 0, loading = false, collectors = [], selectedId = '', draft = null, dirty = false, editorBusy = false;
-const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map();
+const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map(), rowLists = new WeakMap();
+let jobPage = 1;
+const maxJobPage = 99999;
 function renderWhenChanged(key, value, render) {
   const signature = JSON.stringify(value);
   if (renderSignatures.has(key) && renderSignatures.get(key) === signature) return;
@@ -146,15 +148,71 @@ function jobCard(i) {
   const observedBody = i.capabilities?.pageReadable?.status === 'observed';
   const legacyCompleted = status === 'completed' && (!i.capabilities || Object.keys(i.capabilities).length === 0);
   if (['completed', 'blocked', 'review_approved', 'review_rejected'].includes(status) && i.siteId && (i.runId || i.id) && list(i.evidenceIds).length && (observedBody || legacyCompleted)) {
-    const control = load.collection?.control || load.control;
-    const b = action('复用原文重解析', () => reparseRun(i)); b.disabled = control?.engineEnabled !== true; buttons.append(b);
-    row.append(el('p', control?.engineEnabled === true ? '重解析仅使用此运行保留的原文，不刷新采集时间。' : '原文重解析需先开启采集总开关；仍只复用保留原文，不访问网站。', 'subtle'));
+    const b = action('复用原文重解析', () => reparseRun(i)); b.disabled = load.control?.engineEnabled !== true; buttons.append(b);
+    row.append(el('p', load.control?.engineEnabled === true ? '重解析仅使用此运行保留的原文，不刷新采集时间。' : '原文重解析需先开启采集总开关；仍只复用保留原文，不访问网站。', 'subtle'));
     row.append(el('p', '只复用已授权、可见的有效正文；原访问断点状态独立保留，重解析不表示 CF / 验证码已经解决。', 'subtle'));
   }
   row.append(buttons, raw(i)); return row;
 }
-function renderJobs(runs, jobs) { const items = [...list(runs)], seen = new Set(items.map(v => v.jobId || v.id)); for (const j of list(jobs?.items || jobs)) if (!seen.has(j.jobId || j.id)) items.push(j); const box = $('#jobs'); box.replaceChildren(...(items.length ? items.map(jobCard) : [el('p', '暂无任务记录。', 'subtle')])); }
-function renderCheckpoints(data) { const box = $('#checkpoints'), items = list(data?.items || data); box.replaceChildren(); if (!items.length) box.append(el('p', '暂无访问断点。', 'subtle')); for (const i of items) { const row = el('article', null, 'job-card'), id = i.id || i.checkpointId; row.append(el('strong', `${show(i.siteId)} · ${show(i.type)}`), facts({ ...i, recordedAt: i.createdAt ?? i.observedAt }, [['status', '断点状态'], ['stage', '保留阶段'], ['reason', '受阻原因'], ['recordedAt', '记录时间'], ['requestedAction', '所需操作']]), safeLink(i.url, '打开已记录页面 ↗')); if (id && !['resolved', 'cancelled', 'canceled', 'closed', 'completed', 'resumed'].includes(String(i.status).toLowerCase())) row.append(action('从断点重新入队', () => mutate('/api/admin/collection/checkpoints/' + encodeURIComponent(id) + '/resume', {}, '已提交断点恢复请求；等待执行端验证 ' + id))); row.append(raw(i)); box.append(row); } }
+function updateRows(box, items, keyOf, render, emptyText, context) {
+  const previous = rowLists.get(box) || new Map();
+  const next = new Map();
+  let restoreFocus = null;
+  for (const item of items) {
+    const key = keyOf(item), signature = JSON.stringify([context, item]), old = previous.get(key);
+    if (old?.signature === signature) { next.set(key, old); continue; }
+    const node = render(item);
+    if (old) {
+      const oldDetails = old.node.querySelectorAll('details'), newDetails = node.querySelectorAll('details');
+      for (const [index, detail] of Array.from(oldDetails).entries()) {
+        if (detail.open && newDetails[index]) newDetails[index].open = true;
+      }
+      const focused = document.activeElement;
+      if (focused && old.node.contains?.(focused)) {
+        restoreFocus = Array.from(node.querySelectorAll('button,summary,a')).find(el => el.textContent === focused.textContent);
+      }
+    }
+    next.set(key, {signature, node});
+  }
+  const oldRows = [...previous.values()];
+  const rows = [...next.values()];
+  if (rowLists.has(box) && rows.length === oldRows.length && rows.every((row, i) => row === oldRows[i])) return;
+  const focused = document.activeElement;
+  if (!restoreFocus && focused && rows.some(({node}) => node.contains?.(focused))) restoreFocus = focused;
+  box.replaceChildren(...(rows.length ? rows.map(({node}) => node) : [el('p', emptyText, 'subtle')]));
+  restoreFocus?.focus({preventScroll: true});
+  rowLists.set(box, next);
+}
+function updateJobPager() {
+  const runPage = load.collection?.runPage;
+  const hasMore = (runPage?.page === jobPage && runPage.hasMore) || (load.jobs?.page === jobPage && load.jobs.hasMore);
+  const label = $('#jobs-page');
+  const text = `第 ${jobPage} 页`;
+  if (label.textContent !== text) label.textContent = text;
+  $('#jobs-previous').disabled = loading || jobPage <= 1;
+  $('#jobs-next').disabled = loading || !hasMore || jobPage >= maxJobPage;
+}
+function renderJobs(page) {
+  const collection = (load.collection?.runPage?.page ?? 1) === page ? load.collection : null;
+  const jobs = (load.jobs?.page ?? 1) === page ? load.jobs : null;
+  if (!collection && !jobs) return;
+  const items = [...list(collection?.runs)], seen = new Set(items.map(v => v.jobId || v.id));
+  for (const j of list(jobs?.items || jobs)) if (!seen.has(j.jobId || j.id)) items.push(j);
+  updateRows($('#jobs'), items, i => i.runId || i.jobId || i.id, jobCard, '暂无任务记录。', load.control?.engineEnabled);
+  jobPage = page;
+  updateJobPager();
+}
+function checkpointCard(i) {
+  const row = el('article', null, 'job-card'), id = i.id || i.checkpointId;
+  row.append(el('strong', `${show(i.siteId)} · ${show(i.type)}`), facts({ ...i, recordedAt: i.createdAt ?? i.observedAt }, [['status', '断点状态'], ['stage', '保留阶段'], ['reason', '受阻原因'], ['recordedAt', '记录时间'], ['requestedAction', '所需操作']]), safeLink(i.url, '打开已记录页面 ↗'));
+  const canResume = i.canResume ?? !['resolved', 'cancelled', 'canceled', 'closed', 'completed', 'resumed'].includes(String(i.status).toLowerCase());
+  if (id && canResume) row.append(action('从断点重新入队', () => mutate('/api/admin/collection/checkpoints/' + encodeURIComponent(id) + '/resume', {}, '已提交断点恢复请求；等待执行端验证 ' + id)));
+  row.append(raw(i));
+  return row;
+}
+function renderCheckpoints(data) {
+  updateRows($('#checkpoints'), list(data?.items || data), i => i.id || i.checkpointId, checkpointCard, '暂无访问断点。');
+}
 function renderCollectionEvents(items) { const box = $('#collection-events'); box.replaceChildren(); if (!list(items).length) box.append(el('p', '暂无服务端事件。', 'subtle')); else for (const i of items) box.append(raw(i, `${show(i.createdAt || i.observedAt || i.timestamp)} · ${show(i.type || i.event || i.status)}`)); }
 function diffTable(d) { const container = el('div', null, 'proposal-diff'); container.append(el('p', `提案版本 ${show(d.expectedRevision)} · 当前资料版本 ${show(d.currentRevision)}`, 'subtle')); const before = d.before || {}, after = d.after || d.patch || {}, keys = [...new Set([...Object.keys(before), ...Object.keys(after), ...Object.keys(d.patch || {})])]; if (!keys.length) container.append(el('p', '没有返回可比较的字段，请核对完整提案和证据。', 'pending-note')); else { const table = el('table', null, 'data-table diff-table'), header = el('tr'), body = el('tbody'); header.append(el('th', '字段'), el('th', '原值'), el('th', '拟更新值')); const head = el('thead'); head.append(header); for (const key of keys) { const r = el('tr'); r.append(el('th', key), el('td', show(before[key])), el('td', show(Object.hasOwn(after, key) ? after[key] : before[key]))); body.append(r); } table.append(head, body); const scroll = el('div', null, 'table-scroll'); scroll.append(table); container.append(scroll); } container.append(raw(d, '完整提案与安全事实')); return container; }
 function evidenceControls(ids) {
@@ -222,29 +280,31 @@ function proposalCard(p) {
   }
   return card;
 }
-async function load(announce = true, full = true) {
+function renderRuntime(control, runtime) {
+  load.control = control;
+  renderWhenChanged('control', [control, runtime], () => renderControl(control, runtime));
+}
+async function load(announce = true, full = true, page = jobPage) {
   if (!adminToken) return;
   if (loading) { if (full) load.pending = true; return; }
   loading = true;
+  if (full) updateJobPager();
   const epoch = session;
   if (announce) $('#admin-status').textContent = '正在读取采集、任务与资料状态…';
-  function renderCollection() {
-    const control = load.collection?.control || load.control, runtime = load.collection?.runtime || load.runtime;
-    renderWhenChanged('control', [control, runtime], () => renderControl(control, runtime));
-    renderWhenChanged('jobs', [load.collection?.runs, load.jobs, control?.engineEnabled], () => renderJobs(load.collection?.runs, load.jobs));
-    renderWhenChanged('checkpoints', load.collection?.checkpoints, renderCheckpoints);
-    renderWhenChanged('events', load.collection?.events, renderCollectionEvents);
-  }
   const requests = [['/api/admin/status?view=' + (full ? 'summary' : 'runtime'), d => {
     renderWhenChanged('service', d.updateService, renderService);
     if (full) renderWhenChanged('database', d.database, renderDatabase);
     const status = d.updateService;
-    if (status?.collectionControl) renderWhenChanged('control', [status.collectionControl, status.runtime], () => renderControl(status.collectionControl, status.runtime));
+    if (status?.collectionControl) {
+      const previousEngineEnabled = load.control?.engineEnabled;
+      renderRuntime(status.collectionControl, status.runtime);
+      if (previousEngineEnabled !== load.control.engineEnabled) renderJobs(jobPage);
+    }
   }]];
   if (full) {
     const query = $('#site-search').value.trim();
     requests.push(
-      ['/api/admin/jobs', d => { load.jobs = d; renderCollection(); }],
+      ['/api/admin/jobs?page=' + page, d => { load.jobs = d; renderJobs(page); }],
       ['/api/admin/proposals', d => renderWhenChanged('proposals', list(d.items || d), items => {
         const activeIds = new Set(items.map(p => p.id || p.proposalId));
         for (const id of proposalDetails.keys()) if (!activeIds.has(id)) proposalDetails.delete(id);
@@ -257,11 +317,18 @@ async function load(announce = true, full = true) {
         if (!selectedId && collectors.length) selectCollector(collectors[0]);
         const selected = collectors.find(c => c.siteId === selectedId);
         if (selected) renderWhenChanged('selected', [selected, draft?.revision], () => renderSelectedStatus(selected));
-        load.control = d.control;
-        load.runtime = d.runtime;
-        if (!load.collection) renderCollection();
+        if (!load.collection && d.control) {
+          renderRuntime(d.control, d.runtime);
+          renderJobs(jobPage);
+        }
       }],
-      ['/api/admin/collection/status', d => { load.collection = d; renderCollection(); }]
+      ['/api/admin/collection/status?page=' + page, d => {
+        load.collection = d;
+        if (d.control) renderRuntime(d.control, d.runtime);
+        renderJobs(page);
+        renderCheckpoints(d.checkpoints);
+        renderWhenChanged('events', d.events, renderCollectionEvents);
+      }]
     );
   }
   try {
@@ -286,14 +353,17 @@ async function load(announce = true, full = true) {
   } finally {
     if (epoch === session) {
       loading = false;
+      updateJobPager();
       if (load.pending) { load.pending = false; await load(false); }
     }
   }
 }
 $('#auth-form').addEventListener('submit', async e => { e.preventDefault(); const token = $('#token').value; if (adminToken) disconnect(false); session++; adminToken = token; $('#token').value = ''; $('#disconnect').disabled = false; await load(); });
-function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); renderSignatures.clear(); delete load.collection; delete load.control; delete load.runtime; delete load.jobs; delete load.pending; $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
+function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); renderSignatures.clear(); delete load.collection; delete load.control; delete load.jobs; delete load.pending; jobPage = 1; rowLists.delete($('#jobs')); rowLists.delete($('#checkpoints')); updateJobPager(); $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
 $('#disconnect').addEventListener('click', () => disconnect());
 $('#refresh').addEventListener('click', () => load());
+$('#jobs-previous').addEventListener('click', () => load(true, true, jobPage - 1));
+$('#jobs-next').addEventListener('click', () => load(true, true, jobPage + 1));
 $('#validate-all').addEventListener('click', async () => {
   const b = $('#validate-all'), epoch = session; b.disabled = true;
   try { const d = await mutate('/api/admin/collectors/validate-all', {}, '批量验证请求已提交；排队不等于运行。'); if (epoch === session && d) renderBatchResults(d); }

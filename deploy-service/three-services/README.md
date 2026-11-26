@@ -4,7 +4,7 @@
 
 The `api` role owns `/data/airports.sqlite`. Only this role mounts the business data volume. `collector` owns browser sessions, evidence and delivery outbox under `/collector-state`; it receives its internal API credential and measurement inputs as read-only bind mounts. `web` has no volumes or credentials and exposes only the fixed public asset allowlist and the API/health reverse proxy. `/internal/*` is never forwarded by the web helper.
 
-The only published port is `127.0.0.1:${WEB_PORT:-8081}`. Use `WEB_PORT=18081` and distinct `AIRPORTS_DATA_VOLUME` / `COLLECTOR_STATE_VOLUME` for isolated validation. Container API port is 8080. The API and web healthchecks use Node, so no extra utility image is needed.
+The only published port is `127.0.0.1:${WEB_PORT:-8081}`. Use `WEB_PORT=18081` and distinct `AIRPORTS_DATA_VOLUME` / `COLLECTOR_STATE_VOLUME` for isolated validation. Container API port is 8080. The API checks `/ready` for a published catalog before its dependents start. `/health` reports process liveness. The healthchecks use Node.
 
 This is a local Docker Desktop deployment. The final browser address is `http://127.0.0.1:8081`; no public hosting, DNS, TLS endpoint or Internet-facing port is configured. API joins only the internal `backend` network. Collector joins `backend` and the ordinary `egress` bridge for authorized collection. Web joins `backend` and an ordinary `ingress` bridge: Docker Desktop requires that additional bridge to publish its localhost port; an internal-only web network did not produce a usable port mapping. The ingress bridge does not publish API or collector ports.
 
@@ -25,8 +25,11 @@ The free `codex-auto-review` tool was not available in the connected tool invent
 Safe syntax check from the repository root:
 
 ```powershell
+$env:MEASUREMENT_PROXY_PORT = '7890'
+$env:WEBSITE_CREDENTIALS_FILE = './data/three-services/website-credentials.json'
 docker compose -f deploy-service/compose.three-services.yaml config --services
+node scripts/verify-deploy-catalog.cjs
 node --test tests/three-services-web.test.cjs tests/three-services-packaging.test.cjs
 ```
 
-Expected service names are exactly `api`, `collector`, `web`. The tests use temporary local HTTP listeners and do not access private data or external sites.
+Expected service names are exactly `api`, `collector`, `web`. The repository input contains 215 records. Cold start publishes 207 after applying the curation manifest to archive 8 records. The tests use temporary local HTTP listeners and do not access private data or external sites.

@@ -132,8 +132,13 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
     fs.rmSync(retryFile,{force:true});
     fs.unlinkSync(pending);
     return {result};
-   }catch{
+   }catch(error){
     protectedEntries.push({dir,item});
+    if([400,413,415,422].includes(error?.status)){
+     holdPending(dir,'api_rejected_pending_packet',item);
+     replayed=false;
+     continue;
+    }
     const attempts=Number.isSafeInteger(retry?.attempts)&&retry.attempts>0?Math.min(retry.attempts+1,10):1;
     const nextRetryAt=clock()+Math.min(300000,1000*2**(attempts-1));
     deferred={status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery',nextRetryAt};
@@ -142,6 +147,14 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
   }
   return {deferred};
  }
+ async function ensureBrowser(){
+  if(browser?.isConnected?.()===false)browser=null;
+  if(browser)return browser;
+  const instance=await browserFactory();
+  browser=instance;
+  instance.once?.('disconnected',()=>{if(browser===instance)browser=null;});
+  return instance;
+ }
  async function runOne({siteId}={}){
   const settings=await request('control');if(stopping||!settings.engineEnabled||settings.executionMode!=='standalone'){await beat('paused','execution_disabled_or_other_mode');return{status:'paused'};}
   const protectedEntries=[];
@@ -149,14 +162,15 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
   if(recovered)return recovered;
   const claimed=await request('claim',{worker:workerName,siteId,leaseMs:180000}),job=claimed?.job;
   if(!job){await beat('connected');return deferred||{status:'idle'};}
-  const dir=runDirectory(output,job),pendingFile=path.join(dir,pendingName);
-  const protectedEntry=protectedEntries.find(entry=>entry.dir===dir||(entry.item
+  const primaryDir=runDirectory(output,job);
+  const pendingFile=path.join(primaryDir,pendingName);
+  const protectedEntry=protectedEntries.find(entry=>entry.dir===primaryDir||(entry.item
    ?entry.item.jobId===job.jobId&&entry.item.siteId===job.siteId
    :path.basename(entry.dir).startsWith(job.siteId+'-'+job.jobId+'-')));
   if(protectedEntry||fs.existsSync(pendingFile)){
    const type='retained_submission_requires_recovery';
    const checkpoint={type,url:job.site.config.entryUrl,stage:'storage_recovery',reason:'原始待交付记录已保留，需人工核对',requestedAction:'核对原任务和留存材料后显式恢复'};
-   holdPending(protectedEntry?.dir||dir,'lease_reclaimed',protectedEntry?.item);
+   holdPending(protectedEntry?.dir||primaryDir,'lease_reclaimed',protectedEntry?.item);
    const identity={siteId:job.siteId,jobId:job.jobId,runId:job.runId};
    let result;
    try{
@@ -169,7 +183,10 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    safeLog({service:'standalone_collector',...result});
    return result;
   }
-  fs.mkdirSync(dir,{recursive:true});active++;let renewal=null,leaseError=null,result,material,retained=false,heartbeat=null;
+  const dir=fs.existsSync(primaryDir)?fs.mkdtempSync(primaryDir+'-attempt-'):primaryDir;
+  const attemptPending=path.join(dir,pendingName);
+  fs.mkdirSync(dir,{recursive:true,mode:0o700});active++;
+  let renewal=null,leaseError=null,result,material,retained=false,heartbeat=null,activeBrowser=null,browserFailed=false;
   function renew(){
    if(leaseError)return Promise.reject(leaseError);
    return renewal??=Promise.resolve().then(()=>request('renew',{jobId:job.jobId,token:job.token,leaseMs:180000})).catch(error=>{
@@ -187,7 +204,8 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    const prior=earlierPending(output,job,dir),guard=claimed.partialReparseGuard;
    if(prior||guard)material={captures:[],checkpoint:{type:guard?'retained_partial_reparse_requires_recovery':'retained_submission_requires_recovery',url:job.site.config.entryUrl,stage:'storage_recovery',reason:'已有原文或重解析任务待恢复；保留原件，不重复网络采集',requestedAction:'复核原任务与原文后显式恢复'},capabilities:{},retainedSubmissionGuard:true};
    else if(job.retainedCaptures){await beforePage();material={captures:job.retainedCaptures,checkpoint:null,retainedReplay:true,ordersCreated:0,paymentExecuted:false};}
-   else{await beforePage();browser||=await browserFactory();material=job.discoveryOnly||job.entryDiscovery?await require('./entry-discovery.cjs').collectEntryDiscovery(job,{browser,jobBudgetMs,beforePage}):await collectWithReferences(job.site,{browser,collect,credentialsFile,sessionDir,jobBudgetMs,beforePage,webEgressProfile:job.webEgressProfile,prior:claimed.prior||{}});}
+   else{await beforePage();try{activeBrowser=await ensureBrowser();}catch(error){browserFailed=true;throw error;}material=job.discoveryOnly||job.entryDiscovery?await require('./entry-discovery.cjs').collectEntryDiscovery(job,{browser:activeBrowser,jobBudgetMs,beforePage}):await collectWithReferences(job.site,{browser:activeBrowser,collect,credentialsFile,sessionDir,jobBudgetMs,beforePage,webEgressProfile:job.webEgressProfile,prior:claimed.prior||{}});}
+   if(activeBrowser?.isConnected?.()===false){browserFailed=true;throw Error('collector_browser_unavailable');}
    const captures=material.captures||[];
    if(material.ordersCreated||material.paymentExecuted)throw Error('read_only_collection_contract_violated');
    for(const [i,c]of captures.entries())fs.writeFileSync(path.join(dir,'capture-'+i+'.json'),JSON.stringify({...c,sha256:crypto.createHash('sha256').update(c.body).digest('hex')},null,2),{flag:'wx',mode:0o600});
@@ -195,7 +213,7 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    const packet={jobId:job.jobId,token:job.token,captures:captures.map(c=>({...c,sha256:crypto.createHash('sha256').update(c.body).digest('hex')})),checkpoint:material.checkpoint,capabilities:material.capabilities,observationBasis:material.retainedSubmissionGuard||material.retainedReplay?'retained_reparse':material.browser==='service_native_api'?'standalone_native_api':'standalone_browser',worker:workerName};
    const identity={siteId:job.siteId,jobId:job.jobId,runId:job.runId};
    const transport=submissionPlan(packet),{bytes}=transport,oversized=!transport.op;
-   writeAtomic(pendingFile,{...identity,state:oversized?'submission_held':'pending_api_submission',packet},{exclusive:true});retained=true;
+   writeAtomic(attemptPending,{...identity,state:oversized?'submission_held':'pending_api_submission',packet},{exclusive:true});retained=true;
    if(oversized){
     const type='submission_payload_too_large';
     holdPending(dir,type,identity,{bytes,maxBytes:MAX_JSON_BYTES});
@@ -208,10 +226,12 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    await beforePage();const accepted=await request(transport.op,packet,transport.body);
    if(!terminalRuns.has(accepted?.status))throw Error('invalid_pending_submission_response');
    result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:accepted.status,proposalId:accepted.proposalId||null,checkpoint:material.checkpoint?.type||null};
-   fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});fs.unlinkSync(pendingFile);
+   fs.writeFileSync(path.join(dir,'accepted.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});fs.unlinkSync(attemptPending);
   }catch(error){
-   result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:retained?'submission_deferred':'blocked',reason:redact(error.message).slice(0,300)};
+   browserFailed||=activeBrowser?.isConnected?.()===false;
+   result={siteId:job.siteId,jobId:job.jobId,runId:job.runId,status:retained?'submission_deferred':browserFailed?'failed':'blocked',reason:browserFailed?'collector_browser_unavailable':redact(error.message).slice(0,300)};
    if(error.message==='Job cancellation requested')try{const ack=await request('cancel',{jobId:job.jobId,token:job.token,actor:workerName});result.status=ack.status;}catch{}
+   else if(!retained&&browserFailed)try{await request('complete',{jobId:job.jobId,token:job.token,status:'failed',blocker:'collector_browser_unavailable',actor:workerName});}catch{}
    else if(!retained)try{await request('complete',{jobId:job.jobId,token:job.token,status:'blocked',blocker:'standalone_execution_error',checkpoint:{type:'standalone_execution_error',url:job.site.config.entryUrl,stage:'runtime',reason:result.reason,requestedAction:'修复本站执行错误后恢复'},actor:workerName});}catch{}
    fs.writeFileSync(path.join(dir,'runtime-error.json'),JSON.stringify(result,null,2),{flag:'wx',mode:0o600});
   }finally{clearInterval(timer);await renewal?.catch(()=>{});await heartbeat;active--;await beat(stopping?'paused':'connected');safeLog({service:'standalone_collector',...result});}
