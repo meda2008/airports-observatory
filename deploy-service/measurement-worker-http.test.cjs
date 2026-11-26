@@ -21,8 +21,8 @@ test('combined runtime owns proxy child and aborts both loops on stop',async()=>
  await runCollectorRuntime({token:'x'.repeat(32),signal:controller.signal,spawnImpl:()=>child,probeImpl:async()=>true,webLoop:loop,measurementLoop:loop,storeFactory:()=>({close(){}}),killTimeoutMs:50});
  assert.equal(starts,2);assert.deepEqual(child.kills,['SIGTERM']);
 });
-test('unexpected loop exit fails runtime and terminates proxy',async()=>{
- const child=fakeChild();await assert.rejects(runCollectorRuntime({token:'x'.repeat(32),spawnImpl:()=>child,probeImpl:async()=>true,webLoop:untilAbort,measurementLoop:async()=>{},storeFactory:()=>({close(){}}),killTimeoutMs:50}),/collector_loop_exited/);assert.deepEqual(child.kills,['SIGTERM']);
+test('unexpected web loop exit fails runtime and terminates proxy',async()=>{
+ const child=fakeChild();await assert.rejects(runCollectorRuntime({token:'x'.repeat(32),spawnImpl:()=>child,probeImpl:async()=>true,webLoop:async()=>{},measurementLoop:untilAbort,storeFactory:()=>({close(){}}),killTimeoutMs:50}),/collector_web_loop_exited/);assert.deepEqual(child.kills,['SIGTERM']);
 });
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path');
 const {openMeasurementStore}=require('./measurement-store.cjs');

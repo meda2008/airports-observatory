@@ -29,11 +29,11 @@ async function parseJsonResponse(response) {
   }
   throw new Error(`服务未返回有效 JSON（HTTP ${response.status}）`);
 }
-async function api(url, body, background = false) {
+async function api(url, body, options = {}) {
   if (!adminToken) throw new Error('请先连接控制台');
   const epoch = session, token = adminToken, headers = { Accept: 'application/json', Authorization: 'Bearer ' + token };
   if (body !== undefined) headers['Content-Type'] = 'application/json';
-  const response = await fetch(url, { cache: 'no-store', ...(background ? {priority: 'low'} : {}), method: body === undefined ? 'GET' : 'POST', headers, body: body === undefined ? undefined : JSON.stringify(body) });
+  const response = await fetch(url, { cache: 'no-store', method: body === undefined ? 'GET' : 'POST', headers, body: body === undefined ? undefined : JSON.stringify(body), ...options });
   if (epoch !== session || token !== adminToken) throw new Error('会话已变更，请重新操作');
   const d = await parseJsonResponse(response);
   if (epoch !== session || token !== adminToken) throw new Error('会话已变更，请重新操作');
@@ -196,10 +196,74 @@ function renderCollectionEvents(items) { const box = $('#collection-events'); bo
 function diffTable(d) { const container = el('div', null, 'proposal-diff'); container.append(el('p', `提案版本 ${show(d.expectedRevision)} · 当前资料版本 ${show(d.currentRevision)}`, 'subtle')); const before = d.before || {}, after = d.after || d.patch || {}, keys = [...new Set([...Object.keys(before), ...Object.keys(after), ...Object.keys(d.patch || {})])]; if (!keys.length) container.append(el('p', '没有返回可比较的字段，请核对完整提案和证据。', 'pending-note')); else { const table = el('table', null, 'data-table diff-table'), header = el('tr'), body = el('tbody'); header.append(el('th', '字段'), el('th', '原值'), el('th', '拟更新值')); const head = el('thead'); head.append(header); for (const key of keys) { const r = el('tr'); r.append(el('th', key), el('td', show(before[key])), el('td', show(Object.hasOwn(after, key) ? after[key] : before[key]))); body.append(r); } table.append(head, body); const scroll = el('div', null, 'table-scroll'); scroll.append(table); container.append(scroll); } container.append(raw(d, '完整提案与安全事实')); return container; }
 function evidenceControls(ids, card) { const controls = el('div', null, 'evidence-actions'); for (const id of list(ids)) controls.append(action('读取证据 ' + id, async () => { const d = await api('/api/admin/evidence?id=' + encodeURIComponent(id)), box = el('div', null, 'evidence-box'); box.append(el('h4', '证据 ' + id), raw(d.item ?? d, '展开完整证据')); card.append(box); record('读取证据 ' + id); })); return controls; }
 function proposalCard(p) { const card = el('article', null, 'proposal-card'), id = p.id || p.proposalId, detailBox = el('div'), evidence = el('div'), actions = el('div', null, 'review-actions'); let detail = proposalDetails.get(id); if (detail && detail.expectedRevision !== p.expectedRevision) { proposalDetails.delete(id); detail = null; } card.append(el('h3', `${show(p.siteId)} · ${show(id)}`), el('p', `状态 ${show(p.status)} · 预期版本 ${show(p.expectedRevision)} · 创建 ${show(p.createdAt)}`, 'subtle')); if (p.reason || p.summary) card.append(el('p', p.reason || p.summary)); const detailsButton = action('查看旧值与新值', async () => { const d = await api('/api/admin/proposals/' + encodeURIComponent(id)); detail = d.item || d; proposalDetails.set(id, detail); detailBox.replaceChildren(diffTable(detail)); evidence.replaceChildren(evidenceControls(detail.evidenceIds || p.evidenceIds, card)); for (const b of actions.querySelectorAll('button')) b.disabled = false; record('读取提案差异 ' + id); }); card.append(detailsButton, detailBox, evidence); if (detail) detailBox.append(diffTable(detail)); evidence.append(evidenceControls(detail?.evidenceIds || p.evidenceIds, card)); if (p.status === 'pending') { for (const approved of [true, false]) { const b = action(approved ? '批准资料更新' : '拒绝提案', async () => { if (!detail) throw new Error('请先读取旧值与新值'); const reviewer = actor(); for (const c of actions.querySelectorAll('button')) c.disabled = true; try { const result = await api('/api/admin/review', { id, approved, expectedRevision: detail.expectedRevision ?? p.expectedRevision, reviewer }); proposalDetails.delete(id); const publication = result.publication?.status; const message = !approved ? '已拒绝提案 ' + id : publication === 'sync_failed' ? '复核已保存但未发布：请在“资料与发布”重试同步。' : publication === 'published' ? '复核已保存，资料已发布。' : publication === 'unchanged' ? '复核已保存，展示投影无需变更。' : '复核已保存；发布状态未确认，请核对发布服务。'; record(message, publication === 'sync_failed'); await load(false); if (publication === 'sync_failed') { endpointErrors.set('提案发布 ' + id, message); displayErrors(); } $('#admin-status').textContent = message; } finally { for (const c of actions.querySelectorAll('button')) c.disabled = false; } }, !approved); b.disabled = !detail; if (!approved) b.classList.add('reject'); actions.append(b); } card.append(actions, el('p', '先读取差异。提交携带预期版本；版本变化需重新读取提案并核对证据。', 'review-note')); } return card; }
-async function load(announce = true) {
-  if (!adminToken) return; if (loading) { load.pending = true; return; } loading = true; const epoch = session; if (announce) $('#admin-status').textContent = '正在读取采集、任务与资料状态…';
-  const query = $('#site-search').value.trim(), requests = [['/api/admin/status?view=overview', d => { renderService(d.updateService); renderDatabase(d.database); }], ['/api/admin/jobs?page=' + jobPage, d => { load.jobs = d; }], ['/api/admin/proposals', d => { const signature = JSON.stringify(d); if (signature === load.proposalsSignature) return; load.proposalsSignature = signature; const items = list(d.items || d); $('#proposals').replaceChildren(...(items.length ? items.map(proposalCard) : [el('p', '暂无提案。', 'subtle')])); $('#proposal-count').textContent = `${items.length} 条记录`; }], ['/api/admin/collectors?q=' + encodeURIComponent(query), d => { collectors = list(d.items); renderCollectorList(); if (!selectedId && collectors.length) selectCollector(collectors[0]); const selected = collectors.find(c => c.siteId === selectedId); if (selected) renderSelectedStatus(selected); load.control = d.control; load.runtime = d.runtime; }], ['/api/admin/collection/status?page=' + jobPage, d => { load.collection = d; }]];
-  try { const results = await Promise.allSettled(requests.map(([path]) => api(path, undefined, !announce))); if (epoch !== session || !adminToken) return; results.forEach((r, i) => { const [path, render] = requests[i]; if (r.status === 'fulfilled') { endpointErrors.delete(path); render(r.value); } else { const message = r.reason.message; if (endpointErrors.get(path) !== message) record(`${path}：${message}`, true); endpointErrors.set(path, message); } }); renderControl(load.collection?.control || load.control, load.collection?.runtime || load.runtime); renderJobs(load.collection?.runs, load.jobs); renderCheckpoints(load.collection?.checkpoints); renderCollectionEvents(load.collection?.events); displayErrors(); if (results.some(r => r.status === 'fulfilled')) $('#workspace').hidden = false; if (announce) $('#admin-status').textContent = endpointErrors.size ? '部分请求失败。已保留可读取资料和错误详情，请核对下方会话记录。' : '状态已更新。配置草稿保留；任务进度以实际运行记录为准。'; } catch (e) { if (epoch === session) fail('状态呈现失败：' + e.message); } finally { if (epoch === session) { loading = false; const page = load.collection?.runPage?.page || load.jobs?.page || 1; $('#jobs-previous').disabled = page <= 1; $('#jobs-next').disabled = !(load.collection?.runPage?.hasMore || load.jobs?.hasMore); if (load.pending) { load.pending = false; await load(false); } } }
+async function load(announce = true, full = true) {
+  if (!adminToken) return;
+  if (loading) { if (full) load.pending = true; return; }
+  loading = true;
+  const epoch = session;
+  if (announce) $('#admin-status').textContent = '正在读取采集、任务与资料状态…';
+  const requests = [['/api/admin/status?view=' + (full ? 'summary' : 'runtime'), d => {
+    renderService(d.updateService);
+    if (full) renderDatabase(d.database);
+    if (d.updateService?.collectionControl) renderControl(d.updateService.collectionControl, d.updateService.runtime);
+  }]];
+  if (full) {
+    const query = $('#site-search').value.trim();
+    requests.push(
+      ['/api/admin/jobs?page=' + jobPage, d => { load.jobs = d; renderJobs(load.collection?.runs, d); }],
+      ['/api/admin/proposals', d => {
+        const signature = JSON.stringify(d);
+        if (signature === load.proposalsSignature) return;
+        load.proposalsSignature = signature;
+        const items = list(d.items || d);
+        $('#proposals').replaceChildren(...(items.length ? items.map(proposalCard) : [el('p', '暂无提案。', 'subtle')]));
+        $('#proposal-count').textContent = items.length + ' 条记录';
+      }],
+      ['/api/admin/collectors?q=' + encodeURIComponent(query), d => {
+        collectors = list(d.items);
+        renderCollectorList();
+        if (!selectedId && collectors.length) selectCollector(collectors[0]);
+        const selected = collectors.find(c => c.siteId === selectedId);
+        if (selected) renderSelectedStatus(selected);
+        if (!load.collection) renderControl(d.control, d.runtime);
+      }],
+      ['/api/admin/collection/status?page=' + jobPage, d => {
+        load.collection = d;
+        renderControl(d.control, d.runtime);
+        renderJobs(d.runs, load.jobs);
+        renderCheckpoints(d.checkpoints);
+        renderCollectionEvents(d.events);
+      }]
+    );
+  }
+  try {
+    await Promise.all(requests.map(async ([path, render]) => {
+      const key = path.split('?')[0];
+      try {
+        const options = {signal: globalThis.AbortSignal?.timeout?.(10000), ...(announce ? {} : {priority: 'low'})};
+        const value = await api(path, undefined, options);
+        if (epoch !== session || !adminToken) return;
+        render(value);
+        endpointErrors.delete(key);
+        $('#workspace').hidden = false;
+      } catch (error) {
+        if (epoch !== session || !adminToken) return;
+        const message = error.name === 'TimeoutError' ? '请求超时，稍后可刷新' : error.message;
+        if (endpointErrors.get(key) !== message) record(key + '：' + message, true);
+        endpointErrors.set(key, message);
+      }
+      displayErrors();
+    }));
+    if (epoch === session && announce) $('#admin-status').textContent = endpointErrors.size ? '部分请求失败。已保留可读取资料和错误详情，请核对下方会话记录。' : '状态已更新。配置草稿保留；任务进度以实际运行记录为准。';
+  } finally {
+    if (epoch === session) {
+      loading = false;
+      const page = load.collection?.runPage?.page || load.jobs?.page || 1;
+      $('#jobs-previous').disabled = page <= 1;
+      $('#jobs-next').disabled = !(load.collection?.runPage?.hasMore || load.jobs?.hasMore);
+      if (load.pending) { load.pending = false; await load(false); }
+    }
+  }
 }
 $('#auth-form').addEventListener('submit', async e => { e.preventDefault(); const token = $('#token').value; if (adminToken) disconnect(false); session++; adminToken = token; $('#token').value = ''; $('#disconnect').disabled = false; await load(); });
 function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); delete load.collection; delete load.control; delete load.runtime; delete load.jobs; delete load.proposalsSignature; delete load.pending; jobPage = 1; rowLists.delete($('#jobs')); rowLists.delete($('#checkpoints')); $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
@@ -219,9 +283,12 @@ $('#collector-config').addEventListener('submit', e => { e.preventDefault(); try
 $('#reset-config').addEventListener('click', () => { const latest = collectors.find(c => c.siteId === selectedId); if (latest) selectCollector(latest); else fail('当前列表没有此站点，请清空搜索并刷新后还原。'); });
 $('#toggle-site').addEventListener('click', () => { if (dirty) { fail('请先保存或还原当前配置草稿，再切换站点启停。'); return; } if (draft) saveConfig({ ...draft.config, enabled: !(draft.enabled ?? draft.config?.enabled) }, '站点启停配置已保存。'); });
 $('#validate-site').addEventListener('click', async () => { if (dirty) { fail('请先保存或还原草稿；验证使用已保存的配置版本。'); return; } if (!draft || editorBusy) return; editorBusy = true; setEditorBusy(true); const epoch = session; try { const d = await mutate('/api/admin/collectors/' + encodeURIComponent(selectedId) + '/validate', {}, '单站验证请求已提交，等待执行端领取。'); if (epoch === session && d) $('#admin-status').textContent = `${d.existing ? '已有验证任务' : '验证任务已排队'}：${show(d.jobId)} · ${show(d.status)}`; } catch (e) { if (epoch === session) fail('验证未排队：' + e.message); } finally { if (epoch === session) { editorBusy = false; setEditorBusy(false); } } });
-$('#sync').addEventListener('click', async () => { const b = $('#sync'), epoch = session; b.disabled = true; try { const d = await api('/api/admin/sync', {}); record('同步现存资料成功' + (d.snapshotId ? ' · ' + d.snapshotId : '')); for (const key of endpointErrors.keys()) if (key.startsWith('提案发布 ')) endpointErrors.delete(key); await load(false); $('#admin-status').textContent = '现存资料同步已完成。'; } catch (e) { if (epoch === session) fail('同步失败：' + e.message); } finally { if (epoch === session) b.disabled = false; } });
+$('#sync').addEventListener('click', async () => { const b = $('#sync'), epoch = session; b.disabled = true; try { const d = await api('/api/admin/sync', {}); record('同步现存资料成功' + (d.result?.snapshotId ? ' · ' + d.result.snapshotId : '')); for (const key of endpointErrors.keys()) if (key.startsWith('提案发布 ')) endpointErrors.delete(key); await load(false); $('#admin-status').textContent = '现存资料同步已完成。'; } catch (e) { if (epoch === session) fail('同步失败：' + e.message); } finally { if (epoch === session) b.disabled = false; } });
 async function referrals() { const epoch = session; try { const d = await api('/api/admin/referrals'); $('#referral-results').replaceChildren(raw(d.items ?? d, '已核验推荐链接完整记录')); record('读取已核验推荐链接'); } catch (e) { if (epoch === session) fail('读取推荐链接失败：' + e.message); } }
 $('#referral-list').addEventListener('click', referrals);
 $('#referral').addEventListener('submit', async e => { e.preventDefault(); const b = e.target.querySelector('button'), epoch = session; b.disabled = true; try { await api('/api/admin/referrals', Object.fromEntries(new FormData(e.target))); record('推荐链接已通过服务端核验并保存'); $('#admin-status').textContent = '推荐链接已保存。'; await referrals(); } catch (error) { if (epoch === session) fail('推荐链接未保存：' + error.message); } finally { if (epoch === session) b.disabled = false; } });
-setInterval(() => { if (adminToken && !document.hidden) load(false); }, 15000);
+let pollCount = 0;
+setInterval(() => {
+  if (adminToken && !document.hidden && !loading) return load(false, ++pollCount % 4 === 0);
+}, 15000);
 window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });

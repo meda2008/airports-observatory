@@ -12,14 +12,21 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  if(adminToken===internalToken)throw Error('distinct_service_credentials_required');
  const store=createStore({filename}),catalogDb=openCatalogDb({filename,store,root}),{control,profiles}=initializeControl({store,root}),measurements=openMeasurementStore({filename,executorId:'collector'});
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
- const {createPublisher,createPublicationWorker}=require('./publisher.cjs');
+ const {createPublisher}=require('./publisher.cjs');
  const bootstrap=createPublisher({store,catalog:catalogDb,root});
  const bootstrapResult=catalogDb.publication()?null:bootstrap.tick();
  let publicationReconciled=!!bootstrapResult&&(bootstrapResult.status!=='failed'||!!bootstrapResult.publicationResult);
- const publisher=filename===':memory:'?bootstrap:createPublicationWorker({store,root});
+ const publisher=filename===':memory:'?{tick:bootstrap.tick,close:async()=>{}}:require('./publication-worker.cjs').openPublicationWorker({filename,root});
+ let publicationInFlight=false;
  async function reconcilePublication(){
-  const result=await publisher.tick();
-  if(result.status!=='failed'||result.publicationResult)publicationReconciled=true;
+  if(publicationInFlight)return;
+  publicationInFlight=true;
+  try{
+   const result=await publisher.tick();
+   if(result.status!=='failed'||result.publicationResult)publicationReconciled=true;
+  }catch{
+   try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:'publication_worker_unavailable',networkAccess:false}});}catch{}
+  }finally{publicationInFlight=false;}
  }
  const publicationTimer=setInterval(reconcilePublication,30000);publicationTimer.unref?.();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
@@ -99,13 +106,34 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   if(!url.pathname.startsWith('/internal/')){if(['/health','/ready'].includes(url.pathname)||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
   const send=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
   if(req.method!=='POST'||!authorizedMeasurementWorker(req.headers.authorization,internalToken)){send(401,{error:'internal_auth_required'});return;}
-  try{const input=await readJson(req);
+  try{
+   if(url.pathname==='/internal/web-collector/receivebatches'){
+    if(req.headers['content-type']!=='application/x-ndjson')return send(415,{error:'internal_payload_invalid'});
+    const packet=await require('../lib/collector-submission.cjs').readSubmissionBatches(req);
+    return send(200,await webOps.receive(packet));
+   }
+   const input=await readJson(req);
    if(url.pathname==='/internal/measurement-worker'){const value=await dispatchMeasurementWorker(measurements,input);send(200,{ok:true,value:value===undefined?null:value});return;}
    const match=url.pathname.match(/^\/internal\/web-collector\/([a-z]+)$/);if(match&&Object.hasOwn(webOps,match[1])){send(200,await webOps[match[1]](input));return;}
    send(404,{error:'internal_operation_not_found'});
-  }catch(error){const retryable=[5,6].includes(error?.errcode&255);send(retryable?503:409,{ok:false,error:retryable?'internal_service_busy':'internal_request_rejected'});}
+  }catch(error){
+   if([5,6].includes(error?.errcode&255))return send(503,{ok:false,error:'internal_service_busy'});
+   if(url.pathname==='/internal/web-collector/renew'&&['Bridge lease lost','Entry discovery lease lost','Entry discovery lease expired'].includes(error?.message))return send(409,{ok:false,error:'collector_lease_unavailable'});
+   if(error?.message==='internal_payload_too_large')return send(413,{ok:false,error:'internal_payload_too_large'});
+   send(409,{ok:false,error:'internal_request_rejected'});
+  }
  });
- server.on('close',()=>{clearInterval(publicationTimer);publisher.close?.();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ // Match the existing close callback contract: callers may remove the SQLite
+ // files as soon as it fires, including on Windows where open handles block removal.
+ const closeServer=server.close.bind(server);
+ server.close=function(callback){
+  if(typeof callback!=='function')return closeServer(callback);
+  return closeServer(error=>{
+   if(error)return callback.call(server,error);
+   publisher.close().then(()=>callback.call(server),failure=>callback.call(server,failure));
+  });
+ };
  return {server,store,control,measurements,catalogDb,publisher};
 }
 if(require.main===module){try{

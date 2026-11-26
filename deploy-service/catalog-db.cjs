@@ -153,9 +153,17 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  }
  const recordRow=r=>r&&({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json),metadata:parse(r.metadata_json)});
  const record=id=>recordRow(db.prepare('SELECT * FROM catalog_records WHERE id=?').get(id));
- const records=()=>db.prepare('SELECT * FROM catalog_records ORDER BY id').all().map(recordRow);
  function readSnapshot(run){db.exec('BEGIN');try{return run();}finally{db.exec('ROLLBACK');}}
  function fields(id){return Object.fromEntries(db.prepare('SELECT field,state_json,observed_at FROM catalog_field_states WHERE record_id=?').all(id).map(r=>[r.field,{...parse(r.state_json),observedAt:r.observed_at}]));}
+ let filterSnapshot,filterRecords;
+ function filters(snapshotId){
+  if(filterRecords&&filterSnapshot===snapshotId)return filterRecords;
+  filterRecords=db.prepare(`SELECT id,is_primary,name,json_extract(core_json,'$.website.url') AS website,
+   json_extract(core_json,'$.payment.methods') AS methods FROM catalog_records ORDER BY id`).all().map(r=>({id:r.id,primary:!!r.is_primary,
+    search:[r.id,r.name,r.website].join(' ').normalize('NFKC').toLowerCase(),methods:r.methods===null?[]:parse(r.methods)}));
+  filterSnapshot=snapshotId;
+  return filterRecords;
+ }
  function refs(){const current=store?.listReferrals?.()||[],imported=db.prepare('SELECT link_json FROM catalog_referral_links').all().map(r=>parse(r.link_json));return[...current,...imported.filter(r=>!current.some(c=>c.recordId===r.recordId))];}
  const {displayNameFor,presentationFor,preferredRows}=require('../lib/catalog-presentation.cjs');
  const {customerSummary,representativePlan}=require('../lib/customer-summary.cjs');
@@ -176,7 +184,9 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   return result;
  }
  function list(query={},options={}){
-  const allowed=['scope','q','payment','refund','price','page','limit'];for(const[k,v]of Object.entries(query))if(!allowed.includes(k)||typeof v!=='string')throw new QueryError('无效目录参数');
+  const allowed=['scope','q','payment','refund','price','page','limit','view'];for(const[k,v]of Object.entries(query))if(!allowed.includes(k)||typeof v!=='string')throw new QueryError('无效目录参数');
+  if(query.view!==undefined&&query.view!=='card')throw new QueryError('无效目录展示类型');
+  if(query.view!==undefined&&query.view!=='card')throw new QueryError('无效目录视图');
   const scope=query.scope||'primary';if(!['all','primary','other'].includes(scope))throw new QueryError('无效目录范围');
   for(const k of ['price','refund'])if(query[k]&&!['available','missing'].includes(query[k]))throw new QueryError('无效缺项筛选');
   const q=(query.q||'').normalize('NFKC').trim().toLowerCase(),method=query.payment||'';if(q.length>200||method.length>100)throw new QueryError('筛选文本过长');
@@ -184,19 +194,19 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   return readSnapshot(()=>{
    const related=['A070','A082'].map(record).filter(Boolean);
    const byId=new Map(related.map(r=>[r.id,r]));
-   const payments=new Set(method?db.prepare('SELECT record_id FROM catalog_payment_methods WHERE instr(method,?)>0').all(method).map(r=>r.record_id):[]);
-   let rows=db.prepare('SELECT id,name,is_primary,website_url FROM catalog_records ORDER BY id').all().filter(r=>(scope==='all'||(scope==='primary'&&r.is_primary)||(scope==='other'&&!r.is_primary))&&(!q||[r.id,r.name,r.website_url].join(' ').normalize('NFKC').toLowerCase().includes(q))&&(!method||payments.has(r.id))).map(r=>byId.get(r.id)||r);
+   const snapshot=publication();
+   let rows=filters(snapshot?.snapshotId).filter(r=>(scope==='all'||(scope==='primary'&&r.primary)||(scope==='other'&&!r.primary))&&(!q||r.search.includes(q))&&(!method||r.methods.some(m=>String(m).includes(method)))).map(r=>byId.get(r.id)||r);
    for(const[field,param]of [['pricing','price'],['refund','refund']])if(query[param]){const known=new Set(db.prepare('SELECT record_id FROM catalog_field_states WHERE field=? AND material_available=?').all(field,query[param]==='available'?1:0).map(r=>r.record_id));rows=rows.filter(r=>known.has(r.id));}
    const totalRecords=rows.length,preferred=preferredRows(rows,related);rows=preferred.rows;
-   const referrals=refs(),items=rows.slice((page-1)*limit,page*limit).map(r=>present(r.coreInfo?r:record(r.id),{...options,referrals,related}));
-   return{...publication(),items,total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
+   const referrals=refs(),items=rows.slice((page-1)*limit,page*limit).map(r=>present(r.coreInfo?r:record(r.id),{...options,card:options.card||query.view==='card',referrals,related}));
+   return{...snapshot,items,total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
   });
  }
  function detail(id,options={}){return readSnapshot(()=>{const row=record(id);return row?{item:present(row,{...options,detail:true,related:id==='A082'?[record('A070')].filter(Boolean):[]}),...publication()}:null;});}
  function stats(){return readSnapshot(()=>{const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};});}
  function tables(){const names=['catalog_records','catalog_plans','catalog_payment_methods','catalog_policies','catalog_field_states','catalog_sources','catalog_record_sources','catalog_field_sources','catalog_order_cleanup','catalog_referral_links','catalog_imports','catalog_record_versions','catalog_publication','sites','evidence','observations','proposals','changes','referrals','jobs','service_heartbeats','collector_profiles','collector_control','collector_runs','collector_checkpoints','collector_events','collector_capture_metadata','collector_cancellation_acks'];return names.filter(name=>db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(name)).map(name=>({name,count:db.prepare('SELECT count(*) n FROM '+name).get().n,columns:db.prepare('PRAGMA table_info('+name+')').all().map(c=>({name:c.name,type:c.type,required:!!c.notnull,primaryKey:!!c.pk}))}));}
  function exportBundle({versionedSources=false}={}){return readSnapshot(()=>{const published=meta();const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(published.id).map(r=>parse(r.document_json));const referrals=refs();for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=referrals.find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(published.manifest_json).definitions},originalPublication:publicationFrom(published)};});}
- function rawExport(){return readSnapshot(()=>({catalog:records().filter(r=>r.primary).map(r=>({id:r.id,name:r.name,coreInfo:r.coreInfo,officialUrl:r.coreInfo.website?.url})),evidenceAsOf:publication()?.sourceAsOf}));}
- return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport,close:()=>db.close()};
+ function rawExport(){return readSnapshot(()=>({catalog:db.prepare('SELECT id,name,core_json FROM catalog_records WHERE is_primary=1 ORDER BY id').all().map(r=>{const coreInfo=parse(r.core_json);return{id:r.id,name:r.name,coreInfo,officialUrl:coreInfo.website?.url};}),evidenceAsOf:publication()?.sourceAsOf}));}
+ return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport,rawRecord:id=>{const row=record(id);return row?.primary?row.coreInfo:null;},close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest,RETAINED_INPUTS};

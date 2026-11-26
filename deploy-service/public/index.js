@@ -571,8 +571,14 @@ async function loadCatalog({background = false} = {}) {
   try {
     const d = await api('/api/catalog?' + params, background ? {priority: 'low'} : {});
     if (seq !== catalogSequence) return;
+    const requestedPage = Number(params.get('page'));
+    const lastPage = Number(d.pages) || 1;
+    if (requestedPage > lastPage && d.total > 0) {
+      catalogPage = lastPage;
+      return loadCatalog({background});
+    }
     catalogPages = Number(d.pages) || 1;
-    catalogPage = Number(d.page) || 1;
+    catalogPage = Math.min(Number(d.page) || 1, catalogPages);
     $('#catalog-results').replaceChildren(
       ...(list(d.items).length ? d.items.map(catalogCard) : [el('p', '没有找到匹配的机场，试试调整筛选条件。', 'empty-state')])
     );

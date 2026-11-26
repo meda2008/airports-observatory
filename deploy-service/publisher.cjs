@@ -10,57 +10,9 @@ function createPublisher({store,catalog,root=path.resolve(__dirname,'..'),clock=
   try{onReceipt(receipt);}catch{}
   return receipt;
  }
- function tick(){let stage='fingerprint',result=null;try{const current=fingerprint({root,store,clock});result={status:'unchanged'};if(current!==last){stage='sync';result=catalog.sync();last=current;}stage='heartbeat';store.setServiceHeartbeat('publisher',{status:'running',details:{snapshotId:catalog.publication()?.snapshotId,result:result.status,networkAccess:false}});return result;}catch(error){const failure=keepFailure(error,stage,result);try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:failure.reason,retryable:failure.retryable,stage,networkAccess:false}});}catch(heartbeatError){keepFailure(heartbeatError,'failure_heartbeat',result);}return{status:'failed',reason:failure.reason,retryable:failure.retryable,stage,syncResult:result?.status||null,...(stage==='heartbeat'?{publicationResult:result}:{})};}}
+ function tick({force=false}={}){let stage='fingerprint',result=null;try{const current=fingerprint({root,store,clock});result={status:'unchanged'};if(force||current!==last){stage='sync';result=catalog.sync();last=current;}stage='heartbeat';store.setServiceHeartbeat('publisher',{status:'running',details:{snapshotId:catalog.publication()?.snapshotId,result:result.status,networkAccess:false}});return result;}catch(error){const failure=keepFailure(error,stage,result);try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:failure.reason,retryable:failure.retryable,stage,networkAccess:false}});}catch(heartbeatError){keepFailure(heartbeatError,'failure_heartbeat',result);}return{status:'failed',reason:failure.reason,retryable:failure.retryable,stage,syncResult:result?.status||null,...(stage==='heartbeat'?{publicationResult:result}:{})};}}
  return{tick,lastFailure:()=>lastFailure};
 }
-function createPublicationWorker({store,root}){
- const {Worker}=require('node:worker_threads');
- let active=null,queue=Promise.resolve(),last=null,ticking=null,closed=false;
- function execute(){
-  if(closed)throw Error('publication_worker_closed');
-  return new Promise((resolve,reject)=>{
-   const worker=new Worker(__filename,{workerData:{publication:true,filename:store.filename,root}});
-   active=worker;
-   let result=null,failure=null;
-   worker.once('message',value=>{result=value;});
-   worker.once('error',error=>{failure=error;});
-   worker.once('exit',code=>{
-    if(active===worker)active=null;
-    if(failure||code!==0||!result)reject(failure||Error('publication_sync_failed'));
-    else if(result.publicationResult)resolve(result.publicationResult);
-    else if(result.status==='failed')reject(Error('publication_sync_failed'));
-    else resolve(result);
-   });
-  });
- }
- function sync(){
-  const operation=queue.then(execute);
-  queue=operation.catch(()=>{});
-  return operation;
- }
- function tick(){
-  return ticking??=(async()=>{
-   try{
-    const current=fingerprint({root,store});
-    if(current!==last){const result=await sync();last=current;return result;}
-    store.setServiceHeartbeat('publisher',{status:'running',details:{result:'unchanged',networkAccess:false}});
-    return{status:'unchanged'};
-   }catch{return{status:'failed'};}
-  })().finally(()=>{ticking=null;});
- }
- function close(){closed=true;return active?.terminate();}
- return {sync,tick,close};
-}
-const {parentPort,workerData}=require('node:worker_threads');
-if(parentPort&&workerData?.publication){
- let store,catalog;
- try{
-  store=createStore({filename:workerData.filename});
-  catalog=openCatalogDb({filename:store.filename,store,root:workerData.root});
-  const result=createPublisher({store,catalog,root:workerData.root}).tick();
-  parentPort.postMessage(result);
- }catch{parentPort.postMessage({status:'failed'});}
- finally{catalog?.close();store?.close();}
-}
+const {parentPort}=require('node:worker_threads');
 if(require.main===module&&!parentPort){const store=createStore({filename:process.env.STORE_FILE||path.join(__dirname,'data/collector.sqlite')}),catalog=openCatalogDb({filename:store.filename,store}),publisher=createPublisher({store,catalog});const result=publisher.tick();console.log(JSON.stringify({service:'publisher',...result,networkAccess:false}));if(process.argv.includes('--once')){catalog.close();store.close();}else{const timer=setInterval(()=>publisher.tick(),Number(process.env.PUBLISH_POLL_MS||30000));const stop=()=>{clearInterval(timer);catalog.close();store.close();};process.once('SIGTERM',stop);process.once('SIGINT',stop);}}
-module.exports={createPublisher,createPublicationWorker,fingerprint};
+module.exports={createPublisher,fingerprint};
