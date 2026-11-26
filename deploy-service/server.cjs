@@ -28,6 +28,21 @@ function publicFacts(document={}){
 function publicSearch(data){return {...pick(data,['criterion','currency','maxMonthly','status','excludedCount','evidenceAsOf','limitations','reason','total','page','pages','snapshotId']),items:data.items.map(i=>({...pick(i,['id','name','comparison','unitPrices','matchingPlanCount','planKey']),plan:pick(i.plan,['name','amount','currency','billingPeriod','quota','quotaReset','observedAt','restrictions','sourceIds']),link:pick(i.link,['url','type','label','disclosure','verifiedAt'])}))};}
 function createServer({store,catalogDb,controlStore,measurementStore,registry=[],baseDir,serviceProvider=makeCatalogServiceProvider({baseDir}),syncPublication=()=>catalogDb?.sync(),publicationReady=()=>true,adminToken=process.env.ADMIN_TOKEN}={}){
  const controlPlane=controlStore?require('./control-plane.cjs').createControlPlane({store,control:controlStore,catalogDb,profiles:registry,facts:publicFacts}):null;
+ const catalogSearch=catalogDb&&makeNeedsSearch({rawExport:catalogDb.searchExport||catalogDb.rawExport});
+ const gzip=require('node:util').promisify(require('node:zlib').gzip);
+ async function sendFullCatalog(req,res,value){
+  const encodings=new Map(String(req.headers['accept-encoding']||'').toLowerCase().split(',').map(entry=>{
+   const [coding,...parameters]=entry.split(';').map(part=>part.trim());
+   const weight=parameters.find(parameter=>parameter.startsWith('q='));
+   return [coding,weight===undefined?1:Number(weight.slice(2))];
+  }));
+  const canGzip=(encodings.get('gzip')??encodings.get('*')??0)>0;
+  const json=JSON.stringify(value);
+  const body=canGzip?await gzip(json):json;
+  if(res.destroyed)return;
+  res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Vary':'Accept-Encoding',...(canGzip?{'Content-Encoding':'gzip'}:{}),'Content-Length':Buffer.byteLength(body)});
+  res.end(body);
+ }
  function updateService(){
   const heartbeats=store?.getServiceHeartbeats?.()||[],snapshot=controlPlane?.brief(heartbeats),now=Date.now();
   const collector=heartbeats.find(h=>h.name==='collector'),publisher=heartbeats.find(h=>h.name==='publisher');
@@ -74,7 +89,15 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
      const page=Number(value),limit=50,rows=store.listJobs(page?{limit:limit+1,offset:(page-1)*limit}:undefined);
      return send(res,200,{...(page?{page,hasMore:rows.length>limit}:{}),items:(page?rows.slice(0,limit):rows).map(v=>({...pick(v,['id','jobId','siteId','status','createdAt','dueAt','finishedAt','leaseExpiresAt','purpose','profileRevision','cancelRequested']),blockedReason:v.error?'collector_blocked_or_failed':null}))});
     }
-    if(req.method==='GET'&&route==='/api/admin/proposals')return send(res,200,{items:store.listProposals().map(v=>({...pick(v,['id','proposalId','siteId','status','expectedRevision','createdAt','evidenceIds']),patch:publicFacts(v.patch)}))});
+    if(req.method==='GET'&&route==='/api/admin/proposals'){
+     const value=url.searchParams.get('page');
+     if(value!==null){
+      if(!/^\d{1,5}$/.test(value)||Number(value)<1)return send(res,400,{error:'无效分页'});
+      const page=Number(value),limit=50,rows=store.listProposalSummaries({limit:limit+1,offset:(page-1)*limit});
+      return send(res,200,{page,hasMore:rows.length>limit,items:rows.slice(0,limit)});
+     }
+     return send(res,200,{items:store.listProposals().map(v=>({...pick(v,['id','proposalId','siteId','status','expectedRevision','createdAt','evidenceIds']),patch:publicFacts(v.patch)}))});
+    }
     if(req.method==='POST'&&['/api/admin/run','/api/admin/review','/api/admin/referrals','/api/admin/sync'].includes(route)){
      let input;
      try{input=await readJsonObject(req,{maxBytes:16384});}
@@ -97,15 +120,18 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
      const params={};for(const[k,v]of url.searchParams){if(Object.hasOwn(params,k))return send(res,400,{error:'参数不能重复'});params[k]=v;}
      const {view,...query}=params;
      if(view!==undefined&&view!=='card')return send(res,400,{error:'无效目录视图'});
-     return send(res,200,catalogDb.list(query,{facts:publicFacts,card:view==='card'}));
+     const data=catalogDb.list(query,{facts:publicFacts,card:view==='card'});
+     if(view==='card')return send(res,200,data);
+     return await sendFullCatalog(req,res,data);
     }
     const id=route.slice('/api/airports/'.length);if(!/^A\d{3}$/.test(id))return send(res,400,{error:'无效记录编号'});const detail=catalogDb.detail(id,{facts:publicFacts});return detail?send(res,200,detail):send(res,404,{error:'记录不存在'});
    }
    if(route==='/api/search'){
     const query={};for(const[k,v]of url.searchParams){if(Object.hasOwn(query,k))return send(res,400,{error:'参数不能重复'});query[k]=v;}
-    const base=catalogDb?{rawExport:catalogDb.rawExport}:serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();if(catalogDb)return data;const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
     const verifiedReferralLinks=(store?.listReferrals?.()||[]).filter(r=>r.status==='verified_user_referral'&&r.owner==='user').map(r=>({...r,recordId:r.recordId||r.siteId}));
-    return send(res,200,publicSearch(makeNeedsSearch(service,{verifiedReferralLinks}).search(query)));
+    if(catalogSearch)return send(res,200,publicSearch(catalogSearch.search(query,verifiedReferralLinks)));
+    const base=serviceProvider(),service={evidenceAsOf:base.evidenceAsOf,rawExport(){const data=base.rawExport();const sites=store?.listSites?.()||[],changes=store?.listChanges?.()||[],proposals=store?.listProposals?.()||[];return {...data,catalog:data.catalog.filter(record=>!sites.length||sites.some(s=>(s.catalogId||s.recordId||s.id)===record.id)).map(record=>{const site=sites.find(s=>(s.catalogId||s.recordId||s.id)===record.id);if(!site)return record;const valid=require('../scripts/export-current-inventory.cjs').overlay(record,site,{changes:changes.map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:proposals.map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))});return{...record,coreInfo:valid.coreInfo};})};}};
+    return send(res,200,publicSearch(makeNeedsSearch(service).search(query,verifiedReferralLinks)));
    }
    if(route==='/api/changes')return send(res,200,{items:(store?.listChanges()||[]).map(v=>({...pick(v,['id','siteId','revision','createdAt','reviewedAt']),before:publicFacts(pick(v.before,deltaKeys(v))),after:publicFacts(pick(v.after,deltaKeys(v)))})),limitation:'仅展示已复核事实；原始页面及私有采集信息不公开。'});
    const files={'/':'index.html','/index.html':'index.html','/index.js':'index.js','/plan-conditions.js':'plan-conditions.js','/index.css':'index.css','/console':'console.html','/console.html':'console.html','/console.js':'console.js','/console.css':'console.css'};

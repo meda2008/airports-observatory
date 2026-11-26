@@ -147,8 +147,14 @@ test('search reads the latest SQLite publication after the HTTP server starts', 
   const reads = countReads(t);
   const get = await listen(t, server, '/api/search');
   assertSearch(await get(), 'A001', 10);
+  const planPage=await get('?view=plans');
+  assertSearch(planPage,'A001',10);
+  assert.equal(planPage.body.snapshotId,catalogDb.publication().snapshotId);
   const publishedAt = '2026-11-02T00:00:00Z';
   assert.equal(publish(20, publishedAt).status, 'published');
   assertSearch(await get(), 'A001', 20, publishedAt);
+  const refreshed=await get('?view=plans&page=2');
+  assertSearch(refreshed,'A001',20,publishedAt);
+  assert.notEqual(refreshed.body.snapshotId,planPage.body.snapshotId);
   assert.equal(reads(path.join(baseDir, 'catalog/catalog.v1.json')), 0);
 });

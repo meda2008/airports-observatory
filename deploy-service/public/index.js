@@ -538,6 +538,7 @@ let catalogMeta = '';
 let searchSequence = 0;
 let planView = null;
 let planRequest = null;
+let planRetry = null;
 let planSnapshot = null;
 const planSelection = new Map();
 let visiblePlanToggles = [];
@@ -781,6 +782,7 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
   params.set('page', page);
   const snapshot = observedSnapshot;
   planRequest = seq;
+  planRetry = null;
   if (!background || !planView) $('#status').textContent = '正在查找…';
   try {
     const d = await api('/api/search?' + params, background ? {priority: 'low'} : {});
@@ -815,7 +817,10 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
     planView = {page: currentPage, pages, params};
     planSnapshot = nextSnapshot;
   } catch (e) {
-    if (seq === searchSequence) $('#status').textContent = e.name === 'TimeoutError' ? '查找超时，请重试' : e.message;
+    if (seq === searchSequence) {
+      planRetry = {page, params};
+      $('#status').textContent = e.name === 'TimeoutError' ? '查找超时，请重试' : e.message;
+    }
   } finally {
     if (planRequest === seq) planRequest = null;
   }
@@ -1049,6 +1054,7 @@ function refreshVisibleView(options) {
   }
   if (location.hash !== '#catalog') {
     if (planRequest !== null) return;
+    if (planRetry) return search(null, planRetry.page, planRetry.params, options);
     if (!planView) return search(null, 1, null, options);
     if (observedSnapshot && planSnapshot !== observedSnapshot) return search(null, planView.page, planView.params, options);
     return;
@@ -1128,6 +1134,7 @@ $('#search').addEventListener('submit', search);
 $('#search-reset')?.addEventListener('click', () => {
   searchSequence++;
   planRequest = null;
+  planRetry = null;
   planView = null;
   visiblePlanToggles = [];
   $('#search').reset();

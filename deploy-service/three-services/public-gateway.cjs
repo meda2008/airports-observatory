@@ -159,12 +159,12 @@ function createPublicGateway({
       if (!isPublicApiRoute(route)) {
         return respond(res, 404, {error: 'not_found'});
       }
+      res.setHeader('Vary', 'Origin');
       if (req.headers.origin && req.headers.origin !== verifiedFrontendOrigin) {
         return respond(res, 403, {error: 'origin_not_allowed'});
       }
       if (req.headers.origin) {
         res.setHeader('Access-Control-Allow-Origin', verifiedFrontendOrigin);
-        res.setHeader('Vary', 'Origin');
       }
       if (req.method === 'OPTIONS') {
         if (req.headers['access-control-request-method'] && !['GET', 'HEAD'].includes(req.headers['access-control-request-method'])) {

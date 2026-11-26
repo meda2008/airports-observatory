@@ -641,6 +641,28 @@ test('snapshot shrink reloads the last valid page and retains the card projectio
   assert.equal(h.elements.get('#next').disabled, true);
 });
 
+test('plan polling retries the failed page and filters when the snapshot is unchanged', async () => {
+  let failSecondPage = true;
+  const calls = [];
+  const {sandbox, elements} = createFrontendSandbox({hash: '#compare', fetchHandler: async (url, options) => {
+    if (url === '/api/stats') return jsonResponse({snapshotId: 'same', counts: {primary: 3}});
+    const params = new URL(url, 'https://fixture.invalid').searchParams;
+    const page = Number(params.get('page'));
+    calls.push({page, q: params.get('q'), priority: options?.priority});
+    if (page === 2 && failSecondPage) throw Error('fixture offline');
+    return jsonResponse({snapshotId: 'same', items: [], total: 24, page, pages: 2});
+  }});
+  await sandbox.__testExports.search(null, 1);
+  await sandbox.__testExports.search(null, 2, new URLSearchParams({view: 'plans', q: 'fixture filter'}));
+  assert.match(elements.get('#status').textContent, /fixture offline/);
+  assert.match(elements.get('#plan-page-label').textContent, /1 \/ 2/);
+  failSecondPage = false;
+  await sandbox.__testExports.pollSnapshotChange();
+  assert.deepEqual(calls.at(-1), {page: 2, q: 'fixture filter', priority: 'low'});
+  assert.match(elements.get('#plan-page-label').textContent, /2 \/ 2/);
+  assert.doesNotMatch(elements.get('#status').textContent, /fixture offline/);
+});
+
 test('public index.html serves a plan-first landing page while retaining the airport filters and hiding console access', () => {
   const html = fs.readFileSync(path.join(ROOT, 'deploy-service/public/index.html'), 'utf8');
   assert.doesNotMatch(html, /\/console\.html/);

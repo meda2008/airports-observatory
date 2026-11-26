@@ -76,6 +76,14 @@ test('compact admin status, bound evidence and background publication keep separ
  const [sync,list]=await Promise.all([fetch(base+'/api/admin/sync',{method:'POST',headers,body:'{}'}).then(r=>r.json()),get('/api/catalog?view=card')]);
  assert.ok(['published','unchanged'].includes(sync.result.status));
  assert.equal(list.snapshotId,sync.result.snapshotId);
+ const catalogRoute=base+'/api/catalog?limit=12';
+ const identity=await fetch(catalogRoute,{headers:{'Accept-Encoding':'gzip;q=0, *;q=1'}});
+ const compressed=await fetch(catalogRoute,{headers:{'Accept-Encoding':'gzip'}});
+ assert.equal(identity.headers.get('content-encoding'),null);
+ assert.equal(compressed.headers.get('content-encoding'),'gzip');
+ assert.equal(compressed.headers.get('vary'),'Accept-Encoding');
+ assert.ok(Number(compressed.headers.get('content-length'))<Number(identity.headers.get('content-length')));
+ assert.deepEqual(await compressed.json(),await identity.json());
  const oversized=await fetch(base+'/internal/web-collector/receive',{method:'POST',headers:{Authorization:'Bearer '+internalToken},body:JSON.stringify({text:'汉'.repeat(720000)})});
  assert.equal(oversized.status,413);
  const profile=app.control.getProfile('A001');
@@ -93,4 +101,24 @@ test('compact admin status, bound evidence and background publication keep separ
  const accepted=await submit(transport.body);
  assert.equal(accepted.status,200,await accepted.clone().text());
  assert.equal(app.store.listEvidenceMetadata().filter(e=>e.url.includes('/synthetic-batches/')).length,4);
+ const site=app.store.getSite('A001');
+ for(let i=0;i<51;i++)app.store.createProposal({siteId:site.id,expectedRevision:site.revision,evidenceIds:[checkpoint.id],patch:{refund:{summary:'synthetic proposal '+i}}});
+ const sql=new (require('node:sqlite').DatabaseSync)(filename);
+ try{
+  const insert=sql.prepare('INSERT INTO collector_checkpoints(id,run_id,job_id,site_id,status,material_json,created_at) VALUES(?,?,?,?,?,?,?)');
+  for(let i=0;i<51;i++)insert.run('test-checkpoint-'+i,job.runId,job.jobId,site.id,'open','{}',Date.now());
+ }finally{sql.close();}
+ const proposals='/api/admin/proposals';
+ const p1=await get(proposals+'?page=1'),p2=await get(proposals+'?page=2');
+ assert.deepEqual([p1.items.length,p1.hasMore,p2.items.length,p2.hasMore],[50,true,1,false]);
+ assert.ok(p1.items.every(p=>!Object.hasOwn(p,'patch')&&!Object.hasOwn(p,'evidenceIds')));
+ assert.ok(p1.items.every(p=>p.id!==p2.items[0].id));
+ assert.ok((await get(proposals+'/'+p2.items[0].id)).patch.refund.summary);
+ assert.equal((await get(proposals)).items.length>=51,true);
+ const status='/api/admin/collection/status?page=1&checkpointPage=';
+ const c1=await get(status+'1'),c2=await get(status+'2');
+ assert.deepEqual([c1.checkpoints.length,c1.checkpointPage.hasMore,c2.checkpointPage.hasMore],[50,true,false]);
+ assert.ok(c2.checkpoints.some(c=>c.id==='test-checkpoint-0'));
+ assert.ok(c1.checkpoints.every(c=>c2.checkpoints.every(other=>other.id!==c.id)));
+ assert.equal((await fetch(base+status+'0',{headers})).status,400);
 });

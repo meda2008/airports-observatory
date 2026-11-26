@@ -5,7 +5,7 @@ const listen=server=>new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const close=server=>new Promise(resolve=>server.close(resolve));
 test('production gateway separates public reads, protected management and internal RPC',async()=>{
  const key='local-test-only-secret-'.repeat(3),seen=[];
- const upstream=http.createServer((req,res)=>{seen.push({url:req.url,authorization:req.headers.authorization});res.setHeader('content-type','application/json');res.end(JSON.stringify({ok:true}));});await listen(upstream);
+ const upstream=http.createServer((req,res)=>{seen.push({url:req.url,authorization:req.headers.authorization});res.setHeader('content-type','application/json');if(req.url==='/api/catalog')res.setHeader('vary','Accept-Encoding');res.end(JSON.stringify({ok:true}));});await listen(upstream);
  const web=createWebServer({upstream:'http://127.0.0.1:'+upstream.address().port,gatewayOptions:{apiHost:'airports-api.example.com',adminHost:'airports-admin.example.com',frontendOrigin:'https://airports.example.com',adminToken:key}});await listen(web);
  const base='http://127.0.0.1:'+web.address().port;
  const get=(url,{host='airports-api.example.com',headers={},body,...options}={})=>new Promise((resolve,reject)=>{
@@ -13,6 +13,8 @@ test('production gateway separates public reads, protected management and intern
  });
  try{
   const read=await get('/api/catalog',{headers:{Origin:'https://airports.example.com',Authorization:'Bearer do-not-forward'}});assert.equal(read.status,200);assert.equal(read.headers.get('access-control-allow-origin'),'https://airports.example.com');assert.equal(seen.at(-1).authorization,undefined);
+  assert.equal(read.headers.get('vary'),'Origin, Accept-Encoding');
+  assert.equal((await get('/api/catalog')).headers.get('vary'),'Origin, Accept-Encoding');
   assert.equal((await get('/api/catalog',{headers:{Origin:'https://evil.example'}})).status,403);
   for(const route of ['/api/admin/status','/console.html','/internal/web-collector/claim'])assert.equal((await get(route)).status,404);
   assert.equal((await get('/api/catalog',{method:'POST',body:'{}'})).status,405);

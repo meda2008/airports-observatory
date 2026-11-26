@@ -237,12 +237,21 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  });}
  function rawExport(){return readSnapshot(()=>{
   const snapshot=publication();
+  return exportSearchSnapshot(snapshot);
+ });}
+ function exportSearchSnapshot(snapshot){
   const catalog=db.prepare('SELECT id,name,core_json FROM catalog_records WHERE is_primary=1 ORDER BY id').all().map(r=>{
    const coreInfo=parse(r.core_json);
    return{id:r.id,name:r.name,coreInfo,officialUrl:coreInfo.website?.url};
   });
   return{catalog,evidenceAsOf:snapshot?.sourceAsOf,snapshotId:snapshot?.snapshotId};
+ }
+ let searchSnapshot;
+ function searchExport(){return readSnapshot(()=>{
+  const snapshot=publication();
+  if(!searchSnapshot||searchSnapshot.snapshotId!==snapshot?.snapshotId)searchSnapshot=exportSearchSnapshot(snapshot);
+  return searchSnapshot;
  });}
- return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,coreInfo:id=>{const row=readRecord.get(id);return row?parse(row.core_json):undefined;},rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
+ return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,searchExport,coreInfo:id=>{const row=readRecord.get(id);return row?parse(row.core_json):undefined;},rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest,RETAINED_INPUTS};
