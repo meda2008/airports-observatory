@@ -70,9 +70,12 @@ class FakeElement {
   }
   reset() {}
   scrollIntoView() {}
+  focus() { this.focused = true; }
+  showModal() { this.open = true; }
+  close() { this.open = false; }
 }
 
-function createFrontendSandbox({fetchHandler, hash = ''} = {}) {
+function createFrontendSandbox({fetchHandler, hash = '#catalog'} = {}) {
   const indexJsSource = fs.readFileSync(path.join(ROOT, 'deploy-service/public/index.js'), 'utf8');
   const conditionsSource = fs.readFileSync(path.join(ROOT, 'deploy-service/public/plan-conditions.js'), 'utf8');
   const elements = new Map();
@@ -248,7 +251,7 @@ test('frontend handles malformed hash encoding, resets currency/budget on preset
 
   // 3. 60-second polling checks /api/stats when visible, clears failure suffix on recovery, and reloads catalog when snapshotId changes
   assert.ok(intervals.some((i) => i.ms === 60000));
-  sandbox.location.hash = '';
+  sandbox.location.hash = '#catalog';
   await sandbox.__testExports.route();
   await settleFrontend();
   const beforeCatalogCalls = calls.filter((u) => u.startsWith('/api/catalog')).length;
@@ -290,7 +293,15 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
                   id: 'A002',
                   name: 'Finite',
                   plan: {name: 'P2', amount: 20, currency: 'CNY', billingPeriod: '月付', quota: '200G'},
-                  comparison: {monthlyAmount: 20, costPerGB: 0.1},
+                  comparison: {monthlyAmount: 20, costPerGB: 0.1, months: 1},
+                  link: {}
+                },
+                {
+                  id: 'A003',
+                  name: 'With both unit prices',
+                  plan: {name: 'P3', amount: 120, currency: 'CNY', billingPeriod: '年付', quota: '每月100GB'},
+                  comparison: {monthlyAmount: 10, months: 12},
+                  unitPrices: {currency: 'CNY', costPerGB: 0.1, dailyAmount: 120 / 365, dayBasis: '365_day_year'},
                   link: {}
                 }
               ]
@@ -312,8 +323,10 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
 
   await sandbox.__testExports.search();
   const renderedText = JSON.stringify(elements.get('#results'));
-  assert.match(renderedText, /折合每月 20/);
-  assert.match(renderedText, /每 GB 0\.1/);
+  assert.match(renderedText, /年付 · 月均 ¥10/);
+  assert.match(renderedText, /¥0\.1/);
+  assert.match(renderedText, /约 ¥0\.3288/);
+  assert.doesNotMatch(renderedText, /NaN|Infinity/);
 });
 
 test('catalog polling recovers initial and subsequent failures and keeps the latest successful view', async () => {
@@ -351,8 +364,11 @@ test('resetting the budget search discards a delayed response and shows the appl
   }});
   const response = {ok: true, json: async () => ({criterion: 'value', maxMonthly: 20, currency: 'CNY', items: [{name: 'result'}]})};
   const stale = sandbox.__testExports.search();
-  await elements.get('#search-reset').dispatch('click');
-  finishSearch(response);
+  const finishStale = finishSearch;
+  const resetting = elements.get('#search-reset').dispatch('click');
+  finishSearch(jsonResponse({items: [], total: 0}));
+  await resetting;
+  finishStale(response);
   await stale;
   assert.equal(elements.get('#results').children.length, 0);
   sandbox.document.querySelector('#search [name="criterion"]').value = 'cheap';
@@ -391,12 +407,15 @@ test('clearing search ignores both successful and failed responses already in fl
   for (const response of [jsonResponse({items: [{id: 'A042', name: 'Old result'}]}), jsonResponse({error: 'Old error'}, 503)]) {
     const submitted = search.dispatch('submit');
     assert.equal(status.textContent, '正在查找…');
-    await reset.dispatch('click');
+    const stale = requests.at(-1);
+    const resetting = reset.dispatch('click');
+    requests.at(-1).resolve(jsonResponse({items: [], total: 0}));
+    await resetting;
     const cleared = status.textContent;
-    requests.at(-1).resolve(response);
+    stale.resolve(response);
     await submitted;
     assert.equal(status.textContent, cleared);
-    assert.match(cleared, /设置预算/);
+    assert.match(cleared, /暂无符合条件/);
     assert.equal(getEl('#results').children.length, 0);
   }
 });
@@ -622,14 +641,56 @@ test('snapshot shrink reloads the last valid page and retains the card projectio
   assert.equal(h.elements.get('#next').disabled, true);
 });
 
-test('public index.html hides /console.html and includes hero stat cards, snapshot badge, scope/refund filters and quick chips', () => {
+test('public index.html serves a plan-first landing page while retaining the airport filters and hiding console access', () => {
   const html = fs.readFileSync(path.join(ROOT, 'deploy-service/public/index.html'), 'utf8');
   assert.doesNotMatch(html, /\/console\.html/);
   assert.doesNotMatch(html, /__SITE_NONCE__/);
   assert.match(html, /id="snapshot-badge"/);
   assert.match(html, /id="stat-primary"/);
+  assert.match(html, /id="open-plan-comparison"/);
+  assert.match(html, /name="monthlyOnly"/);
+  assert.match(html, /<section id="catalog"[^>]+ hidden>/);
   assert.match(html, /name="scope"/);
   assert.match(html, /name="refund"/);
   assert.match(html, /data-payment="支付宝"/);
   assert.match(html, /data-preset-needs="每月20元以内 性价比"/);
+});
+
+test('the home route loads individual plan offers, preserves comparison on pagination, and opens the selected offers', async () => {
+  const queries = [];
+  const {getEl} = createFrontendSandbox({hash: '', fetchHandler: async (url) => {
+    if (url === '/api/stats') return jsonResponse({snapshotId: 'one'});
+    assert.match(url, /^\/api\/search\?/);
+    const params = new URL(url, 'http://localhost').searchParams;
+    assert.equal(params.get('view'), 'plans');
+    const page = Number(params.get('page'));
+    queries.push(params);
+    return jsonResponse({snapshotId: 'one', currency: 'CNY', total: 13, page, pages: 2, items: [{
+      id: 'A001', name: 'Fixture', planKey: 'A001-' + page,
+      plan: {name: 'Plan ' + page, amount: page * 60, currency: 'CNY', billingPeriod: '年付'},
+      comparison: {monthlyAmount: page * 5, months: 12},
+      unitPrices: {currency: 'CNY', dailyAmount: page * 60 / 365, dayBasis: '365_day_year'}
+    }]});
+  }});
+  await settleFrontend();
+  assert.equal(queries.length, 1);
+  assert.equal(getEl('#catalog').hidden, true);
+  assert.equal(getEl('#open-plan-comparison').disabled, true);
+  const chooseVisiblePlan = () => findElement(getEl('#results'), el => el.className.includes('offer-toggle')).dispatch('click');
+  await chooseVisiblePlan();
+  getEl('#search [name="q"]').value = 'unsubmitted draft';
+  await getEl('#plan-next').dispatch('click');
+  assert.equal(queries.at(-1).get('page'), '2');
+  assert.equal(queries.at(-1).has('q'), false);
+  await chooseVisiblePlan();
+  await getEl('#open-plan-comparison').dispatch('click');
+  assert.equal(getEl('#plan-comparison').open, true);
+  const compare = JSON.stringify(getEl('#plan-comparison-content'));
+  assert.match(compare, /Plan 1/);
+  assert.match(compare, /年付 · 月均 ¥10/);
+  assert.match(compare, /约 ¥0\.3288/);
+  assert.equal(getEl('#plan-selection-count').textContent, '2/3');
+  await getEl('#clear-plan-comparison').dispatch('click');
+  assert.equal(getEl('#plan-comparison').open, false);
+  assert.equal(getEl('#plan-selection-count').textContent, '0/3');
 });

@@ -4,7 +4,7 @@
 const {DatabaseSync}=require('node:sqlite');
 const crypto=require('node:crypto'),path=require('node:path'),fs=require('node:fs');
 const {safeUrl,QueryError}=require('../lib/catalog-service.cjs');
-const {outbound}=require('../lib/needs-search.cjs');
+const {outbound,planUnitPrices}=require('../lib/needs-search.cjs');
 const {displayNameFor,presentationFor,preferredRows}=require('../lib/catalog-presentation.cjs');
 const {customerSummary,representativePlan}=require('../lib/customer-summary.cjs');
 const {publicUrl}=require('./public-url.cjs');
@@ -198,6 +198,10 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
     return {...identity,summary:{price,paymentMethods,refund:refundText,speed:rate,stability:reliability,operatingAge,operatingAgeLabel,...(speedContext?{speedContext:{dateLabel:speedContext.dateLabel,testedAt:speedContext.testedAt,network:speedContext.network}}:{})}};
    }
    const f=facts(row.coreInfo),result={...f,...identity,summary:customerSummary(row.coreInfo,f),fields:fields.get(row.id)||{},sourceCount:counts.get(row.id)||0};
+   if(detail&&f.pricing?.plans)result.pricing={...f.pricing,plans:f.pricing.plans.map((plan,index)=>{
+    const unitPrices=planUnitPrices(row.coreInfo.pricing?.plans?.[index]);
+    return unitPrices?{...plan,unitPrices}:plan;
+   })};
    if(detail)result.sources=db.prepare('SELECT s.id,s.url,s.title,s.observed_at,s.published_at,s.kind,s.sha256,s.resolved FROM catalog_record_sources r JOIN catalog_sources s ON s.id=r.source_id WHERE r.record_id=? ORDER BY s.observed_at DESC,s.id').all(row.id).map(s=>({id:s.id,url:publicUrl(s.url),title:s.title,observedAt:s.observed_at,publishedAt:s.published_at,kind:s.kind,sha256:s.sha256,status:s.resolved?'retained_source_metadata':'unresolved_reference'}));
    return result;
   });
@@ -231,7 +235,14 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   }
   return{records:docs,summary:{definitions:parse(published.manifest_json).definitions},originalPublication:publicationFrom(published)};
  });}
- function rawExport(){return readSnapshot(()=>({catalog:db.prepare('SELECT id,name,core_json FROM catalog_records WHERE is_primary=1 ORDER BY id').all().map(r=>{const coreInfo=parse(r.core_json);return{id:r.id,name:r.name,coreInfo,officialUrl:coreInfo.website?.url};}),evidenceAsOf:publication()?.sourceAsOf}));}
+ function rawExport(){return readSnapshot(()=>{
+  const snapshot=publication();
+  const catalog=db.prepare('SELECT id,name,core_json FROM catalog_records WHERE is_primary=1 ORDER BY id').all().map(r=>{
+   const coreInfo=parse(r.core_json);
+   return{id:r.id,name:r.name,coreInfo,officialUrl:coreInfo.website?.url};
+  });
+  return{catalog,evidenceAsOf:snapshot?.sourceAsOf,snapshotId:snapshot?.snapshotId};
+ });}
  return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,coreInfo:id=>{const row=readRecord.get(id);return row?parse(row.core_json):undefined;},rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest,RETAINED_INPUTS};
