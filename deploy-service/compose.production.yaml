@@ -1,3 +1,5 @@
+# Overlay: must be combined with compose.yaml (and optionally compose.public-gateway.yaml).
+# Usage: docker compose -f compose.yaml -f compose.production.yaml up -d
 services:
   # Measurement services inherit the opt-in measurement-route profile, private
   # mounts and shared loopback namespace from compose.yaml. Publish no ports.

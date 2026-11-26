@@ -13,7 +13,8 @@ function projectCommunityEvent(event){
 
 // Importing the projection for tests must never rebuild the retained artifact.
 if(require.main===module){
-const root=path.resolve(__dirname,'..'),batch=path.join(root,'catalog/refresh/2026-10-26');
+const batchId=process.argv[2]||process.env.EVIDENCE_BATCH_ID||'2026-10-26';
+const root=path.resolve(__dirname,'..'),batch=path.join(root,'catalog/refresh',batchId);
 const collection=read(path.join(batch,'batch-pages/collection.json'));
 const community=read(path.join(batch,'community/community.json'));
 const definitions=read(path.join(root,'catalog/catalog.v1.json')).catalog;
@@ -36,7 +37,7 @@ function addSource(source,directory){
  const metadata={source_id:id,source_type:derived?'derived_reader':source.sourceType||'public_refresh_page',
    url,navigationUrl:url,originalRequestUrl:url,publicReplayUrl:url,publicReplayStatus:'response_observed',
    last_capture_at:at,requested_at:iso(source.requestedAt),capture_status:typeof status==='number'?status:null,
-   sha256:sha,container_sha256:null,archiveRef:'public-refresh-2026-10-26.zip',
+   sha256:sha,container_sha256:null,archiveRef:`public-refresh-${batchId}.zip`,
    originalContainers:entry?[{archiveEntry:entry}]:[],
    grade:status===200&&!derived&&source.contentStatus!=='challenge_or_access_control'?'E1':'E0',
    independence_score:derived||source.independenceScore==='I0'?'I0':'I1',
@@ -80,7 +81,7 @@ const items=definitions.map(record=>{
  }));
  const payment=claim?.payment||{};
  const methods=Array.isArray(payment.methods)?payment.methods:[];
- const current={recordId:record.id,batchId:'2026-10-26-public-refresh',checkedAt:iso(discussion.checkedAt),
+ const current={recordId:record.id,batchId:`${batchId}-public-refresh`,checkedAt:iso(discussion.checkedAt),
    collection:{status:captured.collectionStatus,checkedAt:iso(captured.checkedAt),sourceIds:captured.sourceIds,scope:collection.scope},
    identityBinding:claim?.identityBinding||{status:'unverified_candidate_domain',basis:'本轮只访问名录候选网址，未确认经营主体。',sourceIds:captured.sourceIds},
    offers:{status:plans.length?'public_advertisement_observed':claim?.offerStatus||'not_confirmed',plans,
@@ -106,7 +107,7 @@ const items=definitions.map(record=>{
  current.checkedAt=[captured.checkedAt,discussion.checkedAt,claim?.observedAt,...current.sourceIds.map(id=>sources.get(id)?.last_capture_at)].map(iso).filter(Boolean).sort().at(-1);
  return current;
 });
-const document={schemaVersion:'airports-current-evidence.v1',batchId:'2026-10-26-public-refresh',
+const document={schemaVersion:'airports-current-evidence.v1',batchId:`${batchId}-public-refresh`,
  researchAsOf:[...sources.values()].map(s=>s.last_capture_at).sort().at(-1),
  windowStart:community.windowStart,windowEnd:community.windowEnd,
  summary:{recordsAttempted:items.length,airportRecordsAttempted:definitions.filter(r=>['airport','niche'].includes(r.category)).length,
