@@ -13,6 +13,12 @@ services:
     image: airports-observatory:local
     command: node deploy-service/server.cjs
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:'+(process.env.PORT||8080)+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     ports:
       - "127.0.0.1:8080:8080"
     environment:
@@ -37,7 +43,8 @@ services:
     volumes:
       - observatory-data:/data
     depends_on:
-      - web
+      web:
+        condition: service_healthy
   publisher:
     logging: *local-logging
     image: airports-observatory:local
@@ -49,7 +56,8 @@ services:
     volumes:
       - observatory-data:/data
     depends_on:
-      - web
+      web:
+        condition: service_healthy
   controller:
     logging: *local-logging
     image: airports-observatory:local
@@ -61,7 +69,8 @@ services:
     volumes:
       - observatory-data:/data
     depends_on:
-      - web
+      web:
+        condition: service_healthy
   standalone:
     logging: *local-logging
     image: airports-observatory:local
@@ -76,7 +85,8 @@ services:
     volumes:
       - observatory-data:/data
     depends_on:
-      - web
+      web:
+        condition: service_healthy
   measurements:
     logging: *local-logging
     profiles: [measurement-route]

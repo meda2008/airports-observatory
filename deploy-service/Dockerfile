@@ -5,7 +5,8 @@ COPY deploy-service/package*.json /app/deploy-service/
 RUN node -e "require('fs').mkdirSync('/etc/ssl/certs',{recursive:true});require('fs').writeFileSync('/etc/ssl/certs/ca-certificates.crt',require('tls').rootCertificates.join('\n'))" \
     && sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources \
     && printf 'Acquire::Retries "3";\n' > /etc/apt/apt.conf.d/80-airports-retries \
-    && cd /app/deploy-service && npm ci --omit=dev && npx playwright install --with-deps chromium
+    && cd /app/deploy-service && npm ci --omit=dev && npx playwright install --with-deps chromium \
+    && rm -rf /var/lib/apt/lists/*
 # Keep CPU OCR dependencies in a cached layer before site-specific source changes.
 COPY deploy-service/requirements-ocr.txt /tmp/airports-requirements-ocr.txt
 RUN apt-get update \

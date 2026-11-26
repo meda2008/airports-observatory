@@ -88,7 +88,7 @@ function createServer({store,catalogDb,controlStore,measurementStore,registry=[]
     return send(res,404,{error:'接口不存在'});
    }
    if(req.method!=='GET'&&req.method!=='HEAD')return send(res,405,{error:'仅支持 GET 和 HEAD'});
-   if(route==='/health')return send(res,200,{status:'ok',service:'airports-deploy'});
+   if(route==='/health')return send(res,200,{status:'ok',service:'airports-deploy',ready:!!(publicationReady()&&catalogDb?.publication()),note:'/health is liveness; use /ready for readiness'});
    if(route==='/ready'){const ready=publicationReady()&&catalogDb?.publication();return send(res,ready?200:503,{status:ready?'ready':'waiting_for_publication'});}
    if(['/api/stats','/api/catalog'].includes(route)||route.startsWith('/api/airports/')){
     if(!catalogDb?.publication())return send(res,503,{error:'现有资料尚未导入规范数据库'});
