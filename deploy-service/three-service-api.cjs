@@ -14,13 +14,24 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
  const {createPublisher,createPublicationWorker}=require('./publisher.cjs');
  const bootstrap=createPublisher({store,catalog:catalogDb,root});
- if(!catalogDb.publication())bootstrap.tick();
+ const bootstrapResult=catalogDb.publication()?null:bootstrap.tick();
+ let publicationReconciled=!!bootstrapResult&&(bootstrapResult.status!=='failed'||!!bootstrapResult.publicationResult);
  const publisher=filename===':memory:'?bootstrap:createPublicationWorker({store,root});
- const publicationTimer=setInterval(()=>publisher.tick(),30000);publicationTimer.unref?.();
+ async function reconcilePublication(){
+  const result=await publisher.tick();
+  if(result.status!=='failed'||result.publicationResult)publicationReconciled=true;
+ }
+ const publicationTimer=setInterval(reconcilePublication,30000);publicationTimer.unref?.();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
  const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb});
- const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication:publisher.sync||(()=>catalogDb.sync())}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ async function syncPublication(){
+  const result=publisher.sync?await publisher.sync():catalogDb.sync();
+  publicationReconciled=true;
+  return result;
+ }
+ const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication,publicationReady:()=>publicationReconciled}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ server.once('listening',()=>{if(!publicationReconciled)void reconcilePublication();});
  let lastSchedule=0;
  const webOps={
   assistpoll:()=>assistance.poll(),

@@ -10,7 +10,7 @@ function createPublisher({store,catalog,root=path.resolve(__dirname,'..'),clock=
   try{onReceipt(receipt);}catch{}
   return receipt;
  }
- function tick(){let stage='fingerprint',result=null;try{const current=fingerprint({root,store,clock});result={status:'unchanged'};if(current!==last){stage='sync';result=catalog.sync();last=current;}stage='heartbeat';store.setServiceHeartbeat('publisher',{status:'running',details:{snapshotId:catalog.publication()?.snapshotId,result:result.status,networkAccess:false}});return result;}catch(error){const failure=keepFailure(error,stage,result);try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:failure.reason,retryable:failure.retryable,stage,networkAccess:false}});}catch(heartbeatError){keepFailure(heartbeatError,'failure_heartbeat',result);}return{status:'failed',reason:failure.reason,retryable:failure.retryable,stage,syncResult:result?.status||null};}}
+ function tick(){let stage='fingerprint',result=null;try{const current=fingerprint({root,store,clock});result={status:'unchanged'};if(current!==last){stage='sync';result=catalog.sync();last=current;}stage='heartbeat';store.setServiceHeartbeat('publisher',{status:'running',details:{snapshotId:catalog.publication()?.snapshotId,result:result.status,networkAccess:false}});return result;}catch(error){const failure=keepFailure(error,stage,result);try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:failure.reason,retryable:failure.retryable,stage,networkAccess:false}});}catch(heartbeatError){keepFailure(heartbeatError,'failure_heartbeat',result);}return{status:'failed',reason:failure.reason,retryable:failure.retryable,stage,syncResult:result?.status||null,...(stage==='heartbeat'?{publicationResult:result}:{})};}}
  return{tick,lastFailure:()=>lastFailure};
 }
 function createPublicationWorker({store,root}){
@@ -26,7 +26,9 @@ function createPublicationWorker({store,root}){
    worker.once('error',error=>{failure=error;});
    worker.once('exit',code=>{
     if(active===worker)active=null;
-    if(failure||code!==0||!result||result.status==='failed')reject(failure||Error('publication_sync_failed'));
+    if(failure||code!==0||!result)reject(failure||Error('publication_sync_failed'));
+    else if(result.publicationResult)resolve(result.publicationResult);
+    else if(result.status==='failed')reject(Error('publication_sync_failed'));
     else resolve(result);
    });
   });
