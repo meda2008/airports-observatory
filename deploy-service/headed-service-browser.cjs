@@ -3,11 +3,39 @@
 const fs=require('node:fs'),path=require('node:path'),net=require('node:net'),{spawn}=require('node:child_process');
 function launchArgs(profile,port){if(!path.isAbsolute(profile)||!Number.isInteger(port)||port<1024||port>65535)throw Error('headed_launch_binding_invalid');return ['--no-sandbox','--no-first-run','--no-default-browser-check','--user-data-dir='+profile,'--remote-debugging-address=127.0.0.1','--remote-debugging-port='+port,'about:blank'];}
 async function freePort(){return new Promise((resolve,reject)=>{const server=net.createServer();server.once('error',reject);server.listen(0,'127.0.0.1',()=>{const port=server.address().port;server.close(e=>e?reject(e):resolve(port));});});}
-async function open({profile,timeoutMs=20000}={}){
+async function open({profile,timeoutMs=20000,config,lookup}={}){
  fs.mkdirSync(profile,{recursive:true,mode:0o700});if(fs.lstatSync(profile).isSymbolicLink())throw Error('headed_profile_symlink_rejected');fs.chmodSync(profile,0o700);
- const display=await require('./private-browser-display.cjs').startDisplay(),{chromium}=require('playwright'),port=await freePort(),child=spawn(chromium.executablePath(),launchArgs(profile,port),{stdio:'ignore',env:{...process.env,DISPLAY:display.display},windowsHide:true});let browser,networkSession,spawnError=false,closed=false;
- child.on('error',()=>{spawnError=true;});
- async function close(){if(closed)return;closed=true;try{if(browser){const s=await browser.newBrowserCDPSession();await s.send('Browser.close').catch(()=>{});}}catch{}const until=Date.now()+4000;while(child.exitCode===null&&!spawnError&&Date.now()<until)await new Promise(r=>setTimeout(r,100));if(child.exitCode===null)child.kill('SIGTERM');await browser?.close().catch(()=>{});display.close();}
- try{const until=Date.now()+timeoutMs;let ready=false;while(Date.now()<until){if(spawnError||child.exitCode!==null)throw Error('headed_browser_process_exited');try{const r=await fetch('http://127.0.0.1:'+port+'/json/version',{signal:AbortSignal.timeout(1000)});if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,200));}if(!ready)throw Error('headed_browser_start_timeout');browser=await chromium.connectOverCDP('http://127.0.0.1:'+port);const context=browser.contexts()[0],pages=context.pages();if(!context||pages.length!==1||pages[0].url()!=='about:blank')throw Error('headed_initial_page_not_blank');const page=pages[0];await page.setViewportSize({width:1280,height:900});networkSession=await context.newCDPSession(page);await networkSession.send('Network.enable');await networkSession.send('Network.setBypassServiceWorker',{bypass:true});if(typeof context.routeWebSocket==='function')await context.routeWebSocket('**/*',r=>r.close());return{browser,context,page,close,display:display.display,receipt:{mode:'native_headed_private_profile',browserVersion:browser.version(),headless:false,persistentProfile:true,identityOverrides:false,debuggingExposure:'container_loopback_only',tlsBypass:false}};}catch(e){await close();throw e;}
+ const resolve=require('./standalone-collector.cjs').boundedLookup(lookup);
+ const egress=require('./browser-egress.cjs').createBrowserEgress({config,lookup:resolve});
+ let display,child,browser,spawnError=false,closed=false;
+ async function close(){
+  if(closed)return;closed=true;await egress.close();
+  try{if(browser){const s=await browser.newBrowserCDPSession();await s.send('Browser.close').catch(()=>{});}}catch{}
+  const until=Date.now()+4000;
+  while(child?.exitCode===null&&!spawnError&&Date.now()<until)await new Promise(r=>setTimeout(r,100));
+  if(child?.exitCode===null&&!spawnError)child.kill('SIGTERM');
+  await browser?.close().catch(()=>{});display?.close();
+ }
+ try{
+  const proxy=await egress.start(),{chromium}=require('playwright'),port=await freePort();
+  display=await require('./private-browser-display.cjs').startDisplay();
+  const args=launchArgs(profile,port);
+  args.splice(-1,0,'--proxy-server='+proxy.server,'--proxy-bypass-list='+proxy.bypass);
+  child=spawn(chromium.executablePath(),args,{stdio:'ignore',env:{...process.env,DISPLAY:display.display},windowsHide:true});
+  child.on('error',()=>{spawnError=true;});
+  const until=Date.now()+timeoutMs;let ready=false;
+  while(Date.now()<until){if(spawnError||child.exitCode!==null)throw Error('headed_browser_process_exited');try{const r=await fetch('http://127.0.0.1:'+port+'/json/version',{signal:AbortSignal.timeout(1000)});if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
+  if(!ready)throw Error('headed_browser_start_timeout');
+  browser=await chromium.connectOverCDP('http://127.0.0.1:'+port);
+  const context=browser.contexts()[0],pages=context?.pages();
+  if(pages?.length!==1||pages[0].url()!=='about:blank')throw Error('headed_initial_page_not_blank');
+  await context.setHTTPCredentials({username:proxy.username,password:proxy.password});
+  const page=pages[0];await page.setViewportSize({width:1280,height:900});
+  const networkSession=await context.newCDPSession(page);
+  await networkSession.send('Network.enable');await networkSession.send('Network.setBypassServiceWorker',{bypass:true});
+  await context.routeWebSocket?.('**/*',r=>r.close());
+  async function continueRoute(route){try{await egress.admit(route.request().url());return await route.continue();}catch{return route.abort();}}
+  return{browser,context,page,close,continueRoute,display:display.display,receipt:{mode:'native_headed_private_profile',browserVersion:browser.version(),headless:false,persistentProfile:true,identityOverrides:false,debuggingExposure:'container_loopback_only',tlsBypass:false}};
+ }catch(error){await close();throw error;}
 }
 module.exports={open,launchArgs};

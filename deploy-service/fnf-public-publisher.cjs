@@ -8,15 +8,17 @@ function entry(url){try{const u=new URL(url);return u.protocol==='https:'&&!u.us
 function cards(root){const found=[];const text=n=>n.nodeName==='#text'?n.nodeValue:(n.children||[]).map(text).join(' ');function walk(n){if(n.nodeName==='LI'){const label=text(n).replace(/\s+/g,' ').trim();if(/^(?:\d+ms )?Foo&Friends (?:正常|无法访问)$/.test(label))found.push({backendNodeId:n.backendNodeId,label,attributes:n.attributes||[]});}for(const k of ['children','shadowRoots'])for(const c of n[k]||[])walk(c);}walk(root);return found.length===2?found:[];}
 async function collect({config,browser,beforePage=async()=>{},jobBudgetMs=35000,lookup}={}){
  if(!configured(config))throw Error('fnf_public_publisher_scope_mismatch');
- const {assertPublicUrl}=require('./collector.cjs'),{safeReadUrl}=require('./standalone-collector.cjs');
+ const {safeReadUrl,boundedLookup}=require('./standalone-collector.cjs');
+ const egress=require('./browser-egress.cjs').createBrowserEgress({config,lookup:boundedLookup(lookup)});
  let ctx;const captures=[],dependencies=[],targets=[],clicks=[];let clickedLabel=null,timedOut=false;
- const timer=setTimeout(()=>{timedOut=true;void ctx?.close().catch(()=>{});},jobBudgetMs);
+ const timer=setTimeout(()=>{timedOut=true;void egress.close();void ctx?.close().catch(()=>{});},jobBudgetMs);
  try{
-  await beforePage();await assertPublicUrl(config.entryUrl,lookup);
-  ctx=await browser.newContext({serviceWorkers:'block',acceptDownloads:false,ignoreHTTPSErrors:false});
+  await beforePage();await egress.check(config.entryUrl);
+  ctx=await egress.open(browser,{acceptDownloads:false});
+  await ctx.routeWebSocket?.('**/*',route=>route.close());
   await ctx.route('**/*',async route=>{try{const r=route.request(),u=new URL(r.url()),same=u.origin===origin;
    if(!['GET','HEAD'].includes(r.method())||!same&&!favicon(u.href,r.method())){if(clickedLabel&&r.method()==='GET'&&r.isNavigationRequest()&&entry(u.href))targets.push({label:clickedLabel,url:u.href,observedAt:new Date().toISOString(),destinationAccessed:false});return route.abort();}
-   if(!safeReadUrl(u.href,[u.hostname]))return route.abort();await assertPublicUrl(u.href,lookup);
+   if(!safeReadUrl(u.href,[u.hostname]))return route.abort();await egress.admit(u.href);
    if(!same)dependencies.push({url:u.href,kind:'native_public_favicon_dependency',notServiceAvailabilityMeasurement:true});return route.continue();
   }catch{return route.abort();}});
   const p=await ctx.newPage();await p.goto(config.entryUrl,{waitUntil:'domcontentloaded',timeout:Math.min(18000,jobBudgetMs)});
@@ -28,6 +30,6 @@ async function collect({config,browser,beforePage=async()=>{},jobBudgetMs=35000,
   const observedAt=new Date().toISOString(),body=JSON.stringify({representation:'fnf_rendered_closed_shadow_publisher',sourceUrl:config.entryUrl,title,visibleAccessibility:visible,cards:selected.map(({backendNodeId,...x})=>x),nativeEntryClicks:clicks,dependencies,observedAt,availabilityMeasurement:false,credentialsSubmitted:false});
   captures.push({url:config.entryUrl,body,observedAt,kind:'unverified_entry_candidate',metadata:{title,anchors:targets.map(x=>({url:x.url,label:'Foo&Friends发布页正常可见卡片的原生跳转；目的地未访问'})),identityVerified:false}});
   return{captures,checkpoint:targets.length?null:{type:'publisher_entries_not_opened',url:config.entryUrl,reason:'未取得正常可用卡片的原生跳转；未解除禁用或模拟点击处理函数'},capabilities:{entryDiscovery:{status:'unverified_candidates_only'},login:{status:'not_attempted'}},ordersCreated:0,paymentExecuted:false};
- }catch(e){return{captures,checkpoint:{type:'fnf_public_publisher_unconfirmed',url:config.entryUrl,reason:String(e.message).slice(0,250)},ordersCreated:0,paymentExecuted:false};}finally{clearTimeout(timer);await ctx?.close();}
+ }catch(e){return{captures,checkpoint:{type:'fnf_public_publisher_unconfirmed',url:config.entryUrl,reason:String(e.message).slice(0,250)},ordersCreated:0,paymentExecuted:false};}finally{clearTimeout(timer);await egress.close();await ctx?.close();}
 }
 module.exports={configured,favicon,entry,cards,collect};
