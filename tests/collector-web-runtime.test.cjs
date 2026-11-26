@@ -138,6 +138,84 @@ test('opaque API rejection stays retryable while other jobs can claim',async t=>
  assert.ok(!fs.existsSync(file));
 });
 
+test('ready pending packets get a turn ahead of due retries while unrelated claims continue',async t=>{
+ const {output,job,pending,packet}=outboxFixture(t);
+ let now=Date.parse('2026-11-14T00:00:00Z');
+ const expiresAt=now+3000;
+ const retained=['a-retry','b-retry','c-ready','d-ready'].map(jobId=>{
+  const item=job('A001',jobId,jobId+'-run'),original=packet(item);
+  const bytes=Buffer.from(JSON.stringify({...item,packet:original},null,2)+'\n');
+  const saved=pending(item,bytes);
+  fs.utimesSync(saved.file,new Date(now),new Date(now));
+  return {...saved,original,bytes};
+ });
+ const other=job('A002','unrelated','unrelated-run');
+ const calls=[],sent=[],collected=[];
+ let claims=0;
+ const worker=createWebCollector({output,clock:()=>now,log:()=>{},browserFactory:async()=>({close:async()=>{}}),collect:async site=>{
+  collected.push(site.id);
+  return {captures:[]};
+ },request:async(op,input)=>{
+  if(op==='control')return {engineEnabled:true,executionMode:'standalone'};
+  if(op==='run')return {status:'leased',leaseExpiresAt:expiresAt};
+  if(op==='claim'){calls.push('claim');return {job:++claims===1?other:null};}
+  if(op==='receive'){
+   calls.push(input.jobId);
+   sent.push(input);
+   if(input.jobId.endsWith('-retry'))throw Object.assign(Error('retryable'),{status:503});
+   return {status:'completed'};
+  }
+  return {};
+ }});
+ t.after(()=>worker.stop());
+ assert.equal((await worker.runOne()).jobId,other.jobId);
+ assert.deepEqual(calls,['a-retry','b-retry','claim',other.jobId]);
+ assert.deepEqual(collected,[other.siteId]);
+ for(const {dir,file,bytes} of retained.slice(0,2)){
+  assert.deepEqual(fs.readFileSync(file),bytes);
+  const retry=JSON.parse(fs.readFileSync(path.join(dir,'pending-submission-retry.json')));
+  assert.equal(retry.attempts,1);
+  assert.equal(retry.nextRetryAt,now+1000);
+  assert.ok(!fs.existsSync(path.join(dir,'pending-submission-hold.json')));
+ }
+ // Both retries are ready again, with only a short time left on the other leases.
+ now+=2000;
+ assert.equal((await worker.runOne()).jobId,'c-ready');
+ assert.equal((await worker.runOne()).jobId,'d-ready');
+ assert.deepEqual(calls,['a-retry','b-retry','claim',other.jobId,'c-ready','d-ready']);
+ assert.deepEqual(sent.filter(input=>input.jobId!==other.jobId),retained.map(entry=>entry.original));
+ for(const {file} of retained.slice(2))assert.ok(!fs.existsSync(file));
+ assert.equal(claims,1);
+});
+
+test('a slow pending replay leaves the next ready packet for the next pass and still claims',async t=>{
+ const {output,job,pending,packet}=outboxFixture(t);
+ let now=Date.parse('2026-11-14T00:00:00Z');
+ const first=job('A001','a-slow','slow-run'),second=job('A001','b-ready','ready-run');
+ for(const item of [first,second]){
+  const {file}=pending(item,JSON.stringify({...item,packet:packet(item)}));
+  fs.utimesSync(file,new Date(now),new Date(now));
+ }
+ const calls=[];
+ const worker=createWebCollector({output,clock:()=>now,log:()=>{},browserFactory:async()=>assert.fail('unexpected browser'),request:async(op,input)=>{
+  if(op==='control')return {engineEnabled:true,executionMode:'standalone'};
+  if(op==='run')return {status:'leased'};
+  if(op==='claim'){calls.push('claim');return {job:null};}
+  if(op==='receive'){
+   calls.push(input.jobId);
+   if(input.jobId===first.jobId){now+=60000;throw Error('API timeout');}
+   return {status:'completed'};
+  }
+  return {};
+ }});
+ t.after(()=>worker.stop());
+ assert.equal((await worker.runOne()).status,'submission_deferred');
+ assert.deepEqual(calls,[first.jobId,'claim']);
+ now+=1000;
+ assert.equal((await worker.runOne()).jobId,second.jobId);
+ assert.deepEqual(calls,[first.jobId,'claim',second.jobId]);
+});
+
 test('reclaim after an opaque renewal rejection keeps the discovery run directory and submits only a checkpoint',async t=>{
  const {output,job,pending,packet}=outboxFixture(t);
  const old=job('A001','discovery-job','discovery-job');

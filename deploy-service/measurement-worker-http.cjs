@@ -3,7 +3,7 @@ const crypto = require('node:crypto');
 const fs=require('node:fs'),path=require('node:path');
 const canonical=value=>JSON.stringify(value&&typeof value==='object'?Array.isArray(value)?value.map(x=>JSON.parse(canonical(x))):Object.fromEntries(Object.keys(value).sort().filter(k=>value[k]!==undefined).map(k=>[k,JSON.parse(canonical(value[k]))])):value);
 const digest=value=>crypto.createHash('sha256').update(value).digest('hex');
-function workerSchema(db){db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_claims(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL); CREATE TABLE IF NOT EXISTS measurement_late_submissions(run_id TEXT PRIMARY KEY,body TEXT NOT NULL,sha256 TEXT NOT NULL,received_at TEXT NOT NULL); CREATE TRIGGER IF NOT EXISTS measurement_late_no_update BEFORE UPDATE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,"append_only_late_submissions"); END; CREATE TRIGGER IF NOT EXISTS measurement_late_no_delete BEFORE DELETE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,"append_only_late_submissions"); END;');}
+function workerSchema(db){db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_claims(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL)');}
 function finishAuthoritatively(store,claimed,body){
  const db=store.db;workerSchema(db);
  db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_finish_receipts(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL,body TEXT NOT NULL,observation_id TEXT)');

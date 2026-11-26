@@ -6,6 +6,7 @@ const {redact}=require('./standalone-collector.cjs');
 const {MAX_JSON_BYTES}=require('../lib/read-utf8-json.cjs');
 const {submissionPlan}=require('../lib/collector-submission.cjs');
 const pendingName='pending-submission.json',holdName='pending-submission-hold.json',retryName='pending-submission-retry.json';
+const pendingReplayLimit=2,pendingReplayWindowMs=5000;
 const terminalRuns=new Set(['completed','blocked','awaiting_semantic_review','review_approved','review_rejected','cancelled']);
 function writeAtomic(file,value,{exclusive=false}={}){
  const temporary=file+'.'+crypto.randomUUID()+'.tmp';
@@ -86,7 +87,8 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
  }
  async function recoverPending(siteId,protectedEntries){
   if(!fs.existsSync(output))return {};
-  let deferred,replayed=false;
+  const startedAt=clock(),ready=[];
+  let deferred;
   for(const entry of fs.readdirSync(output,{withFileTypes:true})){
    if(!entry.isDirectory())continue;
    const dir=path.join(output,entry.name),pending=path.join(dir,pendingName);
@@ -110,20 +112,28 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
     continue;
    }
    if(siteId&&item.siteId!==siteId)continue;
+   const identity={siteId:item.siteId,jobId:item.jobId,runId:item.runId};
+   protectedEntries.push({dir,item:identity});
    const retryFile=path.join(dir,retryName);
    let retry;
    try{retry=JSON.parse(fs.readFileSync(retryFile,'utf8'));}catch{}
-   if(replayed||retry?.nextRetryAt>clock()){
-    protectedEntries.push({dir,item});
-    continue;
+   if(retry?.nextRetryAt>startedAt)continue;
+   let readyAt=retry?.nextRetryAt;
+   if(!Number.isFinite(readyAt)){
+    try{readyAt=fs.statSync(pending).mtimeMs;}catch{readyAt=startedAt;}
    }
-   replayed=true;
+   // Keep only the oldest ready packets in memory. Every pending job stays protected from recollection.
+   ready.push({dir,pending,item,identity,retryFile,retry,readyAt});
+   ready.sort((a,b)=>a.readyAt-b.readyAt||a.dir.localeCompare(b.dir));
+   if(ready.length>pendingReplayLimit)ready.pop();
+  }
+  for(const [index,{dir,pending,item,identity,retryFile,retry}] of ready.entries()){
+   // A slow replay uses the usual API timeout. Leave the next packet for a later pass.
+   if(index&&clock()-startedAt>=pendingReplayWindowMs)break;
    try{
     const {accepted,holdReason,details}=await replayPending(item,dir,pending);
     if(holdReason){
-     protectedEntries.push({dir,item});
      holdPending(dir,holdReason,item,details);
-     replayed=false;
      continue;
     }
     if(!terminalRuns.has(accepted?.status))throw Error('invalid_pending_submission_response');
@@ -133,17 +143,16 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
     fs.unlinkSync(pending);
     return {result};
    }catch(error){
-    protectedEntries.push({dir,item});
     if([400,413,415,422].includes(error?.status)){
      holdPending(dir,'api_rejected_pending_packet',item);
-     replayed=false;
      continue;
     }
     const attempts=Number.isSafeInteger(retry?.attempts)&&retry.attempts>0?Math.min(retry.attempts+1,10):1;
     const nextRetryAt=clock()+Math.min(300000,1000*2**(attempts-1));
-    deferred={status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery',nextRetryAt};
-    try{writeAtomic(retryFile,{attempts,...deferred});}catch{safeLog({service:'standalone_collector',status:'submission_retry_write_deferred',directory:entry.name});}
-   }
+    const retryResult={status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery',nextRetryAt};
+    deferred??=retryResult;
+    try{writeAtomic(retryFile,{attempts,...retryResult});}catch{safeLog({service:'standalone_collector',status:'submission_retry_write_deferred',directory:path.basename(dir)});}
+   }finally{identity.runId=item.runId;}
   }
   return {deferred};
  }

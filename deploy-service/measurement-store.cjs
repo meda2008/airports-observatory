@@ -28,6 +28,8 @@ function cleanProfile(input){
 function openMeasurementStore({filename,now=Date.now,executorId='legacy'}={}){
  if(!/^[A-Za-z0-9_-]{1,80}$/.test(executorId))throw Error('invalid_measurement_executor');
  if(!filename)throw Error('measurement_filename_required');if(filename!==':memory:')fs.mkdirSync(path.dirname(path.resolve(filename)),{recursive:true});
+ // A date prefix keeps SQLite's relative time keywords out of the expression index.
+ const lateTimestampFilter="json_extract(body,'$.observedAt') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]*'";
  const db=new DatabaseSync(filename);db.exec(`PRAGMA busy_timeout=5000; PRAGMA journal_mode=WAL;
  CREATE TABLE IF NOT EXISTS measurement_control(id INTEGER PRIMARY KEY CHECK(id=1),enabled INTEGER NOT NULL DEFAULT 0);INSERT OR IGNORE INTO measurement_control(id) VALUES(1);
  CREATE TABLE IF NOT EXISTS measurement_executor_control(id INTEGER PRIMARY KEY CHECK(id=1),owner TEXT NOT NULL,enabled INTEGER NOT NULL);INSERT OR IGNORE INTO measurement_executor_control VALUES(1,'legacy',1);
@@ -36,6 +38,12 @@ function openMeasurementStore({filename,now=Date.now,executorId='legacy'}={}){
  CREATE TABLE IF NOT EXISTS measurement_runs(id TEXT PRIMARY KEY,profile_id TEXT NOT NULL,profile_revision INTEGER NOT NULL,scheduled_at INTEGER NOT NULL,started_at INTEGER NOT NULL,finished_at INTEGER,status TEXT NOT NULL,synthetic INTEGER NOT NULL,UNIQUE(profile_id,scheduled_at));
  CREATE TABLE IF NOT EXISTS measurement_observations(id TEXT PRIMARY KEY,run_id TEXT NOT NULL UNIQUE,profile_id TEXT NOT NULL,site_id TEXT NOT NULL,kind TEXT NOT NULL,observed_at TEXT NOT NULL,body TEXT NOT NULL,sha256 TEXT NOT NULL,synthetic INTEGER NOT NULL);
  CREATE INDEX IF NOT EXISTS measurement_budget_window ON measurement_observations(profile_id,julianday(observed_at));
+ CREATE TABLE IF NOT EXISTS measurement_late_submissions(run_id TEXT PRIMARY KEY,body TEXT NOT NULL,sha256 TEXT NOT NULL,received_at TEXT NOT NULL);
+ CREATE INDEX IF NOT EXISTS measurement_late_budget_window
+  ON measurement_late_submissions(julianday(json_extract(body,'$.observedAt')))
+  WHERE ${lateTimestampFilter};
+ CREATE TRIGGER IF NOT EXISTS measurement_late_no_update BEFORE UPDATE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,'append_only_late_submissions'); END;
+ CREATE TRIGGER IF NOT EXISTS measurement_late_no_delete BEFORE DELETE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,'append_only_late_submissions'); END;
  CREATE TABLE IF NOT EXISTS measurement_proposal_links(id TEXT PRIMARY KEY,profile_id TEXT NOT NULL,observation_ids TEXT NOT NULL,proposal_id TEXT NOT NULL,created_at TEXT NOT NULL,UNIQUE(profile_id,observation_ids));
  CREATE TABLE IF NOT EXISTS measurement_worker_status(id INTEGER PRIMARY KEY CHECK(id=1),body TEXT NOT NULL,observed_at TEXT NOT NULL);`);
  db.exec("CREATE TRIGGER IF NOT EXISTS measurement_raw_no_update BEFORE UPDATE ON measurement_observations BEGIN SELECT RAISE(ABORT,'append_only_observations'); END; CREATE TRIGGER IF NOT EXISTS measurement_raw_no_delete BEFORE DELETE ON measurement_observations BEGIN SELECT RAISE(ABORT,'append_only_observations'); END;");
@@ -71,7 +79,27 @@ function openMeasurementStore({filename,now=Date.now,executorId='legacy'}={}){
  const scheduledAt=r.due_at+Math.floor((at-r.due_at)/p.intervalMs)*p.intervalMs;if(db.prepare('SELECT 1 FROM measurement_runs WHERE profile_id=? AND scheduled_at=?').get(r.id,scheduledAt)){db.prepare('UPDATE measurement_profiles SET due_at=? WHERE id=?').run(at+1,r.id);db.exec('COMMIT');return null;}const leaseUntil=at+Math.max(60000,p.timeoutMs*4+10000);db.prepare('UPDATE measurement_profiles SET lease_token=?,lease_until=?,due_at=? WHERE id=?').run(token,leaseUntil,scheduledAt,r.id);db.prepare('INSERT INTO measurement_runs VALUES(?,?,?,?,?,?,?,?)').run(runId,p.id,r.revision,scheduledAt,at,null,'running',p.synthetic?1:0);db.exec('COMMIT');return{runId,profile:p,profileRevision:r.revision,token,worker,leaseUntil};}catch(e){db.exec('ROLLBACK');throw e;}}
  function saveObservation(runId,p,body){const sha256=hash(body),id='measurement-'+hash([runId,sha256]);db.prepare('INSERT OR IGNORE INTO measurement_observations VALUES(?,?,?,?,?,?,?,?,?)').run(id,runId,p.id,p.siteId,p.kind,body.observedAt,JSON.stringify(body),sha256,p.synthetic?1:0);return{id,sha256,...body};}
  function finish(claimed,body){db.exec('BEGIN IMMEDIATE');try{const r=db.prepare('SELECT * FROM measurement_profiles WHERE id=?').get(claimed.profile.id);if(!r||r.lease_token!==claimed.token||r.lease_until<=now()||r.revision!==claimed.profileRevision)throw Error('measurement_lease_lost');const o=saveObservation(claimed.runId,claimed.profile,{...body,synthetic:claimed.profile.synthetic,profileRevision:claimed.profileRevision});db.prepare('UPDATE measurement_runs SET status=?,finished_at=? WHERE id=?').run(body.status,now(),claimed.runId);db.prepare('UPDATE measurement_profiles SET due_at=?,lease_token=NULL,lease_until=NULL WHERE id=?').run(r.due_at+claimed.profile.intervalMs,r.id);db.exec('COMMIT');return o;}catch(e){db.exec('ROLLBACK');throw e;}}
- const trafficUsed=id=>db.prepare("SELECT coalesce(sum(coalesce(json_extract(body,'$.trafficBudgetBytes'),json_extract(body,'$.bytesRead'),0)),0) AS bytes FROM measurement_observations WHERE profile_id=? AND julianday(observed_at)>julianday(?)").get(id,iso(now()-86400000)).bytes;
+ // Start with the indexed late window, then look up each run's authoritative profile.
+ const trafficBudget=db.prepare(`
+  SELECT (
+   SELECT coalesce(sum(coalesce(json_extract(body,'$.trafficBudgetBytes'),json_extract(body,'$.bytesRead'),0)),0)
+   FROM measurement_observations WHERE profile_id=:profileId AND julianday(observed_at)>julianday(:cutoff)
+  ) + (
+   SELECT total(bytes) FROM (
+    SELECT coalesce(json_extract(late.body,'$.trafficBudgetBytes'),json_extract(late.body,'$.bytesRead')) AS bytes
+    FROM measurement_late_submissions AS late
+    CROSS JOIN measurement_runs AS run ON run.id=late.run_id
+    WHERE ${lateTimestampFilter}
+     AND julianday(json_extract(late.body,'$.observedAt'))>julianday(:cutoff)
+     AND julianday(json_extract(late.body,'$.observedAt'))<=julianday(:through)
+     AND run.profile_id=:profileId AND run.status='lease_expired_missing'
+     AND coalesce(nullif(json_type(late.body,'$.trafficBudgetBytes'),'null'),json_type(late.body,'$.bytesRead'))='integer'
+   ) WHERE bytes BETWEEN 0 AND 9007199254740991
+  ) AS bytes`);
+ function trafficUsed(profileId){
+  const at=now();
+  return trafficBudget.get({profileId,cutoff:iso(at-86400000),through:iso(at)}).bytes;
+ }
  function requestRun(id){
   const at=now();db.exec('BEGIN IMMEDIATE');
   try{const row=db.prepare('SELECT * FROM measurement_profiles WHERE id=?').get(id);if(!row)throw Error('measurement_profile_missing');if(row.lease_until>at)throw Error('measurement_profile_has_active_lease');if(row.lease_token)settleExpiredLease(row,at);db.prepare('UPDATE measurement_profiles SET due_at=? WHERE id=?').run(at,id);db.exec('COMMIT');return{id,status:'due_not_yet_executed'};}catch(error){db.exec('ROLLBACK');throw error;}
