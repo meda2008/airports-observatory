@@ -151,13 +151,13 @@ function openControlStore({filename,store,clock=()=>Date.now()}={}){
  function listCaptureMetadata(evidenceId,{jobId}={}){return db.prepare('SELECT m.observation_id,o.job_id,o.observed_at,m.metadata_json FROM collector_capture_metadata m JOIN observations o ON o.id=m.observation_id AND o.evidence_id=m.evidence_id WHERE m.evidence_id=? AND (? IS NULL OR o.job_id=?) ORDER BY o.observed_at,m.observation_id').all(evidenceId,jobId??null,jobId??null).map(r=>({observationId:r.observation_id,jobId:r.job_id,observedAt:r.observed_at,metadata:parse(r.metadata_json)}));}
  const limitValue=n=>Number.isInteger(n)&&n>0?Math.min(n,1000):100;
  function listRuns({siteId,limit=100,offset=0}={}){return db.prepare('SELECT * FROM collector_runs WHERE (? IS NULL OR site_id=?) ORDER BY rowid DESC LIMIT ? OFFSET ?').all(siteId||null,siteId||null,limitValue(limit),offset).map(runPublic);}
- function listCheckpoints({status,limit=-1}={}){
+ function listCheckpoints({status,limit=-1,offset=0}={}){
   const engineEnabled=getControl().engineEnabled;
   return db.prepare(`SELECT c.*,j.status job_status,j.collection_scope,p.config_json,
     (SELECT status FROM collector_runs WHERE parent_checkpoint_id=c.id ORDER BY rowid DESC LIMIT 1) AS previous_status,
     EXISTS(SELECT 1 FROM jobs h WHERE h.site_id=c.site_id AND ((h.purpose IN ('validation','managed_collection') AND h.status='queued') OR h.status IN ('leased','awaiting_semantic_review'))) AS held
     FROM collector_checkpoints c JOIN jobs j ON j.id=c.job_id LEFT JOIN collector_profiles p ON p.site_id=c.site_id
-    WHERE (? IS NULL OR c.status=?) ORDER BY c.rowid DESC LIMIT ?`).all(status||null,status||null,limit).map(r=>{
+    WHERE (? IS NULL OR c.status=?) ORDER BY c.rowid DESC LIMIT ? OFFSET ?`).all(status||null,status||null,limit,offset).map(r=>{
    const cfg=parse(r.config_json),publicScope=r.collection_scope==='public_references';
    const canResume=engineEnabled&&!r.held&&!!cfg&&(!publicScope||r.site_id!=='A159'&&cfg.publicReferenceEnabled===true&&!!cfg.publicReferenceFields?.length)&&jobTerminal(r.job_status)&&checkpointStatusAllowsResume(r.status,r.previous_status);
    return{id:r.id,checkpointId:r.id,runId:r.run_id,jobId:r.job_id,siteId:r.site_id,status:r.status,...(publicScope?{collectionScope:r.collection_scope}:{}),...parse(r.material_json),canResume,createdAt:iso(r.created_at),resumedAt:iso(r.resumed_at),resolvedAt:iso(r.resolved_at),...(r.resolution_json?{resolution:parse(r.resolution_json)}:{})};

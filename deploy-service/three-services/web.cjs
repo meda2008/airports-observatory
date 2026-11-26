@@ -216,6 +216,10 @@ function createWebServer({
             const responseHeaders = {...response.headers};
             delete responseHeaders.connection;
             delete responseHeaders['transfer-encoding'];
+            const vary = res.getHeader('vary');
+            if (vary && responseHeaders.vary && responseHeaders.vary !== '*') {
+              responseHeaders.vary = `${vary}, ${responseHeaders.vary}`;
+            }
             for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
               if (!Object.hasOwn(responseHeaders, k)) responseHeaders[k] = v;
             }

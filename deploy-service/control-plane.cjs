@@ -13,10 +13,13 @@ function createControlPlane({store,control,catalogDb,profiles=[],facts=x=>x,cloc
  function runtime(mode=control.getControl().executionMode,heartbeats=store.getServiceHeartbeats()){const name=mode==='standalone'?'standalone_collector':'iab_runner',h=heartbeats.find(h=>h.name===name),connected=h?.status==='connected'&&clock()-Date.parse(h.updatedAt)<90000;return{connected:!!connected,lastHeartbeat:h?.updatedAt||null,runnerName:h?.details?.runnerName||name,executionMode:mode,reason:connected?'执行端在线，按租约领取任务':mode==='standalone'?'独立后台采集服务未在线，检查服务日志；排队不等于已执行':'等待 Codex 内置浏览器执行端连接；排队不等于已执行'};}
  function brief(heartbeats){const settings=control.getControl();return{control:settings,runtime:runtime(settings.executionMode,heartbeats)};}
  function list({q,siteId}={}){return{items:control.listProfiles({q,siteId}).map(p=>({...p,recovery:require('./collector-recovery-actions.cjs').forProfile(p),staticValidation:registry.get(p.siteId)?.staticValidation||{status:'not_checked'}})),...brief()};}
- function status(page){
+ function status(page,checkpointPage){
   const limit=page?50:1000,offset=page?(page-1)*limit:0;
   const runs=control.listRuns({limit:page?limit+1:limit,offset});
-  return{...brief(),runs:runs.slice(0,limit),...(page?{runPage:{page,hasMore:runs.length>limit}}:{}),checkpoints:control.listCheckpoints(),events:control.listEvents({limit:100})};
+  const checkpoints=checkpointPage?control.listCheckpoints({limit:51,offset:(checkpointPage-1)*50}):control.listCheckpoints();
+  return{...brief(),runs:runs.slice(0,limit),...(page?{runPage:{page,hasMore:runs.length>limit}}:{}),
+   checkpoints:checkpointPage?checkpoints.slice(0,50):checkpoints,
+   ...(checkpointPage?{checkpointPage:{page:checkpointPage,hasMore:checkpoints.length>50}}:{}),events:control.listEvents({limit:100})};
  }
  function beat(runnerName,status='connected'){store.setServiceHeartbeat('iab_runner',{status,details:{runnerName:String(runnerName||'codex-iab').slice(0,100),browser:'codex_builtin',paymentAllowed:false}});}
  function receive(input,{trustedRetained=false,sharedPriceProof=null}={}){
@@ -75,9 +78,14 @@ function createControlPlane({store,control,catalogDb,profiles=[],facts=x=>x,cloc
  async function handle(req,res,url,send){const route=url.pathname;
   if(req.method==='GET'&&route==='/api/admin/collectors'){send(res,200,list(Object.fromEntries(url.searchParams)));return true;}
   if(req.method==='GET'&&route==='/api/admin/performance/monitor'){const siteIds=url.searchParams.get('sites')?.split(',');if(siteIds?.some(id=>!/^A\d{3}$/.test(id)))throw Error('Explicit site IDs required');const sites=control.listProfiles().map(p=>store.getSite(p.siteId)).filter(Boolean);send(res,200,require('../lib/performance-monitor.cjs').monitorWithDiscovery({profiles:control.listProfiles(),sites,control:control.getControl(),runtime:runtime(),jobs:store.listJobs(),proposals:store.listProposals(),checkpoints:control.listCheckpoints(),siteIds,now:clock()}));return true;}
-  if(req.method==='GET'&&route==='/api/admin/collection/status'){const page=url.searchParams.get('page');if(page!==null&&(!/^\d{1,5}$/.test(page)||Number(page)<1))throw new SyntaxError('无效分页');send(res,200,status(Number(page)));return true;}
+  if(req.method==='GET'&&route==='/api/admin/collection/status'){
+   const page=url.searchParams.get('page'),checkpointPage=url.searchParams.get('checkpointPage');
+   if([page,checkpointPage].some(value=>value!==null&&(!/^\d{1,5}$/.test(value)||Number(value)<1)))throw new SyntaxError('无效分页');
+   send(res,200,status(Number(page),Number(checkpointPage)));
+   return true;
+  }
   const proposalMatch=route.match(/^\/api\/admin\/proposals\/([^/]+)$/);
-  if(req.method==='GET'&&proposalMatch){const p=store.listProposals().find(p=>p.id===decodeURIComponent(proposalMatch[1]));if(!p){send(res,404,{error:'提案不存在'});return true;}const site=store.getSite(p.siteId),current=publishedCore(p.siteId)||site?.document||{},before=Object.fromEntries(Object.keys(p.patch).filter(k=>current[k]!==undefined).map(k=>[k,current[k]]));send(res,200,{...p,before:facts(before),patch:facts(p.patch),after:facts({...before,...p.patch}),currentRevision:site?.revision,limitation:'仅列提案涉及字段；before为当前已发布事实。版本不一致时禁止批准，需重新采集或复核。'});return true;}
+  if(req.method==='GET'&&proposalMatch){const id=decodeURIComponent(proposalMatch[1]),p=store.getProposal?store.getProposal(id):store.listProposals().find(p=>p.id===id);if(!p){send(res,404,{error:'提案不存在'});return true;}const site=store.getSite(p.siteId),current=publishedCore(p.siteId)||site?.document||{},before=Object.fromEntries(Object.keys(p.patch).filter(k=>current[k]!==undefined).map(k=>[k,current[k]]));send(res,200,{...p,before:facts(before),patch:facts(p.patch),after:facts({...before,...p.patch}),currentRevision:site?.revision,limitation:'仅列提案涉及字段；before为当前已发布事实。版本不一致时禁止批准，需重新采集或复核。'});return true;}
   if(req.method!=='POST'||!(/^\/api\/admin\/collection\//.test(route)||/^\/api\/admin\/collectors\//.test(route)))return false;
   const input=await inputJson(req);
   if(route==='/api/admin/collection/control'){send(res,200,{control:control.setControl({...input,actor:actor(input.actor)}),runtime:runtime()});return true;}

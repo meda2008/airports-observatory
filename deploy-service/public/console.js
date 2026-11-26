@@ -7,6 +7,7 @@ const copy = v => JSON.parse(JSON.stringify(v));
 let adminToken = '', session = 0, loading = false, collectors = [], selectedId = '', draft = null, dirty = false, editorBusy = false;
 const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map(), rowLists = new WeakMap();
 let jobPage = 1;
+const historyPages = {proposals: {page: 1}, checkpoints: {page: 1}};
 const maxJobPage = 99999;
 function renderWhenChanged(key, value, render) {
   const signature = JSON.stringify(value);
@@ -192,6 +193,15 @@ function updateJobPager() {
   $('#jobs-previous').disabled = loading || jobPage <= 1;
   $('#jobs-next').disabled = loading || !hasMore || jobPage >= maxJobPage;
 }
+function updateHistoryPagers() {
+  for (const [name, {page, hasMore}] of Object.entries(historyPages)) {
+    const label = $('#' + name + '-page');
+    const text = `第 ${page} 页`;
+    if (label.textContent !== text) label.textContent = text;
+    $('#' + name + '-previous').disabled = loading || page <= 1;
+    $('#' + name + '-next').disabled = loading || !hasMore || page >= maxJobPage;
+  }
+}
 function renderJobs(page) {
   const collection = (load.collection?.runPage?.page ?? 1) === page ? load.collection : null;
   const jobs = (load.jobs?.page ?? 1) === page ? load.jobs : null;
@@ -284,11 +294,11 @@ function renderRuntime(control, runtime) {
   load.control = control;
   renderWhenChanged('control', [control, runtime], () => renderControl(control, runtime));
 }
-async function load(announce = true, full = true, page = jobPage) {
+async function load(announce = true, full = true, page = jobPage, historyTarget) {
   if (!adminToken) return;
   if (loading) { if (full) load.pending = true; return; }
   loading = true;
-  if (full) updateJobPager();
+  if (full) { updateJobPager(); updateHistoryPagers(); }
   const epoch = session;
   if (announce) $('#admin-status').textContent = '正在读取采集、任务与资料状态…';
   const requests = [['/api/admin/status?view=' + (full ? 'summary' : 'runtime'), d => {
@@ -303,14 +313,19 @@ async function load(announce = true, full = true, page = jobPage) {
   }]];
   if (full) {
     const query = $('#site-search').value.trim();
+    const proposalPage = historyTarget?.name === 'proposals' ? historyTarget.page : historyPages.proposals.page;
+    const checkpointPage = historyTarget?.name === 'checkpoints' ? historyTarget.page : historyPages.checkpoints.page;
     requests.push(
       ['/api/admin/jobs?page=' + page, d => { load.jobs = d; renderJobs(page); }],
-      ['/api/admin/proposals', d => renderWhenChanged('proposals', list(d.items || d), items => {
-        const activeIds = new Set(items.map(p => p.id || p.proposalId));
-        for (const id of proposalDetails.keys()) if (!activeIds.has(id)) proposalDetails.delete(id);
-        $('#proposals').replaceChildren(...(items.length ? items.map(proposalCard) : [el('p', '暂无提案。', 'subtle')]));
-        $('#proposal-count').textContent = items.length + ' 条记录';
-      })],
+      ['/api/admin/proposals?page=' + proposalPage, d => {
+        historyPages.proposals = {page: d.page ?? proposalPage, hasMore: d.hasMore};
+        renderWhenChanged('proposals', list(d.items || d), items => {
+          const activeIds = new Set(items.map(p => p.id || p.proposalId));
+          for (const id of proposalDetails.keys()) if (!activeIds.has(id)) proposalDetails.delete(id);
+          $('#proposals').replaceChildren(...(items.length ? items.map(proposalCard) : [el('p', '暂无提案。', 'subtle')]));
+          $('#proposal-count').textContent = '本页 ' + items.length + ' 条记录';
+        });
+      }],
       ['/api/admin/collectors?q=' + encodeURIComponent(query), d => {
         collectors = list(d.items);
         renderWhenChanged('collectors', collectors.map(c => [c.siteId, c.name, c.revision, c.enabled ?? c.config?.enabled, c.nextRunAt]), renderCollectorList);
@@ -322,17 +337,21 @@ async function load(announce = true, full = true, page = jobPage) {
           renderJobs(jobPage);
         }
       }],
-      ['/api/admin/collection/status?page=' + page, d => {
+      ['/api/admin/collection/status?page=' + page + '&checkpointPage=' + checkpointPage, d => {
         load.collection = d;
         if (d.control) renderRuntime(d.control, d.runtime);
         renderJobs(page);
+        historyPages.checkpoints = d.checkpointPage ?? {page: checkpointPage};
         renderCheckpoints(d.checkpoints);
         renderWhenChanged('events', d.events, renderCollectionEvents);
       }]
     );
   }
   try {
-    await Promise.all(requests.map(async ([path, render]) => {
+    const targets = historyTarget
+      ? requests.filter(([path]) => path.startsWith(historyTarget.name === 'proposals' ? '/api/admin/proposals?' : '/api/admin/collection/status?'))
+      : requests;
+    await Promise.all(targets.map(async ([path, render]) => {
       const key = path.split('?')[0];
       try {
         const options = {signal: globalThis.AbortSignal?.timeout?.(10000), ...(announce ? {} : {priority: 'low'})};
@@ -354,16 +373,21 @@ async function load(announce = true, full = true, page = jobPage) {
     if (epoch === session) {
       loading = false;
       updateJobPager();
+      updateHistoryPagers();
       if (load.pending) { load.pending = false; await load(false); }
     }
   }
 }
 $('#auth-form').addEventListener('submit', async e => { e.preventDefault(); const token = $('#token').value; if (adminToken) disconnect(false); session++; adminToken = token; $('#token').value = ''; $('#disconnect').disabled = false; await load(); });
-function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); renderSignatures.clear(); delete load.collection; delete load.control; delete load.jobs; delete load.pending; jobPage = 1; rowLists.delete($('#jobs')); rowLists.delete($('#checkpoints')); updateJobPager(); $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
+function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); renderSignatures.clear(); delete load.collection; delete load.control; delete load.jobs; delete load.pending; jobPage = 1; for (const name of Object.keys(historyPages)) historyPages[name] = {page: 1}; updateHistoryPagers(); rowLists.delete($('#jobs')); rowLists.delete($('#checkpoints')); updateJobPager(); $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
 $('#disconnect').addEventListener('click', () => disconnect());
 $('#refresh').addEventListener('click', () => load());
 $('#jobs-previous').addEventListener('click', () => load(true, true, jobPage - 1));
 $('#jobs-next').addEventListener('click', () => load(true, true, jobPage + 1));
+for (const name of Object.keys(historyPages)) {
+  $('#' + name + '-previous').addEventListener('click', () => load(true, true, jobPage, {name, page: historyPages[name].page - 1}));
+  $('#' + name + '-next').addEventListener('click', () => load(true, true, jobPage, {name, page: historyPages[name].page + 1}));
+}
 $('#validate-all').addEventListener('click', async () => {
   const b = $('#validate-all'), epoch = session; b.disabled = true;
   try { const d = await mutate('/api/admin/collectors/validate-all', {}, '批量验证请求已提交；排队不等于运行。'); if (epoch === session && d) renderBatchResults(d); }

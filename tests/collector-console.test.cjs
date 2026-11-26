@@ -39,7 +39,7 @@ function setup() {
     let data = {};
     if (url.startsWith('/api/admin/status?view=')) data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
     else if (url.startsWith('/api/admin/jobs?')) data = { items: [] };
-    else if (url === '/api/admin/proposals') data = { items: fixture.proposals };
+    else if (url.startsWith('/api/admin/proposals?')) data = { items: fixture.proposals };
     else if (url.startsWith('/api/admin/proposals/')) data = { ...fixture.proposals[0], currentRevision: 2, before: { price: '原值' }, patch: { price: '<script>不执行</script>' }, after: { price: '<script>不执行</script>' }, evidenceIds: ['ev-1'] };
     else if (url.startsWith('/api/admin/collectors?')) data = { items: [fixture.collector], control: fixture.control, runtime: { connected: false } };
     else if (url.startsWith('/api/admin/collection/status?')) data = { ...fixture.collection, control: fixture.control, runtime: { connected: false } };
@@ -64,6 +64,36 @@ test('console connects with memory-only bearer and reports missing capability ev
   assert.match(h.nodes['collection-summary'].textContent, /未连接/);
   assert.doesNotMatch(source, /localStorage|sessionStorage|innerHTML|insertAdjacentHTML/);
   assert.doesNotMatch(html, /\son\w+=|<style|style=/i);
+});
+
+test('proposal and checkpoint paging refresh only the requested panel', async () => {
+  const h = setup();
+  h.fixture.fetch = async url => {
+    const route = new URL(url, 'http://fixture.invalid');
+    if (route.pathname === '/api/admin/proposals') {
+      const page = Number(route.searchParams.get('page'));
+      return {ok: true, status: 200, json: async () => ({page, hasMore: page === 1, items: [{id: 'proposal-' + page, siteId: 'A001'}]})};
+    }
+    if (route.pathname === '/api/admin/collection/status') {
+      const page = Number(route.searchParams.get('checkpointPage'));
+      return {ok: true, status: 200, json: async () => ({runs: [], checkpoints: [{id: 'checkpoint-' + page, siteId: 'A001', type: 'type-' + page}], checkpointPage: {page, hasMore: page === 1}})};
+    }
+  };
+  await h.connect();
+  h.calls.length = 0;
+  await h.nodes['proposals-next'].dispatch('click');
+  assert.deepEqual(h.calls.map(c => c.url), ['/api/admin/proposals?page=2']);
+  assert.match(h.nodes.proposals.textContent, /proposal-2/);
+  assert.equal(h.nodes['proposals-next'].disabled, true);
+  assert.match(h.nodes.checkpoints.textContent, /type-1/);
+  h.calls.length = 0;
+  await h.nodes['checkpoints-next'].dispatch('click');
+  assert.deepEqual(h.calls.map(c => c.url), ['/api/admin/collection/status?page=1&checkpointPage=2']);
+  assert.match(h.nodes.checkpoints.textContent, /type-2/);
+  assert.equal(h.nodes['checkpoints-page'].textContent, '第 2 页');
+  await h.nodes.disconnect.dispatch('click');
+  assert.equal(h.nodes['checkpoints-page'].textContent, '第 1 页');
+  assert.equal(h.nodes['proposals-page'].textContent, '第 1 页');
 });
 
 test('poll and revision changes preserve an edited configuration and show conflict warning', async () => {
