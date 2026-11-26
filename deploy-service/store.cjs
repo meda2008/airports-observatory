@@ -39,33 +39,32 @@ function createStore({filename,now=()=>Date.now()}={}){
  const run=job&&['validation','managed_collection'].includes(job.purpose)&&db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='collector_runs'").get()&&db.prepare('SELECT capabilities_json FROM collector_runs WHERE job_id=? AND proposal_id=?').get(job.id,id);
  const preserveSchedule=job?.collection_scope==='public_references'||parse(run?.capabilities_json)?.dataBasis?.status==='retained_reparse';db.prepare('UPDATE proposals SET status=?,reviewed_at=?,reviewer=? WHERE id=?').run(approved?'approved':'rejected',at,reviewer,id);if(approved){const after={...s.document,...parse(p.patch)};if(preserveSchedule)db.prepare('UPDATE sites SET document=?,revision=revision+1 WHERE id=?').run(json(after),p.site_id);else db.prepare('UPDATE sites SET document=?,revision=revision+1,failures=0,last_success_at=?,due_at=? WHERE id=?').run(json(after),at,at+WEEK,p.site_id);db.prepare('INSERT INTO changes(id,site_id,proposal_id,revision,before_json,after_json,patch,created_at) VALUES(?,?,?,?,?,?,?,?)').run(crypto.randomUUID(),p.site_id,id,s.revision+1,json(s.document),json(after),p.patch,at);}else if(!preserveSchedule)db.prepare('UPDATE sites SET due_at=? WHERE id=?').run(at+3600000,p.site_id);if(p.job_id&&!db.prepare("SELECT id FROM proposals WHERE job_id=? AND status='pending'").get(p.job_id))db.prepare("UPDATE jobs SET status=? WHERE id=? AND status='awaiting_semantic_review'").run(approved?'completed':'review_rejected',p.job_id);return getSite(p.site_id);});}
  function listJobs(){return db.prepare('SELECT * FROM jobs ORDER BY created_at DESC,id').all().map(jobRow);}
- function countUpdateWork(){
-  return db.prepare(`SELECT
-   (SELECT count(*) FROM jobs WHERE status='queued') AS queued,
-   (SELECT count(*) FROM jobs WHERE status IN ('blocked','failed')) AS blocked,
-   (SELECT count(*) FROM proposals WHERE status='pending') AS pendingReview`).get();
- }
+ function activityCounts(){return db.prepare(`SELECT
+  (SELECT count(*) FROM jobs WHERE status='queued') AS queued,
+  (SELECT count(*) FROM jobs WHERE status IN ('blocked','failed')) AS blocked,
+  (SELECT count(*) FROM proposals WHERE status='pending') AS pendingReview`).get();}
  function listSites(){return db.prepare('SELECT * FROM sites ORDER BY id').all().map(siteRow);}
  function listChanges(){return db.prepare('SELECT * FROM changes ORDER BY created_at DESC,id').all().map(r=>({id:r.id,siteId:r.site_id,recordId:r.site_id,proposalId:r.proposal_id,revision:r.revision,before:parse(r.before_json),after:parse(r.after_json),patch:parse(r.patch),createdAt:iso(r.created_at)}));}
- function evidenceWithObservations(row){
-  return row&&{...row,siteId:row.site_id,observations:db.prepare('SELECT job_id AS jobId,observed_at AS observedAt FROM observations WHERE evidence_id=? ORDER BY observed_at').all(row.id)};
- }
- function getEvidence(id){return evidenceWithObservations(db.prepare('SELECT * FROM evidence WHERE id=?').get(id));}
- function listEvidence(){return db.prepare('SELECT * FROM evidence ORDER BY id').all().map(evidenceWithObservations);}
- function listEvidenceMetadata(ids){
-  if(!ids.length)return [];
+ const observations=db.prepare('SELECT job_id AS jobId,observed_at AS observedAt FROM observations WHERE evidence_id=? ORDER BY observed_at');
+ const evidenceRow=r=>({...r,siteId:r.site_id,observations:observations.all(r.id)});
+ function listEvidence(){return db.prepare('SELECT * FROM evidence ORDER BY id').all().map(evidenceRow);}
+ function getEvidence(id){const row=db.prepare('SELECT * FROM evidence WHERE id=?').get(id);return row?evidenceRow(row):null;}
+ function listEvidenceMetadata({checkpointsOnly=false,ids}={}){
+  if(ids&&!ids.length)return [];
+  const where=ids?'WHERE e.id IN (SELECT value FROM json_each(?))':checkpointsOnly?"WHERE e.kind IN ('verification_checkpoint','unverified_entry_candidate')":'';
   const rows=db.prepare(`SELECT e.id,e.site_id,e.url,e.sha256,e.kind,o.job_id,o.observed_at
-   FROM evidence e LEFT JOIN observations o ON o.evidence_id=e.id
-   WHERE e.id IN (SELECT value FROM json_each(?)) ORDER BY e.id,o.observed_at`).all(json(ids));
-  return Array.from(Map.groupBy(rows,r=>r.id).values(),group=>{
-   const {id,site_id,url,sha256,kind}=group[0];
-   return{id,site_id,siteId:site_id,url,sha256,kind,observations:group.filter(r=>r.observed_at!==null).map(r=>({jobId:r.job_id,observedAt:r.observed_at}))};
-  });
+   FROM evidence e LEFT JOIN observations o ON o.evidence_id=e.id ${where} ORDER BY e.id,o.observed_at`).all(...(ids?[json(ids)]:[]));
+  const evidence=new Map();
+  for(const row of rows){
+   if(!evidence.has(row.id))evidence.set(row.id,{id:row.id,siteId:row.site_id,url:row.url,sha256:row.sha256,kind:row.kind,observations:[]});
+   if(row.observed_at!==null)evidence.get(row.id).observations.push({jobId:row.job_id,observedAt:row.observed_at});
+  }
+  return [...evidence.values()];
  }
  function listChangeRevisions(){return db.prepare('SELECT id,revision FROM changes ORDER BY created_at DESC,id').all();}
  function listProposals(){return db.prepare('SELECT * FROM proposals ORDER BY created_at,id').all().map(r=>({id:r.id,proposalId:r.id,siteId:r.site_id,jobId:r.job_id,patch:parse(r.patch),evidenceIds:parse(r.evidence_ids),expectedRevision:r.expected_revision,status:r.status,createdAt:iso(r.created_at),reviewedAt:r.reviewed_at===null?null:iso(r.reviewed_at),reviewer:r.reviewer}));}
  function setReferral({siteId,url,disclosure,evidenceId}={}){const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||typeof disclosure!=='string'||!disclosure.trim()||!evidenceId)throw Error('HTTPS referral, disclosure and evidence required');return tx(()=>{const site=getSite(siteId);if(!site?.config.entryUrl||u.origin!==new URL(site.config.entryUrl).origin)throw Error('Referral origin mismatch');const evidence=db.prepare('SELECT * FROM evidence WHERE id=? AND site_id=?').get(evidenceId,siteId);if(!evidence||evidence.kind!=='authorized_account_page'||!evidence.body.includes(url))throw Error('Referral URL absent from bound evidence');if(new URL(evidence.url).origin!==u.origin)throw Error('Referral evidence origin mismatch');db.prepare('INSERT INTO referrals(site_id,url,disclosure,updated_at,evidence_id) VALUES(?,?,?,?,?) ON CONFLICT(site_id) DO UPDATE SET url=excluded.url,disclosure=excluded.disclosure,updated_at=excluded.updated_at,evidence_id=excluded.evidence_id').run(siteId,url,disclosure,now(),evidenceId);return listReferrals().find(r=>r.siteId===siteId);});}
  const listReferrals=()=>db.prepare('SELECT * FROM referrals ORDER BY site_id').all().map(r=>({recordId:r.site_id,siteId:r.site_id,url:r.url,disclosure:r.disclosure,evidenceId:r.evidence_id,sourceIds:r.evidence_id?[r.evidence_id]:[],owner:r.evidence_id?'user':null,status:r.evidence_id?'verified_user_referral':'unverified_legacy',verifiedAt:r.evidence_id?iso(r.updated_at):null,updatedAt:iso(r.updated_at)}));
- return {filename,setServiceHeartbeat,getServiceHeartbeats,seedSites,enqueueDue,claim,renew,finish,saveEvidence,createProposal,reviewProposal,getSite,countUpdateWork,listJobs,listSites,listChanges,listChangeRevisions,getEvidence,listEvidence,listEvidenceMetadata,listProposals,setReferral,listReferrals,close:()=>db.close()};
+ return {filename,setServiceHeartbeat,getServiceHeartbeats,seedSites,enqueueDue,claim,renew,finish,saveEvidence,createProposal,reviewProposal,getSite,listJobs,activityCounts,listSites,listChanges,listChangeRevisions,listEvidence,getEvidence,listEvidenceMetadata,listProposals,setReferral,listReferrals,close:()=>db.close()};
 }
 module.exports={createStore,WEEK,performanceSourceIds};

@@ -16,7 +16,8 @@
 | P1 | Temporary SQLite contention could look like a permanent collector rejection. | **Implemented.** Return retryable 503 for SQLite busy/locked errors; keep conflict and input-error handling distinct. |
 | P1 | Replay could claim unrelated work or update live scheduling state. Captured article-image metadata could be lost at intake. | **Implemented.** Enqueue and claim the exact replay in one transaction, preserve the original observation time and live schedule, and retain bounded source-bound heading/media associations. |
 | P1 | Static-site removal left the collection pipeline pointing to generated inputs that no longer exist in the checkout. | **Implemented in the active planning and review paths.** Reuse the canonical projection and source indexes. Historic release and specialist tools still need a separate audit for removed paths. |
-| P1 | Browser egress validation and socket establishment must agree; an overall deadline must cover the full job rather than only individual page actions. | **Integration gate.** Review parallel egress work and verify checked destinations and deadline/lease cleanup in each execution path using local fixtures. Do not treat a page timeout as a job deadline. |
+| P1 | Legacy browser collection lacked an overall deadline. The HTTP collector could overlap interval and explicit lease renewal. | **Implemented.** Bound the legacy job, close its browser context on timeout (including late allocation), share one HTTP renewal, and clear timers on exit. Newer site-specific native adapters retain their existing budgets. |
+| P1 | Browser egress validation and socket establishment must agree. | **Separate follow-up.** Connection binding is not delivered by this branch. Keep the existing allowlists; require browser compatibility checks before merging broader egress transport changes. |
 | P2 | Visitor requests raced with reset, pagination, or a newly published snapshot. Admin polling replaced unchanged DOM; assistance reassigned unchanged screenshots. | **Implemented.** Fence stale responses, preserve last successful views and user selections, and skip unchanged regions and frames. |
 | P2 | Plan restrictions and mobile latency tables were difficult to inspect. Date-only promotions used an implicit timezone. | **Implemented.** Show existing plan condition notes, allow keyboard scrolling for the latency table, and compare date-only values in Asia/Shanghai. |
 | P2 | Collector parsers and lifecycle mishandled VM DOM globals, dispatch overlap, fast polling, and ambiguous unpaid-order cleanup. | **Implemented.** Use document URL, disjoint exact parser dispatch, bounded polling, and preserve cleanup holds unless the matching order is confirmed cancelled. |
@@ -29,6 +30,7 @@ On the Windows development machine with Node 22.22.0, the catalog-loading code p
 
 ## Before merging
 
-- [ ] Reconcile parallel branch changes, especially browser egress and collector lifecycle.
+- [x] Reconcile this branch with the collector recovery and publication changes already merged to `main`.
+- [ ] Verify the separately tracked browser transport hardening against supported site navigation before deploying it.
 - [ ] Run syntax checks, the full suite, and applicable local browser/Compose validation. Record missing private inputs separately from active regressions.
 - [ ] Inspect the final diff for private source bodies and credentials, verify the PR checks, then merge to `main`. Production deployment is outside this audit.

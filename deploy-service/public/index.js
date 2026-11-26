@@ -19,11 +19,12 @@ function shortDate(v) {
   return typeof v === 'string' && v.length >= 10 ? v.slice(0, 10) : '';
 }
 
-async function api(url) {
+async function api(url, options = {}) {
   const r = await fetch(url, {
     cache: 'no-store',
     headers: {Accept: 'application/json'},
-    signal: globalThis.AbortSignal?.timeout?.(15000)
+    signal: globalThis.AbortSignal?.timeout?.(15000),
+    ...options
   });
   let d = null;
   if (typeof r.text === 'function') {
@@ -553,6 +554,7 @@ function catalogFormQuery() {
   }
   params.set('page', '1');
   params.set('limit', '12');
+  params.set('view', 'card');
   updatePaymentChips();
   return params;
 }
@@ -935,7 +937,7 @@ async function pollSnapshotChange(refresh = true) {
   if (document.hidden || pollingSnapshot) return;
   pollingSnapshot = true;
   try {
-    const next = await api('/api/stats');
+    const next = await api('/api/stats', {priority: 'low'});
     observedSnapshot = next.snapshotId ?? observedSnapshot;
     const primaryTotal = statsPrimaryTotal(next);
     if (Number.isFinite(primaryTotal)) $('#stat-primary').textContent = `${primaryTotal} 家`;

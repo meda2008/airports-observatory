@@ -3,7 +3,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {EventEmitter}=require('node:events');
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),vm=require('node:vm');
-const {runCollectorRuntime,measurementPollDelay}=require('../deploy-service/collector-runtime.cjs');
+const {runMeasurementProxy,measurementPollDelay}=require('../deploy-service/collector-runtime.cjs');
 const {createStandaloneWorker,retryDatabase}=require('../deploy-service/standalone-worker.cjs');
 
 test('visible DOM uses the document URL for Wget filtering without a global location',async()=>{
@@ -49,7 +49,7 @@ function runtimeFixture(options={}){
  const child=new EventEmitter(),calls={closed:0,loops:0,kills:[]};
  child.kill=signal=>{calls.kills.push(signal);queueMicrotask(()=>child.emit('exit',0));};
  const loop=()=>{calls.loops++;};
- const run=changes=>runCollectorRuntime({token:'fixture',spawnImpl:()=>child,probeImpl:()=>new Promise(()=>{}),readinessTimeoutMs:40,killTimeoutMs:10,measurementLoop:loop,webLoop:loop,storeFactory:()=>({close:()=>calls.closed++}),...options,...changes});
+ const run=changes=>runMeasurementProxy({token:'fixture',spawnImpl:()=>child,probeImpl:()=>new Promise(()=>{}),readinessTimeoutMs:40,killTimeoutMs:10,measurementLoop:loop,webLoop:loop,storeFactory:()=>({close:()=>calls.closed++}),...options,...changes});
  return{run,child,calls};
 }
 for(const event of ['exit','error'])test(`proxy ${event} interrupts a pending readiness probe`,{timeout:500},async()=>{
