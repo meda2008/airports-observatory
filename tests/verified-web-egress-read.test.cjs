@@ -1,10 +1,44 @@
 'use strict';
-const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),os=require('os'),path=require('path'),{probe}=require('../hosting/pages/probe-verified-web-egress.cjs');
-test('exit mismatch stops before site request; matching exit is required before and after source retention',async()=>{
- const directory=fs.mkdtempSync(path.join(os.tmpdir(),'web-egress-')),profile={synthetic:false,identityVerified:true,expectedEgressIp:'8.8.8.8',proxyUrl:'http://127.0.0.1:12345',egressUrl:'https://echo.invalid/',allowedTargetOrigins:['https://echo.invalid']},base={profile,targets:[{siteId:'A016',url:'https://site.invalid/'}],authorization:'fixture',privateProxy:profile.proxyUrl,directory,assertPublicUrl:async()=>{}};
- try{let calls=[];let r=await probe({...base,request:async(p,url)=>{calls.push(url);return{status:'ok',bodyComplete:true,body:'{"ip":"9.9.9.9"}'};}});assert.deepEqual(calls,[profile.egressUrl]);assert.equal(r.rows[0].status,'held_exit_unverified');
- calls=[];r=await probe({...base,privateProxy:profile.proxyUrl+'/',request:async(p,url)=>{calls.push(url);return{status:'ok',statusCode:200,bodyComplete:true,body:url===profile.egressUrl?'{"ip":"8.8.8.8"}':'Exact public source'};}});assert.equal(calls.length,3);assert(r.rows[0].eligibleForSourceReview);assert.equal(JSON.parse(fs.readFileSync(r.rows[0].evidenceFile)).body,'Exact public source');assert.equal(r.measurementFactCreated,false);
- await assert.rejects(()=>probe({...base,privateProxy:'http://127.0.0.1:12346'}),/verified_route_binding_required/);
- }finally{fs.rmSync(directory,{recursive:true,force:true});}
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const egress = require('../deploy-service/verified-public-web-egress.cjs');
+
+const site = 'https://justmysocks.net/members/cart.php';
+const echo = 'https://echo.invalid/';
+const proxyUrl = 'http://127.0.0.1:12345';
+const config = { recordId: 'A023', readOnlyRecipe: 'jms_public_catalog_readonly', publicOnly: true, webEgress: 'authenticated_local_proxy' };
+const route = { revision: 1, profile: { id: 'fixture', enabled: true, synthetic: false, identityVerified: true, kind: 'stability',
+  expectedEgressIp: '8.8.8.8', proxyUrl, egressUrl: echo, allowedTargetOrigins: [new URL(echo).origin] } };
+function setup(get, proxy = proxyUrl) {
+  return egress.context({ config, route, egressOptions: { proxy: { server: proxy } }, deadline: Infinity,
+    assertPublicUrl: async url => assert.equal(url, echo), createContext: async () => ({ get, dispose: async () => {} }) });
+}
+const response = body => ({ status: () => 200, text: async () => body });
+
+test('public native read is not returned if its post-read egress check fails', async () => {
+  const calls = [];
+  const client = await setup(async url => {
+    calls.push(url);
+    if (url === site) return response('public body');
+    return response(JSON.stringify({ ip: calls.length === 1 ? '8.8.8.8' : '9.9.9.9' }));
+  });
+  try {
+    await assert.rejects(client.get(site), /web_egress_check_failed/);
+    assert.deepEqual(calls, [echo, site, echo]);
+    assert.equal(client.proof().guardedReads, 0);
+    assert.equal(client.proof().matchedChecks, 1);
+    await assert.rejects(setup(async () => { throw Error('unused'); }, 'http://127.0.0.1:12346'), /web_egress_route_binding_changed/);
+  } finally { await client.dispose(); }
 });
-test('TLS failure is reported as transport failure, never fabricated as an observed IP mismatch',async()=>{const directory=fs.mkdtempSync(path.join(os.tmpdir(),'web-exit-failure-'));try{const r=await probe({profile:{synthetic:false,identityVerified:true,expectedEgressIp:'8.8.8.8',proxyUrl:'http://127.0.0.1:12345',egressUrl:'https://echo.invalid/',allowedTargetOrigins:['https://echo.invalid']},targets:[{siteId:'A011',url:'https://site.invalid/'}],privateProxy:'http://127.0.0.1:12345',directory,assertPublicUrl:async()=>{},request:async()=>({status:'tls_error',bodyComplete:false,body:''})});assert.equal(r.rows[0].status,'held_exit_unverified');assert.equal(r.rows[0].exitBeforeCheck.failure,'exit_transport_or_http_failed');assert.equal(r.rows[0].exitBeforeCheck.ipParsed,false);assert.equal(r.rows[0].websiteCredentialsSubmitted,false);assert.equal(r.rows[0].evidenceFile,undefined);}finally{fs.rmSync(directory,{recursive:true,force:true});}});
+
+test('TLS failure is a transport rejection and the source is never requested', async () => {
+  const calls = [];
+  const client = await setup(async url => { calls.push(url); throw Error('CERT_HAS_EXPIRED'); });
+  try {
+    await assert.rejects(client.get(site), /web_egress_transport_failed/);
+    assert.deepEqual(calls, [echo]);
+    assert.equal(client.proof().matchedChecks, 0);
+    assert.equal(client.proof().guardedReads, 0);
+    assert.equal(client.proof().failedReadAttempts[0].reason, 'read_transport_rejected');
+  } finally { await client.dispose(); }
+});
