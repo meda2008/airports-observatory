@@ -289,6 +289,37 @@ test('pollSnapshotChange clears stale offline suffix on recovery and search guar
   assert.match(renderedText, /每 GB 0\.1/);
 });
 
+test('snapshot shrink reloads the last valid page and retains the card projection', async () => {
+  const requested = [];
+  let total = 25;
+  const h = createFrontendSandbox({fetchHandler: async (url, options) => {
+    let data;
+    if (url.startsWith('/api/stats')) {
+      data = {snapshotId: 'snap-' + total};
+      if (total === 24) assert.equal(options.priority, 'low');
+    } else {
+      const params = new URL(url, 'http://localhost').searchParams;
+      const page = Number(params.get('page'));
+      const pages = Math.ceil(total / 12);
+      assert.equal(params.get('view'), 'card');
+      requested.push(page);
+      data = {items: page <= pages ? [{id: 'A001', name: 'Fixture'}] : [], total, pages, page, snapshotId: 'snap-' + total};
+    }
+    return {ok: true, status: 200, json: async () => data};
+  }});
+  await new Promise(resolve => setImmediate(resolve));
+  await h.elements.get('#next').dispatch('click');
+  await new Promise(resolve => setImmediate(resolve));
+  await h.elements.get('#next').dispatch('click');
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.elements.get('#page-label').textContent, '第 3 / 3 页');
+  total = 24;
+  await h.intervals[0].fn();
+  assert.deepEqual(requested.slice(-2), [3, 2]);
+  assert.equal(h.elements.get('#page-label').textContent, '第 2 / 2 页');
+  assert.equal(h.elements.get('#next').disabled, true);
+});
+
 test('public index.html hides /console.html and includes hero stat cards, snapshot badge, scope/refund filters and quick chips', () => {
   const html = fs.readFileSync(path.join(ROOT, 'deploy-service/public/index.html'), 'utf8');
   assert.doesNotMatch(html, /\/console\.html/);

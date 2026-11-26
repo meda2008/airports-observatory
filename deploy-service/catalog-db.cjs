@@ -92,32 +92,85 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   // Retained versions are the base once initialized. Preserve their source
   // projection so re-exporting relational joins does not invent document drift.
   const bundle=publication()?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
-  const snapshot={changes:(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:(store?.listProposals?.()||[]).map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))},sites=store?.listSites?.()||[],evidence=store?.listEvidence?.()||[];
+  const snapshot={changes:(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:(store?.listProposals?.()||[]).map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))},sites=new Map((store?.listSites?.()||[]).map(s=>[s.id,s])),evidence=(store?.listEvidenceMetadata||store?.listEvidence)?.()||[];
+  const bySite=rows=>{const groups=new Map();for(const row of rows){if(!groups.has(row.siteId))groups.set(row.siteId,[]);groups.get(row.siteId).push(row);}return groups;};
+  const proposalsBySite=bySite(snapshot.proposals),evidenceBySite=bySite(evidence);
   for(const r of bundle.records){
-   const site=sites.find(s=>s.id===r.id);
+   const site=sites.get(r.id);
    if(site?.revision){const applied=inventory.overlay({coreInfo:r.coreInfo},site,snapshot);r.coreInfo=applied.coreInfo;delete applied.coreInfo;r.reviewedOverlay=applied;const referralState=r.fields.referral;r.fields=inventory.assess(r.coreInfo,null,r.catalogRecord||{});r.fields.referral=referralState;}
-   r.storeSnapshot={site,proposals:snapshot.proposals.filter(p=>p.site_id===r.id),evidence:evidence.filter(e=>e.siteId===r.id).map(({body,...e})=>e)};
+   r.storeSnapshot={site,proposals:proposalsBySite.get(r.id)||[],evidence:evidenceBySite.get(r.id)||[]};
   }
   return importRecords(bundle);
  }
- function records(){return db.prepare('SELECT * FROM catalog_records ORDER BY id').all().map(r=>({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json),metadata:parse(r.metadata_json)}));}
- function fields(id){return Object.fromEntries(db.prepare('SELECT field,state_json,observed_at FROM catalog_field_states WHERE record_id=?').all(id).map(r=>[r.field,{...parse(r.state_json),observedAt:r.observed_at}]));}
+ const recordRow=r=>({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json)});
+ function rawExport(){return readSnapshot(()=>{
+  const snapshot=publication();
+  const catalog=db.prepare('SELECT id,name,core_json FROM catalog_records WHERE is_primary=1 ORDER BY id').all().map(r=>{
+   const coreInfo=parse(r.core_json);
+   return{id:r.id,name:r.name,coreInfo,officialUrl:coreInfo.website?.url};
+  });
+  return{catalog,evidenceAsOf:snapshot?.sourceAsOf};
+ });}
+ const readRecord=db.prepare('SELECT id,name,category,is_primary,core_json FROM catalog_records WHERE id=?');
+ const relationIds=['A082','A070'];
+ const {displayNameFor,presentationFor,preferredRows}=require('../lib/catalog-presentation.cjs');
+ const {customerSummary}=require('../lib/customer-summary.cjs');
+ const placeholders=ids=>ids.map(()=>'?').join(',');
+ function selectRecords(ids){return ids.length?db.prepare(`SELECT id,name,category,is_primary,core_json FROM catalog_records WHERE id IN (${placeholders(ids)})`).all(...ids).map(recordRow):[];}
+ let filterSnapshot,filterRecords;
+ function filters(snapshotId){
+  if(filterRecords&&filterSnapshot===snapshotId)return filterRecords;
+  filterRecords=db.prepare(`SELECT id,is_primary,name,json_extract(core_json,'$.website.url') AS website,
+   json_extract(core_json,'$.payment.methods') AS methods FROM catalog_records ORDER BY id`).all().map(r=>({id:r.id,primary:!!r.is_primary,
+    search:[r.id,r.name,r.website].join(' ').normalize('NFKC').toLowerCase(),methods:r.methods===null?[]:parse(r.methods)}));
+  filterSnapshot=snapshotId;
+  return filterRecords;
+ }
  function refs(){const current=store?.listReferrals?.()||[],imported=db.prepare('SELECT link_json FROM catalog_referral_links').all().map(r=>parse(r.link_json));return[...current,...imported.filter(r=>!current.some(c=>c.recordId===r.recordId))];}
- function present(row,{facts=x=>x,detail=false}={}){const f=facts(row.coreInfo),result={id:row.id,name:require('../lib/catalog-presentation.cjs').displayNameFor(row),category:row.category,primary:row.primary,...f,summary:require('../lib/customer-summary.cjs').customerSummary(row.coreInfo,f),fields:fields(row.id),link:outbound({id:row.id,coreInfo:row.coreInfo},refs()),sourceCount:Number(db.prepare('SELECT count(*) n FROM catalog_record_sources WHERE record_id=?').get(row.id).n)};const presentation=row.id==='A082'?require('../lib/catalog-presentation.cjs').presentationFor(row,records()):null;if(presentation)result.presentation=presentation;if(detail)result.sources=db.prepare('SELECT s.* FROM catalog_record_sources r JOIN catalog_sources s ON s.id=r.source_id WHERE r.record_id=? ORDER BY s.observed_at DESC,s.id').all(row.id).map(s=>({id:s.id,url:publicUrl(s.url),title:s.title,observedAt:s.observed_at,publishedAt:s.published_at,kind:s.kind,sha256:s.sha256,status:s.resolved?'retained_source_metadata':'unresolved_reference'}));return result;}
+ function presentRows(rows,{facts=x=>x,card=false,related=[],detail=false}={}){
+  if(!rows.length)return [];
+  const ids=rows.map(r=>r.id),links=refs(),fields=new Map(),counts=new Map();
+  if(!card){
+   for(const r of db.prepare(`SELECT record_id,field,state_json,observed_at FROM catalog_field_states WHERE record_id IN (${placeholders(ids)})`).all(...ids)){
+    if(!fields.has(r.record_id))fields.set(r.record_id,{});
+    fields.get(r.record_id)[r.field]={...parse(r.state_json),observedAt:r.observed_at};
+   }
+   for(const r of db.prepare(`SELECT record_id,count(*) n FROM catalog_record_sources WHERE record_id IN (${placeholders(ids)}) GROUP BY record_id`).all(...ids))counts.set(r.record_id,Number(r.n));
+  }
+  return rows.map(row=>{
+   const f=facts(row.coreInfo),presentation=presentationFor(row,related);
+   const result={id:row.id,name:displayNameFor(row),category:row.category,primary:row.primary,
+    ...(card?{}:{...f,fields:fields.get(row.id)||{},sourceCount:counts.get(row.id)||0}),
+    summary:customerSummary(row.coreInfo,f),link:outbound({id:row.id,coreInfo:row.coreInfo},links)};
+   if(presentation)result.presentation=presentation;
+   if(detail)result.sources=db.prepare('SELECT s.id,s.url,s.title,s.observed_at,s.published_at,s.kind,s.sha256,s.resolved FROM catalog_record_sources r JOIN catalog_sources s ON s.id=r.source_id WHERE r.record_id=? ORDER BY s.observed_at DESC,s.id').all(row.id).map(s=>({id:s.id,url:publicUrl(s.url),title:s.title,observedAt:s.observed_at,publishedAt:s.published_at,kind:s.kind,sha256:s.sha256,status:s.resolved?'retained_source_metadata':'unresolved_reference'}));
+   return result;
+  });
+ }
+ function readSnapshot(read){
+  db.exec('BEGIN');
+  try{const value=read();db.exec('COMMIT');return value;}
+  catch(error){db.exec('ROLLBACK');throw error;}
+ }
  function list(query={},options={}){
-  const allowed=['scope','q','payment','refund','price','page','limit'];for(const[k,v]of Object.entries(query))if(!allowed.includes(k)||typeof v!=='string')throw new QueryError('无效目录参数');
+  const allowed=['scope','q','payment','refund','price','page','limit','view'];for(const[k,v]of Object.entries(query))if(!allowed.includes(k)||typeof v!=='string')throw new QueryError('无效目录参数');
+  if(query.view!==undefined&&query.view!=='card')throw new QueryError('无效目录展示类型');
   const scope=query.scope||'primary';if(!['all','primary','other'].includes(scope))throw new QueryError('无效目录范围');
   for(const k of ['price','refund'])if(query[k]&&!['available','missing'].includes(query[k]))throw new QueryError('无效缺项筛选');
   const q=(query.q||'').normalize('NFKC').trim().toLowerCase(),method=query.payment||'';if(q.length>200||method.length>100)throw new QueryError('筛选文本过长');
   const int=(x,def,max)=>{if(x===undefined)return def;if(!/^\d+$/.test(x)||Number(x)<1||Number(x)>max)throw new QueryError('分页参数无效');return Number(x);};const page=int(query.page,1,100000),limit=int(query.limit,12,100);
-  const allRecords=records();let rows=allRecords.filter(r=>(scope==='all'||(scope==='primary'&&r.primary)||(scope==='other'&&!r.primary))&&(!q||[r.id,r.name,r.coreInfo.website?.url].join(' ').normalize('NFKC').toLowerCase().includes(q))&&(!method||(r.coreInfo.payment?.methods||[]).some(m=>String(m).includes(method))));
+  const snapshot=publication();let rows=filters(snapshot?.snapshotId).filter(r=>(scope==='all'||(scope==='primary'&&r.primary)||(scope==='other'&&!r.primary))&&(!q||r.search.includes(q))&&(!method||r.methods.some(m=>String(m).includes(method))));
   for(const[field,param]of [['pricing','price'],['refund','refund']])if(query[param]){const known=new Set(db.prepare('SELECT record_id FROM catalog_field_states WHERE field=? AND material_available=?').all(field,query[param]==='available'?1:0).map(r=>r.record_id));rows=rows.filter(r=>known.has(r.id));}
-  const totalRecords=rows.length,preferred=require('../lib/catalog-presentation.cjs').preferredRows(rows,allRecords);rows=preferred.rows;return{...publication(),items:rows.slice((page-1)*limit,page*limit).map(r=>present(r,options)),total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
+  const totalRecords=rows.length,related=rows.some(r=>r.id==='A082')?selectRecords(relationIds):[];
+  const legacy=related.find(r=>r.id==='A082'),preferred=preferredRows(rows.map(r=>r.id==='A082'&&legacy||r),related);
+  rows=preferred.rows;
+  const ids=rows.slice((page-1)*limit,page*limit).map(r=>r.id),pageRows=new Map(selectRecords(ids).map(r=>[r.id,r]));
+  return{...snapshot,items:presentRows(ids.map(id=>pageRows.get(id)),{...options,card:query.view==='card',related}),total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
  }
- function detail(id,options={}){const row=records().find(r=>r.id===id);return row?{item:present(row,{...options,detail:true}),...publication()}:null;}
+ function detail(id,options={}){const record=readRecord.get(id);if(!record)return null;const row=recordRow(record);return{item:presentRows([row],{...options,detail:true,related:id==='A082'?selectRecords(['A070']):[]})[0],...publication()};}
  function stats(){const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};}
  function tables(){const names=['catalog_records','catalog_plans','catalog_payment_methods','catalog_policies','catalog_field_states','catalog_sources','catalog_record_sources','catalog_field_sources','catalog_order_cleanup','catalog_referral_links','catalog_imports','catalog_record_versions','catalog_publication','sites','evidence','observations','proposals','changes','referrals','jobs','service_heartbeats','collector_profiles','collector_control','collector_runs','collector_checkpoints','collector_events','collector_capture_metadata','collector_cancellation_acks'];return names.filter(name=>db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(name)).map(name=>({name,count:db.prepare('SELECT count(*) n FROM '+name).get().n,columns:db.prepare('PRAGMA table_info('+name+')').all().map(c=>({name:c.name,type:c.type,required:!!c.notnull,primaryKey:!!c.pk}))}));}
  function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=refs().find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
- return{importRecords,sync,publication,list,detail,stats,tables,exportBundle,rawExport:()=>({catalog:records().filter(r=>r.primary).map(r=>({id:r.id,name:r.name,coreInfo:r.coreInfo,officialUrl:r.coreInfo.website?.url})),evidenceAsOf:publication()?.sourceAsOf}),close:()=>db.close()};
+ return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest};

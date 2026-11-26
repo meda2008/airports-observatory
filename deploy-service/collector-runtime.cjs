@@ -19,23 +19,25 @@ async function runMeasurementLoop({store,secretDirectory,signal,batchLimit=2,wor
     }
   } finally {signal.removeEventListener('abort',stop);worker.stop();try{await store.heartbeat({status:'stopped',automaticApproval:false});}catch{}store.close();}
 }
-async function runCollectorRuntime({
+async function runMeasurementProxy({
   binary=process.env.MIHOMO_BINARY||process.env.MEASUREMENT_PROXY_BINARY||'/opt/mihomo/mihomo',
   config=process.env.MIHOMO_CONFIG||process.env.MEASUREMENT_PROXY_CONFIG||'/run/secrets/measurement-proxy/config.yaml',
   baseUrl=process.env.INTERNAL_API_URL||process.env.COLLECTOR_API_URL||'http://api:8080', token=process.env.COLLECTOR_INTERNAL_TOKEN||require('node:fs').readFileSync(process.env.INTERNAL_TOKEN_FILE||process.env.COLLECTOR_INTERNAL_TOKEN_FILE||'/run/secrets/internal-token','utf8').trim(),
   secretDirectory=process.env.MEASUREMENT_SECRET_DIR||'/run/secrets/measurement-auth',
   batchLimit=Number(process.env.MEASUREMENT_BATCH_LIMIT||2),
   signal,spawnImpl=spawn,probeImpl=probe,
-  webLoop=require('./collector-web-runtime.cjs').runCollectorLoop,
   measurementLoop=runMeasurementLoop,
   storeFactory=openHttpMeasurementStore,
   readinessTimeoutMs=30000,killTimeoutMs=10000,healthIntervalMs=2000,healthFailureMs=10000,
 }={}) {
   const controller=new AbortController(); const stop=()=>controller.abort();
   signal?.addEventListener('abort',stop,{once:true});if(signal?.aborted)stop();
-  const store=storeFactory({baseUrl,token,outboxDirectory:require('node:path').join(process.env.COLLECTOR_OUTBOX_DIR||'/collector-state/outbox','measurement')});
   // Mihomo logs can contain private subscription/endpoint details: do not forward them.
-  const child=spawnImpl(binary,['-d','/tmp/collector-proxy','-f',config],{stdio:['ignore','ignore','ignore'],env:process.env,windowsHide:true});
+  let child,store;
+  try{
+   store=storeFactory({baseUrl,token,outboxDirectory:require('node:path').join(process.env.COLLECTOR_OUTBOX_DIR||'/collector-state/outbox','measurement')});
+   child=spawnImpl(binary,['-d','/tmp/collector-proxy','-f',config],{stdio:['ignore','ignore','ignore'],env:process.env,windowsHide:true});
+  }catch(error){signal?.removeEventListener('abort',stop);store?.close();throw error;}
   let exited=false,childFailure;
   const childEnd=new Promise((resolve,reject)=>{child.once('error',()=>{exited=true;childFailure=Error('collector_proxy_failed');reject(childFailure);});child.once('exit',()=>{exited=true;if(controller.signal.aborted)resolve();else{childFailure=Error('collector_proxy_exited');reject(childFailure);}});});
   // Install a rejection handler before readiness polling.
@@ -50,7 +52,7 @@ async function runCollectorRuntime({
     if(childFailure)throw childFailure;
     if(controller.signal.aborted)return;
     const healthLoop=async()=>{let failedAt=null;while(!controller.signal.aborted){try{await delay(healthIntervalMs,undefined,{signal:controller.signal});}catch(e){if(controller.signal.aborted)return;throw e;}if(controller.signal.aborted)return;const healthy=await probeImpl();if(healthy)failedAt=null;else{failedAt??=Date.now();if(Date.now()-failedAt>=healthFailureMs)throw Error('collector_proxy_unhealthy');}}};
-    loops=[measurementLoop({store,secretDirectory,signal:controller.signal,batchLimit}),webLoop({signal:controller.signal,baseUrl,token}),healthLoop()];
+    loops=[measurementLoop({store,secretDirectory,signal:controller.signal,batchLimit}),healthLoop()];
     const stopped=new Promise(resolve=>controller.signal.addEventListener('abort',resolve,{once:true}));
     await Promise.race([childEnd,stopped,...loops.map(p=>p.then(()=>{if(!controller.signal.aborted)throw Error('collector_loop_exited');}))]);
     if(childFailure)throw childFailure;
@@ -60,6 +62,33 @@ async function runCollectorRuntime({
     let timer;await Promise.race([childEnd.catch(()=>{}),new Promise(resolve=>{timer=setTimeout(()=>{if(!exited)child.kill('SIGKILL');resolve();},killTimeoutMs);})]);clearTimeout(timer);
     await Promise.allSettled(loops);store.close();
   }
+}
+async function runCollectorRuntime({
+ signal,baseUrl=process.env.INTERNAL_API_URL||process.env.COLLECTOR_API_URL||'http://api:8080',
+ token=process.env.COLLECTOR_INTERNAL_TOKEN||require('node:fs').readFileSync(process.env.INTERNAL_TOKEN_FILE||process.env.COLLECTOR_INTERNAL_TOKEN_FILE||'/run/secrets/internal-token','utf8').trim(),
+ webLoop=require('./collector-web-runtime.cjs').runCollectorLoop,
+ log=value=>console.error(JSON.stringify(value)),proxyRetryMs=5000,...measurementOptions
+}={}){
+ const controller=new AbortController(),stop=()=>controller.abort();
+ signal?.addEventListener('abort',stop,{once:true});
+ if(signal?.aborted)stop();
+ const web=Promise.resolve().then(async()=>{
+  if(controller.signal.aborted)return;
+  await webLoop({signal:controller.signal,baseUrl,token});
+  if(!controller.signal.aborted)throw Error('collector_web_loop_exited');
+ });
+ const measurement=(async()=>{
+  while(!controller.signal.aborted){
+   try{await runMeasurementProxy({...measurementOptions,signal:controller.signal,baseUrl,token});}
+   catch{
+    if(controller.signal.aborted)break;
+    try{log({service:'collector_measurement',status:'degraded',reason:'measurement_runtime_retry_wait'});}catch{}
+    try{await delay(proxyRetryMs,undefined,{signal:controller.signal});}catch(error){if(!controller.signal.aborted)throw error;}
+   }
+  }
+ })();
+ try{await Promise.race([web,measurement]);}
+ finally{stop();signal?.removeEventListener('abort',stop);await Promise.allSettled([web,measurement]);}
 }
 if(require.main===module){const controller=new AbortController();process.once('SIGTERM',()=>controller.abort());process.once('SIGINT',()=>controller.abort());runCollectorRuntime({signal:controller.signal}).catch(()=>{console.error(JSON.stringify({service:'collector',status:'failed',reason:'collector_runtime_failed_no_secret_details'}));process.exitCode=1;});}
 module.exports={runCollectorRuntime,runMeasurementLoop};

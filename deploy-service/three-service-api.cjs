@@ -12,15 +12,24 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  if(adminToken===internalToken)throw Error('distinct_service_credentials_required');
  const store=createStore({filename}),catalogDb=openCatalogDb({filename,store,root}),{control,profiles}=initializeControl({store,root}),measurements=openMeasurementStore({filename,executorId:'collector'});
  const plane=createControlPlane({store,control,catalogDb,profiles,facts:publicFacts});
- // Review remains mandatory. This in-process publisher only reconciles already
- // approved material and retries a previously failed publication without Codex.
- const publisher=require('./publisher.cjs').createPublisher({store,catalog:catalogDb,root});
- const publicationTimer=setInterval(()=>publisher.tick(),30000);publicationTimer.unref?.();
- publisher.tick();
+ // Seed before serving requests. Reconciliation of approved changes runs off the request thread.
+ const startupPublisher=require('./publisher.cjs').createPublisher({store,catalog:catalogDb,root});
+ if(!catalogDb.publication())startupPublisher.tick();
+ const publisher=require('./publication-worker.cjs').openPublicationWorker({filename,root});
+ let publicationInFlight=false;
+ function tickPublication(){
+  if(publicationInFlight)return;
+  publicationInFlight=true;
+  Promise.resolve().then(()=>publisher.tick()).catch(()=>{
+   try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:'publication_worker_unavailable',networkAccess:false}});}catch{}
+  }).finally(()=>{publicationInFlight=false;});
+ }
+ const publicationTimer=setInterval(tickPublication,30000);publicationTimer.unref?.();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
  const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb});
- const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ const server=createServer({store,catalogDb,controlStore:control,measurementStore:measurements,registry:profiles,adminToken,syncPublication:publisher.sync}),base=server.listeners('request')[0];server.removeAllListeners('request');
+ server.once('listening',tickPublication);
  let lastSchedule=0;
  const webOps={
   assistpoll:()=>assistance.poll(),
@@ -88,13 +97,23 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   if(!url.pathname.startsWith('/internal/')){if(url.pathname==='/health'||url.pathname.startsWith('/api/'))return base(req,res);res.writeHead(404);res.end('Not found');return;}
   const send=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
   if(req.method!=='POST'||!authorizedMeasurementWorker(req.headers.authorization,internalToken)){send(401,{error:'internal_auth_required'});return;}
-  try{const input=await readJson(req);
+  try{
+   if(url.pathname==='/internal/web-collector/receivebatches'){
+    if(req.headers['content-type']!=='application/x-ndjson')return send(415,{error:'internal_payload_invalid'});
+    const packet=await require('../lib/collector-submission.cjs').readSubmissionBatches(req);
+    return send(200,await webOps.receive(packet));
+   }
+   const input=await readJson(req);
    if(url.pathname==='/internal/measurement-worker'){const value=await dispatchMeasurementWorker(measurements,input);send(200,{ok:true,value:value===undefined?null:value});return;}
    const match=url.pathname.match(/^\/internal\/web-collector\/([a-z]+)$/);if(match&&Object.hasOwn(webOps,match[1])){send(200,await webOps[match[1]](input));return;}
    send(404,{error:'internal_operation_not_found'});
-  }catch{send(409,{ok:false,error:'internal_request_rejected'});}
+  }catch(error){
+   if(url.pathname==='/internal/web-collector/renew'&&['Bridge lease lost','Entry discovery lease lost','Entry discovery lease expired'].includes(error?.message))return send(409,{ok:false,error:'collector_lease_unavailable'});
+   if(error?.message==='internal_payload_too_large')return send(413,{ok:false,error:'internal_payload_too_large'});
+   send(409,{ok:false,error:'internal_request_rejected'});
+  }
  });
- server.on('close',()=>{clearInterval(publicationTimer);assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
  return {server,store,control,measurements,catalogDb,publisher};
 }
 if(require.main===module){try{
