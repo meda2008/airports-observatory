@@ -9,6 +9,7 @@ const el = (tag, text, cls) => {
 };
 const list = (v) => (Array.isArray(v) ? v : []);
 const show = (v) => (v == null || v === '' ? '暂无数据' : typeof v === 'object' ? JSON.stringify(v) : String(v));
+const DETAIL_HASH = /^#\/airport\/([^/]+)$/;
 
 function dateText(v) {
   return v ? String(v).replace('T', ' ').replace(/\.\d+Z$/, ' UTC') : '未知';
@@ -19,7 +20,12 @@ function shortDate(v) {
 }
 
 async function api(url, options = {}) {
-  const r = await fetch(url, {cache: 'no-store', headers: {Accept: 'application/json'}, ...options});
+  const r = await fetch(url, {
+    cache: 'no-store',
+    headers: {Accept: 'application/json'},
+    signal: globalThis.AbortSignal?.timeout?.(15000),
+    ...options
+  });
   let d = null;
   if (typeof r.text === 'function') {
     const text = await r.text();
@@ -216,11 +222,19 @@ function performanceNotes(s = {}) {
       if (text) n.append(el('p', text));
     }
     const detail = el('details', null, 'historical-latency');
-    detail.append(el('summary', '历史HTTPS延迟（地区典型p50）'));
+    const title = '历史HTTPS延迟（地区典型p50）';
+    detail.append(el('summary', title));
     const table = el('table', null, 'plan-table');
+    const thead = el('thead');
     const head = el('tr');
-    for (const label of ['网络', '地区', 'Cloudflare', 'Google', '合格/候选节点']) head.append(el('th', label));
-    table.append(head);
+    for (const label of ['网络', '地区', 'Cloudflare', 'Google', '合格/候选节点']) {
+      const th = el('th', label);
+      th.scope = 'col';
+      head.append(th);
+    }
+    thead.append(head);
+    const tbody = el('tbody');
+    table.append(thead, tbody);
     for (const v of c.rows) {
       const row = el('tr');
       for (const text of [
@@ -232,9 +246,14 @@ function performanceNotes(s = {}) {
       ]) {
         row.append(el('td', text));
       }
-      table.append(row);
+      tbody.append(row);
     }
-    detail.append(table);
+    const wrap = el('div', null, 'table-wrap');
+    wrap.tabIndex = 0;
+    wrap.setAttribute('role', 'region');
+    wrap.setAttribute('aria-label', title);
+    wrap.append(table);
+    detail.append(wrap);
     n.append(detail);
   }
   if (safeS.supplementaryImageContext) {
@@ -479,12 +498,15 @@ function changeCard(i, showCurrentReports) {
   return card;
 }
 
-let catalogPage = 1;
-let catalogPages = 1;
-let catalogSequence = 0;
+let catalogQuery = null;
+let catalogView = null;
+let catalogRequest = null;
+let catalogMeta = '';
 let searchSequence = 0;
-let detailSequence = 0;
+let detailView = null;
 let observedSnapshot = null;
+let pollingSnapshot = false;
+let statsUnavailable = false;
 
 function updatePaymentChips() {
   const current = ($('#catalog-form [name="payment"]')?.value || '').trim();
@@ -505,82 +527,97 @@ function statsPrimaryTotal(s) {
 }
 
 function applySnapshotMeta(data) {
-  if (data?.snapshotId && !observedSnapshot) {
-    observedSnapshot = data.snapshotId;
-  }
-  const asOf = shortDate(data?.sourceAsOf);
-  if (asOf && $('#snapshot-badge')) {
+  const asOf = shortDate(data.sourceAsOf);
+  if (asOf) {
     $('#snapshot-badge').textContent = `快照 ${asOf}`;
     $('#snapshot-badge').hidden = false;
   }
 }
 
-async function loadStats() {
-  try {
-    const s = await api('/api/stats');
-    const primaryTotal = statsPrimaryTotal(s);
-    if (Number.isFinite(primaryTotal) && $('#stat-primary')) {
-      $('#stat-primary').textContent = `${primaryTotal} 家`;
-    }
-    applySnapshotMeta(s);
-    return s;
-  } catch {
-    return null;
-  }
+function updateCatalogMeta(text = catalogMeta) {
+  catalogMeta = text;
+  const meta = $('#catalog-meta');
+  const next = [text, statsUnavailable ? '自动更新暂不可用' : ''].filter(Boolean).join(' · ');
+  if (meta.textContent !== next) meta.textContent = next;
 }
 
-async function loadCatalog() {
-  const seq = ++catalogSequence;
-  const formData = new FormData($('#catalog-form'));
+function loadError(view, error, hasContent) {
+  const message = error.name === 'TimeoutError' ? '加载超时，请重试' : error.message;
+  $(`#${view}-error`).hidden = false;
+  $(`#${view}-error-message`).textContent = message + (hasContent ? '。继续显示上次成功加载的结果。' : '');
+}
+
+function catalogFormQuery() {
   const params = new URLSearchParams();
-  for (const [k, v] of formData) {
+  for (const [k, v] of new FormData($('#catalog-form'))) {
     if (v) params.set(k, v);
   }
-  params.set('page', catalogPage);
+  params.set('page', '1');
   params.set('limit', '12');
   params.set('view', 'card');
   updatePaymentChips();
+  return params;
+}
 
-  const isUnfilteredPrimary =
-    (params.get('scope') || 'primary') === 'primary' &&
-    !params.get('q') &&
-    !params.get('payment') &&
-    !params.get('price') &&
-    !params.get('refund');
+async function loadCatalog(query = catalogQuery) {
+  if (!query || DETAIL_HASH.test(location.hash) || catalogRequest?.toString() === query.toString()) return;
+  catalogQuery = catalogRequest = query;
+  const isCurrent = () => catalogRequest === query && !DETAIL_HASH.test(location.hash);
+  const snapshot = observedSnapshot;
+  if (!catalogView) updateCatalogMeta('正在加载…');
 
-  $('#catalog-error').hidden = true;
-  $('#catalog-meta').textContent = '正在加载…';
   try {
-    const d = await api('/api/catalog?' + params);
-    if (seq !== catalogSequence) return;
-    const requestedPage = Number(params.get('page'));
-    const lastPage = Number(d.pages) || 1;
-    if (requestedPage > lastPage && d.total > 0) {
-      catalogPage = lastPage;
-      return loadCatalog();
+    let params = query;
+    let d = await api('/api/catalog?' + params);
+    if (!isCurrent()) return;
+    const lastPage = (data) => Math.max(1, Number(data.pages) || 1);
+    // A new publication can shrink the total while a visitor is on a later page.
+    if (Number(d.page) > lastPage(d) && d.total > 0) {
+      params = new URLSearchParams(query);
+      params.set('page', lastPage(d));
+      d = await api('/api/catalog?' + params);
+      if (!isCurrent()) return;
+      if (Number(d.page) > lastPage(d) && d.total > 0) throw Error('目录页数已变动，请重试');
     }
-    catalogPages = Number(d.pages) || 1;
-    catalogPage = Math.min(Number(d.page) || 1, catalogPages);
-    $('#catalog-results').replaceChildren(
-      ...(list(d.items).length ? d.items.map(catalogCard) : [el('p', '没有找到匹配的机场，试试调整筛选条件。', 'empty-state')])
-    );
-    if (isUnfilteredPrimary && $('#stat-primary')) {
-      const count = Number.isFinite(d.totalRecords) ? d.totalRecords : Number(d.total) || 0;
+
+    if (!Array.isArray(d.items) || !Number.isFinite(d.total)) throw Error('服务器返回了无效目录数据');
+    const pages = lastPage(d);
+    const page = Math.min(Number(d.page) || 1, pages);
+    const cards = d.items.length ? d.items.map(catalogCard) : [el('p', '没有找到匹配的机场，试试调整筛选条件。', 'empty-state')];
+    $('#catalog-results').replaceChildren(...cards);
+    params.set('page', page);
+    catalogQuery = params;
+    catalogView = {query: params, page, pages, snapshotId: d.snapshotId ?? snapshot};
+    $('#page-label').textContent = `第 ${page} / ${pages} 页`;
+    $('#previous').disabled = page <= 1;
+    $('#next').disabled = page >= pages;
+    $('#catalog-error').hidden = true;
+
+    const isUnfilteredPrimary = (params.get('scope') || 'primary') === 'primary' &&
+      !['q', 'payment', 'price', 'refund'].some((key) => params.has(key));
+    if (isUnfilteredPrimary && (!observedSnapshot || catalogView.snapshotId === observedSnapshot)) {
+      const count = Number.isFinite(d.totalRecords) ? d.totalRecords : d.total;
       $('#stat-primary').textContent = `${count} 家`;
     }
     const asOf = shortDate(d.sourceAsOf);
-    $('#catalog-meta').textContent = `${d.total} 个机场` + (asOf ? ` · 数据基准 ${asOf}` : '');
-    applySnapshotMeta(d);
-    $('#page-label').textContent = `第 ${catalogPage} / ${catalogPages} 页`;
-    $('#previous').disabled = catalogPage <= 1;
-    $('#next').disabled = catalogPage >= catalogPages;
+    updateCatalogMeta(`${d.total} 个机场` + (asOf ? ` · 数据基准 ${asOf}` : ''));
+    if (!observedSnapshot) applySnapshotMeta(d);
   } catch (e) {
-    if (seq !== catalogSequence) return;
-    $('#catalog-error').hidden = false;
-    $('#catalog-error').textContent = e.message;
-    $('#catalog-meta').textContent = '加载失败';
-    $('#catalog-results').replaceChildren();
+    if (!isCurrent()) return;
+    if (!catalogView) updateCatalogMeta('加载失败');
+    loadError('catalog', e, Boolean(catalogView));
+  } finally {
+    if (catalogRequest === query) catalogRequest = null;
   }
+}
+
+function changeCatalogPage(offset) {
+  if (!catalogView) return;
+  const page = catalogView.page + offset;
+  if (page < 1 || page > catalogView.pages) return;
+  const query = new URLSearchParams(catalogView.query);
+  query.set('page', page);
+  return loadCatalog(query);
 }
 
 async function search(e) {
@@ -601,7 +638,7 @@ async function search(e) {
       : list(d.items).length
         ? `找到 ${d.items.length} 个符合条件的机场代表套餐`
         : d.reason || '暂无符合条件的套餐。';
-    for (const item of list(d.items)) {
+    const cards = list(d.items).map((item) => {
       const n = el('article', null, 'service-card');
       const topRow = el('div', null, 'card-header');
       const a = el('a', item?.name || '未命名机场', 'card-title');
@@ -631,10 +668,11 @@ async function search(e) {
       n.append(compareMeta);
 
       appendLink(n, item);
-      $('#results').append(n);
-    }
+      return n;
+    });
+    $('#results').replaceChildren(...cards);
   } catch (e) {
-    if (seq === searchSequence) $('#status').textContent = e.message;
+    if (seq === searchSequence) $('#status').textContent = e.name === 'TimeoutError' ? '查找超时，请重试' : e.message;
   }
 }
 
@@ -670,7 +708,20 @@ function referencePrices(pricing) {
   return box;
 }
 
-function renderDetail(item) {
+function planConditions(plan, pricing) {
+  const hasSourcedPrice = Number.isFinite(plan.amount) && plan.amount >= 0 && plan.billingPeriod && list(plan.sourceIds).length;
+  if (!hasSourcedPrice || pricing.status === 'not_confirmed' || plan.priceStatus === 'not_confirmed' ||
+      plan.soldOut === true || plan.purchasable === false) return null;
+  const lines = globalThis.PlanConditions?.conditionLines(plan);
+  if (!lines?.length) return null;
+  const details = el('details', null, 'plan-conditions');
+  const notes = el('ul');
+  notes.replaceChildren(...lines.map((line) => el('li', line)));
+  details.append(el('summary', '套餐条件'), notes);
+  return details;
+}
+
+function renderDetail(item, billingPeriod) {
   const safeItem = item && typeof item === 'object' ? item : {};
   const root = el('div');
   const top = el('section', null, 'detail-top');
@@ -722,7 +773,8 @@ function renderDetail(item) {
 
   const section = el('section', null, 'plans-section');
   const bar = el('div', null, 'plans-heading');
-  const plans = list(safeItem.pricing?.plans);
+  const pricing = safeItem.pricing || {};
+  const plans = list(pricing.plans);
   bar.append(el('h2', `套餐价格（${plans.length} 组）`));
 
   const label = el('label', '计费周期 ');
@@ -734,7 +786,8 @@ function renderDetail(item) {
     o.value = period;
     select.append(o);
   }
-  select.value = periods.includes(s.price?.billingPeriod) ? s.price.billingPeriod : '全部';
+  const selectedPeriod = billingPeriod ?? s.price?.billingPeriod;
+  select.value = periods.includes(selectedPeriod) ? selectedPeriod : '全部';
   label.append(select);
   bar.append(label);
   section.append(bar);
@@ -749,11 +802,12 @@ function renderDetail(item) {
 
   const draw = () => {
     const shown = plans.filter((p) => p && (select.value === '全部' || p.billingPeriod === select.value));
-    tbody.replaceChildren();
-    for (const p of shown) {
+    const rows = shown.map((p) => {
       const row = el('tr');
       const name = el('td', p.name || '套餐');
       if (p.soldOut === true) name.append(el('small', '售罄', 'sold-out'));
+      const conditions = planConditions(p, pricing);
+      if (conditions) name.append(conditions);
       const price = el('td', priceText(p), 'table-price');
       price.append(el('small', ' / ' + (p.billingPeriod || '周期待确认')));
       if (p.currency) price.append(el('small', currencyText(p), 'currency-label'));
@@ -763,15 +817,16 @@ function renderDetail(item) {
         el('td', p.quota || '暂无数据'),
         el('td', Number.isFinite(p.maxDevices) && p.maxDevices > 0 ? p.maxDevices + '台' : p.deviceLimit || '暂无数据')
       );
-      tbody.append(row);
-    }
-    if (!shown.length) {
+      return row;
+    });
+    if (!rows.length) {
       const empty = el('td', '暂无报价', 'empty-state');
       empty.colSpan = 4;
       const row = el('tr');
       row.append(empty);
-      tbody.append(row);
+      rows.push(row);
     }
+    tbody.replaceChildren(...rows);
   };
   select.addEventListener('change', draw);
   draw();
@@ -797,106 +852,131 @@ function renderDetail(item) {
   return root;
 }
 
-async function route() {
-  const match = location.hash.match(/^#\/airport\/([^/]+)$/);
-  const seq = ++detailSequence;
-  $('#home').hidden = !!match;
-  $('#detail').hidden = !match;
-  if (!match) {
-    document.title = '航向 · 机场套餐目录与比价';
-    if (location.hash) {
-      try {
-        document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior: 'auto'});
-      } catch {}
-    }
-    return;
-  }
-  $('#detail-content').replaceChildren(el('p', '正在加载…', 'empty-state'));
-  window.scrollTo({top: 0, behavior: 'auto'});
-  let decodedId;
+async function loadDetail(view) {
+  const isCurrent = () => view === detailView && view.hash === location.hash;
+  if (!view || !isCurrent() || view.loading) return;
+  view.loading = true;
+  const snapshot = observedSnapshot;
+  const content = $('#detail-content');
+  if (!view.rendered) content.replaceChildren(el('p', '正在加载…', 'empty-state'));
+
   try {
-    decodedId = decodeURIComponent(match[1]);
-  } catch {
-    if (seq === detailSequence) {
-      $('#detail-content').replaceChildren(el('p', '链接包含无效的编码字符', 'error'));
+    const d = await api('/api/airports/' + encodeURIComponent(view.id));
+    if (!isCurrent()) return;
+    if (d.item?.id !== view.id) throw Error('未找到这个机场');
+    const selector = '.plans-heading select';
+    const previousSelect = view.rendered ? content.querySelector(selector) : null;
+    const restoreFocus = previousSelect && document.activeElement === previousSelect;
+    const root = renderDetail(d.item, previousSelect?.value);
+    const {scrollX, scrollY} = window;
+    content.replaceChildren(root);
+    $('#detail-error').hidden = true;
+    if (view.rendered) {
+      if (restoreFocus) root.querySelector(selector)?.focus({preventScroll: true});
+      window.scrollTo({left: scrollX, top: scrollY, behavior: 'instant'});
     }
-    return;
-  }
-  try {
-    const d = await api('/api/airports/' + encodeURIComponent(decodedId));
-    if (seq !== detailSequence) return;
-    if (!d.item) throw Error('未找到这个机场');
-    $('#detail-content').replaceChildren(renderDetail(d.item));
-    document.title = (d.item.name || decodedId) + ' · 航向';
+    view.rendered = true;
+    view.failed = false;
+    view.snapshotId = d.snapshotId ?? snapshot;
+    document.title = (d.item.name || view.id) + ' · 航向';
+    if (!observedSnapshot) applySnapshotMeta(d);
   } catch (e) {
-    if (seq === detailSequence) {
-      $('#detail-content').replaceChildren(el('p', e.message, 'error'));
-    }
+    if (!isCurrent()) return;
+    if (!view.rendered) content.replaceChildren();
+    view.failed = true;
+    loadError('detail', e, view.rendered);
+  } finally {
+    view.loading = false;
   }
 }
 
-async function pollSnapshotChange() {
-  if (document.hidden) return;
+function refreshVisibleView() {
+  if (DETAIL_HASH.test(location.hash)) {
+    if (detailView && (!detailView.rendered || detailView.failed || (observedSnapshot && detailView.snapshotId !== observedSnapshot))) {
+      return loadDetail(detailView);
+    }
+    return;
+  }
+  if (!catalogQuery) return loadCatalog(catalogFormQuery());
+  if (!catalogView || catalogQuery !== catalogView.query || (observedSnapshot && catalogView.snapshotId !== observedSnapshot)) {
+    return loadCatalog();
+  }
+}
+
+function route() {
+  const match = location.hash.match(DETAIL_HASH);
+  $('#home').hidden = !!match;
+  $('#detail').hidden = !match;
+  if (!match) {
+    detailView = null;
+    document.title = '航向 · 机场套餐目录与比价';
+    if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior: 'auto'});
+    return refreshVisibleView();
+  }
+
+  let id;
+  try {
+    id = decodeURIComponent(match[1]);
+  } catch {
+    detailView = null;
+    $('#detail-error').hidden = true;
+    $('#detail-content').replaceChildren(el('p', '链接包含无效的编码字符', 'error'));
+    return;
+  }
+  if (detailView?.id === id) {
+    detailView.hash = location.hash;
+    return refreshVisibleView();
+  }
+  detailView = {id, hash: location.hash, rendered: false};
+  $('#detail-error').hidden = true;
+  window.scrollTo({top: 0, behavior: 'instant'});
+  return loadDetail(detailView);
+}
+
+async function pollSnapshotChange(refresh = true) {
+  if (document.hidden || pollingSnapshot) return;
+  pollingSnapshot = true;
   try {
     const next = await api('/api/stats', {priority: 'low'});
-    const meta = $('#catalog-meta');
-    if (meta && meta.textContent.includes(' · 自动更新暂不可用')) {
-      meta.textContent = meta.textContent.replaceAll(' · 自动更新暂不可用', '');
-    }
-    const changed = Boolean(observedSnapshot && next?.snapshotId && next.snapshotId !== observedSnapshot);
-    if (next?.snapshotId) observedSnapshot = next.snapshotId;
-    if (changed) {
-      const primaryTotal = statsPrimaryTotal(next);
-      if (Number.isFinite(primaryTotal) && $('#stat-primary')) {
-        $('#stat-primary').textContent = `${primaryTotal} 家`;
-      }
-      applySnapshotMeta(next);
-      await loadCatalog();
-      if (/^#\/airport\//.test(location.hash)) await route();
-    }
+    observedSnapshot = next.snapshotId ?? observedSnapshot;
+    const primaryTotal = statsPrimaryTotal(next);
+    if (Number.isFinite(primaryTotal)) $('#stat-primary').textContent = `${primaryTotal} 家`;
+    applySnapshotMeta(next);
+    statsUnavailable = false;
   } catch {
-    const meta = $('#catalog-meta');
-    if (meta && !meta.textContent.includes('自动更新暂不可用')) {
-      meta.textContent += ' · 自动更新暂不可用';
-    }
+    statsUnavailable = true;
+  } finally {
+    updateCatalogMeta();
+    pollingSnapshot = false;
   }
+  if (refresh && !document.hidden) await refreshVisibleView();
 }
 
 $('#search').addEventListener('submit', search);
 $('#search-reset')?.addEventListener('click', () => {
+  searchSequence++;
   $('#search').reset();
   $('#status').textContent = '设置预算或输入需求，比较合格套餐。';
   $('#results').replaceChildren();
 });
 $('#catalog-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  catalogPage = 1;
-  loadCatalog();
+  return loadCatalog(catalogFormQuery());
 });
 $('#catalog-reset').addEventListener('click', () => {
   $('#catalog-form').reset();
-  catalogPage = 1;
-  loadCatalog();
+  return loadCatalog(catalogFormQuery());
 });
-$('#previous').addEventListener('click', () => {
-  if (catalogPage > 1) {
-    catalogPage--;
-    loadCatalog();
-  }
-});
-$('#next').addEventListener('click', () => {
-  if (catalogPage < catalogPages) {
-    catalogPage++;
-    loadCatalog();
-  }
-});
+$('#catalog-retry').addEventListener('click', () => loadCatalog());
+$('#detail-retry').addEventListener('click', () => loadDetail(detailView));
+$('#previous').addEventListener('click', () => changeCatalogPage(-1));
+$('#next').addEventListener('click', () => changeCatalogPage(1));
 for (const chip of $$('[data-payment]')) {
   chip.addEventListener('click', () => {
     const paymentInput = $('#catalog-form [name="payment"]');
     if (paymentInput) {
       paymentInput.value = chip.getAttribute('data-payment') || '';
-      catalogPage = 1;
-      loadCatalog();
+      return loadCatalog(catalogFormQuery());
     }
   });
 }
@@ -922,9 +1002,8 @@ for (const chip of $$('[data-preset-needs]')) {
   });
 }
 window.addEventListener('hashchange', route);
-loadStats();
-loadCatalog();
 route();
+pollSnapshotChange(false);
 if (typeof setInterval === 'function') {
   setInterval(pollSnapshotChange, 60000);
 }

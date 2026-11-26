@@ -5,6 +5,8 @@ const {DatabaseSync}=require('node:sqlite');
 const crypto=require('node:crypto'),path=require('node:path');
 const {safeUrl,QueryError}=require('../lib/catalog-service.cjs');
 const {outbound}=require('../lib/needs-search.cjs');
+const {displayNameFor,presentationFor,preferredRows}=require('../lib/catalog-presentation.cjs');
+const {customerSummary}=require('../lib/customer-summary.cjs');
 const {publicUrl}=require('./public-url.cjs');
 const {allSourceIds}=require('../scripts/export-current-inventory.cjs');
 const json=JSON.stringify,parse=JSON.parse,hash=s=>crypto.createHash('sha256').update(s).digest('hex');
@@ -15,8 +17,11 @@ function canonical(v){return Array.isArray(v)?v.map(canonical):v&&typeof v==='ob
 function contentIdentity(v,parent=''){if(Array.isArray(v))return v.map(x=>contentIdentity(x,parent));if(!v||typeof v!=='object')return v;return Object.fromEntries(Object.entries(v).filter(([k])=>!['asOf','ageHours','ageDays','elapsedSinceEarliestEvidence','generatedAt','servedAt'].includes(k)&&!(parent==='recentWindow'&&['start','end'].includes(k))).map(([k,c])=>[k,contentIdentity(c,k)]));}
 function latest(value){const times=[];function walk(v){if(!v||typeof v!=='object')return;for(const[k,c]of Object.entries(v)){if(['observedAt','capturedAt','observed_at'].includes(k)&&typeof c==='string'&&Number.isFinite(Date.parse(c)))times.push(c);else if(c&&typeof c==='object')walk(c);}}walk(value);return times.sort((a,b)=>Date.parse(b)-Date.parse(a))[0]||null;}
 function sourceMeta(s){return{id:s.source_id||s.id,url:s.url||s.source_url||s.sourceUrl||null,title:s.title||s.source_name||null,observedAt:s.last_capture_at||s.captured_at||s.capturedAt||s.observedAt||s.observed_at||latest(s.observations)||null,publishedAt:s.published_at||s.publishedAt||s.pageUpdatedAt||null,kind:s.source_type||s.kind||null,sha256:s.sha256||s.retainedBodySha256||null,resolved:!s.unresolved};}
+function referencedSourceIds(record){
+ return new Set([...(record.sourceIds||[]),...allSourceIds(record.coreInfo),...Object.values(record.fields||{}).flatMap(f=>f.sourceIds||[])]);
+}
 function referencedStoreEvidence(record){
- const ids=new Set([...(record.sourceIds||[]),...allSourceIds(record.coreInfo),...Object.values(record.fields||{}).flatMap(f=>f.sourceIds||[])]),dates=new Set(),approvedJobs=new Map();
+ const ids=referencedSourceIds(record),dates=new Set(),approvedJobs=new Map();
  function times(v){if(!v||typeof v!=='object')return;for(const[k,c]of Object.entries(v)){if(['observedAt','capturedAt','observed_at','captured_at'].includes(k)&&typeof c==='string'&&Number.isFinite(Date.parse(c)))dates.add(c);else if(c&&typeof c==='object')times(c);}}times(record.coreInfo);times(record.fields);
  for(const p of record.storeSnapshot?.proposals||[]){if(p.status!=='approved')continue;let evidenceIds=p.evidenceIds||p.evidence_ids||[];if(typeof evidenceIds==='string')try{evidenceIds=parse(evidenceIds);}catch{evidenceIds=[];}const job=p.jobId||p.job_id;if(job)for(const id of evidenceIds){if(!approvedJobs.has(id))approvedJobs.set(id,new Set());approvedJobs.get(id).add(job);}}
  return(record.storeSnapshot?.evidence||[]).filter(s=>ids.has(s.id)).map(s=>{const observations=[...new Set((s.observations||[]).filter(o=>dates.has(o.observedAt||o.observed_at)||approvedJobs.get(s.id)?.has(o.jobId||o.job_id)).map(o=>o.observedAt||o.observed_at))].sort().map(observedAt=>({observedAt}));const value={id:s.id,site_id:s.site_id||s.siteId||record.id,url:s.url,sha256:s.sha256,kind:s.kind,observations};for(const key of ['observedAt','observed_at','capturedAt','captured_at','last_capture_at'])if(dates.has(s[key]))value[key]=s[key];return value;});
@@ -88,18 +93,24 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
  function publication(){const m=meta();return m?{snapshotId:m.id,importedAt:m.imported_at,sourceAsOf:m.source_as_of,contentSha256:m.content_sha256}:null;}
  function sync(){
   const fs=require('node:fs'),inventory=require('../scripts/export-current-inventory.cjs');
-  if(!publication()&&fs.existsSync(path.join(root,'catalog/catalog.v1.json')))return importRecords(inventory.exportInventory({root,storeFile:filename,writeFiles:false}));
+  const published=publication();
+  if(!published&&fs.existsSync(path.join(root,'catalog/catalog.v1.json')))return importRecords(inventory.exportInventory({root,storeFile:filename,writeFiles:false,verifyEvidenceBodies:false}));
   // Retained versions are the base once initialized. Preserve their source
   // projection so re-exporting relational joins does not invent document drift.
-  const bundle=publication()?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
-  const snapshot={changes:(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:(store?.listProposals?.()||[]).map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))},sites=new Map((store?.listSites?.()||[]).map(s=>[s.id,s])),evidence=(store?.listEvidenceMetadata||store?.listEvidence)?.()||[];
-  const bySite=rows=>{const groups=new Map();for(const row of rows){if(!groups.has(row.siteId))groups.set(row.siteId,[]);groups.get(row.siteId).push(row);}return groups;};
-  const proposalsBySite=bySite(snapshot.proposals),evidenceBySite=bySite(evidence);
+  const bundle=published?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
+  const snapshot={changes:(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId})),proposals:(store?.listProposals?.()||[]).map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}))};
+  const sites=new Map((store?.listSites?.()||[]).map(s=>[s.id,s]));
+  const changesBySite=Map.groupBy(snapshot.changes,c=>c.site_id),proposalsBySite=Map.groupBy(snapshot.proposals,p=>p.site_id);
+  const evidenceIds=new Set();
   for(const r of bundle.records){
-   const site=sites.get(r.id);
-   if(site?.revision){const applied=inventory.overlay({coreInfo:r.coreInfo},site,snapshot);r.coreInfo=applied.coreInfo;delete applied.coreInfo;r.reviewedOverlay=applied;const referralState=r.fields.referral;r.fields=inventory.assess(r.coreInfo,null,r.catalogRecord||{});r.fields.referral=referralState;}
-   r.storeSnapshot={site,proposals:proposalsBySite.get(r.id)||[],evidence:evidenceBySite.get(r.id)||[]};
+   const site=sites.get(r.id),proposals=proposalsBySite.get(r.id)||[];
+   if(site?.revision){const applied=inventory.overlay({coreInfo:r.coreInfo},site,{changes:changesBySite.get(r.id)||[],proposals});r.coreInfo=applied.coreInfo;delete applied.coreInfo;r.reviewedOverlay=applied;const referralState=r.fields.referral;r.fields=inventory.assess(r.coreInfo,null,r.catalogRecord||{});r.fields.referral=referralState;}
+   r.storeSnapshot={site,proposals};
+   for(const id of referencedSourceIds(r))if(id.startsWith('ev-'))evidenceIds.add(id);
   }
+  const evidence=store?.listEvidenceMetadata?.({ids:[...evidenceIds]})||store?.listEvidence?.().map(({body,...e})=>e)||[];
+  const evidenceBySite=Map.groupBy(evidence,e=>e.siteId);
+  for(const r of bundle.records)r.storeSnapshot.evidence=evidenceBySite.get(r.id)||[];
   return importRecords(bundle);
  }
  const recordRow=r=>({id:r.id,name:r.name,category:r.category,primary:!!r.is_primary,coreInfo:parse(r.core_json)});
@@ -165,12 +176,12 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   const legacy=related.find(r=>r.id==='A082'),preferred=preferredRows(rows.map(r=>r.id==='A082'&&legacy||r),related);
   rows=preferred.rows;
   const ids=rows.slice((page-1)*limit,page*limit).map(r=>r.id),pageRows=new Map(selectRecords(ids).map(r=>[r.id,r]));
-  return{...snapshot,items:presentRows(ids.map(id=>pageRows.get(id)),{...options,card:query.view==='card',related}),total:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
+  return{...snapshot,items:presentRows(ids.map(id=>pageRows.get(id)),{...options,card:query.view==='card',related}),total:rows.length,filteredCount:rows.length,totalRecords,hiddenRelatedRecords:preferred.hiddenRelatedRecords,page,limit,pages:Math.ceil(rows.length/limit)};
  }
  function detail(id,options={}){const record=readRecord.get(id);if(!record)return null;const row=recordRow(record);return{item:presentRows([row],{...options,detail:true,related:id==='A082'?selectRecords(['A070']):[]})[0],...publication()};}
  function stats(){const counts={all:Number(db.prepare('SELECT count(*) n FROM catalog_records').get().n),primary:Number(db.prepare('SELECT count(*) n FROM catalog_records WHERE is_primary=1').get().n),plans:Number(db.prepare('SELECT count(*) n FROM catalog_plans').get().n),sources:Number(db.prepare('SELECT count(DISTINCT source_id) n FROM catalog_record_sources').get().n),ownedReferrals:refs().filter(r=>r.status==='verified_user_referral'&&r.owner==='user').length};const coverage=Object.fromEntries(FIELDS.map(field=>{const row=db.prepare('SELECT count(*) n,coalesce(sum(material_available),0) n_available FROM catalog_field_states f JOIN catalog_records r ON r.id=f.record_id WHERE r.is_primary=1 AND field=?').get(field);return[field,{materialAvailable:row.n_available,missing:row.n-row.n_available}];}));return{...publication(),counts,coverage,scope:'primary',limitations:['有材料不等于独立核实、交易成功或服务可用保证。','来源原始采集时间与数据库整理时间分别显示；整理不会刷新证据日期。','第三方报价不计官网报价覆盖；未知币种不自动换算。']};}
  function tables(){const names=['catalog_records','catalog_plans','catalog_payment_methods','catalog_policies','catalog_field_states','catalog_sources','catalog_record_sources','catalog_field_sources','catalog_order_cleanup','catalog_referral_links','catalog_imports','catalog_record_versions','catalog_publication','sites','evidence','observations','proposals','changes','referrals','jobs','service_heartbeats','collector_profiles','collector_control','collector_runs','collector_checkpoints','collector_events','collector_capture_metadata','collector_cancellation_acks'];return names.filter(name=>db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(name)).map(name=>({name,count:db.prepare('SELECT count(*) n FROM '+name).get().n,columns:db.prepare('PRAGMA table_info('+name+')').all().map(c=>({name:c.name,type:c.type,required:!!c.notnull,primaryKey:!!c.pk}))}));}
- function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=refs().find(v=>v.recordId===r.id&&v.status==='verified_user_referral')||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
- return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
+ function exportBundle({versionedSources=false}={}){const docs=db.prepare('SELECT document_json FROM catalog_record_versions WHERE snapshot_id=? ORDER BY record_id').all(publication().snapshotId).map(r=>parse(r.document_json));const referrals=Map.groupBy(refs().filter(r=>r.status==='verified_user_referral'),r=>r.recordId);for(const r of docs){if(!versionedSources)r.sourceEvidence=db.prepare('SELECT metadata_json FROM catalog_sources s JOIN catalog_record_sources rs ON s.id=rs.source_id WHERE rs.record_id=?').all(r.id).map(s=>parse(s.metadata_json));r.importedReferral=referrals.get(r.id)?.[0]||null;}return{records:docs,summary:{definitions:parse(meta().manifest_json).definitions},originalPublication:publication()};}
+ return{importRecords,sync,publication,list:(query,options)=>readSnapshot(()=>list(query,options)),detail:(id,options)=>readSnapshot(()=>detail(id,options)),stats:()=>readSnapshot(stats),tables,exportBundle,rawExport,coreInfo:id=>{const row=readRecord.get(id);return row?parse(row.core_json):undefined;},rawRecord:id=>{const r=readRecord.get(id);return r?.is_primary?parse(r.core_json):null;},close:()=>db.close()};
 }
 module.exports={openCatalogDb,sourceMeta,latest};

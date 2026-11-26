@@ -16,7 +16,8 @@ export function classifyVisibleChallenge(snapshot={}) {
 
 export async function inspectVisibleChallenge(tab) {
  const snapshot=await tab.playwright.evaluate(()=>{
-  const visible=e=>!!e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&!(location.hostname==='b8cfff2a4jquxdbmwbaj.wgetcloud.org'&&e.closest('.offcanvas:not(.show),.modal:not(.show),[inert],[aria-hidden="true"]'));
+  let hostname='';try{hostname=new URL(document.URL).hostname;}catch{}
+  const visible=e=>!!e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&!(hostname==='b8cfff2a4jquxdbmwbaj.wgetcloud.org'&&e.closest('.offcanvas:not(.show),.modal:not(.show),[inert],[aria-hidden="true"]'));
   const describe=e=>[e.getAttribute('name'),e.id,e.getAttribute('placeholder'),e.getAttribute('aria-label'),e.getAttribute('alt'),e.getAttribute('title')].filter(Boolean).join(' ');
   const captchaInputs=[...document.querySelectorAll('input')].filter(e=>visible(e)&&/captcha|验证码|图形验证/i.test(describe(e)));
   const captchaImages=[...document.querySelectorAll('img')].filter(e=>visible(e)&&/captcha|验证码|图形验证/i.test(describe(e)+' '+e.getAttribute('src')));

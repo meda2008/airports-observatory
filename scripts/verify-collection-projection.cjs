@@ -11,6 +11,6 @@ function assertProjection(claims,catalog){
  }
  return {status:'PASS_REVIEWED_FACTS_PROJECTION',records:claims.records.length};
 }
-function verify(id){const read=p=>JSON.parse(fs.readFileSync(p,'utf8')),pipeline=read(path.join(runDir(id),'pipeline.json')),phase=pipeline.phases.filter(p=>p.phase==='staged').at(-1);assert(phase,'No staged batch');return assertProjection(read(path.join(root,'catalog/refresh/2026-10-26',phase.batch,'claims.json')),read(path.join(root,'public-site/data/public-catalog.json')));}
+function verify(id){const read=p=>JSON.parse(fs.readFileSync(p,'utf8')),pipeline=read(path.join(runDir(id),'pipeline.json')),phase=pipeline.phases.filter(p=>p.phase==='staged').at(-1);assert(phase,'No staged batch');return assertProjection(read(path.join(root,'catalog/refresh/2026-10-26',phase.batch,'claims.json')),require('../lib/catalog-listing.cjs').loadCatalogProjection(root).doc);}
 if(require.main===module)console.log(JSON.stringify(verify(process.argv[2])));
 module.exports={assertProjection,verify};

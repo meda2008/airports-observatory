@@ -5,10 +5,21 @@ const list = v => Array.isArray(v) ? v : [];
 const show = v => v == null || v === '' ? '未知' : typeof v === 'object' ? JSON.stringify(v) : String(v);
 const copy = v => JSON.parse(JSON.stringify(v));
 let adminToken = '', session = 0, loading = false, collectors = [], selectedId = '', draft = null, dirty = false, editorBusy = false;
-const endpointErrors = new Map(), proposalDetails = new Map();
+const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map();
+function renderWhenChanged(key, value, render) {
+  const signature = JSON.stringify(value);
+  if (renderSignatures.has(key) && renderSignatures.get(key) === signature) return;
+  render(value);
+  renderSignatures.set(key, signature);
+}
 function record(message, failed = false) { const li = el('li', `${new Date().toLocaleString('zh-CN')} · ${message}`, failed ? 'failed' : ''); $('#events').prepend(li); }
 function fail(message) { $('#admin-status').textContent = message; record(message, true); }
-function displayErrors() { const box = $('#request-errors'); box.hidden = endpointErrors.size === 0; box.replaceChildren(...Array.from(endpointErrors, ([path, error]) => el('p', `${path}：${error}`))); }
+function displayErrors() {
+  renderWhenChanged('errors', [...endpointErrors], entries => {
+    const box = $('#request-errors'); box.hidden = entries.length === 0;
+    box.replaceChildren(...entries.map(([path, error]) => el('p', `${path}：${error}`)));
+  });
+}
 async function parseJsonResponse(response) {
   if (typeof response.text === 'function') {
     const text = await response.text();
@@ -146,46 +157,111 @@ function renderJobs(runs, jobs) { const items = [...list(runs)], seen = new Set(
 function renderCheckpoints(data) { const box = $('#checkpoints'), items = list(data?.items || data); box.replaceChildren(); if (!items.length) box.append(el('p', '暂无访问断点。', 'subtle')); for (const i of items) { const row = el('article', null, 'job-card'), id = i.id || i.checkpointId; row.append(el('strong', `${show(i.siteId)} · ${show(i.type)}`), facts({ ...i, recordedAt: i.createdAt ?? i.observedAt }, [['status', '断点状态'], ['stage', '保留阶段'], ['reason', '受阻原因'], ['recordedAt', '记录时间'], ['requestedAction', '所需操作']]), safeLink(i.url, '打开已记录页面 ↗')); if (id && !['resolved', 'cancelled', 'canceled', 'closed', 'completed', 'resumed'].includes(String(i.status).toLowerCase())) row.append(action('从断点重新入队', () => mutate('/api/admin/collection/checkpoints/' + encodeURIComponent(id) + '/resume', {}, '已提交断点恢复请求；等待执行端验证 ' + id))); row.append(raw(i)); box.append(row); } }
 function renderCollectionEvents(items) { const box = $('#collection-events'); box.replaceChildren(); if (!list(items).length) box.append(el('p', '暂无服务端事件。', 'subtle')); else for (const i of items) box.append(raw(i, `${show(i.createdAt || i.observedAt || i.timestamp)} · ${show(i.type || i.event || i.status)}`)); }
 function diffTable(d) { const container = el('div', null, 'proposal-diff'); container.append(el('p', `提案版本 ${show(d.expectedRevision)} · 当前资料版本 ${show(d.currentRevision)}`, 'subtle')); const before = d.before || {}, after = d.after || d.patch || {}, keys = [...new Set([...Object.keys(before), ...Object.keys(after), ...Object.keys(d.patch || {})])]; if (!keys.length) container.append(el('p', '没有返回可比较的字段，请核对完整提案和证据。', 'pending-note')); else { const table = el('table', null, 'data-table diff-table'), header = el('tr'), body = el('tbody'); header.append(el('th', '字段'), el('th', '原值'), el('th', '拟更新值')); const head = el('thead'); head.append(header); for (const key of keys) { const r = el('tr'); r.append(el('th', key), el('td', show(before[key])), el('td', show(Object.hasOwn(after, key) ? after[key] : before[key]))); body.append(r); } table.append(head, body); const scroll = el('div', null, 'table-scroll'); scroll.append(table); container.append(scroll); } container.append(raw(d, '完整提案与安全事实')); return container; }
-function evidenceControls(ids, card) { const controls = el('div', null, 'evidence-actions'); for (const id of list(ids)) controls.append(action('读取证据 ' + id, async () => { const d = await api('/api/admin/evidence?id=' + encodeURIComponent(id)), box = el('div', null, 'evidence-box'); box.append(el('h4', '证据 ' + id), raw(d.item ?? d, '展开完整证据')); card.append(box); record('读取证据 ' + id); })); return controls; }
-function proposalCard(p) { const card = el('article', null, 'proposal-card'), id = p.id || p.proposalId, detailBox = el('div'), evidence = el('div'), actions = el('div', null, 'review-actions'); let detail = proposalDetails.get(id); if (detail && detail.expectedRevision !== p.expectedRevision) { proposalDetails.delete(id); detail = null; } card.append(el('h3', `${show(p.siteId)} · ${show(id)}`), el('p', `状态 ${show(p.status)} · 预期版本 ${show(p.expectedRevision)} · 创建 ${show(p.createdAt)}`, 'subtle')); if (p.reason || p.summary) card.append(el('p', p.reason || p.summary)); const detailsButton = action('查看旧值与新值', async () => { const d = await api('/api/admin/proposals/' + encodeURIComponent(id)); detail = d.item || d; proposalDetails.set(id, detail); detailBox.replaceChildren(diffTable(detail)); evidence.replaceChildren(evidenceControls(detail.evidenceIds || p.evidenceIds, card)); for (const b of actions.querySelectorAll('button')) b.disabled = false; record('读取提案差异 ' + id); }); card.append(detailsButton, detailBox, evidence); if (detail) detailBox.append(diffTable(detail)); evidence.append(evidenceControls(detail?.evidenceIds || p.evidenceIds, card)); if (p.status === 'pending') { for (const approved of [true, false]) { const b = action(approved ? '批准资料更新' : '拒绝提案', async () => { if (!detail) throw new Error('请先读取旧值与新值'); const reviewer = actor(); for (const c of actions.querySelectorAll('button')) c.disabled = true; try { const result = await api('/api/admin/review', { id, approved, expectedRevision: detail.expectedRevision ?? p.expectedRevision, reviewer }); proposalDetails.delete(id); const publication = result.publication?.status; const message = !approved ? '已拒绝提案 ' + id : publication === 'sync_failed' ? '复核已保存但未发布：请在“资料与发布”重试同步。' : publication === 'published' ? '复核已保存，资料已发布。' : publication === 'unchanged' ? '复核已保存，展示投影无需变更。' : '复核已保存；发布状态未确认，请核对发布服务。'; record(message, publication === 'sync_failed'); await load(false); if (publication === 'sync_failed') { endpointErrors.set('提案发布 ' + id, message); displayErrors(); } $('#admin-status').textContent = message; } finally { for (const c of actions.querySelectorAll('button')) c.disabled = false; } }, !approved); b.disabled = !detail; if (!approved) b.classList.add('reject'); actions.append(b); } card.append(actions, el('p', '先读取差异。提交携带预期版本；版本变化需重新读取提案并核对证据。', 'review-note')); } return card; }
+function evidenceControls(ids) {
+  const controls = el('div', null, 'evidence-actions');
+  for (const id of new Set(list(ids))) {
+    if (typeof id !== 'string' || !id.trim()) continue;
+    const box = el('div', null, 'evidence-box'); box.hidden = true;
+    controls.append(action('读取证据 ' + id, async () => {
+      const d = await api('/api/admin/evidence?id=' + encodeURIComponent(id));
+      if (!box.isConnected) return;
+      box.replaceChildren(el('h4', '证据 ' + id), raw(d.item ?? d, '展开完整证据'));
+      box.hidden = false;
+      record('读取证据 ' + id);
+    }), box);
+  }
+  return controls;
+}
+function proposalCard(p) {
+  const card = el('article', null, 'proposal-card'), id = p.id || p.proposalId;
+  card.append(el('h3', `${show(p.siteId)} · ${show(id)}`), el('p', `状态 ${show(p.status)} · 预期版本 ${show(p.expectedRevision)} · 创建 ${show(p.createdAt)}`, 'subtle'));
+  if (p.reason || p.summary) card.append(el('p', p.reason || p.summary));
+  if (typeof id !== 'string' || !id.trim()) {
+    card.append(el('p', '提案缺少编号，无法读取或复核。', 'pending-note'));
+    return card;
+  }
+  const detailBox = el('div'), evidence = el('div'), actions = el('div', null, 'review-actions');
+  let detail = proposalDetails.get(id);
+  if (detail && detail.expectedRevision !== p.expectedRevision) { proposalDetails.delete(id); detail = null; }
+  const detailsButton = action('查看旧值与新值', async () => {
+    const d = await api('/api/admin/proposals/' + encodeURIComponent(id));
+    if (!card.isConnected) return;
+    detail = d.item || d;
+    proposalDetails.set(id, detail);
+    detailBox.replaceChildren(diffTable(detail));
+    evidence.replaceChildren(evidenceControls(detail.evidenceIds || p.evidenceIds));
+    for (const b of actions.querySelectorAll('button')) b.disabled = false;
+    record('读取提案差异 ' + id);
+  });
+  card.append(detailsButton, detailBox, evidence);
+  if (detail) detailBox.append(diffTable(detail));
+  evidence.append(evidenceControls(detail?.evidenceIds || p.evidenceIds));
+  if (p.status === 'pending') {
+    for (const approved of [true, false]) {
+      const b = action(approved ? '批准资料更新' : '拒绝提案', async () => {
+        if (!detail) throw new Error('请先读取旧值与新值');
+        const reviewer = actor(), epoch = session;
+        for (const c of actions.querySelectorAll('button')) c.disabled = true;
+        try {
+          const result = await api('/api/admin/review', { id, approved, expectedRevision: detail.expectedRevision ?? p.expectedRevision, reviewer });
+          proposalDetails.delete(id);
+          const publication = result.publication?.status;
+          const message = !approved ? '已拒绝提案 ' + id : publication === 'sync_failed' ? '复核已保存但未发布：请在“资料与发布”重试同步。' : publication === 'published' ? '复核已保存，资料已发布。' : publication === 'unchanged' ? '复核已保存，展示投影无需变更。' : '复核已保存；发布状态未确认，请核对发布服务。';
+          record(message, publication === 'sync_failed');
+          await load(false);
+          if (epoch !== session) return;
+          if (publication === 'sync_failed') { endpointErrors.set('提案发布 ' + id, message); displayErrors(); }
+          $('#admin-status').textContent = message;
+        } finally { for (const c of actions.querySelectorAll('button')) c.disabled = false; }
+      }, !approved);
+      b.disabled = !detail;
+      if (!approved) b.classList.add('reject');
+      actions.append(b);
+    }
+    card.append(actions, el('p', '先读取差异。提交携带预期版本；版本变化需重新读取提案并核对证据。', 'review-note'));
+  }
+  return card;
+}
 async function load(announce = true, full = true) {
   if (!adminToken) return;
   if (loading) { if (full) load.pending = true; return; }
   loading = true;
   const epoch = session;
   if (announce) $('#admin-status').textContent = '正在读取采集、任务与资料状态…';
+  function renderCollection() {
+    const control = load.collection?.control || load.control, runtime = load.collection?.runtime || load.runtime;
+    renderWhenChanged('control', [control, runtime], () => renderControl(control, runtime));
+    renderWhenChanged('jobs', [load.collection?.runs, load.jobs, control?.engineEnabled], () => renderJobs(load.collection?.runs, load.jobs));
+    renderWhenChanged('checkpoints', load.collection?.checkpoints, renderCheckpoints);
+    renderWhenChanged('events', load.collection?.events, renderCollectionEvents);
+  }
   const requests = [['/api/admin/status?view=' + (full ? 'summary' : 'runtime'), d => {
-    renderService(d.updateService);
-    if (full) renderDatabase(d.database);
-    if (d.updateService?.collectionControl) renderControl(d.updateService.collectionControl, d.updateService.runtime);
+    renderWhenChanged('service', d.updateService, renderService);
+    if (full) renderWhenChanged('database', d.database, renderDatabase);
+    const status = d.updateService;
+    if (status?.collectionControl) renderWhenChanged('control', [status.collectionControl, status.runtime], () => renderControl(status.collectionControl, status.runtime));
   }]];
   if (full) {
     const query = $('#site-search').value.trim();
     requests.push(
-      ['/api/admin/jobs', d => { load.jobs = d; renderJobs(load.collection?.runs, d); }],
-      ['/api/admin/proposals', d => {
-        const signature = JSON.stringify(d);
-        if (signature === load.proposalsSignature) return;
-        load.proposalsSignature = signature;
-        const items = list(d.items || d);
+      ['/api/admin/jobs', d => { load.jobs = d; renderCollection(); }],
+      ['/api/admin/proposals', d => renderWhenChanged('proposals', list(d.items || d), items => {
+        const activeIds = new Set(items.map(p => p.id || p.proposalId));
+        for (const id of proposalDetails.keys()) if (!activeIds.has(id)) proposalDetails.delete(id);
         $('#proposals').replaceChildren(...(items.length ? items.map(proposalCard) : [el('p', '暂无提案。', 'subtle')]));
         $('#proposal-count').textContent = items.length + ' 条记录';
-      }],
+      })],
       ['/api/admin/collectors?q=' + encodeURIComponent(query), d => {
         collectors = list(d.items);
-        renderCollectorList();
+        renderWhenChanged('collectors', collectors.map(c => [c.siteId, c.name, c.revision, c.enabled ?? c.config?.enabled, c.nextRunAt]), renderCollectorList);
         if (!selectedId && collectors.length) selectCollector(collectors[0]);
         const selected = collectors.find(c => c.siteId === selectedId);
-        if (selected) renderSelectedStatus(selected);
-        if (!load.collection) renderControl(d.control, d.runtime);
+        if (selected) renderWhenChanged('selected', [selected, draft?.revision], () => renderSelectedStatus(selected));
+        load.control = d.control;
+        load.runtime = d.runtime;
+        if (!load.collection) renderCollection();
       }],
-      ['/api/admin/collection/status', d => {
-        load.collection = d;
-        renderControl(d.control, d.runtime);
-        renderJobs(d.runs, load.jobs);
-        renderCheckpoints(d.checkpoints);
-        renderCollectionEvents(d.events);
-      }]
+      ['/api/admin/collection/status', d => { load.collection = d; renderCollection(); }]
     );
   }
   try {
@@ -215,7 +291,7 @@ async function load(announce = true, full = true) {
   }
 }
 $('#auth-form').addEventListener('submit', async e => { e.preventDefault(); const token = $('#token').value; if (adminToken) disconnect(false); session++; adminToken = token; $('#token').value = ''; $('#disconnect').disabled = false; await load(); });
-function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); delete load.collection; delete load.jobs; delete load.proposalsSignature; delete load.pending; $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
+function disconnect(log = true) { adminToken = ''; session++; loading = false; collectors = []; selectedId = ''; draft = null; dirty = false; editorBusy = false; endpointErrors.clear(); proposalDetails.clear(); renderSignatures.clear(); delete load.collection; delete load.control; delete load.runtime; delete load.jobs; delete load.pending; $('#token').value = ''; $('#disconnect').disabled = true; $('#sync').disabled = false; $('#validate-all').disabled = false; $('#batch-results').hidden = true; $('#reparse-results').hidden = true; const referralButton = $('#referral').querySelector('button'); if (referralButton) referralButton.disabled = false; $('#workspace').hidden = true; $('#collector-detail').hidden = true; $('#collector-empty').hidden = false; $('#collector-config').reset(); for (const id of ['config-entry', 'config-pages', 'config-interval', 'config-fields', 'config-advanced']) $('#' + id).value = ''; for (const id of ['collector-name', 'collector-meta', 'validation-meta', 'validation-basis', 'revision-warning', 'draft-status']) $('#' + id).textContent = ''; setEditorBusy(false); for (const id of ['update-service', 'database', 'jobs', 'checkpoints', 'proposals', 'referral-results', 'collector-list', 'collection-summary', 'collection-events', 'validation-matrix', 'batch-results', 'reparse-results']) $('#' + id).replaceChildren(); displayErrors(); $('#admin-status').textContent = '已断开，令牌和管理资料已从页面清除。'; if (log) record('断开控制台并清除令牌'); }
 $('#disconnect').addEventListener('click', () => disconnect());
 $('#refresh').addEventListener('click', () => load());
 $('#validate-all').addEventListener('click', async () => {

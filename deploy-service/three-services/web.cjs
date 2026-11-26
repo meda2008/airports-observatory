@@ -3,6 +3,8 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const {createHash} = require('node:crypto');
+const {pipeline} = require('node:stream');
 
 const DEFAULT_MAX_BODY_BYTES = 8 * 1024 * 1024;
 const assets = {
@@ -85,6 +87,7 @@ function createStaticAssetLoader(publicDir) {
     const body = fs.readFileSync(realFilePath);
     const asset = {
       body,
+      etag: '"' + createHash('sha256').update(body).digest('base64url') + '"',
       type: types[path.extname(assetName)] || 'application/octet-stream'
     };
     cache.set(realFilePath, {mtimeMs: stat.mtimeMs, size: stat.size, asset});
@@ -121,6 +124,7 @@ function createWebServer({
     throw new Error('API_ORIGIN must be an HTTP origin without credentials');
   }
   const loadAsset = createStaticAssetLoader(publicDir);
+  const staticAssets = new Map([...new Set(Object.values(assets))].map(name => [name, loadAsset(name)]));
 
   return http.createServer((req, res) => {
     if (
@@ -200,12 +204,15 @@ function createWebServer({
       }
       let attempts = 0;
       let rejectedTooLarge = false;
+      let activeRequest;
+      res.once('close', () => { if (!res.writableFinished) activeRequest?.destroy(); });
+      req.once('aborted', () => activeRequest?.destroy());
       const send = () => {
         attempts++;
         const request = http.request(
           {hostname: target.hostname, port: target.port || 80, path: upstreamPath, method: req.method, headers, agent: false},
           (response) => {
-            if (rejectedTooLarge) return;
+            if (rejectedTooLarge || res.destroyed) { response.destroy(); return; }
             const responseHeaders = {...response.headers};
             delete responseHeaders.connection;
             delete responseHeaders['transfer-encoding'];
@@ -213,12 +220,13 @@ function createWebServer({
               if (!Object.hasOwn(responseHeaders, k)) responseHeaders[k] = v;
             }
             res.writeHead(response.statusCode, responseHeaders);
-            response.pipe(res);
+            pipeline(response, res, () => {});
           }
         );
+        activeRequest = request;
         request.setTimeout(120000, () => request.destroy(new Error('API timeout')));
         request.on('error', (error) => {
-          if (rejectedTooLarge) return;
+          if (rejectedTooLarge || res.destroyed) return;
           const bodyless =
             !req.headers['transfer-encoding'] && (!req.headers['content-length'] || req.headers['content-length'] === '0');
           if (
@@ -234,7 +242,6 @@ function createWebServer({
           }
           sendJsonError(res, 502, 'API unavailable');
         });
-        req.once('aborted', () => request.destroy());
         if (attempts === 1) {
           let streamedBytes = 0;
           const cleanupListeners = () => {
@@ -285,17 +292,23 @@ function createWebServer({
       res.writeHead(404, SECURITY_HEADERS).end();
       return;
     }
-    const loaded = loadAsset(asset);
+    const loaded = staticAssets.get(asset);
     if (!loaded) {
       res.writeHead(404, SECURITY_HEADERS).end();
       return;
     }
-    res.writeHead(200, {
+    const assetHeaders = {
       ...SECURITY_HEADERS,
       'content-type': loaded.type,
-      'content-length': loaded.body.length,
-      'cache-control': 'no-cache'
-    });
+      'cache-control': access?.admin ? 'private, no-cache' : 'no-cache',
+      etag: loaded.etag
+    };
+    const validators = req.headers['if-none-match']?.split(',').map(value => value.trim().replace(/^W\//, '')) || [];
+    if (validators.includes('*') || validators.includes(loaded.etag)) {
+      res.writeHead(304, assetHeaders).end();
+      return;
+    }
+    res.writeHead(200, {...assetHeaders, 'content-length': loaded.body.length});
     res.end(req.method === 'HEAD' ? undefined : loaded.body);
   });
 }

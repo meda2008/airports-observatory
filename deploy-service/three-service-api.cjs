@@ -108,9 +108,11 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    const match=url.pathname.match(/^\/internal\/web-collector\/([a-z]+)$/);if(match&&Object.hasOwn(webOps,match[1])){send(200,await webOps[match[1]](input));return;}
    send(404,{error:'internal_operation_not_found'});
   }catch(error){
+   const sqliteCode=Number.isInteger(error?.errcode)?error.errcode&0xff:null;
+   if(sqliteCode===5||sqliteCode===6||['SQLITE_BUSY','SQLITE_LOCKED'].includes(error?.code))return send(503,{ok:false,error:'internal_storage_temporarily_unavailable'});
    if(url.pathname==='/internal/web-collector/renew'&&['Bridge lease lost','Entry discovery lease lost','Entry discovery lease expired'].includes(error?.message))return send(409,{ok:false,error:'collector_lease_unavailable'});
    if(error?.message==='internal_payload_too_large')return send(413,{ok:false,error:'internal_payload_too_large'});
-   send(409,{ok:false,error:'internal_request_rejected'});
+   send([400,413].includes(error?.status)?error.status:409,{ok:false,error:'internal_request_rejected'});
   }
  });
  server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});

@@ -1,5 +1,12 @@
+x-local-logging: &local-logging
+  driver: local
+  options:
+    max-size: '20m'
+    max-file: '5'
+
 services:
   web:
+    logging: *local-logging
     build:
       context: ..
       dockerfile: deploy-service/Dockerfile
@@ -8,8 +15,8 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:8080"
-    env_file: .env
     environment:
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
       STORE_FILE: /data/collector.sqlite
       HOST: 0.0.0.0
       MEASUREMENT_STORE_FILE: /measurement-data/measurements.sqlite
@@ -17,6 +24,7 @@ services:
       - observatory-data:/data
       - measurement-data:/measurement-data
   worker:
+    logging: *local-logging
     image: airports-observatory:local
     command: node deploy-service/worker.cjs
     restart: unless-stopped
@@ -31,6 +39,7 @@ services:
     depends_on:
       - web
   publisher:
+    logging: *local-logging
     image: airports-observatory:local
     command: node deploy-service/publisher.cjs
     restart: unless-stopped
@@ -42,6 +51,7 @@ services:
     depends_on:
       - web
   controller:
+    logging: *local-logging
     image: airports-observatory:local
     command: node deploy-service/control-daemon.cjs
     restart: unless-stopped
@@ -53,6 +63,7 @@ services:
     depends_on:
       - web
   standalone:
+    logging: *local-logging
     image: airports-observatory:local
     command: node deploy-service/standalone-worker.cjs
     restart: unless-stopped
@@ -67,6 +78,7 @@ services:
     depends_on:
       - web
   measurements:
+    logging: *local-logging
     profiles: [measurement-route]
     image: airports-observatory:local
     pull_policy: never
@@ -92,6 +104,7 @@ services:
       measurement-proxy:
         condition: service_started
   measurement-proxy:
+    logging: *local-logging
     profiles: [measurement-route]
     # Load an explicitly approved client image locally; never pull implicitly.
     image: ${MEASUREMENT_PROXY_IMAGE:-airports-measurement-proxy:unconfigured}
