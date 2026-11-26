@@ -37,7 +37,7 @@ function setup() {
     if (fixture.unauthorized) return { ok: false, status: 401, json: async () => ({ error: 'UNAUTHORIZED' }) };
     if (fixture.fetch) { const result = await fixture.fetch(url, options); if (result) return result; }
     let data = {};
-    if (url === '/api/admin/status') data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
+    if (url.startsWith('/api/admin/status?view=')) data = { updateService: { status: 'paused' }, database: { tables: [{ name: 'evidence', count: 7 }] } };
     else if (url === '/api/admin/jobs') data = { items: [] };
     else if (url === '/api/admin/proposals') data = { items: fixture.proposals };
     else if (url.startsWith('/api/admin/proposals/')) data = { ...fixture.proposals[0], currentRevision: 2, before: { price: '原值' }, patch: { price: '<script>不执行</script>' }, after: { price: '<script>不执行</script>' }, evidenceIds: ['ev-1'] };
@@ -75,6 +75,24 @@ test('poll and revision changes preserve an edited configuration and show confli
   assert.match(h.nodes['draft-status'].textContent, /未保存/);
   await h.nodes['collector-list'].querySelectorAll('button')[0].dispatch('click');
   assert.equal(h.nodes['config-entry'].value, 'https://example.test/draft');
+});
+
+test('runtime polling uses one compact request and other panels render while profiles are delayed', async () => {
+  const h = setup(); await h.connect();
+  h.calls.length = 0;
+  for (let i = 0; i < 3; i++) await h.timers[0]();
+  assert.deepEqual(h.calls.map(c => c.url), Array(3).fill('/api/admin/status?view=runtime'));
+  assert.ok(h.calls.every(c => c.options.priority === 'low'));
+  assert.match(h.nodes.database.textContent, /evidence/);
+  let release;
+  h.fixture.proposals.push({id: 'new-proposal', siteId: 'A001', status: 'pending'});
+  h.fixture.fetch = url => url.startsWith('/api/admin/collectors?') ? new Promise(resolve => { release = resolve; }) : null;
+  const full = h.timers[0]();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.match(h.nodes.proposals.textContent, /new-proposal/);
+  release(null);
+  await full;
+  assert.equal(h.calls.length, 8);
 });
 
 test('configuration saves bind expected revision and conflict preserves the draft', async () => {
@@ -140,7 +158,7 @@ test('checkpoint URLs reject script and credential URLs; actions use encoded IDs
 
 test('disconnect clears data and in-flight responses cannot restore management content', async () => {
   const h = setup(); await h.connect(); let release;
-  h.fixture.fetch = async url => url === '/api/admin/status' ? new Promise(resolve => { release = resolve; }) : null;
+  h.fixture.fetch = async url => url.startsWith('/api/admin/status?view=') ? new Promise(resolve => { release = resolve; }) : null;
   const pending = h.run('load(false)'); await new Promise(resolve => setImmediate(resolve));
   await h.nodes.disconnect.dispatch('click'); release({ ok: true, status: 200, json: async () => ({ database: { snapshotId: 'must-not-return' } }) }); await pending;
   assert.equal(h.nodes.workspace.hidden, true); assert.equal(h.nodes.database.textContent, '');

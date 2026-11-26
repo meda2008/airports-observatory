@@ -18,8 +18,8 @@ function shortDate(v) {
   return typeof v === 'string' && v.length >= 10 ? v.slice(0, 10) : '';
 }
 
-async function api(url) {
-  const r = await fetch(url, {cache: 'no-store', headers: {Accept: 'application/json'}});
+async function api(url, options = {}) {
+  const r = await fetch(url, {cache: 'no-store', headers: {Accept: 'application/json'}, ...options});
   let d = null;
   if (typeof r.text === 'function') {
     const text = await r.text();
@@ -538,6 +538,7 @@ async function loadCatalog() {
   }
   params.set('page', catalogPage);
   params.set('limit', '12');
+  params.set('view', 'card');
   updatePaymentChips();
 
   const isUnfilteredPrimary =
@@ -552,8 +553,14 @@ async function loadCatalog() {
   try {
     const d = await api('/api/catalog?' + params);
     if (seq !== catalogSequence) return;
+    const requestedPage = Number(params.get('page'));
+    const lastPage = Number(d.pages) || 1;
+    if (requestedPage > lastPage && d.total > 0) {
+      catalogPage = lastPage;
+      return loadCatalog();
+    }
     catalogPages = Number(d.pages) || 1;
-    catalogPage = Number(d.page) || 1;
+    catalogPage = Math.min(Number(d.page) || 1, catalogPages);
     $('#catalog-results').replaceChildren(
       ...(list(d.items).length ? d.items.map(catalogCard) : [el('p', '没有找到匹配的机场，试试调整筛选条件。', 'empty-state')])
     );
@@ -831,7 +838,7 @@ async function route() {
 async function pollSnapshotChange() {
   if (document.hidden) return;
   try {
-    const next = await api('/api/stats');
+    const next = await api('/api/stats', {priority: 'low'});
     const meta = $('#catalog-meta');
     if (meta && meta.textContent.includes(' · 自动更新暂不可用')) {
       meta.textContent = meta.textContent.replaceAll(' · 自动更新暂不可用', '');
