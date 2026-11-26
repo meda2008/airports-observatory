@@ -114,6 +114,16 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   }
  });
  server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ // Match the existing close callback contract: callers may remove the SQLite
+ // files as soon as it fires, including on Windows where open handles block removal.
+ const closeServer=server.close.bind(server);
+ server.close=function(callback){
+  if(typeof callback!=='function')return closeServer(callback);
+  return closeServer(error=>{
+   if(error)return callback.call(server,error);
+   publisher.close().then(()=>callback.call(server),failure=>callback.call(server,failure));
+  });
+ };
  return {server,store,control,measurements,catalogDb,publisher};
 }
 if(require.main===module){try{

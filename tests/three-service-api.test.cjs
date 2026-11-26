@@ -18,7 +18,7 @@ test('single API isolates UI and internal auth and shares canonical measurement 
  app.measurements.setExecutor({owner:'collector',enabled:true});app.measurements.setEnabled(true);
  const state=await fetch(base+'/api/admin/measurements',{headers:{Authorization:'Bearer '+'unit-admin-auth-9f8e7d6c5b4a3210-strong-key'}}).then(r=>r.json());assert.equal(state.execution.owner,'collector');assert.equal(state.enabled,true);
  const {DatabaseSync}=require('node:sqlite'),db=new DatabaseSync(file,{readOnly:true});assert(db.prepare("SELECT name FROM sqlite_master WHERE name='sites'").get());assert(db.prepare("SELECT name FROM sqlite_master WHERE name='measurement_observations'").get());db.close();
- }finally{await new Promise(r=>app.server.close(r));await app.publisher.close();fs.rmSync(dir,{recursive:true});}
+ }finally{await new Promise(r=>app.server.close(r));fs.rmSync(dir,{recursive:true});}
 });
 test('admin snapshot has explicit minimal site scope and never exports retained evidence bodies',async()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airports-three-snapshot-')),file=path.join(dir,'one.sqlite');
@@ -31,14 +31,14 @@ test('admin snapshot has explicit minimal site scope and never exports retained 
   for(const row of value.profiles)assert.deepEqual(Object.keys(row).sort(),['config','revision','siteId']);for(const row of value.sites)assert.deepEqual(Object.keys(row).sort(),['document','id','revision']);assert(!JSON.stringify(value).includes('SNAPSHOT-MUST-NOT-INCLUDE-THIS-EVIDENCE-BODY'));assert(!JSON.stringify(value).includes('private-retained-original'));
   for(const query of ['?sites=A001&sites=A002','?sites=A001,A001','?sites=A01','?sites=','?sites=https://example.org/','?extra=A001'])assert.equal((await fetch(base+route+query,{headers})).status,400,query);
   const all=await fetch(base+route,{headers}).then(r=>r.json());assert(all.profiles.length>=2);assert(all.sites.length>=2);
- }finally{await new Promise(r=>app.server.close(r));await app.publisher.close();fs.rmSync(dir,{recursive:true});}
+ }finally{await new Promise(r=>app.server.close(r));fs.rmSync(dir,{recursive:true});}
 });
 test('compact admin status, bound evidence and background publication keep separate contracts',async t=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airports-publication-worker-')),filename=path.join(dir,'one.sqlite');
  const adminToken='unit-admin-auth-9f8e7d6c5b4a3210-strong-key',internalToken='unit-worker-rpc-1a2b3c4d5e6f7890-strong-key';
  const app=createThreeServiceApi({filename,adminToken,internalToken});
  await new Promise(resolve=>app.server.listen(0,'127.0.0.1',resolve));
- t.after(async()=>{await new Promise(resolve=>app.server.close(resolve));await app.publisher.close();fs.rmSync(dir,{recursive:true,force:true});});
+ t.after(async()=>{await new Promise((resolve,reject)=>app.server.close(error=>error?reject(error):resolve()));fs.rmSync(dir,{recursive:true,force:true});});
  const base='http://127.0.0.1:'+app.server.address().port,headers={Authorization:'Bearer '+adminToken};
  const checkpoint=app.store.saveEvidence({siteId:'A001',url:'https://example.org/checkpoint',body:'SYNTHETIC checkpoint',kind:'verification_checkpoint',observedAt:'2026-11-14T00:00:00Z'});
  app.store.saveEvidence({siteId:'A001',url:'https://example.org/page',body:'SYNTHETIC original',kind:'operator_visible_page',observedAt:'2026-11-14T00:00:00Z'});
