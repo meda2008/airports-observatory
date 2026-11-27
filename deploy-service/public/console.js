@@ -411,3 +411,19 @@ setInterval(() => {
   if (adminToken && !document.hidden && !loading) return load(false, ++pollCount % 4 === 0);
 }, 15000);
 window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+(function initConsoleTheme() {
+  const docEl = document.documentElement;
+  const toggle = $('#theme-toggle');
+  if (!docEl || !toggle) return;
+  const apply = (mode) => {
+    docEl.dataset.theme = mode;
+    toggle.textContent = mode === 'dark' ? '浅色' : '深色';
+    toggle.setAttribute('aria-pressed', String(mode === 'dark'));
+  };
+  const prefersDark = Boolean(globalThis.matchMedia?.('(prefers-color-scheme: dark)')?.matches);
+  apply(prefersDark ? 'dark' : 'light');
+  toggle.addEventListener('click', () => {
+    apply(docEl.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+})();
