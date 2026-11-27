@@ -4,8 +4,9 @@ const {setTimeout:delay}=require('node:timers/promises');
 const {createMeasurementWorker}=require('./measurement-worker.cjs');
 const {openHttpMeasurementStore}=require('./measurement-worker-http.cjs');
 const {probe}=require('./measurement-sidecar/local-healthcheck.cjs');
-function measurementPollDelay(profiles,now=Date.now()) {
-  let wait=1000;
+function measurementPollDelay(profiles,now=Date.now(),{idleStreak=0,maxIdleMs=10000}={}) {
+  const baseWait=idleStreak>0?Math.min(maxIdleMs,1000*(2**Math.min(idleStreak,4))):1000;
+  let wait=baseWait;
   for (const {profile,nextDueAt} of profiles) {
     if (!profile?.enabled || typeof nextDueAt!=='string') continue;
     const dueAt=Date.parse(nextDueAt);
@@ -16,12 +17,15 @@ function measurementPollDelay(profiles,now=Date.now()) {
 async function runMeasurementLoop({store,secretDirectory,signal,batchLimit=2,worker=createMeasurementWorker({store,secretDirectory}),retryWait=require('../lib/service-api-recovery.cjs').wait}) {
   const stop=()=>worker.stop(); signal.addEventListener('abort',stop,{once:true});
   try {
-    let retryAttempt=0;
+    let retryAttempt=0,idleStreak=0;
     while(!signal.aborted) {
      try{await store.flush?.();
       await worker.tick({limit:batchLimit});
       const profiles=await store.canExecute()?await store.profiles():[];
-      const wait=measurementPollDelay(profiles);
+      const now=Date.now();
+      const soonDue=profiles.some(({profile,nextDueAt})=>profile?.enabled&&typeof nextDueAt==='string'&&Number.isFinite(Date.parse(nextDueAt))&&Date.parse(nextDueAt)-now<=1000);
+      idleStreak=soonDue?0:Math.min(idleStreak+1,4);
+      const wait=measurementPollDelay(profiles,now,{idleStreak});
       if(retryAttempt)require('../lib/service-api-recovery.cjs').report('collector_measurement','api_recovered',retryAttempt);retryAttempt=0;try{await delay(wait,undefined,{signal});}catch(e){if(!signal.aborted)throw e;}
      }catch(error){if(signal.aborted)break;if(!require('../lib/service-api-recovery.cjs').transient(error))throw error;retryAttempt++;if(retryAttempt===1||retryAttempt%10===0)require('../lib/service-api-recovery.cjs').report('collector_measurement','api_retry_wait',retryAttempt);await retryWait(retryAttempt,signal);}
     }
