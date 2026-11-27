@@ -15,6 +15,66 @@ test('initialized database sync overlays reviewed changes without seed or public
   assert.equal(first.status,'published');assert.equal(second.status,'unchanged');assert.equal(second.snapshotId,first.snapshotId);assert.equal(runtime.detail(a.id).item.pricing.plans[0].amount,135);assert.equal(store.getSite(a.id).revision,1);const after=runtime.exportBundle({versionedSources:true}),changed=after.records.find(r=>r.id===a.id);assert.deepEqual(after.records.find(r=>r.id===b.id),original.records.find(r=>r.id===b.id));assert.deepEqual(changed.listing,a.listing);assert.deepEqual(changed.catalogRecord,a.catalogRecord);assert.deepEqual(changed.importedReferral,a.importedReferral);assert.deepEqual(changed.fields.referral,a.fields.referral);assert.equal(changed.coreInfo.refund.summary,'Unknown refund');assert.equal(changed.reviewedOverlay.applied[0].revision,1);assert.deepEqual(after.summary.definitions,original.summary.definitions);assert.deepEqual(db.prepare("SELECT * FROM catalog_sources WHERE id IN ('S1','S2') ORDER BY id").all(),sourcesBefore);assert.ok(db.prepare('SELECT id FROM catalog_sources WHERE id=?').get(ev.id));
  }finally{db.close();runtime.close();}
 });
+test('incremental sync publishes supporting evidence only for the reviewed fields it applies',t=>{
+ const {catalog,store}=fixture(t),r=record(),siteId=r.id;
+ catalog.importRecords({records:[r]});
+ catalog.sync();
+ store.seedSites([{recordId:siteId,entryUrl:'https://example.com/',enabled:true}]);
+ store.enqueueDue();
+ const job=store.claim('fixture');
+ assert.equal(job.siteId,siteId);
+ const save=(body,observedAt)=>store.saveEvidence({siteId,jobId:job.jobId,url:'https://example.com/policy',body,observedAt});
+ const replaced=save('Superseded policy','2026-11-10T00:00:00Z');
+ const field=save('Current policy','2026-11-10T00:01:00Z');
+ const supporting=save('Supporting policy evidence','2026-11-10T00:02:00Z');
+ const unreviewed=save('Pending policy','2026-11-10T00:03:00Z');
+ const propose=(entry,summary,revision,evidenceIds=[entry.id])=>store.createProposal({siteId,jobId:job.jobId,patch:{refund:{status:'observed',summary,sourceIds:[entry.id],observedAt:entry.observedAt}},evidenceIds,expectedRevision:revision});
+ store.reviewProposal(propose(replaced,'Superseded policy',0).id,{approved:true,expectedRevision:0,reviewer:'test'});
+ store.reviewProposal(propose(field,'Reviewed policy',1,[field.id,supporting.id]).id,{approved:true,expectedRevision:1,reviewer:'test'});
+ propose(unreviewed,'Pending policy',2);
+ store.saveEvidence({siteId,url:'https://example.com/policy',body:'Supporting policy evidence',observedAt:'2026-11-11T00:00:00Z'});
+
+ assert.equal(catalog.sync().status,'published');
+ const detail=catalog.detail(siteId).item;
+ assert.equal(detail.refund.summary,'Reviewed policy');
+ assert.deepEqual(detail.sources.filter(source=>source.id.startsWith('ev-')).map(source=>[source.id,source.observedAt,source.status]),[
+  [supporting.id,supporting.observedAt,'retained_source_metadata'],
+  [field.id,field.observedAt,'retained_source_metadata']
+ ]);
+ assert.equal(catalog.sync().status,'unchanged');
+});
+
+test('a repository rebase preserves imported referrals only for the same active record and official origin',t=>{
+ const {catalog,filename}=fixture(t),root=path.dirname(filename),dir=path.join(root,'catalog');
+ const retained=ids=>({schemaVersion:'airports-catalog.v1',catalog:ids.map(id=>({id,name:'Retained '+id,category:'airport',officialUrl:'https://example.com/',provenanceIds:[]}))});
+ const base=retained(['A001','A002','A003','A004']);
+ const rows=base.catalog.map(({id})=>{
+  const r=record(id);
+  r.importedReferral={recordId:id,status:'verified_user_referral',owner:'user',url:`https://example.com/invite?code=${id}`,evidenceId:'S1',sourceIds:['S1'],verifiedAt:'2026-11-10T00:00:00Z',disclosure:'Synthetic referral'};
+  return r;
+ });
+ catalog.importRecords({records:rows});
+ const original=catalog.detail('A001').item.link;
+ assert.equal(original.type,'verified_user_referral');
+ fs.mkdirSync(dir);
+ fs.writeFileSync(path.join(dir,'source-provenance.json'),'{"sources":[]}');
+ fs.writeFileSync(path.join(dir,'forecast-ledger.v1.ndjson'),'');
+ base.catalog[1].officialUrl='https://example.org/';
+ base.catalog.pop();
+ fs.writeFileSync(path.join(dir,'catalog.v1.json'),JSON.stringify(base));
+ const curation=path.join(root,'collection','catalog-curation.json');
+ fs.mkdirSync(path.dirname(curation));
+ fs.writeFileSync(curation,JSON.stringify({schemaVersion:'airports-catalog-curation.v1',archived:[{id:'A003',name:'Retained A003',reason:'Fixture',archivedAt:'2026-11-24T00:00:00Z'}]}));
+
+ assert.equal(catalog.sync().status,'published');
+ assert.deepEqual(catalog.detail('A001').item.link,original);
+ assert.equal(catalog.detail('A002').item.link.type,'official_fallback');
+ assert.equal(catalog.detail('A003'),null);
+ assert.equal(catalog.detail('A004'),null);
+ assert.equal(catalog.stats().counts.ownedReferrals,1);
+ assert.equal(catalog.sync().status,'unchanged');
+});
+
 test('curation is reconciled from retained inputs even without a base file',t=>{
  const {catalog,filename}=fixture(t);
  catalog.importRecords({records:[record(),record('A002')]});

@@ -12,14 +12,18 @@ const {allSourceIds}=require('../scripts/export-current-inventory.cjs');
 const json=JSON.stringify,parse=JSON.parse,hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 const RETAINED_INPUTS=['catalog/catalog.v1.json','catalog/source-provenance.json','catalog/core-supplement.v1.json','catalog/current-evidence.v1.json','catalog/forecast-ledger.v1.ndjson','collection/catalog-curation.json','public-site/data/public-catalog.json'];
 const FIELDS=['pricing','payment','refund','privacy','compatibility','trial','promotions','speed','stability','operatingHistory','referral'];
+const PROJECTION_VERSION=5;
 function canonical(v){return Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;}
 // Rendering clocks and rolling window boundaries are not new observations.
 // Keep their original documents, but do not publish revisions on wall-clock drift.
 function contentIdentity(v,parent=''){if(Array.isArray(v))return v.map(x=>contentIdentity(x,parent));if(!v||typeof v!=='object')return v;return Object.fromEntries(Object.entries(v).filter(([k])=>!['asOf','ageHours','ageDays','elapsedSinceEarliestEvidence','generatedAt','servedAt'].includes(k)&&!(parent==='recentWindow'&&['start','end'].includes(k))).map(([k,c])=>[k,contentIdentity(c,k)]));}
 function latest(value){const times=[];function walk(v){if(!v||typeof v!=='object')return;for(const[k,c]of Object.entries(v)){if(['observedAt','capturedAt','observed_at'].includes(k)&&typeof c==='string'&&Number.isFinite(Date.parse(c)))times.push(c);else if(c&&typeof c==='object')walk(c);}}walk(value);return times.sort((a,b)=>Date.parse(b)-Date.parse(a))[0]||null;}
 function sourceMeta(s){return{id:s.source_id||s.id,url:s.url||s.source_url||s.sourceUrl||null,title:s.title||s.source_name||null,observedAt:s.last_capture_at||s.captured_at||s.capturedAt||s.observedAt||s.observed_at||latest(s.observations)||null,publishedAt:s.published_at||s.publishedAt||s.pageUpdatedAt||null,kind:s.source_type||s.kind||null,sha256:s.sha256||s.retainedBodySha256||null,resolved:!s.unresolved};}
+function recordSourceIds(record){
+ return new Set([...(record.sourceIds||[]),...allSourceIds(record.coreInfo),...allSourceIds(record.reviewedOverlay?.applied)]);
+}
 function referencedSourceIds(record){
- return new Set([...(record.sourceIds||[]),...allSourceIds(record.coreInfo),...Object.values(record.fields||{}).flatMap(f=>f.sourceIds||[])]);
+ return new Set([...recordSourceIds(record),...Object.values(record.fields||{}).flatMap(f=>f.sourceIds||[])]);
 }
 function referencedStoreEvidence(record){
  const ids=referencedSourceIds(record),dates=new Set(),approvedJobs=new Map();
@@ -56,14 +60,14 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   for(const r of records)if(!r.id||!r.name||!r.coreInfo||typeof r.primary!=='boolean'||!r.fields)throw Error('Invalid reviewed record');
   const docs=records.map(r=>({id:r.id,name:r.name,category:r.category,primary:r.primary,listing:r.listing||{},coreInfo:r.coreInfo,fields:r.fields,catalogRecord:r.catalogRecord||{},sourceIds:r.sourceIds||[],unresolvedSourceIds:r.unresolvedSourceIds||[],sourceEvidence:r.sourceEvidence||[],reviewedOverlay:r.reviewedOverlay||{},importedReferral:r.importedReferral||null}));
   const admittedEvidence=new Map(records.map(r=>[r.id,referencedStoreEvidence(r)])),storeEvidence=[...admittedEvidence.values()].flat();
-  const digest=hash(json(canonical(contentIdentity({projectionVersion:4,docs,storeEvidence})))),id='catalog-'+digest.slice(0,24);
+  const digest=hash(json(canonical(contentIdentity({projectionVersion:PROJECTION_VERSION,docs,storeEvidence})))),id='catalog-'+digest.slice(0,24);
   if(!syncState&&existing?.content_sha256===digest)return{status:'unchanged',...publicationFrom(existing)};
   const importedAt=new Date(clock()).toISOString(),sourceAsOf=latest(records.map(r=>r.coreInfo));
   // JSON, source traversal and SQL preparation happen before the writer lock.
   const writes=[],statements=new Map(),insert=(sql,...values)=>writes.push([sql,values]);
    insert('INSERT OR IGNORE INTO catalog_imports VALUES(?,?,?,?,?)',id,digest,importedAt,sourceAsOf,json({schema:'relational-catalog.v1',records:records.length,primary:records.filter(r=>r.primary).length,definitions:summary.definitions||{},input:summary.input||{},note:'Material retained does not establish service quality, current availability or an executed payment.'}));
    const sources=new Map();for(const r of records){for(const s of r.sourceEvidence||[])if(s.source_id||s.id)sources.set(s.source_id||s.id,s);for(const s of admittedEvidence.get(r.id))sources.set(s.id,s);}
-   for(const r of records)for(const sid of [...(r.sourceIds||[]),...allSourceIds(r.coreInfo),...Object.values(r.fields).flatMap(f=>f.sourceIds||[])])if(!sources.has(sid))sources.set(sid,{id:sid,unresolved:true});
+   for(const r of records)for(const sid of referencedSourceIds(r))if(!sources.has(sid))sources.set(sid,{id:sid,unresolved:true});
    for(const[sid,s]of sources){const m=sourceMeta(s),{body,...metadata}=s;insert('INSERT INTO catalog_sources VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET url=excluded.url,title=excluded.title,observed_at=excluded.observed_at,published_at=excluded.published_at,kind=excluded.kind,sha256=excluded.sha256,resolved=excluded.resolved,metadata_json=excluded.metadata_json',sid,m.url,m.title,m.observedAt,m.publishedAt,m.kind,m.sha256,m.resolved?1:0,json(metadata));}
    // Entire publication changes atomically. Raw evidence, revisions and jobs are untouched.
    insert('DELETE FROM catalog_records');
@@ -71,7 +75,7 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
     const r=records[n],core=r.coreInfo;
     insert('INSERT INTO catalog_records VALUES(?,?,?,?,?,?,?,?)',r.id,r.name,r.category||'airport',r.primary?1:0,safeUrl(core.website?.url)||null,id,json(core),json({listing:r.listing||{},catalogRecord:r.catalogRecord||{},reviewedOverlay:r.reviewedOverlay||{},unresolvedSourceIds:r.unresolvedSourceIds||[]}));
     insert('INSERT OR IGNORE INTO catalog_record_versions VALUES(?,?,?)',id,r.id,json(docs[n]));
-    const ids=new Set([...(r.sourceIds||[]),...allSourceIds(core)]);for(const sid of ids)if(sources.has(sid))insert('INSERT OR IGNORE INTO catalog_record_sources VALUES(?,?)',r.id,sid);
+    for(const sid of recordSourceIds(r))insert('INSERT OR IGNORE INTO catalog_record_sources VALUES(?,?)',r.id,sid);
     for(const[field,state]of Object.entries(r.fields)){
      const {data,...withoutData}=state;insert('INSERT INTO catalog_field_states VALUES(?,?,?,?,?,?,?)',r.id,field,state.status||'not_confirmed',state.materialAvailable?1:0,latest(core[field]),json(withoutData),data===undefined?null:json(data));
      for(const sid of new Set(state.sourceIds||[]))if(sources.has(sid))insert('INSERT INTO catalog_field_sources VALUES(?,?,?)',r.id,field,sid);
@@ -120,7 +124,7 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   const prior=meta(),current=publicationFrom(prior),initial=retainedInputs();
   const inventory=require('../scripts/export-current-inventory.cjs');
   const reviewedState=()=>store?.publicationWatermark?.()||null;
-  const keyFor=(base,review)=>hash(json({base,review,day:new Date(clock()).toISOString().slice(0,10)}));
+  const keyFor=(base,review)=>hash(json({base,review,projectionVersion:PROJECTION_VERSION,day:new Date(clock()).toISOString().slice(0,10)}));
   const key=keyFor(initial.digest,reviewedState());
   if(prior?.id===prior?.applied_snapshot_id&&prior?.state_key===key)return{status:'unchanged',...current};
   const captured=retainedInputs(true);
@@ -133,6 +137,13 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   const useFiles=captured.hasBase&&(!current||prior.source_hash!==captured.digest);
   const bundle=useFiles?inventory.exportInventory({root,storeFile:filename,clock,writeFiles:false,publicationOnly:true,verifyEvidenceBodies:false,readInput})
    :current?exportBundle({versionedSources:true}):parse(require('node:zlib').gunzipSync(fs.readFileSync(path.join(__dirname,'seed/catalog-bundle.json.gz'))));
+  if(useFiles&&current){
+   const previousReferrals=new Map(importedReferrals().map(ref=>[ref.recordId,ref]));
+   for(const r of bundle.records){
+    const ref=previousReferrals.get(r.id);
+    if(ref&&(!ref.siteId||ref.siteId===r.id)&&outbound(r,[ref]).type==='verified_user_referral')r.importedReferral=ref;
+   }
+  }
   if(!useFiles){
    const changes=(store?.listChanges?.()||[]).map(c=>({...c,site_id:c.siteId,proposal_id:c.proposalId}));
    const proposals=(store?.listProposals?.()||[]).filter(p=>p.status==='approved').map(p=>({...p,site_id:p.siteId,expected_revision:p.expectedRevision,reviewed_at:p.reviewedAt}));
@@ -174,7 +185,8 @@ function openCatalogDb({filename,store,root=path.resolve(__dirname,'..'),clock=(
   filterSnapshot=snapshotId;
   return filterRecords;
  }
- function refs(){const current=store?.listReferrals?.()||[],imported=db.prepare('SELECT link_json FROM catalog_referral_links').all().map(r=>parse(r.link_json));return[...current,...imported.filter(r=>!current.some(c=>c.recordId===r.recordId))];}
+ function importedReferrals(){return db.prepare('SELECT link_json FROM catalog_referral_links').all().map(r=>parse(r.link_json));}
+ function refs(){const current=store?.listReferrals?.()||[];return[...current,...importedReferrals().filter(r=>!current.some(c=>c.recordId===r.recordId))];}
  function presentRows(rows,{facts=x=>x,card=false,related=[],detail=false}={}){
   if(!rows.length)return [];
   const ids=rows.map(r=>r.id),referrals=refs(),fields=new Map(),counts=new Map();

@@ -31,7 +31,7 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
  const publicationTimer=setInterval(reconcilePublication,30000);publicationTimer.unref?.();
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
- const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb});
+ const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({store,control,catalogDb});
  async function syncPublication(){
   const result=publisher.sync?await publisher.sync():catalogDb.sync();
   publicationReconciled=true;
@@ -45,7 +45,16 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   assistlost:x=>assistance.contextLost(x),
   assistcommit(x){let state=assistance.commit(x);if(state.status==='ready'&&state.sessionSaved&&!state.collectionJobId){const p=control.getProfile('A016');if(p.revision!==state.profileRevision||!require('./amy-service-session.cjs').configured(p.config))throw Error('assist_profile_changed');state=assistance.markCollection(state.id,control.enqueue({siteId:'A016',purpose:'validation',actor:'amy_same_service_resume_'+state.id}));}return state;},
   control(){if(Date.now()-lastSchedule>=30000){control.reconcileResolvedCheckpoints();control.reconcileVerifiedCheckpoints();control.tickWeekly();lastSchedule=Date.now();}return control.getControl();},
-  claim(x){const settings=control.getControl();if(!settings.engineEnabled||settings.executionMode!=='standalone')return{job:null,prior:null};const worker=String(x.worker||'collector-web').slice(0,100),job=control.claimBridge({worker,leaseMs:180000,siteId:x.siteId,executionMode:'standalone'})||discovery.claim({worker,leaseMs:180000,siteId:x.siteId});if(job){const egress=require('./prpr-web-egress.cjs').selectedProfile(job.site.config,measurements.profiles());if(egress)job.webEgressProfile=egress;const saved=retained.captures(job.jobId);if(saved)job.retainedCaptures=saved;}return {job,prior:job&&!job.discoveryOnly?store.getSite(job.siteId)?.document||{}:null};},
+  claim(x){
+   const settings=control.getControl();if(!settings.engineEnabled||settings.executionMode!=='standalone')return{job:null,prior:null};
+   const ids=x.pendingJobIds??[];
+   if(!Array.isArray(ids)||ids.some(id=>typeof id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(id)))throw Object.assign(Error('invalid_pending_job_ids'),{status:400});
+   const worker=String(x.worker||'collector-web').slice(0,100),excludedJobIds=new Set(ids);
+   const options={worker,leaseMs:180000,siteId:x.siteId,excludedJobIds};
+   const job=control.claimBridge({...options,executionMode:'standalone'})||discovery.claim(options);
+   if(job&&!job.retainedCaptures){const egress=require('./prpr-web-egress.cjs').selectedProfile(job.site.config,measurements.profiles());if(egress)job.webEgressProfile=egress;}
+   return {job,prior:job&&!job.discoveryOnly?store.getSite(job.siteId)?.document||{}:null};
+  },
   renew:x=>discovery.isJob(x.jobId)?discovery.renew(x.jobId,x.token,{leaseMs:180000}):control.renewBridge(x.jobId,x.token,{leaseMs:180000}),
   recoverretained:x=>retained.recover(x),
   receive(x){if(discovery.isJob(x.jobId))return discovery.receive(x);const saved=retained.captures(x.jobId);return saved?plane.receive({...x,captures:saved,observationBasis:'retained_reparse'},{trustedRetained:true}):plane.receive(x);},
@@ -124,7 +133,7 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    send([400,413].includes(error?.status)?error.status:409,{ok:false,error:'internal_request_rejected'});
   }
  });
- server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();retained.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
  // Match the existing close callback contract: callers may remove the SQLite
  // files as soon as it fires, including on Windows where open handles block removal.
  const closeServer=server.close.bind(server);

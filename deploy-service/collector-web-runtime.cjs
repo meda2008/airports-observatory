@@ -6,6 +6,8 @@ const {redact}=require('./standalone-collector.cjs');
 const {MAX_JSON_BYTES}=require('../lib/read-utf8-json.cjs');
 const {submissionPlan}=require('../lib/collector-submission.cjs');
 const pendingName='pending-submission.json',holdName='pending-submission-hold.json',retryName='pending-submission-retry.json';
+const indexName='pending-submission-index.json';
+const pendingReplayLimit=2,pendingReplayWindowMs=5000;
 const terminalRuns=new Set(['completed','blocked','awaiting_semantic_review','review_approved','review_rejected','cancelled']);
 function writeAtomic(file,value,{exclusive=false}={}){
  const temporary=file+'.'+crypto.randomUUID()+'.tmp';
@@ -14,11 +16,28 @@ function writeAtomic(file,value,{exclusive=false}={}){
   if(exclusive)fs.linkSync(temporary,file);else fs.renameSync(temporary,file);
  }finally{fs.rmSync(temporary,{force:true});}
 }
+const validId=id=>typeof id==='string'&&/^[a-zA-Z0-9_-]{1,120}$/.test(id);
+const fingerprint=stat=>[stat.ino,stat.size,stat.mtimeMs].join(':');
+function savePendingIndex(dir,{siteId,jobId},stat){
+ // A missing or stale index is rebuilt from the authoritative, atomically written packet.
+ try{writeAtomic(path.join(dir,indexName),{siteId,jobId,packet:fingerprint(stat)});}catch{}
+}
+function readPendingIndex(dir){
+ try{
+  const index=JSON.parse(fs.readFileSync(path.join(dir,indexName),'utf8'));
+  if(validId(index?.siteId)&&validId(index?.jobId))return index;
+ }catch{}
+ return null;
+}
+function pendingDirectoryIdentity(name){
+ const match=/^(A\d{3})-((?:entrydiscovery_)?[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})(?:-|$)/.exec(name);
+ return match?{siteId:match[1],jobId:match[2]}:null;
+}
 function readPending(raw){
  try{
   const item=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
   const packet=item?.packet;
-  if([item?.siteId,item?.jobId,item?.runId].every(id=>typeof id==='string'&&/^[a-zA-Z0-9_-]+$/.test(id))&&
+  if([item?.siteId,item?.jobId,item?.runId].every(validId)&&
      packet?.jobId===item.jobId&&typeof packet.token==='string'&&packet.token&&
      Array.isArray(packet.captures)&&packet.captures.every(c=>c&&typeof c==='object'&&!Array.isArray(c)))return item;
  }catch{}
@@ -47,9 +66,10 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
   let transport=submissionPlan(item.packet);
   if(!transport.op)return {holdReason:'submission_payload_too_large',details:{bytes:transport.bytes,maxBytes:MAX_JSON_BYTES}};
   const run=await request('run',{runId:item.runId});
-  if(run?.status==='cancel_requested'){
+  if(['cancel_requested','cancelled'].includes(run?.status)){
    const archived=path.join(dir,'cancelled-pending-submission.json');
    if(!fs.existsSync(archived))fs.copyFileSync(pending,archived,fs.constants.COPYFILE_EXCL);
+   if(run.status==='cancelled')return {accepted:run};
    return {accepted:await request('cancel',{jobId:item.jobId,token:item.packet.token,actor:workerName})};
   }
   if(terminalRuns.has(run?.status))return {accepted:run};
@@ -81,49 +101,78 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
   if(!fs.existsSync(original))fs.copyFileSync(pending,original,fs.constants.COPYFILE_EXCL);
   const oldRunId=item.runId,replacement={...item,runId:job.runId,packet:{...item.packet,token:job.token}};
   writeAtomic(pending,replacement);
+  savePendingIndex(dir,replacement,fs.statSync(pending));
   Object.assign(item,replacement);
   fs.writeFileSync(path.join(dir,'lease-recovery.json'),JSON.stringify({jobId:item.jobId,oldRunId,newRunId:item.runId,at:new Date().toISOString(),networkRecaptured:false},null,2));
  }
- async function recoverPending(siteId,protectedEntries){
+ async function recoverPending(siteId,protectedEntries,pendingJobIds){
   if(!fs.existsSync(output))return {};
-  let deferred,replayed=false;
+  const startedAt=clock(),ready=[];
+  let deferred;
   for(const entry of fs.readdirSync(output,{withFileTypes:true})){
    if(!entry.isDirectory())continue;
    const dir=path.join(output,entry.name),pending=path.join(dir,pendingName);
-   if(fs.existsSync(path.join(dir,holdName))){
-    if(fs.existsSync(pending))protectedEntries.push({dir});
-    continue;
-   }
-   let raw;
-   try{raw=fs.readFileSync(pending);}
-   catch(error){
+   let stat;
+   try{stat=fs.statSync(pending);}catch(error){
     if(error.code!=='ENOENT'){
-     protectedEntries.push({dir});
+     const item=readPendingIndex(dir)||pendingDirectoryIdentity(entry.name);
+     protectedEntries.push({dir,item});
+     if(item)pendingJobIds.add(item.jobId);
      safeLog({service:'standalone_collector',status:'submission_read_deferred',directory:entry.name});
     }
     continue;
    }
-   const item=readPending(raw);
-   if(!item){
-    protectedEntries.push({dir});
-    holdPending(dir,'invalid_pending_submission');
+   if(fs.existsSync(path.join(dir,holdName))){
+    protectedEntries.push({dir,item:readPendingIndex(dir)});
     continue;
    }
-   if(siteId&&item.siteId!==siteId)continue;
+   let identity=readPendingIndex(dir),item;
+   if(identity?.packet!==fingerprint(stat)){
+    try{item=readPending(fs.readFileSync(pending));}
+    catch(error){
+     if(error.code==='ENOENT')continue;
+     identity||=pendingDirectoryIdentity(entry.name);
+     protectedEntries.push({dir,item:identity});
+     if(identity)pendingJobIds.add(identity.jobId);
+     safeLog({service:'standalone_collector',status:'submission_read_deferred',directory:entry.name});
+     continue;
+    }
+    if(!item){
+     protectedEntries.push({dir});
+     holdPending(dir,'invalid_pending_submission');
+     continue;
+    }
+    identity={siteId:item.siteId,jobId:item.jobId};
+    savePendingIndex(dir,identity,stat);
+   }
+   if(siteId&&identity.siteId!==siteId)continue;
+   protectedEntries.push({dir,item:identity});
+   pendingJobIds.add(identity.jobId);
    const retryFile=path.join(dir,retryName);
    let retry;
    try{retry=JSON.parse(fs.readFileSync(retryFile,'utf8'));}catch{}
-   if(replayed||retry?.nextRetryAt>clock()){
-    protectedEntries.push({dir,item});
-    continue;
-   }
-   replayed=true;
+   if(retry?.nextRetryAt>startedAt)continue;
+   const readyAt=Number.isFinite(retry?.nextRetryAt)?retry.nextRetryAt:stat.mtimeMs;
+   ready.push({dir,pending,item,identity,retryFile,retry,readyAt});
+   ready.sort((a,b)=>a.readyAt-b.readyAt||a.dir.localeCompare(b.dir));
+   if(ready.length>pendingReplayLimit)ready.pop();
+  }
+  const heldJobIds=new Set();
+  for(const [index,{dir,pending,item:loaded,identity,retryFile,retry}] of ready.entries()){
+   // A slow replay uses the usual API timeout. Leave the next packet for a later pass.
+   if(index&&clock()-startedAt>=pendingReplayWindowMs)break;
+   let item;
    try{
+    item=loaded||readPending(fs.readFileSync(pending));
+    if(!item||item.jobId!==identity.jobId||item.siteId!==identity.siteId){
+     holdPending(dir,'invalid_pending_submission');
+     heldJobIds.add(identity.jobId);
+     continue;
+    }
     const {accepted,holdReason,details}=await replayPending(item,dir,pending);
     if(holdReason){
-     protectedEntries.push({dir,item});
      holdPending(dir,holdReason,item,details);
-     replayed=false;
+     heldJobIds.add(identity.jobId);
      continue;
     }
     if(!terminalRuns.has(accepted?.status))throw Error('invalid_pending_submission_response');
@@ -133,17 +182,21 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
     fs.unlinkSync(pending);
     return {result};
    }catch(error){
-    protectedEntries.push({dir,item});
     if([400,413,415,422].includes(error?.status)){
      holdPending(dir,'api_rejected_pending_packet',item);
-     replayed=false;
+     heldJobIds.add(identity.jobId);
      continue;
     }
+    if(!item){safeLog({service:'standalone_collector',status:'submission_read_deferred',directory:path.basename(dir)});continue;}
     const attempts=Number.isSafeInteger(retry?.attempts)&&retry.attempts>0?Math.min(retry.attempts+1,10):1;
     const nextRetryAt=clock()+Math.min(300000,1000*2**(attempts-1));
-    deferred={status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery',nextRetryAt};
-    try{writeAtomic(retryFile,{attempts,...deferred});}catch{safeLog({service:'standalone_collector',status:'submission_retry_write_deferred',directory:entry.name});}
+    const retryResult={status:'submission_deferred',jobId:item.jobId,runId:item.runId,reason:'retained_submission_requires_recovery',nextRetryAt};
+    deferred??=retryResult;
+    try{writeAtomic(retryFile,{attempts,...retryResult});}catch{safeLog({service:'standalone_collector',status:'submission_retry_write_deferred',directory:path.basename(dir)});}
    }
+  }
+  for(const jobId of heldJobIds){
+   if(!protectedEntries.some(({dir,item})=>item?.jobId===jobId&&!fs.existsSync(path.join(dir,holdName))))pendingJobIds.delete(jobId);
   }
   return {deferred};
  }
@@ -157,10 +210,10 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
  }
  async function runOne({siteId}={}){
   const settings=await request('control');if(stopping||!settings.engineEnabled||settings.executionMode!=='standalone'){await beat('paused','execution_disabled_or_other_mode');return{status:'paused'};}
-  const protectedEntries=[];
-  const {result:recovered,deferred}=await recoverPending(siteId,protectedEntries);
+  const protectedEntries=[],pendingJobIds=new Set();
+  const {result:recovered,deferred}=await recoverPending(siteId,protectedEntries,pendingJobIds);
   if(recovered)return recovered;
-  const claimed=await request('claim',{worker:workerName,siteId,leaseMs:180000}),job=claimed?.job;
+  const claimed=await request('claim',{worker:workerName,siteId,leaseMs:180000,...(pendingJobIds.size&&{pendingJobIds:[...pendingJobIds]})}),job=claimed?.job;
   if(!job){await beat('connected');return deferred||{status:'idle'};}
   const primaryDir=runDirectory(output,job);
   const pendingFile=path.join(primaryDir,pendingName);
@@ -214,6 +267,7 @@ function createWebCollector({request,baseUrl,token,tokenFile,fetchImpl,browserFa
    const identity={siteId:job.siteId,jobId:job.jobId,runId:job.runId};
    const transport=submissionPlan(packet),{bytes}=transport,oversized=!transport.op;
    writeAtomic(attemptPending,{...identity,state:oversized?'submission_held':'pending_api_submission',packet},{exclusive:true});retained=true;
+   savePendingIndex(dir,identity,fs.statSync(attemptPending));
    if(oversized){
     const type='submission_payload_too_large';
     holdPending(dir,type,identity,{bytes,maxBytes:MAX_JSON_BYTES});

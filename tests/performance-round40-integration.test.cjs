@@ -29,10 +29,10 @@ test('public-only lease admits only its staged original bytes; a marker or calle
  const crypto=require('node:crypto'),dir=fs.mkdtempSync(path.join(os.tmpdir(),'retained-admission-')),filename=path.join(dir,'one.sqlite'),store=require('../deploy-service/store.cjs').createStore({filename}),control=require('../deploy-service/control-store.cjs').openControlStore({filename,store});let retained;
  try{const config={recordId:'A001',name:'OFFLINE FIXTURE',entryUrl:'https://official.example/',enabled:false,fields:['stability'],publicReferenceEnabled:true,publicReferenceFields:['stability']};store.seedSites([config]);control.initializeProfiles([config]);control.setControl({engineEnabled:true,executionMode:'standalone'});
   const raw={url:'https://historical.example/report',text:'OFFLINE ORIGINAL ACCOUNT/PUBLIC MATERIAL',observedAt:'2026-10-26T10:45:28.845Z'},bytes=Buffer.from(JSON.stringify(raw)),sha256=crypto.createHash('sha256').update(bytes).digest('hex');
-  retained=require('../deploy-service/retained-performance-inputs.cjs').createRetainedInputs({filename,store,control,catalogDb:{detail:()=>({item:{sources:[{id:'original',url:raw.url,sha256,observedAt:raw.observedAt}]}})}});
+  retained=require('../deploy-service/retained-performance-inputs.cjs').createRetainedInputs({store,control,catalogDb:{detail:()=>({item:{sources:[{id:'original',url:raw.url,sha256,observedAt:raw.observedAt}]}})}});
   const staged=retained.enqueue({siteId:'A001',actor:'offline-fixture',artifacts:[{sourceId:'original',base64:bytes.toString('base64')}]});const lease=control.claimBridge({worker:'fixture',siteId:'A001',executionMode:'standalone'});assert.equal(lease.jobId,staged.jobId);const captures=retained.captures(lease.jobId);
   assert.throws(()=>control.acceptBridgeResult(lease.jobId,lease.token,{captures}),/Public reference/);
   assert.throws(()=>control.acceptBridgeResult(lease.jobId,lease.token,{captures:[{...captures[0],body:'FORGED'}],retainedSourceAdmission:true}),/Public reference/);
   const result=control.acceptBridgeResult(lease.jobId,lease.token,{captures,retainedSourceAdmission:true});assert.equal(result.status,'completed');assert.equal(store.listEvidence()[0].observations[0].observedAt,raw.observedAt);
- }finally{retained?.close();control.close();store.close();fs.rmSync(dir,{recursive:true,force:true});}
+ }finally{control.close();store.close();fs.rmSync(dir,{recursive:true,force:true});}
 });

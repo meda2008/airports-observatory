@@ -3,7 +3,7 @@ const crypto = require('node:crypto');
 const fs=require('node:fs'),path=require('node:path');
 const canonical=value=>JSON.stringify(value&&typeof value==='object'?Array.isArray(value)?value.map(x=>JSON.parse(canonical(x))):Object.fromEntries(Object.keys(value).sort().filter(k=>value[k]!==undefined).map(k=>[k,JSON.parse(canonical(value[k]))])):value);
 const digest=value=>crypto.createHash('sha256').update(value).digest('hex');
-function workerSchema(db){db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_claims(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL); CREATE TABLE IF NOT EXISTS measurement_late_submissions(run_id TEXT PRIMARY KEY,body TEXT NOT NULL,sha256 TEXT NOT NULL,received_at TEXT NOT NULL); CREATE TRIGGER IF NOT EXISTS measurement_late_no_update BEFORE UPDATE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,"append_only_late_submissions"); END; CREATE TRIGGER IF NOT EXISTS measurement_late_no_delete BEFORE DELETE ON measurement_late_submissions BEGIN SELECT RAISE(ABORT,"append_only_late_submissions"); END;');}
+function workerSchema(db){db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_claims(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL)');}
 function finishAuthoritatively(store,claimed,body){
  const db=store.db;workerSchema(db);
  db.exec('CREATE TABLE IF NOT EXISTS measurement_worker_finish_receipts(run_id TEXT PRIMARY KEY,token_hash TEXT NOT NULL,body TEXT NOT NULL,observation_id TEXT)');
@@ -65,17 +65,39 @@ function openHttpMeasurementStore({baseUrl,token,fetchImpl=fetch,timeoutMs=10000
     return result.value;
   };
   if(outboxDirectory)fs.mkdirSync(outboxDirectory,{recursive:true,mode:0o700});
+  const readPacket=filename=>{
+    try{return fs.readFileSync(filename,'utf8');}
+    catch(error){if(error.code!=='ENOENT')throw error;return null;}
+  };
   const hold=filename=>{
     const target=filename.replace(/\.json$/,'.review-required.json');
-    fs.renameSync(filename,fs.existsSync(target)?filename.replace(/\.json$/,'.review-required-'+crypto.randomUUID()+'.json'):target);
+    try{fs.renameSync(filename,fs.existsSync(target)?filename.replace(/\.json$/,'.review-required-'+crypto.randomUUID()+'.json'):target);}
+    catch(error){if(error.code!=='ENOENT')throw error;}
   };
-  async function deliver(filename,args){
-    try{const result=await call('finish',args);fs.unlinkSync(filename);return result;}
-    catch(error){
-      if(![400,409,413,422].includes(error.status))throw error;
-      hold(filename);
-      return {status:'submission_review_required'};
+  const deliveries=new Map();
+  function deliver(filename,args,encoded){
+    const active=deliveries.get(filename);
+    if(active){
+      if(active.encoded!==encoded)throw Error('measurement_outbox_conflict');
+      return active.promise;
     }
+    const samePacket=()=>{
+      const saved=readPacket(filename);
+      return saved!==null&&canonical(JSON.parse(saved))===encoded;
+    };
+    const promise=Promise.resolve().then(async()=>{
+      let result;
+      try{result=await call('finish',args);}
+      catch(error){
+        if(![400,409,413,422].includes(error.status))throw error;
+        if(samePacket())hold(filename);
+        return {status:'submission_review_required'};
+      }
+      if(samePacket())fs.rmSync(filename,{force:true});
+      return result;
+    }).finally(()=>deliveries.delete(filename));
+    deliveries.set(filename,{encoded,promise});
+    return promise;
   }
   let flushing=null;
   const flush=()=>flushing??=(async()=>{if(!outboxDirectory)return;for(const filename of fs.readdirSync(outboxDirectory).filter(x=>/^[a-f0-9]{64}\.json$/.test(x)).sort()){
@@ -84,16 +106,28 @@ function openHttpMeasurementStore({baseUrl,token,fetchImpl=fetch,timeoutMs=10000
     try{request=JSON.parse(fs.readFileSync(full,'utf8'));}
     catch(error){if(error.code==='ENOENT')continue;if(!(error instanceof SyntaxError))throw error;hold(full);continue;}
     if(request?.method!=='finish'||!Array.isArray(request.args)||request.args.length!==2){hold(full);continue;}
-    await deliver(full,request.args);
+    await deliver(full,request.args,canonical(request));
   }})().finally(()=>{flushing=null;});
   const store={close(){},flush};
   for (const [method] of METHODS) store[method]=async(...args)=>{
     if(method==='claim')await flush();
     if(method!=='finish'||!outboxDirectory)return call(method,args);
-    const filename=path.join(outboxDirectory,digest(args[0].runId)+'.json'),encoded=JSON.stringify({method,args});
-    if(fs.existsSync(filename)){if(fs.readFileSync(filename,'utf8')!==encoded)throw Error('measurement_outbox_conflict');}
-    else{const temp=filename+'.tmp-'+crypto.randomUUID(),fd=fs.openSync(temp,'wx',0o600);try{fs.writeFileSync(fd,encoded);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}fs.renameSync(temp,filename);}
-    return deliver(filename,args);
+    const filename=path.join(outboxDirectory,digest(args[0].runId)+'.json');
+    const encoded=canonical(JSON.parse(JSON.stringify({method,args})));
+    const active=deliveries.get(filename);
+    if(active)return deliver(filename,args,encoded);
+    let saved=readPacket(filename);
+    while(saved===null){
+      const temp=filename+'.tmp-'+crypto.randomUUID();
+      const fd=fs.openSync(temp,'wx',0o600);
+      try{
+        try{fs.writeFileSync(fd,encoded);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+        try{fs.linkSync(temp,filename);break;}
+        catch(error){if(error.code!=='EEXIST')throw error;saved=readPacket(filename);}
+      }finally{fs.rmSync(temp,{force:true});}
+    }
+    if(saved!==null&&canonical(JSON.parse(saved))!==encoded)throw Error('measurement_outbox_conflict');
+    return deliver(filename,args,encoded);
   };
   return store;
 }

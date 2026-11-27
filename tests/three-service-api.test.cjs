@@ -122,3 +122,94 @@ test('compact admin status, bound evidence and background publication keep separ
  assert.ok(c1.checkpoints.every(c=>c2.checkpoints.every(other=>other.id!==c.id)));
  assert.equal((await fetch(base+status+'0',{headers})).status,400);
 });
+
+test('bounded outbox replay cannot reclaim the third retained job through the real claim endpoint',async t=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'airports-claim-exclusion-')),filename=path.join(dir,'fixture.sqlite');
+ const internalToken='unit-worker-rpc-1a2b3c4d5e6f7890-strong-key';
+ const app=createThreeServiceApi({filename,adminToken:'unit-admin-auth-9f8e7d6c5b4a3210-strong-key',internalToken});
+ const db=new (require('node:sqlite').DatabaseSync)(filename);
+ await new Promise(resolve=>app.server.listen(0,'127.0.0.1',resolve));
+ t.after(async()=>{db.close();await new Promise(resolve=>app.server.close(resolve));fs.rmSync(dir,{recursive:true,force:true});});
+ const baseUrl='http://127.0.0.1:'+app.server.address().port;
+ const {createWebCollector,createWebTransport}=require('../deploy-service/collector-web-runtime.cjs');
+ const transport=createWebTransport({baseUrl,token:internalToken});
+ const output=path.join(dir,'outbox');
+ fs.mkdirSync(output);
+ app.control.setControl({engineEnabled:true,executionMode:'standalone'});
+ const ids=['A001','A002','A003','A004'];
+ const staged=ids.map(siteId=>{
+  const p=app.control.getProfile(siteId);
+  app.control.updateProfile(siteId,{expectedRevision:p.revision,config:{publicReferenceEnabled:true,publicReferenceFields:['speed']}});
+  const hostname=new URL(app.store.getSite(siteId).document?.website?.url||p.config.entryUrl).hostname;
+  const captures=[{url:'https://fixture.example/'+siteId,observedAt:'2026-11-14T00:00:00Z',body:'synthetic original '+siteId,kind:'retained_performance_reference',metadata:{retainedReplayVerified:true,currentCatalogHostname:hostname,originalSourceId:'fixture-'+siteId,retainedArtifactSha256:'a'.repeat(64)}}];
+  return app.control.enqueueRetainedInput({siteId,actor:'fixture'},()=>captures);
+ });
+ const expired=ids.slice(0,3).map((siteId,index)=>{
+  const job=app.control.claimBridge({siteId,executionMode:'standalone',worker:'fixture',leaseMs:10000});
+  assert.equal(job?.jobId,staged[index].jobId);
+  const {token}=job;
+  db.prepare('UPDATE jobs SET lease_until=0,due_at=? WHERE id=?').run(index,job.jobId);
+  const runDir=path.join(output,[siteId,job.jobId,job.runId].join('-'));
+  fs.mkdirSync(runDir);
+  const file=path.join(runDir,'pending-submission.json');
+  const original=JSON.stringify({siteId,jobId:job.jobId,runId:job.runId,packet:{jobId:job.jobId,token,captures:staged[index].captures}});
+  fs.writeFileSync(file,original);
+  fs.utimesSync(file,index+1,index+1);
+  return {...job,token,runDir,original};
+ });
+ const recoveries=[],claims=[],completions=[];
+ let lostRecoveryResponse=false;
+ let outboxClock=0;
+ const worker=createWebCollector({output,clock:()=>outboxClock,log:()=>{},browserFactory:async()=>assert.fail('retained-only collection attempted browser access'),request:async(op,input,body)=>{
+  if(op==='recoverretained'){
+   recoveries.push(input.jobId);
+   if(input.jobId!==expired[2].jobId)throw Object.assign(Error('fixture transient failure'),{status:503});
+   if(!lostRecoveryResponse){
+    await transport(op,input,body);
+    lostRecoveryResponse=true;
+    throw Object.assign(Error('fixture lost success response'),{status:503});
+   }
+  }
+  if(op==='claim')claims.push(input.pendingJobIds);
+  if(op==='complete')completions.push(input.jobId);
+  return transport(op,input,body);
+ }});
+ t.after(()=>worker.stop());
+ const first=await worker.runOne();
+ assert.equal(first.jobId,staged[3].jobId);
+ assert.deepEqual(recoveries,expired.slice(0,2).map(job=>job.jobId));
+ assert.deepEqual(new Set(claims[0]),new Set(expired.map(job=>job.jobId)));
+ assert.equal(db.prepare('SELECT token FROM jobs WHERE id=?').get(expired[2].jobId).token,expired[2].token);
+ assert.equal(fs.existsSync(path.join(expired[2].runDir,'pending-submission-hold.json')),false);
+ assert.equal((await worker.runOne()).status,'submission_deferred');
+ assert.equal(lostRecoveryResponse,true);
+ const replacementToken=db.prepare('SELECT token FROM jobs WHERE id=?').get(expired[2].jobId).token;
+ assert.notEqual(replacementToken,expired[2].token);
+ outboxClock=1000;
+ const second=await worker.runOne({siteId:'A003'});
+ assert.equal(second.jobId,expired[2].jobId);
+ assert.equal(second.acceptanceRecoveredFromApi,true);
+ assert.deepEqual(recoveries,[...expired.map(job=>job.jobId),expired[2].jobId]);
+ assert.deepEqual(completions,[]);
+ assert.equal(fs.readFileSync(path.join(expired[2].runDir,'original-pending-submission.json'),'utf8'),expired[2].original);
+ assert.ok(app.store.listEvidenceMetadata().some(item=>item.url==='https://fixture.example/A003'));
+ assert.equal(db.prepare('SELECT count(*) n FROM collector_retained_recoveries WHERE job_id=?').get(expired[2].jobId).n,1);
+ assert.equal((await transport('claim',{siteId:'A001',pendingJobIds:[expired[0].jobId]})).job,null);
+ await assert.rejects(transport('claim',{pendingJobIds:['invalid/id']}),error=>error.status===400);
+ const admin=async(route,body)=>{
+  const response=await fetch(baseUrl+'/api/admin/discovery'+route,{method:'POST',headers:{authorization:'Bearer unit-admin-auth-9f8e7d6c5b4a3210-strong-key'},body:JSON.stringify(body)});
+  assert.equal(response.status,200);
+  return response.json();
+ };
+ await admin('/seeds',{id:'fixture-claim-skip',recordId:'A004',url:'https://fixture.example/'});
+ const discovery=await admin('',{seedId:'fixture-claim-skip'});
+ assert.equal((await transport('claim',{siteId:'A004',pendingJobIds:[discovery.jobId]})).job,null);
+ assert.equal((await transport('claim',{siteId:'A004'})).job.jobId,discovery.jobId);
+ app.control.cancelJob(expired[0].jobId);
+ await transport('claim',{siteId:'A004'});
+ outboxClock=1000;
+ assert.equal((await worker.runOne({siteId:'A001'})).status,'cancelled');
+ assert.equal(fs.readFileSync(path.join(expired[0].runDir,'cancelled-pending-submission.json'),'utf8'),expired[0].original);
+ assert.equal(fs.existsSync(path.join(expired[0].runDir,'pending-submission.json')),false);
+ assert.deepEqual(recoveries,[...expired.map(job=>job.jobId),expired[2].jobId]);
+});

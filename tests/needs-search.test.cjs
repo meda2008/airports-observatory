@@ -51,3 +51,22 @@ test('plan view paginates individual sourced offers and filters by plan name and
  assert.throws(()=>search({view:'plans',page:'0'}));
  assert.throws(()=>search({monthlyOnly:'1'}));
 });
+
+test('quarterly decimal price exactly at the cap qualifies in both views',()=>{
+ const quarterly={...plan,billingPeriod:'每季'};
+ const s=makeNeedsSearch({rawExport:()=>({catalog:[
+  record('A001',{...quarterly,amount:0.27}),
+  record('A002',{...quarterly,amount:0.270001}),
+  record('A003',{...quarterly,amount:0.27,currency:'USD'})
+ ]})});
+ for(const view of [{},{view:'plans'}]){
+  for(const cap of [{maxMonthly:'0.09'},{needs:'每月0.09元以内'}]){
+   const result=s.search({...view,...cap});
+   assert.deepEqual(result.items.map(item=>item.id),['A001']);
+   assert.equal(result.items[0].comparison.monthlyAmount,0.27/3);
+   assert.equal(result.items[0].comparison.formula,'0.27 / 3');
+  }
+  assert.equal(s.search({...view,maxMonthly:'0.08'}).items.length,0);
+  assert.deepEqual(s.search({...view,maxMonthly:'0.09',currency:'USD'}).items.map(item=>item.id),['A003']);
+ }
+});

@@ -38,3 +38,40 @@ test('HTTPS target requires CONNECT and rejects invalid TLS without direct fallb
 test('sample thresholds cannot be weakened by caller options',t=>{const{measurements}=stores(t);measurements.configure(profile());assert.throws(()=>summarize(measurements,'bandwidth-fixture',{minimumSpeedSamples:1}),/cannot_be_relaxed/);});
 test('empirical nearest rank quantiles have explicit three-sample meaning',()=>{const {nearestRank}=require('../lib/measurement-conclusions.cjs');assert.deepEqual(nearestRank([3,1,2]),{p10:1,p50:2,p90:3});});
 test('two fields use one pending revision and frozen prefixes cannot cherry-pick failures',async t=>{const{measurements,catalog,advance}=stores(t),s=await server(t,(_q,r)=>r.end('fixture'));measurements.configure({...profile(),endpoint:s.url+'/transfer'});measurements.setEnabled(true);const w=createMeasurementWorker({store:measurements});for(let i=0;i<3;i++){await w.runOne({id:'bandwidth-fixture'});advance();}measurements.configure({...profile('stability'),endpoint:s.url+'/probe'});for(let i=0;i<10;i++){await w.runOne({id:'stability-fixture'});advance();}const {proposeBatch}=require('../lib/measurement-conclusions.cjs'),ids=measurements.observations('bandwidth-fixture').map(o=>o.id);assert.throws(()=>summarize(measurements,'bandwidth-fixture',{observationIds:[ids[0],ids[2]]}),/entire_prefix/);const result=proposeBatch({measurements,catalogStore:catalog,profileIds:['bandwidth-fixture','stability-fixture'],allowSyntheticFixture:true});assert.equal(result.status,'pending');assert.equal(catalog.listProposals().length,1);assert.deepEqual(Object.keys(catalog.listProposals()[0].patch).sort(),['speed','stability']);assert.equal(catalog.getSite('TEST-LINE').revision,0);assert.equal(proposeBatch({measurements,catalogStore:catalog,profileIds:['bandwidth-fixture','stability-fixture'],allowSyntheticFixture:true}).proposalId,result.proposalId);});
+
+test('failed and interrupted egress bodies consume the next scheduled probe budget',async t=>{
+ for(const [scenario,body] of [
+  ['wrong IP',JSON.stringify({ip:'198.51.100.18',padding:'x'.repeat(600)})],
+  ['invalid JSON','x'.repeat(600)],
+  ['interrupted response','x'.repeat(500)]
+ ]){
+  await t.test(scenario,async t=>{
+   const {measurements,advance}=stores(t);
+   let hits=0;
+   const proxy=await server(t,(req,res)=>{
+    assert.equal(new URL(req.url).pathname,'/egress');
+    hits++;
+    if(scenario==='interrupted response'){
+     res.writeHead(200,{'Content-Length':Buffer.byteLength(body)+100});
+     res.write(body);
+    }else res.end(body);
+   });
+   const p={...profile(),proxyUrl:proxy.url+'/',egressUrl:proxy.url+'/egress',targetUrl:proxy.url+'/download',allowedTargetOrigins:[proxy.url],routeId:'fixture-route',expectedEgressIp:'198.51.100.17',maxBytes:1024,dailyBudgetBytes:2048,timeoutMs:350};
+   measurements.configure(p);
+   measurements.setEnabled(true);
+   const worker=createMeasurementWorker({store:measurements});
+   assert.equal((await worker.runOne()).status,'route_unverified');
+   assert.equal(measurements.trafficUsed(p.id),Buffer.byteLength(body));
+   advance();
+   assert.equal((await worker.runOne()).status,'missing');
+   const [failed,budget]=measurements.observations(p.id);
+   assert.equal(failed.reason,'egress_check_failed');
+   assert.equal(failed.measurementVerified,false);
+   assert.equal(failed.routeVerified,false);
+   assert.equal(failed.egressVerified,false);
+   assert.equal(failed.bytesRead,null);
+   assert.equal(budget.reason,'daily_traffic_budget_exhausted');
+   assert.equal(hits,1);
+  });
+ }
+});
