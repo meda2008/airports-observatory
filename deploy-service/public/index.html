@@ -18,6 +18,7 @@
         <a href="#catalog" id="catalog-nav">机场列表</a>
         <a href="#compare" id="plan-nav">找套餐</a>
         <button id="open-plan-comparison" class="compare-trigger" type="button" aria-haspopup="dialog" disabled>查看对比 <span id="plan-selection-count">0/3</span></button>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">深色</button>
       </nav>
     </div>
   </header>
@@ -27,9 +28,15 @@
       <form id="search">
         <div class="plan-hero">
           <div class="directory-wrap plan-hero-inner">
-            <div>
+            <div class="hero-copy-col">
+              <p class="hero-pill"><span class="hero-dot" aria-hidden="true"></span>已复核公开标价 · 原币透明折算</p>
               <h1 id="plan-title">找到合适的套餐</h1>
               <p>看清套餐价格、付款周期和流量，再比每天和每 GB 的费用。</p>
+              <ul class="hero-highlights" aria-label="核心特性">
+                <li>原币标价直出</li>
+                <li>月均 · 日均 · 每 GB 折算</li>
+                <li>最多 3 款并排对比</li>
+              </ul>
             </div>
             <div class="plan-filter">
               <label class="plan-query"><span>服务商或套餐</span><input name="q" type="search" placeholder="输入名称或编号" maxlength="200"></label>

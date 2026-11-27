@@ -980,3 +980,34 @@
     grid-template-columns: 96px minmax(0, 1fr);
   }
 }
+
+
+/* Dark Mode Console Refinements */
+:root[data-theme="dark"] .control-panel {
+  background: linear-gradient(135deg, #111827 0%, #0f1b2e 100%);
+}
+
+:root[data-theme="dark"] .auth-panel {
+  background: linear-gradient(135deg, #172033 0%, #0f172a 100%);
+  border: 1px solid var(--line);
+}
+
+:root[data-theme="dark"] .auth-panel input {
+  background: #0b0f17;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .basis-note {
+  color: #99f6e4;
+}
+
+:root[data-theme="dark"] .diff-table tbody td:nth-child(2) {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fecaca;
+}
+
+:root[data-theme="dark"] .diff-table tbody td:nth-child(3) {
+  background: rgba(34, 197, 94, 0.14);
+  color: #bbf7d0;
+}

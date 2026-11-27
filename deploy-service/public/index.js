@@ -708,7 +708,9 @@ function offerRow(item, currency) {
 
 function updatePlanSelection() {
   $('#plan-selection-count').textContent = planSelection.size + '/3';
-  $('#open-plan-comparison').disabled = planSelection.size === 0;
+  const compareTrigger = $('#open-plan-comparison');
+  compareTrigger.disabled = planSelection.size === 0;
+  compareTrigger.classList?.toggle('has-selection', planSelection.size > 0);
   for (const {button, key} of visiblePlanToggles) {
     const chosen = planSelection.has(key);
     button.textContent = chosen ? '已加入' : '加入对比';
@@ -783,7 +785,19 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
   const snapshot = observedSnapshot;
   planRequest = seq;
   planRetry = null;
-  if (!background || !planView) $('#status').textContent = '正在查找…';
+  if (!background || !planView) {
+    $('#status').textContent = '正在查找…';
+    const resultsBox = $('#results');
+    if (resultsBox && !planView && !resultsBox.children?.length) {
+      const skels = Array.from({length: 4}, () => {
+        const sk = el('div', null, 'skeleton-row');
+        sk.setAttribute('aria-hidden', 'true');
+        sk.append(el('span', null, 'sk-line sk-lg'), el('span', null, 'sk-line sk-md'), el('span', null, 'sk-line sk-sm'), el('span', null, 'sk-line sk-sm'), el('span', null, 'sk-pill'));
+        return sk;
+      });
+      resultsBox.replaceChildren(...skels);
+    }
+  }
   try {
     const d = await api('/api/search?' + params, background ? {priority: 'low'} : {});
     if (seq !== searchSequence) return;
@@ -819,6 +833,8 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
   } catch (e) {
     if (seq === searchSequence) {
       planRetry = {page, params};
+      const resultsBox = $('#results');
+      if (resultsBox && !planView) resultsBox.replaceChildren();
       $('#status').textContent = e.name === 'TimeoutError' ? '查找超时，请重试' : e.message;
     }
   } finally {
@@ -1218,3 +1234,36 @@ pollSnapshotChange(false);
 if (typeof setInterval === 'function') {
   setInterval(pollSnapshotChange, 60000);
 }
+
+(function initThemeAndShortcuts() {
+  const docEl = document.documentElement;
+  const toggle = $('#theme-toggle');
+  if (docEl && toggle) {
+    const apply = (mode) => {
+      docEl.dataset.theme = mode;
+      toggle.textContent = mode === 'dark' ? '浅色' : '深色';
+      toggle.setAttribute('aria-pressed', String(mode === 'dark'));
+    };
+    let saved = '';
+    try { saved = globalThis.localStorage?.getItem('airports_theme') || ''; } catch {}
+    const prefersDark = Boolean(globalThis.matchMedia?.('(prefers-color-scheme: dark)')?.matches);
+    apply(saved === 'dark' || saved === 'light' ? saved : (prefersDark ? 'dark' : 'light'));
+    toggle.addEventListener('click', () => {
+      const next = docEl.dataset.theme === 'dark' ? 'light' : 'dark';
+      apply(next);
+      try { globalThis.localStorage?.setItem('airports_theme', next); } catch {}
+    });
+  }
+  if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('keydown', (event) => {
+      if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return;
+      const tag = document.activeElement?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      const target = $('#catalog') && !$('#catalog').hidden ? $('#catalog-form [name="q"]') : $('#search [name="q"]');
+      if (target && typeof target.focus === 'function') {
+        event.preventDefault();
+        target.focus();
+      }
+    });
+  }
+})();
