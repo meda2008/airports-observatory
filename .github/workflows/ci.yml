@@ -24,7 +24,10 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
+      - name: Install deploy-service dependencies
+        run: npm --prefix deploy-service ci
+      - name: Install Playwright Chromium
+        run: npx --prefix deploy-service playwright install --with-deps chromium
       - name: Run checks
         run: npm run check
 
