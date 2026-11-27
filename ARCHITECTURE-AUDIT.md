@@ -22,7 +22,7 @@
 | P2 | Plan restrictions and mobile latency tables were difficult to inspect. Date-only promotions used an implicit timezone. | **Implemented.** Show existing plan condition notes, allow keyboard scrolling for the latency table, and compare date-only values in Asia/Shanghai. |
 | P2 | Collector parsers and lifecycle mishandled VM DOM globals, dispatch overlap, fast polling, and ambiguous unpaid-order cleanup. | **Implemented.** Use document URL, disjoint exact parser dispatch, bounded polling, and preserve cleanup holds unless the matching order is confirmed cancelled. |
 | P2 | Static files were read on each request, incomplete proxy streams could leave upstream work running, and operational logs could grow without rotation. | **Implemented.** Preload fixed assets, return conditional 304, tear down broken streams, and configure bounded local logs. Management writes require exact HTTPS Origin. |
-| P2 | Clean-checkout tests assumed private retained captures were present. | **In verification.** Name missing historical inputs explicitly; keep tests of synthetic and tracked inputs mandatory. Report skips separately from a pass. |
+| P2 | Clean-checkout tests assumed private retained captures were present. | **Verified.** Clean-checkout `npm run check` and `npm test` pass in GitHub Actions CI on Node 24 (`ubuntu-latest`) with synthetic and tracked inputs mandatory and missing private originals explicitly skipped. |
 
 ## Local measurement
 
