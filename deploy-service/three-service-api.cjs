@@ -24,11 +24,19 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   try{
    const result=await publisher.tick();
    if(result.status!=='failed'||result.publicationResult)publicationReconciled=true;
-  }catch{
-   try{store.setServiceHeartbeat('publisher',{status:'error',details:{reason:'publication_worker_unavailable',networkAccess:false}});}catch{}
+  }catch(error){
+   const details={reason:'publication_worker_unavailable',networkAccess:false};
+   if(typeof error?.workerCode==='string'&&error.workerCode)details.workerCode=error.workerCode.slice(0,64);
+   else if(typeof error?.code==='string'&&error.code)details.workerCode=error.code.slice(0,64);
+   if(typeof error?.workerName==='string'&&error.workerName)details.workerName=error.workerName.slice(0,64);
+   try{store.setServiceHeartbeat('publisher',{status:'error',details});}catch{}
   }finally{publicationInFlight=false;}
  }
  const publicationTimer=setInterval(reconcilePublication,30000);publicationTimer.unref?.();
+ let completenessDb=null,cachedSourceProfiles=null;
+ function getCompletenessDb(){if(!completenessDb)completenessDb=new(require('node:sqlite').DatabaseSync)(filename,{readOnly:true});return completenessDb;}
+ function resetCompletenessDb(){if(completenessDb){try{completenessDb.close();}catch{}completenessDb=null;}}
+ function getSourceProfiles(){if(cachedSourceProfiles)return cachedSourceProfiles;try{cachedSourceProfiles=fs.readdirSync(path.join(root,'collection/site-collectors')).filter(x=>x.endsWith('.json')).map(x=>JSON.parse(fs.readFileSync(path.join(root,'collection/site-collectors',x),'utf8')));}catch{cachedSourceProfiles=[];}return cachedSourceProfiles;}
  const assistance=require('./browser-assistance-store.cjs').openAssistance({filename,control});
  const discovery=require('./entry-discovery.cjs').createEntryDiscovery({store,filename,catalogDb});
  const retained=require('./retained-performance-inputs.cjs').createRetainedInputs({store,control,catalogDb});
@@ -68,7 +76,7 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
   if(url.pathname==='/api/admin/collectors/completeness'){
    if(!authorizedMeasurementWorker(req.headers.authorization,adminToken)){res.writeHead(401,{'Cache-Control':'no-store'});res.end('{}');return;}
    if(req.method!=='GET'){res.writeHead(405);res.end();return;}
-   let db;try{db=new(require('node:sqlite').DatabaseSync)(filename,{readOnly:true});let sourceProfiles=[];try{sourceProfiles=fs.readdirSync(path.join(root,'collection/site-collectors')).filter(x=>x.endsWith('.json')).map(x=>JSON.parse(fs.readFileSync(path.join(root,'collection/site-collectors',x),'utf8')));}catch{}const report=require('../scripts/collector-completeness-audit.cjs').audit({records:db.prepare('SELECT id,name,is_primary FROM catalog_records').all(),states:db.prepare('SELECT record_id,field,status,material_available FROM catalog_field_states').all(),profiles:plane.list().items,sourceProfiles});report.sourceProfileCount=sourceProfiles.length;report.queues=db.prepare("SELECT purpose,status,count(*) count FROM jobs WHERE status IN ('queued','leased','awaiting_semantic_review') GROUP BY purpose,status").all();report.queueDefinitions={collection:'legacy_queue_not_consumed_by_standalone',validation:'current_validation_queue',managed_collection:'current_managed_queue'};res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(report));}catch{res.writeHead(500,{'Content-Type':'application/json'});res.end('{"error":"completeness_audit_unavailable"}');}finally{db?.close();}return;
+   try{const db=getCompletenessDb();const sourceProfiles=getSourceProfiles();const report=require('../scripts/collector-completeness-audit.cjs').audit({records:db.prepare('SELECT id,name,is_primary FROM catalog_records').all(),states:db.prepare('SELECT record_id,field,status,material_available FROM catalog_field_states').all(),profiles:plane.list().items,sourceProfiles});report.sourceProfileCount=sourceProfiles.length;report.queues=db.prepare("SELECT purpose,status,count(*) count FROM jobs WHERE status IN ('queued','leased','awaiting_semantic_review') GROUP BY purpose,status").all();report.queueDefinitions={collection:'legacy_queue_not_consumed_by_standalone',validation:'current_validation_queue',managed_collection:'current_managed_queue'};res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(report));}catch{resetCompletenessDb();res.writeHead(500,{'Content-Type':'application/json'});res.end('{"error":"completeness_audit_unavailable"}');}return;
   }
   if(['/api/admin/assistance-page','/api/admin/assistance-script','/api/admin/assistance/A016'].includes(url.pathname)){
    if(!authorizedMeasurementWorker(req.headers.authorization,adminToken)){res.writeHead(401,{'Cache-Control':'no-store'});res.end('{}');return;}
@@ -133,7 +141,7 @@ function createThreeServiceApi({filename,adminToken,internalToken,root=path.reso
    send([400,413].includes(error?.status)?error.status:409,{ok:false,error:'internal_request_rejected'});
   }
  });
- server.on('close',()=>{clearInterval(publicationTimer);void publisher.close();assistance.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
+ server.on('close',()=>{clearInterval(publicationTimer);resetCompletenessDb();void publisher.close();assistance.close();discovery.close();measurements.close();control.close();catalogDb.close();store.close();});
  // Match the existing close callback contract: callers may remove the SQLite
  // files as soon as it fires, including on Windows where open handles block removal.
  const closeServer=server.close.bind(server);

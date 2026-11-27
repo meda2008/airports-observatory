@@ -5,12 +5,12 @@ const list = v => Array.isArray(v) ? v : [];
 const show = v => v == null || v === '' ? '未知' : typeof v === 'object' ? JSON.stringify(v) : String(v);
 const copy = v => JSON.parse(JSON.stringify(v));
 let adminToken = '', session = 0, loading = false, collectors = [], selectedId = '', draft = null, dirty = false, editorBusy = false;
-const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map(), rowLists = new WeakMap();
+const endpointErrors = new Map(), proposalDetails = new Map(), renderSignatures = new Map(), rowLists = new WeakMap(), rawPayloadText = new WeakMap();
 let jobPage = 1;
 const historyPages = {proposals: {page: 1}, checkpoints: {page: 1}};
 const maxJobPage = 99999;
 function renderWhenChanged(key, value, render) {
-  const signature = JSON.stringify(value);
+  const signature = (value && typeof value === 'object' && rawPayloadText.get(value)) || JSON.stringify(value);
   if (renderSignatures.has(key) && renderSignatures.get(key) === signature) return;
   render(value);
   renderSignatures.set(key, signature);
@@ -28,7 +28,9 @@ async function parseJsonResponse(response) {
     const text = await response.text();
     if (!text) return {};
     try {
-      return JSON.parse(text);
+      const parsed = JSON.parse(text);
+      if (parsed && typeof parsed === 'object') rawPayloadText.set(parsed, text);
+      return parsed;
     } catch {
       throw new Error(`服务未返回有效 JSON（HTTP ${response.status}）`);
     }

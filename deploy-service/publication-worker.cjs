@@ -14,12 +14,21 @@ function openPublicationWorker({filename,root}){
   }
   current.once('error',failed);
   current.once('exit',failed);
-  current.on('message',({id,result,ok})=>{
+  current.on('message',({id,result,ok,error:workerError})=>{
    const request=pending.get(id);
    if(worker!==current||!request)return;
    pending.delete(id);
    if(!pending.size&&!closed)current.unref();
-   if(ok)request.resolve(result);else request.reject(Error('publication_sync_failed'));
+   if(ok)request.resolve(result);
+   else{
+    const err=Error('publication_sync_failed');
+    if(workerError&&typeof workerError==='object'){
+     if(typeof workerError.code==='string'&&workerError.code)err.workerCode=workerError.code;
+     if(typeof workerError.name==='string'&&workerError.name)err.workerName=workerError.name;
+     if(typeof workerError.message==='string'&&workerError.message)err.workerMessage=workerError.message;
+    }
+    request.reject(err);
+   }
   });
   current.unref();
   return current;
@@ -64,7 +73,12 @@ if(parentPort&&workerData){
    const result=attempt.publicationResult||attempt;
    parentPort.postMessage({id,ok:op!=='sync'||result.status!=='failed',result});
   }
-  catch{parentPort.postMessage({id,ok:false});}
+  catch(error){
+   const code=typeof error?.code==='string'?error.code.slice(0,64):'';
+   const name=typeof error?.name==='string'?error.name.slice(0,64):'Error';
+   const message=String(error?.message||'unknown_error').replace(/[\r\n]+/g,' ').slice(0,240);
+   parentPort.postMessage({id,ok:false,error:{code,name,message}});
+  }
  });
 }
 module.exports={openPublicationWorker};
