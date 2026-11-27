@@ -17,13 +17,14 @@
       <nav aria-label="主导航" class="main-nav">
         <a href="#catalog" id="catalog-nav">机场列表</a>
         <a href="#compare" id="plan-nav">找套餐</a>
-        <button id="open-plan-comparison" class="compare-trigger" type="button" aria-haspopup="dialog" disabled>查看对比 <span id="plan-selection-count">0/3</span></button>
+        <button id="open-plan-comparison" class="compare-trigger" type="button" aria-haspopup="dialog" disabled>查看对比 <span id="plan-selection-count" class="compare-count-pill">0/3</span></button>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">深色</button>
       </nav>
     </div>
   </header>
 
-  <main id="home">
+  <main id="app-main" class="app-main">
+  <div id="home">
     <section id="compare" class="plan-directory" aria-labelledby="plan-title">
       <form id="search">
         <div class="plan-hero">
@@ -39,7 +40,7 @@
               </ul>
             </div>
             <div class="plan-filter">
-              <label class="plan-query"><span>服务商或套餐</span><input name="q" type="search" placeholder="输入名称或编号" maxlength="200"></label>
+              <label class="plan-query"><span>服务商或套餐</span><input name="q" type="search" placeholder="输入名称或编号（按 / 快速聚焦）" maxlength="200"></label>
               <label><span>月均预算</span><input name="maxMonthly" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="不限"></label>
               <label><span>币种</span>
                 <select name="currency">
@@ -48,7 +49,7 @@
                 </select>
               </label>
               <label class="plan-monthly"><input type="checkbox" name="monthlyOnly" value="1">仅看月付</label>
-              <button class="directory-button plan-submit" type="submit">查找</button>
+              <button class="plan-submit" type="submit">查找套餐</button>
             </div>
           </div>
         </div>
@@ -59,17 +60,19 @@
             <p id="status" role="status">正在查找…</p>
           </div>
           <input type="hidden" name="criterion" value="cheap">
-          <div class="plan-criteria" role="group" aria-label="浏览维度">
-            <button type="button" data-criterion="cheap" aria-pressed="true">月均费用</button>
-            <button type="button" data-criterion="value" aria-pressed="false">每 GB</button>
-            <button type="button" data-criterion="stability" aria-pressed="false">稳定性</button>
-            <button type="button" data-criterion="speed" aria-pressed="false">速度</button>
+          <div class="plan-toolbar-row">
+            <div class="plan-criteria" role="group" aria-label="浏览维度">
+              <button type="button" data-criterion="cheap" aria-pressed="true">月均费用</button>
+              <button type="button" data-criterion="value" aria-pressed="false">每 GB</button>
+              <button type="button" data-criterion="stability" aria-pressed="false">稳定性</button>
+              <button type="button" data-criterion="speed" aria-pressed="false">速度</button>
+            </div>
           </div>
           <details class="plan-advanced">
             <summary>按文字需求查找</summary>
             <div class="plan-advanced-controls">
               <label><span>你的需求</span><input name="needs" placeholder="例如：每月20元以内 性价比" maxlength="300"></label>
-              <button class="directory-button" type="submit">查找</button>
+              <button class="plan-submit-inline" type="submit">查找</button>
               <button id="search-reset" class="directory-button" type="button">重置筛选</button>
             </div>
             <div class="quick-bar" aria-label="快捷预算示例">
@@ -82,6 +85,7 @@
       </form>
       <div class="directory-wrap">
         <div id="results" class="plan-results"></div>
+        <div id="plan-empty" class="plan-empty-state" hidden></div>
         <div id="plan-pagination" class="pagination" hidden>
           <button id="plan-previous" class="directory-button" type="button">上一页</button>
           <span id="plan-page-label" class="page-indicator" role="status"></span>
@@ -99,7 +103,7 @@
       <div class="section-heading">
         <div>
           <p id="stat-primary" class="muted"></p>
-          <h2>机场列表</h2>
+          <h1 class="catalog-heading-title">机场列表</h1>
         </div>
         <p id="catalog-meta" class="muted" role="status"></p>
       </div>
@@ -107,7 +111,7 @@
       <form id="catalog-form" class="filter-bar">
         <label class="grow">
           <span>搜索机场</span>
-          <input name="q" type="search" placeholder="输入名称、编号（如 A042）或域名关键词" maxlength="200">
+          <input name="q" type="search" placeholder="名称、编号（A042）或域名" maxlength="200">
         </label>
         <label>
           <span>目录范围</span>
@@ -157,16 +161,16 @@
       </div>
       <div id="catalog-results" class="card-grid" aria-live="polite"></div>
 
-      <div class="pagination">
+      <div id="catalog-pagination" class="pagination" hidden>
         <button id="previous" class="button-secondary" type="button" disabled>上一页</button>
         <span id="page-label" class="page-indicator"></span>
         <button id="next" class="button-secondary" type="button" disabled>下一页</button>
       </div>
     </section>
 
-  </main>
+  </div>
 
-  <main id="detail" class="detail-shell" hidden>
+  <div id="detail" class="detail-shell" hidden>
     <div class="detail-nav">
       <a class="back-link" id="detail-back" href="#catalog">← 返回机场列表</a>
     </div>
@@ -175,15 +179,18 @@
       <p id="detail-error-message" role="alert"></p>
       <button id="detail-retry" class="button-secondary" type="button">重试</button>
     </div>
+  </div>
   </main>
 
   <dialog id="plan-comparison" aria-labelledby="plan-comparison-title">
-    <header class="plan-section-heading">
+    <header class="plan-section-heading dialog-header">
       <h2 id="plan-comparison-title">套餐对比</h2>
       <form method="dialog"><button type="submit" class="directory-button" autofocus>关闭</button></form>
     </header>
-    <p>金额按各套餐原币显示。</p>
-    <button id="clear-plan-comparison" type="button" class="directory-button">清空</button>
+    <div class="dialog-toolbar">
+      <p>金额按各套餐原币显示，点击服务商名称可查看完整条款。</p>
+      <button id="clear-plan-comparison" type="button" class="directory-button">清空已选</button>
+    </div>
     <div id="plan-comparison-content" tabindex="0" role="region" aria-label="套餐对比表"></div>
   </dialog>
 

@@ -582,7 +582,12 @@ function updateCatalogMeta(text = catalogMeta) {
 }
 
 function loadError(view, error, hasContent) {
-  const message = error.name === 'TimeoutError' ? '加载超时，请重试' : error.message;
+  const rawMessage = error?.message || '';
+  const message = error?.name === 'TimeoutError'
+    ? '加载超时，请重试'
+    : /failed to fetch|networkerror|load failed/i.test(rawMessage)
+      ? '无法连接数据服务，请检查服务是否已启动后重试'
+      : rawMessage || '加载失败，请稍后重试';
   $(`#${view}-error`).hidden = false;
   $(`#${view}-error-message`).textContent = message + (hasContent ? '。继续显示上次成功加载的结果。' : '');
 }
@@ -632,6 +637,8 @@ async function loadCatalog(query = catalogQuery, {background = false} = {}) {
     $('#page-label').textContent = `第 ${page} / ${pages} 页`;
     $('#previous').disabled = page <= 1;
     $('#next').disabled = page >= pages;
+    const catalogPagination = $('#catalog-pagination');
+    if (catalogPagination) catalogPagination.hidden = d.total === 0;
     $('#catalog-error').hidden = true;
 
     const isUnfilteredPrimary = (params.get('scope') || 'primary') === 'primary' &&
@@ -695,13 +702,16 @@ function offerRow(item, currency) {
   total.className += ' offer-total';
   const toggle = el('button', '加入对比', 'directory-button offer-toggle');
   toggle.type = 'button';
-  toggle.setAttribute('aria-label', [item.name, item.plan?.name, price.period, '加入或移除对比'].filter(Boolean).join(' · '));
+  const labelParts = [item.name, item.plan?.name];
+  if (price.period && (!item.plan?.name || !price.period.startsWith(item.plan.name))) labelParts.push(price.period);
+  labelParts.push('加入或移除对比');
+  toggle.setAttribute('aria-label', labelParts.filter(Boolean).join(' · '));
   toggle.addEventListener('click', () => {
     if (planSelection.has(item.planKey)) planSelection.delete(item.planKey);
     else if (item.planKey && planSelection.size < 3) planSelection.set(item.planKey, {item, currency});
     updatePlanSelection();
   });
-  visiblePlanToggles.push({button: toggle, key: item.planKey});
+  visiblePlanToggles.push({button: toggle, row, key: item.planKey});
   row.append(identity, total, offerMetric('每 GB', price.perGB), offerMetric('日均', price.daily), toggle);
   return row;
 }
@@ -711,11 +721,12 @@ function updatePlanSelection() {
   const compareTrigger = $('#open-plan-comparison');
   compareTrigger.disabled = planSelection.size === 0;
   compareTrigger.classList?.toggle('has-selection', planSelection.size > 0);
-  for (const {button, key} of visiblePlanToggles) {
+  for (const {button, row, key} of visiblePlanToggles) {
     const chosen = planSelection.has(key);
     button.textContent = chosen ? '已加入' : '加入对比';
     button.setAttribute('aria-pressed', String(chosen));
     button.disabled = !key || (!chosen && planSelection.size >= 3);
+    row?.classList?.toggle('is-selected', chosen);
   }
 }
 
@@ -737,9 +748,19 @@ function renderPlanComparison() {
   heading.scope = 'col';
   titles.append(heading);
   const offers = [...planSelection.values()].map(({item, currency}) => {
-    const th = el('th', item.name || '未命名机场');
+    const th = el('th');
     th.scope = 'col';
-    const remove = el('button', '移除', 'directory-button');
+    if (item.id) {
+      const providerLink = el('a', item.name || '未命名机场', 'compare-provider-link');
+      providerLink.href = '#/airport/' + encodeURIComponent(item.id);
+      providerLink.addEventListener('click', () => {
+        if (dialog.open) dialog.close();
+      });
+      th.append(providerLink);
+    } else {
+      th.textContent = item.name || '未命名机场';
+    }
+    const remove = el('button', '移除', 'directory-button compare-remove-btn');
     remove.type = 'button';
     remove.setAttribute('aria-label', '移除 ' + item.name + ' ' + (item.plan?.name || ''));
     remove.addEventListener('click', () => {
@@ -750,17 +771,42 @@ function renderPlanComparison() {
     });
     th.append(el('small', item.plan?.name || '套餐'), remove);
     titles.append(th);
-    return {...offerPrices(item, currency), quota: item.plan?.quota || '暂无数据', currency};
+    const prices = item.unitPrices || {costPerGB: item.comparison?.costPerGB, currency};
+    return {
+      ...offerPrices(item, currency),
+      quota: item.plan?.quota || '暂无数据',
+      currency,
+      monthlyNum: Number.isFinite(item.comparison?.monthlyAmount) ? item.comparison.monthlyAmount : (Number.isFinite(item.plan?.amount) ? item.plan.amount : null),
+      perGBNum: Number.isFinite(prices?.costPerGB) && prices.costPerGB > 0 ? prices.costPerGB : null,
+      dailyNum: Number.isFinite(prices?.dailyAmount) && prices.dailyAmount > 0 ? prices.dailyAmount : null
+    };
   });
+  const sameCurrency = offers.length >= 2 && new Set(offers.map((o) => o.currency).filter(Boolean)).size === 1;
+  const minVal = (key) => {
+    if (!sameCurrency) return null;
+    const nums = offers.map((o) => o[key]).filter((n) => Number.isFinite(n) && n > 0);
+    return nums.length >= 2 ? Math.min(...nums) : null;
+  };
+  const bestMonthly = minVal('monthlyNum');
+  const bestPerGB = minVal('perGBNum');
+  const bestDaily = minVal('dailyNum');
   header.append(titles);
   const body = el('tbody');
-  for (const [label, field] of [['套餐价', 'original'], ['流量', 'quota'], ['每 GB', 'perGB'], ['日均', 'daily']]) {
+  for (const [label, field, numKey, bestVal] of [
+    ['套餐价', 'original', 'monthlyNum', bestMonthly],
+    ['流量', 'quota', null, null],
+    ['每 GB', 'perGB', 'perGBNum', bestPerGB],
+    ['日均', 'daily', 'dailyNum', bestDaily]
+  ]) {
     const row = el('tr');
     const th = el('th', label);
     th.scope = 'row';
     row.append(th);
     for (const offer of offers) {
       const cell = el('td', offer[field]);
+      if (bestVal !== null && numKey && offer[numKey] === bestVal) {
+        cell.append(el('span', '最低', 'compare-best'));
+      }
       if (field === 'original') cell.append(el('small', offer.period + ' · ' + offer.currency));
       row.append(cell);
     }
@@ -785,9 +831,13 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
   const snapshot = observedSnapshot;
   planRequest = seq;
   planRetry = null;
+  const resultsBox = $('#results');
+  const emptyBox = $('#plan-empty');
   if (!background || !planView) {
     $('#status').textContent = '正在查找…';
-    const resultsBox = $('#results');
+    resultsBox?.classList?.add('is-loading');
+    resultsBox?.setAttribute?.('aria-busy', 'true');
+    if (emptyBox) emptyBox.hidden = true;
     if (resultsBox && !planView && !resultsBox.children?.length) {
       const skels = Array.from({length: 4}, () => {
         const sk = el('div', null, 'skeleton-row');
@@ -826,14 +876,49 @@ async function search(e, page = 1, submitted = null, {background = false} = {}) 
     $('#plan-previous').disabled = currentPage <= 1;
     $('#plan-next').disabled = currentPage >= pages;
     visiblePlanToggles = [];
-    $('#results').replaceChildren(...list(d.items).map((item) => offerRow(item, d.currency || params.get('currency') || 'CNY')));
+    const rows = list(d.items).map((item) => offerRow(item, d.currency || params.get('currency') || 'CNY'));
+    resultsBox?.classList?.remove('is-loading');
+    resultsBox?.setAttribute?.('aria-busy', 'false');
+    $('#results').replaceChildren(...rows);
+    if (emptyBox) {
+      if (!rows.length) {
+        const heading = d.status === 'abstain' && label
+          ? `暂不提供「${label}」排序`
+          : '未找到匹配的套餐';
+        const desc = d.status === 'abstain'
+          ? '当前尚未完成统一口径的可比实测，为避免误导不展示主观排名。你可以先按「月均费用」或「每 GB」浏览公开标价。'
+          : (d.reason || '可以尝试放宽月均预算、切换币种，或重置筛选条件后重新查找。');
+        const actions = el('div', null, 'plan-empty-actions');
+        if (d.status === 'abstain') {
+          const backBtn = el('button', '按月均费用浏览', 'directory-button');
+          backBtn.type = 'button';
+          backBtn.addEventListener('click', () => {
+            $('#search [name="criterion"]').value = 'cheap';
+            $('#search [name="needs"]').value = '';
+            search();
+          });
+          actions.append(backBtn);
+        } else {
+          const resetBtn = el('button', '重置筛选条件', 'directory-button');
+          resetBtn.type = 'button';
+          resetBtn.addEventListener('click', () => $('#search-reset')?.click?.());
+          actions.append(resetBtn);
+        }
+        emptyBox.replaceChildren(el('h3', heading), el('p', desc), actions);
+        emptyBox.hidden = false;
+      } else {
+        emptyBox.hidden = true;
+        emptyBox.replaceChildren();
+      }
+    }
     updatePlanSelection();
     planView = {page: currentPage, pages, params};
     planSnapshot = nextSnapshot;
   } catch (e) {
     if (seq === searchSequence) {
       planRetry = {page, params};
-      const resultsBox = $('#results');
+      resultsBox?.classList?.remove('is-loading');
+      resultsBox?.setAttribute?.('aria-busy', 'false');
       if (resultsBox && !planView) resultsBox.replaceChildren();
       $('#status').textContent = e.name === 'TimeoutError' ? '查找超时，请重试' : e.message;
     }
@@ -950,8 +1035,10 @@ function renderDetail(item, billingPeriod) {
   select.setAttribute('aria-label', '计费周期');
   const periods = [...new Set(plans.map((p) => p?.billingPeriod).filter(Boolean))];
   for (const period of ['全部', ...periods]) {
-    const o = el('option', period);
+    const labelText = period.length > 14 ? period.slice(0, 13) + '…' : period;
+    const o = el('option', labelText);
     o.value = period;
+    if (labelText !== period) o.title = period;
     select.append(o);
   }
   const selectedPeriod = billingPeriod ?? s.price?.billingPeriod;
@@ -959,6 +1046,10 @@ function renderDetail(item, billingPeriod) {
   label.append(select);
   bar.append(label);
   section.append(bar);
+
+  const filterHint = el('div', null, 'plans-filter-hint');
+  filterHint.hidden = true;
+  section.append(filterHint);
 
   const table = el('table', null, 'plan-table');
   const thead = el('thead');
@@ -974,6 +1065,22 @@ function renderDetail(item, billingPeriod) {
 
   const draw = () => {
     const shown = plans.filter((p) => p && (select.value === '全部' || p.billingPeriod === select.value));
+    if (select.value !== '全部' && shown.length < plans.length) {
+      const showAll = el('button', '查看全部周期', 'directory-button');
+      showAll.type = 'button';
+      showAll.addEventListener('click', () => {
+        select.value = '全部';
+        draw();
+      });
+      filterHint.replaceChildren(
+        el('span', `当前仅显示「${select.value}」的 ${shown.length} 组套餐（共 ${plans.length} 组）`),
+        showAll
+      );
+      filterHint.hidden = false;
+    } else {
+      filterHint.hidden = true;
+      filterHint.replaceChildren();
+    }
     const rows = shown.map((p) => {
       const row = el('tr');
       const name = el('td', p.name || '套餐');
