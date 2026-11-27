@@ -33,7 +33,7 @@ function createStandaloneWorker({store,control,plane,browserFactory,collect=coll
   let job;
   try{const settings=await retry(()=>control.getControl());if(stopping||!settings.engineEnabled||settings.executionMode!=='standalone'){beat('paused','execution_disabled_or_other_mode');return{status:'paused'};}
    try{await ensureBrowser();}catch{beat('error','service_browser_startup_failed');safeLog({service:'standalone_collector',status:'error',reason:'service_browser_startup_failed'});return{status:'error',reason:'service_browser_startup_failed'};}
-   job=await retry(()=>control.claimBridge({worker:workerName,executionMode:'standalone',siteId,leaseMs:180000}));if(!job){beat('connected');return{status:'idle'};}
+   job=await retry(()=>control.claimBridge({worker:workerName,executionMode:'standalone',siteId,leaseMs:180000,includeRetained:false}));if(!job){beat('connected');return{status:'idle'};}
   }catch(error){beat('error',isBusyError(error)?'sqlite_busy':'claim_failed');safeLog({service:'standalone_collector',status:'claim_deferred',reason:isBusyError(error)?'sqlite_busy':'claim_failed'});return{status:'error',reason:isBusyError(error)?'sqlite_busy':'claim_failed'};}
   active++;beat('connected');let renewalError=null,renewalPromise=null;
   async function renew(){

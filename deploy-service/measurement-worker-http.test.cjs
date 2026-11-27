@@ -188,3 +188,33 @@ test('a permanently rejected result is retained for review and the next measurem
  const [held]=fs.readdirSync(dir);assert.match(held,/review-required\.json$/);
  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dir,held),'utf8')).args[0],old);
 });
+
+test('concurrent duplicate finish and flush share delivery, preserve conflicts and tolerate accepted cleanup',async t=>{
+ const directory=fs.mkdtempSync(path.join(os.tmpdir(),'measurement-outbox-'));
+ t.after(()=>fs.rmSync(directory,{recursive:true,force:true}));
+ const options={baseUrl:'http://api:8080',token:'x'.repeat(32),outboxDirectory:directory};
+ const claim={runId:'duplicate-finish',token:'fixture-token'},body={status:'ok',bytesRead:321};
+ const failed=openHttpMeasurementStore({...options,fetchImpl:async()=>({ok:false,status:503})});
+ await assert.rejects(failed.finish(claim,body),error=>error.status===503);
+ const [pending]=fs.readdirSync(directory);
+ let proceed,entered,calls=0;
+ const gate=new Promise(resolve=>{proceed=resolve;}),started=new Promise(resolve=>{entered=resolve;});
+ const store=openHttpMeasurementStore({...options,fetchImpl:async(_url,req)=>{
+  calls++;
+  assert.deepEqual(JSON.parse(req.body).args,[claim,body]);
+  entered();
+  await gate;
+  fs.unlinkSync(path.join(directory,pending)); // Another accepted delivery already cleaned up.
+  return {ok:true,json:async()=>({ok:true,value:{id:'observed',status:'ok'}})};
+ }});
+ const flush=store.flush();
+ await started;
+ const first=store.finish(claim,body),second=store.finish(claim,{bytesRead:321,status:'ok'});
+ await assert.rejects(store.finish(claim,{...body,bytesRead:322}),/measurement_outbox_conflict/);
+ proceed();
+ const [a,b]=await Promise.all([first,second,flush]);
+ assert.deepEqual(a,{id:'observed',status:'ok'});
+ assert.deepEqual(b,a);
+ assert.equal(calls,1);
+ assert.deepEqual(fs.readdirSync(directory),[]);
+});

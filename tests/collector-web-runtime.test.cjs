@@ -19,7 +19,7 @@ test('failed API receive retains raw material and retries original packet before
  const job={siteId:'A001',jobId:'job1',runId:'run1',token:'lease-secret',site:{id:'A001',config:{entryUrl:'https://example.com',collectPerformanceReferences:false}}};
  const request=async(op,input)=>{if(op==='control')return{engineEnabled:true,executionMode:'standalone'};if(op==='claim'){claims++;return{job,prior:{}};}if(op==='run')return{status:'running'};if(op==='receive'){packets.push(input);if(++receiveCount===1)throw Error('API unavailable');return{status:'completed'};}return{};};
  const worker=createWebCollector({request,output,browserFactory:async()=>({close:async()=>{}}),collect:async()=>{collectCount++;return{captures:[{url:'https://example.com',body:'retained body',kind:'operator_visible_page',observedAt}],capabilities:{},ordersCreated:0,paymentExecuted:false};},log:()=>{}});
- try{assert.equal((await worker.runOne()).status,'submission_deferred');const dir=path.join(output,'A001-job1-run1');assert.equal(JSON.parse(fs.readFileSync(path.join(dir,'capture-0.json'))).body,'retained body');assert.equal((await worker.runOne()).status,'completed');assert.equal(claims,1);assert.equal(collectCount,1);assert.deepEqual(packets[1],JSON.parse(JSON.stringify(packets[0])));assert.equal(packets[1].captures[0].observedAt,observedAt);assert.ok(!fs.existsSync(path.join(dir,'pending-submission.json')));}finally{await worker.stop();fs.rmSync(output,{recursive:true,force:true});}
+ try{assert.equal((await worker.runOne()).status,'submission_deferred');const dir=path.join(output,'A001-job1-run1');assert.equal(JSON.parse(fs.readFileSync(path.join(dir,'capture-0.json'))).body,'retained body');assert.equal(JSON.parse(fs.readFileSync(path.join(dir,'pending-submission-index.json'))).jobId,job.jobId);assert.equal((await worker.runOne()).status,'completed');assert.equal(claims,1);assert.equal(collectCount,1);assert.deepEqual(packets[1],JSON.parse(JSON.stringify(packets[0])));assert.equal(packets[1].captures[0].observedAt,observedAt);assert.ok(!fs.existsSync(path.join(dir,'pending-submission.json')));}finally{await worker.stop();fs.rmSync(output,{recursive:true,force:true});}
 });
 
 test('a disconnected browser is replaced before collecting the next job', async t => {
@@ -335,4 +335,51 @@ test('four 180,000-character captures use verified batches and retry the same or
  assert.equal(claims,1);
  assert.deepEqual(received[0],received[1]);
  assert.deepEqual(received[1].captures.map(({sha256,...capture})=>capture),captures);
+});
+
+test('new and legacy outbox indexes keep unrelated or delayed bodies off idle polls',async t=>{
+ const {output,job,pending,packet}=outboxFixture(t);
+ const selected=job('A001','delayed-job','delayed-run'),other=job('A002','other-job','other-run');
+ const material=active=>({...active,packet:{...packet(active),captures:[{body:'x'.repeat(180000)}]}});
+ const a=pending(selected,JSON.stringify(material(selected))),b=pending(other,JSON.stringify(material(other)));
+ fs.writeFileSync(path.join(a.dir,'pending-submission-retry.json'),JSON.stringify({nextRetryAt:1000}));
+ const read=fs.readFileSync;
+ let bodyReads=0,bytes=0,unreadable=false;
+ t.mock.method(fs,'readFileSync',(file,...args)=>{
+  if([a.file,b.file].includes(file)){
+   bodyReads++;
+   if(unreadable)throw Object.assign(Error('fixture permission failure'),{code:'EACCES'});
+   const result=read(file,...args);
+   bytes+=Buffer.byteLength(result);
+   return result;
+  }
+  return read(file,...args);
+ });
+ const exclusions=[];
+ let now=0;
+ const worker=()=>createWebCollector({output,clock:()=>now,log:()=>{},browserFactory:async()=>assert.fail('outbox attempted network collection'),request:async(op,input)=>{
+  if(op==='control')return {engineEnabled:true,executionMode:'standalone'};
+  if(op==='claim'){exclusions.push(input.pendingJobIds);return {job:null};}
+  assert.equal(op,'heartbeat');
+ }});
+ const first=worker();
+ await first.runOne({siteId:'A001'});
+ assert.deepEqual([bodyReads,bytes],[2,fs.statSync(a.file).size+fs.statSync(b.file).size]);
+ const restarted=worker();
+ for(let i=0;i<3;i++)await restarted.runOne({siteId:'A001'});
+ assert.equal(bodyReads,2);
+ assert.deepEqual(exclusions,Array.from({length:4},()=>[selected.jobId]));
+ now=1000;
+ unreadable=true;
+ assert.equal((await restarted.runOne({siteId:'A001'})).status,'idle');
+ assert.deepEqual(exclusions.at(-1),[selected.jobId]);
+ assert.equal(bodyReads,3);
+ assert.ok(fs.existsSync(a.file));
+ unreadable=false;
+ fs.writeFileSync(a.file,'broken JSON after index creation');
+ await restarted.runOne({siteId:'A001'});
+ assert.equal(exclusions.at(-1),undefined);
+ assert.equal(JSON.parse(read(path.join(a.dir,'pending-submission-hold.json'),'utf8')).reason,'invalid_pending_submission');
+ assert.equal(read(a.file,'utf8'),'broken JSON after index creation');
+ assert.equal(bodyReads,4);
 });
